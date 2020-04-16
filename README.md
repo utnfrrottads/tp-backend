@@ -132,8 +132,8 @@ Luego de la defensa el resultado puede ser:
   * Detalle del listado Artículos (involucra a la entidad Proveedores): Se mostrará por cada artículo: nombre, precio, proveedor
  
 * MIEMBROS:
- * 45572, Alejo Cuello.
- * 44985, Federico Bertone.
+  * 45572, Alejo Cuello.
+  * 44985, Federico Bertone.
  
 * MODELO DE DATOS:
 
