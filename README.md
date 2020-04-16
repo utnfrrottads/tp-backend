@@ -129,7 +129,7 @@ Luego de la defensa el resultado puede ser:
   * Listado de la entidad "Clientes". Tipo: Simple.
   * Listado de la entidad "Artículos". Tipo: Complejo.
   * Detalle del listado Clientes: Se mostrará por cada cliente: dni, nombre, apellido, dirección y teléfono.
-  * Detalle del listado Artículos (involucra a la entidad Proveedores): Se mostrará por cada artículo: nombre, precio, proveedor
+  * Detalle del listado Artículos (involucra a la entidad Proveedores): Se mostrará por cada artículo: id, descripcion, precio, stock, proveedor
  
 * MIEMBROS:
   * 45572, Alejo Cuello.
