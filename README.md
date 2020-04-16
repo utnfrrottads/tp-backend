@@ -121,19 +121,27 @@ Luego de la defensa el resultado puede ser:
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-* ABMC:
+## Descripción del Trabajo Práctico
+#### ABMC Simples:
   * Clientes: (id_cliente, dni, nombre, apellido, direccion, telefono)
-  * Proveedores: (nro_proveedor, cuit, razon_social, ciudad, direccion, telefono) 
- 
-* LISTADO:
-  * Listado de la entidad "Clientes". Tipo: Simple.
-  * Listado de la entidad "Artículos". Tipo: Complejo.
+  * Proveedores: (id_proveedor, cuit, razon_social, ciudad, direccion, telefono)
+
+#### ABMC Complejos:
+  * Productos: (id_proveedor, id_articulo, descripcion, precio, stock)
+
+#### Listado Simple:
+  * Listado de la entidad "Clientes"
+  
+#### Listado Complejo:
+  * Listado de la entidad "Artículos"
+  
+#### Detalles:
   * Detalle del listado Clientes: Se mostrará por cada cliente: dni, nombre, apellido, dirección y teléfono.
   * Detalle del listado Artículos (involucra a la entidad Proveedores): Se mostrará por cada artículo: id, descripcion, precio, stock, proveedor
  
-* MIEMBROS:
-  * 45572, Alejo Cuello.
-  * 44985, Federico Bertone.
- 
-* MODELO DE DATOS:
 
+## Miembros del Equipo:
+  * **45572** Alejo Cuello.
+  * **44985** Federico Bertone.
+ 
+## Modelo de Datos:
