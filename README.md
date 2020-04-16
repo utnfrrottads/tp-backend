@@ -119,7 +119,7 @@ Luego de la defensa el resultado puede ser:
 
 [checklist]: ./checklist/README.md
 
-
+----------------------------------------------------------------------------------------------------------------------------------------
 
 * ABMC:
   * Clientes: (id_cliente, dni, nombre, apellido, direccion, telefono)
