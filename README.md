@@ -123,7 +123,7 @@ Luego de la defensa el resultado puede ser:
 
 * ABMC:
   * Clientes: (id_cliente, dni, nombre, apellido, direccion, telefono)
-  * Proveedores: (nro_proveedor, cuit, razon_social, direccion, telefono) 
+  * Proveedores: (nro_proveedor, cuit, razon_social, ciudad, direccion, telefono) 
  
 * LISTADO:
   * Listado de la entidad "Clientes". Tipo: Simple.
