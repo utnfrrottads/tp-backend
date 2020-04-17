@@ -145,3 +145,4 @@ Luego de la defensa el resultado puede ser:
   * **44985** Federico Bertone.
  
 ## Modelo de Datos:
+[![](DER)](https://github.com/bertonefederico1/tp-backend-2020/blob/master/modelo-datos/README.md)
