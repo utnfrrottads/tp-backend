@@ -118,3 +118,46 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+### TRABAJO PRACTICO
+
+### Relevamiento “Cuando Llega Inter-urbano”
+
+Integrantes:
+Giuliano, Truant.
+
+Email contacto: giulitruant.26@gmail.com
+
+### Proceso de negocio
+
+
+El proceso de negocio comienza cuando un viajero desea saber cuándo llegan los posibles colectivos para que lo lleven al destino.
+Todos los choferes de colectivos de la empresa deberán tener la aplicación instalada para poder rastrear el coche o colectivo que se encuentran manejando.
+Los viajeros al igual que los choferes también deberán tener la aplicación instalada en su celular.
+Para consultar y estimar la llegada del colectivo, el usuario va a tener que ingresar la empresa de colectivo con la que desea viajar y la estación o parada de colectivos para poder saber la distancia que se encuentra dicho vehículo.
+De ser que el vehículo o colectivo se haya roto a los usuarios que consulten sobre dicho colectivo, les notificara que se encuentra parado para que tomen medidas al respecto.
+
+### User Story’s
+
+### Pantalla principal:
+Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
+
+### Registrar nueva empresa:
+Dar de alta a una empresa con todos los datos correspondientes
+
+### ABM de choferes para usuarios administrador:
+Este menú solamente podrán visualizarlo los usuarios administrador en el cual podrán agregar, editar o eliminar choferes.
+El mismo va a tener la lista de choferes filtrado las mismas por empresa y simplificar la búsqueda del usuario.
+
+### Estimación de llegada de próximos  colectivos:
+Se le notificara al usuario que consulte la llegada del colectivo
+
+### Notificación al usuario por demora:
+Se le notificara al usuario que consulte el estado o llegada del colectivo, la demora o detención del mismo y así mostrar otras sugerencias de próximos colectivos.
+
+### Ranking de colectivos con menos demora (o mejor calificados):
+Se emitirá un ranking de las empresa de colectivos con menos demora lo cual permitirá mostrar la eficiencia de las empresas de colectivos.
+
+Falta modelo de dominio
+
+
