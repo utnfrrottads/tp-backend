@@ -158,6 +158,11 @@ Se le notificara al usuario que consulte el estado o llegada del colectivo, la d
 ### Ranking de colectivos con menos demora (o mejor calificados):
 Se emitirá un ranking de las empresa de colectivos con menos demora lo cual permitirá mostrar la eficiencia de las empresas de colectivos.
 
-Falta modelo de dominio
+## Entidades de modelo de dominio
 
-
+1- Empresa
+2- Linea de colectivo
+3- Recorridos
+4- Paradas de colectivo "Paradas"
+5- Horario o Calendario
+6- Chofer
