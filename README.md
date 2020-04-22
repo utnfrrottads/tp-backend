@@ -122,12 +122,13 @@ Luego de la defensa el resultado puede ser:
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 ## Descripción del Trabajo Práctico
+Nuestro programa es para un negocio que compra artículos a diferentes proveedores, y luego los vende a sus clientes
 #### ABMC Simples:
   * Clientes: (id_cliente, dni, nombre, apellido, direccion, telefono)
   * Proveedores: (id_proveedor, cuit, razon_social, ciudad, direccion, telefono)
 
 #### ABMC Complejos:
-  * Articulos: (id_proveedor, id_articulo, descripcion, precio, stock)
+  * Articulos: (id_proveedor, descripcion, precio, stock)
 
 #### Listado Simple:
   * Listado de la entidad "Clientes"
@@ -136,7 +137,6 @@ Luego de la defensa el resultado puede ser:
   * Listado de la entidad "Artículos"
   
 #### Detalles:
-  * Detalle del listado Clientes: Se mostrará por cada cliente: dni, nombre, apellido, dirección y teléfono.
   * Detalle del listado Artículos (involucra a la entidad Proveedores): Se mostrará por cada artículo: id, descripcion, precio, stock, proveedor
  
 
