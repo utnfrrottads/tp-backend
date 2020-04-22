@@ -129,15 +129,12 @@ Luego de la defensa el resultado puede ser:
 
 ## Enunciado general 1H:
  
-Desarrollaremos una solución que permite visualizar en tiempo real a los enfermeros de cada ambulancia al momento de decidir a que hospital cercano es llevado el paciente. 
-Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresa datos mínimos del paciente. 
+Desarrollaremos una solución para el personal de salud, especificamente a los enfermeros de las ambulancias, permitiendole visualizar rapidamente en tiempo real cual es el hospital más cercano y así poder llevar el paciente de manera rápida y eficaz, quitando todo el proceso burocrático que esto conlleva en la actualidad, perdiendo tiempo y personal de salud ocupandose del tema para desarrollar otras tareas.
+Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresa datos mínimos del paciente para poder decidir a que efector ir. 
 Y por otro lado, el otro principal usuario es cada institución donde deberá acceder al sistema y así mantener la información de las camas actualizada , como ser la cantidad de cama que posee y el estado de las mismas, entre otros.
 
 
-Podemos citar las siguientes características:
-
- 
-1.2.1 - Backend por API REST o GraphQL
+Podemos citar las siguientes características a desarrollar para el TP en cuestión:
 
     ABMC:
 
@@ -165,7 +162,10 @@ Podemos citar las siguientes características:
         1-Tipo de cama disponible
        
 ###Miembros del equipo
-Alberto Gentilcore 42122
+-Alberto Gentilcore 42122
+-
+-
+-
 
 ###Modelo de dominio
 
