@@ -161,7 +161,7 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
     Detalle:
         1-Tipo de cama disponible
        
-###Miembros del equipo
+Miembros del equipo:
 -Alberto Gentilcore 42122
 -
 -
