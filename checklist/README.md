@@ -2,16 +2,20 @@
 
 ## Backend
 
-|Requerimiento funcional|Cantidad a Realizar|Detalle/Listado de casos|Cumple|
-|:-|-:|-:|:-|-|
-|ABMC simple|2|Clientes y Proveedores
-|ABMC dependiente|1|Artículos (relacionado con Proveedores)
-|Listado simple|1|Clientes|
-|Listado complejo obligatorio|1|Articulos|
-|Listado adicional con filtro|0||
-|Detalle básico|1(*)|Articulos|
-|Detalle parametrizable|0||
-|Otros|0|||
+# Checklist
+
+## Backend
+
+|  Requerimiento Funcional |Cantidad |Detalle/Listado de Casos   |Cumple   |
+| ------------ | ------------ | ------------ | ------------ |
+|  ABMC Simple | 2  | Clientes y Proveedores  |   |
+|   ABMC Dependiente|1   |  Artículos (dependiente de Proveedores) |   |
+|  Listado Simple |  1 |  Clientes |   |
+| Listado Complejo Obligatorio  |1   |  Articulos |   |
+|Listado Adicional con Flitro   | 0  |   |   |
+|Detalle Basico   |1(*)   | Articulos  |   |
+| Detalle Parametrizable|0   |   |   |
+|  Otros |   0|   |   |
 
 (\*) Los detalles básicos pueden ser reemplazado por un detalle parametrizados en los
 
