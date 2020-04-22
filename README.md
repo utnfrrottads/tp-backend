@@ -161,12 +161,15 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
     Detalle:
         1-Tipo de cama disponible
        
+       
+       
 Miembros del equipo:
--Alberto Gentilcore 42122
--
--
--
+* Alberto Gentilcore 42122
+* Adriel Ideidani
+* Lara Mateo
+* Ivan Teise 
 
-###Modelo de dominio
+ 
+Modelo de dominio
 
  
