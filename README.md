@@ -171,5 +171,5 @@ Miembros del equipo:
 
  
 Modelo de dominio
-
+https://drive.google.com/file/d/1J5X-OYuCfxFnT9LtSgfd1s7v-u6cTmZR/view?usp=sharing
  
