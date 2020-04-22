@@ -37,6 +37,9 @@ Ver [checklist]
     * Presentar un detalle por API de alguno de los elementos en un listado
     * Al realizar el request se debe utilizar un ID u otro identificador obtenido de un elemento del listado, deberán devolverse más datos sobre el mismo que los que figuran en el listado.
     * El mismo debe proveer información de dos o más entidades relacionadas. La información adicional debe ser acorde al tipo de API (REST o GraphQL) utilizada.
+    
+    
+    
 
     *Grupos de 1 o 2 integrates, al menos 1.
     Grupos de 3 y 4 integrantes al menos 2.
@@ -118,3 +121,52 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+
+
+
+# TP Backend 2020 - Grupo n° x - 1H
+
+## Enunciado general 1H:
+ 
+Desarrollaremos una solución que permite visualizar en tiempo real a los enfermeros de cada ambulancia al momento de decidir a que hospital cercano es llevado el paciente. 
+Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresa datos mínimos del paciente. 
+Y por otro lado, el otro principal usuario es cada institución donde deberá acceder al sistema y así mantener la información de las camas actualizada , como ser la cantidad de cama que posee y el estado de las mismas, entre otros.
+
+
+Podemos citar las siguientes características:
+
+ 
+1.2.1 - Backend por API REST o GraphQL
+
+    ABMC:
+
+        ABMC de entidad simple 
+        1-Estado de cama
+        2-Complejidad del paciente
+        3-Ambulancia
+        4-Obra Social
+
+        ABMC compleja. 
+        1-Paciente
+        2-Efector  
+ 
+
+    Listados por API:
+
+        Listado simple: 
+        1-Efectores
+
+        Listado complejo:
+        1-Efectores cercanos
+        2-Camas disponibles 
+
+    Detalle:
+        1-Tipo de cama disponible
+       
+###Miembros del equipo
+Alberto Gentilcore 42122
+
+###Modelo de dominio
+
+ 
