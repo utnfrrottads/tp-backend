@@ -2,10 +2,6 @@
 
 ## Backend
 
-# Checklist
-
-## Backend
-
 |  Requerimiento Funcional |Cantidad |Detalle/Listado de Casos   |Cumple   |
 | ------------ | ------------ | ------------ | ------------ |
 |  ABMC Simple | 2  | Clientes y Proveedores  |   |
