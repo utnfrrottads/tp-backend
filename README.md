@@ -127,7 +127,7 @@ Luego de la defensa el resultado puede ser:
   * Proveedores: (id_proveedor, cuit, razon_social, ciudad, direccion, telefono)
 
 #### ABMC Complejos:
-  * Productos: (id_proveedor, id_articulo, descripcion, precio, stock)
+  * Articulos: (id_proveedor, id_articulo, descripcion, precio, stock)
 
 #### Listado Simple:
   * Listado de la entidad "Clientes"
