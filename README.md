@@ -165,9 +165,9 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
        
 Miembros del equipo:
 * Alberto Gentilcore 42122
-* Adriel Ideidani
-* Lara Mateo
-* Ivan Teise 
+* Adriel Ideidani 42858
+* Lara Mateo 44795
+* Ivan Teise 32730
 
  
 Modelo de dominio
