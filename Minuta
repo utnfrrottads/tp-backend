@@ -1,0 +1,33 @@
+
+#Minuta de negocio 1H:
+ 
+Desarrollaremos una solución al problema que tienen los hospitales para poder asignar camas de manera rápida. 
+Hoy en día, este proceso es burocrático involucrando gente, tiempo e intereses económicos, que se contraponen con la salud del paciente que le urge la necesidad de conseguir una cama y así poder ser atendido de manera rápida y correcta. 
+Con lo cual, nosotros planteamos una solución a éste problema mediante una rápida respuesta en tiempo real a las distintas ambulancias al momento de decidir a que hospital cercano es llevado el paciente. 
+Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresando datos mínimos como ser el estado del paciento, su obra social y la complejidad mínima que debe tener el hospital para poder atender al paciente.
+Si se desea, también puede filtrar por diversos tipos como ser el tipo de institución, ciudad, distrito, entre otros motivos.
+Y así los enfermeros, de la ambulancia, podrán ver la distancia al efector más cercano desde su posición actual.
+
+Y por otro lado, el otro principal usuario es cada institución donde deberá acceder al sistema y así mantener la información de las camas actualizada , como ser la cantidad de cama que posee y el estado de las mismas, entre otros.
+
+
+Podemos citar las siguientes características:
+###Efector 
+	Tipo de institucion (municipal/provincial/privada)
+	Nivel de complejidad (1,2,3,4..) 
+	Localidad
+	Distrito(este/oeste/sur/norte)
+	Coordenadas
+	Cantidad de camas
+###Cama:
+	Estado (libre/ocupada/fuera de linea/reparacion/reservada/potencialmente disponible)
+	Tipo de cama (criticas/general)
+	Subtipo(adulto/neonatología/pediátrico)
+###Ambulancia: 
+	Enfermeros 
+	
+###Paciente: 
+	Complejidad o estado (critico, leve, reservado)
+	Obra social	
+	
+	 
