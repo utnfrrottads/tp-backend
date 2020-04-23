@@ -2,9 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
+const clientController = require('../controllers/client-controller');
 
-router.get('/', (req, res)=>{
-    res.status(200).send('Todo ok');
-})
+router.get('/clients', (req, res)=>{
+}); 
+
+
 
 module.exports = router;

@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 //Routes
-app.use('/tpbackend2020', routes);
+app.use('/', routes);
 
 
 app.listen(port, ()=>{
