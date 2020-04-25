@@ -27,23 +27,16 @@ clientController.getOne = async (req, res) => {
         })
 }
 
-/* clientController.createClient = async (req, res) => {
-    await Client.findOrCreate({
-        attributes: ['id_cliente', 'dni', 'nombre', 'apellido', 'direccion', 'telefono'],
-        where: {
-            dni: req.body.dni
-        },
-        defaults: {
+clientController.createClient = async (req, res) => {
+    await Client.create({
             dni: req.body.dni,
             nombre: req.body.nombre,
             apellido: req.body.apellido,
             direccion: req.body.direccion,
             telefono: req.body.telefono
-        }
-    })
-        .then(console.log('Client saved'))
-        .catch(console.log('Error'));   
-} */
+        })
+        .then(client => console.log(client));   
+}
 
 
 module.exports = clientController;

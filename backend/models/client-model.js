@@ -8,6 +8,9 @@ const Client = sequelize.define('clientes', {
     apellido: Sequelize.STRING,
     direccion: Sequelize.STRING,
     telefono: Sequelize.STRING
+},{
+    createdAt: false,
+    updatedAt: false
 });
 
 module.exports = Client;
