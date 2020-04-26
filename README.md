@@ -167,4 +167,4 @@ Se emitirá un ranking de las empresa de colectivos con menos demora lo cual per
 5- Horario o Calendario
 6- Chofer
 
-https://github.com/giulitruant/tp-backend-2020.wiki.git
+https://github.com/giulitruant/tp-backend-2020/blob/master/Diagrama-Entidades.jpg
