@@ -142,14 +142,14 @@ De ser que el vehículo o colectivo se haya roto a los usuarios que consulten so
 ### Pantalla principal:
 Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
 
-### Registrar nueva empresa:
+### Registrar nueva empresa: (ABMC simple)
 Dar de alta a una empresa con todos los datos correspondientes
 
-### ABM de choferes para usuarios administrador:
+### ABM de choferes para usuarios administrador: (ABMC dependiente y Listado Complejo con Posible filtro)
 Este menú solamente podrán visualizarlo los usuarios administrador en el cual podrán agregar, editar o eliminar choferes.
 El mismo va a tener la lista de choferes filtrado las mismas por empresa y simplificar la búsqueda del usuario.
 
-### Estimación de llegada de próximos  colectivos:
+### Estimación de llegada de próximos colectivos: (Listado simple y detalle básico)
 Se le notificara al usuario que consulte la llegada del colectivo
 
 ### Notificación al usuario por demora:
