@@ -1,4 +1,3 @@
-ejemplo edicion
 
 # TP Backend 2020
 
