@@ -24,7 +24,7 @@ Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|De
 
 ## Diagrama Entidad-Relación.
 
-
+ ![](/tp-backend-2020/checklist/DER-TP-BACKEND-TTADS.png)
 ## Frontend
 
 |Requerimiento|Cumple|
