@@ -1,10 +1,17 @@
-# Checklist
+# Checklist - Backend
 
-## Backend
 
-|Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
+## Aspectos del sistema.
+Será una página web donde se registran empresas para vender sus productos. <br>
+Los productos pertenecen a un rubro/categoría.  <br>
+Las personas se registran en la página y acceden a ella para comprar productos de distinta categoría. <br>
+Cada vez que un cliente compra productos se genera una venta. <br>
+
+
+
+Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
 |:-|-:|-:|:-|-|
-|ABMC simple|1 x integ|1 x integ| 1 - Empresa. <br> 2 - Persona. <br> 3 - Rubro.
+|ABMC simple|1 x integ|1 x integ| 1 - Empresa. <br> 2 - Persona. <br> 3 - Rubro. <br> 4 - Usuario.
 |ABMC dependiente|1|2| 1 - Ventas.<br> 2 - Producto.
 |Listado simple|1|1|  1 - Rubros <br> 2 - Empresas
 |Listado complejo obligatorio|1|2| 1 - Productos: se filtran los productos por rubro. <br> (Filtro por atributo “rubro”). <br> 2 - Productos: se filtran todos los productos que <br> pertenecen a una Empresa. (Filtro por atributo “empresa”). 
@@ -14,6 +21,9 @@
 |Otros|0|0| -
 
 (\*) Los detalles básicos pueden ser reemplazado por un detalle parametrizados en los
+
+## Diagrama Entidad-Relación.
+
 
 ## Frontend
 
