@@ -139,32 +139,38 @@ De ser que el vehículo o colectivo se haya roto a los usuarios que consulten so
 
 ### User Story’s
 
-### Pantalla principal:
+### Pantalla principal: "TAREA FUERA DEL ALCANCE"
 Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
 
 ### Registrar nueva empresa: (ABMC simple)
 Dar de alta a una empresa con todos los datos correspondientes
 
-### ABM de choferes para usuarios administrador: (ABMC dependiente y Listado Complejo con Posible filtro)
-Este menú solamente podrán visualizarlo los usuarios administrador en el cual podrán agregar, editar o eliminar choferes.
+### Listado de Empresas: (Listado simple)
+Dar de alta a una empresa con todos los datos correspondientes
+
+### ABM de choferes: (ABMC dependiente)
+Este menú se podra agregar, editar o eliminar choferes.
 El mismo va a tener la lista de choferes filtrado las mismas por empresa y simplificar la búsqueda del usuario.
 
-### Estimación de llegada de próximos colectivos: (Listado simple y detalle básico)
+### Listado de choferes (Listado Complejo con Posible filtro)
+Se Listaran los choferes 
+
+### Estimación de llegada de próximos colectivos: "TAREA FUERA DEL ALCANCE"
 Se le notificara al usuario que consulte la llegada del colectivo
 
-### Notificación al usuario por demora:
+### Notificación al usuario por demora: "TAREA FUERA DEL ALCANCE"
 Se le notificara al usuario que consulte el estado o llegada del colectivo, la demora o detención del mismo y así mostrar otras sugerencias de próximos colectivos.
 
-### Ranking de colectivos con menos demora (o mejor calificados):
+### Ranking de colectivos con menos demora "mejor calificados": "TAREA FUERA DEL ALCANCE"
 Se emitirá un ranking de las empresa de colectivos con menos demora lo cual permitirá mostrar la eficiencia de las empresas de colectivos.
 
 ## Entidades de modelo de dominio
-
 1- Empresa
 2- Linea de colectivo
 3- Recorridos
 4- Paradas de colectivo "Paradas"
 5- Horario o Calendario
 6- Chofer
+
  ## Diagrama de Entidad
 https://github.com/giulitruant/tp-backend-2020/blob/master/DiagramaEntidad.PNG
