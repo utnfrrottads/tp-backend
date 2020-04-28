@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `articulos`;
 CREATE TABLE `articulos` (
   `id_articulo` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `precio` int(11) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL,
   PRIMARY KEY (`id_articulo`),
   UNIQUE KEY `id_articulo_UNIQUE` (`id_articulo`)
@@ -58,7 +58,7 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `id_cliente_UNIQUE` (`id_cliente`),
   UNIQUE KEY `dni_UNIQUE` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,6 +67,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'37817242','Federico','Bertone','juanbjusto1750','3465421444'),(2,'14205523','Juan','Perez','alberdi 1212','4214213'),(3,'32434213','Elsa','Lame','sarmiento 2222','4222451');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,5 +146,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-24  9:40:55
+-- Dump completed on 2020-04-27 16:53:56
  */
