@@ -149,11 +149,10 @@ Dar de alta a una empresa con todos los datos correspondientes
 Dar de alta a una empresa con todos los datos correspondientes
 
 ### ABM de choferes: (ABMC dependiente)
-Este menú se podra agregar, editar o eliminar choferes.
-El mismo va a tener la lista de choferes filtrado las mismas por empresa y simplificar la búsqueda del usuario.
+Este menú se podra agregar, editar o eliminar, por linea de colectivo, por empresa.
 
 ### Listado de choferes (Listado Complejo con Posible filtro)
-Se Listaran los choferes 
+Se Listaran los choferes por linea de colectivo con filtro por empresa, ### Con posible filtro por linea de colectivo
 
 ### Estimación de llegada de próximos colectivos: "TAREA FUERA DEL ALCANCE"
 Se le notificara al usuario que consulte la llegada del colectivo
