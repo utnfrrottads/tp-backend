@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const clientController = require('../controllers/client-controller');
 const articleController = require('../controllers/article-controller');
+const supplierController = require('../controllers/supplier-controller');
 
 //Rutas de clientes
 router.get('/clients', clientController.getAll); 
@@ -13,9 +14,9 @@ router.put('/clients/:id', clientController.updateClient);
 router.delete('/deleteClient/:id', clientController.deleteClient);
 
 //Rutas de proveedores
-router.get('/providers', providerController.getAll); 
-router.get('/providers/:id', providerController.getOne);
-router.post('/addprovider', providerController.createClient);
+router.get('/supplier', supplierController.getAll); 
+router.get('/supplier/:id', supplierController.getOne);
+router.post('/addprovider', supplierController.createClient);
 
 //Rutas de articulos
 router.get('articles', articleController.getAll);

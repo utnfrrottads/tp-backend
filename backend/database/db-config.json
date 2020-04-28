@@ -1,9 +1,0 @@
-{
-    "mysql": {
-        "db": "tpbackend",
-        "username": "root",
-        "password": "juanbjusto1750",
-        "host": "localhost",
-        "dialect": "mysql"
-    }
-}
