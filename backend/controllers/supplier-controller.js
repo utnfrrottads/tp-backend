@@ -36,4 +36,30 @@ supplierController.createSupplier = async (req, res) => {
         .then(Supplier => console.log(Supplier));   
 }
 
+supplierController.updateSupplier = async (req, res) => {
+    await Supplier.update({
+        dni: req.body.dni,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono
+    }, {
+        where: {
+            id_proveedor: req.params.id
+        }
+    })
+        .then(res.status(200).send('Supplier updated'))
+        .catch(err => console.log(err));
+}
+
+supplierController.deleteSupplier = async (req, res) => {
+    await Supplier.destroy({
+        where: {
+            id_proveedor: req.params.id
+        }
+    })
+        .then(res.status(200).send('Supplier deleted'))
+        .catch(err => console.log(err));
+}
+
 module.exports = supplierController;
