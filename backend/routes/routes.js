@@ -13,5 +13,6 @@ router.put('/clients/:id', clientController.updateClient);
 router.delete('/deleteClient/:id', clientController.deleteClient);
 
 router.get('articles', articleController.getAll);
+////adsasdas
 
 module.exports = router;
