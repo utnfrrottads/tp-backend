@@ -21,6 +21,6 @@ router.put('/supplier/:id', supplierController.updateSupplier);
 router.delete('/deleteSupplier/:id', supplierController.deleteSupplier);
 
 //Rutas de articulos
-router.get('articles', articleController.getAll);
+router.get('/articles', articleController.getAll);
 
 module.exports = router;
