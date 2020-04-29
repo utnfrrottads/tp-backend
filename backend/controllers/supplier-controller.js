@@ -1,3 +1,5 @@
+'use strict'
+
 const Supplier = require('../models/supplier-model');
 const supplierController = { };
 
