@@ -2,20 +2,18 @@
 
 const sequelize = require('../database/db-connection');
 const Sequelize = require('sequelize');
-const Article = require('./article-model');
-const Supplier = require('./supplier-model');
 
 const Supplier_Article = sequelize.define('proveedores_articulos', {
     id_articulo: { type: Sequelize.INTEGER, 
                    references: { 
-                       model: Article, 
+                       model: 'articulos', 
                        key: 'id_articulo'
                     }, 
                     primaryKey: true
                 },
     id_proveedor: { type: Sequelize.INTEGER,
                     references: {
-                        model: Supplier,
+                        model: 'proveedores',
                         key: 'id_proveedor'
                     },
                     primaryKey: true 

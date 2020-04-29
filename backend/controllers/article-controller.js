@@ -8,14 +8,10 @@ const articleController = { };
 articleController.getAll = async (req, res) => {
     Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey: 'id_articulo', foreignKey: 'id_proveedor'});
     Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey: 'id_articulo', foreignKey: 'id_proveedor'});
-    const article = await Article.findOne({
-        where: {
-            id_articulo: 1
-        }
-    });
-     const supplier = await article.getProveedores();
-     res.json(supplier.cuit);
-    
+    await Article.findAll({
+        include: [Supplier]
+    })
+        .then(articles => res.json(articles));
 }
 
 
