@@ -5,10 +5,10 @@ const supplierController = { };
 
 supplierController.getAll = async (req, res) => {
     await Supplier.findAll({
-        attributes: ['id_proveedor', 'cuit', 'razon social', 'ciudad', 'direccion', 'telefono']
+        attributes: ['id_proveedor', 'cuit', 'razon_social', 'ciudad', 'direccion', 'telefono']
     })
-        .then( (Suppliers) => {
-            res.json(Suppliers);
+        .then( (suppliers) => {
+            res.json(suppliers);
         })
         .catch ((err) => {
             console.log(err);
@@ -17,10 +17,10 @@ supplierController.getAll = async (req, res) => {
 
 supplierController.getOne = async (req, res) => {
     await Supplier.findByPk(req.params.id, {
-        attributes: ['id_proveedor', 'cuit', 'razon social', 'ciudad', 'direccion', 'telefono']
+        attributes: ['id_proveedor', 'cuit', 'razon_social', 'ciudad', 'direccion', 'telefono']
     })
-        .then( (Suppliers) => {
-            res.json(Suppliers);
+        .then( (suppliers) => {
+            res.json(suppliers);
         })
         .catch ((err) => {
             console.log(err);
@@ -29,20 +29,20 @@ supplierController.getOne = async (req, res) => {
 
 supplierController.createSupplier = async (req, res) => {
     await Supplier.create({
-            dni: req.body.dni,
-            nombre: req.body.nombre,
-            apellido: req.body.apellido,
+            cuit: req.body.cuit,
+            razon_social: req.body.razon_social,
+            ciudad: req.body.ciudad,
             direccion: req.body.direccion,
             telefono: req.body.telefono
         })
-        .then(Supplier => console.log(Supplier));   
+        .then(supplier => console.log(supplier));   
 }
 
 supplierController.updateSupplier = async (req, res) => {
     await Supplier.update({
-        dni: req.body.dni,
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
+        cuit: req.body.cuit,
+        razon_social: req.body.razon_social,
+        ciudad: req.body.ciudad,
         direccion: req.body.direccion,
         telefono: req.body.telefono
     }, {
