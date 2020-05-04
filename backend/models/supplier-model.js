@@ -1,13 +1,13 @@
 const sequelize = require('../database/db-connection');
-const Sequelize = require('sequelize');
+const { DataTypes } = require('Sequelize');
 
 const Supplier = sequelize.define('proveedores', {
-    id_proveedor: { type: Sequelize.INTEGER, primaryKey: true },
-    cuit: Sequelize.STRING,
-    razon_social: Sequelize.STRING,
-    ciudad: Sequelize.STRING,
-    direccion: Sequelize.STRING,
-    telefono: Sequelize.STRING
+    id_proveedor: { type: DataTypes.INTEGER, primaryKey: true },
+    cuit: DataTypes.STRING,
+    razon_social: DataTypes.STRING,
+    ciudad: DataTypes.STRING,
+    direccion: DataTypes.STRING,
+    telefono: DataTypes.STRING
 },{
     createdAt: false,
     updatedAt: false

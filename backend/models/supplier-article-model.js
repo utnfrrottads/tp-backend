@@ -1,28 +1,28 @@
-'use strict'
+
 
 const sequelize = require('../database/db-connection');
-const Sequelize = require('sequelize');
+const { DataTypes } = require('Sequelize');
 const Article = require('./article-model');
 const Supplier = require('./supplier-model');
 
 const Supplier_Article = sequelize.define('proveedores_articulos', {
-    id_articulo: { type: Sequelize.INTEGER, 
+    id_articulo: { type: DataTypes.INTEGER, 
+                   primaryKey: true,
                    references: { 
                        model: Article, 
                        key: 'id_articulo'
-                    }, 
-                    primaryKey: true
+                    }
                 },
-    id_proveedor: { type: Sequelize.INTEGER,
+    id_proveedor: { type: DataTypes.INTEGER,
+                    primaryKey: true,
                     references: {
                         model: Supplier,
                         key: 'id_proveedor'
-                    },
-                    primaryKey: true 
+                    }
                 },
-    fecha_compra: { type: Sequelize.DATE, primaryKey: true },
-    precio_unitario: Sequelize.DECIMAL(10, 2),
-    cantidad: Sequelize.INTEGER
+    fecha_compra: { type: DataTypes.DATE, primaryKey: true },
+    precio_unitario: DataTypes.DECIMAL(10, 2),
+    cantidad: DataTypes.INTEGER
 },{
     createdAt: false,
     updatedAt: false
