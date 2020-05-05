@@ -1,0 +1,21 @@
+<div class="container">
+    <table class="highligh">
+        <thead>
+          <tr>
+              <th>Dni</th>
+              <th>Name and Surname</th>
+              <th>Address</th>
+              <th>Phone</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          <tr *ngFor="let client of clients">
+            <td>{{ client.dni }}</td>
+            <td>{{ client.nombre }} {{ client.apellido }}</td>
+            <td>{{ client.direccion }}</td>
+            <td>{{ client.telefono }}</td>
+          </tr>
+        </tbody>
+      </table>    
+</div>
