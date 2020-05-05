@@ -5,7 +5,7 @@ const clientController = { };
 
 clientController.getAll = async (req, res) => {
     await Client.findAll({
-        attributes: ['id_cliente', 'dni', 'nombre', 'apellido', 'direccion', 'telefono']
+        attributes: ['dni', 'nombre', 'apellido', 'direccion', 'telefono']
     })
         .then( (clients) => {
             res.json(clients);
