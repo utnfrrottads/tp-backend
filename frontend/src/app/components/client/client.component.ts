@@ -15,7 +15,6 @@ export class ClientComponent implements OnInit {
 
   clients: Client[];
 
-
   ngOnInit(): void {
     this.getAll();
   }
@@ -25,6 +24,10 @@ export class ClientComponent implements OnInit {
       .subscribe(res => {
         this.clients = res as Client[];
       });
+  }
+
+  addClient(){
+    console.log("asd")
   }
 
 }

@@ -1,21 +1,29 @@
 <div class="container">
-    <table class="highligh">
+  <a class="btn-floating btn-medium waves-effect waves-light red move-top-10" routerLink="/clients/addClient" routerLinkActive="active">
+    <i class="material-icons">add</i>
+  </a>
+  <table class="striped">
         <thead>
           <tr>
               <th>Dni</th>
               <th>Name and Surname</th>
               <th>Address</th>
               <th>Phone</th>
+              <th>Action</th>
           </tr>
         </thead>
     
         <tbody>
           <tr *ngFor="let client of clients">
             <td>{{ client.dni }}</td>
-            <td>{{ client.nombre }} {{ client.apellido }}</td>
+            <td>{{ client.nombre }}, {{ client.apellido }}</td>
             <td>{{ client.direccion }}</td>
             <td>{{ client.telefono }}</td>
+            <td>
+              <a style="cursor: pointer"><i class="material-icons">edit</i></a>
+              <a style="cursor: pointer"><i class="material-icons">delete</i></a>
+            </td>
           </tr>
         </tbody>
-      </table>    
+      </table>
 </div>

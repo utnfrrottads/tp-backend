@@ -4,9 +4,7 @@ const Client = require('../models/client-model');
 const clientController = { };
 
 clientController.getAll = async (req, res) => {
-    await Client.findAll({
-        attributes: ['dni', 'nombre', 'apellido', 'direccion', 'telefono']
-    })
+    await Client.findAll()
         .then( (clients) => {
             res.json(clients);
         })
