@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from "@angular/common/http";
+import { Client } from './../../models/client/client';
 
 
 @Injectable({
@@ -14,6 +15,10 @@ export class ClientService {
 
   getClients(){
     return this.http.get(`${this.URL}/clients`);
+  }
+
+  addClient(client: Client){
+    return this.http.post(`${this.URL}/addClient`, client);
   }
 
 }

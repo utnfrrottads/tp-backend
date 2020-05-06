@@ -31,8 +31,8 @@ clientController.createClient = async (req, res) => {
             direccion: req.body.direccion,
             telefono: req.body.telefono
         })
-        .then(res.status(200).send('Client created'))
-        .catch(err => console.log(err)); 
+        .then(res.json("Client created"))
+        .catch(err=>console.log(err)); 
 }
 
 clientController.updateClient = async (req, res) => {
