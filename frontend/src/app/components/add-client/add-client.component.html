@@ -1,33 +1,36 @@
 <div class="row section container">
-    <form class="col s12" autocomplete="off">
+    <form #clientForm="ngForm" class="col s12" autocomplete="off">
       <div class="row">
         <div class="input-field col s5">
-            <input id="Dni" type="text" class="validate">
-            <label for="Dni">Dni</label>
+            <input id="dni" type="text" class="validate" name="dni" [(ngModel)]="client.dni">
+            <label for="dni">Dni</label>
         </div>
       </div>
 
       <div class="row">
-        <div class="input-field col s5">
-          <input id="first_name" type="text" class="validate">
+        <div class="input-field col s5"> 
+          <input id="first_name" type="text" class="validate" name="nombre" [(ngModel)]="client.nombre">
           <label for="first_name">First Name</label>
         </div>
 
         <div class="input-field col s5">
-          <input id="last_name" type="text" class="validate">
+          <input id="last_name" type="text" class="validate" name="apellido" [(ngModel)]="client.apellido">
           <label for="last_name">Last Name</label>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s5">
-          <input id="dir" type="text" class="validate">
-          <label for="dir">Address</label>
+          <input id="address" type="text" class="validate" name="direccion" [(ngModel)]="client.direccion">
+          <label for="address">Address</label>
         </div>
         <div class="input-field col s5">
-          <input id="phone" type="text" class="validate">
+          <input id="phone" type="text" class="validate" name="telefono" [(ngModel)]="client.telefono">
           <label for="phone">Phone</label>
         </div>
       </div>
+    <button class="btn waves-effect waves-light" (click)= "addClient(clientForm)"> Submit
+        <i class="material-icons right">send</i>
+    </button>
     </form>
   </div>

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Client } from '../../models/client/client';
+import { Router } from "@angular/router";
+
+import { ClientService } from "../../services/client/client.service";
 
 @Component({
   selector: 'app-add-client',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddClientComponent implements OnInit {
 
-  constructor() { }
+  client: Client;
+
+  constructor(
+    private clientService: ClientService, 
+    private router: Router) { 
+    
+    this.client = new Client();
+  }
 
   ngOnInit(): void {
+  }
+
+
+  addClient(form: NgForm){
+    this.clientService.addClient(form.value)
+      .subscribe(
+        res=>{
+          this.router.navigate(['/clients']);
+        },
+        err=>{
+          console.log(err)
+        }
+      ) 
   }
 
 }

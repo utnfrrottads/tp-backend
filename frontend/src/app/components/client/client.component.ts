@@ -26,8 +26,4 @@ export class ClientComponent implements OnInit {
       });
   }
 
-  addClient(){
-    console.log("asd")
-  }
-
 }
