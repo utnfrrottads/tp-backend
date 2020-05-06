@@ -21,4 +21,12 @@ export class ClientService {
     return this.http.post(`${this.URL}/addClient`, client);
   }
 
+  getById(id: number){
+    return this.http.get<Client>(`${this.URL}/clients/${id}`);
+  }
+
+  editClient(id: number, clientUpdated: Client){
+    return this.http.put(`${this.URL}/clients/${id}`, clientUpdated);
+  }
+
 }

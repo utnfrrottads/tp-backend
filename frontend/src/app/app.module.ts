@@ -8,13 +8,15 @@ import { ClientComponent } from './components/client/client.component';
 import { AddClientComponent } from './components/add-client/add-client.component';
 
 import { HttpClientModule } from "@angular/common/http";
+import { EditClientComponent } from './components/edit-client/edit-client.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientComponent,
-    AddClientComponent
+    AddClientComponent,
+    EditClientComponent
   ],
   imports: [
     BrowserModule,

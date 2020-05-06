@@ -15,8 +15,8 @@ clientController.getAll = async (req, res) => {
 
 clientController.getOne = async (req, res) => {
     await Client.findByPk(req.params.id)
-        .then( (clients) => {
-            res.json(clients);
+        .then( (client) => {
+            res.json(client);
         })
         .catch ((err) => {
             console.log(err);
@@ -47,7 +47,7 @@ clientController.updateClient = async (req, res) => {
             id_cliente: req.params.id
         }
     })
-        .then(res.status(200).send('Client updated'))
+        .then(res.json('Client updated'))
         .catch(err => console.log(err));
 }
 
@@ -57,7 +57,7 @@ clientController.deleteClient = async (req, res) => {
             id_cliente: req.params.id
         }
     })
-        .then(res.status(200).send('Client deleted'))
+        .then(res.json('Client deleted'))
         .catch(err => console.log(err));
 }
 

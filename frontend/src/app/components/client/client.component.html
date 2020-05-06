@@ -20,7 +20,7 @@
             <td>{{ client.direccion }}</td>
             <td>{{ client.telefono }}</td>
             <td>
-              <a style="cursor: pointer"><i class="material-icons">edit</i></a>
+              <a [routerLink]="['/clients/edit-client', client.id_cliente]" style="cursor: pointer"><i class="material-icons">edit</i></a>
               <a style="cursor: pointer"><i class="material-icons">delete</i></a>
             </td>
           </tr>
