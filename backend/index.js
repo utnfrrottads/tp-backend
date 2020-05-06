@@ -21,5 +21,5 @@ app.use('/', routes);
 
 
 app.listen(port, ()=>{
-    console.log(`Server on port ${port}`);
+    console.log(`Server on http://localhost:${port}`);
 });
