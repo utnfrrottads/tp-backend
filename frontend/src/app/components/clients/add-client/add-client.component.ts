@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Client } from '../../models/client/client';
+import { Client } from '../../../models/client/client';
 import { Router } from "@angular/router";
 
-import { ClientService } from "../../services/client/client.service";
+import { ClientService } from "../../../services/client/client.service";
 
 @Component({
   selector: 'app-add-client',

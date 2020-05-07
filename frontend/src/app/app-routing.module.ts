@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ClientComponent } from "./components/client/client.component";
-import { AddClientComponent } from "./components/add-client/add-client.component";
-import { EditClientComponent } from "./components/edit-client/edit-client.component";
+import { ClientComponent } from "./components/clients/client/client.component";
+import { AddClientComponent } from "./components/clients/add-client/add-client.component";
+import { EditClientComponent } from "./components/clients/edit-client/edit-client.component";
 
 const routes: Routes = [
   {
