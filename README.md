@@ -175,4 +175,4 @@ Se emitirá un ranking de las empresa de colectivos con menos demora lo cual per
 Me parece que deberia tener que agregar las entidades PROVINCIA y LOCALIDAD, no se si se me va a hacer muy grande el alcance, pero quedo a la espera de una respuesta por correcciones para ver si conviene o no agregar las entidades.
 
  ## Diagrama de Entidad
-https://github.com/giulitruant/tp-backend-2020/blob/master/DiagramaEntidad.PNG
+https://github.com/giulitruant/tp-backend-2020/blob/master/DER.PNG
