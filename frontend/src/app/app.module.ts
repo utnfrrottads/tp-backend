@@ -9,6 +9,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
 
 import { HttpClientModule } from "@angular/common/http";
 import { EditClientComponent } from './components/edit-client/edit-client.component';
+import { ArticleComponent } from './components/articles/article/article.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { EditClientComponent } from './components/edit-client/edit-client.compon
     AppComponent,
     ClientComponent,
     AddClientComponent,
-    EditClientComponent
+    EditClientComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,

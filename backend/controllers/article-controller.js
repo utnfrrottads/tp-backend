@@ -6,23 +6,22 @@ const Supplier_Article = require('../models/supplier-article-model');
 const articleController = { };
 
 
-Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});//, otherKey: 'id_proveedor'});
-Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});//, otherKey: 'id_proveedor'});
+Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
 
 articleController.getAll = async (req, res) => {
     await Article.findAll({
         include: {
           model: Supplier,
-          required: true,
-          attributes: ['cuit']
-        },
-        attributes: ['precio']
-        // where: {
-        //     id_articulo: 1
-        // }
+          required: true
+        }
     })
-    .then(articles => {res.json(articles);})
-    .catch(err => {res.json(err)});    
+    .then(articles => {
+      res.json(articles)
+    })
+    .catch(err => {
+      res.json(err)
+    });    
 }
 
 
