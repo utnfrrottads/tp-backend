@@ -21,7 +21,7 @@
             <td>{{ client.telefono }}</td>
             <td>
               <a [routerLink]="['/clients/edit-client', client.id_cliente]" style="cursor: pointer"><i class="material-icons">edit</i></a>
-              <a style="cursor: pointer"><i class="material-icons">delete</i></a>
+              <a (click)="deleteClient(client.id_cliente)" style="cursor: pointer"><i class="material-icons">delete</i></a>
             </td>
           </tr>
         </tbody>

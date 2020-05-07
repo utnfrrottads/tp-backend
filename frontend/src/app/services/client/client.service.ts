@@ -29,4 +29,8 @@ export class ClientService {
     return this.http.put(`${this.URL}/clients/${id}`, clientUpdated);
   }
 
+  deleteClient(id: number){
+    return this.http.delete(`${this.URL}/deleteClient/${id}`);
+  }
+
 }

@@ -1,19 +1,23 @@
 <nav>
     <div class="nav-wrapper lime lighten-1">
-      <a routerLink="/" routerLinkActive="active" class="black-text right brand-logo"><i class="material-icons" style="font-size: 30px">home</i>Inicio</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a routerLink="" routerLinkActive="active" class="black-text right brand-logo">
+        <i class="material-icons" style="font-size: 30px">home</i>
+      </a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+        <i class="material-icons">menu</i>
+      </a>
       <ul class="left hide-on-med-and-down">
         <li><a class="black-text" routerLink="/clients" routerLinkActive="active">Clients</a></li>
-        <li><a class="black-text" href="#">Suppliers</a></li> 
-        <li><a class="black-text" href="#">Articles</a></li>
+        <li><a class="black-text" >Suppliers</a></li> 
+        <li><a class="black-text" >Articles</a></li>
       </ul>
     </div>
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
     <li><a routerLink="/clients" routerLinkActive="active">Clients</a></li>
-    <li><a href="#">Suppliers</a></li>
-    <li><a href="#">Articles</a></li>
+    <li><a routerLink="/suppliers" routerLinkActive="active">Suppliers</a></li>
+    <li><a routerLink="/articles" routerLinkActive="active">Articles</a></li>
   </ul>
 
 
