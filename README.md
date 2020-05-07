@@ -139,9 +139,6 @@ De ser que el vehículo o colectivo se haya roto a los usuarios que consulten so
 
 ### User Story’s
 
-### Pantalla principal: "TAREA FUERA DEL ALCANCE"
-Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
-
 ### Registrar nueva empresa: (ABMC simple)
 Dar de alta a una empresa con todos los datos correspondientes
 
@@ -153,6 +150,9 @@ Este menú se podra agregar, editar o eliminar, por linea de colectivo, por empr
 
 ### Listado de choferes (Listado Complejo con Posible filtro)
 Se Listaran los choferes por linea de colectivo con filtro por empresa, ### Con posible filtro por linea de colectivo
+
+### Pantalla principal: "TAREA FUERA DEL ALCANCE"
+Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
 
 ### Estimación de llegada de próximos colectivos: "TAREA FUERA DEL ALCANCE"
 Se le notificara al usuario que consulte la llegada del colectivo
