@@ -11,9 +11,9 @@ import { Client } from '../../../models/client/client';
 })
 export class ClientComponent implements OnInit {
 
-  constructor(public clientService: ClientService) { }
-
   clients: Client[];
+
+  constructor(public clientService: ClientService) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -22,7 +22,7 @@ export class ClientComponent implements OnInit {
   getAll(){
     this.clientService.getClients()
       .subscribe(res => {
-        this.clients = res as Client[];
+        this.clients = res;
       });
   }
 

@@ -14,7 +14,7 @@ export class ClientService {
   readonly URL: string = 'http://localhost:3000';
 
   getClients(){
-    return this.http.get(`${this.URL}/clients`);
+    return this.http.get<Client[]>(`${this.URL}/clients`);
   }
 
   addClient(client: Client){

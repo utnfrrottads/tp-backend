@@ -6,10 +6,11 @@ import { FormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { ClientComponent } from './components/clients/client/client.component';
 import { AddClientComponent } from './components/clients/add-client/add-client.component';
-
-import { HttpClientModule } from "@angular/common/http";
 import { EditClientComponent } from './components/clients/edit-client/edit-client.component';
 import { ArticleComponent } from './components/articles/article/article.component';
+
+import { HttpClientModule } from "@angular/common/http";
+import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ArticleComponent } from './components/articles/article/article.componen
     ClientComponent,
     AddClientComponent,
     EditClientComponent,
-    ArticleComponent
+    ArticleComponent,
+    ArticleDataComponent
   ],
   imports: [
     BrowserModule,
