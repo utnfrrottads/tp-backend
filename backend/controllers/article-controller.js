@@ -40,14 +40,30 @@ articleController.getOne = async (req, res) => {
     });    
 }
 
-articleController.createArticle = (req, res) => {
-  await Article.create({
-    id_articulo: req.body.id_articulo,
-    descripcion: req.body.descripcion,
-    precio: req.body.precio,
-    stock: req.body.stock
-  })
+articleController.createArticle = async (req, res) => {
+    const supplier = await Supplier.findByPk(1);
+
+    const article = await Article.create({
+      descripcion: req.body.descripcion,
+      precio: req.body.precio,
+      stock: req.body.stock
+    });
+
+    await article.addSupplier(supplier, { through: {
+        precio_unitario: req.body.precio_unitario,
+        cantidad: req.body.cantidad
+        } 
+    })
+
+    const result = await Article.findOne({
+      where: {descripcion: "test"},
+      include: Supplier
+    });
+
+    res.json(result);
+
 }
+
 
 
 module.exports = articleController;

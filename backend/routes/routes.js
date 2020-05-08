@@ -14,8 +14,8 @@ router.put('/clients/:id', clientController.updateClient);
 router.delete('/deleteClient/:id', clientController.deleteClient);
 
 //Rutas de proveedores
-router.get('/supplier', supplierController.getAll); 
-router.get('/supplier/:id', supplierController.getOne);
+router.get('/suppliers', supplierController.getAll); 
+router.get('/suppliers/:id', supplierController.getOne);
 router.post('/addSupplier', supplierController.createSupplier);
 router.put('/supplier/:id', supplierController.updateSupplier);
 router.delete('/deleteSupplier/:id', supplierController.deleteSupplier);

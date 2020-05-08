@@ -4,9 +4,7 @@ const Supplier = require('../models/supplier-model');
 const supplierController = { };
 
 supplierController.getAll = async (req, res) => {
-    await Supplier.findAll({
-        attributes: ['id_proveedor', 'cuit', 'razon_social', 'ciudad', 'direccion', 'telefono']
-    })
+    await Supplier.findAll()
         .then( (suppliers) => {
             res.json(suppliers);
         })
@@ -16,9 +14,7 @@ supplierController.getAll = async (req, res) => {
 }
 
 supplierController.getOne = async (req, res) => {
-    await Supplier.findByPk(req.params.id, {
-        attributes: ['id_proveedor', 'cuit', 'razon_social', 'ciudad', 'direccion', 'telefono']
-    })
+    await Supplier.findByPk(req.params.id)
         .then( (suppliers) => {
             res.json(suppliers);
         })
