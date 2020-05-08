@@ -22,5 +22,7 @@ router.delete('/deleteSupplier/:id', supplierController.deleteSupplier);
 
 //Rutas de articulos
 router.get('/articles', articleController.getAll);
+router.get('/articles/:id', articleController.getOne);
+router.post('/addArticle', articleController.createArticle);
 
 module.exports = router;
