@@ -5,14 +5,13 @@ const Supplier = require('../models/supplier-model');
 const Supplier_Article = require('../models/supplier-article-model');
 const articleController = { };
 
-
 Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
-Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo', as:'Supplier'});
 
 articleController.getAll = async (req, res) => {
   await Article.findAll({
     include: {
-      model: Supplier,
+      model: 'Supplier',
       required: true
     }
   })
@@ -54,6 +53,8 @@ articleController.createArticle = async (req, res) => {
         cantidad: req.body.cantidad
         } 
     })
+    // .then(() => {res.json('Proveedor añandido')})
+    // .catch ((err) => {res.json(err);});
 
     const result = await Article.findOne({
       where: {descripcion: "test"},
@@ -61,7 +62,6 @@ articleController.createArticle = async (req, res) => {
     });
 
     res.json(result);
-
 }
 
 
