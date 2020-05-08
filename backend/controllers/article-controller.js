@@ -40,5 +40,14 @@ articleController.getOne = async (req, res) => {
     });    
 }
 
+articleController.createArticle = (req, res) => {
+  await Article.create({
+    id_articulo: req.body.id_articulo,
+    descripcion: req.body.descripcion,
+    precio: req.body.precio,
+    stock: req.body.stock
+  })
+}
+
 
 module.exports = articleController;
