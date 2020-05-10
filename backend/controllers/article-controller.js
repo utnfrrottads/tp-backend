@@ -10,10 +10,8 @@ Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_artic
 
 articleController.getAll = async (req, res) => {
   await Article.findAll({
-    include: {
-      model: 'Supplier',
-      required: true
-    }
+    include: 'Supplier',
+    required: true
   })
     .then(articles => {
       res.json(articles)
@@ -28,6 +26,7 @@ articleController.getOne = async (req, res) => {
   await Article.findByPk(req.params.id, {
     include: {
       model: Supplier,
+      as: 'Supplier',               //OTRA FORMA DE HACER LO MISMO QUE EN findAll
       required: true
     }
   })
@@ -57,11 +56,14 @@ articleController.createArticle = async (req, res) => {
     // .catch ((err) => {res.json(err);});
 
     const result = await Article.findOne({
-      where: {descripcion: "test"},
-      include: Supplier
+      where: {
+        descripcion: "test descripcion"
+      },
+      include: 'Supplier'
     });
 
     res.json(result);
+    
 }
 
 
