@@ -6,6 +6,7 @@ import { AddClientComponent } from "./components/clients/add-client/add-client.c
 import { EditClientComponent } from "./components/clients/edit-client/edit-client.component";
 import { ArticleComponent } from "./components/articles/article/article.component";
 import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
+import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 
 const routes: Routes = [
   {
@@ -26,8 +27,12 @@ const routes: Routes = [
     component: ArticleComponent
   },
   {
-    path: 'articleData',
+    path: 'articles/articleData',
     component: ArticleDataComponent
+  },
+  {
+    path: 'articles/addArticle',
+    component: AddArticleComponent
   }
 ];
 

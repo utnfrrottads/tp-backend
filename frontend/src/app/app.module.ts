@@ -11,6 +11,7 @@ import { ArticleComponent } from './components/articles/article/article.componen
 
 import { HttpClientModule } from "@angular/common/http";
 import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
+import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ArticleDataComponent } from './components/articles/article-data/article
     AddClientComponent,
     EditClientComponent,
     ArticleComponent,
-    ArticleDataComponent
+    ArticleDataComponent,
+    AddArticleComponent
   ],
   imports: [
     BrowserModule,
