@@ -5,8 +5,8 @@ const Supplier = require('../models/supplier-model');
 const Supplier_Article = require('../models/supplier-article-model');
 const articleController = { };
 
-Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
-Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo', as:'Supplier'});
+Supplier.belongsToMany(Article, {as: 'Article', through: Supplier_Article, foreignKey:'id_proveedor'});
+Article.belongsToMany(Supplier, {as:'Supplier', through: Supplier_Article, foreignKey:'id_articulo'});
 
 articleController.getAll = async (req, res) => {
   await Article.findAll({
@@ -26,7 +26,7 @@ articleController.getOne = async (req, res) => {
   await Article.findByPk(req.params.id, {
     include: {
       model: Supplier,
-      as: 'Supplier',               //OTRA FORMA DE HACER LO MISMO QUE EN findAll
+      as: 'Supplier',               //OTRA FORMA DE HACER LO MISMO QUE ARRIBAs
       required: true
     }
   })

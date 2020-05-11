@@ -21,8 +21,8 @@
               <td>{{ article.precio | currency: '$' }}</td>
               <td>{{ article.stock }}</td>
               <td>
-                  <span *ngFor="let proveedor of article.proveedores">{{ proveedor.razon_social }}
-                     <span *ngIf="article.proveedores.length > 1"> - </span> 
+                  <span *ngFor="let proveedor of article.Supplier">{{ proveedor.razon_social }}
+                     <span *ngIf="article.Supplier.length > 1"> - </span> 
                   </span>
               </td>
               <td>

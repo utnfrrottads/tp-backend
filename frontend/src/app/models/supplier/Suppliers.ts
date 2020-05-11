@@ -1,6 +1,6 @@
 import { ClientSupplier } from "../client-supplier/client-supplier";
 
-export class Supplier {
+export class Suppliers {
 
     id_proveedor: number;
     cuit: string;

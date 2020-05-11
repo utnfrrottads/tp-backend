@@ -1,4 +1,4 @@
-import { Supplier } from "../supplier/supplier";
+import { Suppliers } from "../supplier/Suppliers";
 
 export class Article {
 
@@ -6,5 +6,5 @@ export class Article {
     descripcion: string;
     precio: number;
     stock: number;
-    proveedores: Supplier[];
+    Supplier: Suppliers[];
 }
