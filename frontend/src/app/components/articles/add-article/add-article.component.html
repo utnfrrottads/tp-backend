@@ -1,28 +1,38 @@
 <h5 class="center-align section">NEW ARTICLE</h5>
 <div class="container section row" style="margin-left: 30rem">
-    <form class="col s12" autocomplete="off">
+    <form #addArticleForm="ngForm" class="col s12" autocomplete="off">
       <div class="row">
         <div class="input-field col s6">
-          <input id="descripcion" type="text" class="validate">
+          <input id="descripcion" type="text" class="validate" name="descripcion" [(ngModel)]="article.descripcion">
           <label for="descripcion">Description</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s3">
-          <input id="precio_unitario" type="text" class="validate">
-          <label for="precio_unitario">Price per unit ($)</label>
+          <input id="precio_unitario" type="text" class="validate" name="precio_unitario" [(ngModel)]="article.Supplier.proveedores_articulos.precio_unitario">
+          <label for="precio_unitario">Purchase price ($)</label>
         </div>
         <div class="input-field col s3">
-            <input id="cantidad" type="text" class="validate">
-            <label for="cantidad">Amount</label>
+            <input id="precio_unitario_venta" type="text" class="validate" name="precio" [(ngModel)]="article.precio">
+            <label for="precio_unitario_venta">Sale price ($)</label>
         </div>
       </div>
       <div class="row">
+        <div class="input-field col s3">
+            <input id="stock" type="text" class="validate" name="stock" [(ngModel)]="article.stock">
+            <label for="stock">Amount</label>
+        </div>
+      </div>
+     <!--  <div class="row">
         <div class="input-field col s4">
-          <input disabled id="proveedor" type="text" class="validate">
+        <input type="hidden" class="validate" name="id_proveedor" [(ngModel)]="article.Supplier.id_proveedor">
+          <input disabled id="proveedor" type="text" class="validate" name="proveedor" [(ngModel)]="article.Supplier">
           <label class="active" for="proveedor">Supplier</label>
         </div>
-        <a class="waves-effect waves-light btn-small">+ Add supplier</a>
-      </div>
+        <a class="waves-effect green btn-small">+ Add supplier</a>
+      </div> -->
+      <button (click)="addArticle(addArticleForm)" class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
     </form>
   </div>

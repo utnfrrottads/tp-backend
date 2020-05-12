@@ -1,4 +1,4 @@
-export interface ClientSupplier {
+export class ClientSupplier {
 
     id_articulo: number;
     id_proveedor: number;

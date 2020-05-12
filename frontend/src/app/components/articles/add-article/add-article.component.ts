@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Article } from 'src/app/models/article/article';
 
 @Component({
   selector: 'app-add-article',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddArticleComponent implements OnInit {
 
-  constructor() { }
+  article: Article;
+
+  constructor() { 
+    this.article = new Article();
+  }
 
   ngOnInit(): void {
   }
 
+  addArticle(form: NgForm){
+    console.log(form.value);
+  }
 }
