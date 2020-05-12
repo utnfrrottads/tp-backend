@@ -1,6 +1,6 @@
 import { ClientSupplier } from "../client-supplier/client-supplier";
 
-export class Suppliers {
+export class Supplier {
 
     id_proveedor: number;
     cuit: string;
@@ -9,4 +9,9 @@ export class Suppliers {
     direccion: string;
     telefono: string;
     proveedores_articulos: ClientSupplier;
+
+    setProvArt(provArt: ClientSupplier){
+        this.proveedores_articulos = provArt;
+    }
+
 }

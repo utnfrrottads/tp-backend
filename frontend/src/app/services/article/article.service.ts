@@ -16,4 +16,8 @@ export class ArticleService {
     return this.http.get<Article[]>(`${this.URL}/articles`);
   }
 
+  addArticle(article: Article){
+    return this.http.post(`${this.URL}/addArticle`, article);
+  }
+
 }

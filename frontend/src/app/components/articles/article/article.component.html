@@ -2,7 +2,7 @@
     <a class="btn-floating btn-medium waves-effect waves-light red move-top-10" routerLink="/articles/addArticle">
       <i class="material-icons">add</i>
     </a>
-    <table class="highlight">
+    <table class="striped">
           <thead>
             <tr>
                 <th>Id Article</th>
@@ -15,14 +15,14 @@
           </thead>
       
           <tbody>
-            <tr *ngFor="let article of articles" style="cursor: pointer" [routerLink]= "['/articleData', article]">
+            <tr *ngFor="let article of articles">
               <td>{{ article.id_articulo }}</td>
               <td>{{ article.descripcion }}</td>
               <td>{{ article.precio | currency: '$' }}</td>
               <td>{{ article.stock }}</td>
               <td>
-                  <span *ngFor="let proveedor of article.Supplier">{{ proveedor.razon_social }}
-                     <span *ngIf="article.Supplier.length > 1"> - </span> 
+                  <span *ngFor="let proveedor of article.proveedores">{{ proveedor.razon_social }}
+                     <span *ngIf="article.proveedores.length > 1"> - </span> 
                   </span>
               </td>
               <td>

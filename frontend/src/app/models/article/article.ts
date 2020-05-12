@@ -1,11 +1,14 @@
-import { Suppliers } from "../supplier/Suppliers";
+import { Supplier } from "../supplier/Supplier";
 
 export class Article {
-
+    
     id_articulo: number;
     descripcion: string;
     precio: number;
     stock: number;
-    Supplier: any;
+    proveedores: any;
 
+    setSupplier(proveedor: Supplier){
+        this.proveedores = proveedor;
+    }
 }

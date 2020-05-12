@@ -6,11 +6,11 @@ const Supplier_Article = require('../models/supplier-article-model');
 const articleController = { };
 
 Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
-Article.belongsToMany(Supplier, {as:'Supplier', through: Supplier_Article, foreignKey:'id_articulo'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
 
 articleController.getAll = async (req, res) => {
   await Article.findAll({
-    include: 'Supplier',
+    include: Supplier,
     required: true
   })
     .then(articles => {
@@ -25,8 +25,7 @@ articleController.getAll = async (req, res) => {
 articleController.getOne = async (req, res) => {
   await Article.findByPk(req.params.id, {
     include: {
-      model: Supplier,
-      as: 'Supplier',               //OTRA FORMA DE HACER LO MISMO QUE ARRIBAs
+      model: Supplier,               //OTRA FORMA DE HACER LO MISMO QUE ARRIBAs
       required: true
     }
   })
@@ -39,21 +38,25 @@ articleController.getOne = async (req, res) => {
 }
 
 articleController.createArticle = async (req, res) => {
-    const supplier = await Supplier.findByPk(req.body.Supplier.id_proveedor);
+    const supplier = await Supplier.findByPk(req.body.proveedores.id_proveedor);
     let article = null;
 
     await Article.create({
       descripcion: req.body.descripcion,
       precio: req.body.precio,
-      stock: req.body.stock
+      stock: req.body.proveedores.proveedores_articulos.cantidad
     })
-      .then(art => article = art);
+      .then(art => article = art)
+      .catch(err => res.json(err));
       
-      await article.addSupplier(supplier, { through: {
-        precio_unitario: req.body.Supplier[0].proveedores_articulos.precio_unitario,
-        cantidad: req.body.Supplier[0].proveedores_articulos.cantidad
+      await article.addProveedore(supplier, { through: {
+        precio_unitario: req.body.proveedores.proveedores_articulos.precio_unitario,
+        cantidad: req.body.proveedores.proveedores_articulos.cantidad
         } 
-    }) 
+    })
+      .then(res => res.json(res))
+      .catch(err => res.json(err));
+      
 }
 
 
