@@ -25,7 +25,7 @@ articleController.getAll = async (req, res) => {
 articleController.getOne = async (req, res) => {
   await Article.findByPk(req.params.id, {
     include: {
-      model: Supplier,               //OTRA FORMA DE HACER LO MISMO QUE ARRIBAs
+      model: Supplier,               
       required: true
     }
   })
@@ -37,26 +37,43 @@ articleController.getOne = async (req, res) => {
     });    
 }
 
+
 articleController.createArticle = async (req, res) => {
-    const supplier = await Supplier.findByPk(req.body.proveedores.id_proveedor);
+    const supplier = await Supplier.findByPk(req.body.proveedores[0].id_proveedor);
     let article = null;
 
-    await Article.create({
+      await Article.create({
       descripcion: req.body.descripcion,
       precio: req.body.precio,
-      stock: req.body.proveedores.proveedores_articulos.cantidad
+      stock: req.body.proveedores[0].proveedores_articulos.cantidad
     })
       .then(art => article = art)
-      .catch(err => res.json(err));
-      
+      .catch(err => res.json(err))
+
       await article.addProveedore(supplier, { through: {
-        precio_unitario: req.body.proveedores.proveedores_articulos.precio_unitario,
-        cantidad: req.body.proveedores.proveedores_articulos.cantidad
+        precio_unitario: req.body.proveedores[0].proveedores_articulos.precio_unitario,
+        cantidad: req.body.proveedores[0].proveedores_articulos.cantidad
         } 
     })
       .then(res => res.json(res))
-      .catch(err => res.json(err));
-      
+      .catch(err => res.json(err)); 
+}
+
+
+articleController.updateArticle = async (req, res) => {
+  const supplier = await Supplier.findByPk(1);
+
+    await Article.update({
+    descripcion: req.body.descripcion,
+    precio: req.body.precio,
+    stock: req.body.stock
+  })
+    .then(art => article = art)
+    .catch(err => console.log(err));
+
+  
+
+
 }
 
 

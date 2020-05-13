@@ -27,7 +27,7 @@ const routes: Routes = [
     component: ArticleComponent
   },
   {
-    path: 'articles/articleData',
+    path: 'articles/articleData/:id',
     component: ArticleDataComponent
   },
   {

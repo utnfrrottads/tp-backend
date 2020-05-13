@@ -29,7 +29,7 @@ export class AddArticleComponent implements OnInit {
   }
 
   addArticle(){
-    this.article.proveedores.id_proveedor = 1;
+    this.article.proveedores[0].id_proveedor = 1;
     this.articleService.addArticle(this.article)
       .subscribe(
         res => {
