@@ -1,3 +1,11 @@
+# Integrantes del grupo:
+|       Miembro         |Legajo                 |Dirección de Correo           					|
+|-----------------------|-----------------------|-----------------------------------------------|
+|Bassi, Danilo           |43725					|danilo-bassi@hotmail.com                       |
+|Campitelli, Gabriel     |43677					|campitelligabriel@hotmail.com                  |
+|Moreyra, Sebastián      |43684					|sebastian.j.moreyra@hotmail.com                |
+
+
 
 # TP Backend 2020
 
