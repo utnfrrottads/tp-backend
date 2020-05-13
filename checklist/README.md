@@ -2,14 +2,14 @@
 
 ## Backend
 
-|Requerimiento funcional|1 integrante|Detalle/Listado de casos|Cumple|
-|:-|-:|-:|:-|-|
+|Requerimiento funcional|Cantidad|Detalle/Listado de casos|Cumple|
+|:-|-:|-:|-|
 |ABMC simple|2|Usuarios y Canchas|
 |ABMC dependiente|1|Turnos|
 |Listado simple|1|Canchas|
 |Listado complejo obligatorio|1|Turnos|
 |Listado adicional con filtro|0|0|
-|Detalle básico|1(*)|2(*)|
+|Detalle básico|1(*)| Turnos
 |Detalle parametrizable|0|0|
 |Otros|0|0|
 
