@@ -126,16 +126,18 @@ Sistema de reserva de turnos de canchas para practicar deporte. Por ejemplo rese
 ## ABMC Complejos:
 * Turnos: (fecha,hora_inicio,hora_fin,estado,seña,id_usuario,id_cancha)
 ## Listado simple:
-* Se listará la entidad "Canchas"
+* Se listará la entidad "Canchas".
 ## Listado complejo:
-* Se listará la entidad "Turnos"
+* Se listará la entidad "Turnos" según la cancha y disponibilidad.
 ## Detalles:
 * Detalle del listado "Turnos". Dicha entidad involucra a la entidad "Usuarios" y a la entidad "Canchas". Se mostrará por cada turno: fecha, hora_inicio, hora_fin,estado,seña,usuario,cancha)
 
 ### Miembro del equipo:
 * 42733 Valentin Feraudo.
 
-### Modelo de datos:
-
+### Modelo de dominio
+Ingresando en el siguiente link:
+https://drive.google.com/open?id=1INuV97G8Q4mupVyh32ifwx3MZIpp53nk
+Aclaracion: alcance del proyecto: solo el recuadro verde.
 
 [checklist]: ./checklist/README.md
