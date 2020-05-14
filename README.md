@@ -149,7 +149,8 @@ Dar de alta a una empresa con todos los datos correspondientes
 Este menú se podra agregar, editar o eliminar, por linea de colectivo, por empresa.
 
 ### Listado de choferes (Listado Complejo con Posible filtro)
-Se Listaran los choferes por linea de colectivo con filtro por empresa, ### Con posible filtro por linea de colectivo
+Se Listaran los choferes por linea de colectivo con filtro por empresa, ### Con posible filtro por linea de colectivo.
+Al seleccionar un chofer del listado se mostrará los detalles del chofer, en el detalle se va a mostrar Empresa, Linea de Colectivo, Cuil, email, Provincia, Localidad del correspondiente chofer. Los campos telefono y domicilio quedan excluidos por tema de privacidad hacia el chofer.
 
 ### Pantalla principal: "TAREA FUERA DEL ALCANCE"
 Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
