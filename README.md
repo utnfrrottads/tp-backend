@@ -138,28 +138,33 @@ Este proyecto tiene como objetivo desarrollar una aplicación web capaz de dar s
 
 - ABMC simple:
 
-  - Mozo(id,nombre, apellido, telefono, email, fecha_ingreso, sueldo)
-  - Ingrediente(id, descripción)
-  - Categoría(id, descripción)
+  -Reservation (reservationId, customerName, phone, email, partySize, reservationDateTime, ancelationDateTime, confirmationDateTime, status)
+  -Stock (ingredientId, supplyLevel, dateTime)
+  -Staff (staffId, firstName, lastName, phone, email, joinedDate, salary, birthDate)
+  -Combination (combinationNo, coordinates)
 
-- ABMC entidad dependiente
+- ABMC entidad dependiente:
 
-  - Item Orden (cantidad, hora_pedido, comentario, estado, item_menu, pedido)
-  - Item Menu(id, precio, nombre, tiempo_preparacion)
+  -Bill (billNo, issueDateTime, subtotal, tip, total)
+  -Order (orderId, openingDateTime)
 
 - Listado Simple:
 
-  - Mostrar categorías de platos
+  - Mostrar Reservas
 
 - Listado Complejo:
 
-  - Total recaudado entre fechas: sumatoria del total de los pedidos entre 2 fechas determinadas
   - Item de menú agrupados por categoría (buscador). Ej: buscar aquellos platos vegetarianos.
+  - Facturas filtradas entre dos fechas.
 
 - Detalle:
-  - Detalle de los mozos, sueldos y propinas
-  - Detalle de pedido (mozo, líneas de pedido, subtotal, total)
+  - Detalle de mesas reservadas (Reservation, Combination, Table)
+  - Detalle de las ordenes de las facturas (Bill, Order, OrderLines)
 
+### 4.3 - Miembros del equipo
+  - 45479 - Randisi Lucas
+  - 44758 - Fernández Natalia
+  - 44955 - Delmonti Agustín
 ### 4.3 - Modelo
 
-![modelo de datos](dclases1.01.png)
+![modelo de datos](class_diagram.png)
