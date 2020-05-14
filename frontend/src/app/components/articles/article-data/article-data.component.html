@@ -1,8 +1,43 @@
 <div class="container">
     <div class="planilla">
-        <h4 class="center-align titulo">Articulo</h4>
-        <label class="black-text etiqueta">Descripción: </label>
-        <span class="contenido">{{ article.descripcion }}</span>
-        
+        <p>
+            <h4 class="center-align titulo">ARTICLE</h4>
+
+        <p>
+            <label class="black-text etiqueta">Article ID: </label>
+            <span class="contenido">{{ article.id_articulo }}</span>
+        <p>
+            <label class="black-text etiqueta">Descripción: </label>
+            <span class="contenido">{{ article.descripcion }}</span>
+
+        <p>
+            <label class="black-text etiqueta">Sale price: </label>
+            <span class="contenido">{{ article.precio | currency: '$' }}</span>
+
+        <p>
+            <label class="black-text etiqueta">Stock: </label>
+            <span class="contenido">{{ article.stock }}</span>
+
+        <p>
+            <h4 class="center-align titulo">SUPPLIER</h4>
+
+        <p>
+            <label class="black-text etiqueta">Supplier CUIT: </label>
+            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].cuit }}</span>
+
+        <p>
+            <label class="black-text etiqueta">Business name: </label>
+            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].razon_social }}</span>
+
+        <p>
+            <label class="black-text etiqueta">Purchase price: </label>
+            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].proveedores_articulos.precio_unitario | currency: '$' }}</span>
+    
+        <p>
+            <label class="black-text etiqueta">Date of purchase: </label>
+            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].proveedores_articulos.fecha_compra | date: 'fullDate' }}</span> 
+    </div>
+    <div style="padding-bottom: 2rem">
+        <a routerLink="/articles" class="waves-effect waves-light btn-large" style="display: block">Go back</a>
     </div>
 </div>

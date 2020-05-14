@@ -4,6 +4,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Article } from 'src/app/models/article/article';
 
 import { ArticleService } from "../../../services/article/article.service";
+import { Supplier } from 'src/app/models/supplier/Supplier';
+import { ClientSupplier } from './../../../models/client-supplier/client-supplier';
 
 @Component({
   selector: 'app-article-data',
@@ -12,10 +14,19 @@ import { ArticleService } from "../../../services/article/article.service";
 })
 export class ArticleDataComponent implements OnInit {
 
-  article: Article = new Article();
+  article: Article;
+  supplier: Supplier;
+  clientSupplier: ClientSupplier;
   id_articulo: number;
 
+
   constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService ) {
+    this.article = new Article();
+    this.supplier = new Supplier();
+    this.clientSupplier = new ClientSupplier();
+
+    this.supplier.setProvArt(this.clientSupplier);
+    this.article.setSupplier(this.supplier);
   }
 
   ngOnInit(): void {
