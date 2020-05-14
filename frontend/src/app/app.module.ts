@@ -12,6 +12,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ArticleComponent } from "./components/articles/article/article.component";
 import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
+import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AddArticleComponent } from './components/articles/add-article/add-artic
     EditClientComponent,
     ArticleComponent,
     ArticleDataComponent,
-    AddArticleComponent
+    AddArticleComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Supplier } from './Supplier;
+import { Supplier } from './Supplier';
 
 describe('Supplier', () => {
   it('should create an instance', () => {

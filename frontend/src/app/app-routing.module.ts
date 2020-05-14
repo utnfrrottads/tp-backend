@@ -7,6 +7,7 @@ import { EditClientComponent } from "./components/clients/edit-client/edit-clien
 import { ArticleComponent } from "./components/articles/article/article.component";
 import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
+import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'articles/addArticle',
     component: AddArticleComponent
+  },
+  {
+    path: 'suppliers',
+    component: SupplierComponent
   }
 ];
 
