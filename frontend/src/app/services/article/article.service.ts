@@ -20,4 +20,8 @@ export class ArticleService {
     return this.http.post(`${this.URL}/addArticle`, article);
   }
 
+  getArticle(id_articulo: number){
+    return this.http.get<Article>(`${this.URL}/articles/${id_articulo}`);
+  }
+
 }

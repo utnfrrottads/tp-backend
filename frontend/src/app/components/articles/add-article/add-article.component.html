@@ -9,7 +9,7 @@
       </div>
       <div class="row">
         <div class="input-field col s3">
-          <input id="precio_unitario" type="text" class="validate" name="precio_unitario" [(ngModel)]="article.proveedores.proveedores_articulos.precio_unitario">
+          <input id="precio_unitario" type="text" class="validate" name="precio_unitario" [(ngModel)]="article.proveedores[0].proveedores_articulos.precio_unitario">
           <label for="precio_unitario">Purchase price ($)</label>
         </div>
         <div class="input-field col s3">
@@ -19,7 +19,7 @@
       </div>
       <div class="row">
         <div class="input-field col s3">
-            <input id="stock" type="text" class="validate" name="cantidad" [(ngModel)]="article.proveedores.proveedores_articulos.cantidad">
+            <input id="stock" type="text" class="validate" name="cantidad" [(ngModel)]="article.proveedores[0].proveedores_articulos.cantidad">
             <label for="stock">Amount</label>
         </div>
       </div>

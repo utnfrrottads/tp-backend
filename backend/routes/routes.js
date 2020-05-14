@@ -24,5 +24,8 @@ router.delete('/deleteSupplier/:id', supplierController.deleteSupplier);
 router.get('/articles', articleController.getAll);
 router.get('/articles/:id', articleController.getOne);
 router.post('/addArticle', articleController.createArticle);
+router.put('/articles/:id', articleController.updateArticle);
+
+
 
 module.exports = router;
