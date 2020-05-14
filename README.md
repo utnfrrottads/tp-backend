@@ -138,15 +138,15 @@ Este proyecto tiene como objetivo desarrollar una aplicación web capaz de dar s
 
 - ABMC simple:
 
-  -Reservation (reservationId, customerName, phone, email, partySize, reservationDateTime, ancelationDateTime, confirmationDateTime, status)
-  -Stock (ingredientId, supplyLevel, dateTime)
-  -Staff (staffId, firstName, lastName, phone, email, joinedDate, salary, birthDate)
-  -Combination (combinationNo, coordinates)
+  - Reservation (reservationId, customerName, phone, email, partySize, reservationDateTime, ancelationDateTime, confirmationDateTime, status)
+  - Stock (ingredientId, supplyLevel, dateTime)
+  - Staff (staffId, firstName, lastName, phone, email, joinedDate, salary, birthDate)
+  - Combination (combinationNo, coordinates)
 
 - ABMC entidad dependiente:
 
-  -Bill (billNo, issueDateTime, subtotal, tip, total)
-  -Order (orderId, openingDateTime)
+  - Bill (billNo, issueDateTime, subtotal, tip, total)
+  - Order (orderId, openingDateTime)
 
 - Listado Simple:
 
@@ -165,6 +165,6 @@ Este proyecto tiene como objetivo desarrollar una aplicación web capaz de dar s
   - 45479 - Randisi Lucas
   - 44758 - Fernández Natalia
   - 44955 - Delmonti Agustín
-### 4.3 - Modelo
+### 4.4 - Modelo
 
 ![modelo de datos](class_diagram.png)
