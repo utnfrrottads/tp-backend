@@ -2,30 +2,30 @@
   <a class="btn-floating btn-medium waves-effect waves-light red move-top-10" routerLink="" routerLinkActive="active">
     <i class="material-icons">add</i>
   </a>
-  <table class="striped">
-        <thead>
-          <tr>
-              <th>Cuit</th>
-              <th>Business Name</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th>Action</th>
-          </tr>
-        </thead>
-    
-        <tbody>
-          <tr *ngFor="let supplier of suppliers">
-            <td>{{ supplier.cuit }}</td>
-            <td>{{ supplier.razon_social }}</td>
-            <td>{{ supplier.ciudad }}</td>
-            <td>{{ supplier.direccion }}</td>
-            <td>{{ supplier.telefono }}</td>
-            <td>
-              <a [routerLink]="['/suppliers/edit-supplier', supplier.proveedor]" style="cursor: pointer"><i class="material-icons">edit</i></a>
-              <a (click)="deletesupplier(supplier.id_proveedor)" style="cursor: pointer"><i class="material-icons">delete</i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Cuit</th>
+          <th>Business Name</th>
+          <th>City</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr *ngFor="let supplier of suppliers">
+          <td>{{ supplier.cuit }}</td>
+          <td>{{ supplier.razon_social }}</td>
+          <td>{{ supplier.ciudad }}</td>
+          <td>{{ supplier.direccion }}</td>
+          <td>{{ supplier.telefono }}</td>
+          <td>
+            <a [routerLink]="['/suppliers/edit-supplier', supplier.proveedor]" style="cursor: pointer"><i class="material-icons">edit</i></a>
+            <a (click)="deletesupplier(supplier.id_proveedor)" style="cursor: pointer"><i class="material-icons">delete</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 </div>

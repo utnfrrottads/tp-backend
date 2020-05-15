@@ -61,14 +61,13 @@ articleController.createArticle = async (req, res) => {
 
 
 articleController.updateArticle = async (req, res) => {
-  const supplier = await Supplier.findByPk(1);
 
     await Article.update({
     descripcion: req.body.descripcion,
     precio: req.body.precio,
     stock: req.body.stock
   })
-    .then(art => article = art)
+    .then(art => console.log("Article updated"))
     .catch(err => console.log(err));
 
   
