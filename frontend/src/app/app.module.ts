@@ -15,6 +15,7 @@ import { ArticleDataComponent } from './components/articles/article-data/article
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ArticleComponent,
     ArticleDataComponent,
     AddArticleComponent,
-    SupplierComponent
+    SupplierComponent,
+    AddSupplierComponent
   ],
   imports: [
     BrowserModule,

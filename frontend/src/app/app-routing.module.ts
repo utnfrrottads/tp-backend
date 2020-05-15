@@ -8,6 +8,7 @@ import { ArticleComponent } from "./components/articles/article/article.componen
 import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
+import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'suppliers',
     component: SupplierComponent
+  },
+  {
+    path: 'suppliers/addSupplier', 
+    component: AddSupplierComponent
   }
 ];
 

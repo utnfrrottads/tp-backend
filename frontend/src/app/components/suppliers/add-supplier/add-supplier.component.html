@@ -1,0 +1,33 @@
+<div class="row section container">
+    <form #supplierForm="ngForm" class="col s12" autocomplete="off">
+      <div class="row">
+        <div class="input-field col s5">
+            <input id="cuit" type="text" class="validate" name="cuit" [(ngModel)]="supplier.cuit">
+            <label for="cuit">CUIT</label>
+        </div>
+      </div>
+      <div class="row">
+       <div class="input-field col s5">
+          <input id="business_name" type="text" class="validate" name="razon_social" [(ngModel)]="supplier.razon_social">
+          <label for="business_name">Business Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s5">
+            <input id="city" type="text" class="validate" name="ciudad" [(ngModel)]="supplier.ciudad">
+            <label for="city">City</label>
+          </div>
+        <div class="input-field col s5">
+          <input id="address" type="text" class="validate" name="direccion" [(ngModel)]="supplier.direccion">
+          <label for="address">Address</label>
+        </div>
+        <div class="input-field col s5">
+          <input id="phone" type="text" class="validate" name="telefono" [(ngModel)]="supplier.telefono">
+          <label for="phone">Phone</label>
+        </div>
+      </div>
+    <button class="btn waves-effect waves-light" (click)= "addSupplier(supplierForm)"> Submit
+        <i class="material-icons right">send</i>
+    </button>
+    </form>
+  </div>

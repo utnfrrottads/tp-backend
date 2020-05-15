@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Client } from '../../../models/client/client';
 import { Router } from "@angular/router";
-
+import { Client } from '../../../models/client/client';
 import { ClientService } from "../../../services/client/client.service";
 
 @Component({
@@ -17,7 +16,7 @@ export class AddClientComponent implements OnInit {
   constructor(
     private clientService: ClientService, 
     private router: Router) { 
-    
+
     this.client = new Client();
   }
 
