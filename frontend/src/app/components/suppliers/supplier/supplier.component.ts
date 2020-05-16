@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { SupplierService } from '../../../services/supplier/supplier.service';
 import { Supplier } from '../../../models/supplier/supplier';
 
@@ -10,8 +10,10 @@ import { Supplier } from '../../../models/supplier/supplier';
 export class SupplierComponent implements OnInit {
 
   suppliers: Supplier[];
+  test_input: any;
 
-  constructor(public supplierService: SupplierService) { }
+  constructor(public supplierService: SupplierService) {
+   }
 
   ngOnInit(): void {
     this.getAll();

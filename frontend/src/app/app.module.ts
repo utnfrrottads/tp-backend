@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from "@angular/forms";
+import { MaterialModule } from "./material.module";
 
 import { AppComponent } from './app.component';
 import { ClientComponent } from './components/clients/client/client.component';
@@ -13,6 +14,7 @@ import { ArticleComponent } from "./components/articles/article/article.componen
 import { ArticleDataComponent } from './components/articles/article-data/article-data.component';
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
 
@@ -34,7 +36,9 @@ import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

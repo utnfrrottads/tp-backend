@@ -1,4 +1,4 @@
-<h5 class="center-align section">NEW ARTICLE</h5>
+<h4 class="center-align section titulo">NEW ARTICLE</h4>
 <div class="container section row" style="margin-left: 30rem">
     <form class="col s12" autocomplete="off">
       <div class="row">
@@ -24,12 +24,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s4">
-        <input type="hidden" class="validate" name="id_proveedor">
-          <!-- <input disabled id="proveedor" type="text" class="validate" name="proveedor"> -->
-          <label class="active" for="proveedor">Supplier</label>
-        </div>
-        <a class="waves-effect green btn-small">+ Add supplier</a>
+          <mat-form-field class="col s6">
+            <mat-label>Supplier</mat-label>
+            <mat-select [(ngModel)]="article.proveedores[0].id_proveedor" name="id_proveedor">
+              <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id_proveedor">
+                {{supplier.cuit }} - {{ supplier.razon_social}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
       </div>
       <button (click)="addArticle()" class="btn waves-effect waves-light" type="submit" name="action">Submit
         <i class="material-icons right">send</i>
