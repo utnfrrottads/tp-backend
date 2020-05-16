@@ -9,6 +9,7 @@ import { ArticleDataComponent } from './components/articles/article-data/article
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
+import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'suppliers/addSupplier', 
     component: AddSupplierComponent
+  },
+  {
+    path: 'suppliers/edit-supplier/:id',
+    component: EditSupplierComponent
   }
 ];
 

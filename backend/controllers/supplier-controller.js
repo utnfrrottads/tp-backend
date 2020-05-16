@@ -8,19 +8,13 @@ supplierController.getAll = async (req, res) => {
         .then( (suppliers) => {
             res.json(suppliers);
         })
-        .catch ((err) => {
-            console.log(err);
-        })
+        .catch(err => { console.log(err); })
 }
 
 supplierController.getOne = async (req, res) => {
     await Supplier.findByPk(req.params.id)
-        .then( (suppliers) => {
-            res.json(suppliers);
-        })
-        .catch ((err) => {
-            console.log(err);
-        })
+        .then((suppliers) => { res.json(suppliers); })
+        .catch (err => { console.log(err); })
 }
 
 supplierController.createSupplier = async (req, res) => {
@@ -31,7 +25,8 @@ supplierController.createSupplier = async (req, res) => {
             direccion: req.body.direccion,
             telefono: req.body.telefono
         })
-        .then(supplier => console.log(supplier));   
+        .then(res.json("Supplier created"))
+        .catch(err => console.log(err)); 
 }
 
 supplierController.updateSupplier = async (req, res) => {
@@ -46,7 +41,7 @@ supplierController.updateSupplier = async (req, res) => {
             id_proveedor: req.params.id
         }
     })
-        .then(res.status(200).send('Supplier updated'))
+        .then(res.json('Supplier updated'))
         .catch(err => console.log(err));
 }
 
@@ -56,7 +51,7 @@ supplierController.deleteSupplier = async (req, res) => {
             id_proveedor: req.params.id
         }
     })
-        .then(res.status(200).send('Supplier deleted'))
+        .then(res.json('Supplier deleted'))
         .catch(err => console.log(err));
 }
 

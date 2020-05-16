@@ -14,6 +14,7 @@ import { ArticleDataComponent } from './components/articles/article-data/article
 import { AddArticleComponent } from './components/articles/add-article/add-article.component';
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
+import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AddSupplierComponent } from './components/suppliers/add-supplier/add-su
     ArticleDataComponent,
     AddArticleComponent,
     SupplierComponent,
-    AddSupplierComponent
+    AddSupplierComponent,
+    EditSupplierComponent
   ],
   imports: [
     BrowserModule,

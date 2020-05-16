@@ -33,7 +33,7 @@ export class AddClientComponent implements OnInit {
         err=>{
           console.log(err)
         }
-      ) 
+      );
   }
 
 }

@@ -22,8 +22,8 @@
             <td>{{ supplier.direccion }}</td>
             <td>{{ supplier.telefono }}</td>
             <td>
-              <a [routerLink]="['/suppliers/edit-supplier', supplier.proveedor]" style="cursor: pointer"><i class="material-icons">edit</i></a>
-              <a (click)="deletesupplier(supplier.id_proveedor)" style="cursor: pointer"><i class="material-icons">delete</i></a>
+              <a [routerLink]="['/suppliers/edit-supplier', supplier.id_proveedor]" style="cursor: pointer"><i class="material-icons">edit</i></a>
+              <a (click)="deleteSupplier(supplier.id_proveedor)" style="cursor: pointer"><i class="material-icons">delete</i></a>
             </td>
           </tr>
         </tbody>

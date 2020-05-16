@@ -24,7 +24,7 @@ export class SupplierComponent implements OnInit {
       });
   }
 
-  deletesupplier(id: number){
+  deleteSupplier(id: number){
     if(confirm("Seguro que desea eliminar?")){
       this.supplierService.deleteSupplier(id)
         .subscribe(

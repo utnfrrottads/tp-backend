@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Supplier } from 'src/app/models/supplier/Supplier';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
@@ -25,13 +25,13 @@ export class AddSupplierComponent implements OnInit {
 
   addSupplier(form: NgForm){
     this.supplierService.addSupplier(form.value)
-      .subscribe(
-        res=>{
-          this.router.navigate(['/suppliers']);
-        },
-        err=>{
-          console.log(err)
-        }
-      ) 
+    .subscribe(
+      res=>{
+        this.router.navigate(['/suppliers']);
+      },
+      err=>{
+        console.log(err)
+      }
+    ) 
   }
 }
