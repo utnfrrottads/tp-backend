@@ -7,7 +7,7 @@ const Article = sequelize.define('articulos', {
     id_articulo: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     descripcion: DataTypes.STRING,
     precio: DataTypes.DECIMAL(10, 2),
-    stock: DataTypes.INTEGER
+    stock: { type: DataTypes.INTEGER, defaultValue: 0 }
 },{
     createdAt: false,
     updatedAt: false

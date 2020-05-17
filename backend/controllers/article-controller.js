@@ -39,7 +39,7 @@ articleController.getOne = async (req, res) => {
 
 
 articleController.createArticle = async (req, res) => {
-    const supplier = await Supplier.findByPk(req.body.proveedores[0].id_proveedor);
+    /* const supplier = await Supplier.findByPk(req.body.proveedores[0].id_proveedor);
     let article = null;
 
       await Article.create({
@@ -56,7 +56,13 @@ articleController.createArticle = async (req, res) => {
         } 
     })
       .then(res => res.json(res))
-      .catch(err => res.json(err)); 
+      .catch(err => res.json(err)); */ 
+    await Article.create({
+      descripcion: req.body.descripcion,
+      precio: req.body.precio
+    })
+    .then(res => res.json("Article created"))
+    .catch(err => res.json(err));
 }
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/app/models/article/article';
-import { Supplier } from '../../../models/supplier/Supplier';
-import { ClientSupplier } from './../../../models/client-supplier/client-supplier';
+/* import { Supplier } from '../../../models/supplier/Supplier';
+import { ClientSupplier } from './../../../models/client-supplier/client-supplier'; */
 
 import { ArticleService } from "../../../services/article/article.service";
 import { SupplierService } from "../../../services/supplier/supplier.service";
@@ -17,9 +17,9 @@ import { Router } from "@angular/router";
 export class AddArticleComponent implements OnInit {
 
   article: Article;
-  supplier: Supplier;
+  /* supplier: Supplier;
   clientSupplier: ClientSupplier;
-  suppliers: Supplier[] = [];
+  suppliers: Supplier[] = []; */
   
 
   constructor(
@@ -28,23 +28,23 @@ export class AddArticleComponent implements OnInit {
     private supplierService: SupplierService
   ) { 
     this.article = new Article();
-    this.supplier = new Supplier();
+    /* this.supplier = new Supplier();
     this.clientSupplier = new ClientSupplier();
 
     this.supplier.setProvArt(this.clientSupplier);
-    this.article.setSupplier(this.supplier);
+    this.article.setSupplier(this.supplier); */
   }
   
 
   ngOnInit(): void {
-    this.supplierService.getSuppliers()
+    /* this.supplierService.getSuppliers()
       .subscribe(
         res => {
           console.log(res);
           this.suppliers = res;
         },
         err => console.log(err)
-      )
+      ) */
   }
 
 

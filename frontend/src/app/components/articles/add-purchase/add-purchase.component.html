@@ -1,0 +1,60 @@
+<div class="row section container">
+    <h4 class="center-align titulo" style="margin-top: 10px">NEW PURCHASE</h4>
+      <form #clientForm="ngForm" class="col s12" autocomplete="off">
+        <div class="row">
+          <div class="input-field col s5">
+              <input id="fecha_compra" type="text" class="validate" name="fecha_compra" [value]="fecha" disabled>
+              <label for="fecha_compra">Fecha</label>
+          </div>
+        </div>
+
+        <div class="row">
+            <h4>Article</h4>
+            <mat-form-field class="col s4">
+                <mat-select [(ngModel)]="purchase.id_articulo" name="purchase">
+                    <mat-option *ngFor="let article of articles" [value]="article.id_articulo">
+                        {{article.descripcion}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <h4>Supplier</h4>
+            <mat-form-field class="col s7">
+                <mat-select [(ngModel)]="purchase.id_proveedor" name="proveedor">
+                    <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id_proveedor">
+                        Cuit: {{supplier.cuit}} -- Business Name: {{supplier.razon_social}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+  
+        <div class="row">
+          <div class="input-field col s5"> 
+            <input id="first_name" type="text" class="validate" name="nombre">
+            <label for="first_name">First Name</label>
+          </div>
+  
+          <div class="input-field col s5">
+            <input id="last_name" type="text" class="validate" name="apellido">
+            <label for="last_name">Last Name</label>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="input-field col s5">
+            <input id="address" type="text" class="validate" name="direccion">
+            <label for="address">Address</label>
+          </div>
+          <div class="input-field col s5">
+            <input id="phone" type="text" class="validate" name="telefono">
+            <label for="phone">Phone</label>
+          </div>
+        </div>
+      <button class="btn waves-effect waves-light"> Submit
+          <i class="material-icons right">send</i>
+      </button>
+      </form>
+    </div>

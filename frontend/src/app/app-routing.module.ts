@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ClientComponent } from "./components/clients/client/client.component";
@@ -10,6 +10,7 @@ import { AddArticleComponent } from './components/articles/add-article/add-artic
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
+import { AddPurchaseComponent } from './components/articles/add-purchase/add-purchase.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
   {
     path: 'suppliers/edit-supplier/:id',
     component: EditSupplierComponent
+  },
+  {
+    path: 'newPurchase',
+    component: AddPurchaseComponent
   }
 ];
 

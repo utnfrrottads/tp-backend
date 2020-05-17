@@ -17,6 +17,7 @@ import { SupplierComponent } from './components/suppliers/supplier/supplier.comp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
+import { AddPurchaseComponent } from './components/articles/add-purchase/add-purchase.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit
     AddArticleComponent,
     SupplierComponent,
     AddSupplierComponent,
-    EditSupplierComponent
+    EditSupplierComponent,
+    AddPurchaseComponent
   ],
   imports: [
     BrowserModule,
