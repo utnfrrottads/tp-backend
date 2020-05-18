@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ArticleService } from "../../../services/article/article.service";
-import { SupplierService } from './../../../services/supplier/supplier.service';
-import { PurchaseService } from './../../../services/purchase/purchase.service';
+import { SupplierService } from '../../../services/supplier/supplier.service';
+import { PurchaseService } from '../../../services/purchase/purchase.service';
 
-import { Supplier } from './../../../models/supplier/Supplier';
-import { Article } from './../../../models/article/article';
+import { Supplier } from '../../../models/supplier/Supplier';
+import { Article } from '../../../models/article/article';
 import { ArticleSupplier } from '../../../models/article-supplier/article-supplier';
 
 

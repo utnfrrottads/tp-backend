@@ -1,10 +1,17 @@
 'use strict'
 
 const Supplier = require('../models/supplier-model');
+const Article = require('../models/article-model');
+const Supplier_Article = require('../models/supplier-article-model');
 const supplierController = { };
 
+Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
+
 supplierController.getAll = async (req, res) => {
-    await Supplier.findAll()
+    await Supplier.findAll({
+        include: Article
+    })
         .then( (suppliers) => {
             res.json(suppliers);
         })
