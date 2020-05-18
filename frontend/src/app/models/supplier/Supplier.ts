@@ -1,4 +1,4 @@
-import { ClientSupplier } from "../client-supplier/client-supplier";
+import { ArticleSupplier } from "../article-supplier/article-supplier";
 
 export class Supplier {
 
@@ -8,9 +8,9 @@ export class Supplier {
     ciudad: string;
     direccion: string;
     telefono: string;
-    proveedores_articulos: ClientSupplier;
+    proveedores_articulos: ArticleSupplier;
 
-    setProvArt(provArt: ClientSupplier){
+    setProvArt(provArt: ArticleSupplier){
         this.proveedores_articulos = provArt;
     }
 

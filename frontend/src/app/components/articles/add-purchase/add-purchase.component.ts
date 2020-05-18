@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientSupplier } from './../../../models/client-supplier/client-supplier';
+import { Router } from '@angular/router';
 
 import { ArticleService } from "../../../services/article/article.service";
 import { SupplierService } from './../../../services/supplier/supplier.service';
+import { PurchaseService } from './../../../services/purchase/purchase.service';
+
 import { Supplier } from './../../../models/supplier/Supplier';
 import { Article } from './../../../models/article/article';
+import { ArticleSupplier } from '../../../models/article-supplier/article-supplier';
+
+
 
 @Component({
   selector: 'app-add-purchase',
@@ -13,15 +18,18 @@ import { Article } from './../../../models/article/article';
 })
 export class AddPurchaseComponent implements OnInit {
 
-  purchase: ClientSupplier = new ClientSupplier();
+  purchase: ArticleSupplier = new ArticleSupplier();
   date: Date = new Date();
   fecha: string;
   suppliers: Supplier[] = [];
   articles: Article[] = [];
+  status: Boolean = true;
 
   constructor(
     private articleService: ArticleService,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private purchaseService: PurchaseService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +50,32 @@ export class AddPurchaseComponent implements OnInit {
           },
           err => console.log(err)
         )
+  }
+
+  addPurchase(){
+
+    this.articleService.loadStock(this.purchase)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => this.status = false
+      )
+
+    this.purchaseService.addPurchase(this.purchase)
+        .subscribe(
+          res => {
+            console.log(res);
+          },
+          err => this.status = false
+        )
+
+    if (this.status) {
+      this.router.navigate(['/clients']);
+    } else {
+      console.log("Error");
+    }
+
   }
 
 }

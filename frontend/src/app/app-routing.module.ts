@@ -53,7 +53,11 @@ const routes: Routes = [
   {
     path: 'newPurchase',
     component: AddPurchaseComponent
-  }
+  }/* ,
+  {
+    path: 'purchases',
+    component: Purchases
+  } */
 ];
 
 @NgModule({

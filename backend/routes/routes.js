@@ -5,6 +5,7 @@ const router = express.Router();
 const clientController = require('../controllers/client-controller');
 const articleController = require('../controllers/article-controller');
 const supplierController = require('../controllers/supplier-controller');
+const supplierArticleController = require('../controllers/supplier-article-controller');
 
 //Rutas de clientes
 router.get('/clients', clientController.getAll); 
@@ -25,5 +26,9 @@ router.get('/articles', articleController.getAll);
 router.get('/articles/:id', articleController.getOne);
 router.post('/addArticle', articleController.createArticle);
 router.put('/articles/:id', articleController.updateArticle);
+router.post('/loadStock', articleController.loadStock);
+
+//Rutas de clientes-proveedores (compras)
+router.post('/addPurchase', supplierArticleController.addPurchase);
 
 module.exports = router;

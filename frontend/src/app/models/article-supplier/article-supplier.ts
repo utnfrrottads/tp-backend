@@ -1,4 +1,4 @@
-export class ClientSupplier {
+export class ArticleSupplier {
     
     id_articulo: number;
     id_proveedor: number;

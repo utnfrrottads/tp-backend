@@ -75,11 +75,29 @@ articleController.updateArticle = async (req, res) => {
   })
     .then(art => console.log("Article updated"))
     .catch(err => console.log(err));
-
-  
-
-
 }
+
+
+articleController.loadStock = async (req, res) => {
+  let cant_total = 0;
+  let cantidad = parseInt(req.body.cantidad);
+  
+  await Article.findByPk(req.body.id_articulo,{
+      attributes: ['stock']
+    })
+      .then(article => {
+        cant_total = article.stock + cantidad;
+      })
+      .catch(err => console.log(err));
+
+    await Article.update({
+      stock: cant_total
+    },{
+      where: { 
+        id_articulo: req.body.id_articulo 
+      }
+    })
+  }
 
 
 
