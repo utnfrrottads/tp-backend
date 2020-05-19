@@ -19,7 +19,7 @@ El sistema tendría 4 roles con vistas independientes:
 |Ejecutivo|Acceso al ABM de Vistas de Métrica (filtros predefinidos para Métricas), Métricas y al Email list de Clientes|
 
 El sistema contaría entonces con las siguientes funcionalidades:
-|Requerimiento funcional|Detalle/Listado de CU|Cumple|
+|Requerimiento funcional|Detalle/Listado de CU|
 |:-|:-|-|
 |ABMC simple|Tarjetas, Productos, Premios|
 |ABMC dependiente|Clientes, Vistas de Métrica|
@@ -29,25 +29,6 @@ El sistema contaría entonces con las siguientes funcionalidades:
 |Detalles|Premios, Clientes|
 |Otros|Canje de premios, Registro de Compra|
 
-## Frontend
-
-|Requerimiento|Cumple|
-|:-|-|
-|Invocar API listado||
-|Invocar API detalle||
-|Mostrar detalle al hacer click <br>en elemento del listado||
-
-## Requerimientos Técnicos
-
-|Requerimiento técnico|Cumple|
-|:-|-|
-|Framework frontend||
-|Framework CSS o preprocesador CSS||
-|Framework backend||
-|Uso de API REST o GraphQL||
-|ORM/ODM||
-|Base de datos persistente||
-
 ## Integrantes
 
 |Nombre y Apellido|Legajo|
@@ -55,3 +36,20 @@ El sistema contaría entonces con las siguientes funcionalidades:
 |Katzaroff, Federico| 44744|
 |Listorti, Hernán| 44775|
 |Giannassi, Franco| 44681|
+
+## Modelo de Datos
+El modelo de dominio se encuentra en el siguiente enlace:
+https://drive.google.com/file/d/1j1KXTcTJCSWFpp7mGSsiBoKyN1PE7dQ6/view
+
+## CheckList
+
+|Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
+|:-|-:|-:|:-|-|
+|ABMC simple|1 x integ|1 x integ|Tarjetas, Productos, Premios|
+|ABMC dependiente|1|2|Clientes, Vistas de Métrica|
+|Listado simple|1|1|Email list de Clientes|
+|Listado complejo obligatorio|1|2|Lista de Premios disponibles, Lista de Premios A Retirar|
+|Listado adicional con filtro|0|0|Métricas|
+|Detalle básico|1(*)|2(*)|Premios, Clientes|
+|Detalle parametrizable|0|0|
+|Otros|0|0|Canje de premios, Registro de Compra|
