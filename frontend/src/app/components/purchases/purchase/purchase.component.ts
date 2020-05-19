@@ -38,6 +38,8 @@ export class PurchaseComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.autoFocus = true;
+    dialogConfig.width = '350rem';
+    dialogConfig.height = '40rem';
     dialogConfig.data = {
       supplier: supplier
     };

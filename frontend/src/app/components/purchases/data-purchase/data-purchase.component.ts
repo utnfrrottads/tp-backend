@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Supplier } from 'src/app/models/supplier/Supplier';
 
 @Component({
   selector: 'app-data-purchase',
@@ -9,16 +8,15 @@ import { Supplier } from 'src/app/models/supplier/Supplier';
 })
 export class DataPurchaseComponent implements OnInit {
 
-  supplier: Supplier;
+  supplier: any;
 
   constructor(
     private dialogRef: MatDialogRef<DataPurchaseComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) { 
+    @Inject(MAT_DIALOG_DATA) data) { 
       this.supplier = data
     }
 
   ngOnInit(): void {
-    console.log(this.supplier);
   }
 
   close(){

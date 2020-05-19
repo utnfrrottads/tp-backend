@@ -40,6 +40,10 @@ const routes: Routes = [
     component: AddArticleComponent
   },
   {
+    path: 'articles/addArticle/:id',
+    component: AddArticleComponent
+  },
+  {
     path: 'suppliers',
     component: SupplierComponent
   },
