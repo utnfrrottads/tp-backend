@@ -7,7 +7,8 @@ const Supplier = sequelize.define('proveedores', {
     razon_social: DataTypes.STRING,
     ciudad: DataTypes.STRING,
     direccion: DataTypes.STRING,
-    telefono: DataTypes.STRING
+    telefono: DataTypes.STRING,
+    activo: { type: DataTypes.STRING, defaultValue: 'si' }
 },{
     createdAt: false,
     updatedAt: false

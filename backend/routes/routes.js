@@ -12,7 +12,7 @@ router.get('/clients', clientController.getAll);
 router.get('/clients/:id', clientController.getOne);
 router.post('/addClient', clientController.createClient);
 router.put('/clients/:id', clientController.updateClient);
-router.delete('/deleteClient/:id', clientController.deleteClient);
+router.put('/deleteClient/:id', clientController.deleteClient);
 
 //Rutas de proveedores
 router.get('/suppliers', supplierController.getAll); 

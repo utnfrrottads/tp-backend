@@ -50,7 +50,7 @@ export class AddArticleComponent implements OnInit {
      this.articleService.editArticle(this.params, this.article)
       .subscribe(
         res => {
-          console.log(res);
+          this.router.navigate(['/articles']);
         },
         err => console.log(err)
       ) 

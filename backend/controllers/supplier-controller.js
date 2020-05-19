@@ -10,7 +10,10 @@ Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_artic
 
 supplierController.getAll = async (req, res) => {
     await Supplier.findAll({
-        include: Article
+        include: Article,
+        where: {
+            activo: 'si'
+        }
     })
         .then( (suppliers) => {
             res.json(suppliers);

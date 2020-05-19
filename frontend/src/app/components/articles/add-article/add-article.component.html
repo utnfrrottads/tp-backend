@@ -14,7 +14,7 @@
             <input id="precio_unitario_venta" type="text" class="validate" name="precio" [(ngModel)]="article.precio">
             <label [class.active]="edit" for="precio_unitario_venta">Sale price ($)</label>
         </div>
-        <div class="input-field col s3">
+        <div class="input-field col s3" *ngIf="edit">
           <input id="stock" type="text" class="validate" name="stock" [(ngModel)]="article.stock">
           <label class="active" for="stock">Stock</label>
       </div>
