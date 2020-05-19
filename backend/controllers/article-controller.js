@@ -11,7 +11,8 @@ Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_artic
 articleController.getAll = async (req, res) => {
   await Article.findAll({
     include: Supplier,
-    required: true
+    required: true,
+    where: {activo: 1}
   })
     .then(articles => {
       res.json(articles)
@@ -99,9 +100,13 @@ articleController.loadStock = async (req, res) => {
     })
   }
 
-
-
-
-
+articleController.suspendArticle = async (req, res) => {
+  await Article.update(
+      {activo: 0},
+      {where: { id_articulo: req.params.id }}
+  )
+      .then(res.json('Article suspended'))
+      .catch(err => console.log(err));
+}
 
 module.exports = articleController;

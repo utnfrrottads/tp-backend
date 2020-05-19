@@ -4,7 +4,9 @@ const Supplier = require('../models/supplier-model');
 const supplierController = { };
 
 supplierController.getAll = async (req, res) => {
-    await Supplier.findAll()
+    await Supplier.findAll({
+        where: {activo: 1}
+    })
         .then( (suppliers) => {
             res.json(suppliers);
         })
@@ -52,6 +54,15 @@ supplierController.deleteSupplier = async (req, res) => {
         }
     })
         .then(res.json('Supplier deleted'))
+        .catch(err => console.log(err));
+}
+
+supplierController.suspendSupplier = async (req, res) => {
+    await Supplier.update(
+        {activo: 0},
+        {where: { id_proveedor: req.params.id }}
+    )
+        .then(res.json('Supplier suspended'))
         .catch(err => console.log(err));
 }
 
