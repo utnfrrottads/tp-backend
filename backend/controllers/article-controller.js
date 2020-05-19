@@ -26,8 +26,7 @@ articleController.getAll = async (req, res) => {
 articleController.getOne = async (req, res) => {
   await Article.findByPk(req.params.id, {
     include: {
-      model: Supplier,               
-      required: true
+      model: Supplier
     }
   })
     .then(article => {
@@ -40,41 +39,26 @@ articleController.getOne = async (req, res) => {
 
 
 articleController.createArticle = async (req, res) => {
-    /* const supplier = await Supplier.findByPk(req.body.proveedores[0].id_proveedor);
-    let article = null;
-
-      await Article.create({
-      descripcion: req.body.descripcion,
-      precio: req.body.precio,
-      stock: req.body.proveedores[0].proveedores_articulos.cantidad
-    })
-      .then(art => article = art)
-      .catch(err => res.json(err))
-
-      await article.addProveedore(supplier, { through: {
-        precio_unitario: req.body.proveedores[0].proveedores_articulos.precio_unitario,
-        cantidad: req.body.proveedores[0].proveedores_articulos.cantidad
-        } 
-    })
-      .then(res => res.json(res))
-      .catch(err => res.json(err)); */ 
     await Article.create({
       descripcion: req.body.descripcion,
       precio: req.body.precio
     })
-    .then(res => res.json("Article created"))
+    .then(res.json("Article created"))
     .catch(err => res.json(err));
 }
 
 
 articleController.updateArticle = async (req, res) => {
-
     await Article.update({
     descripcion: req.body.descripcion,
     precio: req.body.precio,
     stock: req.body.stock
+  }, {
+    where: {
+      id_articulo: req.params.id
+    }
   })
-    .then(art => console.log("Article updated"))
+    .then(res.json("Article updated"))
     .catch(err => console.log(err));
 }
 

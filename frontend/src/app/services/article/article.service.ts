@@ -25,6 +25,10 @@ export class ArticleService {
     return this.http.get<Article>(`${this.URL}/articles/${id_articulo}`);
   }
 
+  editArticle(id: number, articleUpdated: Article){
+    return this.http.put(`${this.URL}/articles/${id}`, articleUpdated);
+  }
+
   loadStock(purchase: ArticleSupplier){
     return this.http.post(`${this.URL}/loadStock`, purchase);
   }

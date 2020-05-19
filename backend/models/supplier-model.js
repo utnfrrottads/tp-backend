@@ -9,6 +9,10 @@ const Supplier = sequelize.define('proveedores', {
     direccion: {type: DataTypes.STRING}, //allowNull:false, validate:{msg: "Fill this field"}},
     telefono: DataTypes.STRING,
     activo: {type: DataTypes.BOOLEAN, default: 1}
+
+    /* direccion: DataTypes.STRING,
+    telefono: DataTypes.STRING,
+    activo: { type: DataTypes.STRING, defaultValue: 'si' } */
 },{
     createdAt: false,
     updatedAt: false

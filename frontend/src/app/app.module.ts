@@ -17,7 +17,9 @@ import { SupplierComponent } from './components/suppliers/supplier/supplier.comp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
-import { AddPurchaseComponent } from './components/articles/add-purchase/add-purchase.component';
+import { AddPurchaseComponent } from './components/purchases/add-purchase/add-purchase.component';
+import { PurchaseComponent } from './components/purchases/purchase/purchase.component';
+import { DataPurchaseComponent } from './components/purchases/data-purchase/data-purchase.component';
 
 
 @NgModule({
@@ -32,10 +34,12 @@ import { AddPurchaseComponent } from './components/articles/add-purchase/add-pur
     SupplierComponent,
     AddSupplierComponent,
     EditSupplierComponent,
-    AddPurchaseComponent
+    AddPurchaseComponent,
+    PurchaseComponent,
+    DataPurchaseComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -43,6 +47,7 @@ import { AddPurchaseComponent } from './components/articles/add-purchase/add-pur
     MaterialModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DataPurchaseComponent]
 })
 export class AppModule { }

@@ -1,0 +1,35 @@
+<mat-dialog-content>
+    <div class="container">
+        <h4 class="center-align titulo" style="margin-top: 10px; line-height: 3rem;">PURCHASES FROM THE "{{ supplier.supplier.razon_social }}" SUPPLIER</h4>
+          <table class="striped responsive-table">   
+                <thead>
+                  <tr>
+                      <th>Article ID</th>
+                      <th>Description</th>
+                      <th>Purchase price</th>
+                      <th>Purchased amount</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+            
+                <tbody>
+                  <tr *ngFor="let article of supplier.supplier.articulos">
+                    <td>{{ article.id_articulo }}</td>
+                    <td>{{ article.descripcion }}</td>
+                    <td>{{ article.proveedores_articulos.precio_unitario | currency: '$' }}</td>
+                    <td>{{ article.proveedores_articulos.cantidad }}</td>
+                    <td>{{ article.proveedores_articulos.fecha_compra | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                      <a style="cursor: pointer"><i class="material-icons">delete</i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Cerrar</button>
+</mat-dialog-actions>
+

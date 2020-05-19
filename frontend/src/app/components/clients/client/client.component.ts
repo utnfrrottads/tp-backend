@@ -30,7 +30,9 @@ export class ClientComponent implements OnInit {
     if(confirm("Seguro que desea eliminar?")){
       this.clientService.deleteClient(id)
         .subscribe(
-          res => this.getAll(),
+          res => {
+            this.getAll();
+          },
           err => console.log(err)
         );
     }else {

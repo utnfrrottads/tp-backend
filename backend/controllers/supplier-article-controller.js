@@ -1,6 +1,7 @@
 'use strict'
 
 const SupplierArticle = require('../models/supplier-article-model');
+const Article = require('../models/article-model');
 const supplierArticleController = { };
 
 supplierArticleController.addPurchase = async (req, res) => {

@@ -4,7 +4,11 @@ const Client = require('../models/client-model');
 const clientController = { };
 
 clientController.getAll = async (req, res) => {
-    await Client.findAll()
+    await Client.findAll({
+        where: {
+            activo: 1
+        }
+    })
         .then( (clients) => {
             res.json(clients);
         })
@@ -14,7 +18,13 @@ clientController.getAll = async (req, res) => {
 }
 
 clientController.getOne = async (req, res) => {
-    await Client.findByPk(req.params.id)
+    await Client.findAll({
+        where: {
+            id_cliente: req.params.id,
+            activo: 1
+        }
+    }
+        )
         .then( (client) => {
             res.json(client);
         })
@@ -52,7 +62,9 @@ clientController.updateClient = async (req, res) => {
 }
 
 clientController.deleteClient = async (req, res) => {
-    await Client.destroy({
+    await Client.update({
+        activo: 0
+    },{
         where: {
             id_cliente: req.params.id
         }

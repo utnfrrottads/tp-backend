@@ -10,7 +10,8 @@ import { AddArticleComponent } from './components/articles/add-article/add-artic
 import { SupplierComponent } from './components/suppliers/supplier/supplier.component';
 import { AddSupplierComponent } from './components/suppliers/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './components/suppliers/edit-supplier/edit-supplier.component';
-import { AddPurchaseComponent } from './components/articles/add-purchase/add-purchase.component';
+import { AddPurchaseComponent } from './components/purchases/add-purchase/add-purchase.component';
+import { PurchaseComponent } from './components/purchases/purchase/purchase.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
     component: AddArticleComponent
   },
   {
+    path: 'articles/addArticle/:id',
+    component: AddArticleComponent
+  },
+  {
     path: 'suppliers',
     component: SupplierComponent
   },
@@ -51,13 +56,13 @@ const routes: Routes = [
     component: EditSupplierComponent
   },
   {
-    path: 'newPurchase',
+    path: 'purchases/newPurchase',
     component: AddPurchaseComponent
-  }/* ,
+  },
   {
     path: 'purchases',
-    component: Purchases
-  } */
+    component: PurchaseComponent
+  }
 ];
 
 @NgModule({

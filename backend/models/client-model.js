@@ -7,7 +7,8 @@ const Client = sequelize.define('clientes', {
     nombre: Sequelize.STRING,
     apellido: Sequelize.STRING,
     direccion: Sequelize.STRING,
-    telefono: Sequelize.STRING
+    telefono: Sequelize.STRING,
+    activo: {type: Sequelize.BOOLEAN, default: 1}
 },{
     createdAt: false,
     updatedAt: false

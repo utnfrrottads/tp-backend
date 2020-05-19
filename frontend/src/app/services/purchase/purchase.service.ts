@@ -14,4 +14,8 @@ export class PurchaseService {
   addPurchase(purchase: ArticleSupplier){
     return this.http.post(`${this.URL}/addPurchase`, purchase);
   }
+
+  getPurchases(){
+    return this.http.get<ArticleSupplier[]>(`${this.URL}/purchases`);
+  }
 }
