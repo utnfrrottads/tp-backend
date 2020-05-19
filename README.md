@@ -12,7 +12,7 @@ Se utilizará NodeJS en TypeScript como lenguaje de backend. Para persistencia s
 
 El sistema tendría 4 roles con vistas independientes:
 |Rol|Vista|
-|:-|-:|
+|:-|:-|
 |Cliente|Consulta de puntos y del listado de premios, canjeo de premios y vista de sus premios sin retirar|
 |Cajero|Registro de compras para clientes|
 |Administrador|Acceso a los ABM de productos, premios, clientes, y tarjetas|
@@ -20,7 +20,7 @@ El sistema tendría 4 roles con vistas independientes:
 
 El sistema contaría entonces con las siguientes funcionalidades:
 |Requerimiento funcional|Detalle|
-|:-|-:|
+|:-|:-|
 |ABMC simple|Tarjetas, Productos, Premios|
 |ABMC dependiente|Clientes, Vistas de Métrica|
 |Listado simple|Email list de Clientes|
