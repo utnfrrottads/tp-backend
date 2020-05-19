@@ -51,5 +51,7 @@ https://drive.google.com/file/d/1j1KXTcTJCSWFpp7mGSsiBoKyN1PE7dQ6/view
 |Listado complejo obligatorio|1|2|Lista de Premios disponibles, Lista de Premios A Retirar|
 |Listado adicional con filtro|0|0|Métricas|
 |Detalle básico|1(*)|2(*)|Premios, Clientes|
-|Detalle parametrizable|0|0|
+|Detalle parametrizable|0|0|-|
 |Otros|0|0|Canje de premios, Registro de Compra|
+
+(\*) Los detalles básicos pueden ser reemplazado por un detalle parametrizados en los
