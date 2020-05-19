@@ -11,20 +11,23 @@ El cliente puede consultar sus puntos mediante y canjearlos por premios mediante
 Se utilizará NodeJS en TypeScript como lenguaje de backend. Para persistencia se utilizará MongoDB, mediante TypeORM. El ABM de usuarios del sistema, la asignación de roles y la autenticación se realizará mediante Auth0.
 
 El sistema tendría 4 roles con vistas independientes:
-- Un cliente puede ver sus puntos, ver el listado de premios, canjear premios y ver sus premios sin retirar.
-- Un cajero sólo puede registrar compras para clientes.
-- Un administrador puede acceder a los ABM de productos, premios, clientes, y tarjetas.
-- Un ejecutivo puede acceder al ABM de Vistas de Métrica (filtros predefinidos para Métricas), Métricas y al Email list de Clientes.
+|Rol|Vista|
+|:-|-:|
+|Cliente|Consulta de puntos y del listado de premios, canjeo de premios y vista de sus premios sin retirar|
+|Cajero|Registro de compras para clientes|
+|Administrador|Acceso a los ABM de productos, premios, clientes, y tarjetas|
+|Ejecutivo|Acceso al ABM de Vistas de Métrica (filtros predefinidos para Métricas), Métricas y al Email list de Clientes|
 
 El sistema contaría entonces con las siguientes funcionalidades:
-- ABMC Independientes: Tarjetas, Productos, Premios
-- ABMC Dependientes: Clientes, Vistas de Métrica
-- Listado Simple: Email list de Clientes
-- Listado Complejo: Lista de Premios disponibles, Lista de Premios A Retirar
-- Lista Filtrada: Métricas
-- Detalles: Premios, Clientes
-- Otros: Canje de premios, Registro de Compra
-
+|Requerimiento funcional|Detalle|
+|:-|-:|
+|ABMC simple|Tarjetas, Productos, Premios|
+|ABMC dependiente|Clientes, Vistas de Métrica|
+|Listado simple|Email list de Clientes|
+|Listado complejo|Lista de Premios disponibles, Lista de Premios A Retirar|
+|Listado Filtrada|Métricas|
+|Detalles|Premios, Clientes|
+|Otros|Canje de premios, Registro de Compra|
 
 ## Integrantes
 
