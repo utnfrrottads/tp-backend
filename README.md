@@ -19,15 +19,34 @@ El sistema tendría 4 roles con vistas independientes:
 |Ejecutivo|Acceso al ABM de Vistas de Métrica (filtros predefinidos para Métricas), Métricas y al Email list de Clientes|
 
 El sistema contaría entonces con las siguientes funcionalidades:
-|Requerimiento funcional|Detalle|
-|:-|:-|
+|Requerimiento funcional|Detalle/Listado de CU|Cumple|
+|:-|:-|-|
 |ABMC simple|Tarjetas, Productos, Premios|
 |ABMC dependiente|Clientes, Vistas de Métrica|
 |Listado simple|Email list de Clientes|
 |Listado complejo|Lista de Premios disponibles, Lista de Premios A Retirar|
-|Listado Filtrada|Métricas|
+|Listado Filtrado|Métricas|
 |Detalles|Premios, Clientes|
 |Otros|Canje de premios, Registro de Compra|
+
+## Frontend
+
+|Requerimiento|Cumple|
+|:-|-|
+|Invocar API listado||
+|Invocar API detalle||
+|Mostrar detalle al hacer click <br>en elemento del listado||
+
+## Requerimientos Técnicos
+
+|Requerimiento técnico|Cumple|
+|:-|-|
+|Framework frontend||
+|Framework CSS o preprocesador CSS||
+|Framework backend||
+|Uso de API REST o GraphQL||
+|ORM/ODM||
+|Base de datos persistente||
 
 ## Integrantes
 
