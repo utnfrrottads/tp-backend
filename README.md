@@ -4,7 +4,7 @@
 
 Se propone desarrollar un Sistema de Puntos para comercios. Mediante él sus clientes recibirían puntos que pueden utilizar para intercambiar por premios como productos, descuentos, etc. A cambio el comercio recibe métricas de las compras de estos clientes.
 Los clientes serían incentivados a registrarse y recibirían una tarjeta NFC. A la hora de abonar sus compras, el cliente presentará la tarjeta con la que el cajero lo identificará. Éste registra la compra y se le asignan puntos proporcionales al monto neto abonado.
-El cliente puede consultar sus puntos y canjearlos por premios mediante una aplicación web. Luego puede acercarse al comercio para recibirlo.
+El cliente puede consultar sus puntos y canjearlos por premios mediante una aplicación web. Luego puede acercarse al comercio para retirarlo.
 
 ## Propuesta de Implementación
 
