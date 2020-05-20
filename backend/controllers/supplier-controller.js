@@ -9,16 +9,29 @@ Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_prove
 Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
 
 supplierController.getAll = async (req, res) => {
+    /* await Supplier.findAll({
+        where: {
+            activo: 1
+        },
+        include: [{
+            model: Article, 
+                where: {
+                    activo: 1
+                }
+        }],
+        required: true
+    }) */
     await Supplier.findAll({
         where: {
             activo: 1
         },
-        include: Article
+        include: Article, 
+        required: true
     })
-        .then( (suppliers) => {
+        .then((suppliers) => {
             res.json(suppliers);
         })
-        .catch(err => { console.log(err); })
+        .catch(err => console.log(err))
 }
 
 supplierController.getOne = async (req, res) => {

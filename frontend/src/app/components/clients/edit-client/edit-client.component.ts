@@ -12,6 +12,7 @@ import { ClientService } from "../../../services/client/client.service";
 export class EditClientComponent implements OnInit {
 
   selectedClient: Client;
+  params: number;
 
   constructor(
     private clientService: ClientService,
@@ -22,8 +23,12 @@ export class EditClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const params = this.activatedRoute.snapshot.params;
-    this.clientService.getById(params.id)
+    this.params = this.activatedRoute.snapshot.params.id;
+    this.getClient();
+  }
+
+  getClient(){
+    this.clientService.getById(this.params)
       .subscribe(
         res => {
           this.selectedClient = res;

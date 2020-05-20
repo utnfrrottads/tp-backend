@@ -29,6 +29,10 @@ export class ArticleService {
     return this.http.put(`${this.URL}/articles/${id}`, articleUpdated);
   }
 
+  deleteArticle(id: number){
+    return this.http.put(`${this.URL}/suspendArticle/${id}`, 'Suspend');
+  }
+
   loadStock(purchase: ArticleSupplier){
     return this.http.post(`${this.URL}/loadStock`, purchase);
   }

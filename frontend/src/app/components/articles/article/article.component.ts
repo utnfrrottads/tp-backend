@@ -31,4 +31,17 @@ export class ArticleComponent implements OnInit {
       );
   }
 
+  deleteArticle(id: number){
+    if (confirm('Seguro que desea eliminar el articulo?')){
+      this.articleService.deleteArticle(id)
+      .subscribe(
+        res => {
+          this.getAll();
+        },
+        err => console.log(err)
+      )
+    }
+    
+  }
+
 }

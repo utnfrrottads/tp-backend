@@ -18,7 +18,7 @@ clientController.getAll = async (req, res) => {
 }
 
 clientController.getOne = async (req, res) => {
-    await Client.findAll({
+    await Client.findOne({
         where: {
             id_cliente: req.params.id,
             activo: 1

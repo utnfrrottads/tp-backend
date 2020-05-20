@@ -12,7 +12,9 @@ articleController.getAll = async (req, res) => {
   await Article.findAll({
     include: Supplier,
     required: true,
-    where: {activo: 1}
+    where: {
+      activo: 1
+    }
   })
     .then(articles => {
       res.json(articles)
@@ -24,9 +26,11 @@ articleController.getAll = async (req, res) => {
 
 
 articleController.getOne = async (req, res) => {
-  await Article.findByPk(req.params.id, {
-    include: {
-      model: Supplier
+  await Article.findOne({
+    include: Supplier,
+    where: {
+      id_articulo: req.params.id,
+      activo: 1
     }
   })
     .then(article => {
@@ -85,9 +89,13 @@ articleController.loadStock = async (req, res) => {
   }
 
 articleController.suspendArticle = async (req, res) => {
-  await Article.update(
-      {activo: 0},
-      {where: { id_articulo: req.params.id }}
+  await Article.update({
+    activo: 0
+    }, {
+      where: {
+         id_articulo: req.params.id 
+        }
+      }
   )
       .then(res.json('Article suspended'))
       .catch(err => console.log(err));

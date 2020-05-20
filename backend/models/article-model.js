@@ -8,7 +8,7 @@ const Article = sequelize.define('articulos', {
     descripcion: DataTypes.STRING,
     precio: DataTypes.DECIMAL(10, 2),
     stock: { type: DataTypes.INTEGER, defaultValue: 0 },
-    activo: {type: DataTypes.BOOLEAN, default: 1}
+    activo: {type: DataTypes.BOOLEAN, defaultValue: 1}
     
     /* activo: { type: DataTypes.STRING, defaultValue: 'si' } */
 },{

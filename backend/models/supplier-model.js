@@ -8,7 +8,7 @@ const Supplier = sequelize.define('proveedores', {
     ciudad: DataTypes.STRING,
     direccion: {type: DataTypes.STRING}, //allowNull:false, validate:{msg: "Fill this field"}},
     telefono: DataTypes.STRING,
-    activo: {type: DataTypes.BOOLEAN, default: 1}
+    activo: {type: DataTypes.BOOLEAN, defaultValue: 1}
 
     /* direccion: DataTypes.STRING,
     telefono: DataTypes.STRING,

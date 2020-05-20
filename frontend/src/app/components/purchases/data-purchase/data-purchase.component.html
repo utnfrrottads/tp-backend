@@ -1,7 +1,7 @@
-<mat-dialog-content>
     <div class="container">
-        <h4 class="center-align titulo" style="margin-top: 10px; line-height: 3rem;">PURCHASES FROM THE "{{ supplier.supplier.razon_social }}" SUPPLIER</h4>
-          <table class="striped responsive-table">   
+        <h4 class="center-align titulo" style="margin-top: 10px; line-height: 3rem;">PURCHASES TO "{{ supplier.supplier.razon_social }}" SUPPLIER</h4>
+        <div mat-dialog-content>  
+        <table class="striped responsive-table">   
                 <thead>
                   <tr>
                       <th>Article ID</th>
@@ -27,9 +27,9 @@
                 </tbody>
               </table>
         </div>
-</mat-dialog-content>
+</div>
 
-<mat-dialog-actions>
-    <button class="mat-raised-button" (click)="close()">Cerrar</button>
-</mat-dialog-actions>
+<div mat-dialog-actions>
+  <a class="waves-effect waves-light btn-small" (click)="close()">Close</a>
+</div>
 

@@ -23,7 +23,8 @@ const Supplier_Article = sequelize.define('proveedores_articulos', {
                 },
     fecha_compra: { type: DataTypes.DATE, primaryKey: true, defaultValue: Sequelize.NOW },
     precio_unitario: DataTypes.DECIMAL(10, 2),
-    cantidad: DataTypes.INTEGER
+    cantidad: DataTypes.INTEGER,
+    activo: {type: DataTypes.BOOLEAN, defaultValue: 1}
 },{
     createdAt: false,
     updatedAt: false

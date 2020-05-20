@@ -71,7 +71,7 @@ export class AddPurchaseComponent implements OnInit {
         )
 
     if (this.status) {
-      this.router.navigate(['/clients']);
+      this.router.navigate(['/purchases']);
     } else {
       console.log("Error");
     }
