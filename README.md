@@ -157,7 +157,7 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
 
         ABMC compleja. 
         1-Paciente (relacionado con entidades: Persona, Contacto, Obra Social, Enfermedades preexistentes)
-        2-Emergencia (relacionado con entidades: Efector, Paciente, Enfermero, NivelDeAtencion, Cama, Ambulancia)
+        2-Emergencia (relacionado con entidades: Efector, Paciente, Enfermero, AccidenteEnfermedad, Cama, Ambulancia)
         
         ABMC por API
         1-Efectores
@@ -170,11 +170,11 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
 
         Listado complejo:
         1-Efectores cercanos al lugar de la emergencia
-          .Atributos a mostrar: Efector, NivelDeAtencion, cantidad de camas disponibles y distancia
-          .Filtros: NivelDeAtencion, ubicaciónActual y Obra social.
+          .Atributos a mostrar: Efector, NivelAtencion, cantidad de camas disponibles y distancia
+          .Filtros: NivelAtencion, ubicaciónActual y ObraSocial.
           
         2-Camas ocupadas: 
-          .Atributos a mostrar: Cama, NivelDeAtencion, Efector, obra social, dias Ocupada
+          .Atributos a mostrar: Cama, NivelAtencion, Efector, obra social, dias Ocupada
           .Filtros: Obra social 
           
     Detalle del listado "Efectores cercanos al lugar de la emergencia":
