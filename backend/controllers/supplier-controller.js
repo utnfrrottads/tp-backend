@@ -9,18 +9,6 @@ Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_prove
 Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
 
 supplierController.getAll = async (req, res) => {
-    /* await Supplier.findAll({
-        where: {
-            activo: 1
-        },
-        include: [{
-            model: Article, 
-                where: {
-                    activo: 1
-                }
-        }],
-        required: true
-    }) */
     await Supplier.findAll({
         where: {
             activo: 1
