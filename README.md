@@ -133,33 +133,52 @@ Desarrollaremos una solución para el personal de salud, especificamente a los e
 Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresa datos mínimos del paciente para poder decidir a que efector ir. 
 Y por otro lado, el otro principal usuario es cada institución donde deberá acceder al sistema y así mantener la información de las camas actualizada , como ser la cantidad de cama que posee y el estado de las mismas, entre otros.
 
-
+Notas:
+Tipo auxilio:
+ -Rojo: atencion inmediata
+ -Urgencia 
+ -Consulta
+ 
+Ejemplos de Niveles de atención:
+ 1-Centro de salud, la persona puede asistir por su cuenta
+ 2-Hospital Carrasco
+ 3-EVa perón, HECA
+ 
+ 
 Podemos citar las siguientes características a desarrollar para el TP en cuestión:
 
     ABMC:
 
         ABMC de entidad simple 
-        1-Estado de cama
-        2-Complejidad del paciente
+        1-Cama
+        2-TipoAuxilio
         3-Ambulancia
-        4-Obra Social
+        4-ObraSocial
 
         ABMC compleja. 
-        1-Paciente
-        2-Efector  
+        1-Paciente (relacionado con entidades: Persona, Contacto, Obra Social, Enfermedades preexistentes)
+        2-Emergencia (relacionado con entidades: Efector, Paciente, Enfermero, NivelDeAtencion, Cama, Ambulancia)
+        
+        ABMC por API
+        1-Efectores
  
 
     Listados por API:
 
         Listado simple: 
-        1-Efectores
+        1-Ambulancias 
 
         Listado complejo:
-        1-Efectores cercanos
-        2-Camas disponibles 
-
-    Detalle:
-        1-Tipo de cama disponible
+        1-Efectores cercanos al lugar de la emergencia
+          .Atributos a mostrar: Efector, NivelDeAtencion, cantidad de camas disponibles y distancia
+          .Filtros: NivelDeAtencion y ubicaciónActual.
+          
+        2-Camas ocupadas: 
+          .Atributos a mostrar: Cama, NivelDeAtencion, Efector, obra social, dias Ocupada
+          .Filtros: Obra social 
+          
+    Detalle del listado "Efectores cercanos al lugar de la emergencia":
+        1-Se podrá ver la información del Paciente, con el detalle de su Nombre y de la persona de contacto.
        
        
        
