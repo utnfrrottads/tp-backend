@@ -28,7 +28,7 @@ export class SupplierService {
   }
 
   deleteSupplier(id: number){
-    return this.http.delete(`${this.URL}/deleteSupplier/${id}`);
+    return this.http.put(`${this.URL}/suspendSupplier/${id}`,'Delete');
   }
 
 }

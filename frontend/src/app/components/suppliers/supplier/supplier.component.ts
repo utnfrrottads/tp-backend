@@ -27,10 +27,12 @@ export class SupplierComponent implements OnInit {
   }
 
   deleteSupplier(id: number){
-    if(confirm("Seguro que desea eliminar?")){
+    if(confirm("Seguro que desea eliminar el proveedor?")){
       this.supplierService.deleteSupplier(id)
         .subscribe(
-          res => this.getAll(),
+          res => {
+             this.getAll(); 
+          },
           err => console.log(err)
         );
     }else {
