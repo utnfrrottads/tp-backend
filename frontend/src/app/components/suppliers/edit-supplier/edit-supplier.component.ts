@@ -41,4 +41,11 @@ export class EditSupplierComponent implements OnInit {
         err => console.log(err)
       );
   }
+
+  cancel(){
+    if(confirm('Desea cancelar?')){
+      this.router.navigate(['/suppliers']);
+    }
+  }
+  
 }

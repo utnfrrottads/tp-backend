@@ -5,7 +5,7 @@ const Article = require('../models/article-model');
 const supplierArticleController = { };
 
 supplierArticleController.addPurchase = async (req, res) => {
-    await SupplierArticle.create({
+    await Supplier_Article.create({
         id_proveedor: req.body.id_proveedor,
         id_articulo: req.body.id_articulo,
         precio_unitario: req.body.precio_unitario,
@@ -18,8 +18,10 @@ supplierArticleController.addPurchase = async (req, res) => {
 supplierArticleController.deletePurchase = async (req, res) => {
     let purchased_amount = 0;
     let stock_actual = 0;
+    let current_value = 0;
 
     let purchase = await Supplier_Article.findOne({
+        attributes: ['cantidad'], 
         where: {
             id_articulo: req.params.id_articulo,
             id_proveedor: req.params.id_proveedor,
@@ -30,7 +32,8 @@ supplierArticleController.deletePurchase = async (req, res) => {
     purchased_amount = parseInt(purchase.cantidad);
     
 
-    let article = await Article.findOne({
+     let article = await Article.findOne({
+         attributes: ['stock'],
         where: {
             id_articulo: req.params.id_articulo
         }
@@ -38,24 +41,27 @@ supplierArticleController.deletePurchase = async (req, res) => {
         .catch(err => console.log(err));
     stock_actual = parseInt(article.stock);
 
-    let current_value = stock_actual - purchased_amount
+    current_value = stock_actual - purchased_amount
+    
 
-     await Article.update({
+      await Article.update({
         stock: current_value,
+        }, {
+            where: {
+                id_articulo: req.params.id_articulo
+            }
+        })  
+    
+    Supplier_Article.destroy({
         where: {
-            id_articulo: req.params.id_articulo
-        }
-    }) 
-    
-    
-    
-     /* let artic = await Article.findOne({
-        where: {
-            id_articulo: req.params.id_articulo
+            id_articulo: req.params.id_articulo,
+            id_proveedor: req.params.id_proveedor,
+            fecha_compra: req.params.fecha_compra
         }
     })
-
-    console.log(artic.stock);  */
+        .then(res.json("Purchase deleted"))
+        .catch(res.json("An error has ocurred to delete"))
+    
 }
 
 module.exports = supplierArticleController;

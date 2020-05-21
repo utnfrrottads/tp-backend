@@ -20,7 +20,10 @@ export class ArticleDataComponent implements OnInit {
   id_articulo: number;
 
 
-  constructor(private activatedRoute: ActivatedRoute, private articleService: ArticleService ) {
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private articleService: ArticleService 
+    ) {
     this.article = new Article();
     this.supplier = new Supplier();
     this.clientSupplier = new ArticleSupplier();
@@ -31,13 +34,17 @@ export class ArticleDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_articulo = this.activatedRoute.snapshot.params.id;
+    this.getArticle();
+  }
+
+  getArticle(){
     this.articleService.getArticle(this.id_articulo)
       .subscribe(
         res => {
           this.article = res;
         },
         err => console.log(err)
-      );
+      )
   }
 
 }

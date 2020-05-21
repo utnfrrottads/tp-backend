@@ -48,4 +48,10 @@ export class EditClientComponent implements OnInit {
       );
   }
 
+  cancel(){
+    if(confirm('Desea cancelar?')){
+      this.router.navigate(['/clients']);
+    }
+  }
+
 }

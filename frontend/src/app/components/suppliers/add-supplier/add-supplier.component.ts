@@ -34,4 +34,11 @@ export class AddSupplierComponent implements OnInit {
       }
     ) 
   }
+
+  cancel(){
+    if(confirm('Desea cancelar?')){
+      this.router.navigate(['/suppliers']);
+    }
+  }
+
 }

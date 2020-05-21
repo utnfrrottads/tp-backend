@@ -67,5 +67,11 @@ export class AddArticleComponent implements OnInit {
       )
   }
 
+  cancel(){
+    if(confirm('Desea cancelar?')){
+      this.router.navigate(['/articles']);
+    }
+  }
+
 
 }

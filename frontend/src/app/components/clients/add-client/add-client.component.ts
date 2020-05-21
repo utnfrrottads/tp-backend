@@ -36,4 +36,10 @@ export class AddClientComponent implements OnInit {
       );
   }
 
+  cancel(){
+    if(confirm('Desea cancelar?')){
+      this.router.navigate(['/clients']);
+    }
+  }
+
 }

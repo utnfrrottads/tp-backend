@@ -34,7 +34,11 @@ export class AddPurchaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.fecha = this.date.getDate() + '/' + this.date.getMonth() + '/' + this.date.getFullYear();
-    
+    this.getArticles();
+    this.getSuppliers();
+  }
+
+  getArticles(){
     this.articleService.getArticles()
       .subscribe(
         res => {
@@ -42,8 +46,10 @@ export class AddPurchaseComponent implements OnInit {
         },
         err => console.log(err)
       )
-
-      this.supplierService.getSuppliers()
+  }
+    
+  getSuppliers(){
+    this.supplierService.getSuppliers()
         .subscribe(
           res => {
             this.suppliers = res;
@@ -52,12 +58,12 @@ export class AddPurchaseComponent implements OnInit {
         )
   }
 
+  
   addPurchase(){
-
     this.articleService.loadStock(this.purchase)
       .subscribe(
         res => {
-          console.log(res);
+          this.router.navigate(['/purchases']);
         },
         err => this.status = false
       )
@@ -75,7 +81,7 @@ export class AddPurchaseComponent implements OnInit {
     } else {
       console.log("Error");
     }
-
   }
+
 
 }
