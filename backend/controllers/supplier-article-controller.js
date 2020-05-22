@@ -2,6 +2,7 @@
 
 const Supplier_Article = require('../models/supplier-article-model');
 const Article = require('../models/article-model');
+const Supplier = require('../models/supplier-model');
 const supplierArticleController = { };
 
 supplierArticleController.addPurchase = async (req, res) => {
@@ -62,6 +63,20 @@ supplierArticleController.deletePurchase = async (req, res) => {
         .then(res.json("Purchase deleted"))
         .catch(res.json("An error has ocurred to delete"))
     
+}
+
+supplierArticleController.getSupplierPurchases = async (req, res) => {
+    let supplier = await Supplier.findOne({
+        where: {id_proveedor: req.params.id}
+    })
+    .catch ((err) => {
+        console.log(err);
+    })
+
+    let articulos = await supplier.getArticulos()
+    .then ((articles => res.json(articles)))
+    .catch(err => res.json(err));
+
 }
 
 module.exports = supplierArticleController;

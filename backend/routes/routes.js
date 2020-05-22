@@ -33,5 +33,6 @@ router.put('/suspendArticle/:id', articleController.suspendArticle);
 //Rutas de clientes-proveedores (compras)
 router.post('/addPurchase', supplierArticleController.addPurchase);
 router.delete('/deletePurchase/:id_articulo/:id_proveedor/:fecha_compra', supplierArticleController.deletePurchase);
+router.get('/purchases/:id', supplierArticleController.getSupplierPurchases);
 
 module.exports = router;
