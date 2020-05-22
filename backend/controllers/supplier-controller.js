@@ -2,78 +2,93 @@
 
 const Supplier = require('../models/supplier-model');
 const Article = require('../models/article-model');
-const Supplier_Article = require('../models/supplier-article-model');
 const supplierController = { };
-
-Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
-Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});  
 
 
  supplierController.getAll = async (req, res) => {
-    await Supplier.findAll({
-        where: {
-            activo: 1
-        },
-        include: Article, 
-        required: true
-    })
-        .then((suppliers) => {
-            res.json(suppliers);
-        })
-        .catch(err => console.log(err))
+    try {
+        const suppliers = await Supplier.findAll({
+            where: {
+                activo: 1
+            },
+            include: Article, 
+            required: true
+        });
+        res.json(suppliers);
+    } catch (err) {
+        res.json(err);
+    }
 }
 
 supplierController.getOne = async (req, res) => {
-    await Supplier.findByPk(req.params.id)
-        .then((suppliers) => { res.json(suppliers); })
-        .catch (err => { console.log(err); })
+    try {
+        const supplier = await Supplier.findByPk(req.params.id);
+        res.json(supplier);
+    } catch (err){
+        res.json(err);
+    }
 }
 
 supplierController.createSupplier = async (req, res) => {
-    await Supplier.create({
+    try {
+        await Supplier.create({
             cuit: req.body.cuit,
             razon_social: req.body.razon_social,
             ciudad: req.body.ciudad,
             direccion: req.body.direccion,
             telefono: req.body.telefono
-        })
-        .then(res.json("Supplier created"))
-        .catch(err => console.log(err)); 
+        });
+        res.json("Article updated");
+    } catch (err) {
+        res.json(err);
+    } 
 }
 
 supplierController.updateSupplier = async (req, res) => {
-    await Supplier.update({
-        cuit: req.body.cuit,
-        razon_social: req.body.razon_social,
-        ciudad: req.body.ciudad,
-        direccion: req.body.direccion,
-        telefono: req.body.telefono
-    }, {
-        where: {
-            id_proveedor: req.params.id
-        }
-    })
-        .then(res.json('Supplier updated'))
-        .catch(err => console.log(err));
+    try {
+        await Supplier.update({
+            cuit: req.body.cuit,
+            razon_social: req.body.razon_social,
+            ciudad: req.body.ciudad,
+            direccion: req.body.direccion,
+            telefono: req.body.telefono
+        }, {
+            where: {
+                id_proveedor: req.params.id
+            }
+        });
+        res.json("Supplier created");
+    } catch (err) {
+        res.json(err);
+    }
 }
 
 supplierController.deleteSupplier = async (req, res) => {
-    await Supplier.destroy({
-        where: {
-            id_proveedor: req.params.id
-        }
-    })
-        .then(res.json('Supplier deleted'))
-        .catch(err => console.log(err));
+    try {
+        await Supplier.destroy({
+            where: {
+                id_proveedor: req.params.id
+            }
+        });
+        res.json("Supplier deleted");
+    } catch (err){
+        res.json(err);
+    }
 }
 
 supplierController.suspendSupplier = async (req, res) => {
-    await Supplier.update(
-        {activo: 0},
-        {where: { id_proveedor: req.params.id }}
-    )
-        .then(res.json('Supplier suspended'))
-        .catch(err => console.log(err));
+    try {
+        await Supplier.update({
+            activo: 0
+        }, {
+            where: { 
+                id_proveedor: req.params.id 
+            }
+        });
+        res.json("Supplier suspended");
+    } catch (err) {
+        res.json(err);
+    }
 }
 
 module.exports = supplierController;

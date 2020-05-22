@@ -29,4 +29,7 @@ const Supplier_Article = sequelize.define('proveedores_articulos', {
     updatedAt: false
 });
 
+Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
+
 module.exports = Supplier_Article;
