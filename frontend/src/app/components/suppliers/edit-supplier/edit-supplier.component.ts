@@ -22,6 +22,10 @@ export class EditSupplierComponent implements OnInit {
 
   ngOnInit(): void {
     const params = this.activatedRoute.snapshot.params;
+    this.getById(params);
+  }
+
+  getById(params){
     this.supplierService.getById(params.id)
       .subscribe(
         res => {
@@ -30,6 +34,7 @@ export class EditSupplierComponent implements OnInit {
         err => console.log(err)
       );
   }
+  
 
   editSupplier(){
     delete this.selectedSupplier.id_proveedor;

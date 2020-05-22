@@ -4,73 +4,84 @@ const Client = require('../models/client-model');
 const clientController = { };
 
 clientController.getAll = async (req, res) => {
-    await Client.findAll({
-        where: {
-            activo: 1
-        }
-    })
-        .then( (clients) => {
-            res.json(clients);
-        })
-        .catch ((err) => {
-            console.log(err);
-        })
+    try{
+        const clients = await Client.findAll({
+            where: {
+                activo: 1
+            }
+        });
+        res.json(clients);
+    } catch (err){
+      res.json(err);
+    }
+    
 }
 
 clientController.getOne = async (req, res) => {
-    await Client.findOne({
-        where: {
-            id_cliente: req.params.id,
-            activo: 1
-        }
+    try{
+        const client = await Client.findOne({
+            where: {
+                id_cliente: req.params.id,
+                activo: 1
+            }
+        });
+        res.json(client);
+    } catch (err) {
+        res.json(err);
     }
-        )
-        .then( (client) => {
-            res.json(client);
-        })
-        .catch ((err) => {
-            console.log(err);
-        })
 }
 
 clientController.createClient = async (req, res) => {
-    await Client.create({
+    try {
+        await Client.create({
             dni: req.body.dni,
             nombre: req.body.nombre,
             apellido: req.body.apellido,
             direccion: req.body.direccion,
             telefono: req.body.telefono
-        })
-        .then(res.json("Client created"))
-        .catch(err=>console.log(err)); 
+        }); 
+        res.json("Client created");
+    } catch (err){
+        res.json(err);
+    }
+    
+       
 }
 
 clientController.updateClient = async (req, res) => {
-    await Client.update({
-        dni: req.body.dni,
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        direccion: req.body.direccion,
-        telefono: req.body.telefono
-    }, {
-        where: {
-            id_cliente: req.params.id
-        }
-    })
-        .then(res.json('Client updated'))
-        .catch(err => console.log(err));
+    try {
+        await Client.update({
+            dni: req.body.dni,
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            direccion: req.body.direccion,
+            telefono: req.body.telefono
+        }, {
+            where: {
+                id_cliente: req.params.id
+            }
+        });
+        res.json("Client updated");
+    } catch (err){
+        res.json(err);
+    }
+    
 }
 
 clientController.deleteClient = async (req, res) => {
-    await Client.update({
-        activo: 0
-    },{
-        where: {
-            id_cliente: req.params.id
-        }
-    })
-        .then(res.json('Client deleted'))
-        .catch(err => console.log(err));
+    try{
+        await Client.update({
+            activo: 0
+        },{
+            where: {
+                id_cliente: req.params.id
+            }
+        });
+        res.json("Client suspended")
+    } catch (err){
+        res.json(err);
+    }
+    
 }
 
 

@@ -1,3 +1,5 @@
+'use strict'
+
 const sequelize = require('../database/db-connection');
 const Sequelize = require('sequelize');
 

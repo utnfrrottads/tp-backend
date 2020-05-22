@@ -6,14 +6,17 @@ const Supplier = require('../models/supplier-model');
 const supplierArticleController = { };
 
 supplierArticleController.addPurchase = async (req, res) => {
-    await Supplier_Article.create({
-        id_proveedor: req.body.id_proveedor,
-        id_articulo: req.body.id_articulo,
-        precio_unitario: req.body.precio_unitario,
-        cantidad: req.body.cantidad
-    })
-      .then(res.json("Purchase added"))
-      .catch(err => console.log(err))
+    try {
+        await Supplier_Article.create({
+            id_proveedor: req.body.id_proveedor,
+            id_articulo: req.body.id_articulo,
+            precio_unitario: req.body.precio_unitario,
+            cantidad: req.body.cantidad
+        });
+        res.json("Article added");
+    } catch (err) {
+        res.json(err);
+    }
 }
 
 supplierArticleController.deletePurchase = async (req, res) => {
@@ -21,47 +24,48 @@ supplierArticleController.deletePurchase = async (req, res) => {
     let stock_actual = 0;
     let current_value = 0;
 
-    let purchase = await Supplier_Article.findOne({
-        attributes: ['cantidad'], 
-        where: {
-            id_articulo: req.params.id_articulo,
-            id_proveedor: req.params.id_proveedor,
-            fecha_compra: req.params.fecha_compra
-        }
-    })
-        .catch(err => console.log(err));
-    purchased_amount = parseInt(purchase.cantidad);
+    try {
+        let purchase = await Supplier_Article.findOne({
+            attributes: ['cantidad'], 
+            where: {
+                id_articulo: req.params.id_articulo,
+                id_proveedor: req.params.id_proveedor,
+                fecha_compra: req.params.fecha_compra
+            }
+        });
+        purchased_amount = parseInt(purchase.cantidad);
+        
     
-
-     let article = await Article.findOne({
-         attributes: ['stock'],
-        where: {
-            id_articulo: req.params.id_articulo
-        }
-    })
-        .catch(err => console.log(err));
-    stock_actual = parseInt(article.stock);
-
-    current_value = stock_actual - purchased_amount
-    
-
-      await Article.update({
-        stock: current_value,
-        }, {
+         let article = await Article.findOne({
+             attributes: ['stock'],
             where: {
                 id_articulo: req.params.id_articulo
             }
-        })  
+        });
+        stock_actual = parseInt(article.stock);
     
-    Supplier_Article.destroy({
-        where: {
-            id_articulo: req.params.id_articulo,
-            id_proveedor: req.params.id_proveedor,
-            fecha_compra: req.params.fecha_compra
-        }
-    })
-        .then(res.json("Purchase deleted"))
-        .catch(res.json("An error has ocurred to delete"))
+        current_value = stock_actual - purchased_amount
+        
+    
+          await Article.update({
+            stock: current_value,
+            }, {
+                where: {
+                    id_articulo: req.params.id_articulo
+                }
+            })  
+        
+        Supplier_Article.destroy({
+            where: {
+                id_articulo: req.params.id_articulo,
+                id_proveedor: req.params.id_proveedor,
+                fecha_compra: req.params.fecha_compra
+            }
+        });
+        res.json("Purchase deleted");
+    } catch (err) {
+        res.json(err);
+    }
     
 }
 

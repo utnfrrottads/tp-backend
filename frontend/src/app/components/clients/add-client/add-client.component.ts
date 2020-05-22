@@ -27,11 +27,11 @@ export class AddClientComponent implements OnInit {
   addClient(form: NgForm){
     this.clientService.addClient(form.value)
       .subscribe(
-        res=>{
-          this.router.navigate(['/clients']);
+        res => {
+          this.router.navigate(['/clients']); 
         },
         err=>{
-          console.log(err)
+          console.log(err);
         }
       );
   }

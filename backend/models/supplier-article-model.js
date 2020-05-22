@@ -1,4 +1,4 @@
-
+'use strict'
 
 const sequelize = require('../database/db-connection');
 const { DataTypes } = require('Sequelize');
@@ -28,5 +28,8 @@ const Supplier_Article = sequelize.define('proveedores_articulos', {
     createdAt: false,
     updatedAt: false
 });
+
+Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
 
 module.exports = Supplier_Article;
