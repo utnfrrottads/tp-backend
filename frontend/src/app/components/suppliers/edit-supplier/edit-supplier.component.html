@@ -1,9 +1,9 @@
 <div class="row section container">
   <h4 class="center-align titulo" style="margin-top: 10px">EDIT SUPPLIER</h4>
-    <form #supplierForm="ngForm" class="col s12" autocomplete="off">
+    <form class="col s12" autocomplete="off">
       <div class="row">
         <div class="input-field col s5">
-            <input id="cuit" type="number" class="validate" name="cuit" [(ngModel)]="selectedSupplier.cuit">
+            <input id="cuit" type="text" class="validate" name="cuit" [(ngModel)]="selectedSupplier.cuit">
             <label class="active" for="cuit">CUIT</label>
         </div>
       </div>

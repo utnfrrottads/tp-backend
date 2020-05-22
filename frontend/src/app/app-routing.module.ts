@@ -15,9 +15,13 @@ import { PurchaseComponent } from './components/purchases/purchase/purchase.comp
 
 const routes: Routes = [
   {
-    path: 'clients',
-    component: ClientComponent,
+    path:'',
+    redirectTo: 'clients',
     pathMatch: 'full'
+  },
+  {
+    path: 'clients',
+    component: ClientComponent
   },
   {
     path: 'clients/addClient', 
