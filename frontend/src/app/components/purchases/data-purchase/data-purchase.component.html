@@ -14,7 +14,7 @@
                 </thead>
             
                 <tbody>
-                  <tr *ngFor="let article of supplier.supplier.articulos">
+                  <tr *ngFor="let article of purchases">
                     <td>{{ article.id_articulo }}</td>
                     <td>{{ article.descripcion }}</td>
                     <td>{{ article.proveedores_articulos.precio_unitario | currency: '$' }}</td>

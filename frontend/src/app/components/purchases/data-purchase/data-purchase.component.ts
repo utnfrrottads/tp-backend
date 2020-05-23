@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { PurchaseService } from './../../../services/purchase/purchase.service';
-
+import { ArticleSupplier } from '../../../models/article-supplier/article-supplier';
 
 @Component({
   selector: 'app-data-purchase',
@@ -11,16 +11,25 @@ import { PurchaseService } from './../../../services/purchase/purchase.service';
 export class DataPurchaseComponent implements OnInit {
 
   supplier: any;
+  purchases: ArticleSupplier[];
 
   constructor(
     private dialogRef: MatDialogRef<DataPurchaseComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private purchaseService: PurchaseService
-    ) { 
-      this.supplier = data
-    }
-
+    public purchaseService: PurchaseService
+  )
+    
+  { this.supplier = data }
+    
   ngOnInit(): void {
+    this.getAll();
+  }
+  
+  getAll(){
+    this.purchaseService.getSupplierPurchases(this.supplier.supplier.id_proveedor)
+      .subscribe(res => {
+        this.purchases = res;
+      });
   }
 
   deletePurchase(article: any){
