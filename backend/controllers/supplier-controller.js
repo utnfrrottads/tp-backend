@@ -104,8 +104,8 @@ supplierController.suppliersByArticle = async (req, res) => {
         }, {
             group: 'id_proveedor'
         }); */
-        const query = 'DROP TEMPORARY TABLE IF EXISTS ult_proveedor \
-        CREATE TEMPORARY TABLE ult_proveedor; \
+        const query = 'DROP TEMPORARY TABLE IF EXISTS ult_proveedor; \
+        CREATE TEMPORARY TABLE ult_proveedor \
         SELECT id_proveedor, id_articulo, max(fecha_compra) AS ultima_fecha \
         FROM proveedores_articulos \
         GROUP BY id_proveedor, id_articulo;\
