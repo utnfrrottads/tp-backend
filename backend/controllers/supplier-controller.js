@@ -2,6 +2,7 @@
 
 const Supplier = require('../models/supplier-model');
 const Article = require('../models/article-model');
+const connection = require('../database/db-connection');
 const supplierController = { };
 
 
@@ -88,6 +89,43 @@ supplierController.suspendSupplier = async (req, res) => {
         res.json("Supplier suspended");
     } catch (err) {
         res.json(err);
+    }
+}
+
+supplierController.suppliersByArticle = async (req, res) => {
+    try {
+        /* const article =  await Article.findOne({
+            where: {
+                id_articulo: req.params.id_articulo
+            }
+        });
+        const suppliers = await article.getProveedores({
+            attributes: [sequelize.fn('max', sequelize.col('fecha_compra')), 'id_proveedor'], 
+        }, {
+            group: 'id_proveedor'
+        }); */
+        const query = 'DROP TEMPORARY TABLE IF EXISTS ult_proveedor \
+        CREATE TEMPORARY TABLE ult_proveedor; \
+        SELECT id_proveedor, id_articulo, max(fecha_compra) AS ultima_fecha \
+        FROM proveedores_articulos \
+        GROUP BY id_proveedor, id_articulo;\
+        SELECT p.id_proveedor, pa.id_articulo, p.cuit, p.razon_social, \
+        a.descripcion, a.precio, a.stock, p.cuit, pa.fecha_compra, pa.precio_unitario, pa.cantidad \
+        FROM proveedores_articulos pa \
+        INNER JOIN ult_proveedor up \
+            ON pa.id_proveedor = up.id_proveedor \
+            AND pa.id_articulo = up.id_articulo \
+            AND pa.fecha_compra = up.ultima_fecha \
+        INNER JOIN proveedores p \
+            ON p.id_proveedor = pa.id_proveedor \
+        INNER JOIN articulos a \
+            ON a.id_articulo = pa.id_articulo \
+            WHERE a.id_articulo = 1';
+
+        const [results, metadata] = await connection.query(query);
+        res.json(results);
+    } catch (err) {
+        console.log(err);
     }
 }
 

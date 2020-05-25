@@ -31,6 +31,10 @@ export class ArticleComponent implements OnInit {
       );
   }
 
+  getSuppliersByArticle(article: Article) {
+    return [1, 2];
+  }
+
   deleteArticle(id: number){
     if (confirm('Seguro que desea eliminar el articulo?')){
       this.articleService.deleteArticle(id)

@@ -70,16 +70,19 @@ supplierArticleController.deletePurchase = async (req, res) => {
 }
 
 supplierArticleController.getSupplierPurchases = async (req, res) => {
-    let supplier = await Supplier.findOne({
-        where: {id_proveedor: req.params.id}
-    })
-    .catch ((err) => {
+    try {
+        let supplier = await Supplier.findOne({
+            where: {
+                id_proveedor: req.params.id,
+                activo: 1
+            }
+        });
+    
+        let articles = await supplier.getArticulos();
+        res.json(articles);
+    } catch (err) {
         console.log(err);
-    })
-
-    let articulos = await supplier.getArticulos()
-    .then ((articles => res.json(articles)))
-    .catch(err => res.json(err));
+    }
 
 }
 
