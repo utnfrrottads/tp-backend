@@ -1,7 +1,7 @@
 <div class="container">
     <div class="planilla">
         <p>
-            <h4 class="center-align titulo">DATA ARTICLE</h4>
+            <h4 class="center-align titulo">ARTICLE DATA</h4>
 
         <p>
             <label class="black-text etiqueta">Article ID: </label>
@@ -19,23 +19,23 @@
             <span class="contenido">{{ article.stock }}</span>
 
         <p>
-            <h4 class="center-align titulo">DATA SUPPLIER</h4>
+            <h4 class="center-align titulo">SUPPLIER DATA</h4>
 
         <p>
             <label class="black-text etiqueta">Supplier CUIT: </label>
-            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].cuit }}</span>
+            <span class="contenido">{{ suppliers[0].cuit }}</span>
 
         <p>
             <label class="black-text etiqueta">Business name: </label>
-            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].razon_social }}</span>
+            <span class="contenido">{{ suppliers[0].razon_social }}</span>
 
         <p>
             <label class="black-text etiqueta">Purchase price: </label>
-            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].proveedores_articulos.precio_unitario | currency: '$' }}</span>
+            <span class="contenido">{{ suppliers[0].precio_unitario | currency: '$' }}</span>
     
         <p>
             <label class="black-text etiqueta">Date of purchase: </label>
-            <span class="contenido">{{ article.proveedores[article.proveedores.length-1].proveedores_articulos.fecha_compra | date: 'fullDate' }}</span> 
+            <span class="contenido">{{ suppliers[0].fecha_compra | date: 'fullDate' }}</span> 
     </div>
     <div style="padding-bottom: 2rem">
         <a routerLink="/articles" class="waves-effect waves-light btn-large" style="display: block">Back</a>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ArticleService } from './../../../services/article/article.service';
 import { Article } from './../../../models/article/article';
+import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 
 @Component({
@@ -12,8 +13,11 @@ import { Article } from './../../../models/article/article';
 export class ArticleComponent implements OnInit {
 
   articles: Article[];
+  suppliers: any = [];
 
-  constructor(public articleService: ArticleService) { }
+  constructor(
+    private articleService: ArticleService
+    ) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -29,10 +33,6 @@ export class ArticleComponent implements OnInit {
            console.log(err);
          }
       );
-  }
-
-  getSuppliersByArticle(article: Article) {
-    return [1, 2];
   }
 
   deleteArticle(id: number){

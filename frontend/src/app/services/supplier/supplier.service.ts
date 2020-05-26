@@ -31,4 +31,8 @@ export class SupplierService {
     return this.http.put(`${this.URL}/suspendSupplier/${id}`,'Delete');
   }
 
+  supliersByArticle(id_articulo: number){
+    return this.http.get<any[]>(`${this.URL}/suppliersByArticle/${id_articulo}`);
+  }
+
 }
