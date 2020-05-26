@@ -3,7 +3,6 @@
 const Supplier = require('../models/supplier-model');
 const Article = require('../models/article-model');
 const connection = require('../database/db-connection');
-const { QueryTypes } = require('sequelize');
 const supplierController = { };
 
 
@@ -93,9 +92,9 @@ supplierController.suspendSupplier = async (req, res) => {
     }
 }
 
-supplierController.suppliersByArticle = async (req, res) => {
+supplierController.lastSupplierPurchaseByArticle = async (req, res) => {
     try {
-        const query = 'call proveedoresPorArticulo(?)';
+        const query = 'call ultimoProveedorPorArticulo(?)';
         const results = await connection.query(query, {
             replacements: [req.params.id_articulo]
         });

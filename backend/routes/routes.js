@@ -21,7 +21,7 @@ router.post('/addSupplier', supplierController.createSupplier);
 router.put('/suppliers/:id', supplierController.updateSupplier);
 router.delete('/deleteSupplier/:id', supplierController.deleteSupplier);
 router.put('/suspendSupplier/:id', supplierController.suspendSupplier);
-router.get('/suppliersByArticle/:id_articulo', supplierController.suppliersByArticle);
+router.get('/lastSupplierPurchaseByArticle/:id_articulo', supplierController.lastSupplierPurchaseByArticle);
 
 //Rutas de articulos
 router.get('/articles', articleController.getAll);

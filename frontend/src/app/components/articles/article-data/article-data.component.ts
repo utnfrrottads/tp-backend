@@ -16,7 +16,7 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service';
 export class ArticleDataComponent implements OnInit {
 
   article: Article;
-  suppliers: any[] = [];
+  supplierPurchase: any[] = [];
   clientSupplier: ArticleSupplier;
   id_articulo: number;
 
@@ -32,13 +32,14 @@ export class ArticleDataComponent implements OnInit {
   ngOnInit(): void {
     this.id_articulo = this.activatedRoute.snapshot.params.id;
     this.getArticle();
-    this.getSuppliersByArticle(this.id_articulo);
+    this.getLastSupplierPurchaseByArticle(this.id_articulo);
   }
 
   getArticle(){
     this.articleService.getArticle(this.id_articulo)
       .subscribe(
         res => {
+          console.log(res);
           this.article = res;
         },
         err => console.log(err)
@@ -46,11 +47,11 @@ export class ArticleDataComponent implements OnInit {
 
   
   
-  getSuppliersByArticle(id_articulo: number){
-    this.supplierService.supliersByArticle(id_articulo) 
+  getLastSupplierPurchaseByArticle(id_articulo: number){
+    this.supplierService.lastSuplierPurchaseByArticle(id_articulo) 
       .subscribe(
         res => {
-         this.suppliers = res;
+         this.supplierPurchase = res;
         },
         err => {
           console.log(err);
