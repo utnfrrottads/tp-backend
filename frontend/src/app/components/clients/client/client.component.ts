@@ -21,22 +21,19 @@ export class ClientComponent implements OnInit {
 
   getAll(){
     this.clientService.getClients()
-      .subscribe(res => {
-        this.clients = res;
-      });
+      .subscribe(
+        res => this.clients = res,
+        err => console.log(err)
+      )
   }
 
   deleteClient(id: number){
     if(confirm("Seguro que desea eliminar el cliente?")){
       this.clientService.deleteClient(id)
         .subscribe(
-          res => {
-             this.getAll(); 
-          },
+          res => this.getAll(),
           err => console.log(err)
-        );
-    }else {
-      return;
+        )
     }
   }
 

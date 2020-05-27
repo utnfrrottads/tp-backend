@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 
 import { Article } from 'src/app/models/article/article';
-import { Supplier } from 'src/app/models/supplier/Supplier';
+import { ArticleSupplier } from '../../../models/article-supplier/article-supplier';
 
 import { ArticleService } from "../../../services/article/article.service";
-import { ArticleSupplier } from '../../../models/article-supplier/article-supplier';
 import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
@@ -43,23 +42,19 @@ export class ArticleDataComponent implements OnInit {
           this.article = res;
         },
         err => console.log(err)
-      )};
+      )}
 
   
   
   getLastSupplierPurchaseByArticle(id_articulo: number){
     this.supplierService.lastSuplierPurchaseByArticle(id_articulo) 
       .subscribe(
-        res => {
-         this.supplierPurchase = res;
-        },
-        err => {
-          console.log(err);
-        }
+        res => this.supplierPurchase = res,
+        err => console.log(err)
       )
   }
 
 
-  }
+}
 
   

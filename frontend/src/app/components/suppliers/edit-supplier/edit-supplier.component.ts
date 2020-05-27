@@ -28,9 +28,7 @@ export class EditSupplierComponent implements OnInit {
   getById(params){
     this.supplierService.getById(params.id)
       .subscribe(
-        res => {
-          this.selectedSupplier = res;
-        },
+        res => this.selectedSupplier = res,
         err => console.log(err)
       );
   }
@@ -40,9 +38,7 @@ export class EditSupplierComponent implements OnInit {
     delete this.selectedSupplier.id_proveedor;
     this.supplierService.editSupplier(this.activatedRoute.snapshot.params.id, this.selectedSupplier)
       .subscribe(
-        res => {
-          this.router.navigate(['/suppliers']);
-        },
+        res => this.router.navigate(['/suppliers']),
         err => console.log(err)
       );
   }

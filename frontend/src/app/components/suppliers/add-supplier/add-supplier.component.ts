@@ -9,29 +9,23 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service';
   templateUrl: './add-supplier.component.html',
   styleUrls: ['./add-supplier.component.css']
 })
-export class AddSupplierComponent implements OnInit {
+export class AddSupplierComponent {
 
   supplier: Supplier;
 
   constructor(
     private supplierService: SupplierService, 
-    private router: Router) {
-
+    private router: Router
+  ) {
       this.supplier = new Supplier();
-     }
+    }
 
-  ngOnInit(): void {
-  }
 
-  addSupplier(form: NgForm){
-    this.supplierService.addSupplier(form.value)
+  addSupplier(){
+    this.supplierService.addSupplier(this.supplier)
     .subscribe(
-      res=>{
-        this.router.navigate(['/suppliers']);
-      },
-      err=>{
-        console.log(err)
-      }
+      res => this.router.navigate(['/suppliers']),
+      err => console.log(err)
     ) 
   }
 

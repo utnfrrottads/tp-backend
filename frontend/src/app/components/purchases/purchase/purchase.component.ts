@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Supplier } from 'src/app/models/supplier/Supplier';
 import { SupplierService } from './../../../services/supplier/supplier.service';
 
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DataPurchaseComponent } from '../data-purchase/data-purchase.component';
 import { Router } from '@angular/router';
 
@@ -29,9 +29,7 @@ export class PurchaseComponent implements OnInit {
   getAll(){
     this.supplierService.getSuppliers()
       .subscribe(
-        res => {
-          this.suppliers = res;
-        },
+        res => this.suppliers = res,
         err => console.log(err)
       )
   }
@@ -47,6 +45,7 @@ export class PurchaseComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(DataPurchaseComponent, dialogConfig);
+    
     dialogRef.afterClosed()
       .subscribe(
         res => this.getAll(),

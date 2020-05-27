@@ -41,9 +41,7 @@ export class AddPurchaseComponent implements OnInit {
   getArticles(){
     this.articleService.getArticles()
       .subscribe(
-        res => {
-          this.articles = res;
-        },
+        res => this.articles = res,
         err => console.log(err)
       )
   }
@@ -62,17 +60,13 @@ export class AddPurchaseComponent implements OnInit {
   addPurchase(){
     this.articleService.loadStock(this.purchase)
       .subscribe(
-        res => {
-          this.router.navigate(['/purchases']);
-        },
+        res => this.router.navigate(['/purchases']),
         err => this.status = false
       )
 
     this.purchaseService.addPurchase(this.purchase)
         .subscribe(
-          res => {
-            console.log(res);
-          },
+          res => console.log(res),
           err => this.status = false
         )
 

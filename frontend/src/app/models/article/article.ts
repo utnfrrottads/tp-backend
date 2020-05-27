@@ -7,8 +7,4 @@ export class Article {
     precio: number;
     stock: number;
     proveedores: Supplier[] = [];
-
-    setSupplier(proveedor: Supplier){
-        this.proveedores.push(proveedor);
-    }
 }

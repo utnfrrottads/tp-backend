@@ -1,7 +1,6 @@
 import { ArticleSupplier } from "../article-supplier/article-supplier";
 
 export class Supplier {
-
     id_proveedor: number;
     cuit: string;
     razon_social: string;
@@ -9,9 +8,4 @@ export class Supplier {
     direccion: string;
     telefono: string;
     proveedores_articulos: ArticleSupplier;
-
-    setProvArt(provArt: ArticleSupplier){
-        this.proveedores_articulos = provArt;
-    }
-
 }

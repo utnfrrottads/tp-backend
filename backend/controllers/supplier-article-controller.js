@@ -5,6 +5,16 @@ const Article = require('../models/article-model');
 const Supplier = require('../models/supplier-model');
 const supplierArticleController = { };
 
+Supplier.belongsToMany(Article, {through: Supplier_Article, foreignKey:'id_proveedor'});
+Article.belongsToMany(Supplier, {through: Supplier_Article, foreignKey:'id_articulo'});
+
+Supplier_Article.hasOne(Supplier, {foreignKey: 'id_proveedor'});
+Supplier.belongsTo(Supplier_Article, {foreignKey: 'id_proveedor'});
+
+Supplier_Article.hasOne(Article, {foreignKey: 'id_articulo'});
+Article.belongsTo(Supplier_Article, {foreignKey: 'id_articulo'});
+
+
 supplierArticleController.addPurchase = async (req, res) => {
     try {
         await Supplier_Article.create({
@@ -22,7 +32,7 @@ supplierArticleController.addPurchase = async (req, res) => {
 supplierArticleController.deletePurchase = async (req, res) => {
     let purchased_amount = 0;
     let stock_actual = 0;
-    let current_value = 0;
+    let current_amount = 0;
 
     try {
         let purchase = await Supplier_Article.findOne({
@@ -34,21 +44,20 @@ supplierArticleController.deletePurchase = async (req, res) => {
             }
         });
         purchased_amount = parseInt(purchase.cantidad);
-        
     
-         let article = await Article.findOne({
-             attributes: ['stock'],
+        let article = await Article.findOne({
+            attributes: ['stock'],
             where: {
                 id_articulo: req.params.id_articulo
             }
         });
         stock_actual = parseInt(article.stock);
     
-        current_value = stock_actual - purchased_amount
+        current_amount = stock_actual - purchased_amount
         
     
           await Article.update({
-            stock: current_value,
+            stock: current_amount,
             }, {
                 where: {
                     id_articulo: req.params.id_articulo
@@ -71,17 +80,21 @@ supplierArticleController.deletePurchase = async (req, res) => {
 
 supplierArticleController.getSupplierPurchases = async (req, res) => {
     try {
-        let supplier = await Supplier.findOne({
+        const purchases = await Supplier_Article.findAll({
+            order: [['fecha_compra', 'DESC']],
             where: {
-                id_proveedor: req.params.id,
-                activo: 1
-            }
-        });
-    
-        let articles = await supplier.getArticulos();
-        res.json(articles);
+                id_proveedor: req.params.id
+            },
+            include: [{
+                    model: Supplier
+                }, {
+                    model: Article
+                }
+            ]
+        })
+        res.json(purchases);
     } catch (err) {
-        console.log(err);
+        res.json(err);
     }
 
 }

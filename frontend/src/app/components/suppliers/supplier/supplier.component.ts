@@ -21,22 +21,19 @@ export class SupplierComponent implements OnInit {
 
   getAll(){
     this.supplierService.getSuppliers()
-      .subscribe(res => {
-        this.suppliers = res;
-      });
+      .subscribe(
+        res => this.suppliers = res,
+        err => console.log(err)
+      )
   }
 
   deleteSupplier(id: number){
     if(confirm("Seguro que desea eliminar el proveedor?")){
       this.supplierService.deleteSupplier(id)
         .subscribe(
-          res => {
-             this.getAll(); 
-          },
+          res => this.getAll(),
           err => console.log(err)
-        );
-    }else {
-      return;
+        )
     }
   }
 

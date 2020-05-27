@@ -20,6 +20,6 @@ export class PurchaseService {
   } 
 
   getSupplierPurchases(id_proveedor: number){
-    return this.http.get<ArticleSupplier[]>(`${this.URL}/purchases/${id_proveedor}`)
+    return this.http.get<any[]>(`${this.URL}/purchases/${id_proveedor}`)
   }
 }

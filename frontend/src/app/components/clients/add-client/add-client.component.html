@@ -1,6 +1,6 @@
 <div class="row section container">
   <h4 class="center-align titulo" style="margin-top: 10px">ADD CLIENT</h4>
-    <form #clientForm="ngForm" class="col s12" autocomplete="off">
+    <form class="col s12" autocomplete="off">
       <div class="row">
         <div class="input-field col s5">
             <input id="dni" type="text" class="validate" name="dni" [(ngModel)]="client.dni">
@@ -30,7 +30,7 @@
           <label for="phone">Phone</label>
         </div>
       </div>
-    <button class="btn waves-effect waves-light" (click)= "addClient(clientForm)"> Submit
+    <button class="btn waves-effect waves-light" (click)= "addClient()"> Submit
         <i class="material-icons right">send</i>
     </button>
     <button class="btn waves-effect waves-light red" style="margin-left: 5px;" (click)="cancel()"> Cancel</button>

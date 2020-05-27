@@ -30,20 +30,16 @@ export class EditClientComponent implements OnInit {
   getClient(){
     this.clientService.getById(this.params)
       .subscribe(
-        res => {
-          this.selectedClient = res;
-        },
+        res => this.selectedClient = res,
         err => console.log(err)
-      );
+      )
   }
 
   editClient(){
     delete this.selectedClient.id_cliente;
     this.clientService.editClient(this.activatedRoute.snapshot.params.id, this.selectedClient)
       .subscribe(
-        res => {
-          this.router.navigate(['/clients']);
-        },
+        res => this.router.navigate(['/clients']),
         err => console.log(err)
       );
   }

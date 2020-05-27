@@ -2,8 +2,12 @@
 
 const Supplier = require('../models/supplier-model');
 const Article = require('../models/article-model');
+const Supplier_Article = require('../models/supplier-article-model');
 const connection = require('../database/db-connection');
 const supplierController = { };
+
+Supplier_Article.hasOne(Article, {foreignKey: 'id_articulo'});
+Article.belongsTo(Supplier_Article, {foreignKey: 'id_articulo'});
 
 
  supplierController.getAll = async (req, res) => {
@@ -100,7 +104,7 @@ supplierController.lastSupplierPurchaseByArticle = async (req, res) => {
         });
         res.json(results);
     } catch (err) {
-        console.log(err);
+        res.json(err);
     }
 }
 

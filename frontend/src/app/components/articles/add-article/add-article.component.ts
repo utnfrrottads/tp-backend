@@ -3,7 +3,6 @@ import { Article } from 'src/app/models/article/article';
 
 import { ArticleService } from "../../../services/article/article.service";
 
-
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -37,11 +36,9 @@ export class AddArticleComponent implements OnInit {
 
 
   addArticle(){
-      this.articleService.addArticle(this.article)
+    this.articleService.addArticle(this.article)
       .subscribe(
-        res => {
-          this.router.navigate(['/articles']);
-        },
+        res => this.router.navigate(['/articles']),
         err => console.log(err)
       );
   }
@@ -49,20 +46,16 @@ export class AddArticleComponent implements OnInit {
   editArticle(){
      this.articleService.editArticle(this.params, this.article)
       .subscribe(
-        res => {
-          this.router.navigate(['/articles']);
-        },
+        res => this.router.navigate(['/articles']),
         err => console.log(err)
-      ) 
+      )
   }
 
 
   getArticle(){
     this.articleService.getArticle(this.params)
       .subscribe(
-        res => {
-          this.article = res;
-        },
+        res => this.article = res,
         err => console.log(err)
       )
   }
