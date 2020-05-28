@@ -24,7 +24,7 @@ export class ClientComponent implements OnInit {
       .subscribe(
         res => this.clients = res,
         err => console.log(err)
-      )
+      );
   }
 
   deleteClient(id: number){
@@ -33,7 +33,7 @@ export class ClientComponent implements OnInit {
         .subscribe(
           res => this.getAll(),
           err => console.log(err)
-        )
+        );
     }
   }
 

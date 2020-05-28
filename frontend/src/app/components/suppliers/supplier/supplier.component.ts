@@ -12,8 +12,7 @@ export class SupplierComponent implements OnInit {
   suppliers: Supplier[];
   test_input: any;
 
-  constructor(public supplierService: SupplierService) {
-   }
+  constructor(public supplierService: SupplierService) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -24,7 +23,7 @@ export class SupplierComponent implements OnInit {
       .subscribe(
         res => this.suppliers = res,
         err => console.log(err)
-      )
+      );
   }
 
   deleteSupplier(id: number){
@@ -33,7 +32,7 @@ export class SupplierComponent implements OnInit {
         .subscribe(
           res => this.getAll(),
           err => console.log(err)
-        )
+        );
     }
   }
 

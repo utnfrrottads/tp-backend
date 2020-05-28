@@ -31,7 +31,7 @@ export class PurchaseComponent implements OnInit {
       .subscribe(
         res => this.suppliers = res,
         err => console.log(err)
-      )
+      );
   }
 
   openDataPurchase(supplier: Supplier){
@@ -50,7 +50,7 @@ export class PurchaseComponent implements OnInit {
       .subscribe(
         res => this.getAll(),
         err => console.log(err)
-      )
+      );
   }
 
 }

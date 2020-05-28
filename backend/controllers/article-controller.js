@@ -74,7 +74,7 @@ articleController.updateArticle = async (req, res) => {
 
 articleController.loadStock = async (req, res) => {
   let cant_total = 0;
-  let cantidad = parseInt(req.body.cantidad);
+  let cantidad = parseInt(req.body.cantidad, 10);
   
     try {
       const article = await Article.findByPk(req.body.id_articulo,{

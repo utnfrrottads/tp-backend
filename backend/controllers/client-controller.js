@@ -4,7 +4,7 @@ const Client = require('../models/client-model');
 const clientController = { };
 
 clientController.getAll = async (req, res) => {
-    try{
+    try {
         const clients = await Client.findAll({
             where: {
                 activo: 1

@@ -43,7 +43,7 @@ export class AddPurchaseComponent implements OnInit {
       .subscribe(
         res => this.articles = res,
         err => console.log(err)
-      )
+      );
   }
     
   getSuppliers(){
@@ -53,7 +53,7 @@ export class AddPurchaseComponent implements OnInit {
             this.suppliers = res;
           },
           err => console.log(err)
-        )
+        );
   }
 
   
@@ -62,13 +62,12 @@ export class AddPurchaseComponent implements OnInit {
       .subscribe(
         res => this.router.navigate(['/purchases']),
         err => this.status = false
-      )
+      );
 
     this.purchaseService.addPurchase(this.purchase)
         .subscribe(
-          res => console.log(res),
           err => this.status = false
-        )
+        );
 
     if (this.status) {
       this.router.navigate(['/purchases']);

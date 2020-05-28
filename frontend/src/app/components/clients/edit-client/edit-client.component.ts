@@ -32,7 +32,7 @@ export class EditClientComponent implements OnInit {
       .subscribe(
         res => this.selectedClient = res,
         err => console.log(err)
-      )
+      );
   }
 
   editClient(){

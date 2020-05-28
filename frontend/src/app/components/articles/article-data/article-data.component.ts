@@ -33,6 +33,7 @@ export class ArticleDataComponent implements OnInit {
     this.getArticle();
     this.getLastSupplierPurchaseByArticle(this.id_articulo);
   }
+  
 
   getArticle(){
     this.articleService.getArticle(this.id_articulo)
@@ -42,7 +43,8 @@ export class ArticleDataComponent implements OnInit {
           this.article = res;
         },
         err => console.log(err)
-      )}
+      );
+  }
 
   
   
@@ -51,7 +53,7 @@ export class ArticleDataComponent implements OnInit {
       .subscribe(
         res => this.supplierPurchase = res,
         err => console.log(err)
-      )
+      );
   }
 
 

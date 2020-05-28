@@ -16,8 +16,8 @@ export class DataPurchaseComponent implements OnInit {
     private dialogRef: MatDialogRef<DataPurchaseComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public purchaseService: PurchaseService
-  ){ 
-    this.supplier = data 
+  ) { 
+    this.supplier = data;
   }
 
     
@@ -30,7 +30,7 @@ export class DataPurchaseComponent implements OnInit {
       .subscribe(
         res => this.purchases = res,
         err => console.log(err)
-      ) 
+      );
   }
 
   deletePurchase(purchase: any){
@@ -39,7 +39,7 @@ export class DataPurchaseComponent implements OnInit {
        .subscribe(
           res => this.close(),
           err => console.log(err)
-        ) 
+        );
      }
   }
 

@@ -26,7 +26,7 @@ export class AddSupplierComponent {
     .subscribe(
       res => this.router.navigate(['/suppliers']),
       err => console.log(err)
-    ) 
+    );
   }
 
   cancel(){

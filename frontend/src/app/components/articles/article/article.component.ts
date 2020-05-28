@@ -27,7 +27,7 @@ export class ArticleComponent implements OnInit {
       .subscribe(
          res => this.articles = res,
          err => console.log(err)
-      )
+      );
   }
 
   deleteArticle(id: number){
@@ -36,9 +36,8 @@ export class ArticleComponent implements OnInit {
       .subscribe(
         res => this.getAll(),
         err => console.log(err)
-      )
+      );
     }
-    
   }
 
 }

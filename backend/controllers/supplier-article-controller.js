@@ -43,7 +43,7 @@ supplierArticleController.deletePurchase = async (req, res) => {
                 fecha_compra: req.params.fecha_compra
             }
         });
-        purchased_amount = parseInt(purchase.cantidad);
+        purchased_amount = parseInt(purchase.cantidad, 10);
     
         let article = await Article.findOne({
             attributes: ['stock'],
@@ -51,7 +51,7 @@ supplierArticleController.deletePurchase = async (req, res) => {
                 id_articulo: req.params.id_articulo
             }
         });
-        stock_actual = parseInt(article.stock);
+        stock_actual = parseInt(article.stock, 10);
     
         current_amount = stock_actual - purchased_amount
         

@@ -48,7 +48,7 @@ export class AddArticleComponent implements OnInit {
       .subscribe(
         res => this.router.navigate(['/articles']),
         err => console.log(err)
-      )
+      );
   }
 
 
@@ -57,7 +57,7 @@ export class AddArticleComponent implements OnInit {
       .subscribe(
         res => this.article = res,
         err => console.log(err)
-      )
+      );
   }
 
   cancel(){
