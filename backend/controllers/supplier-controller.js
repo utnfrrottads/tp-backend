@@ -15,7 +15,8 @@ Article.belongsTo(Supplier_Article, {foreignKey: 'id_articulo'});
         const suppliers = await Supplier.findAll({
             where: {
                 activo: 1
-            },
+            },            
+            rejectOnEmpty: true,
             include: Article, 
             required: true
         });
@@ -28,7 +29,12 @@ Article.belongsTo(Supplier_Article, {foreignKey: 'id_articulo'});
 supplierController.getOne = async (req, res) => {
     try {
         const supplier = await Supplier.findByPk(req.params.id);
-        res.json(supplier);
+        if(supplier === null){
+            res.json('This id doesn\'t belong to any supplier')
+        }
+        else{
+            res.json(supplier);
+        }
     } catch (err){
         res.json(err);
     }
@@ -43,7 +49,7 @@ supplierController.createSupplier = async (req, res) => {
             direccion: req.body.direccion,
             telefono: req.body.telefono
         });
-        res.json("Article updated");
+        res.json("Supplier created");
     } catch (err) {
         res.json(err);
     } 
@@ -51,7 +57,7 @@ supplierController.createSupplier = async (req, res) => {
 
 supplierController.updateSupplier = async (req, res) => {
     try {
-        await Supplier.update({
+        const rowsUpdated = await Supplier.update({
             cuit: req.body.cuit,
             razon_social: req.body.razon_social,
             ciudad: req.body.ciudad,
@@ -62,7 +68,32 @@ supplierController.updateSupplier = async (req, res) => {
                 id_proveedor: req.params.id
             }
         });
-        res.json("Supplier created");
+        if(rowsUpdated[0] === 0){
+            res.json("Supplier update failed");
+            }
+            else {
+                res.json("Supplier updated");
+            }
+    } catch (err) {
+        res.json(err);
+    }
+}
+
+supplierController.suspendSupplier = async (req, res) => {
+    try {
+        const rowsUpdated = await Supplier.update({
+            activo: 0
+        }, {
+            where: { 
+                id_proveedor: req.params.id 
+            }
+        });
+        if(rowsUpdated[0] === 0){
+            res.json("Supplier suspend failed");
+            }
+            else {
+                res.json("Supplier suspended");
+            }
     } catch (err) {
         res.json(err);
     }
@@ -70,28 +101,18 @@ supplierController.updateSupplier = async (req, res) => {
 
 supplierController.deleteSupplier = async (req, res) => {
     try {
-        await Supplier.destroy({
+        const rowsDeleted = await Supplier.destroy({
             where: {
                 id_proveedor: req.params.id
             }
         });
-        res.json("Supplier deleted");
+        if(rowsDeleted === 0){
+            res.json("This id doesn\'t belong to any supplier")
+        }
+        else {
+            res.json("Supplier deleted")
+        }
     } catch (err){
-        res.json(err);
-    }
-}
-
-supplierController.suspendSupplier = async (req, res) => {
-    try {
-        await Supplier.update({
-            activo: 0
-        }, {
-            where: { 
-                id_proveedor: req.params.id 
-            }
-        });
-        res.json("Supplier suspended");
-    } catch (err) {
         res.json(err);
     }
 }

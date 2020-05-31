@@ -15,11 +15,12 @@ articleController.getAll = async (req, res) => {
       required: true,
       where: {
         activo: 1
-      }
+      },
+      rejectOnEmpty: true
     }); 
     res.json(articles);
   } catch (err){
-    res.json(err);
+    res.json('There aren\'t active articles');
   }
   
 }
@@ -34,7 +35,12 @@ articleController.getOne = async (req, res) => {
         activo: 1
       }
     }); 
-    res.json(article);
+    if(article === null){
+      res.json('This id doesn\'t belong to any active article')
+    }
+    else{
+      res.json(article);
+    }
   } catch (err){
     res.json(err);
   }
@@ -47,7 +53,7 @@ articleController.createArticle = async (req, res) => {
         descripcion: req.body.descripcion,
         precio: req.body.precio
       });
-      res.json("article created");
+      res.json("Article created");
     } catch(err){
       res.json(err);
     }
@@ -56,7 +62,7 @@ articleController.createArticle = async (req, res) => {
 
 articleController.updateArticle = async (req, res) => {
     try {
-      await Article.update({
+      const rowsUpdated = await Article.update({
         descripcion: req.body.descripcion,
         precio: req.body.precio,
         stock: req.body.stock
@@ -65,12 +71,16 @@ articleController.updateArticle = async (req, res) => {
           id_articulo: req.params.id
         }
       });
-      res.json("Article updated");
+      if(rowsUpdated[0] === 0){
+        res.json("Article update failed");
+        }
+        else {
+            res.json("Article updated");
+        }
     } catch (err){
       res.json(err);
     }
 }
-
 
 articleController.loadStock = async (req, res) => {
   let cant_total = 0;
@@ -82,15 +92,19 @@ articleController.loadStock = async (req, res) => {
       });
       cant_total = article.stock + cantidad;
     
-        
-      await Article.update({
-        stock: cant_total
-      },{
-        where: { 
-          id_articulo: req.body.id_articulo 
-        }
-      });
-      res.json("Article updated");
+      if(article === null){
+        res.json('This id doesn\'t belong to any active article')
+      }
+      else{
+        await Article.update({
+          stock: cant_total
+        },{
+          where: { 
+            id_articulo: req.body.id_articulo 
+          }
+        });
+        res.json("Stock loaded");
+      }
     } catch (err) {
       res.json(err);
     }
@@ -99,16 +113,40 @@ articleController.loadStock = async (req, res) => {
 
 articleController.suspendArticle = async (req, res) => {
   try {
-    await Article.update({
+    const rowsUpdated = await Article.update({
       activo: 0
       }, {
         where: {
            id_articulo: req.params.id 
           }
         });
-    res.json("Article suspended");
+      if(rowsUpdated[0] === 0){
+        res.json("Article suspend failed");
+        }
+        else {
+            res.json("Article suspended");
+        }
   } catch (err){
     res.json(err);
+  }
+}
+
+articleController.deleteArticle = async (req, res) => {
+  try{
+      const rowsDeleted = await Article.destroy({
+          where: {
+              id_articulo: req.params.id
+          },
+          returning: true
+      });
+      if(rowsDeleted === 0){
+          res.json("This id doesn\'t belong to any article")
+      }
+      else {
+          res.json("Article deleted")
+      }
+  } catch (err){
+      res.json(err);
   }
 }
 
