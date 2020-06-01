@@ -50,4 +50,12 @@ export class EditClientComponent implements OnInit {
     }
   }
 
+  validate(){
+    if(this.selectedClient.dni === '' || this.selectedClient.apellido === '' || this.selectedClient.nombre === ''){
+      alert('Complete dni, nombre y apellido')
+    }
+    else{
+      this.editClient();
+    }
+  }
 }

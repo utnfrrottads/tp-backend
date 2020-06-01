@@ -4,6 +4,7 @@ import { Article } from 'src/app/models/article/article';
 import { ArticleService } from "../../../services/article/article.service";
 
 import { Router, ActivatedRoute } from "@angular/router";
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-add-article',
@@ -36,21 +37,30 @@ export class AddArticleComponent implements OnInit {
 
 
   addArticle(){
-    this.articleService.addArticle(this.article)
-      .subscribe(
-        res => this.router.navigate(['/articles']),
-        err => console.log(err)
-      );
+    if(this.validate()){
+      this.articleService.addArticle(this.article)
+        .subscribe(
+          res => this.router.navigate(['/articles']),
+          err => console.log(err)
+        );
+    }
+    else{
+      alert('Complete la descripción y el precio del artículo')
+    }
   }
 
   editArticle(){
-     this.articleService.editArticle(this.params, this.article)
-      .subscribe(
-        res => this.router.navigate(['/articles']),
-        err => console.log(err)
-      );
+    if(this.validate()){
+      this.articleService.editArticle(this.params, this.article)
+        .subscribe(
+          res => this.router.navigate(['/articles']),
+          err => console.log(err)
+        );
+    }
+    else{
+      alert('Complete la descripción y el precio del artículo')
+    }
   }
-
 
   getArticle(){
     this.articleService.getArticle(this.params)
@@ -66,5 +76,17 @@ export class AddArticleComponent implements OnInit {
     }
   }
 
-
+  validate(){
+    if(this.article.descripcion === undefined || this.article.precio === undefined){
+      return false;
+    }
+    else{
+      if(this.article.descripcion === '' || this.article.precio.toString() === ''){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+  }
 }

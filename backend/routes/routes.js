@@ -13,7 +13,7 @@ router.get('/clients/:id', clientController.getOne);
 router.post('/addClient', clientController.createClient);
 router.put('/clients/:id', clientController.updateClient);
 router.put('/suspendClient/:id', clientController.suspendClient);
-//router.delete('/deleteClient/:id', clientController.deleteClient);
+router.delete('/deleteClient/:id', clientController.deleteClient);
 
 //Rutas de proveedores
 router.get('/suppliers', supplierController.getAll); 
@@ -30,7 +30,7 @@ router.get('/articles/:id', articleController.getOne);
 router.post('/addArticle', articleController.createArticle);
 router.put('/articles/:id', articleController.updateArticle);
 router.put('/suspendArticle/:id', articleController.suspendArticle);
-// router.delete('/deleteArticle/:id', articleController.deleteArticle);
+router.delete('/deleteArticle/:id', articleController.deleteArticle);
 router.post('/loadStock', articleController.loadStock);
 
 

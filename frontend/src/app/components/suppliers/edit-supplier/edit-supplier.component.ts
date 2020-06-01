@@ -49,4 +49,12 @@ export class EditSupplierComponent implements OnInit {
     }
   }
   
+  validate(){
+    if(this.selectedSupplier.cuit.toString() === '' || this.selectedSupplier.razon_social === ''){
+      alert('Complete el cuit y la razón social')
+    }
+    else{
+      this.editSupplier();
+    }
+  }
 }

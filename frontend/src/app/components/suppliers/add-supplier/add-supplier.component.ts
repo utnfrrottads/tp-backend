@@ -35,4 +35,17 @@ export class AddSupplierComponent {
     }
   }
 
+  validate(){
+    if(this.supplier.cuit === undefined || this.supplier.razon_social === undefined){
+      alert('Complete el cuit y la razón social')
+    }
+    else{
+      if(this.supplier.cuit.toString() === '' || this.supplier.razon_social === ''){
+        alert('Complete el cuit y la razón social')
+      }
+      else{
+        this.addSupplier()
+      }
+    }
+  }
 }

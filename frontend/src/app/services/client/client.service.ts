@@ -30,7 +30,7 @@ export class ClientService {
   }
 
   deleteClient(id: number){
-    return this.http.put(`${this.URL}/deleteClient/${id}`, 'Delete');
+    return this.http.delete(`${this.URL}/deleteClient/${id}`);
   }
 
 }

@@ -34,4 +34,17 @@ export class AddClientComponent {
     }
   }
 
+  validate(){
+    if(this.client.dni === undefined || this.client.apellido === undefined || this.client.nombre === undefined){
+      alert('Complete dni, nombre y apellido')
+    }
+    else{
+      if(this.client.dni === '' || this.client.apellido === '' || this.client.nombre === ''){
+        alert('Complete dni, nombre y apellido')
+      }
+      else{
+        this.addClient()
+      }
+    }
+  }
 }
