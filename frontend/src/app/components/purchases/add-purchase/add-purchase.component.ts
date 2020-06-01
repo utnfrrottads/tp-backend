@@ -8,6 +8,7 @@ import { PurchaseService } from '../../../services/purchase/purchase.service';
 import { Supplier } from '../../../models/supplier/Supplier';
 import { Article } from '../../../models/article/article';
 import { ArticleSupplier } from '../../../models/article-supplier/article-supplier';
+import { ThrowStmt } from '@angular/compiler';
 
 
 
@@ -74,5 +75,14 @@ export class AddPurchaseComponent implements OnInit {
     }
   }
 
-
+  validate(){
+    if(this.purchase.cantidad === undefined || this.purchase.id_articulo === undefined
+      || this.purchase.id_proveedor === undefined || this.purchase.precio_unitario === undefined){
+      alert('Complete todos los campos')
+    }
+    else{
+      console.log(this.purchase.id_proveedor)
+      this.addPurchase()
+    }
+  }
 }

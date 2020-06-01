@@ -44,34 +44,38 @@ supplierArticleController.deletePurchase = async (req, res) => {
             }
         });
         purchased_amount = parseInt(purchase.cantidad, 10);
-    
-        let article = await Article.findOne({
-            attributes: ['stock'],
-            where: {
-                id_articulo: req.params.id_articulo
-            }
-        });
-        stock_actual = parseInt(article.stock, 10);
-    
-        current_amount = stock_actual - purchased_amount
-        
-    
-          await Article.update({
-            stock: current_amount,
-            }, {
+        if(purchase === null){
+            res.json('Wrong ID')
+        }
+        else{
+            let article = await Article.findOne({
+                attributes: ['stock'],
                 where: {
                     id_articulo: req.params.id_articulo
                 }
-            })  
+            });
+            stock_actual = parseInt(article.stock, 10);
         
-        Supplier_Article.destroy({
-            where: {
-                id_articulo: req.params.id_articulo,
-                id_proveedor: req.params.id_proveedor,
-                fecha_compra: req.params.fecha_compra
-            }
-        });
-        res.json("Purchase deleted");
+            current_amount = stock_actual - purchased_amount
+            
+        
+            await Article.update({
+                stock: current_amount,
+                }, {
+                    where: {
+                        id_articulo: req.params.id_articulo
+                    }
+                })  
+            
+            Supplier_Article.destroy({
+                where: {
+                    id_articulo: req.params.id_articulo,
+                    id_proveedor: req.params.id_proveedor,
+                    fecha_compra: req.params.fecha_compra
+                }
+            });
+            res.json("Purchase deleted");
+        }
     } catch (err) {
         res.json(err);
     }
@@ -90,11 +94,12 @@ supplierArticleController.getSupplierPurchases = async (req, res) => {
                 }, {
                     model: Article
                 }
-            ]
+            ],
+            rejectOnEmpty: true
         })
         res.json(purchases);
     } catch (err) {
-        res.json(err);
+        res.json('There aren\'t purchases with this Supplier ID');
     }
 
 }
