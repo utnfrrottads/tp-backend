@@ -21,7 +21,7 @@
                     <td>{{ purchase.cantidad }}</td>
                     <td>{{ purchase.fecha_compra | date: 'dd/MM/yyyy' }}</td>
                     <td>
-                      <a style="cursor: pointer" (click)="deletePurchase(purchase)"><i class="material-icons">delete</i></a>
+                      <a style="cursor: pointer; color: red" (click)="deletePurchase(purchase)"><i class="material-icons">delete</i></a>
                     </td>
                   </tr>
                 </tbody>

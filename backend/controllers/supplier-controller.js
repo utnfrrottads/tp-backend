@@ -99,23 +99,6 @@ supplierController.suspendSupplier = async (req, res) => {
     }
 }
 
-supplierController.deleteSupplier = async (req, res) => {
-    try {
-        const rowsDeleted = await Supplier.destroy({
-            where: {
-                id_proveedor: req.params.id
-            }
-        });
-        if(rowsDeleted === 0){
-            res.json("This id doesn\'t belong to any supplier")
-        }
-        else {
-            res.json("Supplier deleted")
-        }
-    } catch (err){
-        res.json(err);
-    }
-}
 
 supplierController.lastSupplierPurchaseByArticle = async (req, res) => {
     try {

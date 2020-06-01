@@ -9,13 +9,19 @@ Supplier_Article.hasOne(Article, {foreignKey: 'id_articulo'});
 Article.belongsTo(Supplier_Article, {foreignKey: 'id_articulo'});
 
 const Supplier = sequelize.define('proveedores', {
-    id_proveedor: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    id_proveedor: { 
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
+     },
     cuit: DataTypes.STRING,
     razon_social: DataTypes.STRING,
     ciudad: DataTypes.STRING,
-    direccion: {type: DataTypes.STRING}, //allowNull:false, validate:{msg: "Fill this field"}},
+    direccion: {
+        type: DataTypes.STRING
+    }, //allowNull:false, validate:{msg: "Fill this field"}},
     telefono: DataTypes.STRING,
-    activo: {type: DataTypes.BOOLEAN, defaultValue: 1}
+    activo: {
+        type: DataTypes.BOOLEAN, defaultValue: 1
+    }
 },{
     createdAt: false,
     updatedAt: false
