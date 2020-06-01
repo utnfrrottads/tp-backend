@@ -104,7 +104,6 @@ clientController.deleteClient = async (req, res) => {
                 id_cliente: req.params.id
             }
         });
-        console.log(rowsDeleted);
         if(rowsDeleted === 0){
             res.json("This id doesn\'t belong to any client")
         }

@@ -49,9 +49,7 @@ export class AddPurchaseComponent implements OnInit {
   getSuppliers(){
     this.supplierService.getSuppliers()
         .subscribe(
-          res => {
-            this.suppliers = res;
-          },
+          res => this.suppliers = res,
           err => console.log(err)
         );
   }
