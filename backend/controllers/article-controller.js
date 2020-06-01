@@ -121,33 +121,15 @@ articleController.suspendArticle = async (req, res) => {
           }
         });
       if(rowsUpdated[0] === 0){
-        res.json("Article suspend failed");
+          res.json("Article suspend failed");
         }
         else {
-            res.json("Article suspended");
+          res.json("Article suspended");
         }
-  } catch (err){
-    res.json(err);
-  }
-}
-
-articleController.deleteArticle = async (req, res) => {
-  try{
-      const rowsDeleted = await Article.destroy({
-          where: {
-              id_articulo: req.params.id
-          },
-          returning: true
-      });
-      if(rowsDeleted === 0){
-          res.json("This id doesn\'t belong to any article")
-      }
-      else {
-          res.json("Article deleted")
-      }
   } catch (err){
       res.json(err);
   }
 }
+
 
 module.exports = articleController;

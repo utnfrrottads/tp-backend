@@ -27,9 +27,9 @@
                   </span>
               </td>
               <td>
-                <a style="cursor: pointer" [routerLink]="['/articles/addArticle', article.id_articulo]"><i class="material-icons">edit</i></a>
-                <a style="cursor: pointer" (click)="deleteArticle(article.id_articulo)"><i class="material-icons">delete</i></a>
                 <a style="cursor: pointer" [routerLink]="['/articles/articleData', article.id_articulo]"><i class="material-icons">assignment</i></a>
+                <a style="cursor: pointer" [routerLink]="['/articles/addArticle', article.id_articulo]"><i class="material-icons">edit</i></a>
+                <a style="cursor: pointer; color: red" (click)="deleteArticle(article.id_articulo)"><i class="material-icons">delete</i></a>
               </td>
             </tr>
           </tbody>
