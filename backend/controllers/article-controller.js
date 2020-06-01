@@ -136,8 +136,7 @@ articleController.deleteArticle = async (req, res) => {
       const rowsDeleted = await Article.destroy({
           where: {
               id_articulo: req.params.id
-          },
-          returning: true
+          }
       });
       if(rowsDeleted === 0){
           res.json("This id doesn\'t belong to any article")

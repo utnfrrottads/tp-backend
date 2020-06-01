@@ -102,9 +102,9 @@ clientController.deleteClient = async (req, res) => {
         const rowsDeleted = await Client.destroy({
             where: {
                 id_cliente: req.params.id
-            },
-            returning: true
+            }
         });
+        console.log(rowsDeleted);
         if(rowsDeleted === 0){
             res.json("This id doesn\'t belong to any client")
         }
