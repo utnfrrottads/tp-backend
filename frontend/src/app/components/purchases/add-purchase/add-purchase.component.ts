@@ -81,7 +81,6 @@ export class AddPurchaseComponent implements OnInit {
       alert('Complete todos los campos')
     }
     else{
-      console.log(this.purchase.id_proveedor)
       this.addPurchase()
     }
   }
