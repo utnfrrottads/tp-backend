@@ -1,11 +1,10 @@
-import { Entity, Column, BaseEntity,         
-    PrimaryColumn} from 'typeorm';
-// import * as bcrypt from 'bcrypt';
+import { Entity, Column, BaseEntity, PrimaryColumn} from 'typeorm';
 
 @Entity()
 export class Empresa extends BaseEntity {
 
-@PrimaryColumn({type: "decimal",
+@PrimaryColumn({type: "int",
+               length: 11,
                unique: true,
                nullable: false})
 Cuit: number;
