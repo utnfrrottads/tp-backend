@@ -1,0 +1,17 @@
+npm i express
+( -D ) Para que no lo guarde como una dependencia (modulo principal) y que lo utilice solamente para cuando este desarrollando
+npm i typescript -D
+(agregamos los tipos de datos de express)
+npm i @types/express -D
+// morgan = ayuda a ver las peticiones hhtp que llegan desde el servidor.
+//cors = vamos a habilitar la conexion a los servidores
+npm i morgan cors
+npm i @types/cors @types/morgan -D
+npm i typeorm
+ormconfig.json
+npm i mysql
+npx tsc --init (para configurar el compilador)
+npm i mysql reflect-metadata 
+npm i @types/node -D
+PARA NO TENER QUE ESTAR ACTUALIZANDO LOS PAQUETES DE FORMA MANUAL
+npm i tsc-watch -D
