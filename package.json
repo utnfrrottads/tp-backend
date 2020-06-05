@@ -1,41 +1,38 @@
 {
-  "name": "express-typeorm",
+  "name": "tp-backend-2020",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",  
+  "description": "Desarrollar un backend utilizando una API REST o GraphQL y un frontend parcial con las siguientes caracterísitcas:",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start" : "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giulitruant/tp-backend-2020.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^4.17.6",
-    "@types/node": "^14.0.5",
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.1",
-    "tslint": "^6.1.2",
-    "typescript": "^3.9.3"
+  "bugs": {
+    "url": "https://github.com/giulitruant/tp-backend-2020/issues"
   },
+  "homepage": "https://github.com/giulitruant/tp-backend-2020#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mysql2": "^2.1.0",
-    "typeorm": "^0.2.25",
-    "uuid": "^8.1.0"
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.25"
   },
-  "scripts": {
-    "start": "ts-node ./src/server.ts",
-    "start:watch": "nodemon",
-    "build": "tsc"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
-    "watch": [
-      "src"
-    ],
-    "exec": "npm start",
-    "ext": "ts"
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "@types/morgan": "^1.9.0",
+    "@types/node": "^14.0.11",
+    "tsc-watch": "^4.2.8",
+    "typescript": "^3.9.5"
   }
 }

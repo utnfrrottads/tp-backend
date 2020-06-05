@@ -8,11 +8,11 @@ export class Calendario extends BaseEntity{
     @PrimaryGeneratedColumn()
     IdCalendario: number;
 
-    @ManyToOne(type => Recorrido, Recorrido => Recorrido.IdRecorrido)    
-    Recorrido;
+    @ManyToOne(type => Recorrido, recorrido => recorrido.IdRecorrido)    
+    recorrido: Recorrido;
 
-    @ManyToOne(type => Chofer, Chofer => Chofer.Cuil)    
-    Chofer;
+    @ManyToOne(type => Chofer, chofer => chofer.Cuil)
+    chofer: Chofer;
 
     @Column({
         type : 'time',

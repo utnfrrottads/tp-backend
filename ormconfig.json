@@ -1,22 +1,10 @@
-[{
+{
     "type": "mysql",
     "host": "localhost",
-    "port": "3306",
-    "username": "username",
-    "password": "password",
-    "database": "database_name",
-    "syncronize": true,
-    "logging": true,
-    "logger": "file",
-    "entities": ["src/models/**/*.ts"],
-    "migrations": ["src/migrations/**/*.ts"]
-},
-{
-    "type": "mongodb",
-    "host": "localhost",
-    "port": 27017,
-    "database" : "database_name",
-    "synchronize": true,
-    "logging": true,
-    "entities": ["src/models/**/*.ts"]
-}]
+    "port": 3306,
+    "username": "root",
+    "password": "sodastereo2662",
+    "database": "cli-desa",
+    "entities": ["dist/entity/**/*.js"],
+    "synchronize": true    
+ }

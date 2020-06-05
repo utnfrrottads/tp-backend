@@ -5,10 +5,10 @@ import {Recorrido} from './Recorrido';
 export class Parada extends BaseEntity{
 
     @PrimaryGeneratedColumn()
-    NroParada;
+    NroParada: number;
 
-    @ManyToOne(type => Recorrido, Recorrido => Recorrido.IdRecorrido)
-    Recorrido
+    @ManyToOne(type => Recorrido, recorrido => recorrido.IdRecorrido)
+    recorrido: Recorrido;
 
     @Column({
         type: 'double',        

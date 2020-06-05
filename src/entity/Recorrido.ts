@@ -13,14 +13,14 @@ export class Recorrido extends BaseEntity{
     @Column({
         type: 'varchar',
         length: 50,
-        nullable : null
+        nullable : false
     })
-    RecorridoDesde;
+    RecorridoDesde: string;
 
     @Column({
         type: 'varchar',
         length: 50,
-        nullable : null
+        nullable: false
     })
-    RecorridoHasta;
+    RecorridoHasta: string;
 }
