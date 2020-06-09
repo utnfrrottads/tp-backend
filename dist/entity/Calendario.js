@@ -22,72 +22,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empresa = void 0;
+exports.Calendario = void 0;
 var typeorm_1 = require("typeorm");
-var Empresa = /** @class */ (function (_super) {
-    __extends(Empresa, _super);
-    function Empresa() {
+var Chofer_1 = require("./Chofer");
+var Recorrido_1 = require("./Recorrido");
+var Calendario = /** @class */ (function (_super) {
+    __extends(Calendario, _super);
+    function Calendario() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.PrimaryColumn({ type: "int",
-            length: 11,
-            unique: true,
-            nullable: false }),
+        typeorm_1.PrimaryGeneratedColumn(),
         __metadata("design:type", Number)
-    ], Empresa.prototype, "Cuit", void 0);
+    ], Calendario.prototype, "IdCalendario", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return Recorrido_1.Recorrido; }, function (recorrido) { return recorrido.IdRecorrido; }),
+        __metadata("design:type", Recorrido_1.Recorrido)
+    ], Calendario.prototype, "recorrido", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return Chofer_1.Chofer; }, function (chofer) { return chofer.Cuil; }),
+        __metadata("design:type", Chofer_1.Chofer)
+    ], Calendario.prototype, "chofer", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
-            length: 200,
-            unique: true,
-            nullable: false
+            type: 'time',
+            default: null
         }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "RazonSocial", void 0);
+        __metadata("design:type", typeorm_1.Timestamp)
+    ], Calendario.prototype, "HoraLlegada", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
+            type: 'time',
+            default: null
         }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Provincia", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Localidad", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Domicilio", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Telefono", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Email", void 0);
-    Empresa = __decorate([
+        __metadata("design:type", typeorm_1.Timestamp)
+    ], Calendario.prototype, "HoraSalida", void 0);
+    Calendario = __decorate([
         typeorm_1.Entity()
-    ], Empresa);
-    return Empresa;
+    ], Calendario);
+    return Calendario;
 }(typeorm_1.BaseEntity));
-exports.Empresa = Empresa;
+exports.Calendario = Calendario;

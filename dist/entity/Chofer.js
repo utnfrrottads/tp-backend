@@ -22,72 +22,90 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empresa = void 0;
+exports.Chofer = void 0;
 var typeorm_1 = require("typeorm");
-var Empresa = /** @class */ (function (_super) {
-    __extends(Empresa, _super);
-    function Empresa() {
+var LineaColectivo_1 = require("./LineaColectivo");
+var Chofer = /** @class */ (function (_super) {
+    __extends(Chofer, _super);
+    function Chofer() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.PrimaryColumn({ type: "int",
-            length: 11,
+        typeorm_1.PrimaryColumn({ type: "decimal",
             unique: true,
             nullable: false }),
         __metadata("design:type", Number)
-    ], Empresa.prototype, "Cuit", void 0);
+    ], Chofer.prototype, "Cuil", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return LineaColectivo_1.LineaColectivo; }, function (LineaColectivo) { return LineaColectivo.idLineaColectivo; }),
+        __metadata("design:type", LineaColectivo_1.LineaColectivo)
+    ], Chofer.prototype, "lineaColectivo", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
-            length: 200,
-            unique: true,
-            nullable: false
+            type: 'varchar',
+            length: 50,
+            nullable: false,
+            unique: true
         }),
         __metadata("design:type", String)
-    ], Empresa.prototype, "RazonSocial", void 0);
+    ], Chofer.prototype, "Nombre", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
+            type: 'varchar',
+            length: 50,
+            nullable: false,
+            unique: true
+        }),
+        __metadata("design:type", String)
+    ], Chofer.prototype, "Apellido", void 0);
+    __decorate([
+        typeorm_1.Column({
+            type: 'varchar',
+            length: 50,
+            nullable: false,
+            unique: true
+        }),
+        __metadata("design:type", String)
+    ], Chofer.prototype, "Telefono", void 0);
+    __decorate([
+        typeorm_1.Column({
+            type: 'varchar',
+            length: 50,
+            nullable: false,
+            unique: true
+        }),
+        __metadata("design:type", String)
+    ], Chofer.prototype, "Email", void 0);
+    __decorate([
+        typeorm_1.Column({
+            type: 'varchar',
             length: 100,
-            nullable: false
+            nullable: false,
+            unique: true
         }),
         __metadata("design:type", String)
-    ], Empresa.prototype, "Provincia", void 0);
+    ], Chofer.prototype, "Provincia", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
+            type: 'varchar',
             length: 100,
-            nullable: false
+            nullable: false,
+            unique: true
         }),
         __metadata("design:type", String)
-    ], Empresa.prototype, "Localidad", void 0);
+    ], Chofer.prototype, "Localidad", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
+            type: 'varchar',
             length: 100,
-            nullable: false
+            nullable: false,
+            unique: true
         }),
         __metadata("design:type", String)
-    ], Empresa.prototype, "Domicilio", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Telefono", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Email", void 0);
-    Empresa = __decorate([
+    ], Chofer.prototype, "Domicilio", void 0);
+    Chofer = __decorate([
         typeorm_1.Entity()
-    ], Empresa);
-    return Empresa;
+    ], Chofer);
+    return Chofer;
 }(typeorm_1.BaseEntity));
-exports.Empresa = Empresa;
+exports.Chofer = Chofer;

@@ -22,72 +22,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empresa = void 0;
+exports.Recorrido = void 0;
 var typeorm_1 = require("typeorm");
-var Empresa = /** @class */ (function (_super) {
-    __extends(Empresa, _super);
-    function Empresa() {
+var LineaColectivo_1 = require("./LineaColectivo");
+var Recorrido = /** @class */ (function (_super) {
+    __extends(Recorrido, _super);
+    function Recorrido() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.PrimaryColumn({ type: "int",
-            length: 11,
-            unique: true,
-            nullable: false }),
+        typeorm_1.PrimaryGeneratedColumn(),
         __metadata("design:type", Number)
-    ], Empresa.prototype, "Cuit", void 0);
+    ], Recorrido.prototype, "IdRecorrido", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return LineaColectivo_1.LineaColectivo; }, function (LineaColectivo) { return LineaColectivo.idLineaColectivo; }),
+        __metadata("design:type", LineaColectivo_1.LineaColectivo)
+    ], Recorrido.prototype, "lineaColectivo", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
-            length: 200,
-            unique: true,
+            type: 'varchar',
+            length: 50,
             nullable: false
         }),
         __metadata("design:type", String)
-    ], Empresa.prototype, "RazonSocial", void 0);
+    ], Recorrido.prototype, "RecorridoDesde", void 0);
     __decorate([
         typeorm_1.Column({
-            type: "varchar",
-            length: 100,
+            type: 'varchar',
+            length: 50,
             nullable: false
         }),
         __metadata("design:type", String)
-    ], Empresa.prototype, "Provincia", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Localidad", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Domicilio", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Telefono", void 0);
-    __decorate([
-        typeorm_1.Column({
-            type: "varchar",
-            length: 100,
-            nullable: false
-        }),
-        __metadata("design:type", String)
-    ], Empresa.prototype, "Email", void 0);
-    Empresa = __decorate([
+    ], Recorrido.prototype, "RecorridoHasta", void 0);
+    Recorrido = __decorate([
         typeorm_1.Entity()
-    ], Empresa);
-    return Empresa;
+    ], Recorrido);
+    return Recorrido;
 }(typeorm_1.BaseEntity));
-exports.Empresa = Empresa;
+exports.Recorrido = Recorrido;
