@@ -2,23 +2,27 @@ import {Request, Response} from 'express'
 import { getRepository } from 'typeorm'
 import { Calendario } from '../entity/Calendario'
 
+export const getCalendarios = async (req: Request, res: Response): Promise<Response> => {
+    const calendarios = await getRepository(Calendario).find();
+    return res.json(calendarios);
+}
+
 export const getCalendario = async (req: Request, res: Response): Promise<Response> => {
-    const paradas = await getRepository(Calendario).find();
-    return res.json(paradas);
+    const calendario = await getRepository(Calendario).findOne(req.params.chofer);
+    return res.json(calendario);
 }
 
-export const getParada = async (req: Request, res: Response): Promise<Response> => {
-    const parada = await getRepository(Calendario).findOne(req.params.idCalendario);
-    return res.json(parada);
+export const createCalendario = async (req: Request, res: Response): Promise<Response> => {    
+    const calendarioUso = await getRepository(Calendario).create(req.body);
+    if(calendarioUso === null){
+        const result = await getRepository(Calendario).save(calendarioUso);
+        return res.json(result);
+    }
+    
+    return res.status(412).json({ message: 'Calendario en uso.'});
 }
 
-export const createParada = async (req: Request, res: Response): Promise<Response> => {    
-    const parada = await getRepository(Calendario).create(req.body);
-    const result = await getRepository(Calendario).save(parada);
-    return res.json(result);
-}
-
-export const updateParada = async (req: Request, res: Response): Promise<Response> => {    
+export const updateCalendario = async (req: Request, res: Response): Promise<Response> => {    
     const calendario = await getRepository(Calendario).findOne(req.params.idCalendario);
         if(calendario !== undefined && calendario) {
             getRepository(Calendario).merge(calendario, req.body);
@@ -26,10 +30,15 @@ export const updateParada = async (req: Request, res: Response): Promise<Respons
             return res.json(result);
         }
         
-        return res.status(404).send({ message: 'Calendario not found' });
+    return res.status(404).send({ message: 'Calendario no existente' });
 }
 
-export const deleteParada = async (req: Request, res: Response): Promise<Response> => {
-    const result = await getRepository(Calendario).delete(req.params.idCalendario);
-    return res.json(result);
+export const deleteCalendario = async (req: Request, res: Response): Promise<Response> => {
+    const calendarioUso = await getRepository(Calendario).findOne(req.params.chofer);
+    if(calendarioUso !== undefined && calendarioUso){
+        const result = await getRepository(Calendario).delete(req.params.idCalendario);
+        return res.json(result);
+    }
+
+    return res.status(412).json({ message: 'No se puede eliminar el Calendario en uso.' });    
 }
