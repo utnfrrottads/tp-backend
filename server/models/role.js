@@ -6,7 +6,8 @@ const RoleSchema = new Schema({
     name: {type: String, required: true},
     description: {type: String, required: true},
     permissions: [{type: String, required: true}]     
-});
+},
+{ collection : 'roles' });
 
 //Exporto el Esquema cuando lo requiera en otro lado
 module.exports = mongoose.model('Roles', RoleSchema);

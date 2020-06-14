@@ -15,7 +15,13 @@ app.use(express.json()); //Inicio un Middleware para convertir los objetos JSON
 app.use(cors({origin: 'http://localhost:4200'})); //Inicio Middleware para permitir conexion al FrontEnd(Angular)
 
 //Routes
-//app.use('./api',require('./routes')); //Aca se van agregando segun vayamos creando las rutas para cada ABMC
+// app.use('/api/article',require('./routes/article.routes'));
+// app.use('/api/branch',require('./routes/branch.routes'));
+// app.use('/api/note',require('./routes/note.routes'));
+// app.use('/api/product',require('./routes/product.routes'));
+app.use('/api/role', require('./routes/role.routes'));
+// app.use('/api/sale',require('./routes/sale.routes'));
+// app.use('/api/user',require('./routes/user.routes'));
 
 //Start Server
 app.listen(app.get('port'),()=>{
