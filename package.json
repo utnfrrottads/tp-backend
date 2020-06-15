@@ -1,29 +1,29 @@
 {
-  "name": "tp-backend-2020",
-  "version": "1.0.0",
-  "description": "El sistema por desarrollar consiste en el e-commerce de una perfumería que se dedica a la venta de perfumes originales importados a través de distintas sucursales en el país. Las sucursales se identifican según el CUIT de esta y su ubicación está dada por el código postal de la ciudad en la que se encuentra, su calle y numero. Además de estos datos, también se tiene un usuario de contacto de esta y el teléfono del local.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/orcorsetti/tp-backend-2020.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/orcorsetti/tp-backend-2020/issues"
-  },
-  "homepage": "https://github.com/orcorsetti/tp-backend-2020#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.9.18",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  }
+    "name": "tp-backend-2020",
+    "version": "1.0.0",
+    "description": "El sistema por desarrollar consiste en el e-commerce de una perfumería que se dedica a la venta de perfumes originales importados a través de distintas sucursales en el país. Las sucursales se identifican según el CUIT de esta y su ubicación está dada por el código postal de la ciudad en la que se encuentra, su calle y numero. Además de estos datos, también se tiene un usuario de contacto de esta y el teléfono del local.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon server//index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/orcorsetti/tp-backend-2020.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/orcorsetti/tp-backend-2020/issues"
+    },
+    "homepage": "https://github.com/orcorsetti/tp-backend-2020#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongoose": "^5.9.18",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    }
 }
