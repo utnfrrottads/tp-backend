@@ -13,7 +13,8 @@ const ArticleSchema = new Schema({
             date: {type: Date, required: true}
         }
     ]
-});
+},
+{collection: 'articles'});
 
 //Exporto el Esquema cuando lo requiera en otro lado
 module.exports = mongoose.model('Articles', ArticleSchema);

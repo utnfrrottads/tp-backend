@@ -16,7 +16,8 @@ const UserSchema = new Schema({
     employee: {type: Boolean, required: true},
     client: {type: Boolean, required: true},
     roles: [{type: Schema.Types.ObjectId, required: true}]
-})
+},
+{collection:'users'})
 
 //Exporto el Esquema cuando lo requiera en otro lado
 module.exports = mongoose.model('User', UserSchema);

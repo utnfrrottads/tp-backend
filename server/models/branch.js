@@ -9,7 +9,8 @@ const BranchSchema = new Schema({
     pc: {type: String, required: true},
     phone: {type: Number, required: true},
     //Manager (Si lo usamos deja de ser independiente)
-})
+},
+{collection: 'branches'});
 
 //Exporto el Esquema cuando lo requiera en otro lado
 module.exports = mongoose.model('Branches', BranchSchema);
