@@ -5,7 +5,8 @@ const {Schema} = mongoose; //Importo los esquemas de Mongo
 const UserSchema = new Schema({
     dni: {type: String, required: true},
     names: {type: String, required: true},
-    lastname: {type: String, required: true},
+    lastNames: {type: String, required: true},
+    username: {type: String, required: true},
     password: {type: String, required: true},
     email: {type: String, required:true},
     pc: {type: String, required: true},
