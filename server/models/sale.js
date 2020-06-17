@@ -15,7 +15,8 @@ const SaleSchema =  new Schema({
             quantity: {type: Number, required: true}
         }
     ]
-})
+},
+{collection: 'sales'});
 
 //Exporto el Esquema cuando lo requiera en otro lado
 module.exports = mongoose.model('Sale', SaleSchema);

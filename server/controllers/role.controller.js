@@ -4,9 +4,7 @@ const RoleCtrl = {}; //Creo el objeto controlador
 
 //Metodo GetAll (res= response y req= request)
 RoleCtrl.getRoles = async (req, res) => {
-    console.log('Paso por aqui');
     const roles = await Role.find(); //Busca todos los documentos
-    console.log(roles);
     res.json(roles); //Los envio en formato JSON
 }
 

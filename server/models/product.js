@@ -11,7 +11,8 @@ const ProductSchema = new Schema({
             date: {type: Date}
         }
     ]
-})
+},
+{collection: 'products'})
 
 //Exporto el Esquema cuando lo requiera en otro lado
 module.exports = mongoose.model('Product', ProductSchema);
