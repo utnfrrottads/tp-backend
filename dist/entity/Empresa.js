@@ -30,8 +30,7 @@ var Empresa = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.PrimaryColumn({ type: "int",
-            length: 11,
+        typeorm_1.PrimaryColumn({ type: "bigint",
             unique: true,
             nullable: false }),
         __metadata("design:type", Number)

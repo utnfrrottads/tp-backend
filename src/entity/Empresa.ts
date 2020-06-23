@@ -3,8 +3,7 @@ import { Entity, Column, BaseEntity, PrimaryColumn} from 'typeorm';
 @Entity()
 export class Empresa extends BaseEntity {
 
-@PrimaryColumn({type: "int",
-               length: 11,
+@PrimaryColumn({type: "bigint",
                unique: true,
                nullable: false})
 Cuit: number;
