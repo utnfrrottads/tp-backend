@@ -54,10 +54,7 @@ exports.getEmpresa = function (req, res) { return __awaiter(void 0, void 0, void
     var empresa;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                console.log(req.params);
-                console.dir(req.params.cuit);
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
             case 1:
                 empresa = _a.sent();
                 return [2 /*return*/, res.json(empresa)];
@@ -68,9 +65,7 @@ exports.createEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
     var nuevaEmpresa, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                console.dir(req.body);
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).create(req.body)];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).create(req.body)];
             case 1:
                 nuevaEmpresa = _a.sent();
                 return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).save(nuevaEmpresa)];
@@ -84,9 +79,7 @@ exports.updateEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
     var empresa, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                debugger;
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
             case 1:
                 empresa = _a.sent();
                 if (!(empresa !== undefined && empresa)) return [3 /*break*/, 3];
@@ -103,9 +96,7 @@ exports.deleteEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
     var result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                debugger;
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).delete(req.params.cuit)];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).delete(req.params.cuit)];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];

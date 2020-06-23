@@ -3,10 +3,10 @@ const router = Router()
 
 import { getLineaColectivo, getLineaColectivos, createLineaColectivo, updateLineaColectivo, deleteLineaColectivo } from '../controller/LineaColectivo.controller'
 
-router.get('./LineaColectivo', getLineaColectivos);
-router.get('./LineaColectivo/:id', getLineaColectivo);
-router.post('./LineaColectivo', createLineaColectivo);
-router.put('./LineaColectivo', updateLineaColectivo);
-router.delete('./LineaColectivo', deleteLineaColectivo);
+router.get('./getLineaColectivos', getLineaColectivos);
+router.get('./getLineaColectivo/:id', getLineaColectivo);
+router.post('./createLineaColectivo', createLineaColectivo);
+router.put('./updateLineaColectivo', updateLineaColectivo);
+router.delete('./deleteLineaColectivo/:id', deleteLineaColectivo);
 
 export default router
