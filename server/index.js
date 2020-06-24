@@ -20,7 +20,7 @@ app.use(cors({ origin: 'http://localhost:4200' })); //Inicio Middleware para per
 app.use('/api/note',require('./routes/note.routes'));
 app.use('/api/product',require('./routes/product.routes'));
 app.use('/api/role', require('./routes/role.routes'));
-// app.use('/api/sale',require('./routes/sale.routes'));
+app.use('/api/sale',require('./routes/sale.routes'));
 app.use('/api/user', require('./routes/user.routes'));
 
 //Start Server
