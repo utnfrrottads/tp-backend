@@ -1,4 +1,5 @@
-import { Entity, Column, BaseEntity, PrimaryColumn} from 'typeorm';
+import { Entity, Column, BaseEntity, PrimaryColumn, OneToMany} from 'typeorm';
+import { LineaColectivo } from './LineaColectivo';
 
 @Entity()
 export class Empresa extends BaseEntity {
@@ -50,5 +51,8 @@ Telefono: string;
    nullable: false
 })
 Email: string;
+
+@OneToMany(type => LineaColectivo, lineaC => lineaC.empresa)
+lineaC: LineaColectivo[];
 
 }

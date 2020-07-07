@@ -3,10 +3,10 @@ const router = Router()
 
 import { createChofer, getChofer, getChoferes, updateChofer, deleteChofer } from '../controller/Chofer.controller'
 
-router.get('./Choferes', getChoferes);
-router.get('./Choferes/:cuil', getChofer);
-router.post('./Choferes', createChofer);
-router.put('./Choferes', updateChofer);
-router.delete('./Choferes/:cuil', deleteChofer);
+router.get('/getChoferes', getChoferes);
+router.get('/getChofer/:cuil', getChofer);
+router.post('/createChofer', createChofer);
+router.put('/updateChoferes', updateChofer);
+router.delete('/deleteChoferes/:cuil', deleteChofer);
 
 export default router

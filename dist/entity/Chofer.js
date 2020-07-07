@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Chofer = void 0;
 var typeorm_1 = require("typeorm");
 var LineaColectivo_1 = require("./LineaColectivo");
+var Calendario_1 = require("./Calendario");
 var Chofer = /** @class */ (function (_super) {
     __extends(Chofer, _super);
     function Chofer() {
@@ -37,7 +38,7 @@ var Chofer = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], Chofer.prototype, "Cuil", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return LineaColectivo_1.LineaColectivo; }, function (LineaColectivo) { return LineaColectivo.idLineaColectivo; }),
+        typeorm_1.ManyToOne(function (type) { return LineaColectivo_1.LineaColectivo; }, function (LineaColectivo) { return LineaColectivo.idLineaColectivo; }, { nullable: false }),
         __metadata("design:type", LineaColectivo_1.LineaColectivo)
     ], Chofer.prototype, "lineaColectivo", void 0);
     __decorate([
@@ -103,6 +104,10 @@ var Chofer = /** @class */ (function (_super) {
         }),
         __metadata("design:type", String)
     ], Chofer.prototype, "Domicilio", void 0);
+    __decorate([
+        typeorm_1.OneToMany(function (type) { return Calendario_1.Calendario; }, function (calendario) { return calendario.chofer; }),
+        __metadata("design:type", Array)
+    ], Chofer.prototype, "calendario", void 0);
     Chofer = __decorate([
         typeorm_1.Entity()
     ], Chofer);

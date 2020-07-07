@@ -1,6 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BaseEntity,         
-    ManyToOne} from 'typeorm';
+    ManyToOne,
+    JoinColumn,
+    OneToMany} from 'typeorm';
 import {Empresa} from './Empresa'
+import { Chofer } from './Chofer';
+import { Recorrido } from './Recorrido';
 
 @Entity()
 export class LineaColectivo extends BaseEntity{
@@ -10,7 +14,7 @@ export class LineaColectivo extends BaseEntity{
 @PrimaryGeneratedColumn()
 idLineaColectivo: number;
 
-@ManyToOne(type => Empresa, Empresa => Empresa.Cuit)
+@ManyToOne(type => Empresa, Empresa => Empresa.Cuit, {nullable: false})
 empresa: Empresa;
 
 @Column({
@@ -32,5 +36,11 @@ latitud: number;
    nullable: false,        
 })
 longitud: number;
+
+@OneToMany(type => Chofer, chofer => chofer.lineaColectivo)
+chofer: Chofer[];
+
+@OneToMany(type => Recorrido, recorrido => recorrido.lineaColectivo)
+recorrido: Chofer[];
 
 }

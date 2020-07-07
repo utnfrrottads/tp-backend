@@ -9,6 +9,8 @@ var morgan_1 = __importDefault(require("morgan"));
 var cors_1 = __importDefault(require("cors"));
 var typeorm_1 = require("typeorm");
 var Empresa_route_1 = __importDefault(require("./routes/Empresa.route"));
+var LineaColectivo_router_1 = __importDefault(require("./routes/LineaColectivo.router"));
+var Chofer_route_1 = __importDefault(require("./routes/Chofer.route"));
 var app = express_1.default();
 typeorm_1.createConnection();
 //middlewars
@@ -17,5 +19,7 @@ app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());
 // routes
 app.use(Empresa_route_1.default);
+app.use(LineaColectivo_router_1.default);
+app.use(Chofer_route_1.default);
 app.listen(3000);
 console.log('Server on port', 3000);

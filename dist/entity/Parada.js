@@ -35,7 +35,7 @@ var Parada = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], Parada.prototype, "NroParada", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Recorrido_1.Recorrido; }, function (recorrido) { return recorrido.IdRecorrido; }),
+        typeorm_1.ManyToOne(function (type) { return Recorrido_1.Recorrido; }, function (recorrido) { return recorrido.IdRecorrido; }, { nullable: false }),
         __metadata("design:type", Recorrido_1.Recorrido)
     ], Parada.prototype, "recorrido", void 0);
     __decorate([

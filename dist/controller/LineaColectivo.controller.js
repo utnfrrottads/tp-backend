@@ -51,13 +51,21 @@ exports.getLineaColectivos = function (req, res) { return __awaiter(void 0, void
     });
 }); };
 exports.getLineaColectivo = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var lineaCol;
+    var lineaCol, lineaColEmpresa;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).findOne(req.params.id)];
+            case 0:
+                debugger;
+                return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).findOne(req.params.id)];
             case 1:
                 lineaCol = _a.sent();
-                return [2 /*return*/, res.json(lineaCol)];
+                return [4 /*yield*/, typeorm_1.createQueryBuilder("LineaColectivo")
+                        .leftJoinAndSelect("LineaColectivo.empresa", "Empresa")
+                        .where("LineaColectivo.idLineaColectivo = :idLineaColectivo", { idLineaColectivo: req.params.id })
+                        .getOne()];
+            case 2:
+                lineaColEmpresa = _a.sent();
+                return [2 /*return*/, res.json(lineaColEmpresa)];
         }
     });
 }); };
@@ -65,7 +73,9 @@ exports.createLineaColectivo = function (req, res) { return __awaiter(void 0, vo
     var lineaCol, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).create(req.body)];
+            case 0:
+                debugger;
+                return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).create(req.body)];
             case 1:
                 lineaCol = _a.sent();
                 return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).save(lineaCol)];
@@ -76,30 +86,42 @@ exports.createLineaColectivo = function (req, res) { return __awaiter(void 0, vo
     });
 }); };
 exports.updateLineaColectivo = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var lineaCol, result;
+    var lineaCol, result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).findOne(req.params.id)];
+            case 0:
+                _a.trys.push([0, 4, , 5]);
+                return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).findOne(req.params.idLineaColectivo)];
             case 1:
                 lineaCol = _a.sent();
                 if (!(lineaCol !== undefined && lineaCol)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).merge(lineaCol, req.body);
-                return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).save(LineaColectivo_1.LineaColectivo)];
+                return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).save(lineaCol)];
             case 2:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
             case 3: return [2 /*return*/, res.status(404).send({ message: 'Linea Colectivo not found' })];
+            case 4:
+                error_1 = _a.sent();
+                return [2 /*return*/, res.status(404).send({ message: error_1 })];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteLineaColectivo = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result;
+    var result, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).delete(req.params.id)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(LineaColectivo_1.LineaColectivo).delete(req.params.id)];
             case 1:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
+                return [2 /*return*/, res.status(200).json({ msj: result })];
+            case 2:
+                error_2 = _a.sent();
+                return [2 /*return*/, res.status(200).json({ msj: error_2 })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

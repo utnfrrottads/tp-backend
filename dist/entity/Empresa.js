@@ -24,6 +24,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Empresa = void 0;
 var typeorm_1 = require("typeorm");
+var LineaColectivo_1 = require("./LineaColectivo");
 var Empresa = /** @class */ (function (_super) {
     __extends(Empresa, _super);
     function Empresa() {
@@ -84,6 +85,10 @@ var Empresa = /** @class */ (function (_super) {
         }),
         __metadata("design:type", String)
     ], Empresa.prototype, "Email", void 0);
+    __decorate([
+        typeorm_1.OneToMany(function (type) { return LineaColectivo_1.LineaColectivo; }, function (lineaC) { return lineaC.empresa; }),
+        __metadata("design:type", Array)
+    ], Empresa.prototype, "lineaC", void 0);
     Empresa = __decorate([
         typeorm_1.Entity()
     ], Empresa);

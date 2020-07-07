@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, BaseEntity, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryColumn, BaseEntity, Column, ManyToOne, OneToMany } from 'typeorm';
 import {LineaColectivo} from './LineaColectivo';
+import { Calendario } from './Calendario';
 
 @Entity()
 export class Chofer extends BaseEntity {
@@ -9,7 +10,7 @@ export class Chofer extends BaseEntity {
                     nullable: false})
     Cuil: number;
     
-    @ManyToOne(type => LineaColectivo, LineaColectivo => LineaColectivo.idLineaColectivo)
+    @ManyToOne(type => LineaColectivo, LineaColectivo => LineaColectivo.idLineaColectivo, {nullable: false})
     lineaColectivo: LineaColectivo;
 
     @Column({
@@ -67,5 +68,8 @@ export class Chofer extends BaseEntity {
         unique: true
     })
     Domicilio: string;
+
+    @OneToMany(type => Calendario, calendario => calendario.chofer)
+    calendario: Calendario[];
 
 }

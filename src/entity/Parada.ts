@@ -7,7 +7,7 @@ export class Parada extends BaseEntity{
     @PrimaryGeneratedColumn()
     NroParada: number;
 
-    @ManyToOne(type => Recorrido, recorrido => recorrido.IdRecorrido)
+    @ManyToOne(type => Recorrido, recorrido => recorrido.IdRecorrido, {nullable: false})
     recorrido: Recorrido;
 
     @Column({

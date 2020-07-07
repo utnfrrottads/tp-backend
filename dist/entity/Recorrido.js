@@ -25,6 +25,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Recorrido = void 0;
 var typeorm_1 = require("typeorm");
 var LineaColectivo_1 = require("./LineaColectivo");
+var Calendario_1 = require("./Calendario");
+var Parada_1 = require("./Parada");
 var Recorrido = /** @class */ (function (_super) {
     __extends(Recorrido, _super);
     function Recorrido() {
@@ -35,7 +37,7 @@ var Recorrido = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], Recorrido.prototype, "IdRecorrido", void 0);
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return LineaColectivo_1.LineaColectivo; }, function (LineaColectivo) { return LineaColectivo.idLineaColectivo; }),
+        typeorm_1.ManyToOne(function (type) { return LineaColectivo_1.LineaColectivo; }, function (LineaColectivo) { return LineaColectivo.idLineaColectivo; }, { nullable: false }),
         __metadata("design:type", LineaColectivo_1.LineaColectivo)
     ], Recorrido.prototype, "lineaColectivo", void 0);
     __decorate([
@@ -54,6 +56,14 @@ var Recorrido = /** @class */ (function (_super) {
         }),
         __metadata("design:type", String)
     ], Recorrido.prototype, "RecorridoHasta", void 0);
+    __decorate([
+        typeorm_1.OneToMany(function (type) { return Calendario_1.Calendario; }, function (calendario) { return calendario.recorrido; }),
+        __metadata("design:type", Array)
+    ], Recorrido.prototype, "calendario", void 0);
+    __decorate([
+        typeorm_1.OneToMany(function (type) { return Parada_1.Parada; }, function (parada) { return parada.recorrido; }),
+        __metadata("design:type", Array)
+    ], Recorrido.prototype, "parada", void 0);
     Recorrido = __decorate([
         typeorm_1.Entity()
     ], Recorrido);

@@ -1,5 +1,5 @@
 import {Request, Response} from 'express'
-import { getRepository, AdvancedConsoleLogger } from 'typeorm'
+import { getRepository } from 'typeorm'
 import { Empresa } from '../entity/Empresa'
 
 export const getEmpresas = async (req: Request, res: Response): Promise<Response> => {   
