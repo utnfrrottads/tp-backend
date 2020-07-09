@@ -1,4 +1,4 @@
-# TP Backend 2020
+# TP Backend 2020.
 
 ## Integrantes del grupo:
 |       Miembro         |Legajo                 |Dirección de Correo           					|
