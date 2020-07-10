@@ -1,0 +1,23 @@
+.decoradorArriba {
+  width: 100%;
+  height: 100px;
+  background-color: red;
+
+  align-content: center;
+}
+
+.avatar {
+  transform: translate(0px, 10px);
+
+  border-width: 3px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 50%;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  height: 200px;
+  width: 200px;
+}
