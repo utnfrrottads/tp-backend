@@ -1,0 +1,5 @@
+<div class="row">
+    <div class="col s12 m4 l3" *ngFor="let producto of lista; let i = index" >
+        <app-card-list  [producto] ="lista[i]"> </app-card-list>
+    </div>
+</div>
