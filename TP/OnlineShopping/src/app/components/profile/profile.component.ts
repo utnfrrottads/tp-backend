@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   constructor() { }
+  image_url = "../../images/default_profile.jpg"
 
   ngOnInit(): void {
   }

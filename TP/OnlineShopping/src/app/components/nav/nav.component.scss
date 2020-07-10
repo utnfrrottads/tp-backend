@@ -11,7 +11,9 @@ $main-color: #673ab7;
   cursor: pointer;
   background-color: #5C34A4;
 }
-
+.right{
+  max-height: 64px;
+}
 .nav-wrapper {
   background-color: $main-color;
   display: block;
