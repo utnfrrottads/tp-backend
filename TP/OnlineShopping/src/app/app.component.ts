@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     
+    //creo una lista de 10 productos solamente para probar que ande bien el nav.
     for (let i = 0; i < 10; i++) {
       let p = new Producto();
       p.idEmpresa = 123;
