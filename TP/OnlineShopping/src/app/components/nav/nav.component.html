@@ -1,0 +1,33 @@
+<nav>
+    <div class="nav-wrapper">
+        <ul class="right">
+            <li>
+                <div class="search">
+                    <input #input type="text" placeholder="¡Busca un producto!" (keyup.enter)="search(input)">
+                </div>
+            </li>
+
+
+            <li (click)="search(input)"><a><i class="material-icons right">search</i></a></li>
+            <li>
+                <a class="dropdown-trigger" data-target="dropdown1"><i class="material-icons right">person</i>Mi perfil</a></li>
+            <li>
+
+                <a><i class="material-icons right carrito">shopping_cart</i>Carrito</a>
+                <div class="chip">
+                    {{lista.length}}
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+ <!-- Dropdown Structure -->
+ <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="#!">three</a></li>
+    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+</ul>

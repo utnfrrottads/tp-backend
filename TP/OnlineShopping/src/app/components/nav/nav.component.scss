@@ -1,0 +1,40 @@
+$main-color: #673ab7;
+
+.nav-wrapper {
+  background-color: $main-color;
+  display: block;
+  text-align: center;
+}
+.search {
+  width: 300px;
+}
+.search input {
+  text-align: left;
+  color: white;
+}
+.carrito {
+  padding-right: 40px;
+}
+
+.chip {
+  transform: translate(45px, -53px);
+  width: max-content;
+  text-align: center;
+  font-size: small;
+
+  pointer-events: none;
+}
+.dropdown-content {
+  transform: translate(0, -60px);
+}
+.dropdown-content * {
+  color: $main-color;
+}
+
+/*
+*{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+*/
