@@ -5,6 +5,6 @@ export class Persona {
     direccion: string;
     telefono: string;
     mail: string;
-    
-
+    nombre: string;
+    apellido: string;
 }   

@@ -18,6 +18,7 @@ $main-color: #673ab7;
   background-color: $main-color;
   display: block;
   text-align: center;
+  min-height: 64px;
 
   //Esto es para que no se puedan seleccionar los textos del nav.
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -92,5 +93,8 @@ $main-color: #673ab7;
   .search input {
     width: 100%;
     float: left;
+  }
+  .nav-wrapper{
+    min-height: 0;
   }
 }
