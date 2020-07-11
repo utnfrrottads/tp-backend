@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 //para los componentes de angular material.
 import {AngularMaterialModule} from './angular-material/angular-material.module';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import {AngularMaterialModule} from './angular-material/angular-material.module'
     CardListComponent,
     ProductsContainerComponent,
 
-    ProfileComponent
+    ProfileComponent,
+
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
