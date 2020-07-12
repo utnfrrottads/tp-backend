@@ -1,0 +1,45 @@
+.decoradorArriba {
+  width: 100%;
+  height: 200px;
+  
+  border-top-left-radius: 90px;
+  border-bottom-left-radius: 90px;
+  border-bottom-right-radius: 10px;
+
+  //Gradiente sacado de internet.
+  //fuente: https://www.cssmatic.com/es/gradient-generator
+  background: #93dba1;
+  background: -moz-linear-gradient(left, #93dba1 0%, #75bdd1 59%, #4aa6bf 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #93dba1), color-stop(59%, #75bdd1), color-stop(100%, #4aa6bf));
+  background: -webkit-linear-gradient(left, #93dba1 0%, #75bdd1 59%, #4aa6bf 100%);
+  background: -o-linear-gradient(left, #93dba1 0%, #75bdd1 59%, #4aa6bf 100%);
+  background: -ms-linear-gradient(left, #93dba1 0%, #75bdd1 59%, #4aa6bf 100%);
+  background: linear-gradient(to right, #93dba1 0%, #75bdd1 59%, #4aa6bf 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93dba1', endColorstr='#4aa6bf', GradientType=1 );
+}
+
+.avatar {
+  transform: translate(-30px, 0px);
+
+  border-width: 3px;
+  border-style: solid;
+  border-color: rgb(218, 217, 217);
+  border-radius: 50%;
+
+  height: 200px;
+  width: 200px;
+}
+
+.datos-personales{
+  padding-top: 40px;
+}
+.btn-save{
+  margin-right: 5px;
+}
+.botones{
+  float: right;
+}
+
+//movil pequeño
+@media only screen and (max-width: 380px) {
+}
