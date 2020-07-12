@@ -1,0 +1,53 @@
+.image-container{
+    margin-top: 2em;
+    margin-left: 6em;
+    width: 40em;
+    height: 40em;
+    display:flex;
+
+}
+
+.image-contained{
+    height: 30em;
+    width: auto;
+    display:block;
+    margin: auto;
+}
+
+.descripcion{
+ margin-left: 4em;
+width: 50%;
+}
+
+.seller-profile{
+    border-style: dashed;
+    margin-top: 5em;
+    height: 20em;
+}
+
+.product-detail{
+    margin: 10px;
+}
+
+.btn-color-secondary{
+    background-color: white;
+    color: rgb(103,058,183)
+}
+.btn-color{
+    background: rgb(103,058,183);
+    color: white;
+    font-size: large;
+}
+
+#btn-style{ 
+    margin-top: 3em;
+    font-size: medium;
+}
+
+#right-to-image{
+    float: right;
+    
+    text-align: center;
+    margin-left: 17em;
+    padding-top:2em;
+}
