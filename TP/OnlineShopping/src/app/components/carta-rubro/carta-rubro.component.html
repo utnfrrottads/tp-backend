@@ -1,0 +1,15 @@
+<div [ngSwitch]="rubro.descripcion" class="card small make-bigger purple darken-4">
+  <div class="card-image">
+    <img class="responsive-img" *ngSwitchCase="'Tecnologia'"src="https://image.freepik.com/foto-gratis/fondo-conexiones-red-3d-baja-poli_1048-10325.jpg" alt="...">
+    <img class="responsive-img" *ngSwitchCase="'Alimentos'"src="https://image.freepik.com/foto-gratis/cosecha-macetas-verduras_23-2147694057.jpg" alt="...">
+    <img class="responsive-img" *ngSwitchCase="'Ropa e Indumentaria'"src="https://image.freepik.com/foto-gratis/cinturon-ropa-elegancia-madera-mens_1203-6422.jpg" alt="...">
+    <img class="responsive-img" *ngSwitchCase="'Vehículos'"src="https://image.freepik.com/foto-gratis/motocicleta-gris-negra-casco-rojo_114579-4063.jpg" alt="...">
+    <img class="responsive-img" *ngSwitchCase="'Escolar'"src="https://image.freepik.com/foto-gratis/copia-amarilla-mochila-llena-utiles-escolares_23-2148224289.jpg" alt="...">
+  </div>
+  <div class="card-content white-text">
+    <span class="card-title" style="font-weight: bold;">{{rubro.descripcion}}</span>
+  </div>
+</div>
+
+
+
