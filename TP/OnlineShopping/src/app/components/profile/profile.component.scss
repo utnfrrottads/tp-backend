@@ -17,10 +17,18 @@
   background: linear-gradient(to right, #93dba1 0%, #75bdd1 59%, #4aa6bf 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93dba1', endColorstr='#4aa6bf', GradientType=1 );
 }
+.info{
+  display: block;
+  width: 100%  
+}
+.info h4{
+  margin: 2px;
+  color: #F0F0F0;
+}
 
 .avatar {
-  transform: translate(-30px, 0px);
-
+  
+  float: left;
   border-width: 3px;
   border-style: solid;
   border-color: rgb(218, 217, 217);
@@ -28,18 +36,43 @@
 
   height: 200px;
   width: 200px;
+
+  margin-right: 20px;
+  transform: translate(-5px);
 }
 
 .datos-personales{
   padding-top: 40px;
 }
 .btn-save{
-  margin-right: 5px;
+  margin-left: 5px;
 }
 .botones{
   float: right;
 }
+.title{
+  padding-top: 20px;
+  
+}
+.extra{
+  font-size: large;
+}
+.contact{
+  padding-top: 10px;
+}
 
 //movil pequeño
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 600px) {
+  .info{
+    display: none;
+  }
+  .avatar{
+    float: none;
+  }
+  .decoradorArriba{
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 0px;
+  }
 }

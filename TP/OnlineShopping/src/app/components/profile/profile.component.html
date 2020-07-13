@@ -2,6 +2,17 @@
   <div class="decoradorArriba">
     <img class="avatar" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
       alt="Mountain">
+
+    <div class="info">
+      <h4 class="truncate title">{{user.entidad.razonSocial}} {{user.entidad.apellido }} {{user.entidad.nombre}}</h4>
+      
+      <h4 class="truncate extra contact">Dirección: </h4>
+      <h4 class="truncate extra">{{user.entidad.localidad}} - {{user.entidad.direccion}}</h4>
+      <h4 class="truncate extra contact">Contacto: </h4>
+      <h4 class="truncate extra">{{user.entidad.mail}}</h4>
+      <h4 class="truncate extra">{{user.entidad.telefono}}</h4>
+    
+    </div>
   </div>
 
   <!-- SI ES PERSONA SE MUESTRA ESTO -->
@@ -11,40 +22,40 @@
       <!-- nombre y apellido-->
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="{{user.entidad.nombre}}" type="text" class="validate">
+          <input id="nombre" placeholder="{{user.entidad.nombre}}" type="text" class="validate">
           <label>Nombre</label>
         </div>
         <div class="input-field col s6">
-          <input placeholder="{{user.entidad.apellido}}" type="text" class="validate">
+          <input id="apellido" placeholder="{{user.entidad.apellido}}" type="text" class="validate">
           <label>Apellido</label>
         </div>
       </div>
       <!-- email-->
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" placeholder="{{user.entidad.mail}}">
+          <input id="mail" type="email" class="validate" placeholder="{{user.entidad.mail}}">
           <label for="email">Email</label>
         </div>
       </div>
       <!-- DNI y Localidad-->
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder={{user.entidad.dni}} type="text" class="validate">
+          <input id="dni" placeholder={{user.entidad.dni}} type="text" class="validate">
           <label>DNI</label>
         </div>
         <div class="input-field col s6">
-          <input placeholder={{user.entidad.localidad}} type="text" class="validate">
+          <input id="localidad" placeholder={{user.entidad.localidad}} type="text" class="validate">
           <label>Localidad</label>
         </div>
       </div>
       <!-- Direccion y Telefono-->
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder={{user.entidad.direccion}} type="text" class="validate">
+          <input id="direccion" placeholder={{user.entidad.direccion}} type="text" class="validate">
           <label>Direccion</label>
         </div>
         <div class="input-field col s6">
-          <input placeholder={{user.entidad.telefono}} type="text" class="validate">
+          <input id="telefono" placeholder={{user.entidad.telefono}} type="text" class="validate">
           <label>Telefono</label>
         </div>
       </div>
@@ -52,62 +63,72 @@
       <!--botones-->
       <div class="botones">
 
-        <button mat-raised-button color="primary" (click)="save()" class="btn-save">
-          Guardar
-        </button>
-
-        <button mat-raised-button color="primary" (click)="descartar()">
+        <button mat-raised-button type="button" color="primary" (click)="discard(formPersona)">
           Descartar
         </button>
 
-
+        <button mat-raised-button type="button" color="primary" (click)="save(formPersona)" class="btn-save">
+          Guardar
+        </button>
 
       </div>
-
-
-
     </form>
   </div>
 
   <!-- SI ES EMPRESA SE MUESTRA ESTO -->
   <div class="row datos-personales" *ngIf="!user.esPersona">
-    <form class="col s12">
+    <form class="col s12" #formEmpresa>
+
+      <!-- nombre de empresa -->
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
+          <input id="razonSocial" placeholder="{{user.entidad.razonSocial}}" type="text" class="validate">
+          <label for="first_name">Nombre de Empresa</label>
         </div>
       </div>
+      <!-- nro y cuit -->
       <div class="row">
-        <div class="input-field col s12">
-          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-          <label for="disabled">Disabled</label>
+        <div class="input-field col s6">
+          <input id="cuit" placeholder="{{user.entidad.cuit}}" type="text" class="validate">
+          <label for="first_name">CUIT</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="telefono" placeholder="{{user.entidad.telefono}}" type="text" class="validate">
+          <label for="first_name">Telefono</label>
         </div>
       </div>
+      <!-- localidad direccion-->
       <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
+        <div class="input-field col s6">
+          <input id="localidad" placeholder="{{user.entidad.localidad}}" type="text" class="validate">
+          <label for="first_name">Localidad</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="direccion" placeholder="{{user.entidad.direccion}}" type="text" class="validate">
+          <label for="first_name">Direccion</label>
         </div>
       </div>
+
+      <!-- correo-->
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
+          <input id="mail" type="email" class="validate" placeholder="{{user.entidad.mail}}">
           <label for="email">Email</label>
         </div>
       </div>
-      <div class="row">
-        <div class="col s12">
-          This is an inline input field:
-          <div class="input-field inline">
-            <input id="email_inline" type="email" class="validate">
-            <label for="email_inline">Email</label>
-            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-          </div>
-        </div>
+
+      <!--botones-->
+      <div class="botones">
+        <button mat-raised-button type="button" color="primary" (click)="discard(formEmpresa)">
+          Descartar
+        </button>
+
+        <button mat-raised-button type="button" color="primary" (click)="save(formEmpresa)" class="btn-save">
+          Guardar
+        </button>
       </div>
+
+
     </form>
   </div>
-
-
 </div>
