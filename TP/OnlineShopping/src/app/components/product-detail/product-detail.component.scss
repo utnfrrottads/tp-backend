@@ -1,16 +1,17 @@
 .product-detail{
     margin: 10px;
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items: center;
-    
+    position: relative;
 }
+
 .image-container{
     margin-top: 2em;
     width: 40em;
     height: 40em;
-    display: flex;
-    flex-direction: row;
+    margin-left: 18vw;
+    margin-right: auto;
 }
 
 .image-contained{
@@ -19,16 +20,88 @@
     display:block;
 }
 
+
+.right-options{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: auto;
+    margin-left: 7vw;
+}
+
+
+.superior{
+    display: flex;
+    flex-direction: row;
+}
+@media(min-width: 2000px){
+    .image-container{
+        margin-top: 2em;
+        width: 40em;
+        height: 40em;
+        margin-left: 60%;
+        margin-right: auto;
+    }
+    .right-options{
+        margin: auto;
+        margin-left: 10vw;
+    }    
+    .descr-producto{
+        margin-top: 5vh;
+        left: 15%;
+    }
+}
+@media (max-width: 1000px)
+    {
+        .image-contained{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .superior{
+        display: flex;
+        flex-direction: column;
+    }
+    .right-options{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }    
+    .descr-producto{
+        margin-top: 250vh;
+        left: 5%;
+}
+
+}
+
+.buy-info{
+    text-align: center;
+    padding-top:2em;
+    align-items: center;
+}
+
+.si-hay-stock{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .seller-profile{
     margin-top: 5em;
-    height: 20em;
     width: auto;
+    height: auto;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 
 
 .descr-producto{
-    
+    position: absolute;
+    margin-left: 10vw;
+    top: 38em;
 }
 
 .btn-color-secondary{
@@ -46,20 +119,13 @@
     font-size: medium;
 }
 
-#right-to-image{
-    float:right;
-    text-align: center;
-    padding-top:2em;
-    margin-left: 12em;
-}
+
 
 .descripcion-empresa{
     text-align: left;
     padding-left: 2em;
     padding-bottom: 1em;
-    width: 20%;
     position: relative;
-    
 }
 
 
