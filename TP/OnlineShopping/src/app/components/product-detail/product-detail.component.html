@@ -19,17 +19,25 @@
             </div>
 
             <div class="seller-profile">
+                <div class="card">
                 <div>
-                    Datos del vendedor
+                    <div class="empresa-profile">
+                        <img src="{{producto.empresa.imagen}}" class="img-empresa-redonda">
+                    </div>
+                    <span class="card-title superponer">{{producto.empresa.razonSocial}}</span>
                 </div>
+                    <div class="descripcion-empresa">
+                        <p>Localidad: {{producto.empresa.localidad}}</p>
+                        <p>Dirección: {{producto.empresa.direccion}}</p>
+                    </div>
             </div>
-
         </div>
-
-    </div>
-    <div class="descripcion">
-        <h2>Descripcion</h2>
-        <p>{{producto.descripcion}}</p>
     </div>
 
 </div>
+
+
+    <div class="descr-producto">
+        <h2>Descripcion del producto</h2>
+        <p>{{producto.descripcion}}</p>
+    </div>
