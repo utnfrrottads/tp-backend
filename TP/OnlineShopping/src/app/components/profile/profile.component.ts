@@ -62,29 +62,53 @@ export class ProfileComponent implements OnInit {
 
     // se fija si el mail es valido.
     let claseMail = document.getElementById('mail').className;
-    if (claseMail === 'validate valid') {
-      console.log('es valida');
-    } else {
+    if (claseMail !== 'validate valid') {
       this.openSnackBar('Direccion de correo no valida', '¡Entendido!');
       return;
     }
 
     //actualiza los valores
     if (this.user.esPersona) {
-      this.user.entidad.nombre = (<HTMLInputElement>document.getElementById('nombre')).value;
-      this.user.entidad.apellido = (<HTMLInputElement>document.getElementById('apellido')).value;
-      this.user.entidad.mail = (<HTMLInputElement>document.getElementById('mail')).value;
-      this.user.entidad.dni = (<HTMLInputElement>document.getElementById('dni')).value;
-      this.user.entidad.localidad = (<HTMLInputElement>document.getElementById('localidad')).value;
-      this.user.entidad.direccion = (<HTMLInputElement>document.getElementById('direccion')).value;
-      this.user.entidad.telefono = (<HTMLInputElement>document.getElementById('telefono')).value;
-    }else{
-      this.user.entidad.razonSocial = (<HTMLInputElement>document.getElementById('razonSocial')).value;
-      this.user.entidad.cuit = (<HTMLInputElement>document.getElementById('cuit')).value;
-      this.user.entidad.telefono = (<HTMLInputElement>document.getElementById('telefono')).value;
-      this.user.entidad.localidad = (<HTMLInputElement>document.getElementById('localidad')).value;
-      this.user.entidad.direccion = (<HTMLInputElement>document.getElementById('direccion')).value;
-      this.user.entidad.mail = (<HTMLInputElement>document.getElementById('mail')).value;
+      this.user.entidad.nombre = (<HTMLInputElement>(
+        document.getElementById('nombre')
+      )).value;
+      this.user.entidad.apellido = (<HTMLInputElement>(
+        document.getElementById('apellido')
+      )).value;
+      this.user.entidad.mail = (<HTMLInputElement>(
+        document.getElementById('mail')
+      )).value;
+      this.user.entidad.dni = (<HTMLInputElement>(
+        document.getElementById('dni')
+      )).value;
+      this.user.entidad.localidad = (<HTMLInputElement>(
+        document.getElementById('localidad')
+      )).value;
+      this.user.entidad.direccion = (<HTMLInputElement>(
+        document.getElementById('direccion')
+      )).value;
+      this.user.entidad.telefono = (<HTMLInputElement>(
+        document.getElementById('telefono')
+      )).value;
+    } else {
+      this.user.entidad.razonSocial = (<HTMLInputElement>(
+        document.getElementById('razonSocial')
+      )).value;
+      this.user.entidad.cuit = (<HTMLInputElement>(
+        document.getElementById('cuit')
+      )).value;
+      this.user.entidad.telefono = (<HTMLInputElement>(
+        document.getElementById('telefono')
+      )).value;
+      this.user.entidad.localidad = (<HTMLInputElement>(
+        document.getElementById('localidad')
+      )).value;
+      this.user.entidad.direccion = (<HTMLInputElement>(
+        document.getElementById('direccion')
+      )).value;
+      this.user.entidad.mail = (<HTMLInputElement>(
+        document.getElementById('mail')
+      )).value;
     }
 
     //deja en blanco las casillas
@@ -99,7 +123,8 @@ export class ProfileComponent implements OnInit {
       }
     }
     //me traigo el mail y tambien lo reseteo.input
-    (<HTMLInputElement>document.getElementById('mail')).value = '';
+    (<HTMLInputElement>document.getElementById('mail')).value = ' ';
+    (<HTMLInputElement>document.getElementById('mail')).className = 'validate';
   }
 
   openSnackBar(message: string, action: string) {
