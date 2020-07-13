@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
+import { CartaRubroComponent } from './components/carta-rubro/carta-rubro.component';
+import { ListaRubrosComponent} from './components/lista-rubros/lista-rubros.component';
 
 import { CardListComponent } from './components/card-list/card-list.component';
 import { ProductsContainerComponent } from './components/products-container/products-container.component';
@@ -19,6 +21,8 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
   declarations: [
     AppComponent,
     NavComponent,
+    CartaRubroComponent,
+    ListaRubrosComponent,
 
     CardListComponent,
     ProductsContainerComponent,

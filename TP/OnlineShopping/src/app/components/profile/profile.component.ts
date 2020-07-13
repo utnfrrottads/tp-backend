@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Empresa } from '../../model/empresas';
 import { Persona } from '../../model/personas';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +10,7 @@ import { Persona } from '../../model/personas';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar, private router:Router) {}
 
   user: any = {
     esPersona: true, //false si es empresa.
@@ -109,6 +110,8 @@ export class ProfileComponent implements OnInit {
       this.user.entidad.mail = (<HTMLInputElement>(
         document.getElementById('mail')
       )).value;
+      this.openSnackBar('Se ha modificado con éxito', '¡Entendido!');
+      
     }
 
     //deja en blanco las casillas

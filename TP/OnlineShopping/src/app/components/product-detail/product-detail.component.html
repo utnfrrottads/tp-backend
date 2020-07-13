@@ -1,6 +1,6 @@
 <div class="product-detail">
 
-    <div class="image-container">
+    <div [routerLink]="['/rubros/productos', producto.id]"class="image-container">
 
         <img src={{producto.imagen}} alt="Imagen de: {{producto.nombre}}"
             class="materialboxed media-object image-contained">

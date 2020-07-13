@@ -1,7 +1,7 @@
 <nav>
     <div class="nav-wrapper">
 
-        <div class="left logo"></div>
+        <div [routerLink]="['rubros']"class="left logo"></div>
         <ul class="right">
             <!-- boton de busqueda-->
             <li>
@@ -28,6 +28,6 @@
 </nav>
 <!-- Dropdown Structure -->
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!"><i class="material-icons">edit</i>Editar perfil</a></li>
+    <li><a [routerLink]="['/rubros/profile']"><i class="material-icons">edit</i>Editar perfil</a></li>
     <li><a href="#!"><i class="material-icons">add_circle_outline</i>cargar nuevo producto</a></li>
 </ul>
