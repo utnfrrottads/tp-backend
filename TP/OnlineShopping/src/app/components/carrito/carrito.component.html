@@ -1,0 +1,8 @@
+<div class="container">
+    <h3>Carrito:</h3>
+    
+    <div class="product" *ngFor="let producto of list" >
+        <app-carrito-item [producto]="producto"></app-carrito-item>
+    </div>
+
+</div>

@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   options = [];
   nav_string = '';
 
-  @Input() lista: Producto[];
+  lista: Producto[] = [];
 
   constructor() {}
 
@@ -23,15 +23,25 @@ export class NavComponent implements OnInit {
   }
   detectScreenSize() {
     const width = window.innerWidth;
-    if(width<=380){
-      this.nav_string = "Buscar"
-    }
-    else{
+    if (width <= 380) {
+      this.nav_string = 'Buscar';
+    } else {
       this.nav_string = '¡Buscar un producto!';
     }
   }
 
   ngOnInit(): void {
+    //creo una lista de prueba, para testear.
+    for (let i = 0; i < 10; i++) {
+      let p = new Producto();
+      p.idEmpresa = 123;
+      p.descripcion = 'Ryzen 7 1800x. Procesador 8 nucleos 16 hilos.';
+      p.idProducto = 1;
+      p.idRubro = 20;
+      p.stock = 400;
+      this.lista.push(p);
+    }
+
     this.detectScreenSize();
     this.elems = document.querySelectorAll('.dropdown-trigger');
     this.instances = M.Dropdown.init(this.elems, this.options);

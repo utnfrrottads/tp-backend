@@ -1,0 +1,22 @@
+<div class="product">
+
+    <img class="product-image" src="{{producto.imagen}}" alt="">
+
+    <div class="product-info">
+        <h4 class="product-name truncate">{{producto.nombre}}</h4>
+        <h6 class="product-desc"> {{producto.descripcion}}</h6>
+    </div>
+
+    <div class="product-options">
+        <p>cantidad</p>
+        <input [(ngModel)]="cantProd" type="number">
+        <p class="truncate cant">
+            Subtotal: ${{producto.precio * cantProd}}
+        </p>
+       
+       
+    </div>
+
+
+
+</div>
