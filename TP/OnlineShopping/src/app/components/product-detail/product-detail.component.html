@@ -2,34 +2,42 @@
 
     <div [routerLink]="['/rubros/productos', producto.id]"class="image-container">
 
+   <div class="superior">  
+    <div class="image-container">
         <img src={{producto.imagen}} alt="Imagen de: {{producto.nombre}}"
             class="materialboxed media-object image-contained">
-
-        <div id="right-to-image">
-            <h1>{{producto.nombre}}</h1>
-
-            <h2>${{producto.precio}}</h2>
-
-            <div id="si-hay-stock">
-                <p>Stock disponible</p>
-                <a class="waves-effect waves-light btn btn-color pulse" id="btn-style">AGREGAR A CARRITO</a>
-
-                <a class="waves-effect waves-light btn btn-color-secondary" id="btn-style">COMPRAR</a>
-
-            </div>
-
-            <div class="seller-profile">
-                <div>
-                    Datos del vendedor
-                </div>
-            </div>
-
-        </div>
-
     </div>
-    <div class="descripcion">
-        <h2>Descripcion</h2>
+
+    <aside class="right-options">
+    <div class="buy-info">
+        <h1>{{producto.nombre}}</h1>
+        <h2>${{producto.precio}}</h2>
+        <div id="si-hay-stock">
+            <p>Stock disponible</p>
+            <a class="waves-effect waves-light btn btn-color pulse" id="btn-style">AGREGAR A CARRITO</a>
+            <a class="waves-effect waves-light btn btn-color-secondary" id="btn-style">COMPRAR</a>
+        </div>
+    </div>
+
+    <div class="card seller-profile">
+        <div class="empresa-profile">
+            <img src="{{producto.empresa.imagen}}" class="img-empresa-redonda">
+        </div>
+                
+        <span class="card-title">{{producto.empresa.razonSocial}}</span>
+
+        <footer class="descripcion-empresa">
+            <p>Localidad: {{producto.empresa.localidad}}</p>
+            <p>Dirección: {{producto.empresa.direccion}}</p>
+        </footer>
+    </div>
+    </aside>
+    
+</div>
+
+</div>
+    <div class="descr-producto">
+        <h2>Descripcion del producto</h2>
         <p>{{producto.descripcion}}</p>
     </div>
 
-</div>
