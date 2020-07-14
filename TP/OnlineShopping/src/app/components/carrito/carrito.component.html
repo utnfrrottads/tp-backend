@@ -1,30 +1,44 @@
+<div class="container">
+    <h4>Carrito:</h4>
+    <table class="striped ">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th class="hide-on-small">Descripción</th>
+                <th class="hide-on-tiny">Precio unitario</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
 
-    
-<table class="striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Item Name</th>
-            <th>Item Price</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-        </tr>
-        <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-        </tr>
-        <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-        </tr>
-    </tbody>
-</table>
-
+        <tbody>
+            <!-- para todos los productos de la lista-->
+            <tr *ngFor="let producto of list">
+                <td class="nombre">{{producto.nombre}}</td>
+                <td class="hide-on-small">{{producto.descripcion}}</td>
+                <td class="hide-on-tiny">${{producto.precio}}</td>
+                <td>
+                    <div class="unselectable">
+                        <p class="cantidad">{{producto.cantComprar}}</p>
+                        <div class="flechas">
+                            <i class="material-icons" (click)="add(producto)">add_circle</i>
+                            <i class="material-icons" (click)="remove(producto)">remove_circle</i>
+                        </div>
+                    </div>
+                </td>
+                <td class="subtotal">$ {{producto.precio * producto.cantComprar}}</td>
+                <td class="unselectable"> <i class="material-icons delete" (click)="delete(producto)">delete_forever</i>
+                </td>
+            </tr>
+            <!-- al final, para saber los datos-->
+            <tr class="final">
+                <td></td>
+                <td class="hide-on-small"></td>
+                <td class="hide-on-tiny"></td>
+                <td class="total">Total:</td>
+                <td class="total-price">${{precioFinal()}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
