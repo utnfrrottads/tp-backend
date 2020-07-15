@@ -16,6 +16,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 //para los componentes de angular material.
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
+import { CarritoItemComponent } from './components/carrito-item/carrito-item.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,11 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 
     ProfileComponent,
 
-    ProductDetailComponent
+    ProductDetailComponent,
+
+    CarritoComponent,
+
+    CarritoItemComponent
   ],
   imports: [
     BrowserModule,

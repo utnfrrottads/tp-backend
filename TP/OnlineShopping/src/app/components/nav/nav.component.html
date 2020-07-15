@@ -1,7 +1,7 @@
 <nav>
     <div class="nav-wrapper">
 
-        <div [routerLink]="['rubros']"class="left logo"></div>
+        <div [routerLink]="['rubros']" class="left logo"></div>
         <ul class="right">
             <!-- boton de busqueda-->
             <li>
@@ -16,8 +16,8 @@
                     perfil</a>
             </li>
             <!-- boton carrito-->
-            <li>
-                <a><i class="material-icons right carrito">shopping_cart</i>Carrito</a>
+            <li >
+                <a [routerLink]="['carrito']"><i class="material-icons right carrito">shopping_cart</i>Carrito</a>
                 <div class="chip">
                     {{lista.length}}
                 </div>

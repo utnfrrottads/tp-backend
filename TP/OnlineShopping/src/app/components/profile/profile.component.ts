@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Empresa } from '../../model/empresas';
 import { Persona } from '../../model/personas';
 import { ActivatedRoute, Router } from '@angular/router';
+declare const M: any;
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private _snackBar: MatSnackBar, private router:Router) {}
+  constructor(private _snackBar: MatSnackBar, private router: Router) {}
 
   user: any = {
     esPersona: true, //false si es empresa.
@@ -18,6 +19,8 @@ export class ProfileComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    M.updateTextFields();
+
     let persona = new Persona();
     persona.direccion = 'mitre 717';
     persona.dni = 444564;
@@ -61,10 +64,11 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    // se fija si el mail es valido.
-    let claseMail = document.getElementById('mail').className;
-    if (claseMail !== 'validate valid') {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var mail = <HTMLInputElement>document.getElementById('mail');
+    if (!mail.value.match(mailformat)) {
       this.openSnackBar('Direccion de correo no valida', '¡Entendido!');
+      mail.className = "validate invalid"
       return;
     }
 
@@ -111,11 +115,12 @@ export class ProfileComponent implements OnInit {
         document.getElementById('mail')
       )).value;
       this.openSnackBar('Se ha modificado con éxito', '¡Entendido!');
-      
     }
 
-    //deja en blanco las casillas
-    this.discard(form);
+    //avisa
+    this.openSnackBar('Guardado con exito', '¡Entendido!');
+
+
   }
   discard(form) {
     //agarro todos los inputs de la form y los vacio.

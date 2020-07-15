@@ -6,6 +6,7 @@ import { ProductsContainerComponent } from './components/products-container/prod
 import { ProductCardsService } from './services/product-cards.service';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path:'rubros/productos',component: ProductsContainerComponent},
   { path:'rubros/productos/:idProducto',component: ProductDetailComponent},
   { path:'rubros/profile', component: ProfileComponent},
+  { path: 'carrito', component: CarritoComponent},
   { path:'', redirectTo:'rubros', pathMatch: 'full'},
   { path:'**',redirectTo:'rubros'}
 

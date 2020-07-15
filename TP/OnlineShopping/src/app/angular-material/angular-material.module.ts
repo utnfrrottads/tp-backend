@@ -31,6 +31,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {FormsModule} from '@angular/forms'
 //Angular Material Components ----
 
 
@@ -69,6 +70,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    FormsModule
   ],
   exports:[
     MatCheckboxModule,
@@ -102,6 +104,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    FormsModule
   ]
 })
 export class AngularMaterialModule { }
