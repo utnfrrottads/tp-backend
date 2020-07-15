@@ -1,79 +1,70 @@
-.product-detail{
-    margin: 10px;
-    display:flex;
-    flex-direction:row;
-    align-items: center;
-    position: relative;
-}
+
 
 .image-container{
+    float: left;
     margin-top: 2em;
-    width: 40em;
-    height: 40em;
-    margin-left: 18vw;
-    margin-right: auto;
+    width: 50%;
+    height: auto;
 }
-
 .image-contained{
-    height: 30em;
-    width: auto;
+    height: auto;
+    width: 90%;
     display:block;
 }
-
 
 .right-options{
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin-right: auto;
-    margin-left: 7vw;
+    float: right;
+    width: 40%;
 }
 
-
-.superior{
-    display: flex;
-    flex-direction: row;
+.descr-producto{
+    position: relative;
+    width: 60%;
+    float:left;
 }
-@media(min-width: 2000px){
+
+@media only screen and (max-width: 1000px) {
     .image-container{
-        margin-top: 2em;
-        width: 40em;
-        height: 40em;
-        margin-left: 60%;
+        margin-top: 1em;
+        width: 100%;
+        height: auto;
+    }
+    .image-contained{
+        height: auto;
+        width: 70%;
+        display:block;
+        margin-left: auto;
         margin-right: auto;
+
     }
-    .right-options{
-        margin: auto;
-        margin-left: 10vw;
-    }    
     .descr-producto{
-        margin-top: 5vh;
-        left: 15%;
-    }
-}
-@media (max-width: 1000px)
-    {
-        .image-contained{
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .superior{
-        display: flex;
-        flex-direction: column;
+        position: relative;
+        width: 100%;
     }
     .right-options{
         display:flex;
         flex-direction: column;
         align-items: center;
-        margin: auto;
-    }    
-    .descr-producto{
-        margin-top: 250vh;
-        left: 5%;
+        float: none;
+        width: 100%;
+    }
+    .buy-info{
+        width: 100%;
+    }
+    .seller-profile{
+        display: none;
+    }
 }
 
+.descr-producto h2{
+    font-size: 6vh;
 }
+
+
+
 
 .buy-info{
     text-align: center;
@@ -81,7 +72,7 @@
     align-items: center;
 }
 
-.si-hay-stock{
+#si-hay-stock{
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -98,11 +89,6 @@
 
 
 
-.descr-producto{
-    position: absolute;
-    margin-left: 10vw;
-    top: 38em;
-}
 
 .btn-color-secondary{
     background-color: white;
@@ -119,15 +105,12 @@
     font-size: medium;
 }
 
-
-
 .descripcion-empresa{
     text-align: left;
     padding-left: 2em;
     padding-bottom: 1em;
     position: relative;
 }
-
 
 .empresa-profile{
     position: relative;
