@@ -1,12 +1,9 @@
 const {check, validationResult} = require('express-validator');
 
 
-exports.validateProductCreate = [
+exports.validateNoteCreate = [
 
-    check('branch').isString(),
-    check('article').isString(),
-    check('stock.*.quantity').isNumeric(),
-    check('stock.*.date').isDate(),
+    check('name').isAlpha(),
 
     (req, res, next) => {
       const errors = validationResult(req);
@@ -16,12 +13,9 @@ exports.validateProductCreate = [
     },
 ];
 
-exports.validateProductUpdate = [
+exports.validateNoteUpdate = [
 
-    check('branch').isString(),
-    check('article').isString(),
-    check('stock.*.quantity').isNumeric(),
-    check('stock.*.date').isDate(),
+    check('name').isAlpha(),
 
     (req, res, next) => {
       const errors = validationResult(req);
