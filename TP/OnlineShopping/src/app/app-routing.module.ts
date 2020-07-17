@@ -7,6 +7,7 @@ import { ProductCardsService } from './services/product-cards.service';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path:'rubros/productos/:idProducto',component: ProductDetailComponent},
   { path:'rubros/profile', component: ProfileComponent},
   { path: 'carrito', component: CarritoComponent},
+  { path: 'publicar', component: SubirProductoComponent},
   { path:'', redirectTo:'rubros', pathMatch: 'full'},
   { path:'**',redirectTo:'rubros'}
 

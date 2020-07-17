@@ -18,6 +18,7 @@ import {AngularMaterialModule} from './angular-material/angular-material.module'
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { CarritoItemComponent } from './components/carrito-item/carrito-item.component';
+import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { CarritoItemComponent } from './components/carrito-item/carrito-item.com
 
     CarritoComponent,
 
-    CarritoItemComponent
+    CarritoItemComponent,
+
+    SubirProductoComponent
   ],
   imports: [
     BrowserModule,

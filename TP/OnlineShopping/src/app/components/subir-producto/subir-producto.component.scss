@@ -1,0 +1,36 @@
+
+.centrar{
+    margin-bottom: 4em;
+    margin-left: 40%;
+    margin-right: auto;
+}
+.espaciar{
+    margin-bottom: 3vh;
+}
+
+.materialize-textarea input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+        color: rgb(103,058,183) !important;
+       }
+       
+       .materialize-textarea input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid rgb(103,058,183) !important;
+        box-shadow: 0 1px 0 0 rgb(103,058,183) !important;
+       }
+
+       .input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+        color: rgb(103,058,183) !important;
+       }
+       
+       .input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid rgb(103,058,183) !important;
+        box-shadow: 0 1px 0 0 rgb(103,058,183) !important;
+       }
+
+       .browser-default:focus{
+        border: 1px solid rgb(103,058,183) !important;
+        box-shadow: 0 1px 0 0 rgb(103,058,183) !important;
+       }
+
+       .btn{
+           background-color: rgb(103,058,183);
+       }
