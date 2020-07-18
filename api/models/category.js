@@ -7,5 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     desc: DataTypes.STRING,
   });
+
+  Category.associate = (models) => {
+    Category.belongsToMany(models.item, { through: 'categories_items' });
+  };
+
   return Category;
 };
