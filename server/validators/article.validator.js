@@ -6,6 +6,7 @@ exports.validateArticleCreate = [
     check('name').isString(),
     check('description').isString(),
     check('presentation').isString(),
+    check('note').isString(),
     check('price.*.price').isNumeric(),
     check('price.*.date').isDate(),
 
@@ -22,6 +23,7 @@ exports.validateArticleUpdate = [
     check('name').isString(),
     check('description').isString(),
     check('presentation').isString(),
+    check('note').isString(),
     check('price.*.price').isNumeric(),
     check('price.*.date').isDate(),
 
