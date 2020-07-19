@@ -1,10 +1,13 @@
 <div [routerLink]="['/rubros/productos', producto.id]" class="container">
 
-    <div class="image-container">
-        <img src={{producto.imagen}} alt="Imagen de: {{producto.nombre}}"
-            class="materialboxed media-object image-contained">
+    <div class="image-container slider" >
+        <ul class="slides" >
+            <li *ngFor="let imagen of images">
+            <img src={{imagen}} alt="Imagen de: {{producto.nombre}}"
+                class="materialboxed image-contained">     
+            </li>
+        </ul>
     </div>
-
         <aside class="right-options">
                 <div class="buy-info">
                     <h1>{{producto.nombre}}</h1>
@@ -34,6 +37,4 @@
             <p>{{producto.descripcion}}</p>
         </div>
 </div>
-
-
 

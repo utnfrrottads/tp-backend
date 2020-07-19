@@ -15,8 +15,6 @@ export class ProductsContainerComponent implements OnInit {
   }
 
   getProducts(idRubroBuscado){
-
-    console.log(this.service.getProducts(idRubroBuscado))
     return this.service.getProducts(idRubroBuscado);
   }
 
