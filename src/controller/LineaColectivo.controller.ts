@@ -8,11 +8,11 @@ export const getLineaColectivos = async (req: Request, res: Response): Promise<R
         if(lineasCol && lineasCol !== undefined){
             return res.status(200).json(lineasCol);
         } else{
-            return res.status(400).json({ Message: 'Linea de colectivo not found' });
+            return res.status(204).send({ Message: 'Linea de colectivo not found' });
         }        
 
     } catch (error) {
-        return res.status(400).json({ Message: error.message });
+        return res.status(400).send({ Message: 'Hubo un error al obtener las lineas de colectivos' });
     }
 }
 
@@ -28,26 +28,31 @@ export const getLineaColectivo = async (req: Request, res: Response): Promise<Re
         return res.status(200).json(lineaColEmpresa);
         
     }else{
-        return res.status(400).json({ Message: 'Linea de colectivo not found' });
+        return res.status(204).send({ Message: 'Linea de colectivo not found' });
+
     }
 
     } catch (error) {
-        return res.status(400).json({ Message: error.message});
+        return res.status(400).json({ Message: 'No existe o no se pudo obtener la Linea de colectivo'});
+
     }
 }
 
 export const createLineaColectivo = async (req: Request, res: Response): Promise<Response> => {    
     try {
         const lineaCol = await getRepository(LineaColectivo).create(req.body);
-        const result = await getRepository(LineaColectivo).save(lineaCol);
-        
-        return res.status(200).json(result);
+        const lineaC = await getRepository(LineaColectivo).save(lineaCol);
+        if(lineaC !== undefined && lineaC){
+            return res.status(204).json(lineaC);
+
+        } else{
+            return res.status(204).send({ Message: 'errro al crear la linea de colectivo' });
+        }
     
     } catch (error) {
-        res.status(404).json({ message : error.message});
-
-    }
-    return res.status(400).json({ Message: 'Error al crear la linea de colectivo' });    
+        return res.status(404).send({ Message : error.message});
+    
+    }    
 }
 
 export const updateLineaColectivo = async (req: Request, res: Response): Promise<Response> => {    
@@ -58,11 +63,11 @@ export const updateLineaColectivo = async (req: Request, res: Response): Promise
             const result = await getRepository(LineaColectivo).save(lineaCol);
             return res.json(result);
         } else{
-            return res.status(404).send({ message: 'Linea Colectivo not found' });
-        }
-    
+            return res.status(404).send({ Message: 'Linea Colectivo not found' });
+
+        }            
     } catch (error) {
-        return res.status(404).send({ message: error.message });
+        return res.status(404).send({ Message: error.message });
 
     }
 }
@@ -70,8 +75,13 @@ export const updateLineaColectivo = async (req: Request, res: Response): Promise
 export const deleteLineaColectivo = async (req: Request, res: Response): Promise<Response> => {
     try {        
         const result = await getRepository(LineaColectivo).delete(req.params.id);
-        return res.status(200).json({ msj: result });
+        if(result !== undefined && result){
+            return res.status(200).json({ Message: result });
 
+        } else{
+            return res.status(200).json({ Message: result });
+
+        }
     } catch (error) {
         return res.status(200).json({ msj: error });
 

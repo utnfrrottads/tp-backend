@@ -9,6 +9,9 @@ export const getChoferes = async (req: Request, res: Response): Promise<Response
 
 export const getChofer = async (req: Request, res: Response): Promise<Response> => {
     const chofer = await getRepository(Chofer).findOne(req.params.cuil);
+    if(chofer !== undefined && chofer){
+        
+    }
     return res.json(chofer);
 }
 
