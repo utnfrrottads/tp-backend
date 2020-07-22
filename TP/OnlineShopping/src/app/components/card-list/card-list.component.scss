@@ -10,10 +10,8 @@
 
 .card-title{
   text-align: center;
-  font-size: 2em;
-  padding-left: 5%;
-  padding-right: 5%;
-  position: relative;
+  padding: 0 10px;
+  font-size: x-large;
 }
 
 .card-content{
@@ -26,7 +24,13 @@
 
 .card-action{
   text-align: center;
-  font-size: 1 rem;
-  display: block;
-  position: relative;
+}
+
+.card-image{
+  height: 100%;
+}
+.image{
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
 }
