@@ -15,11 +15,10 @@ export class ProfileComponent implements OnInit {
 
   user: any = {
     esPersona: true, //false si es empresa.
-    entidad: undefined,
+    entidad: undefined, //aca se mete el usuario o empresa.
   };
 
   ngOnInit(): void {
-    M.updateTextFields();
 
     let persona = new Persona();
     persona.direccion = 'mitre 717';
@@ -48,6 +47,7 @@ export class ProfileComponent implements OnInit {
       this.user.esPersona = false;
     }
   }
+  
   save(form) {
     // se fija si algun campo está vacio.
     let inputs = form.elements;

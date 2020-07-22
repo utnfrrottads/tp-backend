@@ -1,140 +1,131 @@
 
-.image-container{
-    float: left;
-    margin-top: 2em;
-    width: 60%;
-    height: auto;
-}
-.image-contained{
-    height: auto;
-    width: auto;
-    display:block;
-    max-height: 100%;
-    max-width: 100%;
-    padding: auto;
 
+.image-container {
+  float: left;
+  margin-top: 2em;
+  width: 60%;
+  height: auto;
 }
 
-.slides{
-    background-color: white;
+.image-contained {
+  height: auto;
+  width: auto;
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  padding: auto;
 }
 
-
-
-.right-options{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    float: right;
-    width: 40%;
+.slides {
+  background-color: white;
 }
 
-.descr-producto{
-    position: relative;
-    width: 60%;
-    float:left;
+.right-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  float: right;
+  width: 40%;
+}
+
+.descr-producto {
+  position: relative;
+  width: 60%;
+  float: left;
 }
 
 @media only screen and (max-width: 1000px) {
-    .image-container{
-        margin-top: 1em;
-        width: 100%;
-        height: auto;
-    }
-    .image-contained{
-        height: auto;
-        width: auto;
-        display:block;
-        margin-left: auto;
-        margin-right: auto;
-        max-height: 60vh;
-        max-width: 60vw;
-    }
-    .descr-producto{
-        position: relative;
-        width: 100%;
-    }
-    .right-options{
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-        float: none;
-        width: 100%;
-    }
-    .buy-info{
-        width: 100%;
-    }
-    .seller-profile{
-        display: none;
-    }
-}
-
-.descr-producto h2{
-    font-size: 6vh;
-}
-
-
-
-
-.buy-info{
-    text-align: center;
-    padding-top:2em;
-    align-items: center;
-}
-
-#si-hay-stock{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.seller-profile{
-    margin-top: 5em;
-    width: auto;
-    height: auto;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-
-
-
-.btn-color-secondary{
-    background-color: white;
-    color: rgb(103,058,183)
-}
-.btn-color{
-    background: rgb(103,058,183);
-    color: white;
-    font-size: large;
-}
-
-#btn-style{ 
-    margin-top: 3em;
-    font-size: medium;
-}
-
-.descripcion-empresa{
-    text-align: left;
-    padding-left: 2em;
-    padding-bottom: 1em;
-    position: relative;
-}
-
-.empresa-profile{
-    position: relative;
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.empresa-profile img{
-    margin-top: 25px;
+  .image-container {
+    margin-top: 1em;
     width: 100%;
     height: auto;
+  }
+  .image-contained {
+    height: auto;
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 60vh;
+    max-width: 60vw;
+  }
+  .descr-producto {
+    position: relative;
+    width: 100%;
+  }
+  .right-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: none;
+    width: 100%;
+  }
+  .buy-info {
+    width: 100%;
+  }
+  .seller-profile {
+    display: none;
+  }
 }
 
+.descr-producto h2 {
+  font-size: 6vh;
+}
+
+.buy-info {
+  text-align: center;
+  padding-top: 2em;
+  align-items: center;
+}
+
+#si-hay-stock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seller-profile {
+  margin-top: 5em;
+  width: auto;
+  height: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.btn-color-secondary {
+  background-color: white;
+  color: rgb(103, 058, 183);
+}
+.btn-color {
+  background: rgb(103, 058, 183);
+  color: white;
+  font-size: large;
+}
+
+#btn-style {
+  margin-top: 3em;
+  font-size: medium;
+}
+
+.descripcion-empresa {
+  text-align: left;
+  padding-left: 2em;
+  padding-bottom: 1em;
+  position: relative;
+}
+
+.empresa-profile {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empresa-profile img {
+  margin-top: 25px;
+  width: 100%;
+  height: auto;
+}
