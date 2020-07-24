@@ -19,6 +19,7 @@
     "homepage": "https://github.com/orcorsetti/tp-backend-2020#readme",
     "dependencies": {
         "cors": "^2.8.5",
+        "errorhandler": "^1.5.1",
         "express": "^4.17.1",
         "mongoose": "^5.9.18",
         "morgan": "^1.10.0"
