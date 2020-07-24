@@ -25,6 +25,13 @@ UserCtrl.getUserById = async (req, res) => {
     }
 }
 
+//Controla que DNI sea un Number
+UserCtrl.checkValidDNI = async (dni) => {
+    if(isNaN(dni)){
+        throw ApiError.badRequest('El DNI ingresado es inválido (no es un número).');
+    }
+}
+
 //Controla DNI repetido
 UserCtrl.checkDNI = async (dni,id = ' ') => {
     let users = await User.find({dni: dni});
@@ -64,7 +71,6 @@ UserCtrl.checkRoles = async (roles)=> {
     if(roles.length > 0){
         let query = await Role.find().select('_id');
         let allRoles = JSON.stringify(query);
-        console.log(allRoles)
         roles.forEach(role => {
             if(!allRoles.includes(role)){
                 throw ApiError.badRequest('El rol ingresado no existe.');
@@ -91,7 +97,11 @@ UserCtrl.createUser = async (req, res, next) => {
         employee: (req.body.employee)? req.body.employee : false,
         client: (req.body.client) ? req.body.client : false,
         roles: req.body.roles
-    })
+    });
+    await UserCtrl.checkValidDNI(newUser.dni).catch((err)=>{
+        next(err);
+        validations = false;
+    });
     await UserCtrl.checkDNI(newUser.dni).catch((err)=>{
         next(err);
         validations = false;
@@ -107,7 +117,7 @@ UserCtrl.createUser = async (req, res, next) => {
     await UserCtrl.checkRoles(req.body.roles).catch((err)=>{
         next(err);
         validations = false;
-    })
+    });
     if(validations){
         await newUser.save().catch(err=>next(err));
         res.json('Usuario guardado correctamente.');
@@ -115,34 +125,43 @@ UserCtrl.createUser = async (req, res, next) => {
 }
 
 //Metodo Update
-UserCtrl.updateUser = async(req, res) => {
-    try {
-        const {id} = req.params;
-        const newUser = {
-            dni: req.body.dni,
-            names: req.body.names,
-            lastNames: req.body.lastNames,
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            pc: req.body.pc,
-            street: req.body.street,
-            number: req.body.number,
-            flat: req.body.flat,
-            phone: req.body.phone,
-            employee: req.body.employee,
-            client: req.body.client,
-            roles: req.body.roles
-        }
-        UserCtrl.checkDNI(newUser.dni, id);
-        UserCtrl.checkEmail(newUser.email, id);
-        UserCtrl.checkUserName(newUser.username, id);
-        UserCtrl.checkRoles(newUser.roles);
+UserCtrl.updateUser = async(req, res, next) => {
+    const {id} = req.params;
+    const newUser = {
+        dni: req.body.dni,
+        names: req.body.names,
+        lastNames: req.body.lastNames,
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        pc: req.body.pc,
+        street: req.body.street,
+        number: req.body.number,
+        flat: req.body.flat,
+        phone: req.body.phone,
+        employee: req.body.employee,
+        client: req.body.client,
+        roles: req.body.roles
+    }
+    await UserCtrl.checkDNI(newUser.dni, id).catch((err)=>{
+        next(err);
+        validations = false;
+    });
+    await UserCtrl.checkEmail(newUser.email, id).catch((err)=>{
+        next(err);
+        validations = false;
+    });
+    await UserCtrl.checkUserName(newUser.username,id).catch((err)=>{
+        next(err);
+        validations = false;
+    });
+    await UserCtrl.checkRoles(req.body.roles).catch((err)=>{
+        next(err);
+        validations = false;
+    });
+    if(validations){
         await User.findByIdAndUpdate(id, {$set: newUser});
         res.json({status: 'Usuario Actualizado Correctamente.'});
-    } catch(err){
-        console.log(err);
-        res.json({status: err.message});
     }
 }
 
