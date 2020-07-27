@@ -34,7 +34,7 @@ UserCtrl.checkValidDNI = async (dni) => {
 
 //Controla DNI repetido
 UserCtrl.checkDNI = async (dni,id = ' ') => {
-    let users = await User.find({dni: dni});
+    let users = await User.find({dni: dni}).select('_id');
     if (users.length > 0){
         users.forEach((user) => {
             if(user._id!==id){
@@ -143,6 +143,10 @@ UserCtrl.updateUser = async(req, res, next) => {
         client: req.body.client,
         roles: req.body.roles
     }
+    await UserCtrl.checkValidDNI(newUser.dni).catch((err)=>{
+        next(err);
+        validations = false;
+    });
     await UserCtrl.checkDNI(newUser.dni, id).catch((err)=>{
         next(err);
         validations = false;
