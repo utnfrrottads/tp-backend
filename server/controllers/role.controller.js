@@ -1,67 +1,111 @@
 const Role = require('../models/role'); //Requiero modelo 
+const User = require('../models/user');
+const ApiError = require('../error/ApiError');
+const user = require('../models/user');
 
 const RoleCtrl = {}; //Creo el objeto controlador
 
+//Controla dependencias
+RoleCtrl.checkDependencies = async (id) => {
+    let query = await user.find({roles: id});
+    if(query.length > 0){
+        throw ApiError.badRequest('El rol que desea eliminar se encuentra vinculado a algún usuario, revise la dependencia');
+    }
+}
+
+//Controla nombre repetido
+RoleCtrl.checkName = async(name, id = ' ')=>{
+    let roles = Role.find({name: name}).select('_id');
+    if(roles.length > 0){
+        roles.forEach(role => {
+            if(role._id !== id){
+                throw ApiError.badRequest('El nombre del rol se encuentra repetido.');
+            }
+        })
+    }
+}
+
 //Metodo GetAll (res= response y req= request)
-RoleCtrl.getRoles = async (req, res) => {
+RoleCtrl.getRoles = async (req, res, next) => {
     try{
         const roles = await Role.find(); //Busca todos los documentos
         res.json(roles); //Los envio en formato JSON
     } catch(err){
-        res.json({status: err})
+        next(err)
     }
 }
 
 //Metodo Create
-RoleCtrl.createRole = async (req, res) => {
+RoleCtrl.createRole = async (req, res, next) => {
     try{
+        let validations = true;
         const role = new Role({ //Creo el nuevo rol con los parametros enviados en el request (sin ID porque lo da la BD)
             name: req.body.name,
             description: req.body.description,
             permissions: req.body.permissions
         });
-        await role.save(); //Guardo en la BD (y espero que finalice)
-        res.json({status: 'Rol Guardado Correctamente'}) //Devuelvo resultado correcto
+        await RoleCtrl.checkName(role.name).catch((err)=>{
+            next(err);
+            validations = false;
+        })
+        if(validations){
+            await role.save();
+            res.json({status: 'Rol Guardado Correctamente'}); //Guardo en la BD (y espero que finalice)
+        }
     } catch(err){
-        res.json({status: err})
+        next(err);
     }
 }
 
 //Metodo GetOne
-RoleCtrl.getRole = async (req, res) => {
+RoleCtrl.getRole = async (req, res, next) => {
     try{
         const {id} = req.params; //Consigo el ID mando por parametro en el get
         const role = await Role.findById(id); //Busco por ID
         res.json(role); //Lo envío
     } catch(err){
-        res.json({status: err})
+        next(err);
     }
 }
 
 //Metodo Update
-RoleCtrl.updateRole = async (req, res) => {
+RoleCtrl.updateRole = async (req, res, next) => {
     try{
+        let validations = true;
         const {id} = req.params;
         const newRole = {
             name: req.body.name,
             description: req.body.description,
             permissions: req.body.permissions
         }
-        await Role.findByIdAndUpdate(id, {$set: newRole});
-        res.json({status: 'Rol Actualizado Correctamente'});
+        await RoleCtrl.checkName(newRole.name, id).catch((err)=>{
+            next(err);
+            validations = false;
+        });
+        if(validations){
+            await Role.findByIdAndUpdate(id, {$set: newRole});
+            res.json({status: 'Rol Actualizado Correctamente'});
+        }
     } catch(err){
-        res.json({status: err})
+        next(err);
     }
 }
 
 //Metodo Delete
-RoleCtrl.deleteRole = async (req, res) => {
+RoleCtrl.deleteRole = async (req, res, next) => {
     try{
+        let validations = true;
         const {id} = req.params;
-        await Role.findByIdAndRemove(id);
-        res.json({status: 'Rol Eliminado Correctamente'});
+        await RoleCtrl.checkDependencies(id).catch((err)=> {
+            next(err);
+            validations = false;
+        })
+        if(validations){
+            await Role.findByIdAndRemove(id);
+            res.json({status: 'Rol Eliminado Correctamente'});
+        }
     } catch(err){
-        res.json({status: err})
+        next(err);
     }
 }
 
