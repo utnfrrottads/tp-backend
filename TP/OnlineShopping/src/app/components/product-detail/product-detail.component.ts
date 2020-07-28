@@ -32,7 +32,8 @@ export class ProductDetailComponent implements OnInit {
       imagen: [
         'https://http2.mlstatic.com/notebook-lenovo-i3-8130u-4gb-1tb-156-pulgadas-dvdrw-D_NQ_NP_872956-MLA42418883269_062020-F.webp',
         'https://http2.mlstatic.com/notebook-lenovo-v15-core-i7-10ma-gen-1tb-ssd-240gb-12gb-D_NQ_NP_718399-MLA41642098919_052020-F.webp',
-      ],
+       
+    ],
       precio: 50000,
       descripcion: 'Es una notebook, un producto muy bueno y de alta calidad.',
       stock: 25,

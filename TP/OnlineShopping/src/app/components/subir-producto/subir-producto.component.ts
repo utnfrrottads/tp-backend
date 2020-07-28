@@ -34,6 +34,16 @@ export class SubirProductoComponent implements OnInit {
     this.idRubroSeleccionado= idRubro;
   }
 
+  checkNumber(){
+    //checkeo si el stock es un número; sino pongo el campo en rojo
+    if(isNaN(parseInt((<HTMLInputElement>(
+          document.getElementById('stock')
+        )).value))){
+          (<HTMLInputElement>(document.getElementById('stock'))).className += " invalid";
+    }
+
+  }
+
     save(form) {
       // se fija si algun campo está vacio.
       let inputs = form.elements;
@@ -41,12 +51,20 @@ export class SubirProductoComponent implements OnInit {
       for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].nodeName === 'INPUT' && inputs[i].type === 'text') {
           if (inputs[i].value.trim() === '') {
+            inputs[i].className += " invalid";
             c++;
           }
         }
       }
       if (c > 0) {
-        this.openSnackBar('Complete todos los campos', '¡Entendido!');
+        //resalto el input de rubro
+        if (isNaN(this.idRubroSeleccionado)){
+          (<HTMLInputElement>(document.getElementById('rubro'))).className += " invalidInput";
+        } else {
+          //si está en rojo, le saco la clase invalidInput al input rubro
+          (<HTMLInputElement>(document.getElementById('rubro'))).classList.remove("invalidInput");
+        }
+        this.openSnackBar('Complete los campos resaltados en rojo', '¡Entendido!');
         return;
       }
       
@@ -63,14 +81,11 @@ export class SubirProductoComponent implements OnInit {
               //cargo los valores del producto
             //valor nombre
             this.producto.nombre = (<HTMLInputElement>(document.getElementById('nombreProducto'))).value;
+            
             //valor descripcion
-            this.producto.descripcion = (<HTMLInputElement>(
-              document.getElementById('descripcionProducto')
-            )).value;
+            this.producto.descripcion = (<HTMLInputElement>(document.getElementById('descripcionProducto'))).value;
             //valor stock
-            this.producto.stock = parseInt((<HTMLInputElement>(
-              document.getElementById('stock')
-            )).value);
+            this.producto.stock = parseInt((<HTMLInputElement>(document.getElementById('stock'))).value);
             //valor idRubro
             this.producto.idRubro = this.idRubroSeleccionado;
 
@@ -83,9 +98,17 @@ export class SubirProductoComponent implements OnInit {
             //avisa
             this.openSnackBar('Guardado con exito', '¡Entendido!');
           }
-          else this.openSnackBar('Es necesario seleccionar un rubro', '¡Entendido!')
+          else {
+            (<HTMLInputElement>(document.getElementById('rubro'))).className += " invalidInput";
+
+            this.openSnackBar('Es necesario seleccionar un rubro', '¡Entendido!')
         }
-        else this.openSnackBar('El valor del stock debe ser un numero', '¡Entendido!');
+      }
+        else {
+          (<HTMLInputElement>(document.getElementById('stock'))).className += " invalid";
+          
+          this.openSnackBar('El valor del stock debe ser un numero', '¡Entendido!');
+        }
       }
     }
 
