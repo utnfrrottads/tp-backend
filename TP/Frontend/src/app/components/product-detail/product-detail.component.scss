@@ -1,28 +1,30 @@
-*{
-  border-style: solid;
-  border-width: 1px;
+// arreglar esta linea.
+// si lo saco, se me ve un recuadro horrible. (corregir)
+.container {
+  outline: none !important;
 }
 
 .image-container {
   float: left;
   margin-top: 2em;
   width: 60%;
-  height: auto;  
 }
 
-
-.slider{
+.slider {
   margin: auto;
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
   width: 400px;
 }
 
-.slides{
+.slides {
+  height: 100%;
+  width: 100%;
   background-color: white;
 }
-
+.image-contained{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
 
 .right-options {
   display: flex;
@@ -38,53 +40,6 @@
   float: left;
 }
 
-@media only screen and (max-width: 1000px) {
-  .image-container {
-    margin-top: 1em;
-    width: 100%;
-    height: auto;
-  }
-  .image-contained {
-    height: auto;
-    width: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: auto;
-    max-width: 400px;
-  }
-
-  .slider{
-    margin: auto;
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 85vw;
-  }
-
-  .slides{
-    width: 85vw;
-    background-color: white;
-  }
-
-  .descr-producto {
-    position: relative;
-    width: 100%;
-  }
-  .right-options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    float: none;
-    width: 100%;
-  }
-  .buy-info {
-    width: 100%;
-  }
-  .seller-profile {
-    display: none;
-  }
-}
 
 .descr-producto h2 {
   font-size: 6vh;
@@ -146,4 +101,54 @@
   margin-top: 25px;
   width: 100%;
   height: auto;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+  .image-container {
+    margin-top: 1em;
+    width: 100%;
+    height: auto;
+  }
+  .image-contained {
+    height: auto;
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: auto;
+    max-width: 400px;
+  }
+
+  .slider {
+    margin: auto;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 85vw;
+  }
+
+  .slides {
+    width: 85vw;
+    background-color: white;
+  }
+
+  .descr-producto {
+    position: relative;
+    width: 100%;
+  }
+  .right-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: none;
+    width: 100%;
+  }
+  .buy-info {
+    width: 100%;
+  }
+  .seller-profile {
+    display: none;
+  }
 }

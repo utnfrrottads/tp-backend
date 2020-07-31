@@ -10,14 +10,13 @@ declare var M: any;
 export class ProductDetailComponent implements OnInit {
   @Input() producto: any;
   images: string[];
-  
-  eSlider:any;
-  slider:any
-  eBox:any;
-  box:any;
+
+  eSlider: any;
+  slider: any;
+  eBox: any;
+  box: any;
 
   constructor(private route: ActivatedRoute) {
-    
     this.producto = {
       idProducto: 1,
       idRubro: 1,
@@ -30,10 +29,9 @@ export class ProductDetailComponent implements OnInit {
       },
       nombre: 'Notebook',
       imagen: [
-        'https://http2.mlstatic.com/notebook-lenovo-i3-8130u-4gb-1tb-156-pulgadas-dvdrw-D_NQ_NP_872956-MLA42418883269_062020-F.webp',
+        'https://http2.mlstatic.com/notebook-intel-dual-core-4gb-500gb-hp-14-pulgadas-hdmi-wifi-D_NQ_NP_935496-MLA31032116361_062019-Q.jpg',
         'https://http2.mlstatic.com/notebook-lenovo-v15-core-i7-10ma-gen-1tb-ssd-240gb-12gb-D_NQ_NP_718399-MLA41642098919_052020-F.webp',
-       
-    ],
+      ],
       precio: 50000,
       descripcion: 'Es una notebook, un producto muy bueno y de alta calidad.',
       stock: 25,
@@ -45,16 +43,14 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-     //slider
-     this.eSlider = document.querySelectorAll('.slider');
-     this.slider = M.Slider.init(this.eSlider, {
-       interval: 999999,
-     });
+    //slider
+    this.eSlider = document.querySelectorAll('.slider');
+    this.slider = M.Slider.init(this.eSlider, {
+      interval: 9999999
+    });
 
     //materialboxed
     this.eBox = document.querySelectorAll('.materialboxed');
     this.box = M.Materialbox.init(this.eBox);
   }
-
-
 }
