@@ -16,6 +16,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 //para los componentes de angular material.
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { FooterComponent } from './footer/footer.component';
+import { ListaEmpresasComponent } from './components/lista-empresas/lista-empresas.component';
+import { DetalleEmpresaComponent } from './components/detalle-empresa/detalle-empresa.component';
+import { CartaEmpresaComponent } from './components/carta-empresa/carta-empresa.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { CarritoItemComponent } from './components/carrito-item/carrito-item.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
@@ -34,6 +38,14 @@ import { SubirProductoComponent } from './components/subir-producto/subir-produc
 
     ProductDetailComponent,
 
+    FooterComponent,
+
+    ListaEmpresasComponent,
+
+    DetalleEmpresaComponent,
+
+    CartaEmpresaComponent,
+    
     CarritoComponent,
 
     CarritoItemComponent,

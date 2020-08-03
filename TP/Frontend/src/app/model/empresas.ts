@@ -8,4 +8,5 @@ export class Empresa {
     direccion: string;
     telefono: string;
     mail: string;
+    img: string;
   }

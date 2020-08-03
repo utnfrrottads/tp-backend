@@ -2,6 +2,7 @@
 // si lo saco, se me ve un recuadro horrible. (corregir)
 .container {
   outline: none !important;
+  overflow: hidden;
 }
 
 .image-container {

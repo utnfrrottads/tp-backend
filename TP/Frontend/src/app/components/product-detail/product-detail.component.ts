@@ -29,8 +29,9 @@ export class ProductDetailComponent implements OnInit {
       },
       nombre: 'Notebook',
       imagen: [
-        'https://http2.mlstatic.com/notebook-intel-dual-core-4gb-500gb-hp-14-pulgadas-hdmi-wifi-D_NQ_NP_935496-MLA31032116361_062019-Q.jpg',
         'https://http2.mlstatic.com/notebook-lenovo-v15-core-i7-10ma-gen-1tb-ssd-240gb-12gb-D_NQ_NP_718399-MLA41642098919_052020-F.webp',
+        'https://http2.mlstatic.com/notebook-intel-dual-core-4gb-500gb-hp-14-pulgadas-hdmi-wifi-D_NQ_NP_935496-MLA31032116361_062019-Q.jpg',
+        
       ],
       precio: 50000,
       descripcion: 'Es una notebook, un producto muy bueno y de alta calidad.',
