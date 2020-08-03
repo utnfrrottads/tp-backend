@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ListaEmpresasComponent } from './components/lista-empresas/lista-empresas.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path:'rubros/empresas',component: ListaEmpresasComponent},
   { path: 'carrito', component: CarritoComponent},
   { path: 'publicar', component: SubirProductoComponent},
+  { path: 'login', component: LoginComponent},
   { path:'', redirectTo:'rubros', pathMatch: 'full'},
   { path:'**',redirectTo:'rubros'}
 

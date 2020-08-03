@@ -23,6 +23,7 @@ import { CartaEmpresaComponent } from './components/carta-empresa/carta-empresa.
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { CarritoItemComponent } from './components/carrito-item/carrito-item.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,9 @@ import { SubirProductoComponent } from './components/subir-producto/subir-produc
 
     CarritoItemComponent,
 
-    SubirProductoComponent
+    SubirProductoComponent,
+
+    LoginComponent
   ],
   imports: [
     BrowserModule,
