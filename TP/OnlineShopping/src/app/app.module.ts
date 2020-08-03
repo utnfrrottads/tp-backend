@@ -16,6 +16,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 //para los componentes de angular material.
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { FooterComponent } from './footer/footer.component';
+import { ListaEmpresasComponent } from './components/lista-empresas/lista-empresas.component';
+import { DetalleEmpresaComponent } from './components/detalle-empresa/detalle-empresa.component';
+import { CartaEmpresaComponent } from './components/carta-empresa/carta-empresa.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,15 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 
     ProfileComponent,
 
-    ProductDetailComponent
+    ProductDetailComponent,
+
+    FooterComponent,
+
+    ListaEmpresasComponent,
+
+    DetalleEmpresaComponent,
+
+    CartaEmpresaComponent
   ],
   imports: [
     BrowserModule,
