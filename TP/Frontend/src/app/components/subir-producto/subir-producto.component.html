@@ -1,0 +1,62 @@
+<div class="container">
+<h4 class="espaciar">Contanos, ¿qué vas a publicar?</h4>
+
+  <form class="col s12" #formProducto>
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="nombreProducto" placeholder="Nombre de tu producto" type="text" class="validate" required>
+          <label>Indicá el nombre del producto</label>
+        </div>
+      </div>
+    
+          <div class="row">
+            <div class="input-field s12 col">
+              <input id="descripcionProducto" placeholder="Descripción del producto" type="text" class=" validate" required  >
+              <label>Describí tu producto</label>
+            </div>
+          </div>
+      
+
+        <div class="row">
+          <div class="col s6">
+            <label>Rubro</label>
+            <select id="rubro" class="browser-default espaciar" (change)="obtenerIdRubro($event.target.value)"> <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
+              <option disabled selected>Elegí el rubro de tu producto</option>
+              <option *ngFor="let rubro of rubros" [value]='rubro.idRubro'>{{rubro.descripcion}}</option>
+
+            </select>
+          </div>
+        </div>
+           
+        <div class="row">
+          <div class="col s6">
+            <div class="input-field">
+              <input id="stock" placeholder="Indicá el stock" type="text" class="validate" (blur)="checkNumber()" required>
+              <label>¿Cuantos vendes?</label>
+            </div>  
+          </div>
+        </div>
+
+      <div class="row">
+        <div class="col s12">
+          <label>Mostrales a todos tu producto</label>
+            <div class="file-field input-field espaciar">
+                <div class="btn">
+                  <span>Seleccioná una foto</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <button class="btn waves-effect waves-light centrar" type="submit" name="action" (click)="save(formProducto)">Cargar Producto
+        <i class="material-icons right" ></i>
+      </button>
+
+  </form>
+
+</div>

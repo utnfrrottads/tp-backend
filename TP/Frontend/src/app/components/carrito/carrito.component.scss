@@ -1,0 +1,81 @@
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.cantidad {
+  text-align: center;
+}
+.material-icons:hover {
+  cursor: pointer;
+}
+.delete {
+  font-size: 2.5rem;
+}
+.nombre{
+    font-weight: bold;
+    font-size: medium;
+    min-width: 150px;
+}
+
+
+$total-color: #9de5b2;
+$total-radius: 10px;
+.total {
+  background-color: $total-color;
+  text-align: center;
+  font-weight: bold;
+  font-size: medium;
+
+  border-top-left-radius: $total-radius;
+  border-bottom-left-radius: $total-radius;
+}
+.total-price {
+  background-color: $total-color;
+  font-weight: bold;
+  font-size: medium;
+
+  border-top-right-radius: $total-radius;
+  border-bottom-right-radius: $total-radius;
+}
+.final{
+    background-color: white !important;
+}
+
+
+@media only screen and (max-width: 680px) {
+    .hide-on-small{
+        display: none;
+    }
+    .nombre{
+        min-width: none;
+    }
+}
+
+@media only screen and (max-width: 435px) {
+    .container{
+        width: 100%;
+    }
+    .hide-on-tiny{
+        display: none;
+    }
+    .nombre{
+        font-size: x-small;
+        
+    }
+    .cantidad{
+        font-size: small
+    }
+    .subtotal{
+        font-size: smaller;
+    }
+    .material-icons{
+        font-size: 25px;
+    }
+}

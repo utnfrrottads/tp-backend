@@ -1,0 +1,18 @@
+<div class="card small" id="acercar">
+
+  <div class="card-image">
+    <img src={{producto.imagen}} alt="Imagen de: {{producto.nombre}}" class="image">
+  </div>
+
+  <span class="card-title center-block truncate">{{producto.nombre}}</span>
+
+
+  <div class="abajo">
+    <div class="card-content">
+      <p>${{producto.precio}}</p>
+    </div>
+
+    <div class="card-action pulse" (click)="routToProduct(producto.idProducto)"> <a>VER MAS</a> </div>
+  </div>
+
+</div>
