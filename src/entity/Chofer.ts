@@ -5,7 +5,7 @@ import { Calendario } from './Calendario';
 @Entity()
 export class Chofer extends BaseEntity {
 
-    @PrimaryColumn({type: "decimal",
+    @PrimaryColumn({type: "bigint",
                     unique: true,
                     nullable: false})
     Cuil: number;
@@ -17,7 +17,7 @@ export class Chofer extends BaseEntity {
         type: 'varchar',
         length: 50,
         nullable: false,
-        unique: true
+        unique: false
     })
     Nombre: string;
 
@@ -49,7 +49,7 @@ export class Chofer extends BaseEntity {
         type: 'varchar',
         length: 100,
         nullable: false,
-        unique: true
+        unique: false
     })
     Provincia: string;
 
@@ -57,7 +57,7 @@ export class Chofer extends BaseEntity {
         type: 'varchar',
         length: 100,
         nullable: false,
-        unique: true
+        unique: false
     })
     Localidad: string;
 
@@ -65,11 +65,11 @@ export class Chofer extends BaseEntity {
         type: 'varchar',
         length: 100,
         nullable: false,
-        unique: true
+        unique: false
     })
     Domicilio: string;
 
-    @OneToMany(type => Calendario, calendario => calendario.chofer)
+    @OneToMany(type => Calendario, calendario => calendario.chofer, {nullable: true})
     calendario: Calendario[];
 
 }

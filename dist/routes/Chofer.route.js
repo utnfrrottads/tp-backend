@@ -6,6 +6,6 @@ var Chofer_controller_1 = require("../controller/Chofer.controller");
 router.get('/getChoferes', Chofer_controller_1.getChoferes);
 router.get('/getChofer/:cuil', Chofer_controller_1.getChofer);
 router.post('/createChofer', Chofer_controller_1.createChofer);
-router.put('/updateChoferes', Chofer_controller_1.updateChofer);
-router.delete('/deleteChoferes/:cuil', Chofer_controller_1.deleteChofer);
+router.put('/updateChofer', Chofer_controller_1.updateChofer);
+router.delete('/deleteChofer/:cuil', Chofer_controller_1.deleteChofer);
 exports.default = router;

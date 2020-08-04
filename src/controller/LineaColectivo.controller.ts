@@ -17,8 +17,7 @@ export const getLineaColectivos = async (req: Request, res: Response): Promise<R
 }
 
 export const getLineaColectivo = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        // const lineaCol = await getRepository(LineaColectivo).findOne(req.params.id);
+    try {        
         const lineaColEmpresa = await createQueryBuilder("LineaColectivo")
         .leftJoinAndSelect("LineaColectivo.empresa", "Empresa")
         .where("LineaColectivo.idLineaColectivo = :idLineaColectivo", {idLineaColectivo : req.params.id})

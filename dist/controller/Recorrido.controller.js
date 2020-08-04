@@ -51,43 +51,61 @@ exports.getRecorridos = function (req, res) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.getRecorrido = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var recorrido, recorridos;
+    var recorrido, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
-            case 1:
-                recorrido = _a.sent();
+            case 0:
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido)
                         .createQueryBuilder("Recorrido")
                         .where("Recorrido.lineaColectivo = :linea", { lineaColectivo: req.params.lineaColectivo })
                         .getMany()];
+            case 1:
+                recorrido = _a.sent();
+                if (recorrido) {
+                    return [2 /*return*/, res.status(200).json(recorrido)];
+                }
+                else {
+                    return [2 /*return*/, res.status(204).send({ Messsage: 'Recorrido not found' })];
+                }
+                return [3 /*break*/, 3];
             case 2:
-                recorridos = _a.sent();
-                return [2 /*return*/, res.json(recorrido)];
+                error_1 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ Messsage: 'Error al obtener el recorrido' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.createRecorrido = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var recorrido, result;
+    var recorrido, result, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
             case 1:
                 recorrido = _a.sent();
                 if (!(recorrido !== undefined && recorrido)) return [3 /*break*/, 3];
                 return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).save(recorrido)];
             case 2:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.json({ msj: 'No se pueden duplicar los recorridos, por favor verifique.' })];
+                return [2 /*return*/, res.status(200).json(result)];
+            case 3: return [2 /*return*/, res.status(204).send({ msj: 'No se pueden duplicar los recorridos, por favor verifique' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_2 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ msj: 'Error al crear el recorrido' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
 exports.updateRecorrido = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var recorrido, result;
+    var recorrido, result, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
             case 1:
                 recorrido = _a.sent();
                 if (!(recorrido !== undefined && recorrido)) return [3 /*break*/, 3];
@@ -96,18 +114,29 @@ exports.updateRecorrido = function (req, res) { return __awaiter(void 0, void 0,
             case 2:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.status(404).send({ message: 'Recorrido no existe' })];
+            case 3: return [2 /*return*/, res.status(204).send({ Message: 'Recorrido not found' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_3 = _a.sent();
+                return [2 /*return*/, res.status(404).send({ Message: 'Error al actualizar el recorrido' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteRecorrido = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result;
+    var result, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).delete(req.params.nroParada)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).delete(req.params.nroParada)];
             case 1:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
+                return [2 /*return*/, res.status(200).json(result)];
+            case 2:
+                error_4 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ Message: 'Error al eliminar el recorrido' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

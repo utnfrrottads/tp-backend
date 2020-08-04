@@ -51,62 +51,95 @@ exports.getCalendarios = function (req, res) { return __awaiter(void 0, void 0, 
     });
 }); };
 exports.getCalendario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var calendario;
+    var calendario, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.chofer)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.chofer)];
             case 1:
                 calendario = _a.sent();
-                return [2 /*return*/, res.json(calendario)];
+                if (calendario !== undefined) {
+                    return [2 /*return*/, res.status(200).json(calendario)];
+                }
+                else {
+                    return [2 /*return*/, res.status(204).json({ Message: 'Calendario not found' })];
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ Message: 'Error al obtener el calendario' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.createCalendario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var calendarioUso, result;
+    var calendarioUso, result, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).create(req.body)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).create(req.body)];
             case 1:
                 calendarioUso = _a.sent();
                 if (!(calendarioUso === null)) return [3 /*break*/, 3];
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).save(calendarioUso)];
             case 2:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.status(412).json({ message: 'Calendario en uso.' })];
+                return [2 /*return*/, res.status(200).json(result)];
+            case 3: return [2 /*return*/, res.status(204).send({ Message: 'Error al crear el calendario' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_2 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ message: 'Calendario en uso.' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
 exports.updateCalendario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var calendario, result;
+    var calendario, result, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.idCalendario)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.idCalendario)];
             case 1:
                 calendario = _a.sent();
-                if (!(calendario !== undefined && calendario)) return [3 /*break*/, 3];
+                if (!(calendario !== undefined)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(Calendario_1.Calendario).merge(calendario, req.body);
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).save(calendario)];
             case 2:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.status(404).send({ message: 'Calendario no existente' })];
+            case 3: return [2 /*return*/, res.status(204).send({ message: 'Calendario no existente' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_3 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ message: 'Calendario no existente' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteCalendario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var calendarioUso, result;
+    var calendarioUso, result, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.chofer)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.chofer)];
             case 1:
                 calendarioUso = _a.sent();
                 if (!(calendarioUso !== undefined && calendarioUso)) return [3 /*break*/, 3];
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).delete(req.params.idCalendario)];
             case 2:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.status(412).json({ message: 'No se puede eliminar el Calendario en uso.' })];
+                return [2 /*return*/, res.status(200).json(result)];
+            case 3: return [2 /*return*/, res.status(204).json({ message: 'No se pudo eliminar el Calendario en uso.' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_4 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ message: 'No se pudo eliminar el Calendario en uso.' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };

@@ -19,9 +19,21 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // routes
-app.use(empresaRouter);
+app.use(empresaRouter, function(err: any, req: any, res: any, next: any){
+    if (res.headersSent) {
+        return next(err);
+      }
+      res.status(500);
+      res.render('error', { error: err });
+});
 app.use(LineaColectivoRouter);
-app.use(choferRouter);
+app.use(choferRouter, function(err: any, req: any, res: any, next: any){
+    if (res.headersSent) {
+        return next(err);
+      }
+      res.status(500);
+      res.render('error', { error: 'Error no identificado' });
+});
 
 app.listen(3000);
 console.log('Server on port', 3000);

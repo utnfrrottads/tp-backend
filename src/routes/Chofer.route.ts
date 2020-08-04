@@ -6,7 +6,7 @@ import { createChofer, getChofer, getChoferes, updateChofer, deleteChofer } from
 router.get('/getChoferes', getChoferes);
 router.get('/getChofer/:cuil', getChofer);
 router.post('/createChofer', createChofer);
-router.put('/updateChoferes', updateChofer);
-router.delete('/deleteChoferes/:cuil', deleteChofer);
+router.put('/updateChofer', updateChofer);
+router.delete('/deleteChofer/:cuil', deleteChofer);
 
 export default router

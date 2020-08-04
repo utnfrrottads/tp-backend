@@ -40,66 +40,118 @@ exports.deleteChofer = exports.updateChofer = exports.createChofer = exports.get
 var typeorm_1 = require("typeorm");
 var Chofer_1 = require("../entity/Chofer");
 exports.getChoferes = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var choferes;
+    var choferes, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).find()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).find()];
             case 1:
                 choferes = _a.sent();
                 return [2 /*return*/, res.json(choferes)];
+            case 2:
+                error_1 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ Message: 'Ocurrio un error al obtener los choferes' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.getChofer = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var chofer;
+    var chofer, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).findOne(req.params.cuil)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.createQueryBuilder("Chofer")
+                        .leftJoinAndSelect("Chofer.lineaColectivo", "LineaColectivo")
+                        .where("Chofer.Cuil = :Cuil", { Cuil: req.params.cuil })
+                        .getOne()];
             case 1:
                 chofer = _a.sent();
-                return [2 /*return*/, res.json(chofer)];
+                if (chofer !== undefined && chofer) {
+                    return [2 /*return*/, res.json(chofer)];
+                }
+                else {
+                    return [2 /*return*/, res.json({ Message: 'Chofer not found' })];
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ Message: 'Error al obtener el chofer' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.createChofer = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var chofer, result;
+    var chofer, chof, result, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).create(req.body)];
+            case 0:
+                _a.trys.push([0, 6, , 7]);
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).findOne(req.body.Cuil)];
             case 1:
                 chofer = _a.sent();
-                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).save(chofer)];
+                if (!(chofer === undefined)) return [3 /*break*/, 4];
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).create(req.body)];
             case 2:
+                chof = _a.sent();
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).save(chof)];
+            case 3:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
+            case 4: return [2 /*return*/, res.json({ Message: 'El chofer existe' })];
+            case 5: return [3 /*break*/, 7];
+            case 6:
+                error_3 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ Message: 'Error al crear el chofer' })];
+            case 7: return [2 /*return*/];
         }
     });
 }); };
 exports.updateChofer = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var chofer, result;
+    var chofer, result, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).findOne(req.params.cuil)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).findOne(req.params.Cuil)];
             case 1:
                 chofer = _a.sent();
                 if (!(chofer !== undefined && chofer)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(Chofer_1.Chofer).merge(chofer, req.body);
-                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).save(Chofer_1.Chofer)];
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).save(chofer)];
             case 2:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.status(404).send({ message: 'Chofer not found' })];
+            case 3: return [2 /*return*/, res.json({ Message: 'Chofer not found' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_4 = _a.sent();
+                return [2 /*return*/, res.status(400).json({ Message: 'Chofer not found' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteChofer = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result;
+    var result, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).delete(req.params.cuil)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(Chofer_1.Chofer).delete(req.params.cuil)];
             case 1:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
+                if (result !== undefined) {
+                    return [2 /*return*/, res.json(result)];
+                }
+                else {
+                    return [2 /*return*/, res.json({ Message: 'Hubo un error al elimiar el chofer' })];
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_5 = _a.sent();
+                return [2 /*return*/, res.json({ Message: 'Hubo un error al elimiar el chofer' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

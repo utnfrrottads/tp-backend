@@ -51,35 +51,61 @@ exports.getEmpresas = function (req, res) { return __awaiter(void 0, void 0, voi
     });
 }); };
 exports.getEmpresa = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var empresa;
+    var empresa, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
             case 1:
                 empresa = _a.sent();
-                return [2 /*return*/, res.json(empresa)];
+                if (empresa !== undefined) {
+                    return [2 /*return*/, res.status(200).json(empresa)];
+                }
+                else {
+                    return [2 /*return*/, res.status(204).send({ Message: 'Empresa not found' })];
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                return [2 /*return*/, res.status(400).json(error_1)];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.createEmpresa = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nuevaEmpresa, result;
+    var nuevaEmpresa, empre, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).create(req.body)];
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).create(req.body)];
             case 1:
                 nuevaEmpresa = _a.sent();
                 return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).save(nuevaEmpresa)];
             case 2:
-                result = _a.sent();
-                return [2 /*return*/, res.json(result)];
+                empre = _a.sent();
+                if (empre !== undefined && empre) {
+                    return [2 /*return*/, res.status(200).json(empre)];
+                }
+                else {
+                    return [2 /*return*/, res.status(204).send(empre)];
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ Message: 'Error al crear la empresa' })];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
 exports.updateEmpresa = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var empresa, result;
+    var empresa, result, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
             case 1:
                 empresa = _a.sent();
                 if (!(empresa !== undefined && empresa)) return [3 /*break*/, 3];
@@ -88,18 +114,35 @@ exports.updateEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
             case 2:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
-            case 3: return [2 /*return*/, res.status(404).send({ message: 'Empresa not found' })];
+            case 3: return [2 /*return*/, res.status(204).send({ message: 'Empresa not found' })];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                error_3 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ message: 'Error al actualizar la empresa' })];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
 exports.deleteEmpresa = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result;
+    var result, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).delete(req.params.cuit)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).delete(req.params.cuit)];
             case 1:
                 result = _a.sent();
-                return [2 /*return*/, res.json(result)];
+                if (result !== undefined && result) {
+                    return [2 /*return*/, res.status(200).json(result)];
+                }
+                else {
+                    return [2 /*return*/, res.status(204).send({ Message: 'Empresa not found' })];
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_4 = _a.sent();
+                return [2 /*return*/, res.status(400).send({ Message: 'Error al eliminar la empresa' })];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

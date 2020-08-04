@@ -50,7 +50,7 @@ export const updateParada = async (req: Request, res: Response): Promise<Respons
         }
     } catch (error) {
         return res.status(404).send({ message: 'Error al actualizar la Parada de colectivo' });
-    }    
+    }
 }
 
 export const deleteParada = async (req: Request, res: Response): Promise<Response> => {

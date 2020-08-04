@@ -18,8 +18,20 @@ app.use(cors_1.default());
 app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());
 // routes
-app.use(Empresa_route_1.default);
+app.use(Empresa_route_1.default, function (err, req, res, next) {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: err });
+});
 app.use(LineaColectivo_router_1.default);
-app.use(Chofer_route_1.default);
+app.use(Chofer_route_1.default, function (err, req, res, next) {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: 'Error no identificado' });
+});
 app.listen(3000);
 console.log('Server on port', 3000);

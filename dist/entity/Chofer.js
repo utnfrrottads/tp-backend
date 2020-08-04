@@ -32,7 +32,7 @@ var Chofer = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        typeorm_1.PrimaryColumn({ type: "decimal",
+        typeorm_1.PrimaryColumn({ type: "bigint",
             unique: true,
             nullable: false }),
         __metadata("design:type", Number)
@@ -46,7 +46,7 @@ var Chofer = /** @class */ (function (_super) {
             type: 'varchar',
             length: 50,
             nullable: false,
-            unique: true
+            unique: false
         }),
         __metadata("design:type", String)
     ], Chofer.prototype, "Nombre", void 0);
@@ -82,7 +82,7 @@ var Chofer = /** @class */ (function (_super) {
             type: 'varchar',
             length: 100,
             nullable: false,
-            unique: true
+            unique: false
         }),
         __metadata("design:type", String)
     ], Chofer.prototype, "Provincia", void 0);
@@ -91,7 +91,7 @@ var Chofer = /** @class */ (function (_super) {
             type: 'varchar',
             length: 100,
             nullable: false,
-            unique: true
+            unique: false
         }),
         __metadata("design:type", String)
     ], Chofer.prototype, "Localidad", void 0);
@@ -100,12 +100,12 @@ var Chofer = /** @class */ (function (_super) {
             type: 'varchar',
             length: 100,
             nullable: false,
-            unique: true
+            unique: false
         }),
         __metadata("design:type", String)
     ], Chofer.prototype, "Domicilio", void 0);
     __decorate([
-        typeorm_1.OneToMany(function (type) { return Calendario_1.Calendario; }, function (calendario) { return calendario.chofer; }),
+        typeorm_1.OneToMany(function (type) { return Calendario_1.Calendario; }, function (calendario) { return calendario.chofer; }, { nullable: true }),
         __metadata("design:type", Array)
     ], Chofer.prototype, "calendario", void 0);
     Chofer = __decorate([

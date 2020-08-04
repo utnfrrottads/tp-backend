@@ -8,8 +8,7 @@ export const getRecorridos = async (req: Request, res: Response): Promise<Respon
 
 }
 
-export const getRecorrido = async (req: Request, res: Response): Promise<Response> => {
-    // const recorrido = await getRepository(Recorrido).findOne(req.params.nroParada);
+export const getRecorrido = async (req: Request, res: Response): Promise<Response> => {    
     try {
         const recorrido = await getRepository(Recorrido)
                             .createQueryBuilder("Recorrido")
