@@ -2,6 +2,7 @@ const Role = require('../models/role'); //Requiero modelo
 const User = require('../models/user');
 const ApiError = require('../error/ApiError');
 const user = require('../models/user');
+const role = require('../models/role');
 
 const RoleCtrl = {}; //Creo el objeto controlador
 
@@ -14,10 +15,10 @@ RoleCtrl.checkDependencies = async (id) => {
 }
 
 //Controla nombre repetido
-RoleCtrl.checkName = async(name, id = ' ')=>{
-    let roles = Role.find({name: name}).select('_id');
-    if(roles.length > 0){
-        roles.forEach(role => {
+RoleCtrl.checkName = async (name, id = ' ')=>{
+    let roles = await Role.find({name: name}).select('_id');
+    if((await roles).length > 0){
+        (await roles).forEach(role => {
             if(role._id !== id){
                 throw ApiError.badRequest('El nombre del rol se encuentra repetido.');
             }
@@ -79,6 +80,7 @@ RoleCtrl.updateRole = async (req, res, next) => {
             permissions: req.body.permissions
         }
         await RoleCtrl.checkName(newRole.name, id).catch((err)=>{
+            console.log(JSON.stringify(err));
             next(err);
             validations = false;
         });
