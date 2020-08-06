@@ -4,7 +4,7 @@ const URI = "CADENA DE CONEXION";
 
 const dbConnection = async () =>{
     try{
-        await mongoose.connect(URI,{
+        await mongoose.connect(process.env.DB_STRING,{
             useCreateIndex:true,
             useNewUrlParser:true,
             useFindAndModify:false,

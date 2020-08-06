@@ -4,14 +4,14 @@ const {Schema , model} = mongoose;
 
 const UserSchema = new Schema({
     name:{type:String, required: true},
-    email:{type:String, required: true, unique: true},
+    email:{type:String, required: true,lowercase:true, unique: true},
     password:{type:String, required: true},
-    phone:{type:String},
-    address:{type:String},
+    phone:{type:String, default:'No Phone'},
+    address:{type:String,default:'No Address'},
     role:{type:Schema.Types.ObjectId,ref:'UserType',required:true},
 },{collection:'users'})
 
-UsuarioSchema.method('toJSON',function(){
+UserSchema.method('toJSON',function(){
     const {__v,_id, ...object}=this.toObject();
     object.uid = _id;
     return object;

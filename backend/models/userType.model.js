@@ -6,7 +6,7 @@ const UserTypeSchema = new Schema({
     description:{type:String, required: true},
 },{collection:'userTypes'})
 
-UsuarioSchema.method('toJSON',function(){
+UserTypeSchema.method('toJSON',function(){
     const {__v,_id, ...object}=this.toObject();
     object.id = _id;
     return object;

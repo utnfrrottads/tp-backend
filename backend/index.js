@@ -1,4 +1,5 @@
 const express = require ('express');
+require('dotenv').config();
 const {dbConnection} = require ('./database/config');
 
 
@@ -10,15 +11,19 @@ const app = express();
 dbConnection();
 
 //settings
-app.set('port',process.env.PORT);
+app.set('Port',process.env.PORT||3009);
 
 
 //middlewares
 app.use(express.json());
 
 //routes
+app.use('/api/users',require('./routes/user.routes'));
+app.use('/api/usertypes',require('./routes/userType.routes'));
+app.use('/api/fields',require('./routes/field.routes'));
+
 
 //start server
-app.listen(app.get('port'),()=>{
-    console.log(`Server on port: ${app.get('port')}`)
+app.listen(app.get('Port'),()=>{
+    console.log(`Server on port: ${app.get('Port')}`)
 });
