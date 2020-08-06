@@ -5,7 +5,7 @@ function apiErrorHandler(err, req, res, next){
         res.status(err.code).json({error: err.msg});
         return;
     }
-    if(err.message.includes('ValidationError')){
+    if(err.message.includes('validation failed:')){
         res.status(400).json({error: 'Hay un campo obligatorio incompleto o un dato erróneo.'});
         return;
     }

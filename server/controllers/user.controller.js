@@ -88,6 +88,25 @@ UserCtrl.checkDependencies = async (id)=>{
     }
 }
 
+UserCtrl.reasignUser= async (id) => {
+    const cli = await User.findById(id).lean();
+    await Sale.find({client: id}).lean().then(
+        sales => {
+            sales.forEach( sale => {
+                sale.client = null;
+                sale.deletedClient = {
+                    dni: cli.dni,
+                    email: cli.email,
+                    phone: cli.phone
+                }
+                Sale.findByIdAndUpdate(sale._id, {$set: sale}).catch(err => {
+                    next(err);
+                });
+            })
+        }
+    )
+}
+
 //Metodo Create
 UserCtrl.createUser = async (req, res, next) => {
     try {
@@ -186,14 +205,18 @@ UserCtrl.updateUser = async(req, res, next) => {
     }
 }
 
-//Metodo Delete
+//Metodo Delete (Tiene un parametro para reasignar o no el usuario en caso de que haya que eliminarlo).
 UserCtrl.deleteUser = async (req, res, next) => {
     try{
         const {id} = req.params;
         let validations = true;
         await UserCtrl.checkDependencies(id).catch((err)=>{
-            next(err);
-            validations = false;
+            if(req.params.reasign === "true"){
+                UserCtrl.reasignUser(id);
+            } else {
+                next(err);
+                validations = false;
+            }
         });
         if(validations){
             await User.findByIdAndRemove(id);
