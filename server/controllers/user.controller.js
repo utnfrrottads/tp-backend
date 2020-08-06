@@ -88,6 +88,7 @@ UserCtrl.checkDependencies = async (id)=>{
     }
 }
 
+
 UserCtrl.reasignUser= async (id) => {
     const cli = await User.findById(id).lean();
     await Sale.find({client: id}).lean().then(
@@ -159,7 +160,15 @@ UserCtrl.createUser = async (req, res, next) => {
 //Metodo Update
 UserCtrl.updateUser = async(req, res, next) => {
     try{
+        let validations = true;
         const {id} = req.params;
+        if(req.body.dni == null || req.body.names == null || req.body.lastNames == null || req.body.username == null || 
+            req.body.password == null || req.body.email == null || req.body.pc == null || req.body.street == null || 
+            req.body.number == null || req.body.phone == null) 
+            {
+                next(ApiError.badRequest('Campos incompletos'));
+                validations = false;
+            }
         const newUser = {
             dni: req.body.dni,
             names: req.body.names,

@@ -26,6 +26,7 @@ RoleCtrl.checkName = async (name, id = ' ')=>{
     }
 }
 
+
 //Metodo GetAll (res= response y req= request)
 RoleCtrl.getRoles = async (req, res, next) => {
     try{
@@ -74,13 +75,15 @@ RoleCtrl.updateRole = async (req, res, next) => {
     try{
         let validations = true;
         const {id} = req.params;
+        if(req.body.name == null || req.body.description == null || req.body.pemissions == null) {
+            next(ApiError.badRequest('Campos incompletos'))
+        }
         const newRole = {
             name: req.body.name,
             description: req.body.description,
             permissions: req.body.permissions
         }
         await RoleCtrl.checkName(newRole.name, id).catch((err)=>{
-            console.log(JSON.stringify(err));
             next(err);
             validations = false;
         });
