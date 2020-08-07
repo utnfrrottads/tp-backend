@@ -21,7 +21,7 @@ app.use(express.json());
 app.use('/api/users',require('./routes/user.routes'));
 app.use('/api/usertypes',require('./routes/userType.routes'));
 app.use('/api/fields',require('./routes/field.routes'));
-
+app.use('/api/appointments',require('./routes/appointment.routes'));
 
 //start server
 app.listen(app.get('Port'),()=>{
