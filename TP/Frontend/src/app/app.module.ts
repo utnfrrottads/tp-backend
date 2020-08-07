@@ -12,6 +12,7 @@ import { ProductsContainerComponent } from './components/products-container/prod
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './components/profile/profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 //para los componentes de angular material.
 import {AngularMaterialModule} from './angular-material/angular-material.module';
@@ -31,28 +32,17 @@ import { LoginComponent } from './components/login/login.component';
     NavComponent,
     CartaRubroComponent,
     ListaRubrosComponent,
-
     CardListComponent,
     ProductsContainerComponent,
-
     ProfileComponent,
-
     ProductDetailComponent,
-
     FooterComponent,
-
     ListaEmpresasComponent,
-
     DetalleEmpresaComponent,
-
     CartaEmpresaComponent,
-    
     CarritoComponent,
-
     CarritoItemComponent,
-
     SubirProductoComponent,
-
     LoginComponent
   ],
   imports: [
@@ -60,6 +50,7 @@ import { LoginComponent } from './components/login/login.component';
     AngularMaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule
   
   ],
 

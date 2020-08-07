@@ -44,12 +44,7 @@
 .datos-personales{
   padding-top: 40px;
 }
-.btn-save{
-  margin-left: 5px;
-}
-.botones{
-  float: right;
-}
+
 .title{
   padding-top: 20px;
   
@@ -60,6 +55,11 @@
 .contact{
   padding-top: 10px;
 }
+// ---------------- formulario ------------------ //
+.datos-personales{
+  height: 600px;
+}
+
 
 //movil pequeño
 @media only screen and (max-width: 600px) {

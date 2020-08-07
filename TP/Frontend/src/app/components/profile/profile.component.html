@@ -1,135 +1,24 @@
 <div class="container">
   <div class="decoradorArriba">
-    <img class="avatar" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
-      alt="Mountain">
+    <img class="avatar" src={{obtenerImagenUsuario()}}
+      obtenerImagenUsuario alt="Mountain">
 
     <div class="info">
-      <h4 class="truncate title">{{user.entidad.razonSocial}} {{user.entidad.nombre }} {{user.entidad.apellido}}</h4>
-      
+      <h4 class="truncate title">DATO</h4>
+
       <h4 class="truncate extra contact">Dirección: </h4>
-      <h4 class="truncate extra">{{user.entidad.localidad}} - {{user.entidad.direccion}}</h4>
+      <h4 class="truncate extra">DATO: </h4>
       <h4 class="truncate extra contact">Contacto: </h4>
-      <h4 class="truncate extra">{{user.entidad.mail}}</h4>
-      <h4 class="truncate extra">{{user.entidad.telefono}}</h4>
-    
+      <h4 class="truncate extra">DATO: </h4>
+      <h4 class="truncate extra">DATO: </h4>
     </div>
+
   </div>
 
-  <!-- SI ES PERSONA SE MUESTRA ESTO -->
+  <div class="datos-personales">
 
-  <div class="row datos-personales" *ngIf="user.esPersona">
-    <form class="col s12" #formPersona>
-      <!-- nombre y apellido-->
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="nombre" value="{{user.entidad.nombre}}" type="text" class="validate">
-          <label class="active">Nombre</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="apellido" value="{{user.entidad.apellido}}" type="text" class="validate">
-          <label class="active">Apellido</label>
-        </div>
-      </div>
-      <!-- email-->
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="mail" type="email" class="validate" value="{{user.entidad.mail}}">
-          <label class="active" for="email">Email</label>
-        </div>
-      </div>
-      <!-- DNI y Localidad-->
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="dni" value={{user.entidad.dni}} type="text" class="validate">
-          <label class="active">DNI</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="localidad" value={{user.entidad.localidad}} type="text" class="validate">
-          <label class="active">Localidad</label>
-        </div>
-      </div>
-      <!-- Direccion y Telefono-->
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="direccion" value={{user.entidad.direccion}} type="text" class="validate">
-          <label class="active">Direccion</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="telefono" value={{user.entidad.telefono}} type="text" class="validate">
-          <label class="active">Telefono</label>
-        </div>
-      </div>
-
-      <!--botones-->
-      <div class="botones">
-
-        <button mat-raised-button type="button" color="primary" (click)="discard(formPersona)">
-          Descartar
-        </button>
-
-        <button mat-raised-button type="button" color="primary" (click)="save(formPersona)" class="btn-save">
-          Guardar
-        </button>
-
-      </div>
-    </form>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)">
+    <button (click)="subirImagen(url_imagen)">Subir imagen</button>
   </div>
 
-  <!-- SI ES EMPRESA SE MUESTRA ESTO -->
-  <div class="row datos-personales" *ngIf="!user.esPersona">
-    <form class="col s12" #formEmpresa>
-
-      <!-- nombre de empresa -->
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="razonSocial" value="{{user.entidad.razonSocial}}" type="text" class="validate">
-          <label class="active" for="first_name">Nombre de Empresa</label>
-        </div>
-      </div>
-      <!-- nro y cuit -->
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="cuit" value="{{user.entidad.cuit}}" type="text" class="validate">
-          <label class="active" for="first_name">CUIT</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="telefono" value="{{user.entidad.telefono}}" type="text" class="validate">
-          <label class="active" for="first_name">Telefono</label>
-        </div>
-      </div>
-      <!-- localidad direccion-->
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="localidad" value="{{user.entidad.localidad}}" type="text" class="validate">
-          <label class="active" for="first_name" >Localidad</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="direccion" value="{{user.entidad.direccion}}" type="text" class="validate">
-          <label class="active" for="first_name">Direccion</label>
-        </div>
-      </div>
-
-      <!-- correo-->
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="mail" type="email" class="validate" value="{{user.entidad.mail}}">
-          <label class="active" for="email">Email</label>
-        </div>
-      </div>
-
-      <!--botones-->
-      <div class="botones">
-        <button mat-raised-button type="button" color="primary" (click)="discard(formEmpresa)">
-          Descartar
-        </button>
-
-        <button mat-raised-button type="button" color="primary" (click)="save(formEmpresa)" class="btn-save">
-          Guardar
-        </button>
-      </div>
-
-
-    </form>
-  </div>
 </div>
-
