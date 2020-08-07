@@ -6,7 +6,7 @@ const { request } = require("express");
 const validateCreatedDate =  (req = request ,res,next) => {
     
     const dateBody = Date.parse(req.body.date)
-    const now =  (Date.now()- process.env.UTC)    
+    const now =  (Date.now()- process.env.UTC_ARG)    
 
     if(now>=dateBody){
         return res.status(400).json({

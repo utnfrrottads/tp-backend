@@ -9,7 +9,7 @@ const validateMaxTime = async (req,res,next) => {
     const appointmentDB = await Appointment.findById(id);
     const createdDate = appointmentDB.createdDate.getTime();
     const initDate = appointmentDB.date.getTime();
-    const now =  (Date.now()-process.env.UTC)
+    const now =  (Date.now()-process.env.UTC_ARG)
     
 //tiempo max post reserva (1hr)
     const maxTimeAfter =3600000;

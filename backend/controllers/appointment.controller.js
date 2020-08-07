@@ -53,7 +53,7 @@ appointmentCtrl.getAppointment = async (req = request, res = response) =>{
 appointmentCtrl.createAppointment = async (req = request, res = response) =>{
     try {
         const appointment = new Appointment(req.body)
-        appointment.createdDate = (Date.now()- process.env.UTC);
+        appointment.createdDate = (Date.now()- process.env.UTC_ARG);
         await appointment.save()
         res.json({
             ok:true,
@@ -86,7 +86,7 @@ appointmentCtrl.updateAppointment = async (req = request, res = response) =>{
             })
         }
         const changes = req.body
-        changes.createdDate = (Date.now()- process.env.UTC);
+        changes.createdDate = (Date.now()- process.env.UTC_ARG);
         if(changes.date === appointmentDB.date){
             return res.status(400).json({
                 ok:false,
