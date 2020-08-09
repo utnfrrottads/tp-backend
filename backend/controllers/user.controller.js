@@ -1,6 +1,9 @@
 const User = require ('../models/user.model');
 const { request, response} = require ('express');
 const userCtrl = {};
+const bycript = require('bcryptjs');
+const {generateJWT} = require ('../helpers/jwt')
+
 
 userCtrl.getUsers = async (req,res = response)=>{
     try {
@@ -48,10 +51,9 @@ userCtrl.getUser = async (req = request,res = response)=>{
 }
 
 userCtrl.createUser = async (req = request, res = response) =>{
-    const {email} = req.body
+    const {email, password} = req.body
 //SE EXTRAE EL ROLE DEL HEADER
-    const role = req.header('role');
-
+    const role = 'USER';
     try {
         const existsEmail = await User.findOne({email});
         if(existsEmail){
@@ -71,10 +73,15 @@ userCtrl.createUser = async (req = request, res = response) =>{
         if (role==='GENERAL_ADMIN'){
             user.role=process.env.GENERAL_ADMIN;
         }
+        const salt = bycript.genSaltSync();
+        user.password = bycript.hashSync(password,salt);
         await user.save();
+//GENERAR JWT
+        const token =  await generateJWT(user.uid)
         res.json({
             ok:true,
-            msg: 'Created User'
+            msg: 'Created User',
+            token
         })
     } catch (error) {
         console.log(error);

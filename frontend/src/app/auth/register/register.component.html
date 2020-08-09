@@ -1,0 +1,52 @@
+<body class="login-register login-sidebar" style="background: url(../../../assets/img/fondo-register1.jpg) no-repeat center center fixed;overflow: scroll; background-size: cover; margin-bottom: 0px;">
+    
+    <div class="modal-dialog text-center" >
+        <div class="col-sm-9 main-section">
+            <div class="modal-content"  >
+                <div class="avatar">
+                    <img src="../../../assets/img/signup.png" style="width:100px; height:100px;">
+                </div>             
+                <form class="col-12" [formGroup]="form" (submit)="signUp()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" formControlName="name" [class.is-invalid]="getFieldValid('name')">
+                            <small *ngIf="getFieldValid('name')" class="text-danger">
+                                Ingrese el nombre
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Dirección" formControlName="address" [class.is-invalid]="getFieldValid('address')">
+                            <small *ngIf="getFieldValid('address')" class="text-danger">
+                                Ingrese la dirección
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Teléfono" formControlName="phone" [class.is-invalid]="getFieldValid('phone')">
+                            <small *ngIf="getFieldValid('phone')" class="text-danger">
+                                Ingrese el teléfono
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email" formControlName="email" [class.is-invalid]="getFieldValid('email')">
+                            <small *ngIf="getFieldValid('email')" class="text-danger">
+                                Ingrese el email correctamente
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" [class.is-invalid]="getFieldValid('password')">
+                            <small *ngIf="getFieldValid('password')" class="text-danger">
+                                Ingrese la contraseña
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Repetir contraseña" formControlName="password2" [class.is-invalid]="getFieldValid('password2')">
+                            <small *ngIf="pass2Valid" class="text-danger">
+                                Las contraseñas no coinciden
+                            </small>                   
+                        </div> 
+                        <button type="submit" class="btn btn-dark mb-2"><i class="fas fa-user-plus"></i>  Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
