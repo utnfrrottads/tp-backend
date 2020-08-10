@@ -6,6 +6,7 @@ const FieldSchema = new Schema({
     name:{type:String, required: true, unique:true},
     description:{type:String},
     price:{type:Number, required: true},
+    image:{type:String},
     cantMaxPlayers:{type:Number,required: true},
     openingHour: {type:Date,required:true},
     closingHour: {type:Date,required:true}

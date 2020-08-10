@@ -5,16 +5,22 @@ import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { FieldsComponent } from './fields/fields.component';
+import { FieldComponent } from './field/field.component';
+import { AboutComponent } from './about/about.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 const routes : Routes = [
-    {path:'home',component:PagesComponent,
-    children:[
-      {path:'', component:HomeComponent},
-      {path:'users', component:UsersComponent},
-      {path:'appointments', component:AppointmentsComponent},
-      {path:'fields', component:FieldsComponent}
-    ]},
+  {path:'',component:PagesComponent, canActivate:[AuthGuard],
+  children:[
+    {path:'', component:HomeComponent},
+    {path:'user/:id', component:UsersComponent},
+    {path:'about', component:AboutComponent},
+    {path:'fields', component:FieldsComponent},
+    {path:'fields/:search', component:FieldsComponent},
+    {path:'field/:id',component: FieldComponent},
+    {path:'appointments/:id', component:AppointmentsComponent},
+  ]},
 ];
 
 

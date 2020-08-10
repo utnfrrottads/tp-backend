@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent  {
   form : FormGroup;
 
   constructor(private fb: FormBuilder,
-              private authService : AuthService,
+              private userService : UserService,
               private router : Router) { 
     this.createForm()
 
@@ -21,9 +21,9 @@ export class LoginComponent  {
 
   createForm(){
     this.form = this.fb.group({
-      email:["valentinferaudo@gmail.com",[Validators.required,
+      email:[localStorage.getItem('email')||"",[Validators.required,
                                           Validators.email],],
-      password:["123456789",Validators.required],
+      password:["",Validators.required],
       remember:[false,,]
     })
   }
@@ -31,7 +31,7 @@ export class LoginComponent  {
 
 
   signIn(){
-    this.authService.signIn(this.form.value)
+    this.userService.signIn(this.form.value)
                       .subscribe(resp =>{
                         console.log(resp)
                         if(this.form.get('remember').value){
@@ -39,7 +39,7 @@ export class LoginComponent  {
                         }else{
                           localStorage.removeItem('email')
                         }
-                        this.router.navigateByUrl('/home')
+                        this.router.navigateByUrl('')
                       },(err)=>{
                         console.log(err)
                         Swal.fire('Email y/o contraseña incorrectos','Por favor, ingrese nuevamente sus datos','error')

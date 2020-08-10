@@ -7,15 +7,18 @@ const {check} = require ('express-validator')
 
 const userTypeCtrl = require ('../controllers/userType.controller');
 const {validateFields} = require('../middlewares/validateFields');
+const {validateJWT} = require('../middlewares/validateJWT');
 
 
-router.get('/',[],userTypeCtrl.getUserTypes);
-router.get('/:id',[],userTypeCtrl.getUserType);
-router.post('/',[check('description','Description field is required').not().isEmpty(),
+router.get('/',[validateJWT],userTypeCtrl.getUserTypes);
+router.get('/:id',[validateJWT],userTypeCtrl.getUserType);
+router.post('/',[validateJWT,
+                    check('description','Description field is required').not().isEmpty(),
                     validateFields],userTypeCtrl.createUserType);
-router.put('/:id',[check('description','Description field is required').not().isEmpty(),
+router.put('/:id',[validateJWT,
+                    check('description','Description field is required').not().isEmpty(),
                     validateFields],userTypeCtrl.updateUserType);
-router.delete('/:id',[],userTypeCtrl.deleteUserType);
+router.delete('/:id',[validateJWT],userTypeCtrl.deleteUserType);
 
 
 module.exports = router;

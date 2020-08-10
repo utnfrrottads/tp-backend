@@ -13,6 +13,8 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { FieldsComponent } from './fields/fields.component';
 import { UsersComponent } from './users/users.component';
 import { PagesComponent } from './pages.component';
+import { FieldComponent } from './field/field.component';
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -22,7 +24,9 @@ import { PagesComponent } from './pages.component';
     AppointmentsComponent,
     PagesComponent,
     FieldsComponent,
-    UsersComponent
+    UsersComponent,
+    FieldComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,

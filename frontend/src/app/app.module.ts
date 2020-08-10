@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ComponentsModule } from './components/components.module';
+import { NoimagePipe } from './pipes/noimage.pipe';
 
 
 
@@ -21,12 +23,14 @@ import { RegisterComponent } from './auth/register/register.component';
     AppComponent,
     PageNotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NoimagePipe
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ComponentsModule,
     PagesModule,
     FormsModule,
     ReactiveFormsModule,

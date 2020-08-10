@@ -1,5 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">SporTurno</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" routerLink="">
+    <img src="../../../assets/img/favicon.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+     SporTurno
+  </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,14 +13,34 @@
           <a class="nav-link" routerLink=''>Home</a>
         </li>
         <li class="nav-item" routerLinkActive="active" >
-            <a class="nav-link" routerLink='fields'>Fields</a>
+            <a class="nav-link" [routerLink]="['/fields']">Canchas</a>
         </li>
         <li class="nav-item" routerLinkActive="active" >
-          <a class="nav-link" routerLink='users'>Users</a>
+            <a class="nav-link" [routerLink]="['/appointments',id]" >Turnos</a>
         </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-primary my-2 mr-sm-2" type="submit" (click)="searchField(text.value)">
+            Buscar
+        </button>
+        <input class="form-control mr-sm-4" type="search" 
+              placeholder="Buscar canchas" 
+              aria-label="Search" 
+              #text (keyup.enter)="searchField(text.value)">
+      </form>
+      <ul class="navbar-nav mr-auto mr-sm-2">
         <li class="nav-item" routerLinkActive="active" >
-            <a class="nav-link" routerLink='appointments'>Appointments</a>
-        </li>
+          <a class="nav-link" [routerLink]="['/about']">¿Quienes Somos?</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-cog"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" [routerLink]="['/user',id]">Editar Perfil</a>
+          <a class="dropdown-item text-danger pointer" (click)="logOut()">Salir</a>
+        </div>
+      </li>
       </ul>
     </div>
   </nav>

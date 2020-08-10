@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 const Field = require('../models/field.model');
 
 const { request , response } = require('express');
-const { findById } = require('../models/appointment.model');
+
 const appointmentCtrl = {};
 
 appointmentCtrl.getAppointments = async (req = request, res = response) =>{
@@ -137,6 +137,27 @@ appointmentCtrl.deleteAppointment = async (req = request, res = response) =>{
     }
 }
 
+appointmentCtrl.getAppointmentsByParams = async (req = request , res = response) => {
+    const field = req.query.field;
+    const dateInit = req.query.date_init;
+    const dateEnd = req.query.date_end
+    try {
+        res.json({
+            ok:true,
+            msg:'Appointments found',
+            field,
+            dateInit,
+            dateEnd
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok:false,
+            msg:'An unexpected error ocurred'
+        })
+    }
+}
 
 module.exports = appointmentCtrl;
 
