@@ -26,7 +26,6 @@ userCtrl.getUsers = async (req,res = response)=>{
 
 userCtrl.getUser = async (req = request,res = response)=>{
     uid = req.params.uid;
-    console.log('entra al get')
     try {
         const user = await User.findById(uid)
                                 .populate('role','description');
