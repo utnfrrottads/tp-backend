@@ -1,0 +1,10 @@
+    <div class="card">
+        <img src= "field.image"  class="card-img-top img-fluid" alt="...">
+        <div class="card-block">
+          <h5 class="card-title .text-light">{{field.name}}</h5>
+          <p class="card-text">{{field.description}}</p>
+          <p class="card-text">Hora apertura: {{field.openingHour | date:'shortTime' }}</p>
+          <p class="card-text">Hora cierre: {{field.closingHour | date:'shortTime'}}</p>
+          <button class="btn btn-outline-success btn-block" (click)="navigateField(id)">Turnos</button>
+        </div>
+      </div>

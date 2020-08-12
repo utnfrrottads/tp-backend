@@ -1,0 +1,76 @@
+<h3>Configuración</h3>
+<div class="col-xs-12" *ngIf="!change">
+    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" (click)="change = !change">Cambiar Datos</button>
+</div>
+<hr>
+<div *ngIf="change" class="login-box card mt-1">
+    <div class="card-body">
+        <form class="form-horizontal form-material" id="loginform" 
+            (ngSubmit)="saveChanges()" 
+            [formGroup]="userForm"
+            autocomplete="off">
+            <h3 class="box-title m-t-40 m-b-0">Editar Perfil</h3>
+            <div class="form-group m-t-20">
+                <div class="col-xs-12">
+                    <input class="form-control" 
+                            type="text" 
+                            placeholder="Nombre"
+                            formControlName="name">
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-xs-12">
+                    <input class="form-control" 
+                            type="text" 
+                            placeholder="Dirección"
+                            formControlName="address">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input class="form-control" 
+                            type="text" 
+                            placeholder="Teléfono"
+                            formControlName="phone">
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-xs-12">
+                    <input class="form-control" 
+                            type="text" 
+                            placeholder="Email"
+                            formControlName="email">
+                </div>
+            </div>
+            <div *ngIf="!pass" class="btn-group btn-group-ms btn-middle mb-3">
+                <button class="btn btn-outline-dark btn-lg waves-effect waves-light" type="button" (click)="pass= !pass">Cambiar contraseña</button>
+            </div>
+            <div *ngIf="pass">
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" 
+                        type="password" 
+                        placeholder="Contraseña"
+                        formControlName="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" 
+                        type="password" 
+                        placeholder="Confirmar contraseña"
+                        formControlName="password2">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <div class="btn-group btn-group-lg btn-block">
+                    <button class="btn btn-outline-danger btn-lg btn-block text-uppercase waves-effect waves-light" type="button" (click)="cancel()">Cancelar</button>
+                </div>
+                <div class="btn-group btn-group-lg btn-block">
+                    <button class="btn btn-outline-success btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Guardar Cambios</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

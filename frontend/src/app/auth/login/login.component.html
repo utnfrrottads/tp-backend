@@ -1,0 +1,44 @@
+<body class="login-register login-sidebar" style="background: url(../../../assets/img/fondo3.jpg) no-repeat center center fixed; overflow: scroll; background-size: cover; margin-bottom: 0px;">
+    
+    <div class="modal-dialog text-center mx-auto" style="margin-top: 100px;margin-bottom: 0px;">
+        <div class="col-sm-10 main-section">
+            <div class="modal-content"  >
+                    <div class="col-12" style="margin-top: 10px; margin-bottom: 10px;">
+                        <div>
+                            <img src="../../../assets/img/av_hombre.png" style="width:50%; height:auto;" class="pull-left" >
+                        </div>
+                        <div>
+                            <img src="../../../assets/img/avatar mujer.png" style="width:50%; height:auto;" class="pull-right" >
+                        </div>
+                    </div>
+                
+                    <form class="col-12" [formGroup]="form" (submit)="signIn()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="checkbox checkbox-primary pull-left mb-0">
+                                    <input id="checkbox-signup" 
+                                            type="checkbox" 
+                                            class="filled-in chk-col-light-blue"
+                                            formControlName="remember"> 
+                                <label for="checkbox-signup">Recordar usuario</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark mb-2 mt-0"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            ¿No tienes cuenta? <a routerLink='/register' class="text-primary m-l-5"><b> Registrarse</b></a>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>

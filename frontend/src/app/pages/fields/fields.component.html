@@ -1,0 +1,9 @@
+<h3>Canchas de futbol </h3>
+<hr>
+<span class="text-info">Mostrando: {{parameterURL}}</span>
+<hr>
+
+<div class="card-columns">
+    <app-field-card [field]="field" [id]='field.id' *ngFor="let field of fields"></app-field-card>
+</div>
+
