@@ -44,26 +44,21 @@ export class UserService {
             }),map(resp=>{
                         return true
             }),catchError(error =>{
+                        console.log(error)
                         return of(false)
           })
       )
   }
 
-  getUser(id:string){
-    const token = localStorage.getItem('token') || '';
-    return this.http.get(`http://localhost:3000/api/users/${id}`,{
-                            headers:{'x-token':token 
-                          }
-                        })
-                        // .pipe(map((data: any)=>{
-                        //   return data.user
-                        // }))
-  }
 
   logOut(){
     localStorage.removeItem('token');
     this.router.navigateByUrl('/login')
   }
   
+  updateUser(id : string, data : RegisterForm){
+    const token = localStorage.getItem('token')|| '';
+    return this.http.put(`http://localhost:3000/api/users/${id}`,data,{ headers: {'x-token':token}})
+  }
 
 }

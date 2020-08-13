@@ -14,17 +14,20 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ComponentsModule } from './components/components.module';
-import { NoimagePipe } from './pipes/noimage.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from './material.module';
+
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent,  
     LoginComponent,
     RegisterComponent,
-    NoimagePipe
 
   ],
   imports: [
@@ -35,6 +38,9 @@ import { NoimagePipe } from './pipes/noimage.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

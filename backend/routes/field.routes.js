@@ -11,7 +11,6 @@ const {validateJWT} = require('../middlewares/validateJWT');
 
 router.get('/',[validateJWT],fieldCtrl.getFields)
 router.get('/:id',[validateJWT],fieldCtrl.getField)
-router.get('/search/:search',[validateJWT],fieldCtrl.getFieldsByParams)
 router.post('/',[validateJWT,
                     check('name','Name field is required').not().isEmpty(),
                     check('price','Price field is required').not().isEmpty(),

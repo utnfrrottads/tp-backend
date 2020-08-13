@@ -17,9 +17,8 @@ const routes : Routes = [
     {path:'user', component:UsersComponent},
     {path:'about', component:AboutComponent},
     {path:'fields', component:FieldsComponent},
-    {path:'fields/search/:search', component:FieldsComponent},
     {path:'field/:id',component: FieldComponent},
-    {path:'appointments/:id', component:AppointmentsComponent},
+    {path:'appointments', component:AppointmentsComponent},
   ]},
 ];
 

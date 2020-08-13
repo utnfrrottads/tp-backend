@@ -49,7 +49,9 @@ authCtrl.renewToken = async (req,res)=>{
 
 //OBTENER USUARIO
     const user = await User.findById(uid,{uid:1,name:1,address:1,phone:1,email:1,role:1})
-    
+    if(!user){
+        return console.log('NO ENCUENTRA USUARIO')
+    }
     res.json({
         ok:true,
         user,

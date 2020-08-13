@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { Field } from 'src/app/models/field.model';
 import { FieldService } from 'src/app/services/field.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,41 +9,39 @@ import Swal from 'sweetalert2';
   templateUrl: './fields.component.html',
   styleUrls: ['./fields.component.css']
 })
-export class FieldsComponent  {
+export class FieldsComponent implements OnInit {
 
   public fields : Field = []
-
-  parameterURL : string;
+  param :string
+  query : string = ""
 
   constructor(private fieldService : FieldService,
-              private activatedRoute : ActivatedRoute) {
-                
-          this.activatedRoute.params.subscribe(param =>{
-                 this.parameterURL = param['search'] || 'Todas'
-                });
-                this.getFields()
-              }
+              private activatedRoute : ActivatedRoute) {}
 
+   ngOnInit(): void {
+     this.activatedRoute.queryParams.subscribe(param =>{
+        this.query = param['search'] || ''
+        this.getFields()
+       })
+       
+    }
 
+   
    getFields(){
-     if(this.parameterURL === 'Todas'){
-            this.fieldService.getFields()
-                              .subscribe((resp: any)=>{
-                                this.fields = resp 
-                              },err=>{
-                                console.log(err)
-                                Swal.fire("Error","Intentar nuevamente...",'error')
-                              })
-     }else{
-      const param = this.parameterURL
-      this.fieldService.getFieldsByParams(this.parameterURL)
+      if(this.query === ''){
+        this.param = 'Todas'
+      }else{
+        this.param = this.query
+      }
+
+      this.fieldService.getFields(this.query)
                             .subscribe((resp: any)=>{
                               this.fields = resp 
                             },err=>{
                               console.log(err)
                               Swal.fire("Error","Intentar nuevamente...",'error')
                             })
+      
      }
-   }
-
+  
 }

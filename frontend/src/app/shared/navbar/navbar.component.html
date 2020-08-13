@@ -16,17 +16,17 @@
             <a class="nav-link" [routerLink]="['/fields']">Canchas</a>
         </li>
         <li class="nav-item" routerLinkActive="active" >
-            <a class="nav-link" [routerLink]="['/appointments',id]" >Turnos</a>
+            <a class="nav-link" [routerLink]="['/appointments']" >Turnos</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-primary my-2 mr-sm-2" type="submit" (click)="searchField(text.value)">
+        <button class="btn btn-outline-primary my-2 mr-sm-2" type="button" (click)="searchField(text.value)">
             Buscar
         </button>
-        <input class="form-control mr-sm-4" type="search" 
+        <input class="form-control mr-sm-4" id="input" type="text" 
               placeholder="Buscar canchas" 
               aria-label="Search" 
-              #text (keyup.enter)="searchField(text.value)">
+              #text>
       </form>
       <ul class="navbar-nav mr-auto mr-sm-2">
         <li class="nav-item" routerLinkActive="active" >

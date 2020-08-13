@@ -14,7 +14,6 @@ export class AppointmentService {
 //FALTA ORDENAR LAS FECHAS PARA MOSTRAR LAS MAS RECIENTES 
         return this.http.get('http://localhost:3000/api/appointments/user',{headers:{'x-token':token}})
                         .pipe(map((data:any) =>{
-                            console.log(data.appointments)
                             return data.appointments
                           }));
     }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators'
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,6 @@ export class FieldService {
 
   constructor(private http: HttpClient) { }
   
-  getFields(){
-    const token = localStorage.getItem('token') || '';
-    return this.http.get('http://localhost:3000/api/fields/',
-                                                    {headers:{'x-token':token}})
-                    .pipe(map((data:any) =>{
-                      return data.fields
-                    }));
-  }
   getField(id:string){
     const token = localStorage.getItem('token') || '';
     return this.http.get(`http://localhost:3000/api/fields/${id}`,
@@ -25,10 +18,15 @@ export class FieldService {
                       return data.field
                     }));
   }
-  getFieldsByParams(param: any){
+  getFields(search: any){
     const token = localStorage.getItem('token') || '';
-    return this.http.get(`http://localhost:3000/api/fields/search/${param}`,
-                                                    {headers:{'x-token':token}})
+    const headers = new HttpHeaders({
+      'x-token': token
+    })
+     const params = new HttpParams().set("search",search)
+
+
+    return this.http.get(`http://localhost:3000/api/fields`,{params:params ,headers:headers})
                     .pipe(map((data:any) =>{
                       return data.fields
                     }));

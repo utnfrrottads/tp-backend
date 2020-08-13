@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark mb-2 mt-0"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
+                    <button type="submit" class="btn btn-dark mb-2 mt-0" [disabled]="form.invalid"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
                             ¿No tienes cuenta? <a routerLink='/register' class="text-primary m-l-5"><b> Registrarse</b></a>

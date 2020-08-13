@@ -60,6 +60,7 @@ export class RegisterComponent  {
                           allowOutsideClick: false
                         });
                         setTimeout(() => {
+                          localStorage.setItem('token',resp.token)
                           this.router.navigateByUrl('')
                         }, 2000);
                       },(err)=>{

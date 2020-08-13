@@ -115,6 +115,12 @@ userCtrl.updateUser = async (req = request, res = response) =>{
                 })
             }
         }
+        if(changes.password === null){
+            delete changes.password
+        }else{
+            const salt = bycript.genSaltSync();
+            changes.password = bycript.hashSync(changes.password,salt);
+        }
         await User.findByIdAndUpdate(uid,changes,{new:true})
         res.json({
             ok:true,

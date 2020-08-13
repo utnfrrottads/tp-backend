@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { resetFakeAsyncZone } from '@angular/core/testing';
 
 @Component({
   selector: 'app-navbar',
@@ -10,13 +11,14 @@ import { UserService } from 'src/app/services/user.service';
 export class NavbarComponent  {
 
   constructor(private router : Router,
-              private userService : UserService) { }
+              private userService : UserService,
+              private activatedRoute: ActivatedRoute) { }
 
-  //ACA OBTENER EL ID DEL USUARIO LOGUEADO
-  id = this.userService.user.uid
 
   searchField(text : string){
-    this.router.navigate(['/fields/search',text])
+    this.router.navigate(['/fields'],{queryParams:{'search': text},
+                                      replaceUrl:true,
+                                      queryParamsHandling:'merge'});
   }
   logOut(){
     this.userService.logOut();

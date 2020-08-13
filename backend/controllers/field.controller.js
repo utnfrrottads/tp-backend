@@ -4,23 +4,7 @@ const { search } = require('../routes/field.routes');
 const fieldCtrl = {};
 
 fieldCtrl.getFields = async (req = request , res = response) => {
-    try {
-        const fields = await Field.find();
-        res.json({
-            ok:true,
-            msg:'Found Fields',
-            fields
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            ok:false,
-            msg:'An unexpected error occurred'
-        })
-    }
-}
-fieldCtrl.getFieldsByParams = async (req = request , res = response) => {
-    const text = req.params.search;
+    const text = req.query.search
     const regex = new RegExp(text,'i');
     try {
         const fields = await Field.find({name: regex});

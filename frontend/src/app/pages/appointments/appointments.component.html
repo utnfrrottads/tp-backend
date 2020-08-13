@@ -1,9 +1,9 @@
-<h3>Historial de turnos</h3>
+<h2>Historial de turnos</h2>
 <hr>
-<div *ngIf="empty" class="alert alert-dark" role="alert">
+<div *ngIf="!empty" class="alert alert-dark" role="alert">
   El usuario no realizó ninguna reserva
 </div>
-<table *ngIf="!empty" class="table table-striped">
+<table *ngIf="empty" class="table table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>

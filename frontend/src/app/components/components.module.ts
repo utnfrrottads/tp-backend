@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FieldCardComponent } from './field-card/field-card.component';
+import { NoimagePipe } from '../pipes/noimage.pipe';
 
 
 
 @NgModule({
   declarations: [
-    FieldCardComponent],
+    FieldCardComponent,
+    NoimagePipe
+  ],
   imports: [
     CommonModule,
     

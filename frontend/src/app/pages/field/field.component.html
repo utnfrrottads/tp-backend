@@ -4,12 +4,12 @@
         <div class="row no-gutters slider-text justify-content-start align-items-center">
             <div class="col-lg-6 col-md-6 ftco-animate d-flex align-items-end">
                 <div class="text">
-                    <h1 class="mb-4 text-white text-uppercase">{{field.name}}</h1>
+                    <h1 class="mb-4 text-white text-uppercase">{{field?.name}}</h1>
                     <hr class="bg-white">
-                    <p style="font-size: 20px;" class="text-white">Características: <span class="font-italic">{{field.description}}</span></p>
-                    <p style="font-size: 20px;" class="text-white">Apertura: <span class="font-italic">{{field.openingHour | date:'shortTime'}}</span></p>
-                    <p style="font-size: 20px;" class="text-white">Cierre: <span class="font-italic">{{field.closingHour | date:'shortTime'}}</span></p>
-                    <p style="font-size: 20px;" class="text-white">Precio: <span class="font-italic">{{field.price}} $</span></p>      
+                    <p style="font-size: 20px;" class="text-white">Características: <span class="font-italic">{{field?.description}}</span></p>
+                    <p style="font-size: 20px;" class="text-white">Apertura: <span class="font-italic">{{field?.openingHour | date:'shortTime'}}</span></p>
+                    <p style="font-size: 20px;" class="text-white">Cierre: <span class="font-italic">{{field?.closingHour | date:'shortTime'}}</span></p>
+                    <p style="font-size: 20px;" class="text-white">Precio: <span class="font-italic">{{field?.price}} $</span></p>      
           </div>
         </div>
         <div class="col-lg-1 col"></div>
@@ -19,15 +19,19 @@
                 <div class="d-flex">
                     <div class="form-group mr-2">
                         <label for="" class="label">Fecha desde</label>
-                        <input type="date" class="form-control" id="book_pick_date" placeholder="Fecha desde" formControlName="sinceDate">
+                        <input type="date"  class="form-control" id="book_pick_date" placeholder="Fecha desde" formControlName="sinceDate">
                     </div>
                     <div class="form-group ml-2">
                         <label for="" class="label">Fecha hasta</label>
                         <input type="date" class="form-control" id="book_off_date" placeholder="Fecha hasta" formControlName="untilDate">
                     </div>
+                
                 </div>
+                        <small *ngIf="getFieldValid('sinceDate') || getFieldValid('untilDate') " class="text-danger border-white text-uppercase mt-0 bg-danger text-black-50">
+                            Error en la fecha
+                        </small>
                 <div class="form-group">
-                    <button class="btn btn-block btn-info">Buscar</button>
+                    <button class="btn btn-block btn-info" [disabled]="form.invalid">Buscar</button>
                 </div>
             </form>
         </div>

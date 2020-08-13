@@ -6,6 +6,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class ValidatorService {
 
+
+
   constructor() { }
   passEqual(pass1 : string, pass2: string){
     return(FormGroup : FormGroup) =>{
@@ -18,4 +20,6 @@ export class ValidatorService {
       }
     }
   }
+
+  
 }

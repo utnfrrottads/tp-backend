@@ -16,6 +16,8 @@ import { PagesComponent } from './pages.component';
 import { FieldComponent } from './field/field.component';
 import { AboutComponent } from './about/about.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MaterialModule } from '../material.module';
+
 
 
 
@@ -28,6 +30,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     UsersComponent,
     FieldComponent,
     AboutComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ComponentsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
+    
   ],
   exports:[
     HomeComponent,
@@ -43,6 +48,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FieldsComponent,
     PagesComponent,
     UsersComponent,
+    
     
   ]
 })
