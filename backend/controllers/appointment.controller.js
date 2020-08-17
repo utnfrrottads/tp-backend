@@ -1,6 +1,7 @@
 const Appointment = require('../models/appointment.model');
 const User = require('../models/user.model');
 const Field = require('../models/field.model');
+const moment = require ('moment-timezone')
 
 const { request , response } = require('express');
 
@@ -53,7 +54,8 @@ appointmentCtrl.getAppointment = async (req = request, res = response) =>{
 appointmentCtrl.createAppointment = async (req = request, res = response) =>{
     try {
         const appointment = new Appointment(req.body)
-        appointment.createdDate = (Date.now()- process.env.UTC_ARG);
+        today = new Date()
+        appointment.createdDate = moment.tz(today,"America/Argentina/Buenos_Aires")
         await appointment.save()
         res.json({
             ok:true,
@@ -158,6 +160,70 @@ appointmentCtrl.getUserAppointments = async (req = request , res = response) => 
         
     } catch (error) {
         console.log(error);
+        res.status(500).json({
+            ok:false,
+            msg:'An unexpected error ocurred'
+        })
+    }
+}
+
+
+appointmentCtrl.getAvailableAppointments = async (req = request , res = response) =>{
+    const fieldID = req.params.field
+//OBTENER LOS QUERY PARAMS
+const query1 = req.query.dateSince;
+const query2 = req.query.dateUntil;
+let dateSince =new Date(query1)
+let dateUntil = new Date(query2)
+try {
+        sinceTime = dateSince.getTime() 
+        untilTime = dateUntil.getTime() 
+        
+        const fieldDB = await Field.findById(fieldID)
+        if(!fieldDB){
+            return res.status(404).json({
+                        ok:false,
+                        msg:'Unknown ID. Please insert a correct Field ID'
+                    })
+        }
+        let available = new Array
+        
+        do {
+            let openingTime = (fieldDB.openingHour.getHours() * 3600000) 
+            let closingTime = (fieldDB.closingHour.getHours() * 3600000) 
+            do {
+                date = new Date(sinceTime + openingTime + 10800000)
+                available.push(date)
+                openingTime = openingTime + 3600000
+            } while (openingTime <= closingTime );
+            sinceTime = sinceTime + 86400000
+         } while (sinceTime <= untilTime);
+
+         let reserved = new Array
+         let arrayReserved = new Array
+         reserved = await Appointment.find({field:fieldID},'date')
+         reserved.forEach(element =>{
+             arrayReserved.push(element.date)
+         })
+        // if(arrayReserved.length === 0){
+             for (let i = 0; i < available.length; i++) {
+                 for (let j = 0; j < arrayReserved.length; j++) {
+                     if((available[i].getTime()) - 10800000 === (arrayReserved[j].getTime())) {
+                         available.splice(i,1)
+                     }
+                 }     
+             }
+         //}
+         console.log(arrayReserved)
+        console.log(available)
+        res.json({
+            ok:true,
+            msg:'todo okey',
+            available
+        })
+        
+    } catch (error) {
+        console.log(error)
         res.status(500).json({
             ok:false,
             msg:'An unexpected error ocurred'

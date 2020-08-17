@@ -12,6 +12,7 @@ export class FieldCardComponent {
   @Input() field : any ={};
   @Input() id : any;
 
+
   constructor(private router : Router) { }
 
   

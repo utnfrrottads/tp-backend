@@ -18,7 +18,7 @@ router.get('/:id',[validateJWT],appointmentCtrl.getAppointment);
 
 //RUTA DE DISPONIBILIDAD
 // router.get('/available/?date_init&date_end',[],appointmentCtrl.getAppointmentsByParams)
-// router.get('/available/:field?date_init&date_end',[],appointmentCtrl.getAppointmentsByParams)
+router.get('/available/:field',[],appointmentCtrl.getAvailableAppointments)
 
 router.post('/',[validateJWT,
                 validateCreatedDate,
@@ -34,7 +34,6 @@ router.put('/:id',[validateJWT,
 router.delete('/:id',[validateJWT,
                     validateMaxTime],appointmentCtrl.deleteAppointment);
 
-//falta actualizar el estado si se llega a la fecha del turno
 
 module.exports = router;
 

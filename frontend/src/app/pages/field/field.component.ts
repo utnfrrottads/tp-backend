@@ -5,6 +5,7 @@ import { FieldService } from 'src/app/services/field.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ValidatorService } from 'src/app/services/validator.service';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-field',
@@ -18,6 +19,11 @@ export class FieldComponent {
   until : Date;
   now:Date
 
+  //PRUEBA DEL FRONT CON EL BACK DE TRAER TURNOS (ESTe arreglo se trae por el servicio)
+  available = [];
+
+
+
   default  = new Date(Date.now()).toISOString().split("T")[0]
 
  // validateDate : boolean = false;
@@ -27,7 +33,7 @@ export class FieldComponent {
   constructor(private activateRoute : ActivatedRoute,
               private fieldService : FieldService,
               private fb : FormBuilder,
-              private validator : ValidatorService) { 
+              private appointmentsService : AppointmentService) { 
 
     this.activateRoute.params.subscribe(param=>{
                 this.fieldService.getField(param['id'])
@@ -47,8 +53,10 @@ export class FieldComponent {
   }
 
   search(){
-    console.log(this.form.value)
-    console.log('Desde: ' +this.since, 'Hasta: '+ this.until)
+    this.appointmentsService.getAvailableAppointments(this.form.value, this.field.id)
+                            .subscribe(resp=>{
+                              this.available=resp
+                            })
   }
   
   getFieldValid(field : string){
@@ -59,7 +67,6 @@ export class FieldComponent {
    listenerForm(){
      this.form.valueChanges
                .subscribe(data=>{
-                 console.log(data)
                  this.now = new Date(Date.now())
                  this.since = this.setDateSince(data.sinceDate);
                  if(data.sinceDate !== null){
@@ -105,14 +112,12 @@ export class FieldComponent {
        this.since.setHours(today.getHours())
        this.since.setMinutes(today.getMinutes())
        this.since.setSeconds(today.getSeconds()+30);
-       console.log(this.since)
        return this.since
      }
     }
     setDateUntil(dateUntil: string):Date{
        this.until = new Date(dateUntil.replace(/-/g, '\/'));
        this.until.setDate(this.until.getDate()+1)
-       console.log(this.until)
        return this.until
     }
   

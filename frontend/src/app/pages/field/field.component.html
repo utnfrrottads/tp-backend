@@ -38,3 +38,21 @@
     </div>
 </div>
 </div>
+
+<table class="table text-center">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of available; let i=index">
+        <th scope="row">{{i +1}}</th>
+        <td>{{item|date:'longDate'}}</td>
+        <td>{{item|date:'shortTime'}}</td>
+        <td><button class="btn btn-block btn-success">Reservar</button> </td>
+    </tbody>
+  </table>
