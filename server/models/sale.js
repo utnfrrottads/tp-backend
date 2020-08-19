@@ -10,6 +10,7 @@ const SaleSchema =  new Schema({
     number: {type: String, required: true},
     client: { type: Schema.Types.ObjectId, required: true},
     deletedClient: {type: Object},
+    deletedProduct: {type: Object},
     cart: [
         {
             product: {type: Schema.Types.ObjectId, required: true},

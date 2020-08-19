@@ -2,32 +2,32 @@
 const Sale = require('../models/sale');
 const saleCtrl = {};
 
-//Método obtener todas las ventas
+//Mï¿½todo obtener todas las ventas
 saleCtrl.getSales = async (req, res) => {
     const sales = await Sale.find();
     res.json(sales);
 }
 
-//Método obtener una venta
+//Mï¿½todo obtener una venta
 saleCtrl.getSale = async (req, res) => {
     const sale = await Sale.findOne(req.params.id);
     res.json(sale);
 }
 
-//Método crear venta
+//Mï¿½todo crear venta
 saleCtrl.createSale = async (req, res) => {
     const sale = new Sale(req.body);
     await sale.save();
-    res.json = ({ status: 'Venta creada' });
+    res.json({ status: 'Venta creada' });
 }
 
-//Método borrar venta
+//Mï¿½todo borrar venta
 saleCtrl.deleteSale = async (req, res) => {
     await findByIdAndRemove(req.params.id);
     res.json = ({ status: 'Venta eliminada'})
 }
 
-//Método modificar venta
+//Mï¿½todo modificar venta
 saleCtrl.updateSale = async (req, res) => {
     const sale = {
         pc: req.body.pc,
