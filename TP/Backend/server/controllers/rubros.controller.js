@@ -34,11 +34,10 @@ controller.editRubro = async (req, res) => {
 };
 
 // elimina un rubro
-controller.deleteRubro = async (req, res) => {
-  await RubroModel.findByIdAndRemove(req.params.id);
-  res.json({ status: "Rubro Deleted" });
+controller.deleteRubro = (req, res) => {
+  RubroModel.findByIdAndRemove(req.params.id)
+    .then((req) => res.json({ status: "Rubro Deleted", request: req }))
+    .catch((error) => res.json({ mensaje: "No se encuentra el rubro para borrar", error: error }));
 };
-
-
 
 module.exports = controller;
