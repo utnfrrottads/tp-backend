@@ -11,19 +11,17 @@ import { User } from 'src/app/models/user.model';
 export class AppointmentsComponent  {
 
   appointments = [];
-  empty : boolean;
-  //hay q agarrar el id del usuario del url (pero antes hya)
+  empty : boolean = true
   constructor(private appointmenService: AppointmentService) {
                 this.appointmenService.getAppointments()
                                       .subscribe(resp=>{
-                                        resp.sort
                                         this.appointments = resp
+                                        if(this.appointments.length ===0){
+                                          this.empty = true
+                                        }else{
+                                          this.empty = false;
+                                        }
                                       });
-                if(this.appointments === []){
-                  this.empty = true
-                }else{
-                  this.empty = false;
-                }
 
                }
 

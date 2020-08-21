@@ -15,11 +15,7 @@ const {validateJWT} = require('../middlewares/validateJWT');
 router.get('/',[validateJWT],appointmentCtrl.getAppointments);
 router.get('/user',[validateJWT],appointmentCtrl.getUserAppointments);
 router.get('/:id',[validateJWT],appointmentCtrl.getAppointment);
-
-//RUTA DE DISPONIBILIDAD
-// router.get('/available/?date_init&date_end',[],appointmentCtrl.getAppointmentsByParams)
 router.get('/available/:field',[],appointmentCtrl.getAvailableAppointments)
-
 router.post('/',[validateJWT,
                 validateCreatedDate,
                 check('date','Date field is required').not().isEmpty(),

@@ -20,7 +20,6 @@ export class AppointmentService {
     }
     getAvailableAppointments(form : datesForm, id:string){
       const token = localStorage.getItem('token') || '';
-      console.log(form.sinceDate)
       let params = new HttpParams()
       params = params.append('dateSince',form.sinceDate)
       params = params.append('dateUntil',form.untilDate)
@@ -29,5 +28,10 @@ export class AppointmentService {
                         .pipe(map((data:any) =>{
                             return data.available
                           }));
+    }
+
+    createAppointments(appointment){
+      const token = localStorage.getItem('token') || '';
+      return this.http.post('http://localhost:3000/api/appointments',appointment,{headers:{'x-token': token}} )
     }
 }

@@ -1,10 +1,10 @@
     <div class="card bg-dark">
-        <img [src]= "field.image|noimage "  class="card-img-top img-fluid" alt="...">
+        <img [src]= "field.image|noimage "  class="card-img-top img-fluid"  alt="...">
         <div class="card-block">
           <h2 class="card-title text-light text-center text-uppercase text-monospace ">{{field.name}}</h2>
           <p class="card-text font-italic text-light">{{field.description}}</p>
-          <p class="card-text font-italic text-light">Hora apertura: {{field.openingHour | date:'shortTime' }}</p>
-          <p class="card-text font-italic text-light">Hora cierre: {{field.closingHour | date:'shortTime'}}</p>
+          <p class="card-text font-italic text-light">Hora apertura: {{field.openingHour | date:'shortTime':'+0' }}</p>
+          <p class="card-text font-italic text-light">Hora cierre: {{field.closingHour | date:'shortTime':'+0'}}</p>
           <button class="btn btn-outline-success btn-block" (click)="navigateField(id)">Turnos</button>
         </div>
       </div>

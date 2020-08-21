@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Field } from 'src/app/models/field.model';
 import { FieldService } from 'src/app/services/field.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { ValidatorService } from 'src/app/services/validator.service';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-field',
@@ -19,21 +19,21 @@ export class FieldComponent {
   until : Date;
   now:Date
 
-  //PRUEBA DEL FRONT CON EL BACK DE TRAER TURNOS (ESTe arreglo se trae por el servicio)
   available = [];
-
-
+  table = false;
+  appointment :any= {}
 
   default  = new Date(Date.now()).toISOString().split("T")[0]
 
- // validateDate : boolean = false;
 
   form: FormGroup;
 
   constructor(private activateRoute : ActivatedRoute,
               private fieldService : FieldService,
               private fb : FormBuilder,
-              private appointmentsService : AppointmentService) { 
+              private appointmentsService : AppointmentService,
+              private router : Router,
+              private userService : UserService) { 
 
     this.activateRoute.params.subscribe(param=>{
                 this.fieldService.getField(param['id'])
@@ -56,6 +56,7 @@ export class FieldComponent {
     this.appointmentsService.getAvailableAppointments(this.form.value, this.field.id)
                             .subscribe(resp=>{
                               this.available=resp
+                              this.table = true
                             })
   }
   
@@ -120,5 +121,42 @@ export class FieldComponent {
        this.until.setDate(this.until.getDate()+1)
        return this.until
     }
-  
+
+    
+    reserveAppointment(appointmentDate : Date){
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: ``,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#009846',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Reservar'
+      }).then((result) => {
+        if (result.value) {
+          this.appointment = {
+            date: appointmentDate,
+            user: this.userService.user.uid,
+            field: this.field.id
+          }
+          this.appointmentsService.createAppointments(this.appointment)
+                      .subscribe(resp=>{
+                                Swal.fire({
+                                  title: 'Turno Reservado',
+                                  text: `¡Que te diviertas!`,
+                                  icon: 'success',
+                                  showCancelButton: false,
+                                  showConfirmButton:false,
+                                  timer:2000
+                              });
+                                setTimeout(() => {
+                                  this.router.navigate(['/appointments'])
+                                }, 2000);
+                      },(err)=>{
+                        console.log(err)
+                        Swal.fire('Error al reservar','error')
+                      })
+      }
+      })
+    }
 }

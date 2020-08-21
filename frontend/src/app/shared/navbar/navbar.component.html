@@ -19,15 +19,15 @@
             <a class="nav-link" [routerLink]="['/appointments']" >Turnos</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <div class="form-inline my-2 my-lg-0">
         <button class="btn btn-outline-primary my-2 mr-sm-2" type="button" (click)="searchField(text.value)">
             Buscar
         </button>
         <input class="form-control mr-sm-4" id="input" type="text" 
               placeholder="Buscar canchas" 
               aria-label="Search" 
-              #text>
-      </form>
+              #text (keyup.enter)="searchField(text.value)">
+      </div>
       <ul class="navbar-nav mr-auto mr-sm-2">
         <li class="nav-item" routerLinkActive="active" >
           <a class="nav-link" [routerLink]="['/about']">¿Quienes Somos?</a>

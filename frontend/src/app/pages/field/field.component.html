@@ -7,8 +7,8 @@
                     <h1 class="mb-4 text-white text-uppercase">{{field?.name}}</h1>
                     <hr class="bg-white">
                     <p style="font-size: 20px;" class="text-white">Características: <span class="font-italic">{{field?.description}}</span></p>
-                    <p style="font-size: 20px;" class="text-white">Apertura: <span class="font-italic">{{field?.openingHour | date:'shortTime'}}</span></p>
-                    <p style="font-size: 20px;" class="text-white">Cierre: <span class="font-italic">{{field?.closingHour | date:'shortTime'}}</span></p>
+                    <p style="font-size: 20px;" class="text-white">Apertura: <span class="font-italic">{{field?.openingHour | date:'shortTime':'+0'}}</span></p>
+                    <p style="font-size: 20px;" class="text-white">Cierre: <span class="font-italic">{{field?.closingHour | date:'shortTime':'+0'}}</span></p>
                     <p style="font-size: 20px;" class="text-white">Precio: <span class="font-italic">{{field?.price}} $</span></p>      
           </div>
         </div>
@@ -39,7 +39,7 @@
 </div>
 </div>
 
-<table class="table text-center">
+<table class="table text-center" *ngIf="table">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -50,9 +50,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of available; let i=index">
-        <th scope="row">{{i +1}}</th>
-        <td>{{item|date:'longDate'}}</td>
-        <td>{{item|date:'shortTime'}}</td>
-        <td><button class="btn btn-block btn-success">Reservar</button> </td>
+        <th scope="row" >{{i +1}}</th>
+        <td>{{item|date:'longDate':'+0'}}</td>
+        <td>{{item|date:'shortTime':'+0'}}</td>
+        <td><button type="text" class="btn btn-block btn-success" (click)="reserveAppointment(item)">Reservar</button> </td>
     </tbody>
   </table>
