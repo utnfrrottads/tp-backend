@@ -12,8 +12,8 @@ export class ImageUploaderService {
   subirImagen(imagen) {
     let body = new FormData();
     body.append('file', imagen);
-
     let options = {};
+    
     return this.http.post<any>(this.backendURL, body, options);
   }
 }

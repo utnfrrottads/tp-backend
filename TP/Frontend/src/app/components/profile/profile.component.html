@@ -1,7 +1,6 @@
 <div class="container">
   <div class="decoradorArriba">
-    <img class="avatar" src={{obtenerImagenUsuario()}}
-      obtenerImagenUsuario alt="Mountain">
+    <img class="avatar" src={{obtenerImagenUsuario()}} obtenerImagenUsuario alt="Mountain">
 
     <div class="info">
       <h4 class="truncate title">DATO</h4>
@@ -15,10 +14,71 @@
 
   </div>
 
-  <div class="datos-personales">
 
+
+  <!-- Login Main Form-->
+  <div class="datos-personales">
+    <div class="row">
+      <form class="col s12" [formGroup]="mainForm">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="email" class="validate" placeholder="Nombre" formControlName="nombre">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input value="Usuario" type="text" class="validate" formControlName="usuario">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="password" class="validate" placeholder="Contraseña" formControlName="pass">
+          </div>
+          <div class="input-field col s6">
+            <input class="validate" type="password" placeholder="Repetir Contraseña" formControlName="pass_repeat">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" placeholder="Dirección de correo" formControlName="mail">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input class="validate" placeholder="Tipo" formControlName="tipo">
+          </div>
+          <div class="input-field col s6">
+            <input class="validate" placeholder="CUIL-CUIT" formControlName="cuil">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input class="validate" placeholder="Localidad" formControlName="localidad">
+          </div>
+          <div class="input-field col s6">
+            <input class="validate" placeholder="Telefono" formControlName="telefono">
+          </div>
+        </div>
+
+        <div class="row">
+          <label>Cambiar imagen de perfil</label> <br>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)">
+        </div>
+
+        <div class="buttons">
+          <button class="waves-effect waves-light btn white" style="color: black;">Cancelar</button>
+          <button class="waves-effect waves-light btn purple">Editar</button>
+        </div>
+
+
+      </form>
+    </div>
+
+
+    <!--
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
     <button (click)="subirImagen(url_imagen)">Subir imagen</button>
   </div>
+  -->
 
 </div>

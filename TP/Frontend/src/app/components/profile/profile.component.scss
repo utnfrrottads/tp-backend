@@ -42,7 +42,8 @@
 }
 
 .datos-personales{
-  padding-top: 40px;
+  padding: 40px 0 0 0;
+  margin: 0 0 190px 0;
 }
 
 .title{
@@ -60,6 +61,12 @@
   height: 600px;
 }
 
+.buttons{
+  float: right;
+}
+.buttons button{
+margin: 3px;
+}
 
 //movil pequeño
 @media only screen and (max-width: 600px) {

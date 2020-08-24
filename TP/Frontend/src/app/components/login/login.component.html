@@ -1,31 +1,103 @@
 <div class="container">
     <div class="login-card">
 
-        <div class="row">
-            <label>Usuario</label>
-            <div class="login-input">
-                <i class="fa fa-user fa-3x" aria-hidden="true"></i>
-                <input type="text">
+        <form [formGroup]="loginForm">
+
+            <div class="row">
+                <label>Usuario</label>
+                <div class="login-input">
+                    <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+                    <input type="text" formControlName="username">
+                </div>
             </div>
-        </div>
 
-
-        <div class="row">
-            <label>Contraseña</label>
-            <div class="login-input">
-                <i class="fa fa-unlock-alt fa-3x" aria-hidden="true"></i>
-                <input type="password">
+            <div class="row">
+                <label>Contraseña</label>
+                <div class="login-input">
+                    <i class="fa fa-unlock-alt fa-3x" aria-hidden="true"></i>
+                    <input type="password" formControlName="pass">
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <button class="btn waves-effect waves-light purple">
-                Login
-            </button>
-            <button class="btn waves-effect waves-light purple">
-                Crear cuenta
-            </button>
-        </div>
 
+            <!-- Only visibles on creationMode -->
+            <div *ngIf="creationMode">
+                <div class="row">
+                    <label>Repetir Contraseña</label>
+                    <div class="login-input">
+                        <i class="fa fa-unlock-alt fa-3x" aria-hidden="true"></i>
+                        <input type="password" formControlName="pass_repeat">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Dirección de correo</label>
+                    <div class="login-input">
+                        <i class="fa fa-address-book fa-3x" aria-hidden="true"></i>
+                        <input type="text" formControlName="email">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>CUIL-CUIT</label>
+                    <div class="login-input">
+                        <i class="fa fa-university fa-3x" aria-hidden="true"></i>
+                        <input type="text" formControlName="cuil">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Localidad</label>
+                    <div class="login-input">
+                        <i class="fa fa-map-marker fa-3x" aria-hidden="true"></i>
+                        <input type="text" formControlName="localidad">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Dirección</label>
+                    <div class="login-input">
+                        <i class="fa fa-home fa-3x" aria-hidden="true"></i>
+                        <input type="text" formControlName="direccion">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Telefono</label>
+                    <div class="login-input">
+                        <i class="fa fa-phone fa-3x" aria-hidden="true"></i>
+                        <input type="text" formControlName="telefono">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Tipo de usuario</label>
+                    <div class="login-input">
+                        <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+                        <mat-form-field appearance="fill">
+                            <mat-select [(value)]="tipoUsuario">
+                                <mat-option value="particular">Particular</mat-option>
+                                <mat-option value="empresa">Empresa</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <button class="btn waves-effect waves-light purple" (click)="login()">
+                    Login
+                </button>
+                <button class="btn waves-effect waves-light purple" (click)="toggleMode()">
+                    Crear cuenta
+                </button>
+            </div>
+
+
+
+
+        </form>
     </div>
 </div>

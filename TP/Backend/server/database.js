@@ -12,7 +12,11 @@ const URI = `mongodb+srv://${user}:${password}@ttads-tp.tyatw.gcp.mongodb.net/${
 
 mongoose
   .connect(URI)
-  .then((db) => console.log("Conectado correctamente a la Base de datos."))
+  .then((db) => {
+    console.log("--------------------------------------------")
+    console.log("Conectado correctamente a la Base de datos.")
+    console.log("--------------------------------------------")
+  })
   .catch((error) => console.log(error));
 
 module.exports = mongoose;

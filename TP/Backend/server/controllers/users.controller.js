@@ -10,7 +10,7 @@ controller.getUsers = async (req, res) => {
 controller.getUser = async (req, res) => {
   UserModel.findById(req.params.id)
     .then((respuesta) => res.json(respuesta))
-    .catch((error) => res.json({ mensaje: "No se encuentra el usuario", error: error }));
+    .catch((error) => res.json({ error: "No se encuentra el usuario", error: error }));
 };
 
 controller.createUser = async (req, res) => {
@@ -42,7 +42,12 @@ controller.editUser = async (req, res) => {
 controller.deleteUser = (req, res) => {
   UserModel.findByIdAndRemove(req.params.id)
     .then((req) => res.json({ status: "User Deleted", request: req }))
-    .catch((error) => res.json({ mensaje: "No se encuentra el usuario para borrar", error: error }));
+    .catch((error) => res.json({ error: "No se encuentra el usuario para borrar", error: error }));
+};
+
+controller.login = async (req, res) => {
+  let user = await UserModel.find({ usuario: req.body.usuario, pass: req.body.password });
+  res.json({ user: user });
 };
 
 module.exports = controller;

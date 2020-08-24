@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderService } from '../../services/image-uploader.service';
+import { FormGroup, FormControl } from '@angular/forms';
 declare const M: any;
 
 @Component({
@@ -15,6 +16,18 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private imgService: ImageUploaderService
   ) {}
+
+  mainForm = new FormGroup({
+    usuario: new FormControl({ value: '', disabled: true }),
+    pass: new FormControl(''),
+    pass_repeat: new FormControl(''),
+    tipo: new FormControl(''),
+    cuil: new FormControl(''),
+    nombre: new FormControl(''),
+    localidad: new FormControl(''),
+    telefono: new FormControl(''),
+    mail: new FormControl(''),
+  });
 
   url_imagen = null;
   ImageFile = null;
@@ -41,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
   subirImagen(input) {
     // subo la imagen y obtengo su url.
-    if (this.ImageFile != null || this.ImageFile != undefined) {
+    if (this.ImageFile != null) {
       this.imgService.subirImagen(this.ImageFile).subscribe((rta) => {
         this.url_imagen = rta.url;
       });

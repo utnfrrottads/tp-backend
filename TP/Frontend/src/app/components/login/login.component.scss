@@ -14,6 +14,7 @@
 .login-card label {
   color: white;
   font-size: larger;
+  padding: 0 0 0 75px ;
 }
 .login-card input {
   color: black;
@@ -22,9 +23,9 @@
   font-size: xx-large;
   font-family: Arial, Helvetica, sans-serif;
 }
-.login-card button{
-    float: right;
-    margin: 5px;
+.login-card button {
+  float: right;
+  margin: 5px;
 }
 
 .login-input {
@@ -34,7 +35,19 @@
 .fa {
   padding-right: 20px;
   color: white;
+  width: 80px;
+  display: flex;
+  justify-content: center;
 }
+
+mat-form-field {
+  padding: 0px !important;
+  background-color: whitesmoke;
+  height: 53px;
+  width: 100%;
+}
+
 .row{
-    padding-top: 20px;
+  margin: 0 0 5px 0;
 }
+
