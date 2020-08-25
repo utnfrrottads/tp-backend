@@ -52,13 +52,7 @@ export class ProfileComponent implements OnInit {
   save(form) {}
   discard(form) {}
 
-  obtenerImagenUsuario() {
-    if (this.url_imagen === null) {
-      // imagen por defecto.
-      return 'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg';
-    }
-    return this.url_imagen;
-  }
+
 
   openSnackBar(message: string, action: string) {
     //metodo para que aparezca en pantalla un snack para informar al usuario.
@@ -67,14 +61,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  async subirImagen() {
+  async subirImagenYObtenerURL() {
     // subo la imagen y obtengo su url.
     if (this.ImageFile != null) {
-      this.imgService.subirImagen(this.ImageFile).subscribe((res) => {
-        return res.url
-      });
+      return this.imgService.subirImagen(this.ImageFile).toPromise();
     } else {
-      return null
+      return Promise.resolve(null);
     }
   }
 
@@ -99,26 +91,41 @@ export class ProfileComponent implements OnInit {
 
   async editUser() {
     // antes de editar reviso que las pass coincidan.
-    if (this.mainForm.controls.pass.value !== this.mainForm.controls.pass_repeat.value) {
+    if (
+      this.mainForm.controls.pass.value !==
+      this.mainForm.controls.pass_repeat.value
+    ) {
       this.openSnackBar('Las contraseñas no coinciden', '¡Entendido!');
     } else {
       // si habia imagen, la subo:
-      let urlImagenSubida = await this.subirImagen();
-      
-      console.log(urlImagenSubida)
-      // me mostro otra cosa. No esperó a que me suba la imagen.
-      
+      this.subirImagenYObtenerURL().then((res) => {
+        let URL;
+        if (res == null) {
+          URL = this.storagedUser.url;
+        } else {
+          URL = res.url;
+          this.url_imagen = URL;
+        }
+        // edito al usuario.
+        this.userService
+          .editUser(
+            this.mainForm.controls,
+            this.tipoUsuario,
+            URL,
+            this.storagedUser._id
+          )
+          .subscribe((res) => {
+            // actualizo la imagen
+            this.url_imagen = URL;
+            // guardo localmente al usuario actualizado
+            this.userService.updateStoragedUser(this.mainForm.controls, URL, this.tipoUsuario, this.storagedUser._id);
+            // actualizo la promiedad storagedUser para que se renderizen bien el html
+            this.storagedUser = JSON.parse(localStorage.getItem('user'));
+            this.openSnackBar('¡Su usuario ha sido actualizado!', 'OK')
+          });
 
-      /*
-      this.userService
-        .editUser(
-          this.mainForm.controls,
-          this.tipoUsuario,
-          null,
-          this.storagedUser._id
-        )
-        .subscribe((res) => console.log(res));
-        */
+        this.ImageFile = null;
+      });
     }
   }
 }

@@ -51,4 +51,21 @@ export class UserService {
     };
     return this.http.put(URL, body, {});
   }
+
+  updateStoragedUser(data, URL, tipoUsuario, id) {
+    const user = {
+      _id: id,
+      usuario: data.usuario.value,
+      pass: data.pass.value,
+      tipo: tipoUsuario,
+      cuil: data.cuil.value,
+      nombre: data.nombre.value,
+      localidad: data.localidad.value,
+      direccion: data.direccion.value,
+      telefono: data.telefono.value,
+      mail: data.mail.value,
+      url: URL,
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 }
