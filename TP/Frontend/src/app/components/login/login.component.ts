@@ -20,17 +20,17 @@ export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
-    pass: new FormControl('', Validators.required),
-
+    pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    nombre: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.email, Validators.required]),
     cuil: new FormControl(''),
     direccion: new FormControl(''),
     localidad: new FormControl(''),
-    pass_repeat: new FormControl(''),
+    passRepeat: new FormControl(''),
     telefono: new FormControl(''),
   });
 
-  creationMode: boolean = true;
+  creationMode: boolean = false;
 
   ngOnInit(): void {}
 
@@ -48,14 +48,43 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(res.user[0]));
           this.router.navigate(['rubros']);
         } else {
-          this._snackBar.open(
+          this.showSnack(
             'Usuario o contraseña incorrecta. Intente otra vez',
-            '¡Entendido!',
-            {
-              duration: 3500,
-            }
+            '¡Entendido!'
           );
         }
       });
+  }
+
+  createUser() {
+    if (
+      this.loginForm.controls.pass.value ===
+      this.loginForm.controls.passRepeat.value
+    ) {
+      this.userService
+        .createUser(this.loginForm.controls, this.tipoUsuario)
+        .subscribe((res: any) => {
+          if (res.status === 'ok') {
+            this.showSnack(
+              'Cuenta creada con exito, Intente logearse',
+              '¡Entendido!'
+            );
+            this.toggleMode();
+            this.loginForm.patchValue({
+              pass: '',
+            });
+          } else {
+            this.showSnack(res.error, '¡Entendido!');
+          }
+        });
+    } else {
+      this.showSnack('Las contraseñas no coinciden', '¡Entendido!');
+    }
+  }
+
+  showSnack(texto, opcion) {
+    this._snackBar.open(texto, opcion, {
+      duration: 3500,
+    });
   }
 }

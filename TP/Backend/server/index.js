@@ -25,6 +25,7 @@ app.use(fileUpload());
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   next();
 });
 
@@ -35,15 +36,13 @@ app.use(express.json());
 app.use("/api/rubros", require("./routes/rubros.routes"));
 app.use("/api/usuarios", require("./routes/users.routes"));
 
-
-
 // Esto me sube la imagen a clodinary y me devuelve la URL.
 app.post("/api/uploadImage", (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     console.log("No mandaron ni un archivo.");
   } else {
     cloudinary.uploader
-      .upload_stream({folder: 'TTADS-TP'},(req, info) => {
+      .upload_stream({ folder: "TTADS-TP" }, (req, info) => {
         res.send({ status: "ok", url: info.url });
       })
       .end(req.files.file.data);

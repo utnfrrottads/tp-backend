@@ -3,13 +3,12 @@
     <img class="avatar" src={{obtenerImagenUsuario()}} obtenerImagenUsuario alt="Mountain">
 
     <div class="info">
-      <h4 class="truncate title">DATO</h4>
-
-      <h4 class="truncate extra contact">Dirección: </h4>
-      <h4 class="truncate extra">DATO: </h4>
-      <h4 class="truncate extra contact">Contacto: </h4>
-      <h4 class="truncate extra">DATO: </h4>
-      <h4 class="truncate extra">DATO: </h4>
+      <h4 class="truncate title">{{storagedUser.nombre}}</h4>
+      <h4 class="truncate extra contact">Usuario: {{storagedUser.usuario}} </h4>
+      <h4 class="truncate extra">Localidad: {{storagedUser.localidad}} </h4>
+      <h4 class="truncate extra contact">Dirección: {{storagedUser.direccion}} </h4>
+      <h4 class="truncate extra">Cuil/Cuit: {{storagedUser.cuil}} </h4>
+      <h4 class="truncate extra">Tipo: {{storagedUser.tipo}} </h4>
     </div>
 
   </div>
@@ -20,13 +19,16 @@
   <div class="datos-personales">
     <div class="row">
       <form class="col s12" [formGroup]="mainForm">
+
         <div class="row">
           <div class="input-field col s12">
-            <input type="email" class="validate" placeholder="Nombre" formControlName="nombre">
+            <label>Nombre</label>
+            <input type="text" class="validate" placeholder="Nombre" formControlName="nombre">
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <label>Usuario</label>
             <input value="Usuario" type="text" class="validate" formControlName="usuario">
           </div>
         </div>
@@ -39,46 +41,59 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" class="validate" placeholder="Dirección de correo" formControlName="mail">
+          <div class=" col s12">
+            <label>Dirección de correo</label>
+            <input
+              [ngClass]="{'valid': this.mainForm.controls.mail.valid, 'invalid': this.mainForm.controls.mail.invalid}"
+              type="text" placeholder="Dirección de correo" formControlName="mail">
           </div>
         </div>
         <div class="row">
+
           <div class="input-field col s6">
-            <input class="validate" placeholder="Tipo" formControlName="tipo">
+            <mat-form-field appearance="fill">
+              <mat-select [(value)]="tipoUsuario">
+                <mat-option value="particular">Particular</mat-option>
+                <mat-option value="empresa">Empresa</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
+
+
           <div class="input-field col s6">
             <input class="validate" placeholder="CUIL-CUIT" formControlName="cuil">
           </div>
         </div>
+
         <div class="row">
           <div class="input-field col s6">
-            <input class="validate" placeholder="Localidad" formControlName="localidad">
+            <label>Localidad</label>
+            <input type="text" class="validate" placeholder="Localidad" formControlName="localidad">
           </div>
           <div class="input-field col s6">
-            <input class="validate" placeholder="Telefono" formControlName="telefono">
+            <label>Dirección</label>
+            <input class="validate" type="text" placeholder="Dirección" formControlName="direccion">
           </div>
         </div>
 
+
         <div class="row">
-          <label>Cambiar imagen de perfil</label> <br>
-          <input type="file" accept="image/*" (change)="onFileSelected($event)">
+          <div class="input-field col s6">
+            <label>Teléfono</label>
+            <input type="text" class="validate" placeholder="Teléfono" formControlName="telefono">
+          </div>
+          <div class="input-field col s6">
+            <label class="label-img">Cambiar imagen de perfil</label> <br>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)">
+          </div>
         </div>
 
         <div class="buttons">
-          <button class="waves-effect waves-light btn white" style="color: black;">Cancelar</button>
-          <button class="waves-effect waves-light btn purple">Editar</button>
+          <button class="waves-effect waves-light btn grey lighten-1" (click)="patchStoragedUser()">Cancelar</button>
+          <button class="waves-effect waves-light btn purple" (click)="editUser()"
+            [disabled]='!mainForm.valid'>Editar</button>
         </div>
-
 
       </form>
     </div>
-
-
-    <!--
-    <input type="file" accept="image/*" (change)="onFileSelected($event)">
-    <button (click)="subirImagen(url_imagen)">Subir imagen</button>
   </div>
-  -->
-
-</div>

@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   tipo: { type: String, required: true },
   cuil: { type: String, required: false },
   nombre: { type: String, required: true },
+  direccion: {type: String, requiered: false},
   localidad: { type: String, required: false },
   telefono: { type: String, required: false },
   mail: { type: String, required: false },

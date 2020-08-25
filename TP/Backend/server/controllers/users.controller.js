@@ -14,11 +14,17 @@ controller.getUser = async (req, res) => {
 };
 
 controller.createUser = async (req, res) => {
-  const user = new UserModel(req.body);
-  await user.save();
-  res.json({
-    status: "User Saved",
-  });
+  //verifico que no haya otro usuario con ese nombre.
+  let user = await UserModel.find({ usuario: req.body.usuario });
+  if (user.length == 0) {
+    user = new UserModel(req.body);
+    await user.save();
+    res.json({
+      status: "ok",
+    });
+  } else {
+    res.json({ status: "fail", error: "Nombre de usuario no disponible." });
+  }
 };
 
 controller.editUser = async (req, res) => {
@@ -29,6 +35,7 @@ controller.editUser = async (req, res) => {
   userEditado.cuil = req.body.cuil;
   userEditado.nombre = req.body.nombre;
   userEditado.localidad = req.body.localidad;
+  userEditado.direccion = req.body.direccion;
   userEditado.telefono = req.body.telefono;
   userEditado.mail = req.body.mail;
   userEditado.url = req.body.url;

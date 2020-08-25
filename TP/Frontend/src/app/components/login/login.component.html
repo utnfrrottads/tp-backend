@@ -17,8 +17,17 @@
                     <i class="fa fa-unlock-alt fa-3x" aria-hidden="true"></i>
                     <input type="password" formControlName="pass">
                 </div>
+                <em *ngIf="this.loginForm.controls.pass.touched && this.loginForm.controls.pass.invalid">* Debe contener al menos 6 caracteres.</em>
             </div>
 
+            <div class="row" *ngIf="!creationMode">
+                <button class="btn waves-effect waves-light purple" (click)="login()">
+                    Login
+                </button>
+                <button class="btn waves-effect waves-light purple" (click)="toggleMode()">
+                    Crear cuenta
+                </button>
+            </div>
 
             <!-- Only visibles on creationMode -->
             <div *ngIf="creationMode">
@@ -26,7 +35,15 @@
                     <label>Repetir Contraseña</label>
                     <div class="login-input">
                         <i class="fa fa-unlock-alt fa-3x" aria-hidden="true"></i>
-                        <input type="password" formControlName="pass_repeat">
+                        <input type="password" formControlName="passRepeat">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label>Nombre</label>
+                    <div class="login-input">
+                        <i class="fa fa-male fa-3x" aria-hidden="true"></i>
+                        <input type="text" formControlName="nombre">
                     </div>
                 </div>
 
@@ -36,6 +53,7 @@
                         <i class="fa fa-address-book fa-3x" aria-hidden="true"></i>
                         <input type="text" formControlName="email">
                     </div>
+                    <em *ngIf="this.loginForm.controls.email.touched && this.loginForm.controls.email.invalid">* Formato incorrecto. ejemplo@gmail.com</em>
                 </div>
 
                 <div class="row">
@@ -82,21 +100,19 @@
                         </mat-form-field>
                     </div>
 
+                    <div class="row ">
+                        <div class="buttons">
+                            <button class="btn waves-effect waves-light purple" (click)="createUser()" [disabled]="!loginForm.valid">
+                                Crear
+                            </button>
+                            <button class="btn waves-effect waves-light purple" (click)="toggleMode()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
             </div>
-
-            <div class="row">
-                <button class="btn waves-effect waves-light purple" (click)="login()">
-                    Login
-                </button>
-                <button class="btn waves-effect waves-light purple" (click)="toggleMode()">
-                    Crear cuenta
-                </button>
-            </div>
-
-
-
 
         </form>
     </div>
