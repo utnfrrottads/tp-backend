@@ -3,6 +3,7 @@ import { Rubro } from 'src/app/model/rubros';
 import { Producto } from 'src/app/model/productos';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RubrosService } from 'src/app/services/rubros.service';
+import { FormGroup, FormControl } from '@angular/forms';
 declare const M: any;
 
 @Component({
@@ -19,15 +20,20 @@ export class SubirProductoComponent implements OnInit {
 
   ngOnInit(): void {
     M.updateTextFields();
-
     //traigo todos los rubros
     this.rubrosService.getRubros()
     .subscribe((res)=>{
       this.rubros = res;
     })
-
-
   }
+  
+  productForm = new FormGroup({
+    idRubro: new FormControl(''),
+    idEmpresa: new FormControl(''),
+    nombre: new FormControl(''),
+    descripcion: new FormControl(''),
+    stock: new FormControl(''),
+  });
 
   obtenerIdRubro(idRubro){
     //cargo el valor del idRubro
@@ -44,7 +50,8 @@ export class SubirProductoComponent implements OnInit {
 
   }
 
-    save(form) {
+    save() {
+      let form;
       // se fija si algun campo está vacio.
       let inputs = form.elements;
       let c = 0;
