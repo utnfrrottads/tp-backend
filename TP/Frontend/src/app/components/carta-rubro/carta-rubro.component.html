@@ -1,11 +1,13 @@
-<div [routerLink]="['productos']" class="card small make-bigger purple darken-4">
+<div [routerLink]="['productos']" class="card medium make-bigger purple darken-4">
+
+
   <div class="card-image">
-    <img src={{rubro.url}} class="responsive-image" alt="...">
+    <img class="responsive-image" src={{rubro.url}} class="responsive-image" alt="{{rubro.descripcion}}">
   </div>
+
   <div class="card-content white-text">
     <span class="card-title" style="font-weight: bold;">{{rubro.descripcion}}</span>
   </div>
+
+
 </div>
-
-
-
