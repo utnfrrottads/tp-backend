@@ -27,8 +27,8 @@ controller.createRubro = async (req, res) => {
 controller.editRubro = async (req, res) => {
   const rubro = {
     descripcion: req.body.descripcion,
+    url: req.body.url,
   };
-  console.log(req.body.descripcion);
   await RubroModel.findByIdAndUpdate(req.params.id, { $set: rubro }, { new: true });
   res.json({ status: "Rubro Updated" });
 };

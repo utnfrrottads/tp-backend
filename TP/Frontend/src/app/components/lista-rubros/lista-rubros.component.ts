@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rubro } from 'src/app/model/rubros';
+import { RubrosService } from '../../services/rubros.service';
 
 @Component({
   selector: 'app-lista-rubros',
@@ -8,21 +9,15 @@ import { Rubro } from 'src/app/model/rubros';
 })
 export class ListaRubrosComponent implements OnInit {
 
-  rubros:Rubro[];
-  constructor() { }
+  rubros:any=[];
+  constructor(private rubrosService: RubrosService) { }
 
   ngOnInit(): void {
-    this.rubros = [
-      {idRubro:1,descripcion:"Tecnologia"}, 
-      {idRubro:2,descripcion:"Alimentos"},
-      {idRubro:3,descripcion:"Ropa e Indumentaria"},
-      {idRubro:4,descripcion:"Vehículos"},
-      {idRubro:5, descripcion:"Escolar"},
-      
-    ];
-    console.log(this.rubros);
+    //traigo todos los rubros
+    this.rubrosService.getRubros()
+    .subscribe((res)=>{
+      this.rubros = res;
+    })
+
   }
-
-
-
 }

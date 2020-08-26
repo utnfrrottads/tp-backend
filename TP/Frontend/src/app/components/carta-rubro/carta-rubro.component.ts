@@ -11,6 +11,7 @@ export class CartaRubroComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
