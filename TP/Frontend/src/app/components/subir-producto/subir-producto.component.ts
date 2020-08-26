@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Rubro } from 'src/app/model/rubros';
 import { Producto } from 'src/app/model/productos';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RubrosService } from 'src/app/services/rubros.service';
 declare const M: any;
 
 @Component({
@@ -10,23 +11,22 @@ declare const M: any;
   styleUrls: ['./subir-producto.component.scss']
 })
 export class SubirProductoComponent implements OnInit {
-  rubros:Rubro[];
+  rubros:any=[];
   producto = new Producto();
   idRubroSeleccionado:any;
-  constructor(private _snackBar: MatSnackBar) { 
 
-  }
+  constructor(private _snackBar: MatSnackBar, private rubrosService: RubrosService) {}
 
   ngOnInit(): void {
     M.updateTextFields();
 
-    this.rubros = [
-      {idRubro:1,descripcion:"Tecnologia"}, 
-      {idRubro:2,descripcion:"Alimentos"},
-      {idRubro:3,descripcion:"Ropa e Indumentaria"},
-      {idRubro:4,descripcion:"Vehículos"},
-      {idRubro:5, descripcion:"Escolar"}
-    ];
+    //traigo todos los rubros
+    this.rubrosService.getRubros()
+    .subscribe((res)=>{
+      this.rubros = res;
+    })
+
+
   }
 
   obtenerIdRubro(idRubro){
