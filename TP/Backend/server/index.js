@@ -35,6 +35,10 @@ app.use(express.json());
 // --------------- Routes --------------- //
 app.use("/api/rubros", require("./routes/rubros.routes"));
 app.use("/api/usuarios", require("./routes/users.routes"));
+app.use("/api/comisionistas", require("./routes/comisionistas.routes"));
+app.use("/api/productos", require("./routes/productos.routes"));
+app.use("/api/ventas", require("./routes/ventas.routes"));
+
 
 // Esto me sube la imagen a clodinary y me devuelve la URL.
 app.post("/api/uploadImage", (req, res) => {
