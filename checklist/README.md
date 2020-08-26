@@ -24,7 +24,7 @@ Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|De
 
 ## Diagrama Entidad-Relación.
 
-![DER](https://github.com/elcurco8/tp-backend-2020/blob/master/checklist/DER-TP-BACKEND-TTADS.png?raw=true)
+![Modelo de datos](https://github.com/danilobassi8/tp-backend-2020/blob/master/checklist/MODELO_DATOS.png)
 
 ## Frontend
 

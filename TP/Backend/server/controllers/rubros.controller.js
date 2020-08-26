@@ -24,13 +24,14 @@ controller.createRubro = async (req, res) => {
 };
 
 // edita un rubro
-controller.editRubro = async (req, res) => {
+controller.editRubro = (req, res) => {
   const rubro = {
     descripcion: req.body.descripcion,
     url: req.body.url,
   };
-  await RubroModel.findByIdAndUpdate(req.params.id, { $set: rubro }, { new: true });
-  res.json({ status: "Rubro Updated" });
+  RubroModel.findByIdAndUpdate(req.params.id, { $set: rubro }, { new: true })
+  .then(res.json({ status: "Rubro Updated" }))
+  .catch((err) => res.json({ status: "error", error: err}));
 };
 
 // elimina un rubro
