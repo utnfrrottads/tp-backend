@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Producto } from '../../model/productos';
+import { Router } from '@angular/router';
 declare var M: any;
 
 @Component({
@@ -15,7 +16,7 @@ export class NavComponent implements OnInit {
 
   lista: Producto[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   @HostListener('window:resize', [])
   public onResize() {
@@ -23,10 +24,10 @@ export class NavComponent implements OnInit {
   }
   detectScreenSize() {
     const width = window.innerWidth;
-    if (width <= 380) {
+    if (width <= 500) {
       this.nav_string = 'Buscar';
     } else {
-      this.nav_string = '¡Buscar un producto!';
+      this.nav_string = '¡Busca un producto!';
     }
   }
 
@@ -52,5 +53,10 @@ export class NavComponent implements OnInit {
       console.log('Se ha buscado un producto usando la palabra:' + texto);
       input.value = '';
     }
+  }
+
+  CloseSession() {
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 }

@@ -1,5 +1,8 @@
-$main-color: #673ab7;
-.logo{
+$main-color: #4b1c66;
+nav {
+  background-color: $main-color;
+}
+.logo {
   height: 100%;
   width: 170px;
 
@@ -7,43 +10,37 @@ $main-color: #673ab7;
   background-size: contain;
   background-repeat: no-repeat;
 }
-.logo:hover{
+.logo:hover {
   cursor: pointer;
-  background-color: #5C34A4;
+  background-color: #43195c;
 }
-.right{
-  max-height: 64px;
+.search {
+  width: 40%;
 }
 .nav-wrapper {
   background-color: $main-color;
-  display: block;
-  text-align: center;
-  min-height: 64px;
 
+  display: flex;
+  justify-content: space-around;
+}
+.unselectable {
   //Esto es para que no se puedan seleccionar los textos del nav.
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */  
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
 }
-.search {
-  transform: translate(20px, 0px);
-  width: 300px;
-}
+
 .search input {
-  text-align: left;
+  text-align: center;
   color: white;
-}
-.carrito {
-  padding-right: 40px;
 }
 
 .chip {
-  transform: translate(45px, -53px);
+  transform: translate(99px, -53px);
   width: max-content;
   text-align: center;
   font-size: small;
-
   pointer-events: none;
 }
 .dropdown-content {
@@ -57,12 +54,12 @@ $main-color: #673ab7;
   width: 100%;
 }
 
+
+
 // para movile.
 @media only screen and (max-width: 845px) {
-  .search {
-    width: 85%;
-    float: left;
-    color: black;
+  .chip{
+    transform: translate(35px, -53px);
   }
   a {
     font-size: 0px;
@@ -70,31 +67,20 @@ $main-color: #673ab7;
   i {
     margin-left: 0;
   }
-  .chip {
-    transform: translate(13px, -53px);
-  }
+
   .dropdown-content {
     transform: translate(-40px, -60px);
   }
 }
 @media only screen and (max-width: 577px) {
-  .logo{
+  .logo {
     display: none;
   }
 }
 
 //para celulares muy chicos.
 @media only screen and (max-width: 380px) {
-  .search {
-    left: 0;
-    width: 100px;
-    padding-right: 20px;
-  }
-  .search input {
-    width: 100%;
-    float: left;
-  }
-  .nav-wrapper{
+  .nav-wrapper {
     min-height: 0;
   }
 }

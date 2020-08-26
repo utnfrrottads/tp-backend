@@ -18,7 +18,7 @@ const routes: Routes = [
   { path:'rubros',component: ListaRubrosComponent},
   { path:'rubros/productos',component: ProductsContainerComponent},
   { path:'rubros/productos/:idProducto',component: ProductDetailComponent},
-  { path:'rubros/profile', component: ProfileComponent},
+  { path:'profile', component: ProfileComponent},
   { path:'rubros/empresas',component: ListaEmpresasComponent},
   { path: 'carrito', component: CarritoComponent},
   { path: 'publicar', component: SubirProductoComponent},

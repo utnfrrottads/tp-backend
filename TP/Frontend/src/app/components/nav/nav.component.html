@@ -1,33 +1,36 @@
 <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper container unselectable">
 
-        <div [routerLink]="['rubros']" class="left logo"></div>
-        <ul class="right">
-            <!-- boton de busqueda-->
-            <li>
-                <div class="search">
-                    <input #input type="text" placeholder={{nav_string}} (keyup.enter)="search(input)">
-                </div>
-            </li>
-            <li (click)="search(input)"><a><i class="material-icons right">search</i></a></li>
-            <!-- boton mi perfil -->
-            <li>
-                <a class="dropdown-trigger" data-target="dropdown1"><i class="material-icons right">person</i>Mi
-                    perfil</a>
-            </li>
-            <!-- boton carrito-->
-            <li >
-                <a [routerLink]="['carrito']"><i class="material-icons right carrito">shopping_cart</i>Carrito</a>
-                <div class="chip">
-                    {{lista.length}}
-                </div>
-            </li>
-        </ul>
+        <div [routerLink]="['rubros']" class="logo"></div>
+
+        <div class="search">
+            <input #input type="text" placeholder={{nav_string}} style="width: 85%;" (keyup.enter)="search(input)">
+            <i class="fa fa-search fa-1x"></i>
+        </div>
+
+        <div>
+            <ul>
+                <li>
+                    <a class="dropdown-trigger" data-target="dropdown1"><i class="material-icons right">person</i>Mi
+                        perfil</a>
+                </li>
+                <li>
+                    <a [routerLink]="['carrito']"><i class="material-icons right carrito">shopping_cart</i>Carrito</a>
+                    <div class="chip">
+                        {{lista.length}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
     </div>
 
 </nav>
-<!-- Dropdown Structure -->
+
+<!-- dropdown structure-->
+
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a [routerLink]="['/rubros/profile']"><i class="material-icons">edit</i>Editar perfil</a></li>
+    <li><a [routerLink]="['/profile']"><i class="material-icons">edit</i>Editar perfil</a></li>
     <li><a [routerLink]="['/publicar']"><i class="material-icons">add_circle_outline</i>cargar nuevo producto</a></li>
+    <li><a (click)="CloseSession()"><i class="material-icons">close</i>Cerrar sesion</a></li>
 </ul>
