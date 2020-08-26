@@ -8,10 +8,10 @@ import {Rubro} from '../../model/rubros';
 export class CartaRubroComponent implements OnInit {
 
   @Input() rubro:Rubro;
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit(): void {
-
   }
 
 }
