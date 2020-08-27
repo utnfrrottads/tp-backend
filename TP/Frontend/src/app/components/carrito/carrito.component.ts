@@ -12,12 +12,17 @@ export class CarritoComponent implements OnInit {
 
   ngOnInit(): void {
     this.list = this.ventas.getCart();
-    
+
     //a cada elemento de la lista le agrego una cantidad para comprar
     //por defecto será 1.
-    this.list.forEach((element) => {
-      element.cantComprar = 1;
-    });
+    if (this.list != null) {
+      this.list.forEach((element) => {
+        element.cantComprar = 1;
+      });
+    }
+    else{
+      this.list = [];
+    }
   }
 
   add(producto) {
