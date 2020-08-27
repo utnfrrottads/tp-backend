@@ -1,54 +1,58 @@
 <div class="container">
-<h4 class="espaciar">Contanos, ¿qué vas a publicar?</h4>
+  <div class="espaciar">
+    <h4>Contanos, ¿qué vas a publicar?</h4>
+  </div>
 
   <form class="form-contenedor" [formGroup]="productForm">
 
   <div class="renglon">
     <label>Indicá el nombre del producto</label>
-    <div class="input-nombre col s6">
       <input type="text" formControlName="nombre" placeholder="Nombre de tu producto" class="validate">
+  </div>
+
+  <div class="renglon">
+    <label>Describí tu producto</label>
+    <div class="input-descripcion">
+      <textarea type="text" 
+        formControlName="descripcion" 
+        placeholder="Descripción del producto" 
+        class="validate txt-area" 
+        [(ngModel)]="txtAreaText" 
+        (ngModelChange)="txtAreaTextChanges($event)">
+      </textarea>
     </div>
   </div>
 
-    <label>Describí tu producto</label>
-    <div class="input-descripcion s12 col">
-      <textarea formControlName="descripcion" placeholder="Descripción del producto" type="text" class="validate"></textarea>
-    </div>
-
+  <div class="renglon">
+    <div class="medio-renglon izquierda">
    <label>Rubro</label>
-   <div class="col s6">
-      <select id="rubro" class="browser-default espaciar" (change)="obtenerIdRubro($event.target.value)"> <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
+      <select id="rubro" class="browser-default" (change)="obtenerIdRubro($event.target.value)"> <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
         <option disabled selected>Elegí el rubro de tu producto</option>
         <option *ngFor="let rubro of rubros" [value]='rubro.idRubro'>{{rubro.descripcion}}</option>
       </select>
     </div>
 
-  <label>¿Cuantos vendes?</label>
-  <div class="col s6">
-    <div class="input-field">
-      <input formControlName="stock" id="stock" placeholder="Indicá el stock" type="text" class="validate" (blur)="checkNumber()" required>      
-    </div>  
+    <div class="medio-renglon derecha">
+      <label>¿Cuantos vendes?</label>
+      <input formControlName="stock" id="stock" placeholder="Indicá tu stock" type="text" class="validate"> 
+    </div>
   </div>
-     
 
-      <div class="row">
-        <div class="col s12">
-          <label>Mostrales a todos tu producto</label>
-            <div class="file-field input-field espaciar">
-                <div class="btn">
-                  <span>Seleccioná una foto</span>
-                  <input type="file">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-                </div>
-            </div>
-        </div>
-      </div>
 
-      <button class="btn waves-effect waves-light centrar" type="submit" name="action" (click)="save()">Cargar Producto
-        <i class="material-icons right" ></i>
-      </button>
+    <div class="renglon medio-renglon izquierda">
+      <label>¿A qué precio?</label>
+      <input formControlName="precio" id="precio" placeholder="Indicá el precio de tu producto" type="text" class="validate"> 
+    </div>
+      
+    <div class="renglon medio-renglon derecha">
+      <label>Mostrales a todos tu producto</label> <br>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" class="input-img">
+    </div>
+
+    <button class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="save()"
+      [disabled]='!productForm.valid'>Cargar Producto
+      <i class="material-icons right" ></i>
+    </button>
 
   </form>
 
