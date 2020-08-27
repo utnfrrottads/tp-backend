@@ -39,4 +39,7 @@ export class VentasService {
 
     localStorage.setItem('carrito', JSON.stringify(items));
   }
+  getCart() {
+    return JSON.parse(localStorage.getItem('carrito'));
+  }
 }

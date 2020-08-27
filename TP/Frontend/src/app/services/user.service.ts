@@ -9,6 +9,14 @@ export class UserService {
 
   readonly baseURL = 'http://localhost:3000/api/usuarios/';
 
+  isLoggedIn() {
+    if (localStorage.getItem('user') == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   login(user, pass) {
     const URL = this.baseURL + 'login';
     const body = {

@@ -1,44 +1,66 @@
 <div class="container">
-    <h4>Carrito:</h4>
-    <table class="striped ">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th class="hide-on-small">Descripción</th>
-                <th class="hide-on-tiny">Precio unitario</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
+    <!-- Solo se muestra si hay elementos en el carrito -->
+    <div *ngIf="this.list.length > 0">
+        <h4>Carrito:</h4>
+        <table class="striped ">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th class="hide-on-small">Descripción</th>
+                    <th class="hide-on-tiny">Precio unitario</th>
+                    <th class="center">Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            <!-- para todos los productos de la lista-->
-            <tr *ngFor="let producto of list">
-                <td class="nombre">{{producto.nombre}}</td>
-                <td class="hide-on-small">{{producto.descripcion}}</td>
-                <td class="hide-on-tiny">${{producto.precio}}</td>
-                <td>
-                    <div class="unselectable">
-                        <p class="cantidad">{{producto.cantComprar}}</p>
-                        <div class="flechas">
-                            <i class="material-icons" (click)="add(producto)">add_circle</i>
-                            <i class="material-icons" (click)="remove(producto)">remove_circle</i>
+            <tbody>
+                <!-- para todos los productos de la lista-->
+                <tr *ngFor="let producto of list">
+                    <td class="nombre">{{producto.nombre}}</td>
+                    <td class="hide-on-small">{{producto.descripcion}}</td>
+                    <td class="hide-on-tiny">${{producto.precio}}</td>
+                    <td>
+                        <div class="unselectable">
+                            <p class="cantidad">{{producto.cantComprar}}</p>
+                            <div class="flechas center">
+                                <i class="material-icons" (click)="add(producto)">add_circle</i>
+                                <i class="material-icons" (click)="remove(producto)">remove_circle</i>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td class="subtotal">$ {{producto.precio * producto.cantComprar}}</td>
-                <td class="unselectable"> <i class="material-icons delete" (click)="delete(producto)">delete_forever</i>
-                </td>
-            </tr>
-            <!-- al final, para saber los datos-->
-            <tr class="final">
-                <td></td>
-                <td class="hide-on-small"></td>
-                <td class="hide-on-tiny"></td>
-                <td class="total">Total:</td>
-                <td class="total-price">${{precioFinal()}}</td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                    <td class="subtotal">$ {{producto.precio * producto.cantComprar}}</td>
+                    <td class="unselectable"> <i class="material-icons delete"
+                            (click)="delete(producto)">delete_forever</i>
+                    </td>
+                </tr>
+                <!-- columna final, para saber el precio total -->
+                <tr class="final">
+                    <td></td>
+                    <td class="hide-on-small"></td>
+                    <td class="hide-on-tiny"></td>
+                    <td class="total">Total:</td>
+                    <td class="total-price">${{precioFinal()}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- si no hay elementos en el carrito se muestra esto-->
+    <div class="big-msg-container" *ngIf="this.list.length <=0">
+        <h3 class="big-msg-text">¡No hay items en el carrito!</h3>
+
+        <i class="fa fa-shopping-cart center fa-5x" style="color: white;"></i>
+
+        <div>
+            <h6 class="big-msg-text"> ¡Ve a la seccion de productos y elige lo que deseas comprar!</h6>
+            <div class="center">
+                <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
+                    <i class="material-icons right">view_module</i>
+                    Ver productos disponibles
+                </button>
+            </div>
+        </div>
+
+
+    </div>
 </div>

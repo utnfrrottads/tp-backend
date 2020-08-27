@@ -1,5 +1,5 @@
-.container{
-  min-height: 90vh;
+.container {
+  min-height: 70vh;
 }
 .unselectable {
   -webkit-touch-callout: none;
@@ -20,12 +20,27 @@
 .delete {
   font-size: 2.5rem;
 }
-.nombre{
-    font-weight: bold;
-    font-size: medium;
-    min-width: 150px;
+.nombre {
+  font-weight: bold;
+  font-size: medium;
+  min-width: 150px;
 }
+.big-msg-container {
+  background: rgb(28,35,49);
+  background: linear-gradient(16deg, rgba(28,35,49,1) 17%, rgba(75,28,102,1) 92%);
+  min-height: 400px;
+  margin: 50px 0 0 0;
+  padding: 20px;
+  border-radius: 30px;
 
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.big-msg-text{
+  text-align: center;
+  color: whitesmoke;
+}
 
 $total-color: #9de5b2;
 $total-radius: 10px;
@@ -46,38 +61,36 @@ $total-radius: 10px;
   border-top-right-radius: $total-radius;
   border-bottom-right-radius: $total-radius;
 }
-.final{
-    background-color: white !important;
+.final {
+  background-color: white !important;
 }
 
-
 @media only screen and (max-width: 680px) {
-    .hide-on-small{
-        display: none;
-    }
-    .nombre{
-        min-width: none;
-    }
+  .hide-on-small {
+    display: none;
+  }
+  .nombre {
+    min-width: none;
+  }
 }
 
 @media only screen and (max-width: 435px) {
-    .container{
-        width: 100%;
-    }
-    .hide-on-tiny{
-        display: none;
-    }
-    .nombre{
-        font-size: x-small;
-        
-    }
-    .cantidad{
-        font-size: small
-    }
-    .subtotal{
-        font-size: smaller;
-    }
-    .material-icons{
-        font-size: 25px;
-    }
+  .container {
+    width: 100%;
+  }
+  .hide-on-tiny {
+    display: none;
+  }
+  .nombre {
+    font-size: x-small;
+  }
+  .cantidad {
+    font-size: small;
+  }
+  .subtotal {
+    font-size: smaller;
+  }
+  .material-icons {
+    font-size: 25px;
+  }
 }
