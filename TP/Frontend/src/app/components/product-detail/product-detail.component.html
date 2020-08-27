@@ -5,7 +5,7 @@
         <div class="slider">
             <ul class="slides">
                 <li *ngFor="let imagen of images">
-                    <img src={{imagen}} alt="Imagen de: {{producto.nombre}}" class="materialboxed image-contained">
+                    <img src={{imagen}} alt="Imagen de: {{producto.nombre}}">
                 </li>
             </ul>
         </div>
@@ -18,8 +18,9 @@
             <h2>${{producto.precio}}</h2>
             <div id="si-hay-stock">
                 <p>Stock disponible</p>
-                <a class="waves-effect waves-light btn btn-color " id="btn-style">AGREGAR A CARRITO</a>
-                <a class="waves-effect waves-light btn btn-color-secondary" id="btn-style">COMPRAR</a>
+                <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()" *ngIf="isInCart()">Quitar del carrito</a>
+                <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()" *ngIf="!isInCart()">AGREGAR A CARRITO</a>
+                <a class="waves-effect waves-light btn btn-color-secondary" >COMPRAR</a>
             </div>
         </div>
 

@@ -14,8 +14,9 @@ nav {
   cursor: pointer;
   background-color: #43195c;
 }
+
 .search {
-  width: 40%;
+  width: 30%;
 }
 .nav-wrapper {
   background-color: $main-color;
@@ -54,11 +55,23 @@ nav {
   width: 100%;
 }
 
-
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 1010px) {
+  .container {
+    width: 95%;
+  }
+}
 
 // para movile.
 @media only screen and (max-width: 845px) {
-  .chip{
+  .container {
+    width: 100%;
+  }
+  .chip {
     transform: translate(35px, -53px);
   }
   a {
@@ -68,16 +81,13 @@ nav {
     margin-left: 0;
   }
 
-  .dropdown-content {
-    transform: translate(-40px, -60px);
-  }
+
 }
-@media only screen and (max-width: 577px) {
+@media only screen and (max-width: 650px) {
   .logo {
     display: none;
   }
 }
-
 //para celulares muy chicos.
 @media only screen and (max-width: 380px) {
   .nav-wrapper {

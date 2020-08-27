@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { VentasService } from '../../services/ventas.service';
 declare var M: any;
 
 @Component({
@@ -16,9 +17,9 @@ export class ProductDetailComponent implements OnInit {
   eBox: any;
   box: any;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private ventas: VentasService) {
     this.producto = {
-      idProducto: 1,
+      _id: 'a',
       idRubro: 1,
       empresa: {
         razonSocial: 'nombre de la empresa',
@@ -31,7 +32,6 @@ export class ProductDetailComponent implements OnInit {
       imagen: [
         'https://http2.mlstatic.com/notebook-lenovo-v15-core-i7-10ma-gen-1tb-ssd-240gb-12gb-D_NQ_NP_718399-MLA41642098919_052020-F.webp',
         'https://http2.mlstatic.com/notebook-intel-dual-core-4gb-500gb-hp-14-pulgadas-hdmi-wifi-D_NQ_NP_935496-MLA31032116361_062019-Q.jpg',
-        
       ],
       precio: 50000,
       descripcion: 'Es una notebook, un producto muy bueno y de alta calidad.',
@@ -47,11 +47,23 @@ export class ProductDetailComponent implements OnInit {
     //slider
     this.eSlider = document.querySelectorAll('.slider');
     this.slider = M.Slider.init(this.eSlider, {
-      interval: 9999999
+      interval: 9999999,
     });
 
     //materialboxed
     this.eBox = document.querySelectorAll('.materialboxed');
     this.box = M.Materialbox.init(this.eBox);
+  }
+  addToCart() {
+    this.isInCart();
+    this.ventas.addToCart(this.producto);
+  }
+  removeFromCart() {
+    this.isInCart();
+    this.ventas.removeFromCart(this.producto);
+  }
+
+  isInCart() {
+    return this.ventas.isInCart(this.producto);
   }
 }
