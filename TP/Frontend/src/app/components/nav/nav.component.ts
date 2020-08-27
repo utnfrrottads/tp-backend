@@ -14,8 +14,6 @@ export class NavComponent implements OnInit {
   options = [];
   nav_string = '';
 
-  lista: Producto[] = [];
-
   constructor(private router: Router) {}
 
   @HostListener('window:resize', [])
@@ -24,7 +22,7 @@ export class NavComponent implements OnInit {
   }
   detectScreenSize() {
     const width = window.innerWidth;
-    if (width <= 500) {
+    if (width <= 1130) {
       this.nav_string = 'Buscar';
     } else {
       this.nav_string = '¡Busca un producto!';
@@ -32,16 +30,7 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //creo una lista de prueba, para testear.
-    for (let i = 0; i < 10; i++) {
-      let p = new Producto();
-      p.idEmpresa = 123;
-      p.descripcion = 'Ryzen 7 1800x. Procesador 8 nucleos 16 hilos.';
-      p.idProducto = 1;
-      p.idRubro = 20;
-      p.stock = 400;
-      this.lista.push(p);
-    }
+
 
     this.detectScreenSize();
     this.elems = document.querySelectorAll('.dropdown-trigger');
@@ -58,5 +47,15 @@ export class NavComponent implements OnInit {
   CloseSession() {
     localStorage.clear();
     this.router.navigate(['login']);
+  }
+  loggedIn() {
+    if (localStorage.getItem('user') == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  itemsOnStorage(){
+    return JSON.parse(localStorage.getItem('carrito')).length;
   }
 }

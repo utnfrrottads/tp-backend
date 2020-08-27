@@ -11,13 +11,18 @@
         <div>
             <ul>
                 <li>
+                    <a [routerLink]="['rubros']"><i class="material-icons right carrito">view_comfy</i>Productos</a>
+                </li>
+
+                <li>
                     <a class="dropdown-trigger" data-target="dropdown1"><i class="material-icons right">person</i>Mi
                         perfil</a>
                 </li>
+
                 <li>
                     <a [routerLink]="['carrito']"><i class="material-icons right carrito">shopping_cart</i>Carrito</a>
                     <div class="chip">
-                        {{lista.length}}
+                        {{itemsOnStorage()}}
                     </div>
                 </li>
             </ul>
@@ -30,7 +35,10 @@
 <!-- dropdown structure-->
 
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a [routerLink]="['/profile']"><i class="material-icons">edit</i>Editar perfil</a></li>
-    <li><a [routerLink]="['/publicar']"><i class="material-icons">add_circle_outline</i>cargar nuevo producto</a></li>
-    <li><a (click)="CloseSession()"><i class="material-icons">close</i>Cerrar sesion</a></li>
+    <li *ngIf="loggedIn()"><a [routerLink]="['/profile']"><i class="material-icons">edit</i>Editar perfil</a></li>
+    <li *ngIf="loggedIn()"><a [routerLink]="['/publicar']"><i class="material-icons">add_circle_outline</i>cargar nuevo
+            producto</a></li>
+    <li *ngIf="loggedIn()"><a (click)="CloseSession()"><i class="material-icons">close</i>Cerrar sesion</a></li>
+    <li *ngIf="!loggedIn()"><a [routerLink]="['/login']"><i class="material-icons">perm_identity</i>Iniciar sesion</a>
+    </li>
 </ul>
