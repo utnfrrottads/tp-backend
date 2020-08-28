@@ -16,6 +16,11 @@ export class ProductCardsService {
     return this.http.get(URL);
   }
 
+  getProducto(idProducto){
+    const URL = this.baseURL+'/'+idProducto;
+    return this.http.get(URL);
+  }
+
   getProductosByRubro(id_rubro) {
     const URL = this.baseURL; 
     return this.http.get(URL + '/rubro/' + id_rubro)

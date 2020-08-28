@@ -27,6 +27,12 @@ export class UserService {
     return this.http.post(URL, body, {});
   }
 
+  getUser(id){
+    const URL = this.baseURL + '/' + id;
+    return this.http.get(URL);
+    console.log("sads")
+  }
+
   createUser(data: any, tipoUsuario) {
     const body = {
       usuario: data.username.value,

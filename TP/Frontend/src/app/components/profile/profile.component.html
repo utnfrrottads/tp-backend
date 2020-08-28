@@ -21,17 +21,17 @@
       <form class="col s12" [formGroup]="mainForm">
 
         <div class="row">
-          <div class="input-field col s12">
-            <label>Nombre</label>
-            <input type="text" class="validate" placeholder="Nombre" formControlName="nombre">
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
+          <div class="input-field col s6">
             <label>Usuario</label>
             <input value="Usuario" type="text" class="validate" formControlName="usuario">
           </div>
+
+          <div class="input-field col s6">
+            <label>Nombre</label>
+            <input type="text" class="validate" placeholder="Nombre" formControlName="nombre">
+          </div> 
         </div>
+
         <div class="row">
           <div class="input-field col s6">
             <input type="password" class="validate" placeholder="Contraseña" formControlName="pass">

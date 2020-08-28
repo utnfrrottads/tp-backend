@@ -26,8 +26,12 @@
   min-width: 150px;
 }
 .big-msg-container {
-  background: rgb(28,35,49);
-  background: linear-gradient(16deg, rgba(28,35,49,1) 17%, rgba(75,28,102,1) 92%);
+  background: rgb(28, 35, 49);
+  background: linear-gradient(
+    16deg,
+    rgba(28, 35, 49, 1) 17%,
+    rgba(75, 28, 102, 1) 92%
+  );
   min-height: 400px;
   margin: 50px 0 0 0;
   padding: 20px;
@@ -37,38 +41,27 @@
   justify-content: space-evenly;
   flex-direction: column;
 }
-.big-msg-text{
+.big-msg-text {
   text-align: center;
   color: whitesmoke;
 }
 
-$total-color: #9de5b2;
-$total-radius: 10px;
-.total {
-  background-color: $total-color;
-  text-align: center;
-  font-weight: bold;
-  font-size: medium;
+.final-div {
+  float: right;
+}
 
-  border-top-left-radius: $total-radius;
-  border-bottom-left-radius: $total-radius;
+.txt-comision {
+  display: inline;
+  padding: 0 20px 0 20px;
+  font-weight: bold;
 }
 .total-price {
-  background-color: $total-color;
-  font-weight: bold;
-  font-size: medium;
+  font-size: xx-large;
+  float: right;
+  padding: 7px 10px 3px 10px;
 
-  border-top-right-radius: $total-radius;
-  border-bottom-right-radius: $total-radius;
-}
-.final {
-  background-color: white !important;
-}
-
-.renglon {
-  margin-bottom: 10px;
-  width: 500px;
-  
+  border-radius: 5px;
+  background-color: #43e774;
 }
 
 @media only screen and (max-width: 680px) {
