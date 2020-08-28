@@ -7,7 +7,7 @@ controller.getUsers = async (req, res) => {
   res.json(usuarios);
 };
 
-controller.getUser = async (req, res) => {
+controller.getUser = (req, res) => {
   UserModel.findById(req.params.id)
     .then((respuesta) => res.json(respuesta))
     .catch((error) => res.json({ error: "No se encuentra el usuario", error: error }));

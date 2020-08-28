@@ -1,8 +1,9 @@
 export class Producto {
     idProducto: number;
     idRubro: number;
-    idEmpresa: number;
+    idVendedor: number;
     nombre: string;
     descripcion: string;
     stock: number;
+    url : any[];
 }

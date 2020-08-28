@@ -8,7 +8,7 @@ export class VentasService {
 
   isInCart(producto) {
     let items = JSON.parse(localStorage.getItem('carrito'));
-    console.log(items);
+    //console.log(items);
     if (items === null || items === []) {
       return false;
     } else {
