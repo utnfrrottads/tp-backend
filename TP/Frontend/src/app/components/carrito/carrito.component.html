@@ -13,36 +13,53 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <!-- para todos los productos de la lista-->
-                <tr *ngFor="let producto of list">
-                    <td class="nombre">{{producto.nombre}}</td>
-                    <td class="hide-on-small">{{producto.descripcion}}</td>
-                    <td class="hide-on-tiny">${{producto.precio}}</td>
-                    <td>
-                        <div class="unselectable">
-                            <p class="cantidad">{{producto.cantComprar}}</p>
-                            <div class="flechas center">
-                                <i class="material-icons" (click)="add(producto)">add_circle</i>
-                                <i class="material-icons" (click)="remove(producto)">remove_circle</i>
-                            </div>
+        <tbody>
+            <!-- para todos los productos de la lista-->
+            <tr *ngFor="let producto of list">
+                <td class="nombre">{{producto.nombre}}</td>
+                <td class="hide-on-small">{{producto.descripcion}}</td>
+                <td class="hide-on-tiny">${{producto.precio}}</td>
+                <td>
+                    <div class="unselectable">
+                        <p class="cantidad" *ngIf="producto.idComisionista === undefined" >{{producto.cantComprar}}</p>
+                        <p class="cantidad" *ngIf="producto.idComisionista !== undefined" >1</p>
+                        <div class="flechas" *ngIf="producto.idComisionista === undefined">
+                            <i class="material-icons" (click)="add(producto)">add_circle</i>
+                            <i class="material-icons" (click)="remove(producto)">remove_circle</i>
                         </div>
-                    </td>
-                    <td class="subtotal">$ {{producto.precio * producto.cantComprar}}</td>
-                    <td class="unselectable"> <i class="material-icons delete"
-                            (click)="delete(producto)">delete_forever</i>
-                    </td>
-                </tr>
-                <!-- columna final, para saber el precio total -->
-                <tr class="final">
-                    <td></td>
-                    <td class="hide-on-small"></td>
-                    <td class="hide-on-tiny"></td>
-                    <td class="total">Total:</td>
-                    <td class="total-price">${{precioFinal()}}</td>
-                    <td></td>
-                </tr>
-            </tbody>
+                    </div>
+                </td>
+                <td class="subtotal" *ngIf="producto.idComisionista === undefined">$ {{producto.precio * producto.cantComprar}}</td>
+                <td class="subtotal" *ngIf="producto.idComisionista !== undefined">$ {{producto.precio}}</td>
+                <td class="unselectable"> <i class="material-icons delete" (click)="delete(producto)">delete_forever</i>
+                </td>
+            </tr>
+            <tr>
+                
+            </tr>
+            <!-- al final, para saber los datos-->
+            <tr class="final">
+                <td></td>
+                <td class="hide-on-small"></td>
+                <td class="hide-on-tiny"></td>
+                <td class="total">Total:</td>
+                <td class="total-price">${{precioFinal()}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+
+
+           <!-- elegir el comisionista -->
+           <div class="renglon">
+            <label>Elegí al comisionista que te llevará el producto</label>
+               <select required class="browser-default"  [(ngModel)]="selectedComisionista" (change)="agregarComisionista()"> <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
+                 <option disabled selected>Seleccioná al comisionista</option>
+                 <option *ngFor="let comisionista of comisionistas" [ngValue]="comisionista">
+                    {{comisionista.nombre}}</option>
+               </select>
+             </div>
+
+  
         </table>
     </div>
     <!-- si no hay elementos en el carrito se muestra esto-->

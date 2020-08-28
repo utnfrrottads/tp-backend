@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ComisionistasService } from '../../services/comisionistas.service';
 import { VentasService } from 'src/app/services/ventas.service';
 
 @Component({
@@ -8,9 +9,20 @@ import { VentasService } from 'src/app/services/ventas.service';
 })
 export class CarritoComponent implements OnInit {
   list = [];
-  constructor(private ventas: VentasService) {}
+  comisionistas:any = [];
+  comisionistaAnterior=null;
+
+  constructor(
+    private comisionistasService: ComisionistasService,
+    private ventas: VentasService
+    ) {}
 
   ngOnInit(): void {
+    this.comisionistasService.getComisionistas()
+    .subscribe((res)=>{
+      this.comisionistas = res;
+    })
+
     this.list = this.ventas.getCart();
 
     //a cada elemento de la lista le agrego una cantidad para comprar
@@ -34,16 +46,54 @@ export class CarritoComponent implements OnInit {
     if (producto.cantComprar > 1) {
       producto.cantComprar--;
     }
-  }
+  } 
   delete(producto) {
+    const index = this.list.indexOf(producto);
+    if (index > -1) {
+      this.list.splice(index, 1);
+    }
     this.ventas.removeFromCart(producto);
     this.list = this.ventas.getCart();
+
+
+    if(producto.idComisionista !== undefined){
+      //significa que borré un comisionista
+      this.comisionistaAnterior = null;
+    }
   }
   precioFinal() {
     let total = 0;
+    let precComisionista = 0;
     this.list.forEach((element) => {
-      total += element.cantComprar * element.precio;
+      if(element.idComisionista === undefined){
+        total += element.cantComprar * element.precio;
+      }
+      if(element.idComisionista !== undefined){
+        precComisionista = element.precio;
+      }
     });
-    return total;
+    return total+precComisionista;
   }
+
+  
+  agregarComisionista() {
+    if(this.comisionistaAnterior!== null){
+      console.log(this.comisionistaAnterior)
+      this.delete(this.comisionistaAnterior);
+    }
+    let com =  {
+      idComisionista: this.selectedComisionista._id,
+      nombre: this.selectedComisionista.nombre,
+      precio: this.selectedComisionista.precio,
+      descripcion: '',
+      stock: 1
+    }    
+    this.comisionistaAnterior = com;
+    this.list.push(com);
+
+    this.precioFinal();
+  }
+
+  selectedComisionista = this.comisionistas[0];
+
 }
