@@ -9,19 +9,21 @@ import { VentasService } from 'src/app/services/ventas.service';
 })
 export class CarritoComponent implements OnInit {
   list = [];
-  comisionistas:any = [];
-  comisionistaAnterior=null;
+  comisionistas: any = [];
+  IdComisionistaSeleccionado: any;
+  comisionistaSeleccionado: any;
 
   constructor(
     private comisionistasService: ComisionistasService,
     private ventas: VentasService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-    this.comisionistasService.getComisionistas()
-    .subscribe((res)=>{
+    this.comisionistasService.getComisionistas().subscribe((res) => {
       this.comisionistas = res;
-    })
+      this.IdComisionistaSeleccionado = res[0]._id;
+      console.log(this.comisionistas);
+    });
 
     this.list = this.ventas.getCart();
 
@@ -31,8 +33,7 @@ export class CarritoComponent implements OnInit {
       this.list.forEach((element) => {
         element.cantComprar = 1;
       });
-    }
-    else{
+    } else {
       this.list = [];
     }
   }
@@ -46,7 +47,7 @@ export class CarritoComponent implements OnInit {
     if (producto.cantComprar > 1) {
       producto.cantComprar--;
     }
-  } 
+  }
   delete(producto) {
     const index = this.list.indexOf(producto);
     if (index > -1) {
@@ -54,46 +55,25 @@ export class CarritoComponent implements OnInit {
     }
     this.ventas.removeFromCart(producto);
     this.list = this.ventas.getCart();
-
-
-    if(producto.idComisionista !== undefined){
-      //significa que borré un comisionista
-      this.comisionistaAnterior = null;
-    }
   }
   precioFinal() {
+    // calculo el total de los productos
     let total = 0;
-    let precComisionista = 0;
     this.list.forEach((element) => {
-      if(element.idComisionista === undefined){
+      if (element.idComisionista === undefined) {
         total += element.cantComprar * element.precio;
       }
-      if(element.idComisionista !== undefined){
-        precComisionista = element.precio;
-      }
     });
-    return total+precComisionista;
-  }
 
-  
-  agregarComisionista() {
-    if(this.comisionistaAnterior!== null){
-      console.log(this.comisionistaAnterior)
-      this.delete(this.comisionistaAnterior);
+    // le agrego el comisionista
+    let comision = 0;
+    if (this.IdComisionistaSeleccionado !== undefined) {
+      this.comisionistaSeleccionado = this.comisionistas.filter(
+        (e) => e._id == this.IdComisionistaSeleccionado
+      )[0];
+
+      comision = this.comisionistaSeleccionado.precio;
     }
-    let com =  {
-      idComisionista: this.selectedComisionista._id,
-      nombre: this.selectedComisionista.nombre,
-      precio: this.selectedComisionista.precio,
-      descripcion: '',
-      stock: 1
-    }    
-    this.comisionistaAnterior = com;
-    this.list.push(com);
-
-    this.precioFinal();
+    return total + comision;
   }
-
-  selectedComisionista = this.comisionistas[0];
-
 }
