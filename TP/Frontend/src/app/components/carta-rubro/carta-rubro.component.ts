@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Rubro} from '../../model/rubros';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-carta-rubro',
   templateUrl: './carta-rubro.component.html',
@@ -8,10 +9,13 @@ import {Rubro} from '../../model/rubros';
 export class CartaRubroComponent implements OnInit {
 
   @Input() rubro:Rubro;
-  constructor() { 
+  constructor(private router:Router) { 
   }
 
   ngOnInit(): void {
+  }
+  routToProducts(rubro) {
+    this.router.navigate(['/rubros',rubro._id]);
   }
 
 }

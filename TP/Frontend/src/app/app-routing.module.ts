@@ -17,6 +17,7 @@ const routes: Routes = [
   
   { path:'rubros',component: ListaRubrosComponent},
   { path:'rubros/productos',component: ProductsContainerComponent},
+  { path:'rubros/:idRubro',component: ProductsContainerComponent},
   { path:'rubros/productos/:idProducto',component: ProductDetailComponent},
   { path:'profile', component: ProfileComponent},
   { path:'rubros/empresas',component: ListaEmpresasComponent},
