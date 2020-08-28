@@ -75,5 +75,6 @@ export class UserService {
       url: URL,
     };
     localStorage.setItem('user', JSON.stringify(user));
+
   }
 }

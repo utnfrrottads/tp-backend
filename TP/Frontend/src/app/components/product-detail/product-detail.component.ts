@@ -17,7 +17,10 @@ export class ProductDetailComponent implements OnInit {
   eBox: any;
   box: any;
 
-  constructor(private route: ActivatedRoute, private ventas: VentasService) {
+  constructor(
+    private route: ActivatedRoute, 
+    private ventas: VentasService
+    ) {
     this.producto = {
       _id: 'a',
       idRubro: 1,
@@ -29,7 +32,7 @@ export class ProductDetailComponent implements OnInit {
           'https://fotografias.lasexta.com/clipping/cmsimages02/2019/11/14/66C024AF-E20B-49A5-8BC3-A21DD22B96E6/58.jpg',
       },
       nombre: 'Notebook',
-      imagen: [
+      url: [
         'https://http2.mlstatic.com/notebook-lenovo-v15-core-i7-10ma-gen-1tb-ssd-240gb-12gb-D_NQ_NP_718399-MLA41642098919_052020-F.webp',
         'https://http2.mlstatic.com/notebook-intel-dual-core-4gb-500gb-hp-14-pulgadas-hdmi-wifi-D_NQ_NP_935496-MLA31032116361_062019-Q.jpg',
       ],
@@ -38,7 +41,10 @@ export class ProductDetailComponent implements OnInit {
       stock: 25,
     };
 
-    this.images = this.producto.imagen;
+
+    this.images = this.producto.url;
+
+    console.log(this.producto)
   }
 
   ngOnInit(): void {}
