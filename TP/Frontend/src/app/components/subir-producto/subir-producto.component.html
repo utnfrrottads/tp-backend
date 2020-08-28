@@ -28,7 +28,7 @@
    <label>Rubro</label>
       <select id="rubro" class="browser-default" (change)="obtenerIdRubro($event.target.value)"> <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
         <option disabled selected>Elegí el rubro de tu producto</option>
-        <option *ngFor="let rubro of rubros" [value]='rubro.idRubro'>{{rubro.descripcion}}</option>
+        <option *ngFor="let rubro of rubros" [value]='rubro._id'>{{rubro.descripcion}}</option>
       </select>
     </div>
 

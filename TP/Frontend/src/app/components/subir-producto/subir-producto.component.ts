@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { RubrosService } from 'src/app/services/rubros.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ImageUploaderService } from '../../services/image-uploader.service';
+import { ProductCardsService } from 'src/app/services/product-cards.service';
 
 declare const M: any;
 
@@ -20,7 +21,8 @@ export class SubirProductoComponent implements OnInit {
 
   constructor(
     private imgService: ImageUploaderService,
-    private rubrosService: RubrosService
+    private rubrosService: RubrosService,
+    private service:ProductCardsService,
     ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,19 @@ export class SubirProductoComponent implements OnInit {
 
 
     save() {
-      console.log(this.productForm)
+      let rubro = this.rubros.find((r) => r._id === this.idRubroSeleccionado);
+      console.log(rubro);
+      let user = JSON.parse(localStorage.getItem('user'));
+      let nuevoProducto = {
+        nombre: this.productForm.controls.nombre.value,
+        rubro: rubro,
+        idVendedor: user._id ,
+        descripcion: this.productForm.controls.descripcion.value,
+        stock: this.productForm.controls.stock.value,
+        precio: this.productForm.controls.precio.value,
+        url: this.productForm.controls.url.value,
+      }
+      this.service.createProducto(nuevoProducto).subscribe(res => console.log(nuevoProducto));
     }
 
   
