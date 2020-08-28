@@ -21,7 +21,41 @@ export class ProductCardsService {
     return this.http.get(URL + '/rubro/' + id_rubro)
     
   }
-  /*
+  deleteProducto(producto:any) {
+    const URL = this.baseURL +'/' + producto.id;
+    return this.http.delete(URL);
+  }
+  createProducto(producto: any) {
+    const body = {
+      url: producto.url,
+      _id: producto._id,
+      nombre: producto.nombre,
+      rubro: producto.rubro,
+      idVendedor: producto.idVendedor,
+      descripcion: producto.descripcion,
+      stock: producto.stock,
+      precio: producto.precio,
+    };
+    return this.http.post(this.baseURL, body, {});
+  }
+
+  editUser(producto:any) {
+    const URL = this.baseURL +'/' + producto.id;
+    const body = {
+      url: producto.url,
+      _id: producto._id,
+      nombre: producto.nombre,
+      rubro: producto.rubro,
+      idVendedor: producto.idVendedor,
+      descripcion: producto.descripcion,
+      stock: producto.stock,
+      precio: producto.precio,
+    };
+    return this.http.put(URL, body, {});
+  }
+
+}
+/*
   getProducts(idRubroBuscado){
   //acá debería llamar a un procedimiento que recupere de la BD
   this.list = [{  idProducto: 1, idRubro: idRubroBuscado,  idEmpresa: 1, nombre: "Notebook", imagen: "https://http2.mlstatic.com/notebook-lenovo-i3-8130u-4gb-1tb-156-pulgadas-dvdrw-D_NQ_NP_872956-MLA42418883269_062020-F.webp", precio: 50000,  descripcion: "Es una notebook, un producto muy bueno y de alta calidad.", stock: 25 },
@@ -45,5 +79,3 @@ export class ProductCardsService {
   return this.list;
   }
 */
-
-}
