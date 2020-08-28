@@ -6,6 +6,7 @@ import { RubrosService } from 'src/app/services/rubros.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ImageUploaderService } from '../../services/image-uploader.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
+import { Router } from '@angular/router';
 
 declare const M: any;
 
@@ -23,6 +24,7 @@ export class SubirProductoComponent implements OnInit {
     private imgService: ImageUploaderService,
     private rubrosService: RubrosService,
     private service:ProductCardsService,
+    private router:Router
     ) {}
 
   ngOnInit(): void {
@@ -44,47 +46,73 @@ export class SubirProductoComponent implements OnInit {
     url: new FormControl('')
   });
 
-
   obtenerIdRubro(idRubro){
     //cargo el valor del idRubro
     this.idRubroSeleccionado= idRubro;
   }
 
-
-
-    save() {
-      let rubro = this.rubros.find((r) => r._id === this.idRubroSeleccionado);
-      console.log(rubro);
-      let user = JSON.parse(localStorage.getItem('user'));
-      let nuevoProducto = {
-        nombre: this.productForm.controls.nombre.value,
-        rubro: rubro,
-        idVendedor: user._id ,
-        descripcion: this.productForm.controls.descripcion.value,
-        stock: this.productForm.controls.stock.value,
-        precio: this.productForm.controls.precio.value,
-        url: this.productForm.controls.url.value,
-      }
-      this.service.createProducto(nuevoProducto).subscribe(res => console.log(nuevoProducto));
-    }
-
-  
-
     ImageFile = null;
+    url_imagen = null;
 
     onFileSelected(event) {
       // guardo la imagen seleccionada dentro de la propiedad ImageFile.
       this.ImageFile = event.target.files[0];
     }
 
-    async subirImagenYObtenerURL() {
-      // subo la imagen y obtengo su url.
-      if (this.ImageFile != null) {
-        return this.imgService.subirImagen(this.ImageFile).toPromise();
-      } else {
-        return Promise.resolve(null);
-      }
+  async subirImagenYObtenerURL() {
+    // subo la imagen y obtengo su url.
+  if (this.ImageFile != null) {
+    return this.imgService.subirImagen(this.ImageFile).toPromise();
+    } 
+    else {
+      return Promise.resolve(null);
     }
+  }
+
+
+  save() {
+  let rubro = this.rubros.find((r) => r._id === this.idRubroSeleccionado);
+    
+  // subo la imagen:
+  this.subirImagenYObtenerURL()
+    .then((res) => {
+      let URL;
+      if (res == null) {
+        console.log("No se pudo subir imagen")              
+      } 
+      else {
+        URL = res.url;
+        this.url_imagen = URL;
+      }
+
+  let user = JSON.parse(localStorage.getItem('user'));
+  let nuevoProducto = {
+    nombre: this.productForm.controls.nombre.value,
+    rubro: rubro,
+    idVendedor: user._id ,
+    descripcion: this.productForm.controls.descripcion.value,
+    stock: this.productForm.controls.stock.value,
+    precio: this.productForm.controls.precio.value,
+    url: this.url_imagen
+  }
+
+  this.service.createProducto(nuevoProducto)
+    .subscribe(
+    res => {
+      console.log(nuevoProducto)
+    
+      // acá hay que abrir un snack y redireccionar al detalle del producto
+ 
+    })
+
+
+    })
+
+
+
+  }
+
+
 
     //para cambiar el tamaño del textArea según la altura del scroll
     txtAreaText: string;
