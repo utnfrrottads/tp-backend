@@ -46,8 +46,19 @@
   color: whitesmoke;
 }
 
-.final-div {
-  float: right;
+.max-4-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+.justified {
+  text-align: justify;
+  text-justify: inter-word;
+}
+.botton-table {
+  display: flex;
+  justify-content: right;
 }
 
 .txt-comision {
@@ -56,12 +67,22 @@
   font-weight: bold;
 }
 .total-price {
-  font-size: xx-large;
-  float: right;
-  padding: 7px 10px 3px 10px;
+  display: block;
 
+  padding: 7px 10px 3px 10px;
+  margin: 0 0 30px 0;
   border-radius: 5px;
   background-color: #43e774;
+
+  width: fit-content;
+  
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.onRight {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 @media only screen and (max-width: 680px) {

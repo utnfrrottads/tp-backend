@@ -2,7 +2,7 @@
     <!-- Solo se muestra si hay elementos en el carrito -->
     <div *ngIf="this.list.length > 0">
         <h4>Carrito:</h4>
-        <table class="striped ">
+        <table class="striped">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -16,11 +16,15 @@
             <tbody>
                 <!-- para todos los productos de la lista-->
                 <tr *ngFor="let producto of list">
-                    <td class="nombre">{{producto.nombre}}</td>
-                    <td class="hide-on-small">{{producto.descripcion}}</td>
+                    <td class="nombre">
+                        <p class="max-4-lines">{{producto.nombre}}</p>
+                    </td>
+                    <td class="hide-on-small justified">
+                        <p class="max-4-lines">{{producto.descripcion}}</p>
+                    </td>
                     <td class="hide-on-tiny">${{producto.precio}}</td>
                     <td>
-                        <div class="unselectable">
+                        <div class="unselectable ">
                             <p class="cantidad">{{producto.cantComprar}}</p>
                             <div class="flechas center">
                                 <i class="material-icons" (click)="add(producto)">add_circle</i>
@@ -37,24 +41,25 @@
                 </tr>
             </tbody>
         </table>
-        <div class="final-div">
-            <p class="txt-comision">Seleccione el método de envio de los productos</p>
-            <mat-form-field appearance="fill" class="option-comisionistas">
-                <mat-select [(value)]="IdComisionistaSeleccionado">
-                    <mat-option *ngFor="let c of comisionistas" value="{{c._id}}"><b> {{c.nombre}}</b> - ${{c.precio}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <br>
-            <div class="total-price">
-                <h5>Total: ${{precioFinal()}}</h5>
+
+        <div class="botton-table" >
+
+            <div class="onRight">
+                <p class="txt-comision">Seleccione el método de envio de los productos</p>
+                <mat-form-field appearance="fill">
+                    <mat-select [(value)]="IdComisionistaSeleccionado">
+                        <mat-option *ngFor="let c of comisionistas" value="{{c._id}}"><b> {{c.nombre}}</b> -
+                            ${{c.precio}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
+
         </div>
-
-        
+        <div class="total-price">
+            <h5>Total: ${{precioFinal()}}</h5>
+        </div>
     </div>
-
-
 
     <!-- si no hay elementos en el carrito se muestra esto-->
     <div class="big-msg-container" *ngIf="this.list.length <=0">
