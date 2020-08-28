@@ -6,6 +6,11 @@ controller.getProductos = async (req, res) => {
   res.json(producto);
 };
 
+controller.getProductosByRubro = async (req, res) => {
+  const product = await ProductoModel.find({'rubro._id': req.params.id_rubro});
+  res.json(product);
+}
+
 controller.getProducto = (req, res) => {
   ProductoModel.findById(req.params.id)
     .then((respuesta) => res.json(respuesta))

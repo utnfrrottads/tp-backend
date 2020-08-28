@@ -1,14 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductCardsService {
-  list = [];
+ 
 
-  constructor() { 
+  constructor(private http: HttpClient) { }
 
+  readonly baseURL = 'http://localhost:3000/api/productos';
+
+  getProductos() {
+    const URL = this.baseURL; 
+    return this.http.get(URL);
   }
+
+  getProducto(idProducto){
+    const URL = this.baseURL+'/'+idProducto;
+    return this.http.get(URL);
+  }
+
+  getProductosByRubro(id_rubro) {
+    const URL = this.baseURL; 
+    return this.http.get(URL + '/rubro/' + id_rubro)
+    
+  }
+  /*
   getProducts(idRubroBuscado){
   //acá debería llamar a un procedimiento que recupere de la BD
   this.list = [{  idProducto: 1, idRubro: idRubroBuscado,  idEmpresa: 1, nombre: "Notebook", imagen: "https://http2.mlstatic.com/notebook-lenovo-i3-8130u-4gb-1tb-156-pulgadas-dvdrw-D_NQ_NP_872956-MLA42418883269_062020-F.webp", precio: 50000,  descripcion: "Es una notebook, un producto muy bueno y de alta calidad.", stock: 25 },
@@ -31,6 +49,6 @@ export class ProductCardsService {
 
   return this.list;
   }
-
+*/
 
 }
