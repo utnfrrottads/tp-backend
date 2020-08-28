@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComisionistasService } from '../../services/comisionistas.service';
+import { VentasService } from 'src/app/services/ventas.service';
 
 @Component({
   selector: 'app-carrito',
@@ -12,7 +13,8 @@ export class CarritoComponent implements OnInit {
   comisionistaAnterior=null;
 
   constructor(
-    private comisionistasService: ComisionistasService
+    private comisionistasService: ComisionistasService,
+    private ventas: VentasService
     ) {}
 
   ngOnInit(): void {
@@ -21,61 +23,18 @@ export class CarritoComponent implements OnInit {
       this.comisionistas = res;
     })
 
-    this.list = [
-      {
-        idProducto: 3,
-        idRubro: 2,
-        idEmpresa: 1,
-        nombre: 'PS4 con Call of Duty Black Ops incluido',
-        imagen:
-          'https://http2.mlstatic.com/D_NQ_NP_2X_743314-MLA40175756183_122019-F.webp  ',
-        precio: 17999,
-        descripcion:
-          'Tremenda para vicear, pero hasta ahí nomas. No tiene mas potencia que un i5, pero sale el triple',
-        stock: 3,
-      },
-      {
-        idProducto: 3,
-        idRubro: 2,
-        idEmpresa: 1,
-        nombre: 'Samsung Galaxy S69 - Funda platino - 99 GB RAM',
-        imagen:
-          'https://cnet1.cbsistatic.com/img/_RKt08nA2AkU4hgTJHtoOwsuKAI=/980x0/2020/05/02/f7bad802-c8c5-4a3d-8977-d5848a515c48/galaxy-a51.jpg',
-        precio: 32199,
-        descripcion:
-          'Telefono completo. Viene con funda de platino, bañada con diamantes sacados del machupichu/peru. Lo sacamos a la fuerza entrando con una escavadora y atropellando 30 peruanos. El gerente termino preso ',
-        stock: 3,
-      },
-      {
-        idProducto: 4,
-        idRubro: 2,
-        idEmpresa: 1,
-        nombre: 'Bicicleta para hacer Modelos del dominio',
-        imagen:
-          'https://http2.mlstatic.com/mountain-bike-top-mega-rodado26-modelo-rowen-envios-gratis-D_NQ_NP_947011-MLA40463784361_012020-F.webp',
-        precio: 17888,
-        descripcion:
-          'Bicicleta para tomar examen en la UTN FRRo: Materia ADES. Caes con esta al aula y decis que sos la profesora',
-        stock: 3,
-      },
-      {
-        idProducto: 5,
-        idRubro: 2,
-        idEmpresa: 1,
-        nombre: 'Procesador Ryzen 7 1800x',
-        imagen:
-          'https://http2.mlstatic.com/mountain-bike-top-mega-rodado26-modelo-rowen-envios-gratis-D_NQ_NP_947011-MLA40463784361_012020-F.webp',
-        precio: 17888,
-          descripcion: 'Una bestia, lo tengo overclockeado a 3.9 GHZ, podria un poco mas, pero se me calienta demasiado jajaj salu2. En el red dead redemption 2 no llega ni al 40% del uso, en parte porque es potente, y otra parte porque esta optimizado como el orto. Eso si, la tarjeta de video me explota. Un saludo',
-        stock: 3,
-      },
-    ];
+    this.list = this.ventas.getCart();
 
     //a cada elemento de la lista le agrego una cantidad para comprar
     //por defecto será 1.
-    this.list.forEach((element) => {
-      element.cantComprar = 1;
-    });
+    if (this.list != null) {
+      this.list.forEach((element) => {
+        element.cantComprar = 1;
+      });
+    }
+    else{
+      this.list = [];
+    }
   }
 
   add(producto) {
@@ -93,6 +52,9 @@ export class CarritoComponent implements OnInit {
     if (index > -1) {
       this.list.splice(index, 1);
     }
+    this.ventas.removeFromCart(producto);
+    this.list = this.ventas.getCart();
+
 
     if(producto.idComisionista !== undefined){
       //significa que borré un comisionista
@@ -116,6 +78,7 @@ export class CarritoComponent implements OnInit {
   
   agregarComisionista() {
     if(this.comisionistaAnterior!== null){
+      console.log(this.comisionistaAnterior)
       this.delete(this.comisionistaAnterior);
     }
     let com =  {

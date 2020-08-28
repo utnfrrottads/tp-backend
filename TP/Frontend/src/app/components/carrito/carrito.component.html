@@ -1,15 +1,17 @@
 <div class="container">
-    <h4>Carrito:</h4>
-    <table class="striped ">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th class="hide-on-small">Descripción</th>
-                <th class="hide-on-tiny">Precio unitario</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
+    <!-- Solo se muestra si hay elementos en el carrito -->
+    <div *ngIf="this.list.length > 0">
+        <h4>Carrito:</h4>
+        <table class="striped ">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th class="hide-on-small">Descripción</th>
+                    <th class="hide-on-tiny">Precio unitario</th>
+                    <th class="center">Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
 
         <tbody>
             <!-- para todos los productos de la lista-->
@@ -45,7 +47,7 @@
                 <td></td>
             </tr>
         </tbody>
-    </table>
+
 
            <!-- elegir el comisionista -->
            <div class="renglon">
@@ -57,4 +59,25 @@
                </select>
              </div>
 
+  
+        </table>
+    </div>
+    <!-- si no hay elementos en el carrito se muestra esto-->
+    <div class="big-msg-container" *ngIf="this.list.length <=0">
+        <h3 class="big-msg-text">¡No hay items en el carrito!</h3>
+
+        <i class="fa fa-shopping-cart center fa-5x" style="color: white;"></i>
+
+        <div>
+            <h6 class="big-msg-text"> ¡Ve a la seccion de productos y elige lo que deseas comprar!</h6>
+            <div class="center">
+                <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
+                    <i class="material-icons right">view_module</i>
+                    Ver productos disponibles
+                </button>
+            </div>
+        </div>
+
+
+    </div>
 </div>

@@ -30,8 +30,6 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.detectScreenSize();
     this.elems = document.querySelectorAll('.dropdown-trigger');
     this.instances = M.Dropdown.init(this.elems, this.options);
@@ -55,7 +53,12 @@ export class NavComponent implements OnInit {
       return true;
     }
   }
-  itemsOnStorage(){
-    return JSON.parse(localStorage.getItem('carrito')).length;
+  itemsOnStorage() {
+    let carrito = JSON.parse(localStorage.getItem('carrito'));
+    if (carrito == null) {
+      return 0;
+    } else {
+      return carrito.length;
+    }
   }
 }

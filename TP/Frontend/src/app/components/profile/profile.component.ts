@@ -16,7 +16,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private _snackBar: MatSnackBar,
     private userService: UserService,
-    private imgService: ImageUploaderService
+    private imgService: ImageUploaderService,
+    private router: Router
   ) {}
 
   storagedUser: any = {};
@@ -42,17 +43,16 @@ export class ProfileComponent implements OnInit {
   ImageFile = null;
 
   ngOnInit(): void {
+    if(!this.userService.isLoggedIn()){
+      this.router.navigate(['login'])
+    }
+
     M.AutoInit();
     M.updateTextFields();
     this.storagedUser = JSON.parse(localStorage.getItem('user'));
     this.patchStoragedUser();
     console.log(this.storagedUser);
   }
-
-  save(form) {}
-  discard(form) {}
-
-
 
   openSnackBar(message: string, action: string) {
     //metodo para que aparezca en pantalla un snack para informar al usuario.
