@@ -11,11 +11,57 @@ import { ConstantPool } from '@angular/compiler';
 export class ProductsContainerComponent implements OnInit {
   list:any = [];
 
-  identifier = "";
+  descripcionParameter = "";
+  rubroParameter = "";
 
   constructor(private service: ProductCardsService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => { 
+      this.descripcionParameter = params.searchKey;
+      this.rubroParameter = params.idRubro;
+      if (this.descripcionParameter) {
+        this.service.getProductosByDescripcion(this.descripcionParameter).subscribe(res => 
+          this.list = res
+          );
+      }
+      else if(this.rubroParameter) {
+        this.service.getProductosByRubro(this.rubroParameter).subscribe(res => 
+          this.list = res
+          )
+      }
+      else {
+        this.service.getProductos().subscribe(res => 
+          this.list = res
+          )
+      }
+      console.log(this.descripcionParameter);
+      console.log(this.rubroParameter);
+    }); 
+    /*
+      if (this.descripcionParameter) 
+        this.service.getProductosByDescripcion(this.descripcionParameter).subscribe((res)=> {
+          this.list = res;
+          return;
+        })
+      }
+    this.route.params.subscribe((params) => { 
+      this.rubroParameter = params.idRubro;
+    })
+      if (this.rubroParameter) {
+        this.service.getProductosByRubro(this.rubroParameter).subscribe((res)=> {
+          this.list = res;
+          return
+        })
+      }
+      else {
+        this.service.getProductos().subscribe((res)=> {
+          this.list = res;
+      })
+
+    
+  }
+    /*
     this.identifier = this.route.snapshot.params.idRubro;
     if(this.identifier) {
       this.service.getProductosByRubro(this.identifier).subscribe((res)=> {
@@ -23,13 +69,17 @@ export class ProductsContainerComponent implements OnInit {
       })
     }
     else {
-      this.service.getProductos().subscribe((res)=> {
-        this.list = res;
+      this.identifier = this.route.snapshot.params.searchKey;
+      if (this.identifier) {
+        this.service.getProductosByDescripcion(this.identifier).subscribe((res)=> {
+          this.list = res;
+        })}           
+      else {
+        this.service.getProductos().subscribe((res)=> {
+          this.list = res;
       })
-    }
- 
-
+    }  
+  } }
+*/
   }
-    
-
 }
