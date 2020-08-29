@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +9,23 @@ export class ImageUploaderService {
 
   backendURL = 'http://localhost:3000/api/uploadImage';
 
-  subirImagen(imageFile) {
+  uploadSingreFile(imageFile) {
     let body = new FormData();
     body.append('file', imageFile);
     let options = {};
-    return this.http.post<any>(this.backendURL, body, options);
+    return this.http.post<any>(this.backendURL, body, options).toPromise();
+  }
+
+  subirImagenes(imagenes) {
+    if (imagenes == null) {
+      return Promise.resolve(null);
+    }
+    let promises = [];
+    for (let i = 0; i < imagenes.length; i++) {
+      let p = this.uploadSingreFile(imagenes[i]);
+      promises.push(p);
+    }
+
+    return Promise.all(promises);
   }
 }

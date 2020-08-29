@@ -5,53 +5,51 @@
 
   <form class="form-contenedor" [formGroup]="productForm">
 
-  <div class="renglon">
-    <label>Indicá el nombre del producto</label>
+    <div class="renglon">
+      <label>Indicá el nombre del producto</label>
       <input type="text" formControlName="nombre" placeholder="Nombre de tu producto" class="validate">
-  </div>
+    </div>
 
-  <div class="renglon">
-    <label>Describí tu producto</label>
-    <div class="input-descripcion">
-      <textarea type="text" 
-        formControlName="descripcion" 
-        placeholder="Descripción del producto" 
-        class="validate txt-area" 
-        [(ngModel)]="txtAreaText" 
-        (ngModelChange)="txtAreaTextChanges($event)">
+    <div class="renglon">
+      <label>Describí tu producto</label>
+      <div class="input-descripcion">
+        <textarea type="text" formControlName="descripcion" placeholder="Descripción del producto"
+          class="validate txt-area" [(ngModel)]="txtAreaText" (ngModelChange)="txtAreaTextChanges($event)">
       </textarea>
-    </div>
-  </div>
-
-  <div class="renglon">
-    <div class="medio-renglon izquierda">
-   <label>Rubro</label>
-      <select id="rubro" class="browser-default" (change)="obtenerIdRubro($event.target.value)"> <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
-        <option disabled selected>Elegí el rubro de tu producto</option>
-        <option *ngFor="let rubro of rubros" [value]='rubro._id'>{{rubro.descripcion}}</option>
-      </select>
+      </div>
     </div>
 
-    <div class="medio-renglon derecha">
-      <label>¿Cuantos vendes?</label>
-      <input formControlName="stock" id="stock" placeholder="Indicá tu stock" type="text" class="validate"> 
+    <div class="renglon">
+      <div class="medio-renglon izquierda">
+        <label>Rubro</label>
+        <select id="rubro" class="browser-default" (change)="obtenerIdRubro($event.target.value)">
+          <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
+          <option disabled selected>Elegí el rubro de tu producto</option>
+          <option *ngFor="let rubro of rubros" [value]='rubro._id'>{{rubro.descripcion}}</option>
+        </select>
+      </div>
+
+      <div class="medio-renglon derecha">
+        <label>¿Cuantos vendes?</label>
+        <input formControlName="stock" id="stock" placeholder="Indicá tu stock" type="text" class="validate">
+      </div>
     </div>
-  </div>
 
 
     <div class="renglon medio-renglon izquierda">
       <label>¿A qué precio?</label>
-      <input formControlName="precio" id="precio" placeholder="Indicá el precio de tu producto" type="text" class="validate"> 
+      <input formControlName="precio" id="precio" placeholder="Indicá el precio de tu producto" type="text"
+        class="validate">
     </div>
-      
+
     <div class="renglon medio-renglon derecha">
       <label>Mostrales a todos tu producto</label> <br>
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" class="input-img">
+      <input type="file" accept="image/*" multiple (change)="onFileSelected($event)" class="input-img">
     </div>
 
     <button class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="save()"
       [disabled]='!productForm.valid'>Cargar Producto
-      <i class="material-icons right" ></i>
+      <i class="material-icons right"></i>
     </button>
 
   </form>

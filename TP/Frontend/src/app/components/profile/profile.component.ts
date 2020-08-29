@@ -43,8 +43,8 @@ export class ProfileComponent implements OnInit {
   ImageFile = null;
 
   ngOnInit(): void {
-    if(!this.userService.isLoggedIn()){
-      this.router.navigate(['login'])
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['login']);
     }
 
     M.AutoInit();
@@ -63,16 +63,12 @@ export class ProfileComponent implements OnInit {
 
   async subirImagenYObtenerURL() {
     // subo la imagen y obtengo su url.
-    if (this.ImageFile != null) {
-      return this.imgService.subirImagen(this.ImageFile).toPromise();
-    } else {
-      return Promise.resolve(null);
-    }
+    return this.imgService.subirImagenes(this.ImageFile);
   }
 
   onFileSelected(event) {
     // guardo la imagen seleccionada dentro de la propiedad ImageFile.
-    this.ImageFile = event.target.files[0];
+    this.ImageFile = event.target.files;
   }
 
   patchStoragedUser() {
@@ -99,29 +95,35 @@ export class ProfileComponent implements OnInit {
     } else {
       // si habia imagen, la subo:
       this.subirImagenYObtenerURL().then((res) => {
-        let URL;
+        let URL = [];
         if (res == null) {
-          URL = this.storagedUser.url;
+          console.log('No se pudo subir imagen');
         } else {
-          URL = res.url;
-          this.url_imagen = URL;
+          for (let i = 0; i < res.length; i++) {
+            URL.push(res[i].url);
+          }
         }
         // edito al usuario.
         this.userService
           .editUser(
             this.mainForm.controls,
             this.tipoUsuario,
-            URL,
+            URL[0],
             this.storagedUser._id
           )
           .subscribe((res) => {
             // actualizo la imagen
             this.url_imagen = URL;
             // guardo localmente al usuario actualizado
-            this.userService.updateStoragedUser(this.mainForm.controls, URL, this.tipoUsuario, this.storagedUser._id);
+            this.userService.updateStoragedUser(
+              this.mainForm.controls,
+              URL[0],
+              this.tipoUsuario,
+              this.storagedUser._id
+            );
             // actualizo la promiedad storagedUser para que se renderizen bien el html
             this.storagedUser = JSON.parse(localStorage.getItem('user'));
-            this.openSnackBar('¡Su usuario ha sido actualizado!', 'OK')
+            this.openSnackBar('¡Su usuario ha sido actualizado!', 'OK');
           });
 
         this.ImageFile = null;
