@@ -11,6 +11,20 @@ controller.getProductosByRubro = async (req, res) => {
   res.json(product);
 }
 
+controller.getProductosByEmpresa = async (req, res) => {
+  const product = await ProductoModel.find({'idVendedor': req.params.id_vendedor});
+  res.json(product);
+}
+
+
+controller.getProductosByDescripcion = async (req, res) => {
+  await ProductoModel.find({nombre:{$regex: new RegExp(req.params.desc),'$options' : 'i'}}, function(err, data) {
+    res.json(data);
+  });
+}
+
+
+
 controller.getProducto = (req, res) => {
   ProductoModel.findById(req.params.id)
     .then((respuesta) => res.json(respuesta))

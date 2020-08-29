@@ -21,11 +21,22 @@ export class ProductCardsService {
     return this.http.get(URL);
   }
 
+  getProductosByDescripcion(searchKey) {
+    const URL = this.baseURL + '/descripcion/' + searchKey;
+    return this.http.get(URL);
+  }
+
   getProductosByRubro(id_rubro) {
     const URL = this.baseURL; 
     return this.http.get(URL + '/rubro/' + id_rubro)
-    
   }
+
+  getProductosByEmpresa(id_vendedor) {
+    const URL = this.baseURL + '/empresas/' + id_vendedor;
+    return this.http.get(URL);
+
+  }
+
   deleteProducto(producto:any) {
     const URL = this.baseURL +'/' + producto.id;
     return this.http.delete(URL);

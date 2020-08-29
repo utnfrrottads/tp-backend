@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Producto } from '../../model/productos';
 import { Router } from '@angular/router';
+import { ProductCardsService } from 'src/app/services/product-cards.service';
 declare var M: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class NavComponent implements OnInit {
   options = [];
   nav_string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private service: ProductCardsService) {}
 
   @HostListener('window:resize', [])
   public onResize() {
@@ -35,11 +36,17 @@ export class NavComponent implements OnInit {
     this.instances = M.Dropdown.init(this.elems, this.options);
   }
   search(input) {
-    let texto = input.value.trim();
-    if (texto !== '') {
-      console.log('Se ha buscado un producto usando la palabra:' + texto);
-      input.value = '';
+    let texto = input.value;
+    console.log(texto);
+    if (texto === '') {
+      window.alert('Por favor ingrese una descripción de lo que desea comprar');
+      return;
     }
+    else{
+      this.router.navigate(['/rubros/productos/search',texto]);
+    }
+    
+    
   }
 
   CloseSession() {

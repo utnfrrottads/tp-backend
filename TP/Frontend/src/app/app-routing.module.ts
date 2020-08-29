@@ -11,19 +11,23 @@ import { ListaEmpresasComponent } from './components/lista-empresas/lista-empres
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
   
   { path:'rubros',component: ListaRubrosComponent},
   { path:'rubros/productos',component: ProductsContainerComponent},
+  { path:'rubros/empresas',component: ListaEmpresasComponent},
+  { path: 'rubros/empresas/:idEmpresa', component:ProductsContainerComponent},
   { path:'rubros/:idRubro',component: ProductsContainerComponent},
   { path:'rubros/productos/:idProducto',component: ProductDetailComponent},
-  { path:'profile', component: ProfileComponent},
-  { path:'rubros/empresas',component: ListaEmpresasComponent},
+  { path:'rubros/productos/search/:searchKey',component: ProductsContainerComponent},
+  { path:'profile', component: ProfileComponent}, 
   { path: 'carrito', component: CarritoComponent},
   { path: 'publicar', component: SubirProductoComponent},
   { path: 'login', component: LoginComponent},
+  { path: '404', component:PageNotFoundComponent},
   { path:'', redirectTo:'rubros', pathMatch: 'full'},
   { path:'**',redirectTo:'rubros'}
 
