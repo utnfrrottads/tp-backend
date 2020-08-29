@@ -20,8 +20,22 @@ export class VentasService {
       }
     }
   }
+  updateCantComprar(producto){
+
+    let items = JSON.parse(localStorage.getItem('carrito'));
+    let item;
+    items.forEach(element => {
+      if(element._id === producto._id){
+        element.cantComprar = producto.cantComprar
+      }
+    });
+
+    localStorage.setItem('carrito', JSON.stringify(items));
+
+  }
 
   addToCart(producto) {
+    console.log(producto)
     let items = JSON.parse(localStorage.getItem('carrito'));
     if (items == null) {
       // primera vez abriendo el carrito.
@@ -33,8 +47,15 @@ export class VentasService {
   }
   removeFromCart(producto) {
     let items = JSON.parse(localStorage.getItem('carrito'));
-    let item = items.filter((e) => e._id === producto._id);
+    //let item = items.filter((e) => e._id === producto._id);
+    let item;
+    items.forEach(element => {
+      if(element._id === producto._id){
+        item = element
+      }
+    });
     const index = items.indexOf(item);
+    //console.log(index)
     items.splice(index, 1);
 
     localStorage.setItem('carrito', JSON.stringify(items));

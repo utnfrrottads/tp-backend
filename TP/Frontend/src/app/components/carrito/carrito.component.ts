@@ -22,10 +22,10 @@ export class CarritoComponent implements OnInit {
     this.comisionistasService.getComisionistas().subscribe((res) => {
       this.comisionistas = res;
       this.IdComisionistaSeleccionado = res[0]._id;
-      console.log(this.comisionistas);
     });
 
     this.list = this.ventas.getCart();
+    console.log(this,list)
 
     //a cada elemento de la lista le agrego una cantidad para comprar
     //por defecto será 1.
@@ -41,29 +41,34 @@ export class CarritoComponent implements OnInit {
   add(producto) {
     if (producto.cantComprar < producto.stock) {
       producto.cantComprar++;
+      this.ventas.updateCantComprar(producto);
     }
   }
   remove(producto) {
     if (producto.cantComprar > 1) {
       producto.cantComprar--;
+      this.ventas.updateCantComprar(producto);
     }
   }
+
   delete(producto) {
     const index = this.list.indexOf(producto);
+
     if (index > -1) {
-      this.list.splice(index, 1);
+      //this.list.splice(index, 1);
+      this.ventas.removeFromCart(producto);
     }
-    this.ventas.removeFromCart(producto);
     this.list = this.ventas.getCart();
+    console.log(this.list)
   }
+
   precioFinal() {
     // calculo el total de los productos
     let total = 0;
     this.list.forEach((element) => {
-      if (element.idComisionista === undefined) {
         total += element.cantComprar * element.precio;
-      }
     });
+
 
     // le agrego el comisionista
     let comision = 0;

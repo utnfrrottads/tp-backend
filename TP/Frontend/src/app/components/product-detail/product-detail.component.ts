@@ -56,6 +56,7 @@ export class ProductDetailComponent implements OnInit {
   }
   addToCart() {
     this.isInCart();
+    this.producto.cantComprar = 1;
     this.ventas.addToCart(this.producto);
   }
   removeFromCart() {

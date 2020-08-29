@@ -32,9 +32,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="subtotal" *ngIf="producto.idComisionista === undefined">$
-                        {{producto.precio * producto.cantComprar}}</td>
-                    <td class="subtotal" *ngIf="producto.idComisionista !== undefined">$ {{producto.precio}}</td>
+                    <td class="subtotal">$ {{producto.precio * producto.cantComprar}}</td>
                     <td class="unselectable"> <i class="material-icons delete"
                             (click)="delete(producto)">delete_forever</i>
                     </td>
