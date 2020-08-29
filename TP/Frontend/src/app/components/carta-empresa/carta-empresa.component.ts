@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Empresa } from 'src/app/model/empresas';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carta-empresa',
@@ -8,12 +9,15 @@ import { Empresa } from 'src/app/model/empresas';
 })
 export class CartaEmpresaComponent implements OnInit {
 
-  @Input() empresa:Empresa;
+  @Input() empresa:any;
   
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
   
+  getProductosByEmpresa(id) {
+    this.router.navigate(['/rubros/empresas',id]);
+  }
 
 }

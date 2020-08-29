@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-lista-empresas',
@@ -6,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-empresas.component.scss']
 })
 export class ListaEmpresasComponent implements OnInit {
-  empresas = [{ 
+  empresas:any = []; 
+  constructor(private service:UserService) { }
+
+  ngOnInit(): void {
+    this.service.getEmpresas().subscribe((res) => { 
+      this.empresas = res;
+    })
+  }
+
+}
+/*
+  [{ 
     id: 123,
     cuit: 'Under Armour',
     razonSocial: 'asdasd',
@@ -67,9 +79,4 @@ export class ListaEmpresasComponent implements OnInit {
     img: "https://image.flaticon.com/icons/svg/731/731962.svg"
   }
 ]
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+*/ 

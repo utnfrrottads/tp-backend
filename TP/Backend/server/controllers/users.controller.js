@@ -13,6 +13,11 @@ controller.getUser = (req, res) => {
     .catch((error) => res.json({ error: "No se encuentra el usuario", error: error }));
 };
 
+controller.getEmpresas = async (req, res) => {
+  const empresas  = await UserModel.find({'tipo': 'empresa'});
+  res.json(empresas);
+}
+
 controller.createUser = async (req, res) => {
   //verifico que no haya otro usuario con ese nombre.
   let user = await UserModel.find({ usuario: req.body.usuario });

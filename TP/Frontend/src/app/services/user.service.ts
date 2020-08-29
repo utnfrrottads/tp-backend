@@ -82,4 +82,10 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(user));
 
   }
+
+  getEmpresas() {
+    const URL = this.baseURL + 'empresas';
+    return this.http.get(URL);
+  }
+
 }
