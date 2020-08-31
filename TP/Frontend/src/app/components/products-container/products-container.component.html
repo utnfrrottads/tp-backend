@@ -1,28 +1,32 @@
 <div class="row container">
 
-    <div *ngIf="true">
-
+    <div *ngIf="list.length>0">
         <div class="elements">
             <div *ngFor="let producto of currentItemsToShow">
                 <app-card-list class="col s12 m6 l4" [producto]="producto"> </app-card-list>
             </div>
         </div>
         <div class="paginator">
-            <mat-paginator 
-            (page)="onPageChange($event)" 
-            [length]="list.length" 
-            [pageSize]="9"
-            [pageSizeOptions]="[9,12]" [pageIndex]="0"
-            >
+            <mat-paginator (page)="onPageChange($event)" [length]="list.length" [pageSize]="9"
+                [pageSizeOptions]="[9,12]" [pageIndex]="0">
             </mat-paginator>
         </div>
-
-
-
-
     </div>
 
-    <div *ngIf="false">
-        <h1>no hay nada</h1>
+    <div class="big-msg-container" *ngIf="!hayProductos()">
+        <h3 class="big-msg-text">¡No se encontraron productos!</h3>
+
+        <i class="fa fa-exclamation-circle center fa-5x" style="color: white;"></i>
+
+        <div>
+            <h6 class="big-msg-text"> Intenta realizar otra busqueda con palabras similares o busca productos por rubros
+            </h6>
+            <div class="center">
+                <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
+                    <i class="material-icons right">view_module</i>
+                    Ver productos disponibles
+                </button>
+            </div>
+        </div>
     </div>
 </div>

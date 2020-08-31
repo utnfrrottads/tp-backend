@@ -14,9 +14,11 @@ export class ProductsContainerComponent implements OnInit {
   descripcionParameter = '';
   rubroParameter = '';
   empresaParameter = '';
-
-  currentItemsToShow = [];
   pageEvent: PageEvent;
+  currentItemsToShow = [];
+  
+  // se usa para que espere a mostrar que no hay items.
+  enabledToShowNoItems = false;
 
   constructor(
     private service: ProductCardsService,
@@ -55,9 +57,21 @@ export class ProductsContainerComponent implements OnInit {
   }
 
   onPageChange($event) {
+    this.enabledToShowNoItems = true;
     this.currentItemsToShow = this.list.slice(
       $event.pageIndex * $event.pageSize,
       $event.pageIndex * $event.pageSize + $event.pageSize
     );
+  }
+
+  hayProductos() {
+    if (this.list.length > 0) {
+      return true;
+    } else {
+      if (this.enabledToShowNoItems) {
+        return false;
+      }
+      return true;
+    }
   }
 }
