@@ -28,7 +28,7 @@ export class CarritoComponent implements OnInit {
 
     //a cada elemento de la lista le agrego una cantidad para comprar
     //por defecto será 1.
-  /*  if (this.list != null) {
+    /*  if (this.list != null) {
       this.list.forEach((element) => {
         element.cantComprar = 1;
       });
@@ -58,16 +58,15 @@ export class CarritoComponent implements OnInit {
       this.ventas.removeFromCart(producto);
     }
     this.list = this.ventas.getCart();
-    console.log(this.list)
+    console.log(this.list);
   }
 
   precioFinal() {
     // calculo el total de los productos
     let total = 0;
     this.list.forEach((element) => {
-        total += element.cantComprar * element.precio;
+      total += element.cantComprar * element.precio;
     });
-
 
     // le agrego el comisionista
     let comision = 0;
