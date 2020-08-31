@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   storagedUser: any = {};
+  readonly defaultUserImageURL: string =
+    'https://res.cloudinary.com/elcurco8/image/upload/v1598910919/TTADS-TP/user_ybrhuc.png';
 
   mainForm = new FormGroup({
     usuario: new FormControl({ value: '', disabled: true }),
@@ -49,9 +51,13 @@ export class ProfileComponent implements OnInit {
 
     M.AutoInit();
     M.updateTextFields();
-    this.storagedUser = JSON.parse(localStorage.getItem('user'));
+    this.storagedUser = this.userService.getLocalUser();
+    
+    // si no tiene imagen por defecto le asigno una.
+    if (this.storagedUser.url == null) {
+      this.storagedUser.url = this.defaultUserImageURL;
+    }
     this.patchStoragedUser();
-    console.log(this.storagedUser);
   }
 
   openSnackBar(message: string, action: string) {
@@ -97,7 +103,12 @@ export class ProfileComponent implements OnInit {
       this.subirImagenYObtenerURL().then((res) => {
         let URL = [];
         if (res == null) {
-          console.log('No se pudo subir imagen');
+          let user = this.userService.getLocalUser();
+          if (user == null) {
+            URL = [this.defaultUserImageURL];
+          } else {
+            URL = [user.url];
+          }
         } else {
           for (let i = 0; i < res.length; i++) {
             URL.push(res[i].url);
