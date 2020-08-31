@@ -26,6 +26,7 @@ const routes: Routes = [
   { path:'profile', component: ProfileComponent}, 
   { path: 'carrito', component: CarritoComponent},
   { path: 'publicar', component: SubirProductoComponent},
+  { path: 'productos/editar/:idProducto', component: SubirProductoComponent},
   { path: 'login', component: LoginComponent},
   { path: '404', component:PageNotFoundComponent},
   { path:'', redirectTo:'rubros', pathMatch: 'full'},

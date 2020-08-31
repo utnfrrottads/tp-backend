@@ -16,10 +16,25 @@
         <div class="buy-info">
             <h1>{{producto.nombre}}</h1>
             <h2>${{producto.precio}}</h2>
-            <div id="si-hay-stock">
+            <div id="si-hay-stock" *ngIf="vendedorIsnotComprador()">
                 <p>Stock disponible</p>
-                <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()" *ngIf="isInCart()">Quitar del carrito</a>
-                <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()" *ngIf="!isInCart()">AGREGAR A CARRITO</a>
+                <a 
+                    class="waves-effect waves-light btn btn-color red" 
+                    (click)="removeFromCart()" 
+                    *ngIf="isInCart()">Quitar del carrito</a>
+
+                <a 
+                    class="waves-effect waves-light btn btn-color green" 
+                    (click)="addToCart()" 
+                    *ngIf="!isInCart()">AGREGAR A CARRITO</a>
+            </div>
+
+            <div *ngIf="!vendedorIsnotComprador()">
+                <p>Este producto ha sido publicado por ti</p>
+                <a 
+                    class="waves-effect waves-light btn btn-color-edit" 
+                    (click)="editPublicacion(producto._id)" 
+                    >EDITAR PUBLICACION</a>
             </div>
         </div>
 

@@ -41,6 +41,7 @@ export class ProductCardsService {
     const URL = this.baseURL +'/' + producto.id;
     return this.http.delete(URL);
   }
+
   createProducto(producto: any) {
     const body = {
       url: producto.url,
@@ -54,6 +55,24 @@ export class ProductCardsService {
     };
     return this.http.post(this.baseURL, body, {});
   }
+
+  editProducto(producto: any) {
+    const URL = this.baseURL +'/'+ producto.idProducto;
+    console.log(URL)
+    console.log(producto)
+    const body = {
+      url: producto.url,
+      _id: producto.idProducto,
+      nombre: producto.nombre,
+      rubro: producto.rubro,
+      idVendedor: producto.idVendedor,
+      descripcion: producto.descripcion,
+      stock: producto.stock,
+      precio: producto.precio,
+    };
+    return this.http.put(URL, body, {});
+  }
+
 
   editUser(producto:any) {
     const URL = this.baseURL +'/' + producto.id;
