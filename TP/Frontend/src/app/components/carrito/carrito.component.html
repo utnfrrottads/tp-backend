@@ -6,16 +6,57 @@
             <app-carrito-items [stepper]="stepper"></app-carrito-items>
         </mat-step>
 
-        <mat-step *ngIf="itemsOnCart()">
-            <!-- Confirmar Compra -->
-            <ng-template matStepLabel>Confirmar</ng-template>
-            <app-carrito-confirm [stepper]="stepper"></app-carrito-confirm>
+        <mat-step *ngIf="canGoNextStep()">
+            <!-- Comisionista y pago de los productos -->
+            <ng-template matStepLabel>Envio y Pago</ng-template>
+            <app-carrito-confirm [stepper]="stepper" (comisionista)="onComisionistaChanged($event)">
+            </app-carrito-confirm>
         </mat-step>
 
-        <mat-step *ngIf="itemsOnCart()" [stepControl]="falseFormGroup">
+        <mat-step *ngIf="canGoNextStep()">
             <!-- Compra finalizada -->
             <ng-template matStepLabel>Listo</ng-template>
-            <h2>Listo</h2>
+
+            <h6>Usuario: {{logedUser.nombre}}</h6>
+            <h6>Direccion: {{logedUser.localidad}}, {{logedUser.direccion}}</h6>
+
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th class="center">Producto</th>
+                        <th class="center">Cantidad</th>
+                        <th class="center">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of list">
+                        <td class="center"> {{producto.nombre}}</td>
+                        <td class="center"> x{{producto.cantComprar}}</td>
+                        <td class="center"> ${{producto.cantComprar * producto.precio}}</td>
+                    </tr>
+                    <tr>
+                        <td class="center">Método de entrega: {{comisionistaNombre()}} </td>
+                        <td class="center"></td>
+                        <td class="center">${{comisionistaPrice()}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="right">
+                <h5>Total ${{finalPrice()}}</h5>
+            </div>
+
+            <div>
+                <br> <br> <br>
+                <div class="buttons right center">
+                    <button class=" waves-effect waves-light btn btn-color-edit btn-large" (click)="stepper.reset()">
+                        Volver
+                    </button>
+                    <button class=" waves-effect purple waves-light btn-large" (click)="finishBuy()">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+
         </mat-step>
     </mat-horizontal-stepper>
 </div>

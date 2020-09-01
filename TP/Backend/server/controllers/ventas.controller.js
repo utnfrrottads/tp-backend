@@ -1,4 +1,5 @@
 const VentasModel = require("../models/ventas");
+const https = require('https')
 const controller = {};
 
 controller.getVentas = async (req, res) => {
@@ -15,6 +16,9 @@ controller.getVenta = (req, res) => {
 controller.createVenta = async (req, res) => {
   req.body.fecha = Date.now();
   const venta = new VentasModel(req.body);
+
+  // acá debería actualizar el stock de los productos que vendi
+  
   await venta.save();
   res.json({
     status: "Venta Saved",

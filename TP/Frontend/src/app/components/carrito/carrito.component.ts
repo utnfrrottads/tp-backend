@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ComisionistasService } from '../../services/comisionistas.service';
 import { VentasService } from 'src/app/services/ventas.service';
 import { UserService } from 'src/app/services/user.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-carrito',
@@ -10,23 +8,48 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./carrito.component.scss'],
 })
 export class CarritoComponent implements OnInit {
-  // para que no me deje pasar de arriba el stepper
-  falseFormGroup = new FormGroup({
-    check: new FormControl(false, Validators.requiredTrue),
-  });
   list = [];
+  comisionista: any;
+  logedUser: any;
 
-  constructor(private ventas: VentasService) {}
+  constructor(private ventas: VentasService, private user: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.logedUser = this.user.getLocalUser();
+  }
 
-  itemsOnCart() {
+  canGoNextStep() {
     this.list = this.ventas.getCart();
-    if (this.list.length > 0) {
+    if (this.list.length > 0 && this.user.isLoggedIn()) {
       return true;
     } else {
       return false;
     }
   }
 
+  onComisionistaChanged(event) {
+    this.comisionista = event;
+  }
+  comisionistaNombre() {
+    if (this.comisionista == undefined) {
+      return '';
+    }
+    return this.comisionista.nombre;
+  }
+  comisionistaPrice() {
+    if (this.comisionista == undefined) {
+      return 0;
+    }
+    return this.comisionista.precio;
+  }
+
+  finalPrice() {
+    return this.ventas.getCartPrice() + this.comisionistaPrice();
+  }
+
+  finishBuy() {
+    this.ventas.postBuy(this.comisionista).subscribe((res) => {
+      console.log(res);
+    });
+  }
 }

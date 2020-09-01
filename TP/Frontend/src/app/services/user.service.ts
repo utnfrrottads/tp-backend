@@ -23,7 +23,6 @@ export class UserService {
       usuario: user,
       password: pass,
     };
-
     return this.http.post(URL, body, {});
   }
 

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ComisionistasService } from 'src/app/services/comisionistas.service';
 import { VentasService } from 'src/app/services/ventas.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-carrito-confirm',
@@ -10,11 +11,17 @@ import { VentasService } from 'src/app/services/ventas.service';
 export class CarritoConfirmComponent implements OnInit {
   constructor(
     private comisionistasService: ComisionistasService,
-    private ventaService: VentasService
+    private ventaService: VentasService,
+    private user: UserService
   ) {}
+
+
   comisionistas: any = [];
   IdComisionistaSeleccionado: any;
   metodoPago = 'efectivo';
+
+  @Input() stepper: any;
+  @Output() comisionista = new EventEmitter<any>();
 
   ngOnInit(): void {
     this.comisionistasService.getComisionistas().subscribe((res) => {
@@ -35,6 +42,7 @@ export class CarritoConfirmComponent implements OnInit {
     let com = this.comisionistas.find((obj) => {
       return obj._id === id;
     });
+    this.comisionista.emit(com);
     return com;
   }
 }
