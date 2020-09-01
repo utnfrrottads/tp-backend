@@ -17,60 +17,56 @@
                 </div>
 
                 <div *ngFor="let url of producto.url; index as i" class="carousel-item white">
-                    <img src="{{producto.url[i]}}" >
+                    <img src="{{producto.url[i]}}">
                 </div>
             </div>
         </div>
     </div>
-    <!-- slider -->
+
 
     <aside class="right-options">
         <div class="buy-info">
-            <h1>{{producto.nombre}}</h1>
-            <h2>${{producto.precio}}</h2>
+            <h1 class="justift">{{producto.nombre}}</h1>
+            <h2 class="center">${{producto.precio}}</h2>
             <div id="si-hay-stock" *ngIf="vendedorIsnotComprador()">
                 <p>Stock disponible</p>
 
-                <a 
-                    class="waves-effect waves-light btn btn-color red" 
-                    (click)="removeFromCart()" 
+                <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()"
                     *ngIf="isInCart()">Quitar del carrito</a>
 
-                <a 
-                    class="waves-effect waves-light btn btn-color green" 
-                    (click)="addToCart()" 
+                <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()"
                     *ngIf="!isInCart()">AGREGAR A CARRITO</a>
             </div>
 
             <div *ngIf="!vendedorIsnotComprador()">
                 <p>Este producto ha sido publicado por ti</p>
-                <a 
-                    class="waves-effect waves-light btn btn-color-edit"
-                    (click)="editPublicacion(producto._id)" 
-                    >EDITAR PUBLICACION</a>
-                    <a 
-                    class="waves-effect waves-light btn btn-color red" style="width: 50%; margin-top: 15px"
-                    (click)="deletePublicacion(producto._id)" 
-                    >Eliminar producto</a>
+                <a class="waves-effect waves-light btn btn-color-edit" (click)="editPublicacion(producto._id)">EDITAR
+                    PUBLICACION</a>
+                    <br>
+                <a class="waves-effect waves-light btn btn-color red" style="margin-top: 15px"
+                    (click)="deletePublicacion(producto._id)">Eliminar producto</a>
             </div>
         </div>
 
         <div class="card seller-profile">
-            <div class="imagen-profile">
+
+            <div class="center">
                 <img class="mini-imagen" src="{{vendedor.url}}">
             </div>
 
             <span class="card-title">{{vendedor.razonSocial}}</span>
 
             <footer class="descripcion-empresa">
-                <p>Localidad: {{vendedor.localidad}}</p>
-                <p>Dirección: {{vendedor.direccion}}</p>
+                <p class="center title"><b>{{vendedor.nombre}}</b></p>
+                <p class="center text">Localidad: {{vendedor.localidad}} </p>
+                <p class="center text">Dirección: {{vendedor.direccion}} </p>
+
             </footer>
         </div>
     </aside>
     <div class="descr-producto">
-        <h2>Descripcion del producto</h2>
-        <p>{{producto.descripcion}}</p>
+        <h3>Descripcion del producto</h3>
+        <p class="justify">{{producto.descripcion}}</p>
     </div>
 
 </div>

@@ -66,8 +66,6 @@ h2 {
   align-items: center;
 }
 
-
-
 .btn-color-edit {
   background-color: white;
   color: rgb(103, 058, 183);
@@ -86,33 +84,36 @@ h2 {
 
 .descripcion-empresa {
   text-align: left;
-  padding-left: 2em;
   padding-bottom: 1em;
   position: relative;
 }
-
-.imagen-profile {
-  width: 150px;
-  height: 150px;
-  margin-top: 25px;
-  border-radius: 50%;
-  margin-left: auto;
-  margin-right: auto;
+.descripcion-empresa .title {
+  margin: 0 0 10px 0;
 }
+.descripcion-empresa .text {
+  margin: 0px;
+}
+
 .seller-profile {
   margin-top: 5em;
   width: 280px;
   height: 280px;
 }
 
-.mini-imagen{
-  width: 150px !important; 
-  height: 150px !important;
-  border-radius: 100% !important;
+.mini-imagen {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 50%;
+  object-fit: fill;
 }
 
 .product-image {
   width: 200px;
+}
+
+.justify {
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -198,7 +199,7 @@ a.middle-indicator-text {
 .indicators {
   visibility: hidden;
 }
-img{
+img {
   object-fit: scale-down;
   height: 400px !important;
 }
