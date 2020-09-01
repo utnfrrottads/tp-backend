@@ -20,14 +20,12 @@
     </div>
 
     <div class="renglon">
-      <div class="medio-renglon izquierda"  style="margin-bottom: 25px;">
+      <div class="medio-renglon izquierda" style="margin-bottom: 25px;">
         <label>Rubro</label>
         <mat-select [(value)]="idRubroSeleccionado">
-          <mat-option 
-          *ngFor="let rubro of rubros" 
-          value="{{rubro._id}}">
-          <b>{{rubro.descripcion}}</b></mat-option>
-      </mat-select>
+          <mat-option *ngFor="let rubro of rubros" value="{{rubro._id}}">
+            <b>{{rubro.descripcion}}</b></mat-option>
+        </mat-select>
 
       </div>
 
@@ -36,7 +34,7 @@
         <input formControlName="stock" id="stock" placeholder="Indicá tu stock" type="text" class="validate">
       </div>
     </div>
-          
+
 
     <div class="renglon">
       <div class="medio-renglon izquierda">
@@ -51,20 +49,20 @@
       </div>
       <div class="abajo imagenes">
         <div class="izquierda" *ngFor="let imagen of producto.url">
-          <img class="mini-imagen col s12 m4 l3 xl2 eliminar" src={{imagen}} (click)="eliminarImagen(imagen)"> 
+          <img class="mini-imagen col s12 m4 l3 xl2 eliminar" src={{imagen}} (click)="eliminarImagen(imagen)">
         </div>
       </div>
     </div>
 
-    <button *ngIf="!modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="save()"
-      [disabled]='!productForm.valid'>Cargar Producto
+    <button *ngIf="!modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action"
+      (click)="save()" [disabled]='!productForm.valid'>Cargar Producto
       <i class="material-icons right"></i>
     </button>
 
-    <button *ngIf="modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="edit()"
-    [disabled]='!productForm.valid'>Editar Producto
-    <i class="material-icons right"></i>
-  </button>
+    <button *ngIf="modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action"
+      (click)="edit()" [disabled]='!productForm.valid'>Editar Producto
+      <i class="material-icons right"></i>
+    </button>
 
   </form>
 
