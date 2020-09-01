@@ -4,6 +4,7 @@ import { VentasService } from '../../services/ventas.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { UserService } from 'src/app/services/user.service';
 import {Producto} from '../../model/productos'
+import {Persona} from '../../model/personas'
 
 declare var M: any;
 
@@ -18,7 +19,7 @@ export class ProductDetailComponent implements OnInit {
   CarrouselElems: any;
   CarrouselInstance: any;
   producto = new Producto();
-
+  vendedor : any;
   usuario: any;
   vendedorIsNotComprador: any;
 
@@ -29,9 +30,10 @@ export class ProductDetailComponent implements OnInit {
 
     private vService: UserService,
     private router:Router
-    ) { }
+    ) {   }
 
   ngOnInit(): void {  
+    
     //el usuario es el que tengo en el localStorage
     this.usuario = JSON.parse(localStorage.getItem('user'));
 
@@ -45,6 +47,9 @@ export class ProductDetailComponent implements OnInit {
         this.vService.getUser(this.producto.idVendedor)
         .subscribe((res)=>{
           this.vendedor = res;
+          console.log("vendedor")
+
+          console.log(this.vendedor)
           this.vendedorIsnotComprador();
         })
       });
@@ -100,7 +105,9 @@ export class ProductDetailComponent implements OnInit {
 
   editPublicacion(id){
       this.router.navigate(['productos/editar/',id]);
-
+  }
+  deletePublicacion(id){
+      this.router.navigate(['productos/eliminar/',id]);
   }
 
 }

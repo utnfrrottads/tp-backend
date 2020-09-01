@@ -3,6 +3,8 @@
 .container {
   outline: none !important;
   overflow: hidden;
+  min-height: 100%;
+  margin-bottom: 20px;
 }
 
 h1 {
@@ -64,13 +66,7 @@ h2 {
   align-items: center;
 }
 
-.seller-profile {
-  margin-top: 5em;
-  width: auto;
-  height: auto;
-  padding-left: 1em;
-  padding-right: 1em;
-}
+
 
 .btn-color-edit {
   background-color: white;
@@ -95,23 +91,34 @@ h2 {
   position: relative;
 }
 
-.empresa-profile {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
+.imagen-profile {
+  width: 150px;
+  height: 150px;
+  margin-top: 25px;
   border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
 }
-
-.empresa-profile img {
-  margin-top: 25px;
-  width: 100%;
-  height: auto;
+.seller-profile {
+  margin-top: 5em;
+  width: 280px;
+  height: 280px;
 }
+
+.mini-imagen{
+  width: 150px !important; 
+  height: 150px !important;
+  border-radius: 100% !important;
+}
+
 .product-image {
   width: 200px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    margin-bottom: 20px;
+  }
 }
 
 @media only screen and (max-width: 1000px) {

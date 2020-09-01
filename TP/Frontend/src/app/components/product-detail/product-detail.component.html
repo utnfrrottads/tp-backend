@@ -45,15 +45,19 @@
             <div *ngIf="!vendedorIsnotComprador()">
                 <p>Este producto ha sido publicado por ti</p>
                 <a 
-                    class="waves-effect waves-light btn btn-color-edit" 
+                    class="waves-effect waves-light btn btn-color-edit"
                     (click)="editPublicacion(producto._id)" 
                     >EDITAR PUBLICACION</a>
+                    <a 
+                    class="waves-effect waves-light btn btn-color red" style="width: 50%; margin-top: 15px"
+                    (click)="deletePublicacion(producto._id)" 
+                    >Eliminar producto</a>
             </div>
         </div>
 
         <div class="card seller-profile">
-            <div class="empresa-profile">
-                <img src="{{vendedor.url}}" class="img-empresa-redonda">
+            <div class="imagen-profile">
+                <img class="mini-imagen" src="{{vendedor.url}}">
             </div>
 
             <span class="card-title">{{vendedor.razonSocial}}</span>

@@ -1,5 +1,5 @@
 export class Persona {
-    id: number;
+    _id: string;
     dni: number;
     localidad: string;
     direccion: string;
