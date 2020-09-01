@@ -23,6 +23,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { DialogoComponent } from './components/dialogo/dialogo.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SubirProductoComponent,
     LoginComponent,
     PageNotFoundComponent,
+    DialogoComponent,
     
     
   ],

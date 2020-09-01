@@ -38,14 +38,13 @@ export class ProductCardsService {
   }
 
   deleteProducto(producto:any) {
-    const URL = this.baseURL +'/' + producto.id;
+    const URL = this.baseURL +'/' + producto._id;
     return this.http.delete(URL);
   }
 
   createProducto(producto: any) {
     const body = {
       url: producto.url,
-      _id: producto._id,
       nombre: producto.nombre,
       rubro: producto.rubro,
       idVendedor: producto.idVendedor,
@@ -58,8 +57,6 @@ export class ProductCardsService {
 
   editProducto(producto: any) {
     const URL = this.baseURL +'/'+ producto.idProducto;
-    console.log(URL)
-    console.log(producto)
     const body = {
       url: producto.url,
       _id: producto.idProducto,
