@@ -23,6 +23,8 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { CarritoItemsComponent } from './components/carrito-items/carrito-items.component';
+import { CarritoConfirmComponent } from './components/carrito-confirm/carrito-confirm.component';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SubirProductoComponent,
     LoginComponent,
     PageNotFoundComponent,
+    CarritoItemsComponent,
+    CarritoConfirmComponent,
     
     
   ],
