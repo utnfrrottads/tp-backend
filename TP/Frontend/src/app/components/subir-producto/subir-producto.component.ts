@@ -7,6 +7,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ImageUploaderService } from '../../services/image-uploader.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from "@angular/material/dialog";
+import { DialogoComponent } from '../dialogo/dialogo.component';
 
 declare const M: any;
 
@@ -37,6 +39,8 @@ export class SubirProductoComponent implements OnInit {
     private service: ProductCardsService,
     private route: ActivatedRoute, 
     private pService: ProductCardsService,
+    private router:Router,
+    public dialogo: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -136,11 +140,24 @@ export class SubirProductoComponent implements OnInit {
         url: this.producto.url,
       };
 
-      this.service.createProducto(nuevoProducto).subscribe((res) => {
-        console.log(nuevoProducto);
-
-        // acá hay que abrir un snack y redireccionar al detalle del producto
-      });
+      this.service.createProducto(nuevoProducto).subscribe((res : any) => {
+        
+        this.dialogo
+        .open(DialogoComponent, {
+          data: { 
+            mensaje: `¡Se ha cargado el producto exitosamente!`,
+            tipoDialogEliminar: false,
+            tipoDialogAceptar: true
+          }
+        })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+          //cuando ya leyó el cartel y dió click en aceptar, lo redirijo al producto
+          if (confirmado) {
+            this.router.navigate(['rubros/productos/',res._id]);
+          }
+        });
+      })
     });
   }
 
@@ -171,9 +188,7 @@ export class SubirProductoComponent implements OnInit {
       };
 
       this.service.editProducto(nuevoProducto).subscribe((res) => {
-        console.log(nuevoProducto);
-
-        // acá hay que abrir un snack y redireccionar al detalle del producto
+        this.router.navigate(['rubros/productos/',nuevoProducto.idProducto]);
       });
     });
   }

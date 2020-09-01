@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Confirmación</h1>
+<div mat-dialog-content>
+    <p>{{data.mensaje}}</p>
+</div>
+<div mat-dialog-actions *ngIf="data.tipoDialogEliminar" >
+    <button mat-raised-button class="center" (click)="cerrarDialogo()" >No</button>
+    <button mat-raised-button class="center" (click)="confirmado()" >Sí</button>
+</div>
+
+<div mat-dialog-actions *ngIf="data.tipoDialogAceptar">
+    <button 
+        class="center"
+        mat-raised-button
+        (click)="confirmado()" 
+        cdkFocusInitial>ACEPTAR</button>
+</div>
+
+
