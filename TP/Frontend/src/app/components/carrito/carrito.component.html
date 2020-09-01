@@ -1,6 +1,6 @@
 <div class="container">
     <!-- Solo se muestra si hay elementos en el carrito -->
-    <div *ngIf="this.list.length > 0">
+    <div *ngIf="list.length > 0">
         <h4>Carrito:</h4>
         <table class="striped">
             <thead>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- si no hay elementos en el carrito se muestra esto-->
-    <div class="big-msg-container" *ngIf="this.list.length <=0">
+    <div class="big-msg-container" *ngIf="list.length <=0">
         <h3 class="big-msg-text">¡No hay items en el carrito!</h3>
 
         <i class="fa fa-shopping-cart center fa-5x" style="color: white;"></i>
@@ -74,7 +74,5 @@
                 </button>
             </div>
         </div>
-
-
     </div>
 </div>

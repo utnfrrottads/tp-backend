@@ -1,0 +1,32 @@
+.container{
+    min-height: 670px;
+}
+.elements{
+    overflow: hidden;
+}
+.paginator{
+    padding: 0 2% 0 0;
+}
+
+
+// para el mensaje de que no hay nada.
+.big-msg-container {
+    background: rgb(28, 35, 49);
+    background: linear-gradient(
+      16deg,
+      rgba(28, 35, 49, 1) 17%,
+      rgba(75, 28, 102, 1) 92%
+    );
+    min-height: 400px;
+    margin: 50px 0 0 0;
+    padding: 20px;
+    border-radius: 30px;
+  
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+  .big-msg-text {
+    text-align: center;
+    color: whitesmoke;
+  }

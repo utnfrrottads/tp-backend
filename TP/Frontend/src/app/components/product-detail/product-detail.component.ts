@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VentasService } from '../../services/ventas.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { UserService } from 'src/app/services/user.service';
-import { Producto } from 'src/app/model/productos';
-import { Empresa } from 'src/app/model/empresas';
+import {Producto} from '../../model/productos'
+
 declare var M: any;
 
 @Component({
@@ -13,20 +13,20 @@ declare var M: any;
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  idProducto : string;
+
+  idProducto: string;
+  CarrouselElems: any;
+  CarrouselInstance: any;
   producto = new Producto();
-  vendedor : any;  
+
   usuario: any;
-  eSlider: any;
-  slider: any;
-  eBox: any;
-  box: any;
   vendedorIsNotComprador: any;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private ventas: VentasService,
     private pService: ProductCardsService,
+
     private vService: UserService,
     private router:Router
     ) { }
@@ -51,15 +51,18 @@ export class ProductDetailComponent implements OnInit {
 
   }
   ngAfterViewInit() {
-    //slider
-    this.eSlider = document.querySelectorAll('.slider');
-    this.slider = M.Slider.init(this.eSlider, {
-      interval: 9999999,
-    });
-
-    //materialboxed
-    this.eBox = document.querySelectorAll('.materialboxed');
-    this.box = M.Materialbox.init(this.eBox);
+    // para el carousel
+    this.CarrouselElems = document.querySelectorAll('.carousel');
+    const options = {
+      fullWidth: true,
+      indicators: true,
+      shift: 5,
+      padding: 5,
+      numVisible: 5,
+      dist: -999,
+    };
+    this.CarrouselInstance = M.Carousel.init(this.CarrouselElems, options);
+    
   }
   addToCart() {
     this.isInCart();
@@ -74,6 +77,16 @@ export class ProductDetailComponent implements OnInit {
   isInCart() {
     return this.ventas.isInCart(this.producto);
   }
+
+  prevImage(){
+    let instance = M.Carousel.getInstance(this.CarrouselElems[0]);
+    instance.prev();
+  }
+  nextImage(){
+    let instance = M.Carousel.getInstance(this.CarrouselElems[0]);
+    instance.next();
+  }
+
 
   vendedorIsnotComprador(){
     if(this.vendedor._id !== this.usuario._id)

@@ -1,20 +1,20 @@
 #acercar:hover {
-    transform-origin: top;
-    animation: scale 200ms ease-in-out forwards;
+  transform-origin: top;
+  animation: scale 200ms ease-in-out forwards;
+}
+@keyframes scale {
+  to {
+    transform: scale(1.02);
   }
-  @keyframes scale {
-    to {
-      transform: scale(1.02);
-    }
-  }
+}
 
-.card-title{
+.card-title {
   text-align: center;
   padding: 0 10px;
   font-size: x-large;
 }
 
-.card-content{
+.card-content {
   text-align: center;
   font-size: 1rem;
 
@@ -22,16 +22,20 @@
   bottom: 2em;
 }
 
-.card-action{
+.card-action {
   text-align: center;
   cursor: pointer;
 }
 
-.card-image{
+.card-image {
   height: 100%;
 }
-.image{
+.image {
   height: 100%;
   width: 100%;
+  object-fit: scale-down;
+}
+
+img{
   object-fit: scale-down;
 }
