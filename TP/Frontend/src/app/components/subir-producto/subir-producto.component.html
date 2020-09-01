@@ -14,43 +14,57 @@
       <label>Describí tu producto</label>
       <div class="input-descripcion">
         <textarea type="text" formControlName="descripcion" placeholder="Descripción del producto"
-          class="validate txt-area" [(ngModel)]="txtAreaText" (ngModelChange)="txtAreaTextChanges($event)">
+          class="validate txt-area" (ngModelChange)="txtAreaTextChanges($event)">
       </textarea>
       </div>
     </div>
 
     <div class="renglon">
-      <div class="medio-renglon izquierda">
+      <div class="medio-renglon izquierda alto">
         <label>Rubro</label>
-        <select id="rubro" class="browser-default" (change)="obtenerIdRubro($event.target.value)">
-          <!--Este (change) sirve para llevarme el [value]='rubro.idRubro'-->
-          <option disabled selected>Elegí el rubro de tu producto</option>
-          <option *ngFor="let rubro of rubros" [value]='rubro._id'>{{rubro.descripcion}}</option>
-        </select>
-      </div>
+        <mat-select [(value)]="idRubroSeleccionado"  style="padding-top: 15px">
+          <mat-option 
+          *ngFor="let rubro of rubros" 
+          value="{{rubro._id}}">
+          <b>{{rubro.descripcion}}</b></mat-option>
+      </mat-select>
+
+    </div>
 
       <div class="medio-renglon derecha">
         <label>¿Cuantos vendes?</label>
         <input formControlName="stock" id="stock" placeholder="Indicá tu stock" type="text" class="validate">
       </div>
     </div>
+          
 
+    <div class="renglon">
+      <div class="medio-renglon izquierda">
+        <label>¿A qué precio?</label>
+        <input formControlName="precio" id="precio" placeholder="Indicá el precio de tu producto" type="text"
+          class="validate">
+      </div>
 
-    <div class="renglon medio-renglon izquierda">
-      <label>¿A qué precio?</label>
-      <input formControlName="precio" id="precio" placeholder="Indicá el precio de tu producto" type="text"
-        class="validate">
+      <div class="medio-renglon derecha">
+        <label>Mostrales a todos tu producto</label> <br>
+        <input type="file" accept="image/*" multiple (change)="onFileSelected($event)" class="input-img">
+      </div>
+      <div class="abajo">
+        <div class="izquierda" *ngFor="let imagen of producto.url">
+          <img class="mini-imagen col s12 m4 l3 xl2 eliminar" src={{imagen}} (click)="eliminarImagen(imagen)"> 
+        </div>
+      </div>
     </div>
 
-    <div class="renglon medio-renglon derecha">
-      <label>Mostrales a todos tu producto</label> <br>
-      <input type="file" accept="image/*" multiple (change)="onFileSelected($event)" class="input-img">
-    </div>
-
-    <button class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="save()"
+    <button *ngIf="!modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="save()"
       [disabled]='!productForm.valid'>Cargar Producto
       <i class="material-icons right"></i>
     </button>
+
+    <button *ngIf="modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action" (click)="edit()"
+    [disabled]='!productForm.valid'>Editar Producto
+    <i class="material-icons right"></i>
+  </button>
 
   </form>
 

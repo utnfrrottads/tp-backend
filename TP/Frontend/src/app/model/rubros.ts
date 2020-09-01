@@ -1,5 +1,5 @@
 export class Rubro {
-    idRubro: number;
+    _id: string;
     descripcion: string;
     url: string;
 }

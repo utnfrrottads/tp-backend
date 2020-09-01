@@ -58,7 +58,7 @@ export class CarritoComponent implements OnInit {
       this.ventas.removeFromCart(producto);
     }
     this.list = this.ventas.getCart();
-    console.log(this.list);
+
   }
 
   precioFinal() {

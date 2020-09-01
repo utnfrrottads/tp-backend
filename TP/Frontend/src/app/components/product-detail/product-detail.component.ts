@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VentasService } from '../../services/ventas.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { UserService } from 'src/app/services/user.service';
+import {Producto} from '../../model/productos'
 
 declare var M: any;
 
@@ -12,35 +13,43 @@ declare var M: any;
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  idProducto: string;
-  producto: any;
-  vendedor: any;
 
+  idProducto: string;
   CarrouselElems: any;
   CarrouselInstance: any;
+  producto = new Producto();
+
+  usuario: any;
+  vendedorIsNotComprador: any;
 
   constructor(
     private route: ActivatedRoute,
     private ventas: VentasService,
     private pService: ProductCardsService,
-    private vService: UserService
-  ) {}
 
-  ngOnInit(): void {
-    
-    
+    private vService: UserService,
+    private router:Router
+    ) { }
+
+  ngOnInit(): void {  
+    //el usuario es el que tengo en el localStorage
+    this.usuario = JSON.parse(localStorage.getItem('user'));
+
     // me traigo el id de Producto
     this.idProducto = this.route.snapshot.paramMap.get('idProducto');
     //me traigo el producto
-    this.pService.getProducto(this.idProducto).subscribe((res) => {
-      this.producto = res;
-      //me traigo el vendedor
-      this.vService.getUser(this.producto.idVendedor).subscribe((res) => {
-        this.vendedor = res;
+    this.pService.getProducto(this.idProducto)
+      .subscribe((res : Producto) => {
+        this.producto = res;
+        //me traigo el vendedor
+        this.vService.getUser(this.producto.idVendedor)
+        .subscribe((res)=>{
+          this.vendedor = res;
+          this.vendedorIsnotComprador();
+        })
       });
-    });
-  }
 
+  }
   ngAfterViewInit() {
     // para el carousel
     this.CarrouselElems = document.querySelectorAll('.carousel');
@@ -68,6 +77,7 @@ export class ProductDetailComponent implements OnInit {
   isInCart() {
     return this.ventas.isInCart(this.producto);
   }
+
   prevImage(){
     let instance = M.Carousel.getInstance(this.CarrouselElems[0]);
     instance.prev();
@@ -76,4 +86,22 @@ export class ProductDetailComponent implements OnInit {
     let instance = M.Carousel.getInstance(this.CarrouselElems[0]);
     instance.next();
   }
+
+
+  vendedorIsnotComprador(){
+    if(this.vendedor._id !== this.usuario._id)
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
+
+  editPublicacion(id){
+      this.router.navigate(['productos/editar/',id]);
+
+  }
+
 }
+
