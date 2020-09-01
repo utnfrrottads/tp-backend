@@ -68,9 +68,9 @@ exports.getLineaColectivo = function (req, res) { return __awaiter(void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, typeorm_1.createQueryBuilder("LineaColectivo")
-                        .leftJoinAndSelect("LineaColectivo.empresa", "Empresa")
-                        .where("LineaColectivo.idLineaColectivo = :idLineaColectivo", { idLineaColectivo: req.params.id })
+                return [4 /*yield*/, typeorm_1.createQueryBuilder('LineaColectivo')
+                        .leftJoinAndSelect('LineaColectivo.empresa', 'Empresa')
+                        .where('LineaColectivo.idLineaColectivo = :idLineaColectivo', { idLineaColectivo: req.params.id })
                         .getOne()];
             case 1:
                 lineaColEmpresa = _a.sent();

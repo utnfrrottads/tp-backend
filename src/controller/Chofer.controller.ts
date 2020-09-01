@@ -15,11 +15,11 @@ export const getChoferes = async (req: Request, res: Response): Promise<Response
 }
 
 export const getChofer = async (req: Request, res: Response): Promise<Response> => {
-    
+    //.leftJoinAndSelect('Chofer.lineaColectivo", "LineaColectivo')
     try {        
-        const chofer = await createQueryBuilder("Chofer")        
-        .leftJoinAndSelect("Chofer.lineaColectivo", "LineaColectivo")
-        .where("Chofer.Cuil = :Cuil", {Cuil: req.params.cuil})
+        const chofer = await createQueryBuilder('Chofer')
+        .leftJoinAndSelect('Chofer.lineaColectivo', 'LineaColectivo')
+        .where('Chofer.Cuil = :Cuil', {Cuil: req.params.cuil})
         .getOne();
 
         if(chofer !== undefined && chofer){
@@ -36,11 +36,11 @@ export const getChofer = async (req: Request, res: Response): Promise<Response> 
     }
 }
 
-export const createChofer = async (req: Request, res: Response): Promise<Response> => {
+export const createChofer = async (req: Request, res: Response): Promise<Response> => {    
     
     try {
         
-        const chofer = await getRepository(Chofer).findOne(req.body.Cuil);        
+        const chofer = await getRepository(Chofer).findOne(req.body.Cuil);
         
         if(chofer === undefined){
             const chof = await getRepository(Chofer).create(req.body);            
@@ -48,12 +48,12 @@ export const createChofer = async (req: Request, res: Response): Promise<Respons
             return res.json(result);
 
         } else {            
-        return res.json({ Message: 'El chofer existe' });
+        return res.status(404).json({ Message: 'El chofer existe' });
 
     }
 
     } catch (error) {
-        return res.status(400).json({ Message: 'Error al crear el chofer' });
+        return res.status(400).json({ Message: 'Error al crear el chofer'});
     }
     
 }

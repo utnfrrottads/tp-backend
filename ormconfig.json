@@ -3,7 +3,7 @@
     "host": "localhost",
     "port": 3306,
     "username": "root",
-    "password": "sodastereo2662",
+    "password": "soda2662",
     "database": "cli-desa",
     "entities": ["dist/entity/**/*.js"],
     "synchronize": true    

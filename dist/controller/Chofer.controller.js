@@ -62,9 +62,9 @@ exports.getChofer = function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, typeorm_1.createQueryBuilder("Chofer")
-                        .leftJoinAndSelect("Chofer.lineaColectivo", "LineaColectivo")
-                        .where("Chofer.Cuil = :Cuil", { Cuil: req.params.cuil })
+                return [4 /*yield*/, typeorm_1.createQueryBuilder('Chofer')
+                        .leftJoinAndSelect('Chofer.lineaColectivo', 'LineaColectivo')
+                        .where('Chofer.Cuil = :Cuil', { Cuil: req.params.cuil })
                         .getOne()];
             case 1:
                 chofer = _a.sent();
@@ -99,7 +99,7 @@ exports.createChofer = function (req, res) { return __awaiter(void 0, void 0, vo
             case 3:
                 result = _a.sent();
                 return [2 /*return*/, res.json(result)];
-            case 4: return [2 /*return*/, res.json({ Message: 'El chofer existe' })];
+            case 4: return [2 /*return*/, res.status(404).json({ Message: 'El chofer existe' })];
             case 5: return [3 /*break*/, 7];
             case 6:
                 error_3 = _a.sent();
