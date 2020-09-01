@@ -20,16 +20,16 @@
     </div>
 
     <div class="renglon">
-      <div class="medio-renglon izquierda alto">
+      <div class="medio-renglon izquierda"  style="margin-bottom: 25px;">
         <label>Rubro</label>
-        <mat-select [(value)]="idRubroSeleccionado"  style="padding-top: 15px">
+        <mat-select [(value)]="idRubroSeleccionado">
           <mat-option 
           *ngFor="let rubro of rubros" 
           value="{{rubro._id}}">
           <b>{{rubro.descripcion}}</b></mat-option>
       </mat-select>
 
-    </div>
+      </div>
 
       <div class="medio-renglon derecha">
         <label>¿Cuantos vendes?</label>
@@ -49,7 +49,7 @@
         <label>Mostrales a todos tu producto</label> <br>
         <input type="file" accept="image/*" multiple (change)="onFileSelected($event)" class="input-img">
       </div>
-      <div class="abajo">
+      <div class="abajo imagenes">
         <div class="izquierda" *ngFor="let imagen of producto.url">
           <img class="mini-imagen col s12 m4 l3 xl2 eliminar" src={{imagen}} (click)="eliminarImagen(imagen)"> 
         </div>

@@ -7,10 +7,7 @@
     margin: 30px 0 20px 0;
 }
 .renglon {
-    margin-top: 10px;
-}
-.alto{
-    height: 76px;
+    margin-top: 15px;
 }
 .input-img{
     margin-top: 10px;
@@ -71,7 +68,10 @@
     .btn-inferior{
         align-items: center;
     }
-
+    .imagenes{
+        float: none;
+        width: 100%;
+    }
 }
 
 textarea{
