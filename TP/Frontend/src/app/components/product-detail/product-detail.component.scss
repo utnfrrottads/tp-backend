@@ -101,8 +101,8 @@ h2 {
 }
 
 .mini-imagen {
-  max-width: 150px;
-  max-height: 150px;
+  width: 150px !important;
+  height: 150px !important;
   border-radius: 50%;
   object-fit: fill;
 }
