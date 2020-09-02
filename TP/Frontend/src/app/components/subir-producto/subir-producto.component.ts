@@ -24,13 +24,19 @@ export class SubirProductoComponent implements OnInit {
   modoEdicion : any;
 
   productForm = new FormGroup({
-    idRubro: new FormControl('',),
+    idRubro: new FormControl('',[Validators.required]),
     idVendedor: new FormControl(''),
     nombre: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
-    stock: new FormControl('',[Validators.required]),
-    precio: new FormControl('',[Validators.required]),
-    url: new FormControl('',),
+    stock: new FormControl('',[
+      Validators.required,
+      Validators.pattern("^[0-9]*$")
+    ]),
+    precio: new FormControl('',[
+      Validators.required,
+      Validators.pattern("^[0-9]*$")
+    ]),
+    url: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -83,7 +89,13 @@ export class SubirProductoComponent implements OnInit {
         precio : 0,
         url : [ ]
       }
+      this.idRubroSeleccionado = "Seleccione un rubro para su producto";
     }
+  }
+  actualizarRubroSeleccionado(){
+    this.productForm.patchValue({
+      idRubro : this.idRubroSeleccionado
+    })
   }
 
   ImageFile = null;
@@ -98,7 +110,10 @@ export class SubirProductoComponent implements OnInit {
       var reader = new FileReader();
       reader.onload = (event:any) => {
        this.url_imagen = event.target.result;
-       this.producto.url.push(this.url_imagen)
+       this.producto.url.push(this.url_imagen);
+       this.productForm.patchValue({
+         url: this.producto.url
+       })
       }
       reader.readAsDataURL(event.target.files[0]);    
     }
@@ -109,7 +124,10 @@ export class SubirProductoComponent implements OnInit {
     const index = this.producto.url.indexOf(imagen);
     if (index > -1) {
       this.producto.url.splice(index, 1);
-    }
+    }      
+    this.productForm.patchValue({
+      url: this.producto.url
+    })
   }
 
   async subirImagenYObtenerURL() {

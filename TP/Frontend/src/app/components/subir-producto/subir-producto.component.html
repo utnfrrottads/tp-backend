@@ -8,30 +8,34 @@
     <div class="renglon">
       <label>Indicá el nombre del producto</label>
       <input type="text" formControlName="nombre" placeholder="Nombre de tu producto" class="validate">
+      <em *ngIf="this.productForm.controls.nombre.touched && this.productForm.controls.nombre.invalid" style="color:red;">* Debe ingresar un nombre para su producto.</em>
     </div>
 
     <div class="renglon">
       <label>Describí tu producto</label>
       <div class="input-descripcion">
         <textarea type="text" formControlName="descripcion" placeholder="Descripción del producto"
-          class="validate txt-area" (ngModelChange)="txtAreaTextChanges($event)">
+          class="validate txt-area" 
+          (ngModelChange)="txtAreaTextChanges($event)">
       </textarea>
+      <em *ngIf="this.productForm.controls.descripcion.touched && this.productForm.controls.descripcion.invalid" style="color:red;">* Debe ingresar una descripción para su producto.</em>
       </div>
     </div>
 
     <div class="renglon">
       <div class="medio-renglon izquierda" style="margin-bottom: 25px;">
         <label>Rubro</label>
-        <mat-select [(value)]="idRubroSeleccionado">
+        <mat-select [(value)]="idRubroSeleccionado" [placeholder]="idRubroSeleccionado" (selectionChange)="actualizarRubroSeleccionado()">
           <mat-option *ngFor="let rubro of rubros" value="{{rubro._id}}">
             <b>{{rubro.descripcion}}</b></mat-option>
         </mat-select>
-
       </div>
 
       <div class="medio-renglon derecha">
         <label>¿Cuantos vendes?</label>
         <input formControlName="stock" id="stock" placeholder="Indicá tu stock" type="text" class="validate">
+        <em *ngIf="this.productForm.controls.stock.touched && this.productForm.controls.stock.invalid" style="color:red;">* Debe ingresar una cantidad correcta.</em>
+
       </div>
     </div>
 
@@ -41,6 +45,7 @@
         <label>¿A qué precio?</label>
         <input formControlName="precio" id="precio" placeholder="Indicá el precio de tu producto" type="text"
           class="validate">
+          <em *ngIf="this.productForm.controls.precio.touched && this.productForm.controls.precio.invalid" style="color:red;">* Debe ingresar un precio correcto.</em>
       </div>
 
       <div class="medio-renglon derecha">
