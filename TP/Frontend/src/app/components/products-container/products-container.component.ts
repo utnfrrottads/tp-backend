@@ -51,9 +51,6 @@ export class ProductsContainerComponent implements OnInit {
         this.service.getProductosByDescripcion(this.descripcionParameter).subscribe((res)=> {
           this.list = res;
           return;
-          5f451256f85a531fb8cb3306
-          5f4971d825a07041dcdcec8b
-          5f4971bf25a07041dcdcec8a
         })
       }
     this.route.params.subscribe((params) => { 
