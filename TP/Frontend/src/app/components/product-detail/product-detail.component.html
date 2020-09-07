@@ -1,44 +1,72 @@
 <div class="container">
 
-    <!-- slider -->
+    <!-- carousel -->
     <div class="image-container">
-        <div class="slider">
-            <ul class="slides">
-                <li *ngFor="let imagen of producto.url">
-                    <img src={{imagen}} alt="Imagen de: {{producto.nombre}}">
-                </li>
-            </ul>
+        <div>
+            <div class="carousel carousel-slider center " data-indicators="true">
+                <div class="carousel-fixed-item center middle-indicator">
+                    <!-- arrows -->
+                    <div class="left" (click)="prevImage()">
+                        <a class=" middle-indicator-text waves-effect waves-light content-indicator"><i
+                                class="material-icons left  middle-indicator-text">chevron_left</i></a>
+                    </div>
+                    <div class="right" (click)="nextImage()">
+                        <a class=" moveNextCarousel middle-indicator-text waves-effect waves-light content-indicator"><i
+                                class="material-icons right middle-indicator-text">chevron_right</i></a>
+                    </div>
+                </div>
+
+                <div *ngFor="let url of producto.url; index as i" class="carousel-item white">
+                    <img src="{{producto.url[i]}}">
+                </div>
+            </div>
         </div>
     </div>
-    <!-- slider -->
+
 
     <aside class="right-options">
         <div class="buy-info">
-            <h1>{{producto.nombre}}</h1>
-            <h2>${{producto.precio}}</h2>
-            <div id="si-hay-stock">
+            <h1 class="justift">{{producto.nombre}}</h1>
+            <h2 class="center">${{producto.precio}}</h2>
+            <div id="si-hay-stock" *ngIf="vendedorIsnotComprador()">
                 <p>Stock disponible</p>
-                <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()" *ngIf="isInCart()">Quitar del carrito</a>
-                <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()" *ngIf="!isInCart()">AGREGAR A CARRITO</a>
+
+                <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()"
+                    *ngIf="isInCart()">Quitar del carrito</a>
+
+                <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()"
+                    *ngIf="!isInCart()">AGREGAR A CARRITO</a>
+            </div>
+
+            <div *ngIf="!vendedorIsnotComprador()">
+                <p>Este producto ha sido publicado por ti</p>
+                <a class="waves-effect waves-light btn btn-color-edit" (click)="editPublicacion(idProducto)">EDITAR
+                    PUBLICACION</a>
+                    <br>
+                <a class="waves-effect waves-light btn btn-color red" style="margin-top: 15px"
+                    (click)="deletePublicacion(idProducto)">Eliminar producto</a>
             </div>
         </div>
 
         <div class="card seller-profile">
-            <div class="empresa-profile">
-                <img src="{{vendedor.url}}" class="img-empresa-redonda">
+
+            <div class="center">
+                <img class="mini-imagen" src="{{vendedor.url}}">
             </div>
 
             <span class="card-title">{{vendedor.razonSocial}}</span>
 
             <footer class="descripcion-empresa">
-                <p>Localidad: {{vendedor.localidad}}</p>
-                <p>Dirección: {{vendedor.direccion}}</p>
+                <p class="center title"><b>{{vendedor.nombre}}</b></p>
+                <p class="center text">Localidad: {{vendedor.localidad}} </p>
+                <p class="center text">Dirección: {{vendedor.direccion}} </p>
+
             </footer>
         </div>
     </aside>
     <div class="descr-producto">
-        <h2>Descripcion del producto</h2>
-        <p>{{producto.descripcion}}</p>
+        <h3>Descripcion del producto</h3>
+        <p class="justify">{{producto.descripcion}}</p>
     </div>
 
 </div>

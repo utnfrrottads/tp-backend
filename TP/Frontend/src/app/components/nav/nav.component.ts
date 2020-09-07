@@ -14,6 +14,8 @@ export class NavComponent implements OnInit {
   instances: any;
   options = [];
   nav_string = '';
+  ventas = 'ventas';
+  compras = 'compras';
 
   constructor(private router: Router, private service: ProductCardsService) {}
 
@@ -43,6 +45,7 @@ export class NavComponent implements OnInit {
       return;
     }
     else{
+      input.value = "";
       this.router.navigate(['/rubros/productos/search',texto]);
     }
     

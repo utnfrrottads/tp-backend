@@ -1,4 +1,5 @@
 const VentasModel = require("../models/ventas");
+const https = require("https");
 const controller = {};
 
 controller.getVentas = async (req, res) => {
@@ -6,6 +7,18 @@ controller.getVentas = async (req, res) => {
   res.json(venta);
 };
 
+controller.getVentasByComprador = async (req, res) => {
+  const ventas = await VentasModel.find({'idComprador': req.params.id});
+  res.json(ventas);
+};
+
+controller.getVentasByVendedor = async (req, res) => {
+  const ventas = await VentasModel.find({'productos.producto.idVendedor': req.params.id});
+  ventas.forEach(venta => {
+    venta.productos = venta.productos.filter(item => item.producto.idVendedor === req.params.id);
+  });
+  res.json(ventas);
+};
 controller.getVenta = (req, res) => {
   VentasModel.findById(req.params.id)
     .then((respuesta) => res.json(respuesta))
@@ -15,6 +28,9 @@ controller.getVenta = (req, res) => {
 controller.createVenta = async (req, res) => {
   req.body.fecha = Date.now();
   const venta = new VentasModel(req.body);
+
+  // acá debería actualizar el stock de los productos que vendi
+
   await venta.save();
   res.json({
     status: "Venta Saved",

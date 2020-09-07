@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Detalle</h2>
+<mat-dialog-content>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th class="hide-on-small">Precio</th>
+                <th class="hide-on-small">Cantidad</th>
+                <th class="hide-on-tiny">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <!-- para todos los productos de la lista-->
+            <tr *ngFor="let item of data.venta.productos">
+                <td class="nombre">
+                    <p class="max-4-lines">{{item.producto.nombre}}</p>
+                </td>
+                <td class="hide-on-small justified">
+                    <p class="max-4-lines">{{item.producto.precio}}</p>
+                </td>
+                <td class="hide-on-small justified">
+                    <p class="max-4-lines">{{item.cantidad}}</p>
+                </td>
+                <td class="nombre">
+                    <p class="max-4-lines">{{item.cantidad * item.producto.precio}}</p>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

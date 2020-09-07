@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ComisionistasService } from '../../services/comisionistas.service';
 import { VentasService } from 'src/app/services/ventas.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-carrito',
@@ -9,71 +9,47 @@ import { VentasService } from 'src/app/services/ventas.service';
 })
 export class CarritoComponent implements OnInit {
   list = [];
-  comisionistas: any = [];
-  IdComisionistaSeleccionado: any;
-  comisionistaSeleccionado: any;
+  comisionista: any;
+  logedUser: any;
 
-  constructor(
-    private comisionistasService: ComisionistasService,
-    private ventas: VentasService
-  ) {}
+  constructor(private ventas: VentasService, private user: UserService) {}
 
   ngOnInit(): void {
-    this.comisionistasService.getComisionistas().subscribe((res) => {
-      this.comisionistas = res;
-      this.IdComisionistaSeleccionado = res[0]._id;
-      console.log(this.comisionistas);
-    });
+    this.logedUser = this.user.getLocalUser();
+  }
 
+  canGoNextStep() {
     this.list = this.ventas.getCart();
-
-    //a cada elemento de la lista le agrego una cantidad para comprar
-    //por defecto será 1.
-    if (this.list != null) {
-      this.list.forEach((element) => {
-        element.cantComprar = 1;
-      });
+    if (this.list.length > 0 && this.user.isLoggedIn()) {
+      return true;
     } else {
-      this.list = [];
+      return false;
     }
   }
 
-  add(producto) {
-    if (producto.cantComprar < producto.stock) {
-      producto.cantComprar++;
-    }
+  onComisionistaChanged(event) {
+    this.comisionista = event;
   }
-  remove(producto) {
-    if (producto.cantComprar > 1) {
-      producto.cantComprar--;
+  comisionistaNombre() {
+    if (this.comisionista == undefined) {
+      return '';
     }
+    return this.comisionista.nombre;
   }
-  delete(producto) {
-    const index = this.list.indexOf(producto);
-    if (index > -1) {
-      this.list.splice(index, 1);
+  comisionistaPrice() {
+    if (this.comisionista == undefined) {
+      return 0;
     }
-    this.ventas.removeFromCart(producto);
-    this.list = this.ventas.getCart();
+    return this.comisionista.precio;
   }
-  precioFinal() {
-    // calculo el total de los productos
-    let total = 0;
-    this.list.forEach((element) => {
-      if (element.idComisionista === undefined) {
-        total += element.cantComprar * element.precio;
-      }
+
+  finalPrice() {
+    return this.ventas.getCartPrice() + this.comisionistaPrice();
+  }
+
+  finishBuy() {
+    this.ventas.postBuy(this.comisionista).subscribe((res) => {
+      console.log(res);
     });
-
-    // le agrego el comisionista
-    let comision = 0;
-    if (this.IdComisionistaSeleccionado !== undefined) {
-      this.comisionistaSeleccionado = this.comisionistas.filter(
-        (e) => e._id == this.IdComisionistaSeleccionado
-      )[0];
-
-      comision = this.comisionistaSeleccionado.precio;
-    }
-    return total + comision;
   }
 }

@@ -1,0 +1,36 @@
+<div class="row center">
+    <div class="col s6">
+        <p class="txt-comision">Método de envio</p>
+        <mat-form-field appearance="fill" class="select-big">
+            <mat-select [(value)]="IdComisionistaSeleccionado">
+                <mat-option *ngFor="let c of comisionistas" value="{{c._id}}"><b> {{c.nombre}}</b> -
+                    ${{c.precio}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col s6">
+        <p class="txt-comision select-big">Método de pago</p>
+        <mat-form-field appearance="fill" class="select-big">
+            <mat-select [(value)]="metodoPago">
+                <mat-option value="efectivo"><b>Efectivo</b></mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col s12">
+        <h3>Total: ${{finalPrice()}}</h3>
+    </div>
+
+    <div class="buttons">
+        <button class="waves-effect waves-light btn btn-color-edit btn-large" (click)="stepper.previous()">
+            Volver
+        </button>
+        <button class="waves-effect purple waves-light btn-large" (click)="stepper.next()">
+            Confirmar
+        </button>
+    </div>
+
+
+</div>

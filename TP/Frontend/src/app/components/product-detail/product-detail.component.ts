@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VentasService } from '../../services/ventas.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { UserService } from 'src/app/services/user.service';
-import { Producto } from 'src/app/model/productos';
-import { Empresa } from 'src/app/model/empresas';
+import {Producto} from '../../model/productos'
+import {Persona} from '../../model/personas'
+import { MatDialog } from "@angular/material/dialog";
+import { DialogoComponent } from '../dialogo/dialogo.component';
+
 declare var M: any;
 
 @Component({
@@ -13,49 +16,65 @@ declare var M: any;
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  idProducto : string;
-  producto : any;
+
+  idProducto: string;
+  CarrouselElems: any;
+  CarrouselInstance: any;
+  producto = new Producto();
   vendedor : any;
-  eSlider: any;
-  slider: any;
-  eBox: any;
-  box: any;
+  usuario: any;
+  vendedorIsNotComprador: any;
+  imagenVendedor : string =
+  'https://res.cloudinary.com/elcurco8/image/upload/v1598910919/TTADS-TP/user_ybrhuc.png';
+
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private ventas: VentasService,
     private pService: ProductCardsService,
-    private vService: UserService
-    ) { }
+
+    private vService: UserService,
+    private router:Router,
+    public dialogo: MatDialog
+    ) {   }
 
   ngOnInit(): void {  
-  // me traigo el id de Producto
-  this.idProducto = this.route.snapshot.paramMap.get('idProducto');
-  //me traigo el producto
-  this.pService.getProducto(this.idProducto)
-    .subscribe((res) => {
-      this.producto = res;
-      //me traigo el vendedor
-      this.vService.getUser(this.producto.idVendedor)
-      .subscribe((res)=>{
-        this.vendedor = res;
-      })
-    });
+
+    //el usuario es el que tengo en el localStorage
+    this.usuario = JSON.parse(localStorage.getItem('user'));
+    // me traigo el id de Producto
+    this.idProducto = this.route.snapshot.paramMap.get('idProducto');
+    //me traigo el producto
+    this.pService.getProducto(this.idProducto)
+      .subscribe((res : Producto) => {
+        this.producto = res;
+        //me traigo el vendedor
+        this.vService.getUser(this.producto.idVendedor)
+        .subscribe((res)=>{
+          this.vendedor = res;
+          this.imagenVendedor = this.vendedor.url;
+        })
+      });
+
   }
-
   ngAfterViewInit() {
-    //slider
-    this.eSlider = document.querySelectorAll('.slider');
-    this.slider = M.Slider.init(this.eSlider, {
-      interval: 9999999,
-    });
-
-    //materialboxed
-    this.eBox = document.querySelectorAll('.materialboxed');
-    this.box = M.Materialbox.init(this.eBox);
+    this.vendedorIsnotComprador();
+    // para el carousel
+    this.CarrouselElems = document.querySelectorAll('.carousel');
+    const options = {
+      fullWidth: true,
+      indicators: true,
+      shift: 5,
+      padding: 5,
+      numVisible: 5,
+      dist: -999,
+    };
+    this.CarrouselInstance = M.Carousel.init(this.CarrouselElems, options);
+    
   }
   addToCart() {
     this.isInCart();
+    this.producto.cantComprar = 1;
     this.ventas.addToCart(this.producto);
   }
   removeFromCart() {
@@ -66,4 +85,72 @@ export class ProductDetailComponent implements OnInit {
   isInCart() {
     return this.ventas.isInCart(this.producto);
   }
+
+  prevImage(){
+    let instance = M.Carousel.getInstance(this.CarrouselElems[0]);
+    instance.prev();
+  }
+  nextImage(){
+    let instance = M.Carousel.getInstance(this.CarrouselElems[0]);
+    instance.next();
+  }
+
+
+  vendedorIsnotComprador(){
+    if(this.vendedor._id !== this.usuario._id)
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
+
+  editPublicacion(id){
+      this.router.navigate(['productos/editar/',id]);
+  }
+
+  deletePublicacion(id){
+    //esto me abre el dialog
+    this.dialogo
+      .open(DialogoComponent, {
+        data: { 
+          mensaje: `¿Realmente deseas eliminar este producto?`,
+          tipoDialogEliminar: true,
+          tipoDialogAceptar: false 
+        }
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        //si me confirmó que quiere borrar el producto, entonces abro este dialog informandole
+        if (confirmado) {
+        
+          this.pService.deleteProducto(this.producto)
+          .subscribe( res =>{
+            //tengo que ver si hay errores en la borrada (no hecho)
+            this.dialogo
+            .open(DialogoComponent,{
+              data: { 
+                mensaje: `Producto eliminado`,
+                tipoDialogEliminar: false,
+                tipoDialogAceptar: true 
+              }
+            })
+            .afterClosed()
+            .subscribe((confirmado: Boolean) => {
+              //cuando me confirmó que vio el dialog de que se borró el producto, entonces lo redirijo
+              //a la pagina principal
+              if (confirmado) {
+                this.router.navigate(['rubros']);
+              }
+            err =>{
+              //si no se pudo eliminar el producto, tengo que manejarlo desde acá
+              alert("No se pudo eliminar el producto");
+            }
+          })     
+        })
+      }      
+    })
+  }
 }
+

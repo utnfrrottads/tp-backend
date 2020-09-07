@@ -38,13 +38,13 @@ export class ProductCardsService {
   }
 
   deleteProducto(producto:any) {
-    const URL = this.baseURL +'/' + producto.id;
+    const URL = this.baseURL +'/' + producto._id;
     return this.http.delete(URL);
   }
+
   createProducto(producto: any) {
     const body = {
       url: producto.url,
-      _id: producto._id,
       nombre: producto.nombre,
       rubro: producto.rubro,
       idVendedor: producto.idVendedor,
@@ -54,6 +54,22 @@ export class ProductCardsService {
     };
     return this.http.post(this.baseURL, body, {});
   }
+
+  editProducto(producto: any) {
+    const URL = this.baseURL +'/'+ producto.idProducto;
+    const body = {
+      url: producto.url,
+      _id: producto.idProducto,
+      nombre: producto.nombre,
+      rubro: producto.rubro,
+      idVendedor: producto.idVendedor,
+      descripcion: producto.descripcion,
+      stock: producto.stock,
+      precio: producto.precio,
+    };
+    return this.http.put(URL, body, {});
+  }
+
 
   editUser(producto:any) {
     const URL = this.baseURL +'/' + producto.id;

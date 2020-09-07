@@ -3,12 +3,14 @@
 .container {
   outline: none !important;
   overflow: hidden;
+  min-height: 100%;
+  margin-bottom: 20px;
 }
 
-h1{
+h1 {
   font-size: 50px;
 }
-h2{
+h2 {
   font-size: 40px;
 }
 
@@ -28,7 +30,7 @@ h2{
   width: 100%;
   background-color: white;
 }
-.image-contained{
+.image-contained {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
@@ -48,7 +50,6 @@ h2{
   float: left;
 }
 
-
 .descr-producto h2 {
   font-size: 6vh;
 }
@@ -65,17 +66,10 @@ h2{
   align-items: center;
 }
 
-.seller-profile {
-  margin-top: 5em;
-  width: auto;
-  height: auto;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-.btn-color-secondary {
+.btn-color-edit {
   background-color: white;
   color: rgb(103, 058, 183);
+  font-size: large;
 }
 .btn-color {
   background: rgb(103, 058, 183);
@@ -90,43 +84,50 @@ h2{
 
 .descripcion-empresa {
   text-align: left;
-  padding-left: 2em;
   padding-bottom: 1em;
   position: relative;
 }
+.descripcion-empresa .title {
+  margin: 0 0 10px 0;
+}
+.descripcion-empresa .text {
+  margin: 0px;
+}
 
-.empresa-profile {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
+.seller-profile {
+  margin-top: 5em;
+  width: 280px;
+  height: 280px;
+}
+
+.mini-imagen {
+  margin-top: 10px;
+  width: 150px !important;
+  height: 150px !important;
   border-radius: 50%;
-  margin-left: auto;
-  margin-right: auto;
+  object-fit: fill;
 }
 
-.empresa-profile img {
-  margin-top: 25px;
-  width: 100%;
-  height: auto;
+.product-image {
+  width: 200px;
 }
 
+.justify {
+  text-align: justify;
+  text-justify: inter-word;
+}
 
+@media only screen and (max-width: 1000px) {
+  .container {
+    margin-bottom: 20px;
+  }
+}
 
 @media only screen and (max-width: 1000px) {
   .image-container {
     margin-top: 1em;
     width: 100%;
     height: auto;
-  }
-  .image-contained {
-    height: auto;
-    width: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: auto;
-    max-width: 400px;
   }
 
   .slider {
@@ -159,4 +160,47 @@ h2{
   .seller-profile {
     display: none;
   }
+}
+
+// CSS PARA EL CAROUSEL.
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.middle-indicator {
+  position: absolute;
+  top: 50%;
+}
+.middle-indicator-text {
+  font-size: 4.2rem;
+}
+a.middle-indicator-text {
+  color: white !important;
+  background-color: #4c45505e;
+}
+.content-indicator {
+  width: 64px;
+  height: 64px;
+  background: none;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+}
+.indicators {
+  visibility: hidden;
+}
+img {
+  object-fit: scale-down;
+  height: 400px !important;
 }

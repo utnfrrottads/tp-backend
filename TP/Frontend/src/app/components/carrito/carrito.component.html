@@ -1,82 +1,62 @@
 <div class="container">
-    <!-- Solo se muestra si hay elementos en el carrito -->
-    <div *ngIf="this.list.length > 0">
-        <h4>Carrito:</h4>
-        <table class="striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th class="hide-on-small">Descripción</th>
-                    <th class="hide-on-tiny">Precio unitario</th>
-                    <th class="center">Cantidad</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
+    <mat-horizontal-stepper #stepper [linear]="true">
+        <mat-step>
+            <!-- items en el carrito -->
+            <ng-template matStepLabel>Carrito</ng-template>
+            <app-carrito-items [stepper]="stepper"></app-carrito-items>
+        </mat-step>
 
-            <tbody>
-                <!-- para todos los productos de la lista-->
-                <tr *ngFor="let producto of list">
-                    <td class="nombre">
-                        <p class="max-4-lines">{{producto.nombre}}</p>
-                    </td>
-                    <td class="hide-on-small justified">
-                        <p class="max-4-lines">{{producto.descripcion}}</p>
-                    </td>
-                    <td class="hide-on-tiny">${{producto.precio}}</td>
-                    <td>
-                        <div class="unselectable ">
-                            <p class="cantidad">{{producto.cantComprar}}</p>
-                            <div class="flechas center">
-                                <i class="material-icons" (click)="add(producto)">add_circle</i>
-                                <i class="material-icons" (click)="remove(producto)">remove_circle</i>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="subtotal" *ngIf="producto.idComisionista === undefined">$
-                        {{producto.precio * producto.cantComprar}}</td>
-                    <td class="subtotal" *ngIf="producto.idComisionista !== undefined">$ {{producto.precio}}</td>
-                    <td class="unselectable"> <i class="material-icons delete"
-                            (click)="delete(producto)">delete_forever</i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <mat-step *ngIf="canGoNextStep()">
+            <!-- Comisionista y pago de los productos -->
+            <ng-template matStepLabel>Envio y Pago</ng-template>
+            <app-carrito-confirm [stepper]="stepper" (comisionista)="onComisionistaChanged($event)">
+            </app-carrito-confirm>
+        </mat-step>
 
-        <div class="botton-table" >
+        <mat-step *ngIf="canGoNextStep()">
+            <!-- Compra finalizada -->
+            <ng-template matStepLabel>Listo</ng-template>
 
-            <div class="onRight">
-                <p class="txt-comision">Seleccione el método de envio de los productos</p>
-                <mat-form-field appearance="fill">
-                    <mat-select [(value)]="IdComisionistaSeleccionado">
-                        <mat-option *ngFor="let c of comisionistas" value="{{c._id}}"><b> {{c.nombre}}</b> -
-                            ${{c.precio}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <h6>Usuario: {{logedUser.nombre}}</h6>
+            <h6>Direccion: {{logedUser.localidad}}, {{logedUser.direccion}}</h6>
+
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th class="center">Producto</th>
+                        <th class="center">Cantidad</th>
+                        <th class="center">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of list">
+                        <td class="center"> {{producto.nombre}}</td>
+                        <td class="center"> x{{producto.cantComprar}}</td>
+                        <td class="center"> ${{producto.cantComprar * producto.precio}}</td>
+                    </tr>
+                    <tr>
+                        <td class="center">Método de entrega: {{comisionistaNombre()}} </td>
+                        <td class="center"></td>
+                        <td class="center">${{comisionistaPrice()}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="right">
+                <h5>Total ${{finalPrice()}}</h5>
             </div>
 
-        </div>
-        <div class="total-price">
-            <h5>Total: ${{precioFinal()}}</h5>
-        </div>
-    </div>
-
-    <!-- si no hay elementos en el carrito se muestra esto-->
-    <div class="big-msg-container" *ngIf="this.list.length <=0">
-        <h3 class="big-msg-text">¡No hay items en el carrito!</h3>
-
-        <i class="fa fa-shopping-cart center fa-5x" style="color: white;"></i>
-
-        <div>
-            <h6 class="big-msg-text"> ¡Ve a la seccion de productos y elige lo que deseas comprar!</h6>
-            <div class="center">
-                <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
-                    <i class="material-icons right">view_module</i>
-                    Ver productos disponibles
-                </button>
+            <div>
+                <br> <br> <br>
+                <div class="buttons right center">
+                    <button class=" waves-effect waves-light btn btn-color-edit btn-large" (click)="stepper.reset()">
+                        Volver
+                    </button>
+                    <button class=" waves-effect purple waves-light btn-large" (click)="finishBuy()">
+                        Confirmar
+                    </button>
+                </div>
             </div>
-        </div>
 
-
-    </div>
+        </mat-step>
+    </mat-horizontal-stepper>
 </div>

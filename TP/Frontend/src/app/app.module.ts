@@ -23,6 +23,11 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { DialogoComponent } from './components/dialogo/dialogo.component';
+import { CarritoItemsComponent } from './components/carrito-items/carrito-items.component';
+import { CarritoConfirmComponent } from './components/carrito-confirm/carrito-confirm.component';
+import { ComprasVentasListComponent } from './components/compras-ventas-list/compras-ventas-list.component';
+import { DialogCompraVentaComponent } from './components/dialog-compra-venta/dialog-compra-venta.component';
 
 
 @NgModule({
@@ -43,9 +48,15 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SubirProductoComponent,
     LoginComponent,
     PageNotFoundComponent,
+    DialogoComponent,
+    CarritoItemsComponent,
+    CarritoConfirmComponent,
+    ComprasVentasListComponent,
+    DialogCompraVentaComponent,
     
     
   ],
+  entryComponents: [DialogCompraVentaComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

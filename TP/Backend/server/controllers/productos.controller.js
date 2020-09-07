@@ -33,10 +33,13 @@ controller.getProducto = (req, res) => {
 
 controller.createProducto = async (req, res) => {
   const producto = new ProductoModel(req.body);
-  await producto.save();
-  res.json({
+  let idProducto = new String();
+  await producto.save(function(err, prod) {
+    res.json({
     status: "Producto Saved",
-  });
+    _id: prod._id
+    });
+  });   
 };
 
 controller.editProducto = async (req, res) => {

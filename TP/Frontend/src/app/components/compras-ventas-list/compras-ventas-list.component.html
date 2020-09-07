@@ -1,0 +1,59 @@
+<div class="container" >
+    <table *ngIf="this.ventas" class="striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th class="hide-on-small">Fecha</th>
+                <th class="hide-on-small">Comisionista</th>
+                <th class="hide-on-tiny">Cantidad de productos</th>
+                <th class="center">Total</th>
+                <th></th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <!-- para todos los productos de la lista-->
+            <tr *ngFor="let venta of ventas">
+                <td class="nombre">
+                    <p class="max-4-lines">{{venta._id}}</p>
+                </td>
+                <td class="hide-on-small justified">
+                    <p class="max-4-lines">{{venta.fecha}}</p>
+                </td>
+                <td class="hide-on-small justified">
+                    <p class="max-4-lines">{{venta.comisionista.nombre}}</p>
+                </td>
+                <td class="nombre">
+                    <p class="max-4-lines">{{venta.productos.length}}</p>
+                </td>
+                <td class="hide-on-tiny">
+                    ${{this.calcularTotal(venta)}}
+                </td>
+                <td>
+                    <div class="unselectable ">
+                        <div class="flechas center">
+                            <a style="cursor:pointer"><i class="material-icons" (click)="openDialog(venta)">zoom_in</i></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <div class="big-msg-container" *ngIf="!this.ventas">
+            <h3 class="big-msg-text">¡No se encontraron {{this.modo}} !</h3>
+        
+            <i class="fa fa-exclamation-circle center fa-5x" style="color: white;"></i>
+        
+            <div>
+                <div class="center">
+                    <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
+                        <i class="material-icons right">view_module</i>
+                        Volver al Inicio
+                    </button>
+                </div>
+            </div>
+        </div>
+
+</div>
+

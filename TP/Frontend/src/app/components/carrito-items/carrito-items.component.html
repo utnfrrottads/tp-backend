@@ -1,0 +1,75 @@
+<!-- Solo se muestra si hay elementos en el carrito -->
+<div *ngIf="list.length > 0">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th class="hide-on-small">Descripción</th>
+                <th class="hide-on-tiny">Precio unitario</th>
+                <th class="center">Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- para todos los productos de la lista-->
+            <tr *ngFor="let producto of list">
+                <td class="nombre">
+                    <p class="max-4-lines">{{producto.nombre}}</p>
+                </td>
+                <td class="hide-on-small justified">
+                    <p class="max-4-lines">{{producto.descripcion}}</p>
+                </td>
+                <td class="hide-on-tiny">${{producto.precio}}</td>
+                <td>
+                    <div class="unselectable ">
+                        <p class="cantidad">{{producto.cantComprar}}</p>
+                        <div class="flechas center">
+                            <i class="material-icons" (click)="add(producto)">add_circle</i>
+                            <i class="material-icons" (click)="remove(producto)">remove_circle</i>
+                        </div>
+                    </div>
+                </td>
+                <td class="subtotal">$ {{producto.precio * producto.cantComprar}}</td>
+                <td class="unselectable"> <i class="material-icons delete" (click)="delete(producto)">delete_forever</i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total-price">
+        <h5>Total: ${{precioFinal()}}</h5>
+    </div>
+
+    <!-- si esta logeado -->
+    <div *ngIf="userService.isLoggedIn()">
+        <button (click)="confirmarCompra(stepper)" class="waves-effect purple waves-light btn-large buy-btn">
+            <i class="fa fa-check right" aria-hidden="true"></i> Comprar</button>
+    </div>
+    <!-- si NO esta logeado -->
+    <div *ngIf="!userService.isLoggedIn()">
+        <h6 class="right">¡Logeate para proceder con la compra!</h6>
+        <br> <br>
+        <button [routerLink]="['/login']" class="waves-effect purple waves-light btn-large buy-btn">
+            <i class="fa fa-sign-in right" aria-hidden="true"></i>
+            Login
+        </button>
+    </div>
+</div>
+
+<!-- si no hay elementos en el carrito se muestra esto-->
+<div class="big-msg-container" *ngIf="list.length <=0">
+    <h3 class="big-msg-text">¡No hay items en el carrito!</h3>
+
+    <i class="fa fa-shopping-cart center fa-5x" style="color: white;"></i>
+
+    <div>
+        <h6 class="big-msg-text"> ¡Ve a la seccion de productos y elige lo que deseas comprar!</h6>
+        <div class="center">
+            <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
+                <i class="material-icons right">view_module</i>
+                Ver productos disponibles
+            </button>
+        </div>
+    </div>
+</div>

@@ -5,11 +5,17 @@
 
         <div class="search">
             <input #input type="text" placeholder={{nav_string}} style="width: 85%;" (keyup.enter)="search(input)">
-            <i class="fa fa-search fa-1x"></i>
+            <i class="fa fa-search fa-1x" (click)="search(input)" style="cursor: pointer;"></i>
         </div>
 
         <div>
             <ul>
+                <li>
+                    <a [routerLink]="['/compraventa', compras]">Mis compras</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/compraventa', ventas]">Mis ventas</a>
+                </li>
                 <li>
                     <a [routerLink]="['rubros']"><i class="material-icons right carrito">view_comfy</i>Productos</a>
                 </li>

@@ -23,11 +23,10 @@ export class UserService {
       usuario: user,
       password: pass,
     };
-
     return this.http.post(URL, body, {});
   }
 
-  getUser(id){
+  getUser(id) {
     const URL = this.baseURL + id;
     return this.http.get(URL);
   }
@@ -80,12 +79,18 @@ export class UserService {
       url: URL,
     };
     localStorage.setItem('user', JSON.stringify(user));
-
+  }
+  getLocalUser(): any {
+    let user = localStorage.getItem('user');
+    if (user == null) {
+      return null;
+    } else {
+      return JSON.parse(user);
+    }
   }
 
   getEmpresas() {
     const URL = this.baseURL + 'empresas';
     return this.http.get(URL);
   }
-
 }
