@@ -12,38 +12,35 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ComprasVentasListComponent} from './components/compras-ventas-list/compras-ventas-list.component'
-
+import { ComprasVentasListComponent } from './components/compras-ventas-list/compras-ventas-list.component';
 
 const routes: Routes = [
-  
-  { path:'rubros',component: ListaRubrosComponent},
-  { path:'rubros/productos',component: ProductsContainerComponent},
-  { path:'rubros/empresas',component: ListaEmpresasComponent},
-  { path: 'rubros/empresas/:idEmpresa', component:ProductsContainerComponent},
-  { path:'rubros/:idRubro',component: ProductsContainerComponent},
-  { path:'rubros/productos/:idProducto',component: ProductDetailComponent},
-  { path:'rubros/productos/search/:searchKey',component: ProductsContainerComponent},
-  { path:'profile', component: ProfileComponent}, 
-  { path: 'carrito', component: CarritoComponent},
-  { path: 'compraventa/:type', component:  ComprasVentasListComponent},
-  { path: 'ventas', component:  ComprasVentasListComponent},
-  { path: 'compras', component:  ComprasVentasListComponent},
-  { path: 'publicar', component: SubirProductoComponent},
-  { path: 'productos/editar/:idProducto', component: SubirProductoComponent},
-  { path: 'productos/eliminar/:idProducto', component: SubirProductoComponent},
-  { path: 'login', component: LoginComponent},
-  { path: '404', component:PageNotFoundComponent},
-  { path:'', redirectTo:'rubros', pathMatch: 'full'},
-  { path:'**',redirectTo:'rubros'}
-
+  { path: 'rubros', component: ListaRubrosComponent },
+  { path: 'rubros/productos', component: ProductsContainerComponent },
+  { path: 'rubros/empresas', component: ListaEmpresasComponent },
+  { path: 'rubros/empresas/:idEmpresa', component: ProductsContainerComponent },
+  { path: 'rubros/:idRubro', component: ProductsContainerComponent },
+  { path: 'rubros/productos/:idProducto', component: ProductDetailComponent },
+  {
+    path: 'rubros/productos/search/:searchKey',
+    component: ProductsContainerComponent,
+  },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'compraventa/:type', component: ComprasVentasListComponent },
+  { path: 'ventas', component: ComprasVentasListComponent },
+  { path: 'compras', component: ComprasVentasListComponent },
+  { path: 'publicar', component: SubirProductoComponent },
+  { path: 'productos/editar/:idProducto', component: SubirProductoComponent },
+  { path: 'productos/eliminar/:idProducto', component: SubirProductoComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '', redirectTo: 'rubros', pathMatch: 'full' },
+  { path: '**', redirectTo: 'rubros' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}

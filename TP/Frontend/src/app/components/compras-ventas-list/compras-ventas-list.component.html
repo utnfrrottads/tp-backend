@@ -1,5 +1,5 @@
 <div class="container" >
-    <table *ngIf="this.ventas" class="striped">
+    <table *ngIf="this.ventas.length > 0" class="striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -40,7 +40,7 @@
         </tbody>
         </table>
 
-        <div class="big-msg-container" *ngIf="!this.ventas">
+        <div class="big-msg-container" *ngIf="this.ventas.length == 0">
             <h3 class="big-msg-text">¡No se encontraron {{this.modo}} !</h3>
         
             <i class="fa fa-exclamation-circle center fa-5x" style="color: white;"></i>

@@ -39,6 +39,10 @@
         <li><a [routerLink]="['/profile']">
                 <i class="material-icons">edit</i>Editar perfil</a>
         </li>
+
+        <li><a [routerLink]="['/rubros/empresas' , userService.getLocalUser()._id ]"> <i class="fa fa-registered center"
+                    aria-hidden="true"></i>Mis productos</a> </li>
+
         <li><a [routerLink]="['/publicar']">
                 <i class="material-icons">add_circle_outline</i>cargar nuevo
                 producto</a>
@@ -48,6 +52,7 @@
         </li>
         <li><a [routerLink]="['/compraventa', compras]"> <i class="fa fa-credit-card center" aria-hidden="true"></i>Mis
                 compras</a> </li>
+
 
         <li><a (click)="CloseSession()">
                 <i class="material-icons">close</i>Cerrar sesion</a>

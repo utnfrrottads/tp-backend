@@ -2,6 +2,7 @@ import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Producto } from '../../model/productos';
 import { Router } from '@angular/router';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
+import { UserService } from 'src/app/services/user.service';
 declare var M: any;
 
 @Component({
@@ -17,7 +18,11 @@ export class NavComponent implements OnInit {
   ventas = 'ventas';
   compras = 'compras';
 
-  constructor(private router: Router, private service: ProductCardsService) {}
+  constructor(
+    private router: Router,
+    private service: ProductCardsService,
+    private userService: UserService
+  ) {}
 
   @HostListener('window:resize', [])
   public onResize() {
@@ -43,13 +48,10 @@ export class NavComponent implements OnInit {
     if (texto === '') {
       window.alert('Por favor ingrese una descripción de lo que desea comprar');
       return;
+    } else {
+      input.value = '';
+      this.router.navigate(['/rubros/productos/search', texto]);
     }
-    else{
-      input.value = "";
-      this.router.navigate(['/rubros/productos/search',texto]);
-    }
-    
-    
   }
 
   CloseSession() {
@@ -57,7 +59,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['login']);
   }
   loggedIn() {
-    if (localStorage.getItem('user') == null) {
+    if (this.userService.getLocalUser() == null) {
       return false;
     } else {
       return true;
