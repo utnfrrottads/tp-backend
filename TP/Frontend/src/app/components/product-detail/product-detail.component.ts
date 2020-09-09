@@ -4,7 +4,6 @@ import { VentasService } from '../../services/ventas.service';
 import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { UserService } from 'src/app/services/user.service';
 import { Producto } from '../../model/productos';
-import { Persona } from '../../model/personas';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoComponent } from '../dialogo/dialogo.component';
 
@@ -20,8 +19,8 @@ export class ProductDetailComponent implements OnInit {
   CarrouselElems: any;
   CarrouselInstance: any;
   producto = new Producto();
-  vendedor: any;
-  usuario: any;
+  vendedor: any = {};
+  usuario: any = {};
   vendedorIsNotComprador: any;
   imagenVendedor: string =
     'https://res.cloudinary.com/elcurco8/image/upload/v1598910919/TTADS-TP/user_ybrhuc.png';
@@ -49,11 +48,9 @@ export class ProductDetailComponent implements OnInit {
       this.vService.getUser(this.producto.idVendedor).subscribe((res) => {
         this.vendedor = res;
         this.imagenVendedor = this.vendedor.url;
-      });
-    });
-  }
-  ngAfterViewInit() {
-    // para el carousel
+
+
+        // para el carousel
     this.CarrouselElems = document.querySelectorAll('.carousel');
     const options = {
       fullWidth: true,
@@ -64,6 +61,11 @@ export class ProductDetailComponent implements OnInit {
       dist: -999,
     };
     this.CarrouselInstance = M.Carousel.init(this.CarrouselElems, options);
+      });
+    });
+  }
+  ngAfterViewInit() {
+    
   }
   addToCart() {
     this.isInCart();
