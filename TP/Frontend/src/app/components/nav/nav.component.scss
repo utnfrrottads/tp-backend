@@ -9,6 +9,8 @@ nav {
   background-image: url(../../images/utnLogo.png);
   background-size: contain;
   background-repeat: no-repeat;
+
+  outline: none !important;
 }
 .logo:hover {
   cursor: pointer;
