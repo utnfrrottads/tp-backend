@@ -14,22 +14,39 @@
         <tbody>
             <!-- para todos los productos de la lista-->
             <tr *ngFor="let item of data.venta.productos">
-                <td class="nombre">
+                <td class="justified">
                     <p class="max-4-lines">{{item.producto.nombre}}</p>
                 </td>
-                <td class="hide-on-small justified">
+                <td class="justified">
                     <p class="max-4-lines">{{item.producto.precio}}</p>
                 </td>
-                <td class="hide-on-small justified">
+                <td class="justified">
                     <p class="max-4-lines">{{item.cantidad}}</p>
                 </td>
-                <td class="nombre">
+                <td class="justified">
                     <p class="max-4-lines">{{item.cantidad * item.producto.precio}}</p>
                 </td>
             </tr>
         </tbody>
         </table>
+        <br>
+        <div *ngIf="this.data.modo === 'Compras'" class="justify-content">
+            <h6 class="inline-text">Comisionista: </h6>
+            <h6 class="inline-text">{{data.venta.comisionista.nombre}}</h6>
+        </div>
+        <br>
+        <div *ngIf="this.data.modo === 'Compras'" class="justify-content">
+            <h6 class="inline-text">Precio de Comision: </h6>
+            <h6 class="inline-text">${{data.venta.comisionista.precio}}</h6>
+        </div>
+
+        <br>
+        <div class="justify-content">
+            <h6 class="inline-text">Total: </h6>
+            <h6 class="inline-text">${{this.calcularTotal()}}</h6>
+        </div>
+        <br>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
+    <button class="waves-effect purple waves-light btn-large white-text" mat-button mat-dialog-close>Close</button>  
 </mat-dialog-actions>

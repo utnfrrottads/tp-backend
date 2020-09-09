@@ -24,7 +24,6 @@ export class ComprasVentasListComponent implements OnInit {
   
     let user = localStorage.getItem('user'); 
     user = JSON.parse(user);
-    console.log(user);
     this.route.params.subscribe((params) => {
       if (params.type === 'ventas') {
         this.modo = "Ventas";
@@ -32,7 +31,6 @@ export class ComprasVentasListComponent implements OnInit {
           .getVentasByUser(user)
           .subscribe((res) => {
             this.ventas = res;
-            console.log(this.ventas);
           });
       }
       else {
@@ -50,15 +48,25 @@ export class ComprasVentasListComponent implements OnInit {
 
   calcularTotal(venta) {
     let total = 0;
+
     venta.productos.forEach(p => {
       total+= p.producto.precio * p.cantidad;
     });
-    return total + venta.comisionista.precio;
+    if(this.modo === "Ventas") {
+      return total
+    }
+    else {
+      return total + venta.comisionista.precio;
+    }
+    
   }
   
   openDialog(venta) {
     this.dialog.open(DialogCompraVentaComponent,{
-      data: {venta:venta} , 
+      data: {
+        venta:venta,
+        modo:this.modo
+      } , 
       height: '400px',
       width: '600px'
     });

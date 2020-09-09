@@ -22,3 +22,34 @@
     text-align: center;
     color: whitesmoke;
   }
+
+  @media only screen and (max-width: 680px) {
+    .hide-on-small {
+      display: none;
+    }
+    .nombre {
+      min-width: none;
+    }
+  }
+  
+  @media only screen and (max-width: 435px) {
+    .container {
+      width: 100%;
+    }
+    .hide-on-tiny {
+      display: none;
+    }
+    .nombre {
+      font-size: x-small;
+    }
+    .cantidad {
+      font-size: small;
+    }
+    .subtotal {
+      font-size: smaller;
+    }
+    .material-icons {
+      font-size: 25px;
+    }
+  }
+  

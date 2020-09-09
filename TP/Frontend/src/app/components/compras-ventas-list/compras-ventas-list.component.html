@@ -2,11 +2,11 @@
     <table *ngIf="this.ventas.length > 0" class="striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th class="hide-on-small">Fecha</th>
-                <th class="hide-on-small">Comisionista</th>
-                <th class="hide-on-tiny">Cantidad de productos</th>
-                <th class="center">Total</th>
+                <th class="hide-on-tiny">Id</th>
+                <th>Fecha</th>
+                <th *ngIf="this.modo === 'Compras'">Comisionista</th>
+                <th>Cantidad de productos</th>
+                <th>Total</th>
                 <th></th>
             </tr>
         </thead>
@@ -14,19 +14,19 @@
         <tbody>
             <!-- para todos los productos de la lista-->
             <tr *ngFor="let venta of ventas">
-                <td class="nombre">
+                <td class="hide-on-tiny">
                     <p class="max-4-lines">{{venta._id}}</p>
                 </td>
-                <td class="hide-on-small justified">
+                <td class="justified">
                     <p class="max-4-lines">{{venta.fecha}}</p>
                 </td>
-                <td class="hide-on-small justified">
+                <td *ngIf="this.modo === 'Compras'" class="justified hide-on-tiny">
                     <p class="max-4-lines">{{venta.comisionista.nombre}}</p>
                 </td>
-                <td class="nombre">
+                <td class="justified">
                     <p class="max-4-lines">{{venta.productos.length}}</p>
                 </td>
-                <td class="hide-on-tiny">
+                <td class="justified">
                     ${{this.calcularTotal(venta)}}
                 </td>
                 <td>

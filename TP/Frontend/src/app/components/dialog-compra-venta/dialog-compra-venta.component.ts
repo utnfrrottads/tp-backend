@@ -11,5 +11,18 @@ export class DialogCompraVentaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  calcularTotal() {
+    let total = 0;
 
+    this.data.venta.productos.forEach(p => {
+      total+= p.producto.precio * p.cantidad;
+    });
+    if(this.data.modo === "Ventas") {
+      return total
+    }
+    else {
+      return total + this.data.venta.comisionista.precio;
+    }
+    
+  }
 }
