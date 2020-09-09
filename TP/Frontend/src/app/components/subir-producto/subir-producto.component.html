@@ -56,11 +56,6 @@
         <label>Mostrales a todos tu producto</label> <br>
         <input type="file" accept="image/*" multiple (change)="onFileSelected($event)" class="input-img">
       </div>
-      <div class="abajo imagenes">
-        <div class="izquierda" *ngFor="let imagen of producto.url">
-          <img class="mini-imagen col s12 m4 l3 xl2 eliminar" src={{imagen}} (click)="eliminarImagen(imagen)">
-        </div>
-      </div>
     </div>
 
     <button *ngIf="!modoEdicion" class="btn waves-effect waves-light btn-inferior" type="submit" name="action"
