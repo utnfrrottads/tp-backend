@@ -36,7 +36,7 @@ export class SubirProductoComponent implements OnInit {
       Validators.required,
       Validators.pattern("^[0-9]*$")
     ]),
-    url: new FormControl('', [Validators.required]),
+    //url: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -104,30 +104,6 @@ export class SubirProductoComponent implements OnInit {
   onFileSelected(event) {
     // guardo la imagen seleccionada dentro de la propiedad ImageFile.
     this.ImageFile = event.target.files;
-
-    //esto es para ver la imagen (vista previa) del producto
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event:any) => {
-       this.url_imagen = event.target.result;
-       this.producto.url.push(this.url_imagen);
-       this.productForm.patchValue({
-         url: this.producto.url
-       })
-      }
-      reader.readAsDataURL(event.target.files[0]);    
-    }
-    console.log(this.producto)
-  }
-
-  eliminarImagen(imagen){
-    const index = this.producto.url.indexOf(imagen);
-    if (index > -1) {
-      this.producto.url.splice(index, 1);
-    }      
-    this.productForm.patchValue({
-      url: this.producto.url
-    })
   }
 
   async subirImagenYObtenerURL() {
@@ -139,11 +115,12 @@ export class SubirProductoComponent implements OnInit {
 
     // subo la imagen:
     this.subirImagenYObtenerURL().then((res) => {
+      let URL = [];
       if (res == null) {
         console.log('No se pudo subir imagen');
       } else {
         for (let i = 0; i < res.length; i++) {
-          this.producto.url.push(res[i].url);
+          URL.push(res[i].url);
         }
       }
 
@@ -155,7 +132,7 @@ export class SubirProductoComponent implements OnInit {
         descripcion: this.productForm.controls.descripcion.value,
         stock: this.productForm.controls.stock.value,
         precio: this.productForm.controls.precio.value,
-        url: this.producto.url,
+        url: URL,
       };
 
       this.service.createProducto(nuevoProducto).subscribe((res : any) => {
