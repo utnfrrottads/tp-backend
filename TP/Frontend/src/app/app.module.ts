@@ -28,6 +28,7 @@ import { CarritoItemsComponent } from './components/carrito-items/carrito-items.
 import { CarritoConfirmComponent } from './components/carrito-confirm/carrito-confirm.component';
 import { ComprasVentasListComponent } from './components/compras-ventas-list/compras-ventas-list.component';
 import { DialogCompraVentaComponent } from './components/dialog-compra-venta/dialog-compra-venta.component';
+import { DialogFinishVentaComponent } from './components/dialog-finish-venta/dialog-finish-venta.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { DialogCompraVentaComponent } from './components/dialog-compra-venta/dia
     CarritoConfirmComponent,
     ComprasVentasListComponent,
     DialogCompraVentaComponent,
+    DialogFinishVentaComponent,
     
     
   ],

@@ -69,6 +69,10 @@ export class VentasService {
     return carrito;
   }
 
+  clearCart() {
+    localStorage.removeItem('carrito');
+  }
+
   getCartPrice() {
     const carrito = this.getCart();
     let total = 0;
@@ -92,7 +96,6 @@ export class VentasService {
       });
     }
 
-    
     let body = {
       productos: productosComprados,
       comisionista: comisionistaVenta,
@@ -102,15 +105,14 @@ export class VentasService {
     return this.http.post(this.baseURL, body, {});
   }
 
-  getVentasByUser(user){
+  getVentasByUser(user) {
     console.log(user._id);
-    const URL = this.baseURL+ 'vendedor/' + user._id;
+    const URL = this.baseURL + 'vendedor/' + user._id;
     return this.http.get(URL);
   }
 
-  getComprasByUser(user){
-    const URL = this.baseURL+ 'comprador/' + user._id;
+  getComprasByUser(user) {
+    const URL = this.baseURL + 'comprador/' + user._id;
     return this.http.get(URL);
   }
-
 }
