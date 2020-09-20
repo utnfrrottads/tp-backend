@@ -1,0 +1,19 @@
+<h2>
+    Listado de camas 
+</h2>
+
+<ul class="list">
+    <li *ngFor="let cama of listCama" [class.completed] = "cama.estado" class="list-item">
+      {{cama}}
+      <!-- <span>
+        <button class="btn btn-danger" (click)="removeCama(task.id)">X</button>
+        <button class="btn btn-success" (click)="completeCama(task)">V</button>
+        <button class="btn btn-warning" (click)="editCama(task)">E</button>
+      </span> -->
+      <span>
+        <button class="btn btn-danger" >X</button>
+        <button class="btn btn-success">V</button>
+        <button class="btn btn-warning">E</button>
+      </span>
+    </li>
+</ul> 

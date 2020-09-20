@@ -1,0 +1,41 @@
+ 
+<!--dash.component.html-->
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
+    <!--Mini Cards--> 
+    
+   <mat-grid-tile *ngFor="let mc of miniCardData" [colspan]="( cardLayout | async )?.miniCard.cols"
+      [rowspan]="( cardLayout | async )?.miniCard.rows">
+      <app-mini-card [icon]="mc.icon" [title]="mc.title" [value]="mc.value" [color]="mc.color" [isIncrease]="mc.isIncrease" duration="Mes anterior" [percentValue]="mc.percentValue" [isCurrency]="mc. isCurrency"></app-mini-card>
+    </mat-grid-tile>
+    <!--Charts--> 
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Evolución de la utilización de camas">
+          <app-annual-camas-chart></app-annual-camas-chart>
+      </app-card>
+   </mat-grid-tile>
+   <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Camas ocupadas por efectores">
+          <app-camas-by-efector-chart></app-camas-by-efector-chart>
+      </app-card>
+   </mat-grid-tile>
+   <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Camas por nivel atención">
+          <app-camas-by-nivel-chart></app-camas-by-nivel-chart>
+      </app-card>
+   </mat-grid-tile>
+   <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Efector por obra social">
+          <app-efector-obra-social-chart></app-efector-obra-social-chart>
+      </app-card>
+   </mat-grid-tile>
+    <!--Table-->
+    <mat-grid-tile [colspan]="( cardLayout | async )?.table.cols" [rowspan]="( cardLayout | async )?.table.rows">
+      <app-card title="Camas">
+          <app-camas-table></app-camas-table>   
+      </app-card>
+   </mat-grid-tile>
+  </mat-grid-list>
+ </div>
+ 

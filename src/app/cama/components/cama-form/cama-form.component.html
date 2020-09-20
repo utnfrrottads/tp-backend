@@ -1,0 +1,19 @@
+<h2>Cama form</h2>
+
+<form [formGroup]="camaForm" (ngSubmit)="onSubmit()">
+    <label>
+        Id:
+        <input type="text" formControlName="id">
+    </label>
+    <label>
+        Decripción:
+        <input type="text" formControlName="descripcion">
+    </label>
+    <label>
+        Estado:
+        <input type="checkbox" formControlName="estado">
+    </label>
+    <button type="submit" [disabled]="!camaForm.valid">Submit</button>
+</form>
+
+<mat-slider min="1" max="100" step="1" value="1"></mat-slider>
