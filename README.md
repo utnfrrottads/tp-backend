@@ -1,27 +1,193 @@
-# OneHospital
+# TP Backend 2020
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+## 1 - Enunciado
 
-## Development server
+### 1.1 - Desarrollo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Desarrollar un backend utilizando una API REST o GraphQL y un frontend parcial con las siguientes caracterísitcas:
 
-## Code scaffolding
+  * El backend debe ser programado en JavaScript con NodeJS.
+  * Debe utilizar un framework/middleware. Se dará soporte sobre Express pero podrán utilizarse alternativas si así se prefiere.
+  * La persistencia debe realizarse utilizando un ODM/ORM con una base de datos persistente acorde a la tecnología que se utilice.
+  * El frontend debe realizarse con un framework como Angular u otro seleccionado, html 5 y para CSS debe usarse un preprocessador o framework.
+  * El tema y alcance del trabajo debe ser propuesto por los alumnos y aprobado por los docentes de la cátedra (o utilizar el del año 2017)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1.2 - Funcionalidad
+Ver [checklist]
+#### 1.2.1 - Backend por API REST o GraphQL
 
-## Build
+  * ABMC:
+      * ABMC de entidad simple (no depende de otras entidades) por API. *Al menos 1 por integrante*
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+      * ABMC de una entidad que requiera de otra ya existente de la que se hizo ABMC en el item anterior. Ej: ABMC de articulos donde un atributo sea la categoría que a su vez es una entidad con ABMC.  *Grupos de 1 o 2 miembros: al menos 1. Grupos de 3 y 4 miembros: 2 o más*
 
-## Running unit tests
+      * Otros ABMC que exedan el mínimo requerido pueden hacerse manualmente por base de datos o por API. Si se hacen por API suman nota adicional. Sólo se considerarán el doble de ABMCs
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  * Listados por API:
+      * Listado simple: al menos uno de las entidades creadas por API. *Al menos 1 listado sin importar la cantidad de integrantes*
+      * Listado complejo:
 
-## Running end-to-end tests
+        *Grupos de hasta 2 integrantes: al menos 1 listado complejo. Grupos de 3 y 4 miembros: 2 listados complejos de cualquier opción.*
+        * Opción 1: debe incluir datos de al menos dos entidades.
+        * Opción 2: el listado debe permitir filtrar por al menos 1 atributo.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+      * Sólo se considerarán listados complejos con filtros de uno o más atributos para nota adicional.
 
-## Further help
+  * Detalle:
+    * Presentar un detalle por API de alguno de los elementos en un listado
+    * Al realizar el request se debe utilizar un ID u otro identificador obtenido de un elemento del listado, deberán devolverse más datos sobre el mismo que los que figuran en el listado.
+    * El mismo debe proveer información de dos o más entidades relacionadas. La información adicional debe ser acorde al tipo de API (REST o GraphQL) utilizada.
+    
+    
+    
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+    *Grupos de 1 o 2 integrates, al menos 1.
+    Grupos de 3 y 4 integrantes al menos 2.
+    Dos detalles básicos pueden ser reemplazados por 1 detalle parametrizable*
+
+    * Sólo se considerarán para nota adicional detalles que no coincidan con ABMCs creados.
+
+
+  * Otros: En caso de querer implementar otros elementos en reemplazo o adición a los requeridos pactar con los docentes primero.
+
+#### 1.2.2 - Frontend
+
+  * El frontend al menos deberá permitir invocar a la API y mostrar los resultados de uno de los listados. Haciendo click en un elemento del listado (o parte de él) debe mostrar el detalle correspondiente a un elemento de dicho listado invocando a una API del listado creada para el backend.
+
+  * El resto de la funcionalidad puede utilizarse mediante una herramienta similar a postman, restclient, curl o wget.
+
+  * No se considerará trabajo adicional en el frontend para sumar nota ya que hay un TP dedicado a ello.
+
+## 2 - Alcance y Entregas
+### 2.1 - Definición de Alcance
+
+El equipo deberá definir el alcance del trabajo práctico con el equipo docente. Indicando los criterios de aceptación.
+
+Las mismas podrán volverse a pactar con los profesores enviando las correcciones a la misma indicando, causas, acciones correctivas que se tomarán.
+
+En caso de realizar cambios sobre el alcance deberá dejarse una copia de la versión pactada original dentro del repositorio.
+
+### 2.2 - Entrega Inicial
+
+Para iniciar el proyecto deberá crear un fork de este repositorio.
+Editar el README.md para incluir:
+
+En el readme de dicho repo debe figurar:
+  * Enunciado general del tp.
+  * Indicado una breve descripción para cada item requerido.
+    * ABMC: nombre de la entidad y atributos.
+    * Listado: breve descripción del listado (1 línea), tipo (simple, complejo)
+    * Detalle: entidades involucradas y, si corresponde, los parámetros.
+  * Miembros del equipo indicando, legajo, nombre y apellido.
+  * Modelo de dominio o modelo de datos. Una imagen referenciada.
+
+Enviar por mail y telegram al profesor la URL del repositorio git para validar el alcance. Esperar la autorización del enunciado. Una vez hecho esto puede comenzar el desarrollo del mismo.
+
+Recuerde revisar el [checklist]
+
+### 2.3 - Entrega Final
+
+  Para realizar la entrega deberá en primer lugar crearse un tag en el repositori de git.
+
+  La entrega final deberá hacerse enviando por email y telegram a los profesores la URL del tag de git.
+
+  Pactar con el docente un fecha para la defensa.
+
+
+## 3 - Criterio de correccion
+
+### 3.1 - Código
+  * Diseño adecuado de la API.
+  * Diseño del modelo de datos adecuado.
+  * Usabilidad del sitio: debe ser fácil de usar, elegante y no tener contenido oculto o difícil de acceder
+  * Diseño adecuado de la interfaz: uso apropiado de los tags html y de los estilos, ya sea utilizando un FW CSS o un preprocesador.
+  * Calidad del código: uso adecuado de las características del FW y de la API.
+  * Completitud de los requerimientos.
+
+### 3.2 - Repositorio
+  * El desarrollo deberá realizarse en una plataforma de git gratuita. Se recomienda GitHub o GitLab.
+  * Se evaluará el uso de git: Frecuencia y responsables de los commits, uso de branches y merge.
+
+### 3.3 - Defensa
+
+Todos los miembros del grupo deberán aprobar una defensa del código y funcionalidad del TP con los profesores.
+
+Si algún miembro no puede realizar la defensa correspondiente la misma no se considerará aprobada.
+
+Luego de la defensa el resultado puede ser:
+* Desarrollo aprobado - Defensa aprobada: se considerará el TP aprobado y se definirá una nota.
+* Desarrollo a revisión - Defensa aprobada: se considera aprobada la defensa y se indicarán cambios a realizar en el código. En este caso deberá corregirse el código y enviarse un nuevo tag con las correcciones indicadas en un plazo acordado con el docente. No deberá repetirse la defensa.
+* Desarrollo aprobado - Defensa a repetir: se considera el código adecuado y aprobado. Deberá repetirse la defensa en un plazo acordado con el docente.
+* Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
+
+[checklist]: ./checklist/README.md
+
+
+
+
+# TP Backend 2020 - Grupo n° x - 1H
+
+## Enunciado general 1H:
+ 
+Desarrollaremos una solución para el personal de salud, especificamente a los enfermeros de las ambulancias, permitiendole visualizar rapidamente en tiempo real cual es el hospital más cercano y así poder llevar el paciente de manera rápida y eficaz, quitando todo el proceso burocrático que esto conlleva en la actualidad, perdiendo tiempo y personal de salud ocupandose del tema para desarrollar otras tareas.
+Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresa datos mínimos del paciente para poder decidir a que efector ir. 
+Y por otro lado, el otro principal usuario es cada institución donde deberá acceder al sistema y así mantener la información de las camas actualizada , como ser la cantidad de cama que posee y el estado de las mismas, entre otros.
+
+Notas:
+Tipo auxilio:
+ -Rojo: atencion inmediata
+ -Urgencia 
+ -Consulta
+ 
+Ejemplos de Niveles de atención:
+ 1-Centro de salud, la persona puede asistir por su cuenta
+ 2-Hospital Carrasco
+ 3-EVa perón, HECA
+ 
+ 
+Podemos citar las siguientes características a desarrollar para el TP en cuestión:
+
+    ABMC:
+
+        ABMC de entidad simple 
+        1-Cama
+        2-TipoAuxilio
+        3-Ambulancia
+        4-ObraSocial
+
+        ABMC compleja. 
+        1-Paciente (relacionado con entidades: Persona, Contacto, Obra Social)
+        2-Emergencia (relacionado con entidades: Efector, Paciente, Enfermero, AccidenteEnfermedad, Cama, Ambulancia)
+        
+        ABMC por API
+        1-Efectores
+ 
+
+    Listados por API:
+
+        Listado simple: 
+        1-Ambulancias 
+
+        Listado complejo:
+        1-Efectores cercanos al lugar de la emergencia
+          .Atributos a mostrar: Efector, NivelAtencion, cantidad de camas disponibles y distancia
+          .Filtros: NivelAtencion, ubicaciónActual y obraSocial.
+          
+        2-Camas ocupadas: 
+          .Atributos a mostrar: Cama, NivelAtencion, Efector, obraSocial, dias Ocupada
+          .Filtros: obraSocial 
+          
+    Detalle del listado "Efectores cercanos al lugar de la emergencia":
+        1-Se podrá ver la información del Paciente, con el detalle de su Nombre y de la persona de contacto.
+       
+       
+       
+Miembros del equipo:
+* Alberto Gentilcore 42122
+* Adriel Ideidani 42858
+* Lara Mateo 44795
+* Ivan Teise 32730
+
+ 
+Modelo de dominio
+https://drive.google.com/file/d/1J5X-OYuCfxFnT9LtSgfd1s7v-u6cTmZR/view?usp=sharing
