@@ -34,6 +34,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MiniCardComponent } from './dashboard/mini-card/mini-card.component';  
 import {MatChipsModule} from '@angular/material/chips';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatInputModule } from '@angular/material/input'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select'; 
 
 @NgModule({
   declarations: [
@@ -69,12 +74,17 @@ import {MatChipsModule} from '@angular/material/chips';
     MatGridListModule,
     MatCardModule,
     MatMenuModule, 
-    BrowserModule,
-    AppRoutingModule,
+    MatFormFieldModule, 
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MatInputModule,
+    MatCheckboxModule, 
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

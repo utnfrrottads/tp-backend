@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CamaSummary } from '../models/cama';
+import { HttpClient } from '@angular/common/http';
+import { CamaSummary, CamaMonthly, TipoCama, EstadoCama } from '../models/cama';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CamaService {
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
   getCamaSummary(): Observable<CamaSummary[]> {
     return of([
@@ -21,4 +25,40 @@ export class CamaService {
   getCamaCount(): Observable<any[]> {
     return of([20]); // to do 
   }
+    
+  getCamasByMonth(): Observable<CamaMonthly[]>{
+
+    //return this.httpClient.get<CamaMonthly[]>(this.baseUrl);
+    return of([
+      {"month": "Ene","count": 35 },
+      {"month": "Feb","count": 25},
+      {"month": "Mar","count": 35 },
+      {"month": "Abr","count": 49 },
+      {"month": "May","count": 53 },
+      {"month": "Jun","count": 51 },
+      {"month": "Jul","count": 59 },
+      {"month": "Ago","count": 69 },
+      {"month": "Sep","count": 85 },
+      {"month": "Oct","count": 89 }
+  ]);
+  }
+
+  getTipoCama(): Observable<TipoCama[]>{ 
+    //return this.httpClient.get<TipoCama[]>(this.baseUrl);
+    return of([
+      {"id": 1,"descripcion": "Crítica" },
+      {"id": 2,"descripcion": "General" }
+  ]);
+  }
+  getEstadoCama(): Observable<EstadoCama[]>{ 
+    //return this.httpClient.get<EstadoCama[]>(this.baseUrl);
+    return of([
+      {"id": 1,"descripcion": "Libre" },
+      {"id": 2,"descripcion": "Ocupada" },
+      {"id": 3,"descripcion": "Fuera de linea" },
+      {"id": 4,"descripcion": "Reparacion" },
+      {"id": 5,"descripcion": "Reservada" },
+      {"id": 6,"descripcion": "Potencialmente disponible" }
+  ]);
+  } 
 }
