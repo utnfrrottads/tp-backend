@@ -22,23 +22,35 @@
     <p>        
         <mat-form-field appearance="fill">
             <mat-label>Tipo cama</mat-label>
-            <mat-select matNativeControl required>
-                <mat-option *ngFor="let tipoCama of dataTipoCama" [value]="tipoCama.id"> 
+            <!--formControlName es para asignar al formGroup
+                mat-select -> [value] es para presetear un valor
+                mat-option -> [value] es el valor del ngFor
+            -->
+            <mat-select matNativeControl required formControlName='tipoCama' [value]='camaSelected.tipoCama'>
+                <mat-option *ngFor="let tipoCama of dataTipoCama" [value]="tipoCama.descripcion"> 
                     {{tipoCama.descripcion}} 
                 </mat-option> 
-            </mat-select>
+            </mat-select>            
+            <mat-error *ngIf="camaForm.controls.tipoCama.touched && camaForm.controls.tipoCama.invalid">
+                <span *ngIf="camaForm.controls.tipoCama.errors.required">No te olvides de elegir el tipo de cama!</span>  
+            </mat-error> 
         </mat-form-field>  
     </p>
     <p>        
         <mat-form-field appearance="fill">
             <mat-label>Estado</mat-label>
-            <mat-select matNativeControl required>
-                <mat-option *ngFor="let estado of dataEstadoCama" [value]="estado.id"> 
+            <mat-select matNativeControl required formControlName='estadoCama'  [value]='camaSelected.estadoCama'>
+                <mat-option *ngFor="let estado of dataEstadoCama" [value]="estado.descripcion"> 
                     {{estado.descripcion}} 
                 </mat-option> 
             </mat-select>
+            <mat-error *ngIf="camaForm.controls.estadoCama.touched && camaForm.controls.estadoCama.invalid">
+                <span *ngIf="camaForm.controls.estadoCama.errors.required">No te olvides de elegir cual es el estado de la cama!</span>  
+            </mat-error> 
         </mat-form-field>  
-    </p>
-    <button type="submit" [disabled]="!camaForm.valid">Crear</button>
+    </p> 
+    <button mat-raised-button color="primary" type="submit" [disabled]="!camaForm.valid">Crear</button>
 </form>
    
+
+{{this.camaSelected.id}}

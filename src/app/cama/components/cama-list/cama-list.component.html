@@ -2,18 +2,41 @@
     Listado de camas 
 </h2>
 
-<ul class="list">
-    <li *ngFor="let cama of listCama" [class.completed] = "cama.estado" class="list-item">
-      {{cama}}
-      <!-- <span>
-        <button class="btn btn-danger" (click)="removeCama(task.id)">X</button>
-        <button class="btn btn-success" (click)="completeCama(task)">V</button>
-        <button class="btn btn-warning" (click)="editCama(task)">E</button>
-      </span> -->
-      <span>
-        <button class="btn btn-danger" >X</button>
-        <button class="btn btn-success">V</button>
-        <button class="btn btn-warning">E</button>
-      </span>
-    </li>
-</ul> 
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataCama">
+
+  <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+      <mat-cell *matCellDef="let cama">{{cama.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+      <mat-cell *matCellDef="let cama">{{cama.descripcion}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="estadoCama">
+      <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+      <mat-cell *matCellDef="let cama">{{cama.estadoCama}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tipoCama">
+    <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+    <mat-cell *matCellDef="let cama">{{cama.tipoCama}}</mat-cell>
+  </ng-container>
+  
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>   
+    <td mat-cell *matCellDef="let cama"> 
+      <button mat-mini-fab color="accent" (click)="editCama(cama)">
+        <mat-icon>edit</mat-icon>
+      </button>  
+      <button mat-mini-fab color="primary" (click)="deleteCama(cama)" aria-label="Eliminar cama">
+        <mat-icon>delete</mat-icon>
+      </button> 
+    </td>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+   
+</mat-table>

@@ -1,7 +1,10 @@
 export interface Cama {
     id: number;
-    descripcion: string;
-    estado: string,
+    descripcion: string,
+    // estadoCama: EstadoCama,
+    // tipoCama: TipoCama,
+    estadoCama: string,
+    tipoCama: string,
 }
 export class CamaSummary {
     title: string;

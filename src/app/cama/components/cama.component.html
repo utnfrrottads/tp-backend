@@ -1,2 +1,9 @@
-<app-cama-form></app-cama-form>
-<app-cama-list></app-cama-list>
+<app-cama-form
+    [camaSelected]="this.camaSelected"
+>
+</app-cama-form>
+<app-cama-list
+    [dataCama]="dataCama"
+    (camaSelected)="setCamaSelected($event)"
+    >
+</app-cama-list>

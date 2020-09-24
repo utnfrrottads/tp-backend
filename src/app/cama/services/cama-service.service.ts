@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CamaSummary, CamaMonthly, TipoCama, EstadoCama } from '../models/cama';
+import { CamaSummary, CamaMonthly, TipoCama, EstadoCama, Cama } from '../models/cama';
 
 
 @Injectable({
@@ -26,8 +26,7 @@ export class CamaService {
     return of([20]); // to do 
   }
     
-  getCamasByMonth(): Observable<CamaMonthly[]>{
-
+  getCamasByMonth(): Observable<CamaMonthly[]>{ 
     //return this.httpClient.get<CamaMonthly[]>(this.baseUrl);
     return of([
       {"month": "Ene","count": 35 },
@@ -40,7 +39,23 @@ export class CamaService {
       {"month": "Ago","count": 69 },
       {"month": "Sep","count": 85 },
       {"month": "Oct","count": 89 }
-  ]);
+    ]);
+  }
+
+
+  getCamas(): Observable<Cama[]>{ 
+    //return this.httpClient.get<EstadoCama[]>(this.baseUrl);
+    return of([ 
+        //{id: 1, descripcion: 'Hydrogen', estadoCama: {id: 1, descripcion: "ejemplo"}, tipoCama: {id: 1, descripcion: "ejemplo"}},
+        {id: 1, descripcion: 'UTI', estadoCama: "Fuera de linea", tipoCama: "Crítica"}, 
+        {id: 2, descripcion: 'UTI', estadoCama: "Reparacion", tipoCama: "Crítica"}, 
+        {id: 3, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica"}, 
+        {id: 4, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica"}, 
+        {id: 5, descripcion: 'UTI', estadoCama: "Libre", tipoCama: "Crítica"}, 
+        {id: 6, descripcion: 'General', estadoCama: "Potencialmente disponible", tipoCama: "General"}, 
+        {id: 7, descripcion: 'UTI', estadoCama: "Potencialmente disponible", tipoCama: "Crítica"}  , 
+        {id: 8, descripcion: 'General', estadoCama: "Ocupada", tipoCama: "General"}  
+    ]);
   }
 
   getTipoCama(): Observable<TipoCama[]>{ 
@@ -48,7 +63,7 @@ export class CamaService {
     return of([
       {"id": 1,"descripcion": "Crítica" },
       {"id": 2,"descripcion": "General" }
-  ]);
+    ]);
   }
   getEstadoCama(): Observable<EstadoCama[]>{ 
     //return this.httpClient.get<EstadoCama[]>(this.baseUrl);
@@ -59,6 +74,6 @@ export class CamaService {
       {"id": 4,"descripcion": "Reparacion" },
       {"id": 5,"descripcion": "Reservada" },
       {"id": 6,"descripcion": "Potencialmente disponible" }
-  ]);
+    ]);
   } 
 }
