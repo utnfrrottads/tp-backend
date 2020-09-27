@@ -1,25 +1,23 @@
 export default {
-  Query: {
-    tables: (parent, args, { db }, info) => db.table.findAll(),
-    
-    table: (parent, { id }, { db }, info) => db.table.findByPk(id)
-  },
-
-  Mutation: {
-    createTable: (parent, { size }, { db }, info) => db.table.create({ size: size }),
-
-    updateTable: (parent, { id, size }, { db }, info) => {
-      return db.table.update(
-        { size: size }, 
-        { where: { id: id } }
-      ).then(() => db.table.findByPk(id))
+    Query: {
+        tables: (parent, args, { db }, info) => db.table.findAll(),
+        
+        table: (parent, { id }, { db }, info) => db.table.findByPk(id)
     },
 
-    deleteTable: (parent, { id }, { db }, info) => db.table.destroy({
-      where: {
-        id: id,
-      }
-    })
-  }
-};
+    Mutation: {
+        createTable: (parent, { table }, { db }, info) => db.table.create(table),
+
+        updateTable: (parent, { table }, { db }, info) => db.table.update(
+            table, 
+            { where: { id: table.id }, }
+        ).then(() => db.table.findByPk(table.id)),
+
+        deleteTable: (parent, { id }, { db }, info) => db.table.destroy({
+        where: {
+            id: id,
+        }
+        })
+    }
+    };
   

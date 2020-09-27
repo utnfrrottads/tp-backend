@@ -1,17 +1,26 @@
-export default `
-  type Table {
-    id: ID!
-    size: Int
-  }
+export default `  
+    type Table {
+        id: ID!
+        size: Int!
+    }
 
-  type Query {
-    tables: [Table]!
-    table(id: ID!): Table
-  }
+    input CreateTable {
+        size: Int!
+    }
 
-  type Mutation {
-    createTable(size: Int!): Table
-    updateTable(id: ID!, size: Int!): Table
-    deleteTable(id: ID!): String
-  }
+    input UpdateTable {
+        id: ID!
+        size: Int!
+    }
+
+    type Query {
+        table(id: ID!): Table
+        tables: [Table!]!
+    }
+
+    type Mutation {
+        createTable(table: CreateTable!): Table
+        updateTable(table: UpdateTable!): Table
+        deleteTable(id: ID!): Int
+    }
 `;
