@@ -38,7 +38,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input'; 
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select'; 
+import { MatSelectModule } from '@angular/material/select';
+import { MapComponent } from './map/components/map/map.component';
+import { MapEmergenciaComponent } from './map/components/map-emergencia/map-emergencia.component'; 
+import { GoogleMapsModule } from '@angular/google-maps'
+
 
 @NgModule({
   declarations: [
@@ -56,7 +60,9 @@ import { MatSelectModule } from '@angular/material/select';
     EfectorObraSocialChartComponent,
     CamasByEfectorChartComponent,
     CamasTableComponent,
-    MiniCardComponent,   
+    MiniCardComponent,
+    MapComponent,
+    MapEmergenciaComponent,   
   ],
   imports: [
     BrowserModule,
@@ -85,6 +91,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatCheckboxModule, 
     MatSelectModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
