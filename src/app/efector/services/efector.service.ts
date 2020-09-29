@@ -12,8 +12,10 @@ export class EfectorService {
 
   getEfectoresLocalization(): Observable<Efector[]> {
     return of([   
-      {id: 1, nombre: 'HECA', domicilio: 'Pellegrini 2500', localidad: 'Rosario', telefono: 444555, zipcode: '2000', geo: {lat: -32.151268, lng: -60.321235}},
-      {id: 2, nombre: 'Provincial', domicilio: 'Urquiza', localidad: 'Rosario', telefono: 444888, zipcode: '2000', geo: {lat: -38.101268, lng: -61.301235}},
+      {id: 3171, nombre: 'Centro de Salud "Elena Bazzet"', domicilio: 'CABRINI MADRE 2717', zona:'Sudoeste', distrito:'Sudoeste', localidad: 'Rosario', info:'133 Negra, 133 Verde, 134, 143 Negra, Ronda CUR Sur		Municipal	Teléfono: 4809197', telefono: 444555, zipcode: '2000', colorMarker: 'blanco', colorTextoMarker: 'blanco', geo: {lat:-33.005810, lng: -60.671392}},
+      {id: 1175, nombre: 'Centro de Salud "Dr. Salvador Mazza"', domicilio: 'GRANDOLI FLODUARDO 3498', zona:'Norte', distrito:'Norte', localidad: 'Rosario', info:'106 Ibarlucea', telefono: 444555, zipcode: '2000', colorMarker: 'blanco', colorTextoMarker: 'blanco',geo: {lat:-32.886982, lng:  -60.734015}},
+      {id: 1175, nombre: 'Hospital Provincial', domicilio: 'ALEM LEANDRO N 1450', zona:'Centro', distrito:'Centro', localidad: 'Rosario', info:'	102 Negra, 102 Roja, 115, 115 Aeropuerto, 122 Roja, 122 Verde, 131, 132, 133 Negra, 133 Verde, 143 Negra, 143 Roja, 145 Cabin 9, 145 Perez-Soldini, 146 Negra, 146 Roja, K, Q', telefono: 444555, zipcode: '2000', colorMarker: 'blanco', colorTextoMarker: 'blanco', geo: {lat:-32.956261, lng: -60.630512}},
     ]);
   }
-} 
+}   
+ 

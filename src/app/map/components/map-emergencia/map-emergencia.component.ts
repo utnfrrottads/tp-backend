@@ -14,7 +14,7 @@ export class MapEmergenciaComponent implements OnInit {
   marker: any;
   efectorData: Efector[]; 
   passengerInitCoordinates = [4.876935, 52.360306];
-
+  apiKey: string = ''
   constructor(
     private efectorService: EfectorService
   ) { }
@@ -25,7 +25,7 @@ export class MapEmergenciaComponent implements OnInit {
 
   initMap(){ 
     this.map = tt.map({
-      key: 'SnxKXn70COqb4G9JbLru4uAYFDononAR',
+      key: this.apiKey,
       container: 'map',
       style: 'tomtom://vector/1/basic-main',
       zoom:1.2

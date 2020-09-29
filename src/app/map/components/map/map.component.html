@@ -1,13 +1,36 @@
  
-<google-map></google-map>
-
-<!-- <tr *ngFor="let efect of efectorData "> 
-    <td>{{efect.id}}  </td> 
-    <td> {{efect.geo.lat + ' - ' + efect.geo.lng}}</td> 
-</tr>
-<div id="map" 
-(click)='onMapClickAngular()'
-    class="map"
+<google-map
+  height="500px"
+  width="100%"
+  [zoom]="zoom"
+  [center]="myPosition"
+  [options]="options" 
+  (mapClick)="click($event)"
 >
+  <map-marker
+    #markerElem
+    *ngFor="let efector of efectorData"
+    [position]="efector.geo"
+    [label]="efector.nombre"
+    [title]="efector.nombre"   
+    (mapClick)="openInfo(markerElem, efector.info)"
+  >
+  </map-marker>
 
-</div>  -->
+  <map-info-window>{{ infoContent }}</map-info-window>
+</google-map>
+
+<button (click)="zoomIn()">Zoom in</button>
+<button (click)="zoomOut()">Zoom out</button>
+<button (click)="logCenter()">Log center</button>
+<button (click)="addMarkerCurrentPosition()">Add marker in actual position </button>
+<button (click)="calculateDistancia()">Get distancia</button>
+<button (click)="getNearestEfector()">Obtener efector más cercano</button>
+
+<p>
+  {{this.mensajeDistancia}}
+</p>
+ 
+
+<img src="../../../../../assets/img/cab1.png">
+<img src="..\..\..\..\..\assets\img\cab1.png">
