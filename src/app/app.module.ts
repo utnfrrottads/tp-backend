@@ -41,7 +41,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MapComponent } from './map/components/map/map.component';
 import { MapEmergenciaComponent } from './map/components/map-emergencia/map-emergencia.component'; 
-import { GoogleMapsModule } from '@angular/google-maps'
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component'
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
     CamasTableComponent,
     MiniCardComponent,
     MapComponent,
-    MapEmergenciaComponent,   
+    MapEmergenciaComponent,
+    MapTomtomComponent,   
   ],
   imports: [
     BrowserModule,

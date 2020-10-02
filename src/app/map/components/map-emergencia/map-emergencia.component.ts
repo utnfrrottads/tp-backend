@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import tt from '@tomtom-international/web-sdk-maps';  
+//import tt from '@tomtom-international/web-sdk-maps';  
+
+import { default as ttServices } from '@tomtom-international/web-sdk-services';
+import { default as ttMaps } from '@tomtom-international/web-sdk-maps';
 import { EfectorService } from 'src/app/efector/services/efector.service';
 import { Efector } from 'src/app/efector/model/efector';
 
@@ -24,13 +27,13 @@ export class MapEmergenciaComponent implements OnInit {
   } 
 
   initMap(){ 
-    this.map = tt.map({
+    this.map = ttMaps.map({
       key: this.apiKey,
       container: 'map',
       style: 'tomtom://vector/1/basic-main',
       zoom:1.2
     });
-    this.map.addControl(new tt.NavigationControl());
+    this.map.addControl(new ttMaps.NavigationControl());
     this.getEfectores();
   }
   getEfectores(){ //TO DO: ¿pasarlo a otro componente y que no sea mapa?
@@ -42,7 +45,7 @@ export class MapEmergenciaComponent implements OnInit {
   }
   fillMapWithEfectores(efectores: Efector[]){
     for (var i=0;i< efectores.length;i++) {
-      this.marker = new tt.Marker({draggable:false, color:'#123456', scale: 0.5 })
+      this.marker = new ttMaps.Marker({draggable:false, color:'#123456', scale: 0.5 })
           .setLngLat([efectores[i].geo.lng,efectores[i].geo.lat])
           .addTo(this.map);
     }
@@ -50,8 +53,8 @@ export class MapEmergenciaComponent implements OnInit {
   
   createPassengerMarker(markerCoordinates, popup) {
         const passengerMarkerElement = document.createElement('div');
-        passengerMarkerElement.innerHTML = "<img src='img/man-waving-arm_32.png' style='width: 30px; height: 30px';>";
-        return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(this.map);
+        passengerMarkerElement.innerHTML = "<img src='img/manHere.png' style='width: 30px; height: 30px';>";
+        return new ttMaps.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(this.map);
     }
 }
 

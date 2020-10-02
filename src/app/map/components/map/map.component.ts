@@ -21,24 +21,25 @@ export class MapComponent implements OnInit {
   //   text: 'Emergencia'
   // }
   
-  @ViewChild(GoogleMap, { static: false }) map: GoogleMap
-  @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
+  @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
+  myMapita: google.maps.Map;
   efectorData: Efector[];
-  zoom = 12
-  myPosition: google.maps.LatLngLiteral; 
-  options: google.maps.MapOptions = {
-    mapTypeId: 'hybrid',
-  }  
-  iconMarker: string = '../../../../../assets/img/cab1.png'
-//   disableDoubleClickZoom: true,
-// maxZoom: 15,
-// minZoom: 8,
-// zoomControl: false,
-// scrollwheel: false,
-
-  markers = [];
+  myMarkers = [];
   infoContent = '';
   mensajeDistancia: string = '';
+  zoom = 12;
+  iconManMarker: string = '../../../../../assets/img/manHere.png';
+  myPosition: google.maps.LatLngLiteral; 
+  options: google.maps.MapOptions = {
+    // mapTypeId: 'hybrid',
+    // disableDoubleClickZoom: true,
+    // maxZoom: 15,
+    // minZoom: 8,
+    // zoomControl: false,
+    // scrollwheel: false,
+  }   
+
   constructor(
     private efectorService: EfectorService
   ) { }
@@ -53,7 +54,7 @@ export class MapComponent implements OnInit {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       }
-    })
+    });
   }
   getEfectores(){  
     this.efectorService.getEfectoresLocalization().subscribe(
@@ -81,10 +82,11 @@ export class MapComponent implements OnInit {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       }
-    })
-    console.log('mypos', this.myPosition)
+    });
+ 
+    // console.log('mypos', this.myPosition)
     //Agrego marcador a mapa
-    this.markers.push({
+    this.myMarkers.push({
       position: {
         lat: this.myPosition.lat,
         lng: this.myPosition.lng,
@@ -93,13 +95,15 @@ export class MapComponent implements OnInit {
         color: 'red',
         text: 'Mi posición actual'
       },
-      title: 'Detectamos que usted se encuentra aquí',
+      title: 'Usted se encuentra aquí',
       info: 'Info detallada ',
-      // icon: '../../../../../assets/img/cab1.png', //intentando que funcione el marker primero
+      //icon: '../../../../../assets/img/cab1.png', //intentando que funcione el marker primero
       options: {
         animation: google.maps.Animation.BOUNCE, //DROP
+        icon: this.iconManMarker,  
       },
-    })   
+    });
+ 
   }
 
   openInfo(marker: MapMarker, content) {
@@ -126,9 +130,41 @@ export class MapComponent implements OnInit {
     let destino = destinoPosition.lat +  "," + destinoPosition.lng   
     this.getDistancia(origen, destino);
 
-  }
-
+  } 
   getNearestEfector(){
-    
+    let myCurrentPosition = { 
+      lat: -32.951416888801205,
+      lng: -60.721738511040954
+    } 
+      let radiusHeart = 6371; // radius of earth in km
+      let distances = [];
+      let closest: number = -999 ; 
+      let closestDist: number = 99999999;
+      for(let efector of this.efectorData){ 
+        console.log(efector.nombre, efector.geo.lat, efector.geo.lng);
+        let myLat = myCurrentPosition.lat;
+        let myLng = myCurrentPosition.lng;
+        let markerLat = efector.geo.lat;
+        let markerLng = efector.geo.lng; 
+
+        let dLat  = this.rad(markerLat - myLat);
+        let dLong = this.rad(markerLng - myLng);
+        let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(this.rad(myLat)) * Math.cos(this.rad(myLat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        let distance = radiusHeart * c;
+        
+        
+        if ( closest == -999 || distance < closestDist ) {
+          closest = efector.id;
+          closestDist = distance; 
+          console.log('mas cercano',closest + '-' + closestDist);
+        }
+      }
+      console.log(closest, closestDist) 
+      this.mensajeDistancia = closestDist.toString();
+  }
+  rad(degrees){  
+    return degrees * (Math.PI/180);
   }
 } 

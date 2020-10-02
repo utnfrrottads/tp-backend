@@ -1,34 +1,41 @@
  
-<google-map
+<google-map  
   height="500px"
   width="100%"
   [zoom]="zoom"
   [center]="myPosition"
   [options]="options" 
-  (mapClick)="click($event)"
->
-  <map-marker
-    #markerElem
-    *ngFor="let efector of efectorData"
-    [position]="efector.geo"
-    [label]="efector.nombre"
-    [title]="efector.nombre"   
-    (mapClick)="openInfo(markerElem, efector.info)"
-  >
-  </map-marker>
-
-  <map-info-window>{{ infoContent }}</map-info-window>
+  (mapClick)="click($event)">
+    <map-marker
+      #markerElem
+      *ngFor="let myMark of myMarkers"
+      [position]="myMark.position"
+      [label]="myMark.title"
+      [title]="myMark.label"
+      [options]="myMark.options">
+    </map-marker> 
+    <map-marker
+      #markerElem
+      *ngFor="let efector of efectorData"
+      [position]="efector.geo"
+      [label]="efector.nombre"
+      [title]="efector.nombre"   
+      (mapClick)="openInfo(markerElem, efector.info)">
+    </map-marker> 
+  <map-info-window>
+    {{ infoContent }}
+  </map-info-window>
 </google-map>
 
-<button (click)="zoomIn()">Zoom in</button>
-<button (click)="zoomOut()">Zoom out</button>
+<button (click)="zoomIn()">Zoom +</button>
+<button (click)="zoomOut()">Zoom -</button>
 <button (click)="logCenter()">Log center</button>
-<button (click)="addMarkerCurrentPosition()">Add marker in actual position </button>
-<button (click)="calculateDistancia()">Get distancia</button>
+<button (click)="addMarkerCurrentPosition()">Mostrame mi ubicación</button>
+<button (click)="calculateDistancia()">Calcular distancia con Google</button>
 <button (click)="getNearestEfector()">Obtener efector más cercano</button>
 
-<p>
-  {{this.mensajeDistancia}}
+<p *ngIf="this.mensajeDistancia">
+  Efector más cercano: {{this.mensajeDistancia}}
 </p>
  
 

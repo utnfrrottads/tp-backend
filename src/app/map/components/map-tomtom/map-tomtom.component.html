@@ -1,0 +1,14 @@
+h
+<tr *ngFor="let efect of efectorData "> 
+    <td>{{efect.id}}  </td> 
+    <td> {{efect.geo.lat + ' - ' + efect.geo.lng}}</td> 
+</tr>
+
+
+
+<div id="map" 
+(click)='onMapClickAngular()'
+    class="map"
+>
+
+</div> 
