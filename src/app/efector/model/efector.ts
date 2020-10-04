@@ -11,6 +11,7 @@ export interface Efector{
     geo: GeoLocation,
     colorMarker: string,
     colorTextoMarker: string,
+    options: any,    
 }
  
 export interface GeoLocation{

@@ -44,6 +44,7 @@ import { MapEmergenciaComponent } from './map/components/map-emergencia/map-emer
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component'
 
+import {MatBadgeModule} from '@angular/material/badge'; 
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.compo
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,
+    MatBadgeModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

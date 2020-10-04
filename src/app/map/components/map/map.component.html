@@ -1,11 +1,11 @@
  
+  <!-- (mapClick)="click($event)" -->
 <google-map  
   height="500px"
   width="100%"
   [zoom]="zoom"
   [center]="myPosition"
-  [options]="options" 
-  (mapClick)="click($event)">
+  [options]="options" >
     <map-marker
       #markerElem
       *ngFor="let myMark of myMarkers"
@@ -20,24 +20,47 @@
       [position]="efector.geo"
       [label]="efector.nombre"
       [title]="efector.nombre"   
+      [options]="efector.options"
       (mapClick)="openInfo(markerElem, efector.info)">
     </map-marker> 
   <map-info-window>
     {{ infoContent }}
   </map-info-window>
 </google-map>
-
-<button (click)="zoomIn()">Zoom +</button>
-<button (click)="zoomOut()">Zoom -</button>
+ 
 <button (click)="logCenter()">Log center</button>
-<button (click)="addMarkerCurrentPosition()">Mostrame mi ubicación</button>
+<button (click)="addMarkerCurrentPosition()" mat-raised-button color="primary" >
+  <span class="material-icons">person_pin_circle</span>
+  Mi ubicación
+</button>
+ 
 <button (click)="calculateDistancia()">Calcular distancia con Google</button>
-<button (click)="getNearestEfector()">Obtener efector más cercano</button>
-
-<p *ngIf="this.mensajeDistancia">
-  Efector más cercano: {{this.mensajeDistancia}}
-</p>
+<button (click)="getNearestEfector()" mat-raised-button color="primary">
+  <span class="material-icons">location_searching</span> 
+  Efector más cercano
+</button>
  
 
-<img src="../../../../../assets/img/cab1.png">
-<img src="..\..\..\..\..\assets\img\cab1.png">
+<!-- <img src="..\..\..\..\..\assets\img\cab1.png"> -->
+
+
+<mat-card class="example-card" *ngIf="this.efectorClosest">
+  <mat-card-header> 
+    <mat-card-title>Efector más cercano: {{this.efectorClosest.nombre}}</mat-card-title>
+    <mat-card-subtitle>  
+      <span class="material-icons">pin_drop</span>
+      {{this.efectorClosest.domicilio}}, {{this.efectorClosest.localidad}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+  <mat-card-content>  
+      Cantidad de camas
+      <mat-icon matBadge="15" matBadgeColor="warn">single_bed</mat-icon> 
+        <span class="cdk-visually-hidden">
+          La cantidad de camas disponibles es 155555555555 (es para accesibilidad este texto>>>>>>>>>>>>)
+        </span> 
+  </mat-card-content>
+  <mat-card-actions>
+    <button  mat-raised-button color="warn">Tomar cama e ir!</button>
+  </mat-card-actions>
+</mat-card>
