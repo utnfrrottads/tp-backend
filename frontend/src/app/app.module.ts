@@ -17,6 +17,9 @@ import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material.module';
+import { AdminModule } from './admin/admin.module';
+import { LoginAdminComponent } from './admin/admin-auth/admin-login/admin-login.component';
+import { RegisterAdminComponent } from './admin/admin-auth/admin-register/admin-register.component';
 
 
 
@@ -28,19 +31,21 @@ import { MaterialModule } from './material.module';
     PageNotFoundComponent,  
     LoginComponent,
     RegisterComponent,
-
+    LoginAdminComponent,
+    RegisterAdminComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
-    PagesModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
-
+    MaterialModule,
+    PagesModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

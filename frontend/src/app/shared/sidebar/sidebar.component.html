@@ -1,0 +1,20 @@
+<aside class="left-sidebar bg-dark">
+  <div class="sidebar-heading align-middle text-monospace text-dark bg-info"><p class="p-2">Administración <i class="fas fa-users-cog"></i></p></div>
+          <!-- Sidebar scroll-->
+          <div class="scroll-sidebar">
+              <!-- Sidebar navigation-->
+              <nav class="sidebar-nav">
+                  <ul id="sidebarnav">
+                    <a  [routerLink]="['/admin/home']" class="list-group-item list-group-item-action bg-dark text-light">Home</a>
+                    <a  [routerLink]="['/admin/fields']" class="list-group-item list-group-item-action bg-dark text-light">Canchas</a>
+                    <a  [routerLink]="['/admin/appointments']" class="list-group-item list-group-item-action bg-dark text-light">Turnos</a>
+                    <a  [routerLink]="['/admin/settings']" class="list-group-item list-group-item-action bg-dark text-light">Configuración <i class="fas fa-wrench"></i></a>
+                    <a  (click)="logout()" class="list-group-item list-group-item-action bg-dark text-danger">Cerrar Sesión <i class="fas fa-sign-out-alt"></i></a>
+                  </ul>
+              </nav>
+              <!-- End Sidebar navigation -->
+          </div>
+          <!-- End Sidebar scroll-->
+      </aside>
+      <!-- ============================================================== -->
+      <!-- End Left Sidebar - style you can find in sidebar.scss  -->

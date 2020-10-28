@@ -1,0 +1,28 @@
+<div class="m-3">
+    <h1>Estadisticas del centro deportivo: <small>{{user.name}}</small></h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-6">
+            <h3>Turnos según día</h3>
+            <app-line-chart></app-line-chart>
+        </div>
+    
+        <div class="col-6">
+            <h3>Turnos según momento del día</h3>
+            <app-bar-chart></app-bar-chart>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-6">
+            <h3>Turnos según características</h3>
+            <app-doughnut-chart></app-doughnut-chart>
+        </div>
+    
+        <div class="col-6">
+            <h3>Usuario que realizó la reserva según cancha</h3>
+            <app-radar-chart></app-radar-chart>
+        </div>
+    </div>
+</div>

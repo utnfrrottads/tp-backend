@@ -2,6 +2,7 @@ const User = require ('../models/user.model');
 const { request, response} = require ('express');
 const userCtrl = {};
 const bycript = require('bcryptjs');
+const UserType = require ('../models/userType.model');
 const {generateJWT} = require ('../helpers/jwt')
 
 
@@ -52,8 +53,6 @@ userCtrl.getUser = async (req = request,res = response)=>{
 
 userCtrl.createUser = async (req = request, res = response) =>{
     const {email, password} = req.body
-//SE EXTRAE EL ROLE DEL HEADER
-    const role = 'USER';
     try {
         const existsEmail = await User.findOne({email});
         if(existsEmail){
@@ -62,26 +61,15 @@ userCtrl.createUser = async (req = request, res = response) =>{
                 msg:'An user already exists with this email'
             })
         }
-        const user = new User(req.body);
-//ACA SE HACE LA ASIGNACION DEL ROLE (REVISAR EL TEMA DE VARIABLES DE ENTORNO)
-        if (role==='USER'){
-            user.role=process.env.USER;
-        }
-        if (role==='CENTER_ADMIN'){
-            user.role=process.env.CENTER_ADMIN;
-        }
-        if (role==='GENERAL_ADMIN'){
-            user.role=process.env.GENERAL_ADMIN;
-        }
+        user = new User(req.body);
+        usertype = (await UserType.findOne({description:req.body.role}))._id;
+        user.role = usertype;
         const salt = bycript.genSaltSync();
         user.password = bycript.hashSync(password,salt);
         await user.save();
-//GENERAR JWT
-        const token =  await generateJWT(user.uid)
         res.json({
             ok:true,
             msg: 'Created User',
-            token
         })
     } catch (error) {
         console.log(error);
@@ -156,6 +144,26 @@ userCtrl.deleteUser = async (req = request, res = response) =>{
             ok:false,
             msg:'An unexpected error occurred'
         })
+    }
+}
+
+userCtrl.getUserType = async (req = request, res = response) =>{
+    const userTypeID = req.params.userTypeID;
+    try {
+        const userType = await UserType.findById(userTypeID);
+        if(!userType){
+            return res.status(404).json({
+                ok:false,
+                msg:'Unknown ID. Please insert a correct User ID'
+            })
+        }
+        res.json({
+            ok:true,
+            msg:'UserType Found',
+            userType
+        })    
+    } catch (error) {
+        
     }
 }
 

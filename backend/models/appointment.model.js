@@ -10,6 +10,11 @@ const AppointmentSchema = new Schema({
     createdDate:{type:Date},
     user:{type:Schema.Types.ObjectId,ref:'User',required:true},
     field:{type:Schema.Types.ObjectId,ref:'Field',required:true},
+    owner:{
+        oid:{type:String, required:true},
+        name:{type:String, required:true},
+        phone:{type:Number,required:true}
+    }
 },{collection:'appointments'})
 
 AppointmentSchema.index({ date: 1, field: 1 }, { unique: true})

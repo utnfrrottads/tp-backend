@@ -9,7 +9,8 @@ const FieldSchema = new Schema({
     image:{type:String},
     cantMaxPlayers:{type:Number,required: true},
     openingHour: {type:Date,required:true},
-    closingHour: {type:Date,required:true}
+    closingHour: {type:Date,required:true},
+    user: {type:Schema.Types.ObjectId,ref:'User',required:true}
 },{collection:'fields'})
 
 FieldSchema.method('toJSON',function(){

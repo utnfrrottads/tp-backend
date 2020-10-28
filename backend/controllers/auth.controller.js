@@ -1,5 +1,6 @@
 const User = require ('../models/user.model');
 const {request, response} = require('express');
+const UserType = require ('../models/userType.model')
 const authCtrl ={};
 
 const {generateJWT} = require ('../helpers/jwt');
@@ -8,6 +9,7 @@ const bycript = require('bcryptjs');
 
 authCtrl.login = async(req = request,res = response)=>{
     const { email, password} = req.body;
+    const type = req.body.type
     const uid = req.uid
     try {
         const userDB = await  User.findOne({email});
@@ -22,7 +24,14 @@ authCtrl.login = async(req = request,res = response)=>{
             return res.status(404).json({
                 ok:false,
                 msg:"Wrong email or password"
-            })
+            });
+        }
+        const userType = await UserType.findById(userDB.role);
+        if(userType.description !== type){
+            return res.status(403).json({
+                ok:false,
+                msg:'User does not have permission'
+            });
         }
 //GENERAR JWT
         const token =  await generateJWT(userDB.id)
@@ -49,6 +58,7 @@ authCtrl.renewToken = async (req,res)=>{
 
 //OBTENER USUARIO
     const user = await User.findById(uid,{uid:1,name:1,address:1,phone:1,email:1,role:1})
+                            .populate('role','description')
     if(!user){
         return console.log('NO ENCUENTRA USUARIO')
     }

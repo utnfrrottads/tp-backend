@@ -31,15 +31,23 @@ export class LoginComponent  {
 
 
   signIn(){
-    this.userService.signIn(this.form.value)
+    this.userService.signIn(this.form.value,'USER')
                       .subscribe(resp =>{
-                        console.log(resp)
                         if(this.form.get('remember').value){
                           localStorage.setItem('email',this.form.get('email').value)
                         }else{
                           localStorage.removeItem('email')
                         }
-                        this.router.navigateByUrl('')
+                        Swal.fire({
+                          title: 'Ingresando',
+                          icon: "success",
+                          timer: 2000,
+                          showConfirmButton:false,
+                          allowOutsideClick: false
+                        });
+                        setTimeout(() => {
+                          this.router.navigateByUrl('')
+                        }, 2000);
                       },(err)=>{
                         console.log(err)
                         Swal.fire('Email y/o contraseña incorrectos','Por favor, ingrese nuevamente sus datos','error')

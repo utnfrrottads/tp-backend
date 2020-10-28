@@ -1,0 +1,106 @@
+<div class="back">
+    <div class="contact-form">
+        <div class="col-md-11">
+            <div class="contact-image">
+                <i class="far fa-futbol color-1 icon"></i>
+            </div>
+            <h1 class="text-center  text-monospace color-1" *ngIf="!editForm">Nueva Cancha</h1>
+            <h1 class="text-center  text-monospace color-1" *ngIf="editForm">Editar Cancha</h1>
+        </div>
+        <form (submit)="submitField()" [formGroup]="fieldForm">
+           <div class="row p-2">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-1">Nombre:</label>
+                        <input type="text"  class="form-control" placeholder="Ingrese el nombre de la cancha"
+                                formControlName="name" [class.is-invalid]="getInputValid('name')"/>
+                        <small *ngIf="getInputValid('name')" class="text-danger">
+                            Ingrese el nombre
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-1">Cantida de jugadores:</label>
+                        <input type="number"  class="form-control" placeholder="Ingrese la cantidad de jugadores" max="22"
+                                formControlName="cantMaxPlayers" [class.is-invalid]="getInputValid('cantMaxPlayers')"/>
+                        <small *ngIf="getInputValid('cantMaxPlayers')" class="text-danger">
+                            Ingrese la cantidad máxima de jugadores
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-1">Precio:</label>
+                        <input type="number" class="form-control" placeholder="Ingrese el precio"
+                                formControlName="price" [class.is-invalid]="getInputValid('price')"/>
+                        <small *ngIf="getInputValid('price')" class="text-danger">
+                            Ingrese el Precio
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="font-1">Horario Apertura:</label>
+                                <input type="time" name="txtPhone" class="form-control" placeholder="Horario de apertura" list="hours"
+                                        formControlName="openingHour" [class.is-invalid]="getInputValid('openingHour')||!hourOK "/>
+                                <small *ngIf="getInputValid('openingHour')" class="text-danger">
+                                    Ingrese el horario de apertura
+                                </small>
+                            </div>
+                            <div class="col">
+                                <label class="font-1">Horario Cierre:</label>
+                                <input type="time" name="txtPhone" class="form-control" placeholder="Horario de cierre" list="hours"
+                                        formControlName="closingHour" [class.is-invalid]="getInputValid('closingHour')||!hourOK"/>
+                                <small *ngIf="getInputValid('closingHour')" class="text-danger">
+                                    Ingrese el horario de cierre
+                                </small>
+                            </div>
+                            <small *ngIf="!hourOK" class="text-danger">
+                                El horario de apertura debe ser menor al horario de cierre
+                            </small>
+                            <datalist id="hours">
+                                <option value="00:00"></option> <option value="01:00"></option> <option value="02:00"></option>
+                                <option value="03:00"></option> <option value="04:00"></option> <option value="05:00"></option>
+                                <option value="06:00"></option> <option value="07:00"></option> <option value="08:00"></option>
+                                <option value="09:00"></option> <option value="10:00"></option> <option value="11:00"></option>
+                                <option value="12:00"></option> <option value="13:00"></option> <option value="14:00"></option>
+                                <option value="15:00"></option> <option value="16:00"></option> <option value="17:00"></option>
+                                <option value="18:00"></option> <option value="19:00"></option> <option value="20:00"></option>
+                                <option value="21:00"></option> <option value="22:00"></option> <option value="23:00"></option>
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-1">Descripción:</label>
+                        <textarea name="txtMsg" class="form-control" placeholder="Descripción" style="width: 100%; height: 80px;"
+                                formControlName="description" [class.is-invalid]="getInputValid('description')"></textarea>
+                        <small *ngIf="getInputValid('description')" class="text-danger">
+                            Ingrese una descripción
+                        </small>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="font-1 mr-2 border-black"><i class="fas fa-images"></i> Imagen: </label>
+                        <div class="text-center">
+                            <img *ngIf="fileTemporal" [src]='fileTemporal' class="img-avatar" >
+                            <img *ngIf="!fileTemporal && isImage" [src]='this.field.image|image:"field"' class="img-avatar" >
+                            <img *ngIf="!fileTemporal && !isImage"  src="../../../../assets/img/drop-images.png" alt="">
+                        </div>
+                        <input type="file" name="" id="" class="text-center"
+                                (change)="changeImage($event.target.files[0])">
+                    </div>
+                    
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                </div>
+                <div class="col-md-11">
+                    <div class="form-group text-center">
+                        <button type="submit" [disabled]="!hourOK" class="btn btn-outline-success btn-lg mr-2" *ngIf="!editForm"><i class="far fa-save"></i> Crear cancha</button>
+                        <button type="submit" [disabled]="!hourOK" class="btn btn-outline-success btn-lg mr-2" *ngIf="editForm"><i class="far fa-save"></i> Editar cancha</button>
+                        <button type="button" [routerLink]="'/admin/fields'" class="btn btn-outline-danger btn-lg"><i class="far fa-window-close"></i> Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 /*
-RUTA: http:localhost:0000/api/users
+RUTA: http:localhost:3000/api/users
 */
 
 const express = require ('express');
@@ -21,6 +21,7 @@ router.put('/:id',[validateJWT,
                 check('email','Email field is incorrect').isEmail(),
                 validateFields],userCtrl.updateUser);
 router.delete('/:id',[validateJWT],userCtrl.deleteUser);
+router.get('/type/:usertype',[validateJWT], userCtrl.getUserType)
 
 
 module.exports = router;

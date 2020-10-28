@@ -1,5 +1,5 @@
 /*
-RUTA: http:localhost:0000/api/fields'
+RUTA: http:localhost:3000/api/fields'
 */
 const express = require('express');
 const router = express.Router();
@@ -11,6 +11,8 @@ const {validateJWT} = require('../middlewares/validateJWT');
 
 router.get('/',[validateJWT],fieldCtrl.getFields)
 router.get('/:id',[validateJWT],fieldCtrl.getField)
+router.get('/admin/:id',[validateJWT],fieldCtrl.getFieldsByCenterAdmin)
+
 router.post('/',[validateJWT,
                     check('name','Name field is required').not().isEmpty(),
                     check('price','Price field is required').not().isEmpty(),

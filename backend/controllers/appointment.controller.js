@@ -1,6 +1,7 @@
 const Appointment = require('../models/appointment.model');
 const User = require('../models/user.model');
 const Field = require('../models/field.model');
+const cron = require('node-cron');
 
 const { request , response } = require('express');
 
@@ -123,6 +124,12 @@ appointmentCtrl.deleteAppointment = async (req = request, res = response) =>{
                 msg:'Unknown ID. Please insert a correct Appointment ID'
             })
         }
+        if(appointmentDB.state !== 'Reserved'){
+            return res.status(404).json({
+                ok:false,
+                msg:'The appointment cannot be deleted due to cancellation policies'
+            })
+        }
         await Appointment.findByIdAndDelete(id);
         res.json({
             ok:false,
@@ -147,16 +154,40 @@ appointmentCtrl.getUserAppointments = async (req = request , res = response) => 
                 msg:'Unknown ID. Please insert a correct User ID'
             })
         }
-        const appointments = await Appointment.find({user: userID})
+        const appointmentsDB = await Appointment.find({user: userID})
                                             .populate('user','name')
                                             .populate('field','name')
-        appointments.sort((elem1,elem2)=>{
-            return (elem2.date.getTime() - elem1.date.getTime())
+        // appointments.sort((elem1,elem2)=>{
+        //     return (elem2.date.getTime() - elem1.date.getTime())
+        // })
+        let reservedAppointments = new Array;
+        let completedAppointments = new Array;
+        let inProgressAppointments = new Array;
+        let aboutToStartAppointments = new Array;
+
+        appointmentsDB.forEach(element=>{
+            if(element.state==='AboutToStart'){
+                aboutToStartAppointments.push(element)
+            }
+            if(element.state==='Reserved'){
+                reservedAppointments.push(element)
+            }
+            if(element.state==='InProgress'){
+                inProgressAppointments.push(element)
+            }
+            if(element.state==='Completed'){
+                completedAppointments.push(element)
+            }
         })
         res.json({
             ok:true,
             msg:'Found Appointments',
-            appointments
+            appointments:{
+                reservedAppointments,
+                completedAppointments,
+                inProgressAppointments,
+                aboutToStartAppointments
+            }
         })
         
     } catch (error) {
@@ -234,6 +265,11 @@ appointmentCtrl.getAvailableAppointments = async (req = request , res = response
         })
     }
 }
+
+// cron.schedule('0 9-22 * * *',() => {
+//  //aca poner el codigo para cambiar estado
+// en el 9 y el 22 poner horarios de cierre de cancha
+// })
 
 module.exports = appointmentCtrl;
 

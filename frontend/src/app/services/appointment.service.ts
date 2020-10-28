@@ -12,7 +12,7 @@ export class AppointmentService {
   
     getAppointments(){
         const token = localStorage.getItem('token') || '';
-//FALTA ORDENAR LAS FECHAS PARA MOSTRAR LAS MAS RECIENTES 
+//FALTA ORDENAR LAS FECHAS PARA MOSTRAR LAS MAS RECIENTES --> ver esto cuando configure la correccion automatica de turnos
         return this.http.get('http://localhost:3000/api/appointments/user',{headers:{'x-token':token}})
                         .pipe(map((data:any) =>{
                             return data.appointments
@@ -33,5 +33,10 @@ export class AppointmentService {
     createAppointments(appointment){
       const token = localStorage.getItem('token') || '';
       return this.http.post('http://localhost:3000/api/appointments',appointment,{headers:{'x-token': token}} )
+    }
+
+    deleteAppointment(id:string){
+      const token = localStorage.getItem('token') || '';
+      return this.http.delete(`http://localhost:3000/api/appointments/${id}`,{headers:{'x-token': token}} )
     }
 }

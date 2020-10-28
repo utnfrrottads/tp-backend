@@ -1,30 +1,21 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from "@angular/router";
-import { PagesComponent } from './pages.component';
+import { Routes } from "@angular/router";
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { FieldsComponent } from './fields/fields.component';
-import { FieldComponent } from './field/field.component';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { DoAppointment } from './do-appointments/do-appointments.component';
 
 
-const routes : Routes = [
-  {path:'',component:PagesComponent, canActivate:[AuthGuard],
-  children:[
-    {path:'', component:HomeComponent},
-    {path:'user', component:UsersComponent},
-    {path:'about', component:AboutComponent},
-    {path:'fields', component:FieldsComponent},
-    {path:'field/:id',component: FieldComponent},
-    {path:'appointments', component:AppointmentsComponent},
-  ]},
+export const PagesRoutes : Routes = [
+  {path:'',pathMatch:'full', redirectTo:'home'}, 
+  {path:'home', component:HomeComponent, canActivate:[AuthGuard]},
+  {path:'user', component:UsersComponent,  canActivate:[AuthGuard]},
+  {path:'about', component:AboutComponent,  canActivate:[AuthGuard]},
+  {path:'fields', component:FieldsComponent,  canActivate:[AuthGuard]},
+  {path:'appointments', component:AppointmentsComponent, canActivate:[AuthGuard]},
+  {path:'appointment/:id',component: DoAppointment, canActivate:[AuthGuard]},
 ];
 
 
-@NgModule({
-    imports:[RouterModule.forChild(routes)],
-    exports:[RouterModule]
-})
-export class PagesRoutingModule{}

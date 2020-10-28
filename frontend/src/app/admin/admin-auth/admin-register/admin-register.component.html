@@ -1,0 +1,97 @@
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/img/profile-bg.jpg);">
+        <div class="login-box card">
+            <div class="card-body">
+                <form class="form-horizontal form-material" id="loginform" 
+                    (ngSubmit)="createUser()" 
+                    [formGroup]="registerForm"
+                    autocomplete="off">
+                    <a href="javascript:void(0)" class="text-center db"><img src="../assets/img/sporturno.png" alt="Home" /></a>
+                    <h2 class="box-title m-t-40 m-b-0 text-monospace">Registro</h2><h4 class="text-primary font-weight-light font-italic">Unite a la plataforma de reserva de turnos más utilizada</h4>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input class="form-control" 
+                                    type="text" 
+                                    placeholder="Nombre"
+                                    formControlName="name"
+                                    [class.is-invalid]="fieldInvalid('name')">
+                            <p class="col text-danger" *ngIf="fieldInvalid('name')">El nombre es obligatorio</p>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input class="form-control" 
+                                    type="text" 
+                                    placeholder="Dirección del centro deportivo"
+                                    formControlName="address"
+                                    [class.is-invalid]="fieldInvalid('address')">
+                            <p class="col text-danger" *ngIf="fieldInvalid('address')">Ingrese la dirección</p>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input class="form-control" 
+                                    type="number" 
+                                    placeholder="Teléfono"
+                                    formControlName="phone"
+                                    [class.is-invalid]="fieldInvalid('phone')">
+                            <p class="col text-danger" *ngIf="fieldInvalid('phone')">Ingrese un teléfono</p>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" 
+                                    type="text" 
+                                    placeholder="Email"
+                                    formControlName="email"
+                                    [class.is-invalid]="fieldInvalid('email')">
+                            <p class="col text-danger" *ngIf="fieldInvalid('email')">El email es obligatorio y debe ser válido</p>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" 
+                                    type="password" 
+                                    placeholder="Contraseña"
+                                    formControlName="password"
+                                    [class.is-invalid]="fieldInvalid('password')">
+                            <p class="col text-danger" *ngIf="fieldInvalid('address')">La contraseña es obligatoria</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" 
+                                    type="password" 
+                                    placeholder="Repita Contraseña"
+                                    formControlName="password2"
+                                    [class.is-invalid]="fieldInvalid('password2')">
+                            <p class="col text-danger" *ngIf="pass2Valid">Las password no coinciden</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-primary p-t-0">
+                                <input id="checkbox-signup" type="checkbox" formControlName="terms" [class.is-invalid]="validateCheck()">
+                                <label for="checkbox-signup"> Acepto los <a href="#">Términos</a></label>
+                                <p class="col text-danger" *ngIf="validateCheck()">Debe aceptar los términos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Registrarse</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            <p>¿Ya tenes cuenta? <a routerLink="/admin/login" class="text-info m-l-5"><b>Ingresá</b></a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>

@@ -12,7 +12,7 @@ const app = express();
 dbConnection();
 
 //settings
-app.set('Port',process.env.PORT||3009);
+app.set('Port',process.env.PORT);
 
 //middlewares
 app.use(cors({origin:'http://localhost:4200'}));
@@ -26,6 +26,7 @@ app.use('/api/login',require('./routes/auth.routes'))
 app.use('/api/usertypes',require('./routes/userType.routes'));
 app.use('/api/fields',require('./routes/field.routes'));
 app.use('/api/appointments',require('./routes/appointment.routes'));
+app.use('/api/uploads',require('./routes/upload.routes'));
 
 //start server
 app.listen(app.get('Port'),()=>{

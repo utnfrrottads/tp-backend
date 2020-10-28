@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-appointments',
@@ -10,19 +9,19 @@ import { User } from 'src/app/models/user.model';
 })
 export class AppointmentsComponent  {
 
-  appointments = [];
-  empty : boolean = true
+  reservedAppointments = [];
+  completedAppointments = [];
+  inProgressAppointments = [];
+  aboutToStartAppointments = [];
+
   constructor(private appointmenService: AppointmentService) {
                 this.appointmenService.getAppointments()
                                       .subscribe(resp=>{
-                                        this.appointments = resp
-                                        if(this.appointments.length ===0){
-                                          this.empty = true
-                                        }else{
-                                          this.empty = false;
-                                        }
+                                        this.reservedAppointments = resp.reservedAppointments
+                                        this.completedAppointments = resp.completedAppointments
+                                        this.inProgressAppointments = resp.inProgressAppointments
+                                        this.aboutToStartAppointments = resp.aboutToStartAppointments
                                       });
 
                }
-
-}
+  }

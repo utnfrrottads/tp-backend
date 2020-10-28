@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
 @Injectable({
@@ -8,8 +9,11 @@ import { UserService } from '../services/user.service';
 })
 export class AuthGuard implements CanActivate {
 
+  user: User
+
   constructor(private userService: UserService,
-              private router : Router){}
+              private router : Router){
+              }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot){
@@ -18,6 +22,10 @@ export class AuthGuard implements CanActivate {
           if (!isauthenticated){
             this.router.navigateByUrl('/login')
           }
+          this.user = this.userService.user
+                if (this.user.role.description !== 'USER'){
+                  this.router.navigateByUrl('/admin/home')
+                }
       }))
   }
   

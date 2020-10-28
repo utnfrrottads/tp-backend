@@ -50,7 +50,7 @@ export class RegisterComponent  {
        })
        return;
      }
-     this.userService.signUp(this.form.value)
+     this.userService.signUp(this.form.value, 'USER')
                       .subscribe(resp =>{
                         Swal.fire({
                           title: 'Usuario Registrado',
@@ -60,8 +60,7 @@ export class RegisterComponent  {
                           allowOutsideClick: false
                         });
                         setTimeout(() => {
-                          localStorage.setItem('token',resp.token)
-                          this.router.navigateByUrl('')
+                          this.router.navigateByUrl('/login')
                         }, 2000);
                       },(err)=>{
                         Swal.fire('Error en el registro',err.error.msg,'error')

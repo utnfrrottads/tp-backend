@@ -1,0 +1,20 @@
+<table class="table text-center" *ngIf="available.length>0">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of available; let i=index">
+        <th scope="row" >{{i +1}}</th>
+        <td>{{item|date:'longDate':'+0'}}</td>
+        <td>{{item|date:'shortTime':'+0'}}</td>
+        <td><button type="text" class="btn btn-block btn-success" (click)="reserveAppointment(item)"><i class="far fa-check-circle"></i> Reservar</button> </td>
+    </tbody>
+  </table>
+  <div *ngIf="available.length===0" class="alert alert-dark mt-2" role="alert">
+    No hay turnos disponibles para las fechas especificadas
+  </div>

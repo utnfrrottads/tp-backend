@@ -16,18 +16,21 @@ export class UserService {
   constructor(private http : HttpClient,
               private router:Router,) { }
   
-  signIn(dataForm: LoginForm ){
-    return this.http.post('http://localhost:3000/api/login/',dataForm)
+  signIn(dataForm: LoginForm, type:string ){
+    const body = {
+      email : dataForm.email,
+      password: dataForm.password,
+      type: type
+    }
+    return this.http.post('http://localhost:3000/api/login/',body)
                     .pipe(tap((resp:any)=>{
                         localStorage.setItem('token',resp.token)
                     }))
   }
 
-  signUp(dataForm : RegisterForm){
+  signUp(dataForm : User, role){
+    dataForm.role = role;
     return this.http.post('http://localhost:3000/api/users/',dataForm)
-                    .pipe(tap((resp:any)=>{
-                      localStorage.setItem('token',resp.token)
-                     }))
   }
 
   validateToken(): Observable<boolean>{
@@ -44,7 +47,6 @@ export class UserService {
             }),map(resp=>{
                         return true
             }),catchError(error =>{
-                        console.log(error)
                         return of(false)
           })
       )
@@ -53,7 +55,6 @@ export class UserService {
 
   logOut(){
     localStorage.removeItem('token');
-    this.router.navigateByUrl('/login')
   }
   
   updateUser(id : string, data : RegisterForm){
@@ -61,4 +62,9 @@ export class UserService {
     return this.http.put(`http://localhost:3000/api/users/${id}`,data,{ headers: {'x-token':token}})
   }
 
+  getUserType(){
+    const token = localStorage.getItem('token')|| '';
+    console.log('entra al servicio')
+    return this.http.get(`http://localhost:3000/api/users/type/${this.user.role}`,{ headers: {'x-token':token}})
+  }
 }
