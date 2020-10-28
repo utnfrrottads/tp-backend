@@ -2,9 +2,8 @@ const Field = require ('../models/field.model');
 const Appointments = require ('../models/appointment.model');
 
 const { request, response} = require ('express');
-const { search } = require('../routes/field.routes');
-const { body } = require('express-validator');
 const fieldCtrl = {};
+
 
 fieldCtrl.getFields = async (req = request , res = response) => {
     const text = req.query.search
@@ -82,8 +81,10 @@ fieldCtrl.createField = async (req = request , res = response) => {
             })
         }
         const body = req.body;
-        body.openingHour= new Date(`1970/01/01 ${req.body.openingHour}:00`) 
-        body.closingHour= new Date(`1970/01/01 ${req.body.closingHour}:00`) 
+        body.openingHour = setDate(req.body.closingHour)
+        body.closingHour = setDate(req.body.closingHour)
+        console.log(body.openingHour)
+        console.log(body.closingHour)
         const field = new Field(body)
         await field.save(); 
         res.json({
@@ -99,7 +100,6 @@ fieldCtrl.createField = async (req = request , res = response) => {
         })
     }
 }
-
 fieldCtrl.updateField = async (req = request , res = response) => {
     const id = req.params.id;
     const name = req.body.name;
@@ -112,8 +112,8 @@ fieldCtrl.updateField = async (req = request , res = response) => {
             })
         };
         const changes = req.body;
-        changes.openingHour= new Date(`1970/01/01 ${req.body.openingHour}:00`) 
-        changes.closingHour= new Date(`1970/01/01 ${req.body.closingHour}:00`)
+        changes.openingHour= setDate(req.body.openingHour)
+        changes.closingHour= setDate(req.body.closingHour)
         if(changes.name === fieldBD.name){
             delete changes.name
         }else{
@@ -173,4 +173,8 @@ fieldCtrl.deleteField = async ( req = request, res = response) => {
     }
 }
 
+function setDate(hour){
+    const date = new Date(`1970/01/01 ${hour}:00`) 
+    return new Date(date.getTime() - process.env.UTC_ARG)
+}
 module.exports = fieldCtrl;

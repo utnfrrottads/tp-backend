@@ -1,4 +1,4 @@
-//SE VALIDA QUE LA FECHA DEL TURNO INGRESADA SEA MAYOR A AHORA
+//Validate that the date entered is greater than now
 
 const { request } = require("express");
 

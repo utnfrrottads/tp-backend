@@ -76,43 +76,43 @@ appointmentCtrl.createAppointment = async (req = request, res = response) =>{
     }
 }
 
-appointmentCtrl.updateAppointment = async (req = request, res = response) =>{
-    const id = req.params.id;
-    try {
-        const appointmentDB = await Appointment.findById(id);
-        if(!appointmentDB){
-            return res.status(404).json({
-                ok:false,
-                msg:'Unknown ID. Please insert a correct Appointment ID'
-            })
-        }
-        const changes = req.body
-        changes.createdDate = (Date.now()- process.env.UTC_ARG);
-        if(changes.date === appointmentDB.date){
-            return res.status(400).json({
-                ok:false,
-                msg:'The date entered is the same'
-            })
-        }
-        await Appointment.findByIdAndUpdate(id,changes,{new:true})
-        res.json({
-            ok:true,
-            msg:'Updated Appointment'
-        })
-    } catch (error) {
-        console.log(error);
-        if (error.name === 'MongoError' && error.code === 11000) {
-            return res.status(400).json({
-                    ok:false,
-                    msg:'The Field is already reserved for the requested date'
-            })
-        }
-        res.status(500).json({
-            ok:false,
-            msg:'An unexpected error ocurred'
-        })
-    }
-}
+// appointmentCtrl.updateAppointment = async (req = request, res = response) =>{
+//     const id = req.params.id;
+//     try {
+//         const appointmentDB = await Appointment.findById(id);
+//         if(!appointmentDB){
+//             return res.status(404).json({
+//                 ok:false,
+//                 msg:'Unknown ID. Please insert a correct Appointment ID'
+//             })
+//         }
+//         const changes = req.body
+//         changes.createdDate = (Date.now()- process.env.UTC_ARG);
+//         if(changes.date === appointmentDB.date){
+//             return res.status(400).json({
+//                 ok:false,
+//                 msg:'The date entered is the same'
+//             })
+//         }
+//         await Appointment.findByIdAndUpdate(id,changes,{new:true})
+//         res.json({
+//             ok:true,
+//             msg:'Updated Appointment'
+//         })
+//     } catch (error) {
+//         console.log(error);
+//         if (error.name === 'MongoError' && error.code === 11000) {
+//             return res.status(400).json({
+//                     ok:false,
+//                     msg:'The Field is already reserved for the requested date'
+//             })
+//         }
+//         res.status(500).json({
+//             ok:false,
+//             msg:'An unexpected error ocurred'
+//         })
+//     }
+// }
 
 appointmentCtrl.deleteAppointment = async (req = request, res = response) =>{
     const id = req.params.id;

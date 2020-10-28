@@ -3,8 +3,8 @@
         <div class="card-block">
           <h2 class="card-title text-light text-center text-uppercase text-monospace ">{{field.name}}</h2>
           <p class="card-text font-italic text-light">{{field.description}}</p>
-          <p class="card-text font-italic text-light">Hora apertura: {{field.openingHour | date:'shortTime':'+0' }}</p>
-          <p class="card-text font-italic text-light">Hora cierre: {{field.closingHour | date:'shortTime':'+0'}}</p>
+          <p class="card-text font-italic text-light">Hora apertura: {{field.openingHour | date:'shortTime':'-3' }}</p>
+          <p class="card-text font-italic text-light">Hora cierre: {{field.closingHour | date:'shortTime':'-3'}}</p>
           <button class="btn btn-success btn-block mb-0" 
                   (click)="navigateField(id)"><i class="fas fa-eye"></i> Visitar
           </button>

@@ -7,7 +7,6 @@ const cors = require ('cors')
 //Create server
 const app = express();
 
-
 //Database connection  
 dbConnection();
 
