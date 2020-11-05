@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,30 +13,18 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private formBuilder: FormBuilder
   ) {}
 
   tipoUsuario = 'particular';
 
-  loginForm = new FormGroup({
-    username: new FormControl('', Validators.required),
-    pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    nombre: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.email, Validators.required]),
-    cuil: new FormControl(''),
-    direccion: new FormControl(''),
-    localidad: new FormControl(''),
-    passRepeat: new FormControl(''),
-    telefono: new FormControl(''),
+  loginForm = this.formBuilder.group({
+    username: ['', Validators.required],
+    pass: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  creationMode: boolean = false;
-
   ngOnInit(): void {}
-
-  toggleMode() {
-    this.creationMode = !this.creationMode;
-  }
 
   login() {
     this.userService
@@ -54,32 +42,6 @@ export class LoginComponent implements OnInit {
           );
         }
       });
-  }
-
-  createUser() {
-    if (
-      this.loginForm.controls.pass.value ===
-      this.loginForm.controls.passRepeat.value
-    ) {
-      this.userService
-        .createUser(this.loginForm.controls, this.tipoUsuario)
-        .subscribe((res: any) => {
-          if (res.status === 'ok') {
-            this.showSnack(
-              'Cuenta creada con exito, Intente logearse',
-              '¡Entendido!'
-            );
-            this.toggleMode();
-            this.loginForm.patchValue({
-              pass: '',
-            });
-          } else {
-            this.showSnack(res.error, '¡Entendido!');
-          }
-        });
-    } else {
-      this.showSnack('Las contraseñas no coinciden', '¡Entendido!');
-    }
   }
 
   showSnack(texto, opcion) {

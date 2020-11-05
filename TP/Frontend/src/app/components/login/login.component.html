@@ -2,7 +2,6 @@
     <div class="login-card">
 
         <form [formGroup]="loginForm">
-
             <div class="row">
                 <label>Usuario</label>
                 <div class="login-input">
@@ -20,100 +19,14 @@
                 <em *ngIf="this.loginForm.controls.pass.touched && this.loginForm.controls.pass.invalid">* Debe contener al menos 6 caracteres.</em>
             </div>
 
-            <div class="row" *ngIf="!creationMode">
+            <div class="row">
                 <button class="btn waves-effect waves-light purple" (click)="login()">
                     Login
                 </button>
-                <button class="btn waves-effect waves-light purple" (click)="toggleMode()">
+                <button class="btn waves-effect waves-light purple" routerLink="/register">
                     Crear cuenta
                 </button>
-            </div>
-
-            <!-- Only visibles on creationMode -->
-            <div *ngIf="creationMode">
-                <div class="row">
-                    <label>Repetir Contraseña</label>
-                    <div class="login-input">
-                        <i class="fa fa-unlock-alt fa-3x" aria-hidden="true"></i>
-                        <input type="password" formControlName="passRepeat">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label>Nombre</label>
-                    <div class="login-input">
-                        <i class="fa fa-male fa-3x" aria-hidden="true"></i>
-                        <input type="text" formControlName="nombre">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label>Dirección de correo</label>
-                    <div class="login-input">
-                        <i class="fa fa-address-book fa-3x" aria-hidden="true"></i>
-                        <input type="text" formControlName="email">
-                    </div>
-                    <em *ngIf="this.loginForm.controls.email.touched && this.loginForm.controls.email.invalid">* Formato incorrecto. ejemplo@gmail.com</em>
-                </div>
-
-                <div class="row">
-                    <label>CUIL-CUIT</label>
-                    <div class="login-input">
-                        <i class="fa fa-university fa-3x" aria-hidden="true"></i>
-                        <input type="text" formControlName="cuil">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label>Localidad</label>
-                    <div class="login-input">
-                        <i class="fa fa-map-marker fa-3x" aria-hidden="true"></i>
-                        <input type="text" formControlName="localidad">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label>Dirección</label>
-                    <div class="login-input">
-                        <i class="fa fa-home fa-3x" aria-hidden="true"></i>
-                        <input type="text" formControlName="direccion">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label>Telefono</label>
-                    <div class="login-input">
-                        <i class="fa fa-phone fa-3x" aria-hidden="true"></i>
-                        <input type="text" formControlName="telefono">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label>Tipo de usuario</label>
-                    <div class="login-input">
-                        <i class="fa fa-users fa-3x" aria-hidden="true"></i>
-                        <mat-form-field appearance="fill">
-                            <mat-select [(value)]="tipoUsuario">
-                                <mat-option value="particular">Particular</mat-option>
-                                <mat-option value="empresa">Empresa</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="row ">
-                        <div class="buttons">
-                            <button class="btn waves-effect waves-light purple" (click)="createUser()" [disabled]="!loginForm.valid">
-                                Crear
-                            </button>
-                            <button class="btn waves-effect waves-light purple" (click)="toggleMode()">
-                                Cancelar
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+            </div>         
         </form>
     </div>
 </div>

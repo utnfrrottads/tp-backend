@@ -12,6 +12,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
 import { ComprasVentasListComponent } from './components/compras-ventas-list/compras-ventas-list.component';
+import { LoginCreationComponent } from './components/login-creation/login-creation.component';
 
 const routes: Routes = [
   { path: 'rubros', component: ListaRubrosComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'productos/editar/:idProducto', component: SubirProductoComponent },
   { path: 'productos/eliminar/:idProducto', component: SubirProductoComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: LoginCreationComponent},
   { path: '', redirectTo: 'rubros', pathMatch: 'full' },
   { path: '**', redirectTo: 'rubros' },
 ];

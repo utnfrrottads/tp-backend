@@ -29,6 +29,7 @@ import { CarritoConfirmComponent } from './components/carrito-confirm/carrito-co
 import { ComprasVentasListComponent } from './components/compras-ventas-list/compras-ventas-list.component';
 import { DialogCompraVentaComponent } from './components/dialog-compra-venta/dialog-compra-venta.component';
 import { DialogFinishVentaComponent } from './components/dialog-finish-venta/dialog-finish-venta.component';
+import { LoginCreationComponent } from './components/login-creation/login-creation.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { DialogFinishVentaComponent } from './components/dialog-finish-venta/dia
     ComprasVentasListComponent,
     DialogCompraVentaComponent,
     DialogFinishVentaComponent,
+    LoginCreationComponent,
     
     
   ],
