@@ -11,18 +11,18 @@ import { Route } from '@angular/compiler/src/core';
   styleUrls: ['./compras-ventas-list.component.scss']
 })
 export class ComprasVentasListComponent implements OnInit {
-  
-  ventas:any = [];
+
+  ventas: any = [];
   modo = '';
 
-  constructor(public dialog:MatDialog, 
-    private service:VentasService, 
-    private route: ActivatedRoute, 
-    private router: Router) { }
+  constructor(public dialog: MatDialog,
+              private service: VentasService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
-  
-    let user = localStorage.getItem('user'); 
+
+    let user = localStorage.getItem('user');
     user = JSON.parse(user);
     this.route.params.subscribe((params) => {
       if (params.type === 'ventas') {
@@ -35,38 +35,38 @@ export class ComprasVentasListComponent implements OnInit {
       }
       else {
         if (params.type === 'compras') {
-        this.modo = 'Compras';  
+        this.modo = 'Compras';
         this.service
           .getComprasByUser(user)
           .subscribe((res) => {
             this.ventas = res;
           });
       }
-      else this.router.navigate(['/rubros']);
-    }})
+      else { this.router.navigate(['/rubros']); }
+    }});
   }
 
   calcularTotal(venta) {
     let total = 0;
 
     venta.productos.forEach(producto => {
-      total+= producto.producto.precio * producto.cantidad;
+      total += producto.producto.precio * producto.cantidad;
     });
-    if(this.modo === 'Ventas') {
-      return total
+    if (this.modo === 'Ventas') {
+      return total;
     }
     else {
       return total + venta.comisionista.precio;
     }
-    
+
   }
-  
+
   openDialog(venta) {
-    this.dialog.open(DialogCompraVentaComponent,{
+    this.dialog.open(DialogCompraVentaComponent, {
       data: {
-        venta:venta,
-        modo:this.modo
-      } , 
+        venta,
+        modo: this.modo
+      } ,
       height: '400px',
       width: '600px'
     });

@@ -9,7 +9,7 @@ import { RouterLink, Router } from '@angular/router';
 export class CardListComponent implements OnInit {
 @Input() producto: any;
 
-  constructor(private router:Router) {
+  constructor(private router: Router) {
   }
 
 
@@ -17,7 +17,7 @@ export class CardListComponent implements OnInit {
   }
 
   routToProduct(idProducto){
-    this.router.navigate(['/rubros/productos/',idProducto]);
+    this.router.navigate(['/rubros/productos/', idProducto]);
   }
 
 }

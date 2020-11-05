@@ -16,7 +16,7 @@ export class ProductsContainerComponent implements OnInit {
   empresaParameter = '';
   pageEvent: PageEvent;
   currentItemsToShow = [];
-  
+
   // se usa para que espere a mostrar que no hay items.
   enabledToShowNoItems = false;
 
@@ -67,7 +67,7 @@ export class ProductsContainerComponent implements OnInit {
   }
 
   hayProductos() {
-    let res = (this.enabledToShowNoItems && this.list<=0)?  false: true;
+    const res = (this.enabledToShowNoItems && this.list <= 0) ?  false : true;
     return res;
   }
 }

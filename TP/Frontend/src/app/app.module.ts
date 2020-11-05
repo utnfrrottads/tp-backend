@@ -56,8 +56,8 @@ import { LoginCreationComponent } from './components/login-creation/login-creati
     DialogCompraVentaComponent,
     DialogFinishVentaComponent,
     LoginCreationComponent,
-    
-    
+
+
   ],
   entryComponents: [DialogCompraVentaComponent],
   imports: [
@@ -67,8 +67,8 @@ import { LoginCreationComponent } from './components/login-creation/login-creati
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    
-    
+
+
   ],
 
   providers: [],

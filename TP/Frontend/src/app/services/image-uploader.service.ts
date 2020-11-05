@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +8,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ImageUploaderService {
   constructor(private http: HttpClient) {}
 
-  backendURL = 'http://localhost:3000/api/uploadImage';
+  readonly backendURL = environment.backendURL + 'uploadImage';
 
   uploadSingreFile(imageFile) {
-    let body = new FormData();
+    const body = new FormData();
     body.append('file', imageFile);
-    let options = {};
+    const options = {};
     return this.http.post<any>(this.backendURL, body, options).toPromise();
   }
 
@@ -20,9 +21,9 @@ export class ImageUploaderService {
     if (imagenes == null) {
       return Promise.resolve(null);
     }
-    let promises = [];
+    const promises = [];
     for (let i = 0; i < imagenes.length; i++) {
-      let p = this.uploadSingreFile(imagenes[i]);
+      const p = this.uploadSingreFile(imagenes[i]);
       promises.push(p);
     }
 

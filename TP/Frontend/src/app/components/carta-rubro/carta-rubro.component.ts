@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
 })
 export class CartaRubroComponent implements OnInit {
 
-  @Input() rubro:Rubro;
-  constructor(private router:Router) { 
+  @Input() rubro: Rubro;
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
   routToProducts(rubro) {
-    this.router.navigate(['/rubros',rubro._id]);
+    this.router.navigate(['/rubros', rubro._id]);
   }
 
 }

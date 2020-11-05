@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +9,14 @@ import { HttpClient } from '@angular/common/http';
 export class VentasService {
   constructor(private user: UserService, private http: HttpClient) {}
 
-  readonly baseURL = 'http://localhost:3000/api/ventas/';
+  readonly baseURL = environment.backendURL + 'ventas/';
 
   isInCart(producto) {
-    let items = JSON.parse(localStorage.getItem('carrito'));
+    const items = JSON.parse(localStorage.getItem('carrito'));
     if (items === null || items === []) {
       return false;
     } else {
-      let repeated = items.filter((e) => e._id === producto._id);
+      const repeated = items.filter((elem) => elem._id === producto._id);
       if (repeated.length == 0) {
         return false;
       } else {
@@ -24,7 +25,7 @@ export class VentasService {
     }
   }
   updateCantComprar(producto) {
-    let items = JSON.parse(localStorage.getItem('carrito'));
+    const items = JSON.parse(localStorage.getItem('carrito'));
     let item;
     items.forEach((element) => {
       if (element._id === producto._id) {
@@ -37,7 +38,7 @@ export class VentasService {
 
   addToCart(producto) {
     console.log(producto);
-    let items = JSON.parse(localStorage.getItem('carrito'));
+    const items = JSON.parse(localStorage.getItem('carrito'));
     if (items == null) {
       // primera vez abriendo el carrito.
       localStorage.setItem('carrito', JSON.stringify([producto]));
@@ -47,7 +48,7 @@ export class VentasService {
     }
   }
   removeFromCart(producto) {
-    let items = JSON.parse(localStorage.getItem('carrito'));
+    const items = JSON.parse(localStorage.getItem('carrito'));
     let item;
     items.forEach((element) => {
       if (element._id === producto._id) {
@@ -81,12 +82,12 @@ export class VentasService {
   }
 
   postBuy(comisionistaVenta) {
-    let carrito = this.getCart();
-    let productosComprados = [];
+    const carrito = this.getCart();
+    const productosComprados = [];
 
     for (let i = 0; i < carrito.length; i++) {
-      let cant = carrito[i].cantComprar;
-      let prod = carrito[i];
+      const cant = carrito[i].cantComprar;
+      const prod = carrito[i];
       delete prod.cantComprar;
       productosComprados.push({
         producto: prod,
@@ -94,7 +95,7 @@ export class VentasService {
       });
     }
 
-    let body = {
+    const body = {
       productos: productosComprados,
       comisionista: comisionistaVenta,
       idComprador: this.user.getLocalUser()._id,
@@ -103,8 +104,8 @@ export class VentasService {
     return this.http.post(this.baseURL, body, {});
   }
 
-  getVentasByUser(user){
-    const URL = this.baseURL+ 'vendedor/' + user._id;
+  getVentasByUser(user) {
+    const URL = this.baseURL + 'vendedor/' + user._id;
     return this.http.get(URL);
   }
 

@@ -22,7 +22,7 @@ export class ProductDetailComponent implements OnInit {
   vendedor: any = {};
   usuario: any = {};
   vendedorIsNotComprador: any;
-  imagenVendedor: string =
+  imagenVendedor =
     'https://res.cloudinary.com/elcurco8/image/upload/v1598910919/TTADS-TP/user_ybrhuc.png';
 
   constructor(
@@ -75,11 +75,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   prevImage() {
-    let instance = M.Carousel.getInstance(this.carrouselElems[0]);
+    const instance = M.Carousel.getInstance(this.carrouselElems[0]);
     instance.prev();
   }
   nextImage() {
-    let instance = M.Carousel.getInstance(this.carrouselElems[0]);
+    const instance = M.Carousel.getInstance(this.carrouselElems[0]);
     instance.next();
   }
 

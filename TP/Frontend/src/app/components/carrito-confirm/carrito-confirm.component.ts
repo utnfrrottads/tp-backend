@@ -31,7 +31,7 @@ export class CarritoConfirmComponent implements OnInit {
   }
 
   finalPrice() {
-    //traigo el comisionista.
+    // traigo el comisionista.
     const com = this.selectComisionistaByID(this.IdComisionistaSeleccionado);
     if (com != undefined) {
       return this.ventaService.getCartPrice() + com.precio;
@@ -39,7 +39,7 @@ export class CarritoConfirmComponent implements OnInit {
   }
 
   selectComisionistaByID(id) {
-    let com = this.comisionistas.find((obj) => {
+    const com = this.comisionistas.find((obj) => {
       return obj._id === id;
     });
     this.comisionista.emit(com);

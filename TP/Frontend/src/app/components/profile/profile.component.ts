@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
     M.AutoInit();
     M.updateTextFields();
     this.storagedUser = this.userService.getLocalUser();
-    
+
     // si no tiene imagen por defecto le asigno una.
     if (this.storagedUser.url == null) {
       this.storagedUser.url = this.defaultUserImageURL;
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    //metodo para que aparezca en pantalla un snack para informar al usuario.
+    // metodo para que aparezca en pantalla un snack para informar al usuario.
     this._snackBar.open(message, action, {
       duration: 2000,
     });
@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
       this.subirImagenYObtenerURL().then((res) => {
         let URL = [];
         if (res == null) {
-          let user = this.userService.getLocalUser();
+          const user = this.userService.getLocalUser();
           if (user == null) {
             URL = [this.defaultUserImageURL];
           } else {

@@ -42,7 +42,7 @@ export class NavComponent implements OnInit {
     this.instances = M.Dropdown.init(this.elems, this.options);
   }
   search(input) {
-    let texto = input.value;
+    const texto = input.value;
     console.log(texto);
     if (texto === '') {
       window.alert('Por favor ingrese una descripción de lo que desea comprar');
@@ -65,7 +65,7 @@ export class NavComponent implements OnInit {
     }
   }
   itemsOnStorage() {
-    let carrito = this.ventaService.getCart()
+    const carrito = this.ventaService.getCart();
     if (carrito == null) {
       return 0;
     } else {

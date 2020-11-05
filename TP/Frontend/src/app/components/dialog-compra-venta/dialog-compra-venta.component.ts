@@ -1,5 +1,5 @@
 import { Component, OnInit , Inject} from '@angular/core';
-import { MAT_DIALOG_DATA} from '@angular/material/dialog'; 
+import { MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-dialog-compra-venta',
   templateUrl: './dialog-compra-venta.component.html',
@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class DialogCompraVentaComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
   }
@@ -15,14 +15,14 @@ export class DialogCompraVentaComponent implements OnInit {
     let total = 0;
 
     this.data.venta.productos.forEach(p => {
-      total+= p.producto.precio * p.cantidad;
+      total += p.producto.precio * p.cantidad;
     });
-    if(this.data.modo === "Ventas") {
-      return total
+    if (this.data.modo === 'Ventas') {
+      return total;
     }
     else {
       return total + this.data.venta.comisionista.precio;
     }
-    
+
   }
 }

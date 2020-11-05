@@ -7,13 +7,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./lista-empresas.component.scss']
 })
 export class ListaEmpresasComponent implements OnInit {
-  empresas:any = []; 
-  constructor(private service:UserService) { }
+  empresas: any = [];
+  constructor(private service: UserService) { }
 
   ngOnInit(): void {
-    this.service.getEmpresas().subscribe((res) => { 
+    this.service.getEmpresas().subscribe((res) => {
       this.empresas = res;
-    })
+    });
   }
 
 }

@@ -9,15 +9,15 @@ import { RubrosService } from '../../services/rubros.service';
 })
 export class ListaRubrosComponent implements OnInit {
 
-  rubros:any=[];
+  rubros: any = [];
   constructor(private rubrosService: RubrosService) { }
 
   ngOnInit(): void {
-    //traigo todos los rubros
+    // traigo todos los rubros
     this.rubrosService.getRubros()
-    .subscribe((res)=>{
+    .subscribe((res) => {
       this.rubros = res;
-    })
+    });
 
   }
 }

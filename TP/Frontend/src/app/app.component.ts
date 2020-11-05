@@ -8,7 +8,7 @@ import { Producto } from '../app/model/productos';
 })
 export class AppComponent implements OnInit {
   title = 'OnlineShopping';
- 
+
 
   ngOnInit() {}
 

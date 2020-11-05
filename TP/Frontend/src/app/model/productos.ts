@@ -7,7 +7,7 @@ export class Producto {
     nombre: string;
     descripcion: string;
     stock: number;
-    url : string[];
-    cantComprar : number;
+    url: string[];
+    cantComprar: number;
     precio: number;
 }
