@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { Producto } from '../../model/productos';
 import { Router } from '@angular/router';
-import { ProductCardsService } from 'src/app/services/product-cards.service';
 import { UserService } from 'src/app/services/user.service';
+import { VentasService } from 'src/app/services/ventas.service';
 declare var M: any;
 
 @Component({
@@ -20,8 +19,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: ProductCardsService,
-    private userService: UserService
+    private userService: UserService,
+    private ventaService: VentasService
   ) {}
 
   @HostListener('window:resize', [])
@@ -54,7 +53,7 @@ export class NavComponent implements OnInit {
     }
   }
 
-  CloseSession() {
+  closeSession() {
     localStorage.clear();
     this.router.navigate(['login']);
   }
@@ -66,7 +65,7 @@ export class NavComponent implements OnInit {
     }
   }
   itemsOnStorage() {
-    let carrito = JSON.parse(localStorage.getItem('carrito'));
+    let carrito = this.ventaService.getCart()
     if (carrito == null) {
       return 0;
     } else {

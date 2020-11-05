@@ -22,7 +22,7 @@ import { CartaEmpresaComponent } from './components/carta-empresa/carta-empresa.
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { SubirProductoComponent } from './components/subir-producto/subir-producto.component';
 import { LoginComponent } from './components/login/login.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 import { DialogoComponent } from './components/dialogo/dialogo.component';
 import { CarritoItemsComponent } from './components/carrito-items/carrito-items.component';
 import { CarritoConfirmComponent } from './components/carrito-confirm/carrito-confirm.component';
@@ -48,7 +48,6 @@ import { DialogFinishVentaComponent } from './components/dialog-finish-venta/dia
     CarritoComponent,
     SubirProductoComponent,
     LoginComponent,
-    PageNotFoundComponent,
     DialogoComponent,
     CarritoItemsComponent,
     CarritoConfirmComponent,

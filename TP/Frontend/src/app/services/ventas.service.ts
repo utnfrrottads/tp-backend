@@ -48,7 +48,6 @@ export class VentasService {
   }
   removeFromCart(producto) {
     let items = JSON.parse(localStorage.getItem('carrito'));
-    //let item = items.filter((e) => e._id === producto._id);
     let item;
     items.forEach((element) => {
       if (element._id === producto._id) {
@@ -56,7 +55,6 @@ export class VentasService {
       }
     });
     const index = items.indexOf(item);
-    //console.log(index)
     items.splice(index, 1);
 
     localStorage.setItem('carrito', JSON.stringify(items));

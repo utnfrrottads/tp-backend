@@ -189,7 +189,7 @@ export class SubirProductoComponent implements OnInit {
   }
 
   //para cambiar el tamaño del textArea según la altura del scroll
-  txtAreaText: string;
+  
 
   txtAreaTextChanges(input) {
     let txtAreas = document.getElementsByClassName(

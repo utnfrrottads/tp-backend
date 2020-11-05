@@ -13,7 +13,7 @@ import { Route } from '@angular/compiler/src/core';
 export class ComprasVentasListComponent implements OnInit {
   
   ventas:any = [];
-  modo = "";
+  modo = '';
 
   constructor(public dialog:MatDialog, 
     private service:VentasService, 
@@ -26,7 +26,7 @@ export class ComprasVentasListComponent implements OnInit {
     user = JSON.parse(user);
     this.route.params.subscribe((params) => {
       if (params.type === 'ventas') {
-        this.modo = "Ventas";
+        this.modo = 'Ventas';
         this.service
           .getVentasByUser(user)
           .subscribe((res) => {
@@ -35,7 +35,7 @@ export class ComprasVentasListComponent implements OnInit {
       }
       else {
         if (params.type === 'compras') {
-        this.modo = "Compras";  
+        this.modo = 'Compras';  
         this.service
           .getComprasByUser(user)
           .subscribe((res) => {
@@ -49,10 +49,10 @@ export class ComprasVentasListComponent implements OnInit {
   calcularTotal(venta) {
     let total = 0;
 
-    venta.productos.forEach(p => {
-      total+= p.producto.precio * p.cantidad;
+    venta.productos.forEach(producto => {
+      total+= producto.producto.precio * producto.cantidad;
     });
-    if(this.modo === "Ventas") {
+    if(this.modo === 'Ventas') {
       return total
     }
     else {

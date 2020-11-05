@@ -67,13 +67,7 @@ export class ProductsContainerComponent implements OnInit {
   }
 
   hayProductos() {
-    if (this.list.length > 0) {
-      return true;
-    } else {
-      if (this.enabledToShowNoItems) {
-        return false;
-      }
-      return true;
-    }
+    let res = (this.enabledToShowNoItems && this.list<=0)?  false: true;
+    return res;
   }
 }
