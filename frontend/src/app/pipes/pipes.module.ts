@@ -15,7 +15,7 @@ import { TranslatePipe } from './translate.pipe';
   imports: [
     CommonModule
   ],
-  exports:[
+  exports: [
     ImagePipe,
     NoimagePipe,
     TranslatePipe

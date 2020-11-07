@@ -10,7 +10,7 @@ declare function customInitFunctions();
   ]
 })
 export class PagesComponent implements OnInit {
-  
+
   constructor() { }
 
   ngOnInit(): void {

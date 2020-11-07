@@ -13,7 +13,7 @@ export class PageNotFoundComponent implements OnInit {
   }
 
   goBack(){
-    window.history.back()
+    window.history.back();
   }
 
 }

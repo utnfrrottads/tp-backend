@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-//Modules
+// Modules
 import { AppRoutingModule } from './app.routing.module';
 import { PagesModule } from './pages/pages.module';
-import { FormsModule } from '@angular/forms'
-import { ReactiveFormsModule } from '@angular/forms'
-import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-//Components
+// Components
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -28,12 +28,11 @@ import { RegisterAdminComponent } from './admin/admin-auth/admin-register/admin-
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,  
+    PageNotFoundComponent,
     LoginComponent,
     RegisterComponent,
     LoginAdminComponent,
     RegisterAdminComponent,
-    
   ],
   imports: [
     BrowserModule,

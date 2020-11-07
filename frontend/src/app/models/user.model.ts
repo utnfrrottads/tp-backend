@@ -4,13 +4,13 @@ const base_url = environment.base_url;
 
 export class User{
     constructor(
-        public name : string,
-        public address : string,
-        public phone : number,
-        public email : string,
-        public password?: string, 
-        public role?: {id:string,
-                        description:string},
+        public name: string,
+        public address: string,
+        public phone: number,
+        public email: string,
+        public password?: string,
+        public role?: {id: string,
+                        description: string},
         public uid?: string,
         ){}
 

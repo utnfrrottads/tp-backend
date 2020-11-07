@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-//Modules
+// Modules
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app.routing.module';
 import { ComponentsModule } from '../components/components.module';
 
 
-//Components
+// Components
 import { HomeComponent } from './home/home.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { FieldsComponent } from './fields/fields.component';
 import { UsersComponent } from './users/users.component';
 import { PagesComponent } from './pages.component';
-import { DoAppointment } from './do-appointments/do-appointments.component';
+import { DoAppointmentComponent } from './do-appointments/do-appointments.component';
 import { AboutComponent } from './about/about.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
@@ -28,9 +28,8 @@ import { MaterialModule } from '../material.module';
     PagesComponent,
     FieldsComponent,
     UsersComponent,
-    DoAppointment,
+    DoAppointmentComponent,
     AboutComponent,
-    
   ],
   imports: [
     CommonModule,
@@ -40,16 +39,13 @@ import { MaterialModule } from '../material.module';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule
-    
   ],
-  exports:[
+  exports: [
     HomeComponent,
     AppointmentsComponent,
     FieldsComponent,
     PagesComponent,
     UsersComponent,
-    
-    
   ]
 })
 export class PagesModule { }

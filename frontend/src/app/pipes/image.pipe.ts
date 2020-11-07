@@ -12,19 +12,18 @@ export class ImagePipe implements PipeTransform {
 
   }
 
-  transform(image: string, type:'user'|'field' ): string {
-     if(!image){
-        return `${base_url}/uploads/${type}/no-image.png`     
+  transform(image: string, type: 'user'|'field' ): string {
+     if (!image){
+        return `${base_url}/uploads/${type}/no-image.png`;
      }
-     else if(image.includes('http')){
+     else if (image.includes('http')){
        return image;
      }
-     else if(image){
-       return `${base_url}/uploads/${type}/${image}`
+     else if (image){
+       return `${base_url}/uploads/${type}/${image}`;
      }
      else{
-       return `${base_url}/uploads/no-image.png`      
+       return `${base_url}/uploads/no-image.png`;
      }
-    
   }
 }

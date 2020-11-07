@@ -9,17 +9,15 @@ export class ValidatorService {
 
 
   constructor() { }
-  passEqual(pass1 : string, pass2: string){
-    return(FormGroup : FormGroup) =>{
-      const pass1Control = FormGroup.controls[pass1];
-      const pass2Control = FormGroup.controls[pass2];
-      if(pass1Control.value === pass2Control.value){
-        pass2Control.setErrors(null)
+  passEqual(pass1: string, pass2: string){
+    return(formGroup: FormGroup) => {
+      const pass1Control = formGroup.controls[pass1];
+      const pass2Control = formGroup.controls[pass2];
+      if (pass1Control.value === pass2Control.value){
+        pass2Control.setErrors(null);
       }else{
-        pass2Control.setErrors({notEqual:true})
+        pass2Control.setErrors({notEqual: true});
       }
-    }
+    };
   }
-
-  
 }

@@ -15,25 +15,25 @@ import Swal from 'sweetalert2';
 })
 export class FieldComponent implements OnInit {
 
-  fieldForm : FormGroup;
-  file: File
-  user: User
-  fileTemporal : any  = null;
-  hourOK: boolean = true;
-  field : Field
-  editForm : boolean = false
-  fieldID : string = ''
-  isImage: boolean = false;
+  fieldForm: FormGroup;
+  file: File;
+  user: User;
+  fileTemporal: any  = null;
+  hourOK = true;
+  field: Field;
+  editForm  = false;
+  fieldID = '';
+  isImage = false;
 
-  constructor(private fb : FormBuilder,
+  constructor(private fb: FormBuilder,
               private uploadFileService: UploadFileService,
               private fieldService: FieldService,
               private userService: UserService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.createFieldForm();
-    this.user = this.userService.user
-    this.editMode()
+    this.user = this.userService.user;
+    this.editMode();
     this.listenerForm();
    }
 
@@ -41,74 +41,74 @@ export class FieldComponent implements OnInit {
   }
   createFieldForm(){
     this.fieldForm = this.fb.group({
-      name: ['',[Validators.required]],
-      cantMaxPlayers: ['',[Validators.required]],
-      price: ['',[Validators.required]],
-      openingHour: ['',[Validators.required]],
-      closingHour: ['',[Validators.required]],
-      description: ['',[Validators.required, Validators.maxLength(200)]],
-    })
+      name: ['', [Validators.required]],
+      cantMaxPlayers: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      openingHour: ['', [Validators.required]],
+      closingHour: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(200)]],
+    });
   }
-  
-  getInputValid(input : string){
+
+  getInputValid(input: string){
     return this.fieldForm.get(input).invalid &&
-            this.fieldForm.get(input).touched
+            this.fieldForm.get(input).touched;
   }
   submitField(){
     if (this.fieldForm.invalid){
-      Object.values(this.fieldForm.controls).forEach(control=>{
+      Object.values(this.fieldForm.controls).forEach(control => {
         control.markAsTouched();
-      })
+      });
       return;
     }
-    if(this.editForm === true){
-      this.editField()
+    if (this.editForm === true){
+      this.editField();
     }
-    else if(this.editForm === false){
-      this.createField()
+    else if (this.editForm === false){
+      this.createField();
     }
   }
-    
-  changeImage(file:File){
-    this.file = file
-    if(!file){
+
+  changeImage(file: File){
+    this.file = file;
+    if (!file){
       return this.fileTemporal = null;
     }
     const reader = new FileReader();
-    const url64= reader.readAsDataURL(file);
-    reader.onloadend = () =>{
+    const url64 = reader.readAsDataURL(file);
+    reader.onloadend = () => {
       this.fileTemporal = reader.result;
-    }
+    };
   }
   listenerForm(){
     this.fieldForm.valueChanges
-               .subscribe(data=>{
-                 const open = parseInt((data.openingHour).split(':').join(''));
-                 const close = parseInt((data.closingHour).split(':').join(''));
-                 if(open>=close){
+               .subscribe(data => {
+                 const open = parseInt((data.openingHour).split(':').join(''), 10);
+                 const close = parseInt((data.closingHour).split(':').join(''), 10);
+                 if (open >= close){
                   this.hourOK = false;
                  }
                  else{
-                   this.hourOK= true;
-                 }                 
-               })
+                   this.hourOK = true;
+                 }
+               });
   }
 
   editMode(){
-    this.fieldID = this.activatedRoute.snapshot.params.id
-    if(this.fieldID !== undefined){
-      this.editForm = true
+    this.fieldID = this.activatedRoute.snapshot.params.id;
+    if (this.fieldID !== undefined){
+      this.editForm = true;
       this.fieldService.getField(this.fieldID)
-                        .subscribe(resp=>{
+                        .subscribe(resp => {
                             this.field = resp;
-                            this.fillEditMode()
-                          })
+                            this.fillEditMode();
+                          });
       }
   }
 
   fillEditMode(){
-    const opening = this.getHour(this.field.openingHour)
-    const closing = this.getHour(this.field.closingHour)
+    const opening = this.getHour(this.field.openingHour);
+    const closing = this.getHour(this.field.closingHour);
     this.fieldForm.patchValue({
       name: this.field.name,
       cantMaxPlayers: this.field.cantMaxPlayers,
@@ -116,91 +116,91 @@ export class FieldComponent implements OnInit {
       openingHour: opening,
       closingHour: closing,
       description: this.field.description,
-    })
-    if(this.field.hasOwnProperty('image')){
-      this.isImage = true
+    });
+    if (this.field.hasOwnProperty('image')){
+      this.isImage = true;
     }
     else{
-      this.isImage=false
+      this.isImage = false;
     }
-    //this.fileTemporal = this.field.image
+    // this.fileTemporal = this.field.image
   }
-  
+
   getHour(date){
-    return date.slice(11,16)
+    return date.slice(11, 16);
   }
 
   createField(){
-    this.fieldService.createField(this.fieldForm.value,this.user.uid)
-          .subscribe((resp:any)=>{
-            if(this.file){
-              this.uploadFileService.uploadImage(this.file,'field',resp.field.id)
-                                     .then(data=>{
+    this.fieldService.createField(this.fieldForm.value, this.user.uid)
+          .subscribe((resp: any) => {
+            if (this.file){
+              this.uploadFileService.uploadImage(this.file, 'field', resp.field.id)
+                                     .then(data => {
                                       Swal.fire({
                                         title: 'Cancha creada',
-                                        icon: "success",
+                                        icon: 'success',
                                         timer: 2000,
-                                        showConfirmButton:false,
+                                        showConfirmButton: false,
                                         allowOutsideClick: false
                                       });
                                       setTimeout(() => {
-                                        this.router.navigateByUrl('/admin/fields')
+                                        this.router.navigateByUrl('/admin/fields');
                                       }, 2000);
-                                    },(err)=>{
-                                      console.log(err)
-                                      Swal.fire('Error al subir la foto','Por favor, intentelo nuevamente','error')
-                                    })           
+                                    }, (err) => {
+                                      console.log(err);
+                                      Swal.fire('Error al subir la foto', 'Por favor, intentelo nuevamente', 'error');
+                                    });
             }
-          Swal.fire({
+            Swal.fire({
             title: 'Cancha creada',
-            icon: "success",
+            icon: 'success',
             timer: 2000,
-            showConfirmButton:false,
+            showConfirmButton: false,
             allowOutsideClick: false
           });
-          setTimeout(() => {
-            this.router.navigateByUrl('/admin/fields')
-          }, 2000);                     
-          },(err)=>{
-            console.log(err)
-            Swal.fire('Error al crear la cancha','Por favor, intentelo nuevamente o cambie los datos','error')
-          })
+            setTimeout(() => {
+            this.router.navigateByUrl('/admin/fields');
+          }, 2000);
+          }, (err) => {
+            console.log(err);
+            Swal.fire('Error al crear la cancha', 'Por favor, intentelo nuevamente o cambie los datos', 'error');
+          });
   }
 
   editField(){
-    this.fieldService.updateField(this.fieldID,this.fieldForm.value)
-          .subscribe((resp:any)=>{
-            if(this.file){
-              this.uploadFileService.uploadImage(this.file,'field',this.fieldID)
-                                     .then(data=>{
+    this.fieldService.updateField(this.fieldID, this.fieldForm.value)
+          .subscribe((resp: any) => {
+            if (this.file){
+              this.uploadFileService.uploadImage(this.file, 'field', this.fieldID)
+                                     .then(data => {
                                       Swal.fire({
                                         title: 'Cancha editada',
-                                        icon: "success",
+                                        icon: 'success',
                                         timer: 2000,
-                                        showConfirmButton:false,
+                                        showConfirmButton: false,
                                         allowOutsideClick: false
                                       });
                                       setTimeout(() => {
-                                        this.router.navigateByUrl('/admin/fields')
+                                        this.router.navigateByUrl('/admin/fields');
                                       }, 2000);
-                                    },(err)=>{
-                                      console.log(err)
-                                      Swal.fire('Error al subir la foto','Por favor, intentelo nuevamente','error')
-                                    })           
+                                    }, (err) => {
+                                      console.log(err);
+                                      Swal.fire('Error al subir la foto', 'Por favor, intentelo nuevamente', 'error');
+                                    });
             }
-          Swal.fire({
+            Swal.fire({
             title: 'Cancha editada',
-            icon: "success",
+            icon: 'success',
             timer: 2000,
-            showConfirmButton:false,
+            showConfirmButton: false,
             allowOutsideClick: false
           });
-          setTimeout(() => {
-            this.router.navigateByUrl('/admin/fields')
-          }, 2000);                     
-          },(err)=>{
-            console.log(err)
-            Swal.fire('Error al editar la cancha','Por favor, intentelo nuevamente o cambie los datos','error')
-          })
+            setTimeout(() => {
+            this.router.navigateByUrl('/admin/fields');
+          }, 2000);
+          }, (err) => {
+            console.log(err);
+            Swal.fire('Error al editar la cancha', 'Por favor, intentelo nuevamente o cambie los datos', 'error');
+          });
   }
 }

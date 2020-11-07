@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { ValidatorService } from 'src/app/services/validator.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,22 +14,22 @@ export class RegisterComponent  {
 
   form: FormGroup;
 
-  constructor(private fb : FormBuilder,
-              private userService : UserService,
-              private router : Router,
-              private validator : ValidatorService) {
-    this.createForm()
+  constructor(private fb: FormBuilder,
+              private userService: UserService,
+              private router: Router,
+              private validator: ValidatorService) {
+    this.createForm();
    }
 
    createForm(){
      this.form = this.fb.group({
-       name:["",[Validators.required]],
-       address:["",[Validators.required]],
-       phone:["",[Validators.required]],
-       email:["",[Validators.required,Validators.email]],
-       password:["",[Validators.required]],
-       password2:["",[Validators.required]]
-     },{validators: this.validator.passEqual("password","password2")})
+       name: ['', [Validators.required]],
+       address: ['', [Validators.required]],
+       phone: ['', [Validators.required]],
+       email: ['', [Validators.required, Validators.email]],
+       password: ['', [Validators.required]],
+       password2: ['', [Validators.required]]
+     }, {validators: this.validator.passEqual('password', 'password2')});
    }
 
    get pass2Valid(){
@@ -38,33 +38,33 @@ export class RegisterComponent  {
       return ( pass1 === pass2 ) ? false : true;
    }
 
-   getFieldValid(field : string){
+   getFieldValid(field: string){
       return this.form.get(field).invalid &&
-              this.form.get(field).touched
+              this.form.get(field).touched;
    }
 
    signUp(){
      if (this.form.invalid){
-       Object.values(this.form.controls).forEach(control=>{
+       Object.values(this.form.controls).forEach(control => {
          control.markAsTouched();
-       })
+       });
        return;
      }
      this.userService.signUp(this.form.value, 'USER')
-                      .subscribe(resp =>{
+                      .subscribe(resp => {
                         Swal.fire({
                           title: 'Usuario Registrado',
-                          icon: "success",
+                          icon: 'success',
                           timer: 2000,
-                          showConfirmButton:false,
+                          showConfirmButton: false,
                           allowOutsideClick: false
                         });
                         setTimeout(() => {
-                          this.router.navigateByUrl('/login')
+                          this.router.navigateByUrl('/login');
                         }, 2000);
-                      },(err)=>{
-                        Swal.fire('Error en el registro',err.error.msg,'error')
-                      })
+                      }, (err) => {
+                        Swal.fire('Error en el registro', err.error.msg, 'error');
+                      });
    }
 
 

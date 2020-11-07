@@ -11,9 +11,9 @@ import Swal from 'sweetalert2';
 })
 export class LoginAdminComponent implements OnInit {
 
-  loginForm : FormGroup;
-  constructor(private router : Router,
-              private fb:FormBuilder,
+  loginForm: FormGroup;
+  constructor(private router: Router,
+              private fb: FormBuilder,
               private userService: UserService) {
     this.createLoginForm();
    }
@@ -23,33 +23,33 @@ export class LoginAdminComponent implements OnInit {
 
   createLoginForm(){
     this.loginForm = this.fb.group({
-      email: [localStorage.getItem('email') || "",[Validators.required,Validators.email]],
-      password: ["",Validators.required],
+      email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
       remember: [false]
-    })
+    });
   }
   login(){
-     this.userService.signIn(this.loginForm.value,'CENTER-ADMIN')
-                      .subscribe(resp =>{
-                        if(this.loginForm.get('remember').value){
-                          localStorage.setItem('email',this.loginForm.get('email').value)
+     this.userService.signIn(this.loginForm.value, 'CENTER-ADMIN')
+                      .subscribe(resp => {
+                        if (this.loginForm.get('remember').value){
+                          localStorage.setItem('email', this.loginForm.get('email').value);
                         }else{
-                          localStorage.removeItem('email')
+                          localStorage.removeItem('email');
                         }
                         Swal.fire({
                           title: 'Ingresando',
-                          icon: "success",
+                          icon: 'success',
                           timer: 2000,
-                          showConfirmButton:false,
+                          showConfirmButton: false,
                           allowOutsideClick: false
                         });
                         setTimeout(() => {
-                          this.router.navigateByUrl('/admin/home')
+                          this.router.navigateByUrl('/admin/home');
                         }, 2000);
-                      },(err)=>{
-                        console.log(err)
-                        Swal.fire('Email y/o contraseña incorrectos','Por favor, ingrese nuevamente sus datos','error')
-                      })
+                      }, (err) => {
+                        console.log(err);
+                        Swal.fire('Email y/o contraseña incorrectos', 'Por favor, ingrese nuevamente sus datos', 'error');
+                      });
   }
 
 }

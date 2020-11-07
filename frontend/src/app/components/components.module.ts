@@ -32,9 +32,8 @@ import { ChartsModule } from 'ng2-charts';
     PipesModule,
     ReactiveFormsModule,
     ChartsModule
-    
   ],
-  exports:[
+  exports: [
     FieldCardComponent,
     AppointmentTableComponent,
     UserSettingComponent,

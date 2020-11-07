@@ -9,24 +9,23 @@ import { UserService } from '../services/user.service';
 })
 export class AuthGuard implements CanActivate {
 
-  user: User
+  user: User;
 
   constructor(private userService: UserService,
-              private router : Router){
+              private router: Router){
               }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot){
       return this.userService.validateToken()
-      .pipe(tap( isauthenticated =>{
+      .pipe(tap( isauthenticated => {
           if (!isauthenticated){
-            this.router.navigateByUrl('/login')
+            this.router.navigateByUrl('/login');
           }
-          this.user = this.userService.user
-                if (this.user.role.description !== 'USER'){
-                  this.router.navigateByUrl('/admin/home')
-                }
-      }))
+          this.user = this.userService.user;
+          if (this.user.role.description !== 'USER'){
+                this.router.navigateByUrl('/admin/home');
+            }
+      }));
   }
-  
 }

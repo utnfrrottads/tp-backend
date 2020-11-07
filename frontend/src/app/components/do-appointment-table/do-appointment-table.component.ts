@@ -11,19 +11,20 @@ import Swal from 'sweetalert2';
 })
 export class DoAppointmentTableComponent implements OnInit {
 
-  @Input() available
-  @Input() field
-  appointment : any = {}
+  @Input() available;
+  @Input() field;
+  @Input() searching;
+  appointment: any = {};
 
   constructor(private appointmentsService: AppointmentService,
               private userService: UserService,
-              private router: Router) { 
+              private router: Router) {
               }
 
   ngOnInit(): void {
   }
 
-  async reserveAppointment(appointmentDate : Date){
+  async reserveAppointment(appointmentDate: Date){
     Swal.fire({
       title: '¿Estás seguro?',
       text: ``,
@@ -34,15 +35,14 @@ export class DoAppointmentTableComponent implements OnInit {
       confirmButtonText: 'Reservar'
     }).then((result) => {
       if (result.value) {
-        if(this.userService.user.role.description==='USER'){
-          this.createUserAppointment(appointmentDate)
+        if (this.userService.user.role.description === 'USER'){
+          this.createUserAppointment(appointmentDate);
         }
-        if(this.userService.user.role.description==='CENTER-ADMIN'){
-          this.createCenterAdminAppointment(appointmentDate)
-          console.log('entro a')
+        if (this.userService.user.role.description === 'CENTER-ADMIN'){
+          this.createCenterAdminAppointment(appointmentDate);
         }
     }
-    })
+    });
   }
 
   createUserAppointment(appointmentDate){
@@ -50,13 +50,13 @@ export class DoAppointmentTableComponent implements OnInit {
       date: appointmentDate,
       user: this.userService.user.uid,
       field: this.field.id,
-      owner:{
-        name:this.userService.user.name,
-        oid:this.userService.user.uid,
-        phone:this.userService.user.phone
+      owner: {
+        name: this.userService.user.name,
+        oid: this.userService.user.uid,
+        phone: this.userService.user.phone
       }
-    }
-    this.sendAppointment()
+    };
+    this.sendAppointment();
   }
   async createCenterAdminAppointment(appointmentDate){
     let name;
@@ -66,58 +66,57 @@ export class DoAppointmentTableComponent implements OnInit {
       title: 'Datos de la reserva',
       html:
         '<input id="swal-name" placeholder="Nombre" class="swal2-input">' +
-        '<input id="swal-oid" type:"number" placeholder="DNI" class="swal2-input">'+
+        '<input id="swal-oid" type:"number" placeholder="DNI" class="swal2-input">' +
         '<input id="swal-phone" type:"number" placeholder="Teléfono" class="swal2-input">',
       focusConfirm: false,
-      allowOutsideClick:false,
+      allowOutsideClick: false,
       showCancelButton: true,
       preConfirm: () => {
         return [
-         name= (<HTMLInputElement>document.getElementById('swal-name')).value,
-         oid=  (<HTMLInputElement>document.getElementById('swal-oid')).value,
-         phone=  (<HTMLInputElement>document.getElementById('swal-phone')).value
-        ]
+         name = ( document.getElementById('swal-name') as HTMLInputElement).value,
+         oid =  ( document.getElementById('swal-oid') as HTMLInputElement).value,
+         phone =  ( document.getElementById('swal-phone') as HTMLInputElement).value
+        ];
       }
-    }) 
+    });
     this.appointment = {
       date: appointmentDate,
       user: this.userService.user.uid,
       field: this.field.id,
       owner: {
-        name: name,
-        oid: oid,
-        phone: phone
+        name,
+        oid,
+        phone
       }
-    }
-    await this.sendAppointment()
-    
+    };
+    await this.sendAppointment();
   }
 
   sendAppointment(){
     this.appointmentsService.createAppointments(this.appointment)
-                    .subscribe(resp=>{
+                    .subscribe(resp => {
                               Swal.fire({
                                 title: 'Turno Reservado',
                                 text: `¡Que te diviertas!`,
                                 icon: 'success',
                                 showCancelButton: false,
-                                showConfirmButton:false,
-                                timer:2000
+                                showConfirmButton: false,
+                                timer: 2000
                             });
                               setTimeout(() => {
-                                this.goAppointments()
+                                this.goAppointments();
                               }, 2000);
-                    },(err)=>{
-                      console.log(err)
-                      Swal.fire('Error al reservar','Ingrese correctamente los datos solicitados','error')
-                    })
+                    }, (err) => {
+                      console.log(err);
+                      Swal.fire('Error al reservar', 'Ingrese correctamente los datos solicitados', 'error');
+                    });
   }
   goAppointments(){
-    if(this.userService.user.role.description==='USER'){
-      this.router.navigate(['/appointments'])
+    if (this.userService.user.role.description === 'USER'){
+      this.router.navigate(['/appointments']);
     }
-    if(this.userService.user.role.description==='CENTER-ADMIN'){
-      this.router.navigate(['/admin/appointments'])
+    if (this.userService.user.role.description === 'CENTER-ADMIN'){
+      this.router.navigate(['/admin/appointments']);
     }
   }
 }

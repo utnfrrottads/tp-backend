@@ -12,47 +12,44 @@ import Swal from 'sweetalert2';
   styleUrls: ['./appointment-table.component.css']
 })
 export class AppointmentTableComponent implements OnInit {
-
-  @Input() appointments : Appointment[]
-  user : User
+  @Input() text: string;
+  @Input() appointments: Appointment[];
+  user: User;
 
   constructor(private userService: UserService,
               private appointmentService: AppointmentService,
-              private router: Router) { 
-    this.user = this.userService.user
+              private router: Router) {
+    this.user = this.userService.user;
   }
-  
+
   ngOnInit(): void {
   }
-  
-  
-  deleteAppointment(id:string){
+  deleteAppointment(id: string){
     Swal.fire({
       title: '¿Cancelar el turno?',
       text: ``,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#009846',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '#D1D1D1',
       cancelButtonText: 'NO',
       confirmButtonText: 'SI'
     }).then((result) => {
-      console.log(result)
       if (result.value) {
         this.appointmentService.deleteAppointment(id)
-                              .subscribe(resp=>{
+                              .subscribe(resp => {
                                 Swal.fire({
                                   title: 'Turno cancelado',
-                                  icon: "error",
+                                  icon: 'error',
                                   timer: 2000,
-                                  showConfirmButton:false,
+                                  showConfirmButton: false,
                                   allowOutsideClick: false
                                 });
                                 setTimeout(() => {
-                                  location.reload()
+                                  location.reload();
                                 }, 2000);
-                              })
+                              });
       }
-    })
+    });
   }
 }

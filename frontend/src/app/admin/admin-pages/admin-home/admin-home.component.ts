@@ -10,14 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AdminHomeComponent implements OnInit {
 
-  user: User
+  user: User;
 
   constructor(private userService: UserService) {
-    this.user=this.userService.user
+    this.user = this.userService.user;
    }
 
   ngOnInit(): void {
   }
-  
-
 }

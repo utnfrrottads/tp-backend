@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-//Modules
+// Modules
 import { AppRoutingModule } from '../app.routing.module';
 import { SharedModule } from '../shared/shared.module';
 
-//Components
+// Components
 import { AdminComponent } from './admin.component';
 import { FieldsComponent } from './admin-pages/admin-fields/admin-fields.component';
 import { FieldComponent } from './admin-pages/admin-field/admin-field.component';
-import { SettingComponent } from './admin-pages/admin-setting/admin-setting.component'
+import { SettingComponent } from './admin-pages/admin-setting/admin-setting.component';
 import { AdminHomeComponent } from './admin-pages/admin-home/admin-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
@@ -38,7 +38,7 @@ import { PipesModule } from '../pipes/pipes.module';
     ReactiveFormsModule,
     PipesModule,
   ],
-  exports:[
+  exports: [
     AdminComponent,
     FieldsComponent,
     FieldComponent,

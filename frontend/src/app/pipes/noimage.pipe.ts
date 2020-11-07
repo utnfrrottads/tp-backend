@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NoimagePipe implements PipeTransform {
 
   transform(field: any): string {
-     if(field){
+     if (field){
        return `assets/img/${field}`;
      }
      else{

@@ -16,11 +16,11 @@ export class AppointmentsComponent  {
 
   constructor(private appointmenService: AppointmentService) {
                 this.appointmenService.getAppointments()
-                                      .subscribe(resp=>{
-                                        this.reservedAppointments = resp.reservedAppointments
-                                        this.completedAppointments = resp.completedAppointments
-                                        this.inProgressAppointments = resp.inProgressAppointments
-                                        this.aboutToStartAppointments = resp.aboutToStartAppointments
+                                      .subscribe(resp => {
+                                        this.reservedAppointments = resp.reservedAppointments;
+                                        this.completedAppointments = resp.completedAppointments;
+                                        this.inProgressAppointments = resp.inProgressAppointments;
+                                        this.aboutToStartAppointments = resp.aboutToStartAppointments;
                                       });
 
                }

@@ -8,23 +8,22 @@ import { UserService } from '../services/user.service';
   providedIn: 'root'
 })
 export class AdminAuthGuard implements CanActivate {
-  user: User
+  user: User;
   constructor(private userService: UserService,
-              private router : Router){
+              private router: Router){
               }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot){
       return this.userService.validateToken()
-            .pipe(tap( isauthenticated =>{
+            .pipe(tap( isauthenticated => {
                 if (!isauthenticated){
-                  this.router.navigateByUrl('/admin/login')
+                  this.router.navigateByUrl('/admin/login');
                 }
-                this.user = this.userService.user
+                this.user = this.userService.user;
                 if (this.user.role.description !== 'CENTER-ADMIN'){
-                  this.router.navigateByUrl('/home')
+                  this.router.navigateByUrl('/home');
                 }
-            }))
+            }));
   }
-  
 }

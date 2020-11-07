@@ -81,7 +81,7 @@ fieldCtrl.createField = async (req = request , res = response) => {
             })
         }
         const body = req.body;
-        body.openingHour = setDate(req.body.closingHour)
+        body.openingHour = setDate(req.body.openingHour)
         body.closingHour = setDate(req.body.closingHour)
         console.log(body.openingHour)
         console.log(body.closingHour)

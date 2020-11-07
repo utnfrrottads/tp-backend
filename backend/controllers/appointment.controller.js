@@ -7,50 +7,6 @@ const { request , response } = require('express');
 
 const appointmentCtrl = {};
 
-appointmentCtrl.getAppointments = async (req = request, res = response) =>{
-    try {
-        const appointments = await Appointment.find()
-                                            .populate('user','name')
-                                            .populate('field','name')
-        res.json({
-            ok:true,
-            msg:'Found Appointments',
-            appointments
-        })
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            ok:false,
-            msg:'An unexpected error ocurred'
-        })
-    }
-}
-
-appointmentCtrl.getAppointment = async (req = request, res = response) =>{
-    const id = req.params.id
-    try {
-        const appointment = await Appointment.findById(id);
-        if (!appointment) {
-            return res.status(404).json({
-                ok:false,
-                msg:'Unknown ID. Please insert a correct Appointment ID'
-            })
-        }
-        res.json({
-            ok:true,
-            msg:'Found Appointment',
-            appointment
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            ok:false,
-            msg:'An unexpected error ocurred'
-        })
-    }
-}
-
 appointmentCtrl.createAppointment = async (req = request, res = response) =>{
     try {
         const appointment = new Appointment(req.body)
@@ -76,44 +32,6 @@ appointmentCtrl.createAppointment = async (req = request, res = response) =>{
     }
 }
 
-// appointmentCtrl.updateAppointment = async (req = request, res = response) =>{
-//     const id = req.params.id;
-//     try {
-//         const appointmentDB = await Appointment.findById(id);
-//         if(!appointmentDB){
-//             return res.status(404).json({
-//                 ok:false,
-//                 msg:'Unknown ID. Please insert a correct Appointment ID'
-//             })
-//         }
-//         const changes = req.body
-//         changes.createdDate = (Date.now()- process.env.UTC_ARG);
-//         if(changes.date === appointmentDB.date){
-//             return res.status(400).json({
-//                 ok:false,
-//                 msg:'The date entered is the same'
-//             })
-//         }
-//         await Appointment.findByIdAndUpdate(id,changes,{new:true})
-//         res.json({
-//             ok:true,
-//             msg:'Updated Appointment'
-//         })
-//     } catch (error) {
-//         console.log(error);
-//         if (error.name === 'MongoError' && error.code === 11000) {
-//             return res.status(400).json({
-//                     ok:false,
-//                     msg:'The Field is already reserved for the requested date'
-//             })
-//         }
-//         res.status(500).json({
-//             ok:false,
-//             msg:'An unexpected error ocurred'
-//         })
-//     }
-// }
-
 appointmentCtrl.deleteAppointment = async (req = request, res = response) =>{
     const id = req.params.id;
     try {
@@ -127,7 +45,7 @@ appointmentCtrl.deleteAppointment = async (req = request, res = response) =>{
         if(appointmentDB.state !== 'Reserved'){
             return res.status(404).json({
                 ok:false,
-                msg:'The appointment cannot be deleted due to cancellation policies'
+                msg:'The appointment cannot be deleted due to cancelation policies'
             })
         }
         await Appointment.findByIdAndDelete(id);
@@ -146,7 +64,7 @@ appointmentCtrl.deleteAppointment = async (req = request, res = response) =>{
 
 appointmentCtrl.getUserAppointments = async (req = request , res = response) => {
     const userID = req.uid;
-    try {
+    try {   
         const userDB = await User.findById(userID)
         if(!userDB){
             return res.status(404).json({
@@ -157,9 +75,7 @@ appointmentCtrl.getUserAppointments = async (req = request , res = response) => 
         const appointmentsDB = await Appointment.find({user: userID})
                                             .populate('user','name')
                                             .populate('field','name')
-        // appointments.sort((elem1,elem2)=>{
-        //     return (elem2.date.getTime() - elem1.date.getTime())
-        // })
+    
         let reservedAppointments = new Array;
         let completedAppointments = new Array;
         let inProgressAppointments = new Array;
@@ -179,6 +95,11 @@ appointmentCtrl.getUserAppointments = async (req = request , res = response) => 
                 completedAppointments.push(element)
             }
         })
+        sortDateFromSmallest(aboutToStartAppointments);
+        sortDateFromSmallest(reservedAppointments);
+        sortDateFromSmallest(inProgressAppointments);
+        sortDateFromLargest(completedAppointments);
+
         res.json({
             ok:true,
             msg:'Found Appointments',
@@ -198,10 +119,33 @@ appointmentCtrl.getUserAppointments = async (req = request , res = response) => 
         })
     }
 }
+sortDateFromSmallest = (array) => {
+    array = array.sort((a,b)=>{
+        if(a.date.getTime() > b.date.getTime()){
+            return 1;
+        }
+        if(a.date.getTime() < b.date.getTime()){
+            return -1
+        }
+    })
+    return array
+}
+sortDateFromLargest = (array)=>{
+    array = array.sort((a,b)=>{
+        if(a.date.getTime() > b.date.getTime()){
+            return -1;
+        }
+        if(a.date.getTime() < b.date.getTime()){
+            return 1
+        }
+    })
+    return array
+}
+
 
 
 appointmentCtrl.getAvailableAppointments = async (req = request , res = response) =>{
-            const fieldID = req.params.field
+        const fieldID = req.params.field
         const query1 = req.query.dateSince;
         const query2 = req.query.dateUntil;
         let dateSince =new Date(query1)
@@ -240,7 +184,6 @@ appointmentCtrl.getAvailableAppointments = async (req = request , res = response
              arrayReserved.sort((elem1,elem2)=>{
                  return (elem1.getTime() - elem2.getTime())
              })
-            // if(arrayReserved.length === 0){
                  for (let i = 0; i < available.length; i++) {
                      for (let j = 0; j < arrayReserved.length; j++) {
                          if((available[i].getTime()) === (arrayReserved[j].getTime())) {
@@ -248,12 +191,16 @@ appointmentCtrl.getAvailableAppointments = async (req = request , res = response
                          }
                      }     
                  }
-             //}
-             console.log(arrayReserved)
-            console.log(available)
+             for (let i = 0; i < available.length; i++) {
+                if((available[i].getTime()) < ((new Date().getTime())- process.env.UTC_ARG)) {
+                    available.splice(i,1)
+                    i= i-1
+                    }
+            }     
+            
             res.json({
                 ok:true,
-                msg:'todo okey',
+                msg:'Available Appointments',
                 available
             })
             
@@ -266,10 +213,39 @@ appointmentCtrl.getAvailableAppointments = async (req = request , res = response
     }
 }
 
-// cron.schedule('0 9-22 * * *',() => {
-//  //aca poner el codigo para cambiar estado
-// en el 9 y el 22 poner horarios de cierre de cancha
-// })
+cron.schedule('0,10,20,30,43,50 * * * *', async () => {
+     try {
+        const appointmentsDB = await Appointment.find()
+        appointmentsDB.forEach(element=>{
+            const difference = (element.date.getTime() - (new Date().getTime()- process.env.UTC_ARG))
+            changeState(element,difference)
+        })
+
+     } catch (error) {
+         console.log(error)
+     }
+ })
+
+changeState = async (element,difference) =>{
+    if(difference < 3600000 && difference > 0){
+        const change={
+            state: 'AboutToStart'
+        }
+        await Appointment.findByIdAndUpdate(element.id,change)
+    }
+    else if(difference<0 && difference> -3600000){
+        const change={
+            state: 'InProgress'
+        }
+        await Appointment.findByIdAndUpdate(element.id,change)
+    }
+    else if(difference< -3600000){
+        const change={
+            state: 'Completed'
+        }
+        await Appointment.findByIdAndUpdate(element.id,change)
+    }
+ }
 
 module.exports = appointmentCtrl;
 

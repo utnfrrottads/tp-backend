@@ -10,7 +10,6 @@ const userCtrl = require ('../controllers/user.controller');
 const {validateJWT} = require('../middlewares/validateJWT');
 
 
-router.get('/',[validateJWT],userCtrl.getUsers);
 router.get('/:id',[validateJWT],userCtrl.getUser);
 router.post('/',[check('name','Name field is required').not().isEmpty(),
                 check('email','Email field is incorrect').isEmail(),
@@ -20,8 +19,7 @@ router.put('/:id',[validateJWT,
                 check('name','Name field is required').not().isEmpty(),
                 check('email','Email field is incorrect').isEmail(),
                 validateFields],userCtrl.updateUser);
-router.delete('/:id',[validateJWT],userCtrl.deleteUser);
-router.get('/type/:usertype',[validateJWT], userCtrl.getUserType)
+
 
 
 module.exports = router;

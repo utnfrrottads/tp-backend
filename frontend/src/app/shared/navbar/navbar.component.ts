@@ -10,16 +10,15 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent  {
 
-  constructor(private router : Router,
-              private userService : UserService,
+  constructor(private router: Router,
+              private userService: UserService,
               private activatedRoute: ActivatedRoute) { }
 
 
-  searchField(text : string){
-    this.router.navigate(['/fields'],{queryParams:{'search': text},
-                                      replaceUrl:true,
-                                      queryParamsHandling:'merge'});
-                                      
+  searchField(text: string){
+    this.router.navigate(['/fields'], {queryParams: {search: text},
+                                      replaceUrl: true,
+                                      queryParamsHandling: 'merge'});
   }
   logOut(){
     Swal.fire({
@@ -27,7 +26,7 @@ export class NavbarComponent  {
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#d33',
-      cancelButtonColor: '#FAE804',
+      cancelButtonColor: '#CBDCD8',
       confirmButtonText: 'Cerrar sesión'
     }).then((result) => {
       if (result.value) {
@@ -35,16 +34,16 @@ export class NavbarComponent  {
           title: 'Cerrando sesión',
           icon: 'warning',
           showCancelButton: false,
-          showConfirmButton:false,
-          timer:2000
+          showConfirmButton: false,
+          timer: 2000
         });
         setTimeout(() => {
           this.userService.logOut();
-          this.router.navigateByUrl('/login')
+          this.router.navigateByUrl('/login');
         }, 2000);
         }
 
-    })
+    });
   }
 
 }

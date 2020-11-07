@@ -8,11 +8,11 @@ export class Field{
            public name: string,
            public description: string,
            public price: number,
-           public cantMaxPlayers:number,
+           public cantMaxPlayers: number,
            public openingHour: Date,
            public closingHour: Date,
            public user: string,
-           public image?:string,
+           public image?: string,
         ){}
 
 }

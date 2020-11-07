@@ -11,53 +11,51 @@ import Swal from 'sweetalert2';
   styleUrls: ['./admin-fields.component.css']
 })
 export class FieldsComponent implements OnInit {
-  
-  fields = [];
-  param :string;
-  query : string = "";
-  empty : boolean = true;
-  user : User
-  searchInput: any
 
-  constructor(private fieldService : FieldService,
+  fields = [];
+  param: string;
+  query = '';
+  empty = true;
+  user: User;
+  searchInput: any;
+
+  constructor(private fieldService: FieldService,
               private userService: UserService,
-              private router : Router,
+              private router: Router,
               private activatedRoute: ActivatedRoute) {
-                this.user = this.userService.user
-                this.activatedRoute.queryParams.subscribe(param =>{
-                  this.query = param['search'] || ''
-                  this.getFields()
-                 })
-                this.getFields()
+                this.user = this.userService.user;
+                this.activatedRoute.queryParams.subscribe((param: {search: string}) => {
+                  this.query = param.search || '';
+                  this.getFields();
+                 });
+                this.getFields();
               }
 
   ngOnInit(): void {
-    
   }
 
   getFields(){
-    if(this.query === ''){
-      this.param = 'Todas'
+    if (this.query === ''){
+      this.param = 'Todas';
     }else{
-      this.param = this.query
+      this.param = this.query;
     }
     this.fieldService.getFieldsByCenterAdmin(this.query, this.user.uid)
-                          .subscribe((resp: any)=>{
+                          .subscribe((resp: any) => {
                             this.fields = resp;
-                            if(this.fields.length ===0){
-                              this.empty = true
+                            if (this.fields.length === 0){
+                              this.empty = true;
                             }else{
                               this.empty = false;
-                            } 
-                          },err=>{
-                            console.log(err)
-                            Swal.fire("Error","Intentar nuevamente...",'error')
-                          })
-    
-   }
-   searchField(text : string){
-    this.router.navigate(['/admin/fields'],{queryParams:{'search': text},
-                                      replaceUrl:true,
-                                      queryParamsHandling:'merge'});
+                            }
+                          }, err => {
+                            console.log(err);
+                            Swal.fire('Error', 'Intentar nuevamente...', 'error');
+                          });
+  }
+   searchField(text: string){
+    this.router.navigate(['/admin/fields'], {queryParams: {search: text},
+                                      replaceUrl: true,
+                                      queryParamsHandling: 'merge'});
   }
 }

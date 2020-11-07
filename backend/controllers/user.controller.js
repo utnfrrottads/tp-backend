@@ -3,27 +3,8 @@ const { request, response} = require ('express');
 const userCtrl = {};
 const bycript = require('bcryptjs');
 const UserType = require ('../models/userType.model');
-const {generateJWT} = require ('../helpers/jwt')
 
 
-userCtrl.getUsers = async (req,res = response)=>{
-    try {
-        const users = await User.find()
-                                .populate('role','description');
-        res.json({
-            ok: true,
-            msg:'Found users',
-            users
-        })
-        
-    } catch (error) {
-        console.log(error);
-        res.stat(500).json({
-            ok:false,
-            msg:'An unexpected error occurred'
-        })
-    }
-}
 
 userCtrl.getUser = async (req = request,res = response)=>{
     uid = req.params.uid;
@@ -120,50 +101,6 @@ userCtrl.updateUser = async (req = request, res = response) =>{
             ok:false,
             msg:'An unexpected error occurred'
         })
-    }
-}
-
-userCtrl.deleteUser = async (req = request, res = response) =>{
-    const uid = req.params.id;
-    try {
-        const userDB = await User.findById(uid);
-        if(!userDB){
-            return res.status(404).json({
-                ok:false,
-                msg:'Unknown ID. Please insert a correct User ID'
-            })
-        }
-        await User.findByIdAndDelete(uid);
-        res.json({
-            ok:true,
-            msg:'Deleted User'
-        })        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            ok:false,
-            msg:'An unexpected error occurred'
-        })
-    }
-}
-
-userCtrl.getUserType = async (req = request, res = response) =>{
-    const userTypeID = req.params.userTypeID;
-    try {
-        const userType = await UserType.findById(userTypeID);
-        if(!userType){
-            return res.status(404).json({
-                ok:false,
-                msg:'Unknown ID. Please insert a correct User ID'
-            })
-        }
-        res.json({
-            ok:true,
-            msg:'UserType Found',
-            userType
-        })    
-    } catch (error) {
-        
     }
 }
 

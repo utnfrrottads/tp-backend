@@ -1,4 +1,4 @@
-export interface datesForm{
-    sinceDate: string,
-    untilDate: string
+export interface DatesForm{
+    sinceDate: string;
+    untilDate: string;
 }

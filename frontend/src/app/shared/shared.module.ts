@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-//Modules
+// Modules
 import { RouterModule } from '@angular/router';
 
-//Components
+// Components
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -23,7 +23,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CommonModule,
     RouterModule
   ],
-  exports:[
+  exports: [
     NavbarComponent,
     FooterComponent,
     SidebarComponent

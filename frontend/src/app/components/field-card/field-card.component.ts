@@ -13,30 +13,27 @@ import { FieldService } from 'src/app/services/field.service';
 })
 export class FieldCardComponent {
 
-  @Input() field : any ={};
-  @Input() id : any;
-  user: User
+  @Input() field: any = {};
+  @Input() id: any;
+  user: User;
 
-  constructor(private router : Router,
+  constructor(private router: Router,
               private userService: UserService,
               private fieldService: FieldService) {
-                this.user = this.userService.user
+                this.user = this.userService.user;
                }
 
-  
-   
-  
   navigateField(id){
-    if(this.user.role.description=== 'USER'){
-      this.router.navigateByUrl(`/appointment/${id}`)
+    if (this.user.role.description === 'USER'){
+      this.router.navigateByUrl(`/appointment/${id}`);
     }
-    else if(this.user.role.description === 'CENTER-ADMIN'){
-      this.router.navigateByUrl(`/admin/appointment/${id}`)
+    else if (this.user.role.description === 'CENTER-ADMIN'){
+      this.router.navigateByUrl(`/admin/appointment/${id}`);
     }
 
   }
   updateField(id: string){
-    this.router.navigateByUrl(`/admin/field/${id}`)
+    this.router.navigateByUrl(`/admin/field/${id}`);
   }
   deleteField(id: string){
     Swal.fire({
@@ -50,24 +47,24 @@ export class FieldCardComponent {
     }).then((result) => {
       if (result.value) {
         this.fieldService.deleteField(id)
-                            .subscribe(resp=>{
+                            .subscribe(resp => {
                               Swal.fire({
                                 title: 'Cancha eliminada',
                                 icon: 'error',
                                 showCancelButton: false,
-                                showConfirmButton:false,
-                                timer:2000
+                                showConfirmButton: false,
+                                timer: 2000
                               });
                               setTimeout(() => {
-                                location.reload()
+                                location.reload();
                               }, 2000);
-                              },(err)=>{
-                                console.log(err)
-                                Swal.fire('Error al Eliminar la cancha','No se puede eliminar una cancha con turnos programados','error')
-                              })
-        
+                              }, (err) => {
+                                console.log(err);
+                                Swal.fire('Error al Eliminar la cancha', 'No se puede eliminar una cancha con turnos programados', 'error');
+                              });
+
     }
-    })
+    });
   }
 
 }
