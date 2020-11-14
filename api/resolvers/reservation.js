@@ -4,10 +4,10 @@ export default {
   Query: {
     reservation: (parent, { id }, { db }, info) => db.reservation.findByPk(
         id, 
-        { include: 'tables' }
+        { include: ['tables', 'order'] }
     ),
     
-    reservations: (parent, args, { db }, info) => db.reservation.findAll({include: 'tables'})
+    reservations: (parent, args, { db }, info) => db.reservation.findAll({include: ['tables', 'order']})
   },
 
 

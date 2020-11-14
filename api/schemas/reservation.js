@@ -9,6 +9,7 @@ export default `
         reservationDateTime: DateTime
         cancelationDateTime: DateTime
         tables: [Table!]!
+        order: Order
     }
 
     input CreateReservation {

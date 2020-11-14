@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
 
    Reservation.associate = (models) => {
       Reservation.belongsToMany(models.table, { through: 'reservations_tables' });
+
+      Reservation.hasOne(models.order);
    };  
+
+
 
    return Reservation;
 };
