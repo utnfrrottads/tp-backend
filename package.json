@@ -45,7 +45,7 @@
     "sequelize-cli": "^5.5.1"
   },
   "lint-staged": {
-    "./src/*.{js,ts,md,css,graphql}": [
+    "./api/**/*.{js,ts,md,css,graphql}": [
       "eslint  --fix",
       "prettier --write"
     ]
