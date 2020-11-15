@@ -1,20 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
-   const Table = sequelize.define('table', {
-      id: {
-         type: DataTypes.INTEGER,
-         primaryKey: true,
-         autoIncrement: true,
-      },
-      size:{
-         type: DataTypes.INTEGER,
-         allowNull: false
-      }
-   });
+	const Table = sequelize.define('table', {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		size:{
+			type: DataTypes.INTEGER,
+			allowNull: false
+		}
+	}, {
+		timestamps: false
+	});
 
-   Table.associate = (models) => {
-      Table.belongsToMany(models.reservation, { through: 'reservations_tables' });
-   };
+	Table.associate = (models) => {
+		Table.hasMany(models.reservation);
 
-   return Table;
+		Table.hasMany(models.order);
+	};
+
+	return Table;
 };
   

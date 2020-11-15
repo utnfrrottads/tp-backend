@@ -1,59 +1,60 @@
-const { Op } = require("sequelize");
-
 export default {
-  Query: {
-    reservation: (parent, { id }, { db }, info) => db.reservation.findByPk(
-        id, 
-        { include: ['tables', 'order'] }
-    ),
-    
-    reservations: (parent, args, { db }, info) => db.reservation.findAll({include: ['tables', 'order']})
-  },
+	Query: {
+		reservation: (parent, { id }, { db }) => db.reservation.findByPk(
+			id,
+			{ include: ['table'] }
+		),
+
+		reservations: (parent, args, { db }) => db.reservation.findAll({include: ['table']})
+	},
 
 
-  Mutation: {
-    createReservation: (parent, { reservation }, { db }, info) => {
-        return db.reservation.create(reservation)
-            .then(async createdReservation => {
-                const tableIds = [];
+	Mutation: {
+		createReservation: async (parent, { reservation }, { db }) => {
+			const table = await db.table.findByPk(reservation.table.id);
 
-                for (const table of reservation.tables) {
-                    tableIds.push(table.id);
-                }
+			if (!table) {
+				// ToDo: Throw Excepction table not found.
+			}
 
-                const tableInstances = await db.table.findAll({
-                    where: {
-                        id: {
-                            [Op.or]: [...tableIds]
-                        }
-                    }
-                })
+			const newReservation = await db.reservation.create(reservation)
+				.then(reservation => reservation.setTable(table));
 
-                if(tableInstances.length !== reservation.tables.length) {
-                    // TODO: throw error, retornar cuál tabla no encontró
-                }
-                
-                createdReservation.setTables(tableInstances);
+			return {
+				...newReservation.dataValues,
+				table: {
+					...table.dataValues
+				}
+			};
 
-                return {
-                    ...createdReservation.dataValues,
-                    tables: tableInstances
-                }
-            })
-    },
+		},
 
-    updateReservation: (parent, { reservation }, { db }, info) => { 
-        return db.reservation.update(
-            reservation, 
-            { where: { id: reservation.id } }
-        ).then(() => db.reservation.findByPk(reservation.id, { include: "tables" }))
-    },
+		updateReservation: async (parent, { reservation }, { db }) => {
+			const table = await db.table.findByPk(reservation.table.id);
 
-    deleteReservation: (parent, { id }, { db }, info) => db.reservation.destroy({
-        where: { 
-            id: id,
-        }
-    }),
-  }
+			if (!table) {
+				// ToDo: Throw Excepction table not found.
+			}
+
+			// AffectedRows sólo funciona en Postgres
+			const [affectedRowsCount] = await db.reservation.update(reservation, {
+				where: {
+					id: reservation.id
+				}
+			});
+
+			if (affectedRowsCount === 0) {
+				return null;
+			}
+
+			return db.reservation.findByPk(reservation.id, { include: "table" });
+		},
+
+		deleteReservation: (parent, { id }, { db }) => db.reservation.destroy({
+			where: {
+				id: id,
+			}
+		}),
+	}
 };
     

@@ -1,46 +1,46 @@
 type Reservation {
-  id: ID!
-  tableNumber: Int
-  customerName: String
-  phone: String
-  email: String
-  partySize: Int!
-  reservationDateTime: DateTime
-  cancelationDateTime: DateTime
-  tables: [Table!]!
+	id: ID!
+	customerName: String!
+	phone: String
+	email: String
+	partySize: Int!
+	reservationDateTime: DateTime!
+	cancelationDateTime: DateTime
+	table: Table!
 }
 
+# Inputs
 input CreateReservation {
-  tableNumber: Int!
-  customerName: String!
-  phone: String
-  email: String
-  partySize: Int!
-  reservationDateTime: DateTime!
-  tables: [UpdateTable!]!
+	customerName: String!
+	phone: String
+	email: String
+	partySize: Int!
+	reservationDateTime: DateTime!
+	table: UpdateTable!
 }
 
 input UpdateReservation {
-  id: ID!
-  tableNumber: Int!
-  customerName: String!
-  phone: String
-  email: String
-  partySize: Int!
-  reservationDateTime: DateTime!
-  cancelationDateTime: DateTime
-  tables: [UpdateTable!]!
+	id: ID!
+	customerName: String!
+	phone: String
+	email: String
+	partySize: Int!
+	reservationDateTime: DateTime!
+	cancelationDateTime: DateTime
+	table: UpdateTable!
 }
 
+
+# Types
 type Query {
-  reservation(id: ID!): Reservation
-  reservations: [Reservation!]!
+	reservation(id: ID!): Reservation
+	reservations: [Reservation!]!
 }
 
 type Mutation {
-  createReservation(reservation: CreateReservation!): Reservation
+	createReservation(reservation: CreateReservation!): Reservation
 
-  updateReservation(reservation: UpdateReservation!): Reservation
+	updateReservation(reservation: UpdateReservation!): Reservation
 
-  deleteReservation(id: ID!): Int!
+	deleteReservation(id: ID!): Int!
 }
