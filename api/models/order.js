@@ -1,20 +1,22 @@
 export default (sequelize, DataTypes) => {
-  const Order = sequelize.define('order', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: sequelize.NOW,
-    },
-    closedAt: DataTypes.DATE,
-  });
+	const Order = sequelize.define('order', {
+		id: {
+			type: DataTypes.INTEGER,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		createdAt: {
+			type: DataTypes.DATE,
+			defaultValue: sequelize.NOW,
+		},
+		closedAt: DataTypes.DATE,
+	});
 
-  Order.associate = (models) => {
-    Order.hasMany(models.line);
-  };
+	Order.associate = (models) => {
+		Order.hasMany(models.line);
 
-  return Order;
+		Order.belongsTo(models.table);
+	};
+
+	return Order;
 };

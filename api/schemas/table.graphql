@@ -1,0 +1,22 @@
+type Table {
+	id: ID!
+	size: Int!
+	orders: [Order!]
+}
+
+# Inputs
+input TableInput {
+	size: Int!
+}
+
+# Types
+type Query {
+	table(id: ID!): Table
+	tables: [Table!]!
+}
+
+type Mutation {
+	createTable(table: TableInput!): Table
+	updateTable(id: ID!, table: TableInput!): Table
+	deleteTable(id: ID!): Int
+}
