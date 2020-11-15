@@ -3,6 +3,7 @@ type Order {
 	lines: [OrderLine]
 	createdAt: DateTime
 	closedAt: DateTime
+	table: Table!
 }
 
 type Query {

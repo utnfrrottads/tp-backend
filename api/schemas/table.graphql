@@ -1,7 +1,7 @@
 type Table {
 	id: ID!
 	size: Int!
-	openOrder: Order,
+	orders: [Order!]
 }
 
 # Inputs
@@ -13,7 +13,6 @@ input UpdateTable {
 	id: ID!
 	size: Int!
 }
-
 
 # Types
 type Query {
