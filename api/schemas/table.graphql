@@ -5,12 +5,7 @@ type Table {
 }
 
 # Inputs
-input CreateTable {
-	size: Int!
-}
-
-input UpdateTable {
-	id: ID!
+input TableInput {
 	size: Int!
 }
 
@@ -21,7 +16,7 @@ type Query {
 }
 
 type Mutation {
-	createTable(table: CreateTable!): Table
-	updateTable(table: UpdateTable!): Table
+	createTable(table: TableInput!): Table
+	updateTable(id: ID!, table: TableInput!): Table
 	deleteTable(id: ID!): Int
 }

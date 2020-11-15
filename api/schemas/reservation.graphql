@@ -10,26 +10,14 @@ type Reservation {
 }
 
 # Inputs
-input CreateReservation {
+input ReservationInput {
 	customerName: String!
 	phone: String
 	email: String
 	partySize: Int!
 	reservationDateTime: DateTime!
-	table: UpdateTable!
+	tableId: ID!
 }
-
-input UpdateReservation {
-	id: ID!
-	customerName: String!
-	phone: String
-	email: String
-	partySize: Int!
-	reservationDateTime: DateTime!
-	cancelationDateTime: DateTime
-	table: UpdateTable!
-}
-
 
 # Types
 type Query {
@@ -38,9 +26,7 @@ type Query {
 }
 
 type Mutation {
-	createReservation(reservation: CreateReservation!): Reservation
-
-	updateReservation(reservation: UpdateReservation!): Reservation
-
+	createReservation(reservation: ReservationInput!): Reservation
+	updateReservation(id: ID!, reservation: ReservationInput!): Reservation
 	deleteReservation(id: ID!): Int!
 }

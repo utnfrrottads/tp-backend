@@ -1,63 +1,41 @@
 export default {
-    Query: {
-        table: async (parent, { id }, { db }) => {
-            const table = await db.table.findByPk(id, {
-                include: {
-                    association: 'orders',
-                    order: [["createdAt", 'DESC']],
-                    where: { closedAt: null },
-                    limit: 1
-                },
-            });
+	Query: {
+		table: (parent, { id }, { db }) => {
+			db.table.findByPk(id, {
+				include: {
+					association: 'orders',
+					order: [['createdAt', 'DESC']],
+					where: { closedAt: null },
+					limit: 1,
+				},
+			});
+		},
 
-            if (!table) {
-                // ToDo: Throw Exception table not found
-            }
+		tables: (parent, args, { db }) => {
+			db.table.findAll({
+				include: {
+					association: 'orders',
+					order: [['createdAt', 'DESC']],
+					where: { closedAt: null },
+					limit: 1,
+				},
+			});
+		},
+	},
 
-            return {
-                id: table.dataValues.id,
-                size: table.dataValues.size,
-                openOrder: table.dataValues.orders ? table.dataValues.orders[0] : null
-            };
-        },
+	Mutation: {
+		createTable: (parent, { table }, { db }) => db.table.create(table),
 
-        tables: async (parent, args, { db }) => {
-            const tables = await db.table.findAll({
-                include: {
-                    association: 'orders',
-                    order: [["createdAt", 'DESC']],
-                    where: { closedAt: null },
-                    limit: 1
-                },
-            })
+		updateTable: (parent, { id, table }, { db }) =>
+			db.table
+				.update(table, { where: { id } })
+				.then(() => db.table.findByPk(id)),
 
-            const result = [];
-
-            for (const table of tables) {
-                result.push({
-                    id: table.dataValues.id,
-                    size: table.dataValues.size,
-                    openOrder: table.dataValues.orders ? table.dataValues.orders[0] : null
-                })
-            }
-
-            return result;
-        }
-    },
-
-    Mutation: {
-        createTable: (parent, { table }, { db }) => db.table.create(table),
-
-        updateTable: (parent, { table }, { db }) => db.table.update(
-            table, 
-            { where: { id: table.id }, }
-        ).then(() => db.table.findByPk(table.id)),
-
-        deleteTable: (parent, { id }, { db }) => db.table.destroy({
-        where: {
-            id: id,
-        }
-        })
-    }
+		deleteTable: (parent, { id }, { db }) =>
+			db.table.destroy({
+				where: {
+					id,
+				},
+			}),
+	},
 };
-  
