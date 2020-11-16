@@ -1,15 +1,16 @@
 type Category {
-  id: ID!
-  desc: String!
+	id: ID!
+	desc: String!
+	items: [Item]
 }
 
 type Query {
-  categories: [Category!]!
-  category(id: ID!): Category
+	categories: [Category!]!
+	category(id: ID!): Category
 }
 
 type Mutation {
-  createCategory(desc: String): Category!
-  updateCategory(id: ID!, desc: String): [Int!]!
-  deleteCategory(id: ID!): Int!
+	createCategory(desc: String): Category!
+	updateCategory(id: ID!, desc: String): [Int!]!
+	deleteCategory(id: ID!): Int!
 }
