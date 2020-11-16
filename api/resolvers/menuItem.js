@@ -1,4 +1,15 @@
 export default {
+	Item: {
+		categories: ({ id }, args, { db }) =>
+			db.category.findAll({
+				include: [
+					{
+						model: db.item,
+						where: { id },
+					},
+				],
+			}),
+	},
 	Query: {
 		items: (parent, args, { db }) => db.item.findAll(),
 		item: (parent, { id }, { db }) => db.item.findByPk(id),
