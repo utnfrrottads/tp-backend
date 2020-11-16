@@ -1,6 +1,7 @@
 type OrderLine {
 	id: ID!
 	item: Item!
+	order: Order!
 	quantity: Int
 	customerComments: String
 }
