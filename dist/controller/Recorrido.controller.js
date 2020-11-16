@@ -77,25 +77,29 @@ exports.getRecorrido = function (req, res) { return __awaiter(void 0, void 0, vo
     });
 }); };
 exports.createRecorrido = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var recorrido, result, error_2;
+    var nuevoRecorrido, recorrido, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
+                _a.trys.push([0, 6, , 7]);
+                debugger;
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).find()];
             case 1:
-                recorrido = _a.sent();
-                if (!(recorrido !== undefined && recorrido)) return [3 /*break*/, 3];
-                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).save(recorrido)];
+                nuevoRecorrido = _a.sent();
+                if (!(nuevoRecorrido !== undefined && nuevoRecorrido)) return [3 /*break*/, 4];
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).create(req.body)];
             case 2:
-                result = _a.sent();
-                return [2 /*return*/, res.status(200).json(result)];
-            case 3: return [2 /*return*/, res.status(204).send({ msj: 'No se pueden duplicar los recorridos, por favor verifique' })];
-            case 4: return [3 /*break*/, 6];
-            case 5:
+                _a.sent();
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).save(nuevoRecorrido)];
+            case 3:
+                recorrido = _a.sent();
+                return [2 /*return*/, res.status(200).json(recorrido)];
+            case 4: return [2 /*return*/, res.status(204).send(nuevoRecorrido)];
+            case 5: return [3 /*break*/, 7];
+            case 6:
                 error_2 = _a.sent();
                 return [2 /*return*/, res.status(400).send({ msj: 'Error al crear el recorrido' })];
-            case 6: return [2 /*return*/];
+            case 7: return [2 /*return*/];
         }
     });
 }); };

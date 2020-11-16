@@ -30,14 +30,14 @@ export const getRecorrido = async (req: Request, res: Response): Promise<Respons
 
 export const createRecorrido = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const recorrido = await getRepository(Recorrido).findOne(req.params.nroParada);
-        if(recorrido !== undefined && recorrido){
-            const result = await getRepository(Recorrido).save(recorrido);
-            return res.status(200).json(result);
-
-        } else{
-            return res.status(204).send({ msj: 'No se pueden duplicar los recorridos, por favor verifique'});
-
+        debugger;
+        const nuevoRecorrido = await getRepository(Recorrido).find();
+        if(nuevoRecorrido !== undefined && nuevoRecorrido){
+            await getRepository(Recorrido).create(req.body);
+            const recorrido = await getRepository(Recorrido).save(nuevoRecorrido);
+            return res.status(200).json(recorrido);
+        } else {
+            return res.status(204).send(nuevoRecorrido);
         }
     } catch (error) {
         return res.status(400).send({ msj: 'Error al crear el recorrido'});

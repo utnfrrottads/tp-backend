@@ -3,8 +3,8 @@
     "host": "localhost",
     "port": 3306,
     "username": "root",
-    "password": "soda2662",
-    "database": "cli-desa",
+    "password": "CaBj1234",
+    "database": "clidesa",
     "entities": ["dist/entity/**/*.js"],
-    "synchronize": true    
+    "synchronize": true
  }

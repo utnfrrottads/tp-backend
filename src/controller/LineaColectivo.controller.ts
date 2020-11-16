@@ -5,7 +5,7 @@ import { LineaColectivo } from '../entity/LineaColectivo'
 export const getLineaColectivos = async (req: Request, res: Response): Promise<Response> => {
     try {
         const lineasCol = await getRepository(LineaColectivo).find();
-        if(lineasCol && lineasCol !== undefined){
+        if(lineasCol && lineasCol !== undefined){            
             return res.status(200).json(lineasCol);
         } else{
             return res.status(204).send({ Message: 'Linea de colectivo not found' });
