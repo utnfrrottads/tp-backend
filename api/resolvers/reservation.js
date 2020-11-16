@@ -1,10 +1,11 @@
 export default {
+	Reservation: {
+		table: ({ tableId }, args, { db }) =>
+			db.table.findOne({ where: { id: tableId } }),
+	},
 	Query: {
-		reservation: (parent, { id }, { db }) =>
-			db.reservation.findByPk(id, { include: ['table'] }),
-
-		reservations: (parent, args, { db }) =>
-			db.reservation.findAll({ include: ['table'] }),
+		reservation: (parent, { id }, { db }) => db.reservation.findByPk(id),
+		reservations: (parent, args, { db }) => db.reservation.findAll(),
 	},
 
 	Mutation: {
@@ -15,16 +16,8 @@ export default {
 				// ToDo: Throw Excepction table not found.
 			}
 
-			const newReservation = await db.reservation
-				.create(reservation)
-				.then((res) => res.setTable(table));
-
-			return {
-				...newReservation.dataValues,
-				table: {
-					...table.dataValues,
-				},
-			};
+			const newReservation = await db.reservation.create(reservation);
+			return newReservation;
 		},
 
 		updateReservation: async (parent, { id, reservation }, { db }) => {
@@ -34,30 +27,16 @@ export default {
 				// ToDo: Throw Excepction table not found.
 			}
 
-			// AffectedRows sólo funciona en Postgres
-			const [affectedRowsCount] = await db.reservation.update(
-				reservation,
-				{
-					where: {
-						id,
-					},
-				}
-			);
-
-			if (affectedRowsCount === 0) {
-				return null;
-			}
-
-			return db.reservation.findByPk(id, {
-				include: 'table',
+			await db.reservation.update(reservation, {
+				where: { id },
 			});
+			const updated = await db.reservation.findByPk(reservation.tableId);
+			return updated;
 		},
 
 		deleteReservation: (parent, { id }, { db }) =>
 			db.reservation.destroy({
-				where: {
-					id,
-				},
+				where: { id },
 			}),
 	},
 };
