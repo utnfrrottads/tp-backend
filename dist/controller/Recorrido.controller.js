@@ -55,29 +55,35 @@ exports.getRecorrido = function (req, res) { return __awaiter(void 0, void 0, vo
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido)
-                        .createQueryBuilder("Recorrido")
-                        .where("Recorrido.lineaColectivo = :linea", { lineaColectivo: req.params.lineaColectivo })
-                        .getMany()];
+                debugger;
+                _a.label = 1;
             case 1:
+                _a.trys.push([1, 3, , 4]);
+                console.dir(req.body);
+                return [4 /*yield*/, typeorm_1.createQueryBuilder("Recorrido")
+                        .leftJoinAndSelect('Recorrido.lineaColectivo', 'LineaColectivo')
+                        .where("Recorrido.IdRecorrido = :IdRecorrido", { IdRecorrido: req.params.IdRecorrido })
+                        .getMany()];
+            case 2:
                 recorrido = _a.sent();
+                console.dir(recorrido);
                 if (recorrido) {
                     return [2 /*return*/, res.status(200).json(recorrido)];
                 }
                 else {
                     return [2 /*return*/, res.status(204).send({ Messsage: 'Recorrido not found' })];
                 }
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 4];
+            case 3:
                 error_1 = _a.sent();
+                console.log('Error :' + error_1);
                 return [2 /*return*/, res.status(400).send({ Messsage: 'Error al obtener el recorrido' })];
-            case 3: return [2 /*return*/];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
 exports.createRecorrido = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nuevoRecorrido, recorrido, error_2;
+    var nuevoRecorrido, recorrido, reco, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -89,15 +95,16 @@ exports.createRecorrido = function (req, res) { return __awaiter(void 0, void 0,
                 if (!(nuevoRecorrido !== undefined && nuevoRecorrido)) return [3 /*break*/, 4];
                 return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).create(req.body)];
             case 2:
-                _a.sent();
-                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).save(nuevoRecorrido)];
-            case 3:
                 recorrido = _a.sent();
-                return [2 /*return*/, res.status(200).json(recorrido)];
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).save(recorrido)];
+            case 3:
+                reco = _a.sent();
+                return [2 /*return*/, res.status(200).json(reco)];
             case 4: return [2 /*return*/, res.status(204).send(nuevoRecorrido)];
             case 5: return [3 /*break*/, 7];
             case 6:
                 error_2 = _a.sent();
+                console.log('Error :' + error_2);
                 return [2 /*return*/, res.status(400).send({ msj: 'Error al crear el recorrido' })];
             case 7: return [2 /*return*/];
         }
@@ -122,6 +129,7 @@ exports.updateRecorrido = function (req, res) { return __awaiter(void 0, void 0,
             case 4: return [3 /*break*/, 6];
             case 5:
                 error_3 = _a.sent();
+                console.log('Error :' + error_3);
                 return [2 /*return*/, res.status(404).send({ Message: 'Error al actualizar el recorrido' })];
             case 6: return [2 /*return*/];
         }
@@ -139,6 +147,7 @@ exports.deleteRecorrido = function (req, res) { return __awaiter(void 0, void 0,
                 return [2 /*return*/, res.status(200).json(result)];
             case 2:
                 error_4 = _a.sent();
+                console.log('Error :' + error_4);
                 return [2 /*return*/, res.status(400).send({ Message: 'Error al eliminar el recorrido' })];
             case 3: return [2 /*return*/];
         }

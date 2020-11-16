@@ -11,6 +11,9 @@ var typeorm_1 = require("typeorm");
 var Empresa_route_1 = __importDefault(require("./routes/Empresa.route"));
 var LineaColectivo_router_1 = __importDefault(require("./routes/LineaColectivo.router"));
 var Chofer_route_1 = __importDefault(require("./routes/Chofer.route"));
+var Recorrido_route_1 = __importDefault(require("./routes/Recorrido.route"));
+var Calendario_route_1 = __importDefault(require("./routes/Calendario.route"));
+var Parada_route_1 = __importDefault(require("./routes/Parada.route"));
 var app = express_1.default();
 typeorm_1.createConnection();
 //middlewars
@@ -25,8 +28,37 @@ app.use(Empresa_route_1.default, function (err, req, res, next) {
     res.status(500);
     res.render('error', { error: err });
 });
-app.use(LineaColectivo_router_1.default);
 app.use(Chofer_route_1.default, function (err, req, res, next) {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: 'Error no identificado' });
+});
+app.use(Calendario_route_1.default, function (err, req, res, next) {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: 'Error no identificado' });
+});
+app.use(Recorrido_route_1.default, function (err, req, res, next) {
+    debugger;
+    console.log(JSON.stringify(res));
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: 'Error no identificado' });
+});
+app.use(LineaColectivo_router_1.default, function (err, req, res, next) {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500);
+    res.render('error', { error: 'Error no identificado' });
+});
+app.use(Parada_route_1.default, function (err, req, res, next) {
     if (res.headersSent) {
         return next(err);
     }

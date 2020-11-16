@@ -3,10 +3,10 @@ const router = Router();
 
 import { getRecorridos, getRecorrido, createRecorrido, updateRecorrido, deleteRecorrido } from '../controller/Recorrido.controller'
 
-router.get('./Recorridos', getRecorridos);    
-router.get('./Recorridos/:IdRecorrido', getRecorrido);
-router.post('./Recorridos', createRecorrido);
-router.put('./Recorridos', updateRecorrido)
-router.delete('./Recorridos', deleteRecorrido);
+router.get('/recorrido', getRecorridos);    
+router.get('/recorrido/:IdRecorrido', getRecorrido);
+router.post('/recorrido', createRecorrido);
+router.put('/recorrido', updateRecorrido)
+router.delete('/recorrido', deleteRecorrido);
 
 export default router
