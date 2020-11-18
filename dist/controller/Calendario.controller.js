@@ -56,7 +56,11 @@ exports.getCalendario = function (req, res) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.chofer)];
+                return [4 /*yield*/, typeorm_1.createQueryBuilder('Calendario')
+                        .leftJoinAndSelect('Calendario.recorrido', 'Recorrido')
+                        .leftJoinAndSelect('Calendario.chofer', 'Chofer')
+                        .where('Calendario.IdCalendario = :IdCalendario', { IdCalendario: req.params.IdCalendario })
+                        .getOne()];
             case 1:
                 calendario = _a.sent();
                 if (calendario !== undefined) {
@@ -68,31 +72,36 @@ exports.getCalendario = function (req, res) { return __awaiter(void 0, void 0, v
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
+                console.dir(error_1);
                 return [2 /*return*/, res.status(400).json({ Message: 'Error al obtener el calendario' })];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.createCalendario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var calendarioUso, result, error_2;
+    var calendarioUso, calendario, result, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).create(req.body)];
+                _a.trys.push([0, 6, , 7]);
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).find()];
             case 1:
                 calendarioUso = _a.sent();
-                if (!(calendarioUso === null)) return [3 /*break*/, 3];
-                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).save(calendarioUso)];
+                if (!(calendarioUso.length === 0)) return [3 /*break*/, 4];
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).create(req.body)];
             case 2:
+                calendario = _a.sent();
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).save(calendario)];
+            case 3:
                 result = _a.sent();
                 return [2 /*return*/, res.status(200).json(result)];
-            case 3: return [2 /*return*/, res.status(204).send({ Message: 'Error al crear el calendario' })];
-            case 4: return [3 /*break*/, 6];
-            case 5:
+            case 4: return [2 /*return*/, res.status(204).send({ Message: 'Error al crear el calendario' })];
+            case 5: return [3 /*break*/, 7];
+            case 6:
                 error_2 = _a.sent();
+                console.dir(error_2);
                 return [2 /*return*/, res.status(400).json({ message: 'Calendario en uso.' })];
-            case 6: return [2 /*return*/];
+            case 7: return [2 /*return*/];
         }
     });
 }); };
@@ -102,9 +111,12 @@ exports.updateCalendario = function (req, res) { return __awaiter(void 0, void 0
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
+                console.dir(JSON.stringify(req.param));
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.idCalendario)];
             case 1:
                 calendario = _a.sent();
+                console.dir(calendario);
+                debugger;
                 if (!(calendario !== undefined)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(Calendario_1.Calendario).merge(calendario, req.body);
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).save(calendario)];
@@ -115,6 +127,7 @@ exports.updateCalendario = function (req, res) { return __awaiter(void 0, void 0
             case 4: return [3 /*break*/, 6];
             case 5:
                 error_3 = _a.sent();
+                console.dir(error_3);
                 return [2 /*return*/, res.status(400).send({ message: 'Calendario no existente' })];
             case 6: return [2 /*return*/];
         }

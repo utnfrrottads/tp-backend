@@ -15,7 +15,6 @@ export const getChoferes = async (req: Request, res: Response): Promise<Response
 }
 
 export const getChofer = async (req: Request, res: Response): Promise<Response> => {
-    //.leftJoinAndSelect('Chofer.lineaColectivo", "LineaColectivo')
     try {        
         const chofer = await createQueryBuilder('Chofer')
         .leftJoinAndSelect('Chofer.lineaColectivo', 'LineaColectivo')
@@ -39,9 +38,7 @@ export const getChofer = async (req: Request, res: Response): Promise<Response> 
 export const createChofer = async (req: Request, res: Response): Promise<Response> => {    
     
     try {
-        
-        const chofer = await getRepository(Chofer).findOne(req.body.Cuil);
-        
+        const chofer = await getRepository(Chofer).findOne(req.body.Cuil);        
         if(chofer === undefined){
             const chof = await getRepository(Chofer).create(req.body);            
             const result = await getRepository(Chofer).save(chof);

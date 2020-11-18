@@ -1,5 +1,5 @@
 import {Request, Response} from 'express'
-import { getRepository } from 'typeorm'
+import { getRepository, createQueryBuilder } from 'typeorm'
 import { Calendario } from '../entity/Calendario'
 
 export const getCalendarios = async (req: Request, res: Response): Promise<Response> => {
@@ -10,7 +10,12 @@ export const getCalendarios = async (req: Request, res: Response): Promise<Respo
 
 export const getCalendario = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const calendario = await getRepository(Calendario).findOne(req.params.chofer);
+        const calendario = await createQueryBuilder('Calendario')
+        .leftJoinAndSelect('Calendario.recorrido', 'Recorrido')
+        .leftJoinAndSelect('Calendario.chofer', 'Chofer')
+        .where('Calendario.IdCalendario = :IdCalendario', {IdCalendario: req.params.IdCalendario})
+        .getOne();
+        
         if(calendario !== undefined){
             return res.status(200).json(calendario);
 
@@ -19,23 +24,26 @@ export const getCalendario = async (req: Request, res: Response): Promise<Respon
 
         }        
     } catch (error) {
+        console.dir(error);
         return res.status(400).json({ Message: 'Error al obtener el calendario' });
 
     }
 }
 
 export const createCalendario = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const calendarioUso = await getRepository(Calendario).create(req.body);
-        if(calendarioUso === null){
-            const result = await getRepository(Calendario).save(calendarioUso);
+    try {        
+        const calendarioUso = await getRepository(Calendario).find();
+        if(calendarioUso.length === 0){
+            const calendario = await getRepository(Calendario).create(req.body);
+            const result = await getRepository(Calendario).save(calendario);
             return res.status(200).json(result);
         
         } else{
             return res.status(204).send({Message: 'Error al crear el calendario'})
-        
+
         }
     } catch (error) {
+        console.dir(error);
         return res.status(400).json({ message: 'Calendario en uso.'});
     
     }
@@ -43,7 +51,10 @@ export const createCalendario = async (req: Request, res: Response): Promise<Res
 
 export const updateCalendario = async (req: Request, res: Response): Promise<Response> => {
     try {
+        console.dir(JSON.stringify(req.param));
         const calendario = await getRepository(Calendario).findOne(req.params.idCalendario);
+        console.dir(calendario);
+        debugger;
         if(calendario !== undefined) {
             getRepository(Calendario).merge(calendario, req.body);
             const result = await getRepository(Calendario).save(calendario);
@@ -53,6 +64,7 @@ export const updateCalendario = async (req: Request, res: Response): Promise<Res
 
         }
     } catch (error) {
+        console.dir(error);
         return res.status(400).send({ message: 'Calendario no existente' });
 
     }    

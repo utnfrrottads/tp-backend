@@ -46,9 +46,7 @@ app.use(Calendario, function(err: any, req: any, res: any, next: any){
     res.render('error', { error: 'Error no identificado' });
 });
 
-app.use(Recorrido, function(err: any, req: any, res: any, next: any){
-  debugger;
-  console.log(JSON.stringify(res));
+app.use(Recorrido, function(err: any, req: any, res: any, next: any){    
   if (res.headersSent) {
       return next(err);
     }

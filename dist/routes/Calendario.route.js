@@ -7,5 +7,5 @@ router.get('/Calendario', Calendario_controller_1.getCalendarios);
 router.get('/Calendario/:IdCalendario', Calendario_controller_1.getCalendario);
 router.put('/Calendario', Calendario_controller_1.updateCalendario);
 router.post('/Calendario', Calendario_controller_1.createCalendario);
-router.delete('/Calendario', Calendario_controller_1.deleteCalendario);
+router.delete('/Calendario/:IdCalendario', Calendario_controller_1.deleteCalendario);
 exports.default = router;

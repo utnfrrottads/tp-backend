@@ -8,6 +8,6 @@ router.get('/Calendario', getCalendarios);
 router.get('/Calendario/:IdCalendario', getCalendario);
 router.put('/Calendario', updateCalendario);
 router.post('/Calendario', createCalendario);
-router.delete('/Calendario', deleteCalendario);
+router.delete('/Calendario/:IdCalendario', deleteCalendario);
 
 export default router
