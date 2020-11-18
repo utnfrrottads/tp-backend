@@ -29,15 +29,16 @@ export const getRecorrido = async (req: Request, res: Response): Promise<Respons
 }
 
 export const createRecorrido = async (req: Request, res: Response): Promise<Response> => {
-    try {        
-        debugger;        
+    try {
         const nuevoRecorrido = await getRepository(Recorrido).find();
         if (nuevoRecorrido !== undefined && nuevoRecorrido) {
             const recorrido = await getRepository(Recorrido).create(req.body);
             const reco = await getRepository(Recorrido).save(recorrido);
             return res.status(200).json(reco);
+
         } else {
             return res.status(204).send(nuevoRecorrido);
+            
         }
     } catch (error) {
         console.log('Error :' + error);
@@ -67,7 +68,7 @@ export const updateRecorrido = async (req: Request, res: Response): Promise<Resp
 
 export const deleteRecorrido = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const result = await getRepository(Recorrido).delete(req.params.nroParada);
+        const result = await getRepository(Recorrido).delete(req.params.IdRecorrido);
         return res.status(200).json(result);
     
     } catch (error) {

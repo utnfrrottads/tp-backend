@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var router = express_1.Router();
 var Chofer_controller_1 = require("../controller/Chofer.controller");
-router.get('/getChoferes', Chofer_controller_1.getChoferes);
+router.get('/getChofere', Chofer_controller_1.getChoferes);
 router.get('/getChofer/:cuil', Chofer_controller_1.getChofer);
 router.post('/createChofer', Chofer_controller_1.createChofer);
 router.put('/updateChofer', Chofer_controller_1.updateChofer);

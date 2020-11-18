@@ -55,30 +55,25 @@ exports.getRecorrido = function (req, res) { return __awaiter(void 0, void 0, vo
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                debugger;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                console.dir(req.body);
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, typeorm_1.createQueryBuilder("Recorrido")
                         .leftJoinAndSelect('Recorrido.lineaColectivo', 'LineaColectivo')
                         .where("Recorrido.IdRecorrido = :IdRecorrido", { IdRecorrido: req.params.IdRecorrido })
                         .getMany()];
-            case 2:
+            case 1:
                 recorrido = _a.sent();
-                console.dir(recorrido);
                 if (recorrido) {
                     return [2 /*return*/, res.status(200).json(recorrido)];
                 }
                 else {
                     return [2 /*return*/, res.status(204).send({ Messsage: 'Recorrido not found' })];
                 }
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 error_1 = _a.sent();
                 console.log('Error :' + error_1);
                 return [2 /*return*/, res.status(400).send({ Messsage: 'Error al obtener el recorrido' })];
-            case 4: return [2 /*return*/];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
@@ -88,7 +83,6 @@ exports.createRecorrido = function (req, res) { return __awaiter(void 0, void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 6, , 7]);
-                debugger;
                 return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).find()];
             case 1:
                 nuevoRecorrido = _a.sent();
@@ -116,7 +110,7 @@ exports.updateRecorrido = function (req, res) { return __awaiter(void 0, void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.nroParada)];
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).findOne(req.params.IdRecorrido)];
             case 1:
                 recorrido = _a.sent();
                 if (!(recorrido !== undefined && recorrido)) return [3 /*break*/, 3];
@@ -141,7 +135,7 @@ exports.deleteRecorrido = function (req, res) { return __awaiter(void 0, void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).delete(req.params.nroParada)];
+                return [4 /*yield*/, typeorm_1.getRepository(Recorrido_1.Recorrido).delete(req.params.IdRecorrido)];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, res.status(200).json(result)];

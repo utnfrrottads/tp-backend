@@ -7,6 +7,6 @@ router.get('/recorrido', getRecorridos);
 router.get('/recorrido/:IdRecorrido', getRecorrido);
 router.post('/recorrido', createRecorrido);
 router.put('/recorrido', updateRecorrido)
-router.delete('/recorrido', deleteRecorrido);
+router.delete('/recorrido/:IdRecorrido', deleteRecorrido);
 
 export default router
