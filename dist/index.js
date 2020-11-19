@@ -43,8 +43,6 @@ app.use(Calendario_route_1.default, function (err, req, res, next) {
     res.render('error', { error: 'Error no identificado' });
 });
 app.use(Recorrido_route_1.default, function (err, req, res, next) {
-    debugger;
-    console.log(JSON.stringify(res));
     if (res.headersSent) {
         return next(err);
     }

@@ -39,14 +39,15 @@ app.use(chofer, function(err: any, req: any, res: any, next: any){
 });
 
 app.use(Calendario, function(err: any, req: any, res: any, next: any){
-  if (res.headersSent) {
+    if (res.headersSent) {
       return next(err);
     }
     res.status(500);
-    res.render('error', { error: 'Error no identificado' });
+    res.render('error', { error: 'Error no identificado' });  
+ 
 });
 
-app.use(Recorrido, function(err: any, req: any, res: any, next: any){    
+app.use(Recorrido, function(err: any, req: any, res: any, next: any){
   if (res.headersSent) {
       return next(err);
     }

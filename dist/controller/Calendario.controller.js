@@ -111,12 +111,9 @@ exports.updateCalendario = function (req, res) { return __awaiter(void 0, void 0
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                console.dir(JSON.stringify(req.param));
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.idCalendario)];
             case 1:
                 calendario = _a.sent();
-                console.dir(calendario);
-                debugger;
                 if (!(calendario !== undefined)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(Calendario_1.Calendario).merge(calendario, req.body);
                 return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).save(calendario)];
@@ -134,16 +131,16 @@ exports.updateCalendario = function (req, res) { return __awaiter(void 0, void 0
     });
 }); };
 exports.deleteCalendario = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var calendarioUso, result, error_4;
+    var calendario, result, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.chofer)];
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).findOne(req.params.idCalendario)];
             case 1:
-                calendarioUso = _a.sent();
-                if (!(calendarioUso !== undefined && calendarioUso)) return [3 /*break*/, 3];
-                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).delete(req.params.idCalendario)];
+                calendario = _a.sent();
+                if (!(calendario !== undefined)) return [3 /*break*/, 3];
+                return [4 /*yield*/, typeorm_1.getRepository(Calendario_1.Calendario).delete(calendario)];
             case 2:
                 result = _a.sent();
                 return [2 /*return*/, res.status(200).json(result)];
@@ -151,6 +148,7 @@ exports.deleteCalendario = function (req, res) { return __awaiter(void 0, void 0
             case 4: return [3 /*break*/, 6];
             case 5:
                 error_4 = _a.sent();
+                console.dir(error_4);
                 return [2 /*return*/, res.status(400).json({ message: 'No se pudo eliminar el Calendario en uso.' })];
             case 6: return [2 /*return*/];
         }
