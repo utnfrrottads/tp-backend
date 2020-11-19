@@ -14,13 +14,13 @@ export class Parada extends BaseEntity{
         type: 'double',        
         nullable: false,        
     })
-    latitud: number;
+    Latitud: number;
     
     @Column({
         type: 'double',        
         nullable: false,        
     })
-    longitud: number;
+    Longitud: number;
 
     @Column({
         type: 'varchar',

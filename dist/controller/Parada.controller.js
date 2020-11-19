@@ -68,31 +68,36 @@ exports.getParada = function (req, res) { return __awaiter(void 0, void 0, void 
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
+                console.dir(error_1);
                 return [2 /*return*/, res.status(400).send({ Message: 'Error al obtener la parada de colectivo' })];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.createParada = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var parada, result, error_2;
+    var isParadaColectivoExist, parada, result, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).create(req.body)];
+                _a.trys.push([0, 6, , 7]);
+                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).findOne(req.params.NroParada)];
             case 1:
-                parada = _a.sent();
-                if (!(parada !== undefined)) return [3 /*break*/, 3];
-                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).save(parada)];
+                isParadaColectivoExist = _a.sent();
+                if (!(isParadaColectivoExist === undefined)) return [3 /*break*/, 4];
+                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).create(req.body)];
             case 2:
+                parada = _a.sent();
+                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).save(parada)];
+            case 3:
                 result = _a.sent();
                 return [2 /*return*/, res.status(200).json(result)];
-            case 3: return [2 /*return*/, res.status(204).send({ Message: 'Parada de colectivo existente' })];
-            case 4: return [3 /*break*/, 6];
-            case 5:
+            case 4: return [2 /*return*/, res.status(204).send({ Message: 'Parada de colectivo existente' })];
+            case 5: return [3 /*break*/, 7];
+            case 6:
                 error_2 = _a.sent();
+                console.dir(error_2);
                 return [2 /*return*/, res.status(400).send({ Message: 'Error al crear la parada de colectivo' })];
-            case 6: return [2 /*return*/];
+            case 7: return [2 /*return*/];
         }
     });
 }); };
@@ -102,7 +107,7 @@ exports.updateParada = function (req, res) { return __awaiter(void 0, void 0, vo
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).findOne(req.params.nroParada)];
+                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).findOne(req.params.NroParada)];
             case 1:
                 parada = _a.sent();
                 if (!(parada !== undefined)) return [3 /*break*/, 3];
@@ -115,6 +120,7 @@ exports.updateParada = function (req, res) { return __awaiter(void 0, void 0, vo
             case 4: return [3 /*break*/, 6];
             case 5:
                 error_3 = _a.sent();
+                console.dir(error_3);
                 return [2 /*return*/, res.status(404).send({ message: 'Error al actualizar la Parada de colectivo' })];
             case 6: return [2 /*return*/];
         }
@@ -126,12 +132,13 @@ exports.deleteParada = function (req, res) { return __awaiter(void 0, void 0, vo
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).delete(req.params.nroParada)];
+                return [4 /*yield*/, typeorm_1.getRepository(Parada_1.Parada).delete(req.params.NroParada)];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, res.status(200).json(result)];
             case 2:
                 error_4 = _a.sent();
+                console.dir(error_4);
                 return [2 /*return*/, res.status(400).send({ Message: 'Error al eliminar la parada de colectivo' })];
             case 3: return [2 /*return*/];
         }

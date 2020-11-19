@@ -17,14 +17,16 @@ export const getParada = async (req: Request, res: Response): Promise<Response> 
         }
         
         } catch (error) {
+            console.dir(error);
             return res.status(400).send({ Message: 'Error al obtener la parada de colectivo' });
     }
 }
 
 export const createParada = async (req: Request, res: Response): Promise<Response> => {    
     try {
-        const parada = await getRepository(Parada).create(req.body);
-        if(parada !== undefined){
+        const isParadaColectivoExist = await getRepository(Parada).findOne(req.params.NroParada);
+        if(isParadaColectivoExist === undefined){
+            const parada = await getRepository(Parada).create(req.body);
             const result = await getRepository(Parada).save(parada);
             return res.status(200).json(result);
         } else{
@@ -32,13 +34,14 @@ export const createParada = async (req: Request, res: Response): Promise<Respons
         }
     
     } catch (error) {
+        console.dir(error);
         return res.status(400).send({ Message: 'Error al crear la parada de colectivo' });
     }
 }
 
 export const updateParada = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const parada = await getRepository(Parada).findOne(req.params.nroParada);
+        const parada = await getRepository(Parada).findOne(req.params.NroParada);
         if(parada !== undefined) {
             getRepository(Parada).merge(parada, req.body);
             const result = await getRepository(Parada).save(parada);
@@ -49,16 +52,18 @@ export const updateParada = async (req: Request, res: Response): Promise<Respons
 
         }
     } catch (error) {
+        console.dir(error);
         return res.status(404).send({ message: 'Error al actualizar la Parada de colectivo' });
     }
 }
 
 export const deleteParada = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const result = await getRepository(Parada).delete(req.params.nroParada);
+        const result = await getRepository(Parada).delete(req.params.NroParada);
         return res.status(200).json(result);
 
     } catch (error) {
+        console.dir(error);
         return res.status(400).send({ Message: 'Error al eliminar la parada de colectivo' });
     
     }

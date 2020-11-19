@@ -44,14 +44,14 @@ var Parada = /** @class */ (function (_super) {
             nullable: false,
         }),
         __metadata("design:type", Number)
-    ], Parada.prototype, "latitud", void 0);
+    ], Parada.prototype, "Latitud", void 0);
     __decorate([
         typeorm_1.Column({
             type: 'double',
             nullable: false,
         }),
         __metadata("design:type", Number)
-    ], Parada.prototype, "longitud", void 0);
+    ], Parada.prototype, "Longitud", void 0);
     __decorate([
         typeorm_1.Column({
             type: 'varchar',
