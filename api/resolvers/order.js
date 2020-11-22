@@ -3,7 +3,7 @@ export default {
 		table: ({ tableId }, args, { db }) =>
 			db.table.findOne({ where: { id: tableId } }),
 		lines: (parent, args, { db }) =>
-			db.lines.findAll({ where: { id: parent.id } }),
+			db.line.findAll({ where: { orderId: parent.id } }),
 	},
 	Query: {
 		orders: (parent, args, { db }) => db.order.findAll(),
