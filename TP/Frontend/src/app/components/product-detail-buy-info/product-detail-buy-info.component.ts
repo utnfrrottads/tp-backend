@@ -11,7 +11,7 @@ import { DialogoComponent } from '../dialogo/dialogo.component';
 @Component({
   selector: 'app-product-detail-buy-info',
   templateUrl: './product-detail-buy-info.component.html',
-  styleUrls: ['./product-detail-buy-info.component.scss']
+  styleUrls: ['../product-detail/product-detail.component.scss']
 })
 export class ProductDetailBuyInfoComponent implements OnInit {
   @Input() producto = new Producto();

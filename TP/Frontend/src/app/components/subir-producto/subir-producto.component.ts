@@ -162,7 +162,7 @@ export class SubirProductoComponent implements OnInit {
     // subo la imagen:
     this.subirImagenYObtenerURL().then((res) => {
       if (res == null) {
-        console.log('No se pudo subir imagen');
+        alert('No se pudo subir imagen');
       } else {
         for (let i = 0; i < res.length; i++) {
           this.producto.url.push(res[i].url);
@@ -187,9 +187,6 @@ export class SubirProductoComponent implements OnInit {
       });
     });
   }
-
-  // para cambiar el tamaño del textArea según la altura del scroll
-
 
   txtAreaTextChanges(input) {
     const txtAreas = document.getElementsByClassName(

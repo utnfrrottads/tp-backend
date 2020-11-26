@@ -8,7 +8,7 @@ declare var M: any;
 @Component({
   selector: 'app-product-detail-carousel',
   templateUrl: './product-detail-carousel.component.html',
-  styleUrls: ['./product-detail-carousel.component.scss']
+  styleUrls: ['../product-detail/product-detail.component.scss']
 })
 
 export class ProductDetailCarouselComponent implements OnInit { 

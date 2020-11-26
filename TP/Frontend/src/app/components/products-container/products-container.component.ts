@@ -27,7 +27,6 @@ export class ProductsContainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.router.url);
     this.route.params.subscribe((params) => {
       this.descripcionParameter = params.searchKey;
       this.rubroParameter = params.idRubro;
