@@ -62,9 +62,9 @@ export class SubirProductoComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('idProducto') !== null){
     this.modoEdicion = true;
     // me traigo el id de Producto
-    this.producto.idProducto = this.route.snapshot.paramMap.get('idProducto');
+    this.producto._id = this.route.snapshot.paramMap.get('idProducto');
 
-    this.pService.getProducto(this.producto.idProducto)
+    this.pService.getProducto(this.producto._id)
       .subscribe((res: Producto) => {
         this.producto = res;
         this.idRubroSeleccionado = this.producto.rubro._id;
@@ -82,7 +82,7 @@ export class SubirProductoComponent implements OnInit {
     }
     else{
       this.producto = {
-        idProducto : '',
+        _id : '',
         rubro : this.rubros,
         idVendedor: 0,
         nombre: '',
