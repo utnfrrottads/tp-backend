@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ProductDetailCarouselComponent } from './components/product-detail-carousel/product-detail-carousel.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaEmpresasComponent } from './components/lista-empresas/lista-empresas.component';
 import { DetalleEmpresaComponent } from './components/detalle-empresa/detalle-empresa.component';
@@ -30,7 +31,6 @@ import { ComprasVentasListComponent } from './components/compras-ventas-list/com
 import { DialogCompraVentaComponent } from './components/dialog-compra-venta/dialog-compra-venta.component';
 import { DialogFinishVentaComponent } from './components/dialog-finish-venta/dialog-finish-venta.component';
 import { LoginCreationComponent } from './components/login-creation/login-creation.component';
-
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { LoginCreationComponent } from './components/login-creation/login-creati
     DialogCompraVentaComponent,
     DialogFinishVentaComponent,
     LoginCreationComponent,
-
+    ProductDetailCarouselComponent,
 
   ],
   entryComponents: [DialogCompraVentaComponent],

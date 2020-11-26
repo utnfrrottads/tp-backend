@@ -1,7 +1,4 @@
-// arreglar esta linea.
-// si lo saco, se me ve un recuadro horrible. (corregir)
 .container {
-  outline: none !important;
   overflow: hidden;
   min-height: 100%;
   margin-bottom: 20px;
@@ -44,13 +41,13 @@ h2 {
   width: 40%;
 }
 
-.descr-producto {
+.descripcion-producto {
   position: relative;
   width: 60%;
   float: left;
 }
 
-.descr-producto h2 {
+.descripcion-producto h2 {
   font-size: 6vh;
 }
 
@@ -143,7 +140,7 @@ h2 {
     background-color: white;
   }
 
-  .descr-producto {
+  .descripcion-producto {
     position: relative;
     width: 100%;
   }

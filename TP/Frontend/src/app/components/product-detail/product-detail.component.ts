@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogoComponent } from '../dialogo/dialogo.component';
 import { VentasService } from 'src/app/services/ventas.service';
 
-declare var M: any;
 
 @Component({
   selector: 'app-product-detail',
@@ -16,8 +15,6 @@ declare var M: any;
 })
 export class ProductDetailComponent implements OnInit {
   idProducto: string;
-  carrouselElems: any;
-  carrouselInstance: any;
   producto = new Producto();
   vendedor: any = {};
   usuario: any = {};
@@ -44,22 +41,11 @@ export class ProductDetailComponent implements OnInit {
       this.userService.getUser(this.producto.idVendedor).subscribe((res) => {
         this.vendedor = res;
         this.imagenVendedor = this.vendedor.url;
-
-        // para el carousel
-        this.carrouselElems = document.querySelectorAll('.carousel');
-        const options = {
-          fullWidth: true,
-          indicators: true,
-          shift: 5,
-          padding: 5,
-          numVisible: 5,
-          dist: -999,
-        };
-        this.carrouselInstance = M.Carousel.init(this.carrouselElems, options);
-      });
-    });
+      })
+    })
+    
   }
-  ngAfterViewInit() {}
+
   addToCart() {
     this.isInCart();
     this.producto.cantComprar = 1;
@@ -74,14 +60,7 @@ export class ProductDetailComponent implements OnInit {
     return this.ventaService.isInCart(this.producto);
   }
 
-  prevImage() {
-    const instance = M.Carousel.getInstance(this.carrouselElems[0]);
-    instance.prev();
-  }
-  nextImage() {
-    const instance = M.Carousel.getInstance(this.carrouselElems[0]);
-    instance.next();
-  }
+
 
   vendedorIsnotComprador() {
     if (this.usuario != null) {
@@ -100,7 +79,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   deletePublicacion(id) {
-
     this.dialogo
       .open(DialogoComponent, {
         data: {
@@ -134,4 +112,5 @@ export class ProductDetailComponent implements OnInit {
         }
       });
   }
+
 }

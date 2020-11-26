@@ -1,29 +1,7 @@
 <div class="container">
 
-    <!-- carousel -->
-    <div class="image-container">
-        <div>
-            <div class="carousel carousel-slider center " data-indicators="true">
-                <div class="carousel-fixed-item center middle-indicator">
-                    <!-- arrows -->
-                    <div class="left" (click)="prevImage()">
-                        <a class=" middle-indicator-text waves-effect waves-light content-indicator"><i
-                                class="material-icons left  middle-indicator-text">chevron_left</i></a>
-                    </div>
-                    <div class="right" (click)="nextImage()">
-                        <a class=" moveNextCarousel middle-indicator-text waves-effect waves-light content-indicator"><i
-                                class="material-icons right middle-indicator-text">chevron_right</i></a>
-                    </div>
-                </div>
-
-                <div *ngFor="let url of producto.url; index as i" class="carousel-item white">
-                    <img src="{{producto.url[i]}}">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    <app-product-detail-carousel [idProducto]="idProducto"></app-product-detail-carousel>
+   
     <aside class="right-options">
         <div class="buy-info">
             <h1 class="justift">{{producto.nombre}}</h1>
@@ -49,7 +27,6 @@
         </div>
 
         <div class="card seller-profile">
-
             <div class="center">
                 <img class="mini-imagen" src="{{vendedor.url}}">
             </div>
@@ -60,11 +37,11 @@
                 <p class="center title"><b>{{vendedor.nombre}}</b></p>
                 <p class="center text">Localidad: {{vendedor.localidad}} </p>
                 <p class="center text">Dirección: {{vendedor.direccion}} </p>
-
             </footer>
         </div>
     </aside>
-    <div class="descr-producto">
+
+    <div class="descripcion-producto">
         <h3>Descripcion del producto</h3>
         <p class="justify">{{producto.descripcion}}</p>
     </div>
