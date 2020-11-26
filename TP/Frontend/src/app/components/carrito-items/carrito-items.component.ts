@@ -19,20 +19,20 @@ export class CarritoItemsComponent implements OnInit {
     this.list = this.ventas.getCart();
   }
 
-  add(producto) {
+  add(producto): void {
     if (producto.cantComprar < producto.stock) {
       producto.cantComprar++;
       this.ventas.updateCantComprar(producto);
     }
   }
-  remove(producto) {
+  remove(producto): void {
     if (producto.cantComprar > 1) {
       producto.cantComprar--;
       this.ventas.updateCantComprar(producto);
     }
   }
 
-  delete(producto) {
+  delete(producto): void {
     const index = this.list.indexOf(producto);
     if (index > -1) {
       this.ventas.removeFromCart(producto);

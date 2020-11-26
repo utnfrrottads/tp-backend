@@ -11,7 +11,7 @@ export class VentasService {
 
   readonly baseURL = environment.backendURL + 'ventas/';
 
-  isInCart(producto) {
+  isInCart(producto): boolean {
     const items = JSON.parse(localStorage.getItem('carrito'));
     if (items === null || items === []) {
       return false;
@@ -24,9 +24,8 @@ export class VentasService {
       }
     }
   }
-  updateCantComprar(producto) {
+  updateCantComprar(producto): void {
     const items = JSON.parse(localStorage.getItem('carrito'));
-    let item;
     items.forEach((element) => {
       if (element._id === producto._id) {
         element.cantComprar = producto.cantComprar;
@@ -36,7 +35,7 @@ export class VentasService {
     localStorage.setItem('carrito', JSON.stringify(items));
   }
 
-  addToCart(producto) {
+  addToCart(producto): void {
     console.log(producto);
     const items = JSON.parse(localStorage.getItem('carrito'));
     if (items == null) {
@@ -47,7 +46,7 @@ export class VentasService {
       localStorage.setItem('carrito', JSON.stringify(items));
     }
   }
-  removeFromCart(producto) {
+  removeFromCart(producto): void {
     const items = JSON.parse(localStorage.getItem('carrito'));
     let item;
     items.forEach((element) => {
@@ -60,7 +59,7 @@ export class VentasService {
 
     localStorage.setItem('carrito', JSON.stringify(items));
   }
-  getCart() {
+  getCart(): any {
     let carrito = JSON.parse(localStorage.getItem('carrito'));
     if (carrito == null) {
       carrito = [];
@@ -68,11 +67,11 @@ export class VentasService {
     return carrito;
   }
 
-  clearCart() {
+  clearCart(): void {
     localStorage.removeItem('carrito');
   }
 
-  getCartPrice() {
+  getCartPrice(): any {
     const carrito = this.getCart();
     let total = 0;
     for (let i = 0; i < carrito.length; i++) {
@@ -81,7 +80,7 @@ export class VentasService {
     return total;
   }
 
-  postBuy(comisionistaVenta) {
+  postBuy(comisionistaVenta): any {
     const carrito = this.getCart();
     const productosComprados = [];
 
@@ -104,12 +103,12 @@ export class VentasService {
     return this.http.post(this.baseURL, body, {});
   }
 
-  getVentasByUser(user) {
+  getVentasByUser(user): any {
     const URL = this.baseURL + 'vendedor/' + user._id;
     return this.http.get(URL);
   }
 
-  getComprasByUser(user) {
+  getComprasByUser(user): any {
     const URL = this.baseURL + 'comprador/' + user._id;
     return this.http.get(URL);
   }

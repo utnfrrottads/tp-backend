@@ -16,7 +16,7 @@ export class CardListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  routToProduct(idProducto){
+  routToProduct(idProducto):void{
     this.router.navigate(['/rubros/productos/', idProducto]);
   }
 

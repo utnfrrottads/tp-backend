@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   elems: any;
   instances: any;
   options = [];
-  nav_string = '';
+  navString = '';
   ventas = 'ventas';
   compras = 'compras';
 
@@ -27,12 +27,12 @@ export class NavComponent implements OnInit {
   public onResize() {
     this.detectScreenSize();
   }
-  detectScreenSize() {
+  detectScreenSize(): void {
     const width = window.innerWidth;
     if (width <= 1130) {
-      this.nav_string = 'Buscar';
+      this.navString = 'Buscar';
     } else {
-      this.nav_string = '¡Busca un producto!';
+      this.navString = '¡Busca un producto!';
     }
   }
 
@@ -41,7 +41,7 @@ export class NavComponent implements OnInit {
     this.elems = document.querySelectorAll('.dropdown-trigger');
     this.instances = M.Dropdown.init(this.elems, this.options);
   }
-  search(input) {
+  search(input): any {
     const texto = input.value;
     console.log(texto);
     if (texto === '') {
@@ -53,7 +53,7 @@ export class NavComponent implements OnInit {
     }
   }
 
-  closeSession() {
+  closeSession(): void {
     localStorage.clear();
     this.router.navigate(['login']);
   }
@@ -64,7 +64,7 @@ export class NavComponent implements OnInit {
       return true;
     }
   }
-  itemsOnStorage() {
+  itemsOnStorage(): any {
     const carrito = this.ventaService.getCart();
     if (carrito == null) {
       return 0;

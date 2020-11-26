@@ -15,7 +15,6 @@ export class CarritoConfirmComponent implements OnInit {
     private user: UserService
   ) {}
 
-
   comisionistas: any = [];
   IdComisionistaSeleccionado: any;
   metodoPago = 'efectivo';
@@ -30,15 +29,15 @@ export class CarritoConfirmComponent implements OnInit {
     });
   }
 
-  finalPrice() {
+  finalPrice(): any {
     // traigo el comisionista.
     const com = this.selectComisionistaByID(this.IdComisionistaSeleccionado);
-    if (com != undefined) {
+    if (com !== undefined) {
       return this.ventaService.getCartPrice() + com.precio;
     }
   }
 
-  selectComisionistaByID(id) {
+  selectComisionistaByID(id): any {
     const com = this.comisionistas.find((obj) => {
       return obj._id === id;
     });

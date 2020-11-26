@@ -26,7 +26,7 @@ export class CarritoComponent implements OnInit {
     this.logedUser = this.user.getLocalUser();
   }
 
-  canGoNextStep() {
+  canGoNextStep(): boolean {
     this.list = this.ventas.getCart();
     if (this.list.length > 0 && this.user.isLoggedIn()) {
       return true;
@@ -35,27 +35,27 @@ export class CarritoComponent implements OnInit {
     }
   }
 
-  onComisionistaChanged(event) {
+  onComisionistaChanged(event): void {
     this.comisionista = event;
   }
-  comisionistaNombre() {
-    if (this.comisionista == undefined) {
+  comisionistaNombre(): string {
+    if (this.comisionista === undefined) {
       return '';
     }
     return this.comisionista.nombre;
   }
-  comisionistaPrice() {
-    if (this.comisionista == undefined) {
+  comisionistaPrice(): any {
+    if (this.comisionista === undefined) {
       return 0;
     }
     return this.comisionista.precio;
   }
 
-  finalPrice() {
+  finalPrice(): any {
     return this.ventas.getCartPrice() + this.comisionistaPrice();
   }
 
-  finishBuy() {
+  finishBuy(): void {
     this.ventas.postBuy(this.comisionista).subscribe((res: any) => {
       if (res.status === 'Venta Saved') {
         // vacio el carrito.
@@ -63,13 +63,12 @@ export class CarritoComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe((result) => {
           this.ventas.clearCart();
-          if (result == 'compras') {
+          if (result === 'compras') {
             this.router.navigate(['/compraventa/compras']);
           } else {
             this.router.navigate(['/rubros']);
           }
         });
-
       }
     });
   }
