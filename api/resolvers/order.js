@@ -4,6 +4,11 @@ export default {
 			db.table.findOne({ where: { id: tableId } }),
 		lines: (parent, args, { db }) =>
 			db.line.findAll({ where: { orderId: parent.id } }),
+		status: (parent) => {
+			if (parent.paidAt) return 'PAID';
+			if (parent.closedAt) return 'CLOSED';
+			return 'OPEN';
+		},
 	},
 	Query: {
 		orders: (parent, args, { db }) => db.order.findAll(),

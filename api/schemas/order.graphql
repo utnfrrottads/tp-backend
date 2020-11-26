@@ -1,9 +1,18 @@
 type Order {
 	id: ID!
 	lines: [OrderLine]
+	table: Table
+
+	status: OrderStatus
 	createdAt: DateTime
 	closedAt: DateTime
-	table: Table!
+	paidAt: DateTime
+}
+
+enum OrderStatus {
+	OPEN
+	CLOSED
+	PAID
 }
 
 type Query {
