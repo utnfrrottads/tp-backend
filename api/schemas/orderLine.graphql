@@ -4,6 +4,22 @@ type OrderLine {
 	order: Order!
 	quantity: Int
 	customerComments: String
+
+	status: LineStatus
+	createdAt: DateTime
+	canceledAt: DateTime
+	startedAt: DateTime
+	finishedAt: DateTime
+	deliveredAt: DateTime
+}
+
+enum LineStatus {
+	PENDING
+	DELIVERED
+	PROCESSING
+	CANCELED
+	DONE
+	DELAYED
 }
 
 type Query {
