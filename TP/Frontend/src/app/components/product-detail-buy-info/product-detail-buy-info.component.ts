@@ -1,0 +1,97 @@
+import { Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Producto } from 'src/app/model/productos';
+import { ProductCardsService } from 'src/app/services/product-cards.service';
+import { UserService } from 'src/app/services/user.service';
+import { VentasService } from 'src/app/services/ventas.service';
+import { DialogoComponent } from '../dialogo/dialogo.component';
+
+@Component({
+  selector: 'app-product-detail-buy-info',
+  templateUrl: './product-detail-buy-info.component.html',
+  styleUrls: ['./product-detail-buy-info.component.scss']
+})
+export class ProductDetailBuyInfoComponent implements OnInit {
+  @Input() producto = new Producto();
+  @Input() vendedor: any = {};
+  usuario: any = {};
+
+  constructor(
+    private ventaService: VentasService,
+    private productService: ProductCardsService,
+    private userService: UserService,
+    private router: Router,
+    public dialogo: MatDialog
+  ) { }
+
+  ngOnInit(): void {
+    this.usuario = this.userService.getLocalUser();
+  }
+
+  addToCart() {
+    this.isInCart();
+    this.producto.cantComprar = 1;
+    this.ventaService.addToCart(this.producto);
+  }
+  removeFromCart() {
+    this.isInCart();
+    this.ventaService.removeFromCart(this.producto);
+  }
+
+  isInCart() {
+    return this.ventaService.isInCart(this.producto);
+  }
+  vendedorIsnotComprador() {
+    if (this.usuario != null) {
+      if (this.vendedor._id !== this.usuario._id) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  editPublicacion(id) {
+    this.router.navigate(['productos/editar/', id]);
+  }
+
+  deletePublicacion(id) {
+    this.dialogo
+      .open(DialogoComponent, {
+        data: {
+          mensaje: `¿Realmente deseas eliminar este producto?`,
+          tipoDialogEliminar: true,
+          tipoDialogAceptar: false,
+        },
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          this.productService.deleteProducto(this.producto).subscribe((res) => {
+            this.dialogo
+              .open(DialogoComponent, {
+                data: {
+                  mensaje: 'Producto eliminado',
+                  tipoDialogEliminar: false,
+                  tipoDialogAceptar: true,
+                },
+              })
+              .afterClosed()
+              .subscribe((confirmado: Boolean) => {
+                if (confirmado) {
+                  this.router.navigate(['rubros']);
+                }
+                (err) => {
+                  alert('No se pudo eliminar el producto');
+                };
+              });
+          });
+        }
+      });
+  }
+
+}

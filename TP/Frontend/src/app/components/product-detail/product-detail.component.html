@@ -3,42 +3,8 @@
     <app-product-detail-carousel [idProducto]="idProducto"></app-product-detail-carousel>
    
     <aside class="right-options">
-        <div class="buy-info">
-            <h1 class="justift">{{producto.nombre}}</h1>
-            <h2 class="center">${{producto.precio}}</h2>
-            <div id="si-hay-stock" *ngIf="vendedorIsnotComprador()">
-                <p>Stock disponible</p>
-
-                <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()"
-                    *ngIf="isInCart()">Quitar del carrito</a>
-
-                <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()"
-                    *ngIf="!isInCart()">AGREGAR A CARRITO</a>
-            </div>
-
-            <div *ngIf="!vendedorIsnotComprador()">
-                <p>Este producto ha sido publicado por ti</p>
-                <a class="waves-effect waves-light btn btn-color-edit" (click)="editPublicacion(idProducto)">EDITAR
-                    PUBLICACION</a>
-                <br>
-                <a class="waves-effect waves-light btn btn-color red" style="margin-top: 15px"
-                    (click)="deletePublicacion(idProducto)">Eliminar producto</a>
-            </div>
-        </div>
-
-        <div class="card seller-profile">
-            <div class="center">
-                <img class="mini-imagen" src="{{vendedor.url}}">
-            </div>
-
-            <span class="card-title">{{vendedor.razonSocial}}</span>
-
-            <footer class="descripcion-empresa">
-                <p class="center title"><b>{{vendedor.nombre}}</b></p>
-                <p class="center text">Localidad: {{vendedor.localidad}} </p>
-                <p class="center text">Dirección: {{vendedor.direccion}} </p>
-            </footer>
-        </div>
+        <app-product-detail-buy-info [producto]="producto" [vendedor]="vendedor"></app-product-detail-buy-info>
+        <app-product-detail-seller-card [vendedor]="vendedor"></app-product-detail-seller-card>
     </aside>
 
     <div class="descripcion-producto">

@@ -31,6 +31,8 @@ import { ComprasVentasListComponent } from './components/compras-ventas-list/com
 import { DialogCompraVentaComponent } from './components/dialog-compra-venta/dialog-compra-venta.component';
 import { DialogFinishVentaComponent } from './components/dialog-finish-venta/dialog-finish-venta.component';
 import { LoginCreationComponent } from './components/login-creation/login-creation.component';
+import { ProductDetailBuyInfoComponent } from './components/product-detail-buy-info/product-detail-buy-info.component';
+import { ProductDetailSellerCardComponent } from './components/product-detail-seller-card/product-detail-seller-card.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { LoginCreationComponent } from './components/login-creation/login-creati
     DialogFinishVentaComponent,
     LoginCreationComponent,
     ProductDetailCarouselComponent,
+    ProductDetailBuyInfoComponent,
+    ProductDetailSellerCardComponent,
 
   ],
   entryComponents: [DialogCompraVentaComponent],
