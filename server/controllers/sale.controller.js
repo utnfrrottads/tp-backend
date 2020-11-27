@@ -1,35 +1,42 @@
 //Metodos a la BD aqui
 const Sale = require('../models/sale');
+const ObjectId = require('mongodb').ObjectID;
+
 const saleCtrl = {};
 
-//Método obtener todas las ventas
+//Mï¿½todo obtener todas las ventas
 saleCtrl.getSales = async (req, res) => {
     const sales = await Sale.find();
     res.json(sales);
 }
 
-//Método obtener una venta
+//Mï¿½todo obtener una venta
 saleCtrl.getSale = async (req, res) => {
-    const sale = await Sale.findOne(req.params.id);
+    const {id} = req.params; //Consigo el ID mando por parametro en el get
+
+    const sale = await Sale.findById(id);
     res.json(sale);
 }
 
-//Método crear venta
+//Mï¿½todo crear venta
 saleCtrl.createSale = async (req, res) => {
     const sale = new Sale(req.body);
     await sale.save();
-    res.json = ({ status: 'Venta creada' });
+    res.json({ status: 'Venta creada' });
 }
 
-//Método borrar venta
+//Mï¿½todo borrar venta
 saleCtrl.deleteSale = async (req, res) => {
     await findByIdAndRemove(req.params.id);
-    res.json = ({ status: 'Venta eliminada'})
+    res.json({ status: 'Venta eliminada'})
 }
 
-//Método modificar venta
+//Mï¿½todo modificar venta
 saleCtrl.updateSale = async (req, res) => {
-    const sale = {
+    const {id} = req.params;
+
+    const newSale = {
+        transactionNumber: req.body.transactionNumber,
         pc: req.body.pc,
         date: req.body.date,
         street: req.body.street,
@@ -37,8 +44,8 @@ saleCtrl.updateSale = async (req, res) => {
         client: req.body.client,
         card: req.body.card
     }
-    saleCtrl.findByIdAndUpdate(req.params.id, { $set: sale }, { new: true });
-    re.json({ status: 'Venta actualizada' });
+    await Sale.findByIdAndUpdate(id, {$set: newSale});
+    res.json({ status: 'Venta actualizada' });
 }
 
 module.exports = saleCtrl;

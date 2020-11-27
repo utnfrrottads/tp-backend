@@ -5,7 +5,6 @@ const ProductCtrl = {}; //Creo el objeto controlador
 //Metodo GetAll (res= response y req= request)
 ProductCtrl.getProducts = async (req, res) => {
     const products = await Product.find(); //Busca todos los documentos
-    console.log(products);
     res.json(products); //Los envio en formato JSON
 }
 
@@ -16,8 +15,8 @@ ProductCtrl.createProduct = async (req, res) => {
         article: req.body.article,
         permissions: req.body.permissions,
         stock: req.body.stock
-    });
-    await product.save(); //Guardo en la BD (y espero que finalice)
+    });  
+    await product.save(); //Guardo en la BD (y espero que finalice)  
     res.json({status: 'Producto Guardado Correctamente'}) //Devuelvo resultado correcto
 }
 
@@ -29,23 +28,32 @@ ProductCtrl.getProduct = async (req, res) => {
 }
 
 //Metodo Update
-ProductCtrl.updateProduct = async (req, res) => {
-    const {id} = req.params;
-    const newProduct = {
-        branch: req.body.branch,
-        article: req.body.article,
-        permissions: req.body.permissions,
-        stock: req.body.stock
+ProductCtrl.updateProduct = async (req, res, err) => {
+    try {
+        const {id} = req.params;
+        const newProduct = {
+            branch: req.body.branch,
+            article: req.body.article,
+            permissions: req.body.permissions,
+            stock: req.body.stock
+        }
+        await Product.findByIdAndUpdate(id, {$set: newProduct})
+        res.json({status: 'Poducto Actualizado Correctamente'});
+    } catch (error) {
+        res.json({status: 500});
     }
-    await Product.findByIdAndUpdate(id, {$set: newProduct});
-    res.json({status: 'Poducto Actualizado Correctamente'});
+
 }
 
 //Metodo Delete
 ProductCtrl.deleteProduct = async (req, res) => {
-    const {id} = req.params;
-    await Product.findByIdAndRemove(id);
-    res.json({status: 'Producto Eliminado Correctamente'});
+    try {
+        const {id} = req.params;
+        await Product.findByIdAndRemove(id);
+        res.json({status: 'Producto Eliminado Correctamente'});
+    } catch (error) {
+        res.json({status: 500});
+    }
 }
 
 //Exporto el controlador para requerirlo en otro lado

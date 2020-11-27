@@ -1,6 +1,7 @@
 const express = require('express');
 const UserCtrl = require('../controllers/user.controller');
 const userRouter = express.Router();
+const userValidator = require('../validators/user.validator'); 
 
 userRouter.get('/', UserCtrl.getUsers);
 userRouter.get('/:id', UserCtrl.getUserById);
