@@ -9,6 +9,7 @@ const SaleSchema =  new Schema({
     street: {type: String, required: true},
     number: {type: String, required: true},
     client: { type: Schema.Types.ObjectId, required: true},
+    deletedClient: {type: Object},
     cart: [
         {
             product: {type: Schema.Types.ObjectId, required: true},

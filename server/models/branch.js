@@ -7,8 +7,7 @@ const BranchSchema = new Schema({
     street: { type: String, required: true },
     number: { type: String, required: true },
     pc: { type: String, required: true },
-    phone: { type: Number, required: true },
-    //Manager (Si lo usamos deja de ser independiente)
+    phone: { type: Number, required: true }
 }, { collection: 'branches' });
 
 //Exporto el Esquema cuando lo requiera en otro lado

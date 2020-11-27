@@ -5,6 +5,8 @@ const cors = require('cors'); //Para permitirle el acceso al FrontEnd cuando sea
 
 const app = express(); //Inicializo Server
 const { mongoose } = require('./database'); //Conecto a la BD
+const apiErrorHandler = require('./error/apiErrorHandler'); //Error Handler
+const ApiError = require('./error/ApiError');
 
 //Settings
 app.set('port', process.env.PORT || 3000); //Defino el puerto
@@ -23,6 +25,13 @@ app.use('/api/role', require('./routes/role.routes'));
 app.use('/api/sale',require('./routes/sale.routes'));
 app.use('/api/user', require('./routes/user.routes'));
 
+app.use(function(res,req,next){
+    next(new ApiError(404, 'El recurso al que intenta acceder no se encuentra. Comuníquese con un Administrador.'));
+    return;
+});
+
+//Error Handling
+app.use(apiErrorHandler);
 //Start Server
 app.listen(app.get('port'), () => {
     console.log(`Server on Port ${app.get('port')}`);
