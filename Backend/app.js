@@ -1,11 +1,28 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const db = require("./models");
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const morgan = require('morgan'); // Morgan
+app.use(morgan('dev'));
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+const cors = require('cors'); // CORS
+app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })) //application/x-www-form-urlencoded
+
+const apiRoutes = require("./routes/apiRoutes");
+app.use("/api", apiRoutes);
+
+db.sequelize.sync().then(() => {
+    app.listen(PORT, () => {
+      console.log(`listening on: http://localhost:${PORT}`);
+    });
+  });
+
+
+
+
+
+
