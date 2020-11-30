@@ -10,10 +10,6 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ProductsContainerComponent implements OnInit {
   list: any = [];
-
-  descripcionParameter = '';
-  rubroParameter = '';
-  empresaParameter = '';
   pageEvent: PageEvent;
   currentItemsToShow = [];
 
@@ -22,39 +18,20 @@ export class ProductsContainerComponent implements OnInit {
 
   constructor(
     private service: ProductCardsService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.descripcionParameter = params.searchKey;
-      this.rubroParameter = params.idRubro;
-      this.empresaParameter = params.idEmpresa;
-      if (this.descripcionParameter) {
-        this.service
-          .getProductosByDescripcion(this.descripcionParameter)
-          .subscribe((res) => {
-            (this.list = res), this.onPageChange({ pageIndex: 0, pageSize: 9 });
-          });
-      } else if (this.rubroParameter) {
-        this.service
-          .getProductosByRubro(this.rubroParameter)
-          .subscribe((res) => {
-            (this.list = res), this.onPageChange({ pageIndex: 0, pageSize: 9 });
-          });
-      } else if (this.empresaParameter) {
-        this.service
-          .getProductosByEmpresa(this.empresaParameter)
-          .subscribe((res) => {
-            (this.list = res), this.onPageChange({ pageIndex: 0, pageSize: 9 });
-          });
-      } else {
-        this.service.getProductos().subscribe((res) => {
-          (this.list = res), this.onPageChange({ pageIndex: 0, pageSize: 9 });
-        });
+    this.activatedRoute.data.subscribe(
+      res => {
+        console.log(res);
+        this.list = res.products;
+        console.log(this.list);
+        return;
       }
-    });
+    );
+    this.onPageChange({ pageIndex: 0, pageSize: 9 });
   }
 
   onPageChange($event) {
