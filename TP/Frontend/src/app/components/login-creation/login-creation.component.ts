@@ -32,7 +32,7 @@ export class LoginCreationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  createUser() {
+  createUser(): void{
     if (
       this.loginForm.controls.pass.value ===
       this.loginForm.controls.passRepeat.value
@@ -55,7 +55,7 @@ export class LoginCreationComponent implements OnInit {
     }
   }
 
-  showSnack(texto, opcion) {
+  showSnack(texto, opcion): void {
     this._snackBar.open(texto, opcion, {
       duration: 3500,
     });

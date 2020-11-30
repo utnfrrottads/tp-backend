@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class UserService {
 
   readonly baseURL = environment.backendURL + 'usuarios/';
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     if (localStorage.getItem('user') == null) {
       return false;
     } else {
@@ -18,7 +19,7 @@ export class UserService {
     }
   }
 
-  login(user, pass) {
+  login(user, pass): Observable<any> {
     const URL = this.baseURL + 'login';
     const body = {
       usuario: user,
@@ -27,12 +28,12 @@ export class UserService {
     return this.http.post(URL, body, {});
   }
 
-  getUser(id) {
+  getUser(id): Observable<any>{
     const URL = this.baseURL + id;
     return this.http.get(URL);
   }
 
-  createUser(data: any, tipoUsuario) {
+  createUser(data: any, tipoUsuario): Observable<any> {
     const body = {
       usuario: data.username.value,
       pass: data.pass.value,
@@ -48,7 +49,7 @@ export class UserService {
     return this.http.post(this.baseURL, body, {});
   }
 
-  editUser(data: any, tipoUsuario, imageUrl, idUsuario) {
+  editUser(data: any, tipoUsuario, imageUrl, idUsuario): Observable<any> {
     const URL = this.baseURL + idUsuario;
     const body = {
       usuario: data.usuario.value,
@@ -65,7 +66,7 @@ export class UserService {
     return this.http.put(URL, body, {});
   }
 
-  updateStoragedUser(data, URL, tipoUsuario, id) {
+  updateStoragedUser(data, URL, tipoUsuario, id): void {
     const user = {
       _id: id,
       usuario: data.usuario.value,
@@ -90,7 +91,7 @@ export class UserService {
     }
   }
 
-  getEmpresas() {
+  getEmpresas(): Observable<any> {
     const URL = this.baseURL + 'empresas';
     return this.http.get(URL);
   }

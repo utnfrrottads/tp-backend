@@ -11,7 +11,7 @@ export class DialogCompraVentaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  calcularTotal() {
+  calcularTotal(): number {
     let total = 0;
 
     this.data.venta.productos.forEach(p => {

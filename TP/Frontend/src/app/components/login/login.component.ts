@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login() {
+  login(): void {
     this.userService
       .login(this.loginForm.value.username, this.loginForm.value.pass)
       .subscribe((res: any) => {
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  showSnack(texto, opcion) {
+  showSnack(texto, opcion): void {
     this._snackBar.open(texto, opcion, {
       duration: 3500,
     });

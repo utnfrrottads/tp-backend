@@ -95,22 +95,22 @@ export class SubirProductoComponent implements OnInit {
       this.idRubroSeleccionado = 'Seleccione un rubro para su producto';
     }
   }
-  actualizarRubroSeleccionado(){
+  actualizarRubroSeleccionado(): void {
     this.productForm.patchValue({
       idRubro : this.idRubroSeleccionado
     });
   }
 
-  onFileSelected(event) {
+  onFileSelected(event): void {
     // guardo la imagen seleccionada dentro de la propiedad ImageFile.
     this.ImageFile = event.target.files;
   }
 
-  async subirImagenYObtenerURL() {
+  async subirImagenYObtenerURL(): Promise<any> {
     return this.imgService.subirImagenes(this.ImageFile);
   }
 
-  save() {
+  save(): void {
     const rubro = this.rubros.find((r) => r._id === this.idRubroSeleccionado);
 
     // subo la imagen:
@@ -156,7 +156,7 @@ export class SubirProductoComponent implements OnInit {
     });
   }
 
-  edit(){
+  edit(): void {
     const rubro = this.rubros.find((r) => r._id === this.idRubroSeleccionado);
 
     // subo la imagen:
@@ -188,7 +188,7 @@ export class SubirProductoComponent implements OnInit {
     });
   }
 
-  txtAreaTextChanges(input) {
+  txtAreaTextChanges(input): void  {
     const txtAreas = document.getElementsByClassName(
       'txt-area'
     ) as HTMLCollectionOf<HTMLElement>;

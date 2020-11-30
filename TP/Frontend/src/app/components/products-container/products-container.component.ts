@@ -34,7 +34,7 @@ export class ProductsContainerComponent implements OnInit {
     this.onPageChange({ pageIndex: 0, pageSize: 9 });
   }
 
-  onPageChange($event) {
+  onPageChange($event): void {
     this.enabledToShowNoItems = true;
     this.currentItemsToShow = this.list.slice(
       $event.pageIndex * $event.pageSize,
@@ -42,7 +42,7 @@ export class ProductsContainerComponent implements OnInit {
     );
   }
 
-  hayProductos() {
+  hayProductos(): any {
     const res = (this.enabledToShowNoItems && this.list <= 0) ?  false : true;
     return res;
   }

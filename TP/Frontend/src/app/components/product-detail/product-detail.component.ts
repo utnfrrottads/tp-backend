@@ -38,11 +38,11 @@ export class ProductDetailComponent implements OnInit {
       this.userService.getUser(this.producto.idVendedor).subscribe((res) => {
         this.vendedor = res;
         this.imagenVendedor = this.vendedor.url;
-      })
-    })
-    
+      });
+    });
+
   }
 
-  
+
 
 }

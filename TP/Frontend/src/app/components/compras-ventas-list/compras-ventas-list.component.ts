@@ -46,7 +46,7 @@ export class ComprasVentasListComponent implements OnInit {
     }});
   }
 
-  calcularTotal(venta) {
+  calcularTotal(venta): number {
     let total = 0;
 
     venta.productos.forEach(producto => {
@@ -61,7 +61,7 @@ export class ComprasVentasListComponent implements OnInit {
 
   }
 
-  openDialog(venta) {
+  openDialog(venta): void {
     this.dialog.open(DialogCompraVentaComponent, {
       data: {
         venta,

@@ -16,7 +16,7 @@ export class CartaEmpresaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getProductosByEmpresa(id) {
+  getProductosByEmpresa(id): void {
     this.router.navigate(['/rubros/empresas', id]);
   }
 

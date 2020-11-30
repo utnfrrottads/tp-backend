@@ -24,7 +24,7 @@ export class NavComponent implements OnInit {
   ) {}
 
   @HostListener('window:resize', [])
-  public onResize() {
+  public onResize(): void {
     this.detectScreenSize();
   }
   detectScreenSize(): void {
@@ -57,7 +57,7 @@ export class NavComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['login']);
   }
-  loggedIn() {
+  loggedIn(): boolean {
     if (this.userService.getLocalUser() == null) {
       return false;
     } else {

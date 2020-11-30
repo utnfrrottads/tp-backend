@@ -30,20 +30,20 @@ export class ProductDetailBuyInfoComponent implements OnInit {
     this.usuario = this.userService.getLocalUser();
   }
 
-  addToCart() {
+  addToCart(): void {
     this.isInCart();
     this.producto.cantComprar = 1;
     this.ventaService.addToCart(this.producto);
   }
-  removeFromCart() {
+  removeFromCart(): void {
     this.isInCart();
     this.ventaService.removeFromCart(this.producto);
   }
 
-  isInCart() {
+  isInCart(): any {
     return this.ventaService.isInCart(this.producto);
   }
-  vendedorIsnotComprador() {
+  vendedorIsnotComprador(): boolean {
     if (this.usuario != null) {
       if (this.vendedor._id !== this.usuario._id) {
         return true;
@@ -55,11 +55,11 @@ export class ProductDetailBuyInfoComponent implements OnInit {
     }
   }
 
-  editPublicacion(id) {
+  editPublicacion(id): void {
     this.router.navigate(['productos/editar/', id]);
   }
 
-  deletePublicacion(id) {
+  deletePublicacion(id): void {
     this.dialogo
       .open(DialogoComponent, {
         data: {

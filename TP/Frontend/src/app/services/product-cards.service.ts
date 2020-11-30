@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,38 +13,38 @@ export class ProductCardsService {
 
   readonly baseURL = environment.backendURL + 'productos';
 
-  getProductos() {
+  getProductos(): Observable<any> {
     const URL = this.baseURL;
     return this.http.get(URL);
   }
 
-  getProducto(idProducto){
+  getProducto(idProducto): Observable<any> {
     const URL = this.baseURL + '/' + idProducto;
     return this.http.get(URL);
   }
 
-  getProductosByDescripcion(searchKey) {
+  getProductosByDescripcion(searchKey): Observable<any> {
     const URL = this.baseURL + '/descripcion/' + searchKey;
     return this.http.get(URL);
   }
 
-  getProductosByRubro(id_rubro) {
+  getProductosByRubro(id_rubro): Observable<any> {
     const URL = this.baseURL;
     return this.http.get(URL + '/rubro/' + id_rubro);
   }
 
-  getProductosByEmpresa(id_vendedor) {
+  getProductosByEmpresa(id_vendedor): Observable<any> {
     const URL = this.baseURL + '/empresas/' + id_vendedor;
     return this.http.get(URL);
 
   }
 
-  deleteProducto(producto: any) {
+  deleteProducto(producto: any): Observable<any> {
     const URL = this.baseURL + '/' + producto._id;
     return this.http.delete(URL);
   }
 
-  createProducto(producto: any) {
+  createProducto(producto: any): Observable<any> {
     const body = {
       url: producto.url,
       nombre: producto.nombre,
@@ -56,7 +57,7 @@ export class ProductCardsService {
     return this.http.post(this.baseURL, body, {});
   }
 
-  editProducto(producto: any) {
+  editProducto(producto: any): Observable<any> {
     const URL = this.baseURL + '/' + producto.idProducto;
     const body = {
       url: producto.url,
@@ -72,7 +73,7 @@ export class ProductCardsService {
   }
 
 
-  editUser(producto: any) {
+  editUser(producto: any): Observable<any> {
     const URL = this.baseURL + '/' + producto.id;
     const body = {
       url: producto.url,

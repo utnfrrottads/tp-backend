@@ -11,19 +11,19 @@ declare var M: any;
   styleUrls: ['../product-detail/product-detail.component.scss']
 })
 
-export class ProductDetailCarouselComponent implements OnInit { 
+export class ProductDetailCarouselComponent implements OnInit {
   @Input() idProducto: string;
 
   carrouselElems: any;
   carrouselInstance: any;
-  
+
   vendedor: any = {};
   usuario: any = {};
   producto = new Producto();
   imagenVendedor =
     'https://res.cloudinary.com/elcurco8/image/upload/v1598910919/TTADS-TP/user_ybrhuc.png';
 
-  constructor(    
+  constructor(
     private productService: ProductCardsService,
     private userService: UserService
     ) { }
@@ -51,11 +51,11 @@ export class ProductDetailCarouselComponent implements OnInit {
     });
   }
 
-  prevImage() {
+  prevImage(): void {
     const instance = M.Carousel.getInstance(this.carrouselElems[0]);
     instance.prev();
   }
-  nextImage() {
+  nextImage(): void {
     const instance = M.Carousel.getInstance(this.carrouselElems[0]);
     instance.next();
   }

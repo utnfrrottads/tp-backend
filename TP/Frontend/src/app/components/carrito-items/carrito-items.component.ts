@@ -40,11 +40,11 @@ export class CarritoItemsComponent implements OnInit {
     this.list = this.ventas.getCart();
   }
 
-  precioFinal() {
+  precioFinal(): any {
     return this.ventas.getCartPrice();
   }
 
-  confirmarCompra() {
+  confirmarCompra(): void {
     this.stepper.next();
   }
 }

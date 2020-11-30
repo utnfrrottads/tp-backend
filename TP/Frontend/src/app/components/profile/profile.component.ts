@@ -60,24 +60,24 @@ export class ProfileComponent implements OnInit {
     this.patchStoragedUser();
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string): void {
     // metodo para que aparezca en pantalla un snack para informar al usuario.
     this._snackBar.open(message, action, {
       duration: 2000,
     });
   }
 
-  async subirImagenYObtenerURL() {
+  async subirImagenYObtenerURL(): Promise<any> {
     // subo la imagen y obtengo su url.
     return this.imgService.subirImagenes(this.ImageFile);
   }
 
-  onFileSelected(event) {
+  onFileSelected(event): void {
     // guardo la imagen seleccionada dentro de la propiedad ImageFile.
     this.ImageFile = event.target.files;
   }
 
-  patchStoragedUser() {
+  patchStoragedUser(): void {
     this.mainForm.patchValue({
       usuario: this.storagedUser.usuario,
       tipo: this.storagedUser.tipo,
@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit {
     this.tipoUsuario = this.storagedUser.tipo;
   }
 
-  async editUser() {
+  async editUser(): Promise<any> {
     // antes de editar reviso que las pass coincidan.
     if (
       this.mainForm.controls.pass.value !==

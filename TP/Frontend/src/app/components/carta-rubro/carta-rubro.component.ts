@@ -14,7 +14,7 @@ export class CartaRubroComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  routToProducts(rubro) {
+  routToProducts(rubro): void {
     this.router.navigate(['/rubros', rubro._id]);
   }
 

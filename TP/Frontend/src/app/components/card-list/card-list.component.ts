@@ -13,7 +13,7 @@ export class CardListComponent {
   constructor(private router: Router) {
   }
 
-  routeToProduct(idProducto):void{
+  routeToProduct(idProducto): void{
     this.router.navigate(['/rubros/productos/', idProducto]);
   }
 
