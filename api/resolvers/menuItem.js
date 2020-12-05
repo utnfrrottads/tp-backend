@@ -12,6 +12,10 @@ export default {
 		recipes: (parent, args, { db }) =>
 			db.recipe.findAll({ where: { itemId: parent.id } }),
 	},
+	Query: {
+		items: (parent, args, { db }) => db.item.findAll(),
+		item: (parent, { id }, { db }) => db.item.findByPk(id),
+	},
 	Mutation: {
 		createItem: (parent, { item }, { db }) => db.item.create({ ...item }),
 		updateItem: (parent, { id, item }, { db }) =>
