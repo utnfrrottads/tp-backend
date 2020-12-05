@@ -30,6 +30,10 @@ type Query {
 type Mutation {
 	createLine(line: lineInput!): OrderLine
 	deleteLine(id: ID!): Int!
+	lineCancel(id: ID!): [Int!]
+	lineStart(id: ID!): [Int!]
+	lineFinish(id: ID!): [Int!]
+	lineDeliver(id: ID!): [Int!]
 }
 
 input lineInput {
