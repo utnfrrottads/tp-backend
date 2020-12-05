@@ -10,6 +10,7 @@ export default (sequelize, DataTypes) => {
 			defaultValue: sequelize.NOW,
 		},
 		closedAt: DataTypes.DATE,
+		paidAt: DataTypes.DATE,
 	});
 
 	Order.associate = (models) => {
