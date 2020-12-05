@@ -1,0 +1,24 @@
+type Ingredient {
+	id: ID!
+	description: String!
+	UnitOfMeasure: String
+	caloriesPerUnit: String
+}
+
+type Query {
+	ingredients: [Ingredient!]!
+	ingredient(id: ID!): Ingredient
+}
+
+type Mutation {
+	createIngredient(ingredient: IngredientInput!): Ingredient
+	deleteIngredient(id: ID!): Int
+	updateIngredient(id: ID!, ingredient: IngredientInput!): Ingredient
+}
+
+# Input
+input IngredientInput {
+	description: String!
+	UnitOfMeasure: String
+	caloriesPerUnit: String
+}

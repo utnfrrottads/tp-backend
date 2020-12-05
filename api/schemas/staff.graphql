@@ -1,0 +1,32 @@
+type Staff {
+	id: ID!
+	firstName: String!
+	lastName: String!
+	phone: String
+	email: String
+	joinedDate: DateTime
+	salary: Float
+	birthDate: DateTime
+}
+
+type Query {
+	staffs: [Staff!]!
+	staff(id: ID!): Staff
+}
+
+type Mutation {
+	createStaff(staff: StaffInput!): Staff
+	deleteStaff(id: ID!): Int
+	updateStaff(id: ID!, staff: StaffInput!): Staff
+}
+
+# Input
+input StaffInput {
+	firstName: String!
+	lastName: String!
+	phone: String
+	email: String
+	joinedDate: DateTime
+	salary: Float
+	birthDate: DateTime
+}

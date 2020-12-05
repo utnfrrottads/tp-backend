@@ -4,6 +4,7 @@ type Order {
 	createdAt: DateTime
 	closedAt: DateTime
 	table: Table!
+	staff: Staff
 }
 
 type Query {

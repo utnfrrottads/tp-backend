@@ -14,8 +14,8 @@ export default (sequelize, DataTypes) => {
 
 	Order.associate = (models) => {
 		Order.hasMany(models.line);
-
 		Order.belongsTo(models.table);
+		Order.belongsTo(models.staff);
 	};
 
 	return Order;

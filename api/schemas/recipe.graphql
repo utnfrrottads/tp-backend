@@ -1,0 +1,23 @@
+type Recipe {
+	id: ID!
+	item: Item!
+	ingredient: Ingredient!
+	quantity: Int!
+}
+
+type Query {
+	recipes: [Recipe!]
+	recipe(id: ID!): Recipe
+}
+
+type Mutation {
+	createRecipe(recipe: recipeInput!): Recipe
+	updateRecipe(id: ID!, recipe: recipeInput): Recipe
+	deleteRecipe(id: ID!): Int!
+}
+
+input recipeInput {
+	itemId: ID!
+	ingredientId: ID!
+	quantity: Int!
+}

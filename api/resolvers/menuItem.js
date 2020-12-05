@@ -9,10 +9,8 @@ export default {
 					},
 				],
 			}),
-	},
-	Query: {
-		items: (parent, args, { db }) => db.item.findAll(),
-		item: (parent, { id }, { db }) => db.item.findByPk(id),
+		recipes: (parent, args, { db }) =>
+			db.recipe.findAll({ where: { itemId: parent.id } }),
 	},
 	Mutation: {
 		createItem: (parent, { item }, { db }) => db.item.create({ ...item }),

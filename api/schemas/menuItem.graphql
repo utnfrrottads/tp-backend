@@ -6,6 +6,7 @@ type Item {
 	servings: Float
 	pricePerUnit: Float
 	categories: [Category]
+	recipes: [Recipe]
 }
 
 type Query {

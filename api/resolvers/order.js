@@ -4,6 +4,8 @@ export default {
 			db.table.findOne({ where: { id: tableId } }),
 		lines: (parent, args, { db }) =>
 			db.line.findAll({ where: { orderId: parent.id } }),
+		staff: ({ staffId }, args, { db }) =>
+			db.staff.findOne({ where: { id: staffId } }),
 	},
 	Query: {
 		orders: (parent, args, { db }) => db.order.findAll(),
