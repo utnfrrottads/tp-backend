@@ -4,10 +4,10 @@ const router = Router()
 
 import { getCalendarios, getCalendario, createCalendario, updateCalendario, deleteCalendario } from '../controller/Calendario.controller'
 
-router.get('/Calendario', getCalendarios);
-router.get('/Calendario/:IdCalendario', getCalendario);
-router.put('/Calendario', updateCalendario);
-router.post('/Calendario', createCalendario);
-router.delete('/Calendario/:IdCalendario', deleteCalendario);
+router.get('/calendario', getCalendarios);
+router.get('/calendario/:IdCalendario', getCalendario);
+router.put('/calendario', updateCalendario);
+router.post('/calendario', createCalendario);
+router.delete('/calendario/:IdCalendario', deleteCalendario);
 
 export default router

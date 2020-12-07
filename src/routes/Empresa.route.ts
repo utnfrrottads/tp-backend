@@ -3,10 +3,10 @@ const router = Router()
 
 import {getEmpresas, getEmpresa, deleteEmpresa, updateEmpresa, createEmpresa} from '../controller/Empresa.controller'
 
-router.get('/getEmpresa', getEmpresas);
-router.post('/createEmpresa', createEmpresa);
-router.get('/getEmpresa/:cuit', getEmpresa);
-router.put('/UpdateEmpresa', updateEmpresa);
-router.delete('/deleteEmpresa/:cuit', deleteEmpresa);
+router.get('/empresa', getEmpresas);
+router.post('/empresa', createEmpresa);
+router.get('/empresa/:cuit', getEmpresa);
+router.put('/empresa', updateEmpresa);
+router.delete('/empresa/:cuit', deleteEmpresa);
 
 export default router
