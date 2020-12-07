@@ -28,13 +28,13 @@ export class ProductCardsService {
     return this.http.get(URL);
   }
 
-  getProductosByRubro(id_rubro): Observable<any> {
+  getProductosByRubro(idRubro): Observable<any> {
     const URL = this.baseURL;
-    return this.http.get(URL + '/rubro/' + id_rubro);
+    return this.http.get(URL + '/rubro/' + idRubro);
   }
 
-  getProductosByEmpresa(id_vendedor): Observable<any> {
-    const URL = this.baseURL + '/empresas/' + id_vendedor;
+  getProductosByEmpresa(idVendedor): Observable<any> {
+    const URL = this.baseURL + '/empresas/' + idVendedor;
     return this.http.get(URL);
 
   }

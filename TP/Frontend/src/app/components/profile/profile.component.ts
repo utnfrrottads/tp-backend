@@ -14,7 +14,7 @@ declare var M: any;
 })
 export class ProfileComponent implements OnInit {
   constructor(
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private userService: UserService,
     private imgService: ImageUploaderService,
     private router: Router
@@ -62,7 +62,7 @@ export class ProfileComponent implements OnInit {
 
   openSnackBar(message: string, action: string): void {
     // metodo para que aparezca en pantalla un snack para informar al usuario.
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
@@ -110,8 +110,8 @@ export class ProfileComponent implements OnInit {
             URL = [user.url];
           }
         } else {
-          for (let i = 0; i < res.length; i++) {
-            URL.push(res[i].url);
+          for (const i of res) {
+            URL.push(i.url);
           }
         }
         // edito al usuario.
@@ -122,7 +122,7 @@ export class ProfileComponent implements OnInit {
             URL[0],
             this.storagedUser._id
           )
-          .subscribe((res) => {
+          .subscribe(() => {
             // actualizo la imagen
             this.url_imagen = URL;
             // guardo localmente al usuario actualizado

@@ -23,8 +23,9 @@ export class ImageUploaderService {
       return Promise.resolve(null);
     }
     const promises = [];
-    for (let i = 0; i < imagenes.length; i++) {
-      const p = this.uploadSingreFile(imagenes[i]);
+
+    for (const i of imagenes) {
+      const p = this.uploadSingreFile(i);
       promises.push(p);
     }
 

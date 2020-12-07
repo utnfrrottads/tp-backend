@@ -24,7 +24,10 @@ app.use(fileUpload());
 // Sirve para ver a quien le contesta las peticiones. Por ahora a todos.
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   next();
 });
@@ -38,7 +41,6 @@ app.use("/api/usuarios", require("./routes/users.routes"));
 app.use("/api/comisionistas", require("./routes/comisionistas.routes"));
 app.use("/api/productos", require("./routes/productos.routes"));
 app.use("/api/ventas", require("./routes/ventas.routes"));
-
 
 // Esto me sube la imagen a clodinary y me devuelve la URL.
 app.post("/api/uploadImage", (req, res) => {

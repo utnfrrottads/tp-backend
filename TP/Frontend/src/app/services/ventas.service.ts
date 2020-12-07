@@ -17,7 +17,7 @@ export class VentasService {
       return false;
     } else {
       const repeated = items.filter((elem) => elem._id === producto._id);
-      if (repeated.length == 0) {
+      if (repeated.length === 0) {
         return false;
       } else {
         return true;
@@ -74,8 +74,9 @@ export class VentasService {
   getCartPrice(): any {
     const carrito = this.getCart();
     let total = 0;
-    for (let i = 0; i < carrito.length; i++) {
-      total += carrito[i].cantComprar * carrito[i].precio;
+
+    for (const item of carrito) {
+      total += item.cantComprar * item.precio;
     }
     return total;
   }
@@ -84,9 +85,9 @@ export class VentasService {
     const carrito = this.getCart();
     const productosComprados = [];
 
-    for (let i = 0; i < carrito.length; i++) {
-      const cant = carrito[i].cantComprar;
-      const prod = carrito[i];
+    for (const item of carrito) {
+      const cant = item.cantComprar;
+      const prod = item;
       delete prod.cantComprar;
       productosComprados.push({
         producto: prod,

@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private formBuilder: FormBuilder
   ) {}
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   showSnack(texto, opcion): void {
-    this._snackBar.open(texto, opcion, {
+    this.snackBar.open(texto, opcion, {
       duration: 3500,
     });
   }
