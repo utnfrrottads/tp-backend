@@ -41,8 +41,8 @@ export const createEmpresa = async (req: Request, res: Response): Promise<Respon
 }
 
 export const updateEmpresa = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const empresa = await getRepository(Empresa).findOne(req.params.cuit);
+    try {        
+        const empresa = await getRepository(Empresa).findOne(req.body.Cuit);        
         if (empresa !== undefined && empresa) {
             getRepository(Empresa).merge(empresa, req.body);
             const result = await getRepository(Empresa).save(empresa);

@@ -105,9 +105,11 @@ exports.updateEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.body.Cuit)];
             case 1:
                 empresa = _a.sent();
+                console.dir(req.params);
+                debugger;
                 if (!(empresa !== undefined && empresa)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(Empresa_1.Empresa).merge(empresa, req.body);
                 return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).save(empresa)];
