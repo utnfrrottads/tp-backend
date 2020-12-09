@@ -1,2 +1,5 @@
 TP/Frontend/node_modules/
 TP/Backend/node_modules/
+
+# Para ocultar las variables de entorno del Backend
+*.dist

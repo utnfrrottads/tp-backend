@@ -4,6 +4,8 @@ const app = express();
 const fileUpload = require("express-fileupload");
 const cloudinary = require("cloudinary").v2;
 const { mongoose } = require("./database");
+const env = require('node-env-file')
+env(__dirname + '/.env.dist')
 
 // --------------- setttings del servidor --------------- //
 app.set("puerto", process.env.PORT || 3000);
@@ -11,7 +13,7 @@ app.set("puerto", process.env.PORT || 3000);
 cloudinary.config({
   cloud_name: "elcurco8",
   api_key: "571333189662645",
-  api_secret: "7YT4hRzlift8X1iGcHEZg_5cL8Y",
+  api_secret: process.env.CLOUDINARY_SECRET_KEY,
 });
 
 // --------------- Middlewares --------------- //
