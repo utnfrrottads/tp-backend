@@ -1,4 +1,5 @@
 const UserModel = require("../models/users");
+const ProductoModel = require("../models/productos");
 const controller = {};
 
 // trae todos los usuarios
@@ -14,9 +15,9 @@ controller.getUser = (req, res) => {
 };
 
 controller.getEmpresas = async (req, res) => {
-  const empresas  = await UserModel.find({'tipo': 'empresa'});
+  const empresas = await UserModel.find({ tipo: "empresa" });
   res.json(empresas);
-}
+};
 
 controller.createUser = async (req, res) => {
   //verifico que no haya otro usuario con ese nombre.
@@ -51,10 +52,16 @@ controller.editUser = async (req, res) => {
   res.json({ status: "User Updated" });
 };
 
-controller.deleteUser = (req, res) => {
-  UserModel.findByIdAndRemove(req.params.id)
-    .then((req) => res.json({ status: "User Deleted", request: req }))
-    .catch((error) => res.json({ error: "No se encuentra el usuario para borrar", error: error }));
+// [Borrado en cascada]
+controller.deleteUser = async (req, res) => {
+  try {
+    await UserModel.findByIdAndRemove(req.params.id);
+    // Borro todos los productos que vende ese usuario
+    await ProductoModel.deleteMany({ idVendedor: req.params.id });
+    res.json({ status: "User Deleted" });
+  } catch (error) {
+    res.json({ mensaje: "Ha ocurrido un error al intentar borrar el usuario", error: error });
+  }
 };
 
 controller.login = async (req, res) => {

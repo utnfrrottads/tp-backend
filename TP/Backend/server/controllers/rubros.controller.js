@@ -1,4 +1,5 @@
 const RubroModel = require("../models/rubros");
+const ProductoModel = require("../models/productos");
 const controller = {};
 
 // trae todos los rubros
@@ -30,15 +31,20 @@ controller.editRubro = (req, res) => {
     url: req.body.url,
   };
   RubroModel.findByIdAndUpdate(req.params.id, { $set: rubro }, { new: true })
-  .then(res.json({ status: "Rubro Updated" }))
-  .catch((err) => res.json({ status: "error", error: err}));
+    .then(res.json({ status: "Rubro Updated" }))
+    .catch((err) => res.json({ status: "error", error: err }));
 };
 
-// elimina un rubro
-controller.deleteRubro = (req, res) => {
-  RubroModel.findByIdAndRemove(req.params.id)
-    .then((req) => res.json({ status: "Rubro Deleted", request: req }))
-    .catch((error) => res.json({ mensaje: "No se encuentra el rubro para borrar", error: error }));
+// [BORRADA EN CASCADA] - borra Rubro y todos los productos de ese rubro
+controller.deleteRubro = async (req, res) => {
+  try {
+    await RubroModel.findByIdAndRemove(req.params.id);
+    // borro todos los productos de ese rubro.
+    await ProductoModel.deleteMany({ "rubro._id": req.params.id });
+    res.json({ status: "Rubro deleted" });
+  } catch (error) {
+    res.json({ mensaje: "Ha ocurrido un error al intentar borrar el rubro", error: error });
+  }
 };
 
 module.exports = controller;
