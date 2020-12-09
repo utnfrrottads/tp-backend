@@ -105,6 +105,7 @@ export class VentasService {
   }
 
   getVentasByUser(user): any {
+    console.log("USER.ID %s", user._id)
     const URL = this.baseURL + 'vendedor/' + user._id;
     return this.http.get(URL);
   }
