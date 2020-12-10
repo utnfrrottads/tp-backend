@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderService } from '../../services/image-uploader.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import { Observable, observable } from 'rxjs';
 declare var M: any;
 
 @Component({
@@ -42,7 +41,7 @@ export class ProfileComponent implements OnInit {
   tipoUsuario = 'particular';
 
   url_imagen = null;
-  ImageFile = null;
+  imageFile = null;
 
   ngOnInit(): void {
     if (!this.userService.isLoggedIn()) {
@@ -69,12 +68,12 @@ export class ProfileComponent implements OnInit {
 
   async subirImagenYObtenerURL(): Promise<any> {
     // subo la imagen y obtengo su url.
-    return this.imgService.subirImagenes(this.ImageFile);
+    return this.imgService.subirImagenes(this.imageFile);
   }
 
   onFileSelected(event): void {
     // guardo la imagen seleccionada dentro de la propiedad ImageFile.
-    this.ImageFile = event.target.files;
+    this.imageFile = event.target.files;
   }
 
   patchStoragedUser(): void {
@@ -137,7 +136,7 @@ export class ProfileComponent implements OnInit {
             this.openSnackBar('¡Su usuario ha sido actualizado!', 'OK');
           });
 
-        this.ImageFile = null;
+        this.imageFile = null;
       });
     }
   }
