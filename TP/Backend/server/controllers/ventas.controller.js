@@ -10,7 +10,9 @@ controller.getVentas = async (req, res) => {
 };
 
 controller.getVentasByComprador = async (req, res) => {
-  const ventas = await VentasModel.find({ idComprador: req.params.id });
+  const ventas = await VentasModel.find({ idComprador: req.params.id }).populate('idComprador');
+  
+  console.log(ventas)
   res.json(ventas);
 };
 
