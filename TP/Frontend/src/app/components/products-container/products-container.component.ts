@@ -25,9 +25,7 @@ export class ProductsContainerComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(
       res => {
-        console.log(res);
         this.list = res.products;
-        console.log(this.list);
         return;
       }
     );

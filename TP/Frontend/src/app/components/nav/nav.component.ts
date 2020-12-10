@@ -43,7 +43,6 @@ export class NavComponent implements OnInit {
   }
   search(input): any {
     const texto = input.value;
-    console.log(texto);
     if (texto === '') {
       window.alert('Por favor ingrese una descripción de lo que desea comprar');
       return;

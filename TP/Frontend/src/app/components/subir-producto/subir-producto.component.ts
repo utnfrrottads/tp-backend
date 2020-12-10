@@ -117,7 +117,6 @@ export class SubirProductoComponent implements OnInit {
     this.subirImagenYObtenerURL().then((res) => {
       const URL = [];
       if (res == null) {
-        console.log('No se pudo subir imagen');
       } else {
         for (let i = 0; i < res.length; i++) {
           URL.push(res[i].url);
@@ -192,7 +191,6 @@ export class SubirProductoComponent implements OnInit {
     const txtAreas = document.getElementsByClassName(
       'txt-area'
     ) as HTMLCollectionOf<HTMLElement>;
-    // console.log(txtAreas)
     for (let i = 0; i < txtAreas.length; i++) {
       const txtAltura = txtAreas[i].scrollHeight + 2;
       txtAreas[i].style.height = `${txtAltura}px`;

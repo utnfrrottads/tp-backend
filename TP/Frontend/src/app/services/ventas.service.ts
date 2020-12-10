@@ -36,7 +36,6 @@ export class VentasService {
   }
 
   addToCart(producto): void {
-    console.log(producto);
     const items = JSON.parse(localStorage.getItem('carrito'));
     if (items == null) {
       // primera vez abriendo el carrito.
@@ -100,12 +99,10 @@ export class VentasService {
       comisionista: comisionistaVenta,
       idComprador: this.user.getLocalUser()._id,
     };
-    console.log('body', body);
     return this.http.post(this.baseURL, body, {});
   }
 
   getVentasByUser(user): any {
-    console.log("USER.ID %s", user._id)
     const URL = this.baseURL + 'vendedor/' + user._id;
     return this.http.get(URL);
   }

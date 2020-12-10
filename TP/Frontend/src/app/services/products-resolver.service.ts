@@ -23,8 +23,7 @@ export class ProductsResolverService implements Resolve<any> {
       if (this.descripcionParameter) {
         return this.service.getProductosByDescripcion(this.descripcionParameter);
       } else if (this.rubroParameter) {
-        console.log(this.rubroParameter);
-        return this.service.getProductosByRubro(this.rubroParameter);
+                return this.service.getProductosByRubro(this.rubroParameter);
       } else if (this.empresaParameter) {
         return this.service.getProductosByEmpresa(this.empresaParameter);
 
