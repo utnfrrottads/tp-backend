@@ -2,11 +2,18 @@
     <h1 class="justift">{{producto.nombre}}</h1>
     <h2 class="center">${{producto.precio}}</h2>
     <div id="si-hay-stock" *ngIf="vendedorIsnotComprador()">
-        <p>Stock disponible</p>
-        <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()"
-            *ngIf="isInCart()">Quitar del carrito</a>
-        <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()"
-            *ngIf="!isInCart()">AGREGAR A CARRITO</a>
+
+        <div *ngIf="hayStock()">
+            <p>Stock disponible</p>
+            <a class="waves-effect waves-light btn btn-color red" (click)="removeFromCart()" *ngIf="isInCart()">Quitar
+                del
+                carrito</a>
+            <a class="waves-effect waves-light btn btn-color green" (click)="addToCart()" *ngIf="!isInCart()">AGREGAR A
+                CARRITO</a>
+        </div>
+        <div *ngIf="!hayStock()">
+            <a class="waves-effect waves-light btn btn-color orange">No hay stock disponible</a>
+        </div>
     </div>
     <div *ngIf="!vendedorIsnotComprador()">
         <p>Este producto ha sido publicado por ti</p>

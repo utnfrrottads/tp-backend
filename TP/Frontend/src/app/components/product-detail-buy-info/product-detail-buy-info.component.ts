@@ -11,7 +11,7 @@ import { DialogoComponent } from '../dialogo/dialogo.component';
 @Component({
   selector: 'app-product-detail-buy-info',
   templateUrl: './product-detail-buy-info.component.html',
-  styleUrls: ['../product-detail/product-detail.component.scss']
+  styleUrls: ['../product-detail/product-detail.component.scss'],
 })
 export class ProductDetailBuyInfoComponent implements OnInit {
   @Input() producto = new Producto();
@@ -24,7 +24,7 @@ export class ProductDetailBuyInfoComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     public dialogo: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.usuario = this.userService.getLocalUser();
@@ -94,4 +94,7 @@ export class ProductDetailBuyInfoComponent implements OnInit {
       });
   }
 
+  hayStock() {
+    return this.producto.stock > 0;
+  }
 }
