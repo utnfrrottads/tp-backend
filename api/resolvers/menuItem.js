@@ -9,8 +9,15 @@ export default {
 					},
 				],
 			}),
-		recipes: (parent, args, { db }) =>
-			db.recipe.findAll({ where: { itemId: parent.id } }),
+		ingredients: ({ id }, args, { db }) =>
+			db.ingredient.findAll({
+				include: [
+					{
+						model: db.item,
+						where: { id },
+					},
+				],
+			}),
 	},
 	Query: {
 		items: (parent, args, { db }) => db.item.findAll(),

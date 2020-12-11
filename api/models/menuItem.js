@@ -12,12 +12,12 @@ export default (sequelize, DataTypes) => {
 		pricePerUnit: DataTypes.REAL,
 	});
 
-	Item.associate = (models) => {
+	Item.associate = async (models) => {
 		Item.belongsToMany(models.category, { through: 'categories_items' });
 
 		Item.hasMany(models.line);
 
-		Item.hasMany(models.recipe);
+		Item.belongsToMany(models.ingredient, { through: 'ingredients_items' });
 	};
 
 	return Item;

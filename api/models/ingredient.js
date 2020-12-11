@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
 	});
 
 	Ingredient.associate = (models) => {
-		Ingredient.hasMany(models.recipe);
+		Ingredient.belongsToMany(models.item, { through: 'ingredients_items' });
 	};
 
 	return Ingredient;

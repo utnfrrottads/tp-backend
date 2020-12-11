@@ -3,6 +3,7 @@ type Ingredient {
 	description: String!
 	UnitOfMeasure: String
 	caloriesPerUnit: String
+	items: [Item!]
 }
 
 type Query {

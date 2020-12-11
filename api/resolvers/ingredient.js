@@ -1,4 +1,15 @@
 export default {
+	Ingredient: {
+		items: ({ id }, args, { db }) =>
+			db.item.findAll({
+				include: [
+					{
+						model: db.ingredient,
+						where: { id },
+					},
+				],
+			}),
+	},
 	Query: {
 		ingredients: (_, args, { db }) => db.ingredient.findAll(),
 		ingredient: (_, { id }, { db }) => db.ingredient.findByPk(id),
