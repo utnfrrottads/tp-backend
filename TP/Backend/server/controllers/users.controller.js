@@ -1,5 +1,8 @@
 const UserModel = require("../models/users");
 const ProductoModel = require("../models/productos");
+const jwt = require("jsonwebtoken");
+const env = require("node-env-file");
+env(__dirname + "/../.env.dist");
 const controller = {};
 
 // trae todos los usuarios
@@ -66,7 +69,21 @@ controller.deleteUser = async (req, res) => {
 
 controller.login = async (req, res) => {
   let user = await UserModel.find({ usuario: req.body.usuario, pass: req.body.password });
-  res.json({ user: user });
+  // creo un token
+  if (user.length > 0) {
+    let payload = user[0];
+    payload.pass = "*****";
+    payload = payload.toJSON();
+
+    jwt.sign(payload, process.env.AUTH_SECRET, { expiresIn: 3600 }, (err, token) => {
+      if (err) {
+        res.status(500).send({ error });
+      }
+      res.json({ user: user, token: "Bearer " + token });
+    });
+  } else {
+    res.json({ user: [], token: "" });
+  }
 };
 
 module.exports = controller;

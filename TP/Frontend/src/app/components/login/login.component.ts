@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.user.length !== 0) {
           // Guardo los datos del usuario excepto la password
-          res.user[0].pass = '******';
-          localStorage.setItem('user', JSON.stringify(res.user[0]));
+          this.userService.saveUser(res);
           this.router.navigate(['rubros']);
         } else {
           this.showSnack(

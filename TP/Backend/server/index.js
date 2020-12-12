@@ -3,11 +3,12 @@ const morgan = require("morgan");
 const app = express();
 const fileUpload = require("express-fileupload");
 const cloudinary = require("cloudinary").v2;
-const { mongoose } = require("./database");
-const env = require('node-env-file')
-env(__dirname + '/.env.dist')
+const env = require("node-env-file");
+const authToken = require("./authToken");
+require("./database");
 
 // --------------- setttings del servidor --------------- //
+env(__dirname + "/.env.dist");
 app.set("puerto", process.env.PORT || 3000);
 
 cloudinary.config({
@@ -22,20 +23,18 @@ cloudinary.config({
 app.use(morgan("dev"));
 // Sirve para poder subir imagenes.
 app.use(fileUpload());
+// Sirve para poder entender el formato Json.
+app.use(express.json());
+// Autenticación
+app.use(authToken);
 
 // Sirve para ver a quien le contesta las peticiones. Por ahora a todos.
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   next();
 });
-
-// Sirve para poder entender el formato Json.
-app.use(express.json());
 
 // --------------- Routes --------------- //
 app.use("/api/rubros", require("./routes/rubros.routes"));

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,13 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   readonly baseURL = environment.backendURL + 'usuarios/';
+  saveUser(res): any {
+    localStorage.setItem('token', res.token);
+    const decoded = jwt_decode(res.token);
+    localStorage.setItem('user', JSON.stringify(decoded));
+  }
+
+  getToken(): any {}
 
   isLoggedIn(): boolean {
     if (localStorage.getItem('user') == null) {
@@ -28,7 +36,7 @@ export class UserService {
     return this.http.post(URL, body, {});
   }
 
-  getUser(id): Observable<any>{
+  getUser(id): Observable<any> {
     const URL = this.baseURL + id;
     return this.http.get(URL);
   }
