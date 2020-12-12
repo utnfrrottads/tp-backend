@@ -17,10 +17,10 @@
     </div>
     <div *ngIf="!vendedorIsnotComprador()">
         <p>Este producto ha sido publicado por ti</p>
-        <a class="waves-effect waves-light btn btn-color-edit" (click)="editPublicacion(idProducto)">EDITAR
+        <a class="waves-effect waves-light btn btn-color-edit" (click)="editPublicacion(producto._id)">EDITAR
             PUBLICACION</a>
         <br>
         <a class="waves-effect waves-light btn btn-color red" style="margin-top: 15px"
-            (click)="deletePublicacion(idProducto)">Eliminar producto</a>
+            (click)="deletePublicacion(producto._id)">Eliminar producto</a>
     </div>
 </div>
