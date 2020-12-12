@@ -180,22 +180,22 @@ export class SubirProductoComponent implements OnInit {
         url: this.producto.url,
       };
 
-      this.service.editProducto(nuevoProducto).subscribe((res) => {
+      this.service.editProducto(nuevoProducto).subscribe(() => {
         this.router.navigate(['rubros/productos/', nuevoProducto.idProducto]);
       });
     });
   }
 
   txtAreaTextChanges(input): void  {
-    const txtAreas = <HTMLScriptElement[]><any>Array.from(document.getElementsByClassName(
+    const txtAreas = Array.from(document.getElementsByClassName(
       'txt-area'
-    )); //as HTMLCollectionOf<HTMLElement>;
+    )) as any as HTMLScriptElement[]; // as HTMLCollectionOf<HTMLElement>;
 
     txtAreas.forEach(e => {
       const txtAltura = e.scrollHeight + 2;
       e.style.height = `${txtAltura}px`;
     });
-    
+
 /*
     for (let i = 0; i < txtAreas.length; i++) {
       const txtAltura = txtAreas[i].scrollHeight + 2;

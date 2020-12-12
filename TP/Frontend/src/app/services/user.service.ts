@@ -15,8 +15,6 @@ export class UserService {
   saveUser(res): any {
     localStorage.setItem('token', res.token);
     const decoded = jwt_decode(res.token);
-    delete decoded['exp'];
-    delete decoded['iat'];
     localStorage.setItem('user', JSON.stringify(decoded));
   }
 

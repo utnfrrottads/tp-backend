@@ -1,6 +1,6 @@
 export class Rubro {
-  // No quise cambiar esto en el ng-lint porque no se quien mas lo
-  // usó despues de haberlo definido acá. sorry
+  // No se cambió el nombre de la variable para pasar el ng-lint porque no se utilizó en
+  // muchos lugares y habría que hacer un refactor completo.
   _id: string;
   descripcion: string;
   url: string;
