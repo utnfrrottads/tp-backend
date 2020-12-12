@@ -30,7 +30,6 @@ export class ProductsContainerComponent implements OnInit {
         return;
       }
     );
-    
   }
 
   onPageChange($event): void {

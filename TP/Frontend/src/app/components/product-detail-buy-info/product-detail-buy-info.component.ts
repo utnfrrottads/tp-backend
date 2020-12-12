@@ -69,8 +69,8 @@ export class ProductDetailBuyInfoComponent implements OnInit {
         },
       })
       .afterClosed()
-      .subscribe((confirmado: Boolean) => {
-        if (confirmado) {
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
           this.productService.deleteProducto(this.producto).subscribe((res) => {
             this.dialogo
               .open(DialogoComponent, {
@@ -81,20 +81,17 @@ export class ProductDetailBuyInfoComponent implements OnInit {
                 },
               })
               .afterClosed()
-              .subscribe((confirmado: Boolean) => {
-                if (confirmado) {
+              .subscribe((confirmed: boolean) => {
+                if (confirmed) {
                   this.router.navigate(['rubros']);
                 }
-                (err) => {
-                  alert('No se pudo eliminar el producto');
-                };
               });
           });
         }
       });
   }
 
-  hayStock() {
+  hayStock(): boolean {
     return this.producto.stock > 0;
   }
 }
