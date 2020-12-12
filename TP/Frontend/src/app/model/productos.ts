@@ -1,7 +1,8 @@
 import { Rubro } from './rubros';
 
 export class Producto {
-    iD: string;
+    _id: string;
+    //iD: string;
     rubro: Rubro;
     idVendedor: number;
     nombre: string;

@@ -62,15 +62,15 @@ export class SubirProductoComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('idProducto') !== null){
     this.modoEdicion = true;
     // me traigo el id de Producto
-    this.producto.iD = this.route.snapshot.paramMap.get('idProducto');
+    this.producto._id = this.route.snapshot.paramMap.get('idProducto');
 
-    this.pService.getProducto(this.producto.iD)
+    this.pService.getProducto(this.producto._id)
       .subscribe((res: Producto) => {
         this.producto = res;
-        this.idRubroSeleccionado = this.producto.rubro.iD;
+        this.idRubroSeleccionado = this.producto.rubro._id;
 
         this.productForm.patchValue({
-          idRubro : this.producto.rubro.iD,
+          idRubro : this.producto.rubro._id,
           idVendedor : this.producto.idVendedor,
           nombre : this.producto.nombre,
           descripcion : this.producto.descripcion,
@@ -82,7 +82,7 @@ export class SubirProductoComponent implements OnInit {
     }
     else{
       this.producto = {
-        iD : '',
+        _id : '',
         rubro : this.rubros,
         idVendedor: 0,
         nombre: '',
