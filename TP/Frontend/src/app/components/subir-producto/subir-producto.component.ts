@@ -49,8 +49,8 @@ export class SubirProductoComponent implements OnInit {
     // url: new FormControl('', [Validators.required]),
   });
 
-  ImageFile = null;
-  url_imagen = null;
+  imageFile = null;
+  urlImagen = null;
 
   ngOnInit(): void {
     M.updateTextFields();
@@ -62,15 +62,15 @@ export class SubirProductoComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('idProducto') !== null){
     this.modoEdicion = true;
     // me traigo el id de Producto
-    this.producto._id = this.route.snapshot.paramMap.get('idProducto');
+    this.producto.iD = this.route.snapshot.paramMap.get('idProducto');
 
-    this.pService.getProducto(this.producto._id)
+    this.pService.getProducto(this.producto.iD)
       .subscribe((res: Producto) => {
         this.producto = res;
-        this.idRubroSeleccionado = this.producto.rubro._id;
+        this.idRubroSeleccionado = this.producto.rubro.iD;
 
         this.productForm.patchValue({
-          idRubro : this.producto.rubro._id,
+          idRubro : this.producto.rubro.iD,
           idVendedor : this.producto.idVendedor,
           nombre : this.producto.nombre,
           descripcion : this.producto.descripcion,
@@ -82,7 +82,7 @@ export class SubirProductoComponent implements OnInit {
     }
     else{
       this.producto = {
-        _id : '',
+        iD : '',
         rubro : this.rubros,
         idVendedor: 0,
         nombre: '',
@@ -103,23 +103,22 @@ export class SubirProductoComponent implements OnInit {
 
   onFileSelected(event): void {
     // guardo la imagen seleccionada dentro de la propiedad ImageFile.
-    this.ImageFile = event.target.files;
+    this.imageFile = event.target.files;
   }
 
   async subirImagenYObtenerURL(): Promise<any> {
-    return this.imgService.subirImagenes(this.ImageFile);
+    return this.imgService.subirImagenes(this.imageFile);
   }
 
   save(): void {
     const rubro = this.rubros.find((r) => r._id === this.idRubroSeleccionado);
 
     // subo la imagen:
-    this.subirImagenYObtenerURL().then((res) => {
+    this.subirImagenYObtenerURL().then((response) => {
       const URL = [];
-      if (res == null) {
-      } else {
-        for (let i = 0; i < res.length; i++) {
-          URL.push(res[i].url);
+      if (response !== null) {
+        for (const element of response) {
+          URL.push(element.url);
         }
       }
 
@@ -145,7 +144,7 @@ export class SubirProductoComponent implements OnInit {
           }
         })
         .afterClosed()
-        .subscribe((confirmado: Boolean) => {
+        .subscribe((confirmado: boolean) => {
           // cuando ya leyó el cartel y dió click en aceptar, lo redirijo al producto
           if (confirmado) {
             this.router.navigate(['rubros/productos/', res._id]);
@@ -163,8 +162,8 @@ export class SubirProductoComponent implements OnInit {
       if (res == null) {
         alert('No se pudo subir imagen');
       } else {
-        for (let i = 0; i < res.length; i++) {
-          this.producto.url.push(res[i].url);
+        for (const elemento of res){
+          this.producto.url.push(elemento.url);
         }
       }
 
@@ -188,12 +187,19 @@ export class SubirProductoComponent implements OnInit {
   }
 
   txtAreaTextChanges(input): void  {
-    const txtAreas = document.getElementsByClassName(
+    const txtAreas = <HTMLScriptElement[]><any>Array.from(document.getElementsByClassName(
       'txt-area'
-    ) as HTMLCollectionOf<HTMLElement>;
+    )); //as HTMLCollectionOf<HTMLElement>;
+
+    txtAreas.forEach(e => {
+      const txtAltura = e.scrollHeight + 2;
+      e.style.height = `${txtAltura}px`;
+    });
+    
+/*
     for (let i = 0; i < txtAreas.length; i++) {
       const txtAltura = txtAreas[i].scrollHeight + 2;
       txtAreas[i].style.height = `${txtAltura}px`;
-    }
+    }*/
   }
 }

@@ -26,10 +26,10 @@ export class ProductsContainerComponent implements OnInit {
     this.activatedRoute.data.subscribe(
       res => {
         this.list = res.products;
+        this.onPageChange({ pageIndex: 0, pageSize: 9 });
         return;
       }
     );
-    this.onPageChange({ pageIndex: 0, pageSize: 9 });
   }
 
   onPageChange($event): void {

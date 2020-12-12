@@ -32,8 +32,8 @@ export class ProductDetailCarouselComponent implements OnInit {
 
     this.productService.getProducto(this.idProducto).subscribe((res: Producto) => {
       this.producto = res;
-      this.userService.getUser(this.producto.idVendedor).subscribe((res) => {
-        this.vendedor = res;
+      this.userService.getUser(this.producto.idVendedor).subscribe((response) => {
+        this.vendedor = response;
         this.imagenVendedor = this.vendedor.url;
 
         // para el carousel

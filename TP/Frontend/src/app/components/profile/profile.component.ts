@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
   });
   tipoUsuario = 'particular';
 
-  url_imagen = null;
+  urlImagen = null;
   imageFile = null;
 
   ngOnInit(): void {
@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
           )
           .subscribe(() => {
             // actualizo la imagen
-            this.url_imagen = URL;
+            this.urlImagen = URL;
             // guardo localmente al usuario actualizado
             this.userService.updateStoragedUser(
               this.mainForm.controls,
