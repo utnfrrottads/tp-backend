@@ -10,11 +10,11 @@ import { Producto } from 'src/app/model/productos';
 export class CardListComponent {
 @Input() producto: Producto;
 
-  constructor(private router: Router) {
+constructor(private router: Router) {
   }
 
-  routeToProduct(idProducto): void{
-    this.router.navigate(['/rubros/productos/', idProducto]);
+  routeToProduct(producto): void{
+    this.router.navigate(['/rubros/productos/', producto._id]);
   }
 
 }
