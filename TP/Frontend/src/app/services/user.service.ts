@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
@@ -17,8 +17,6 @@ export class UserService {
     const decoded = jwt_decode(res.token);
     localStorage.setItem('user', JSON.stringify(decoded));
   }
-
-  getToken(): any {}
 
   isLoggedIn(): boolean {
     if (localStorage.getItem('user') == null) {
@@ -72,7 +70,11 @@ export class UserService {
       mail: data.mail.value,
       url: imageUrl,
     };
-    return this.http.put(URL, body, {});
+
+    const headers = new HttpHeaders()
+      .append('Authorization', `${localStorage.getItem('token')}`)
+
+    return this.http.put(URL, body, { headers });
   }
 
   updateStoragedUser(data, URL, tipoUsuario, id): void {
@@ -98,6 +100,10 @@ export class UserService {
     } else {
       return JSON.parse(user);
     }
+  }
+
+  clearLocalStoragedUser():any{
+    localStorage.clear()
   }
 
   getEmpresas(): Observable<any> {

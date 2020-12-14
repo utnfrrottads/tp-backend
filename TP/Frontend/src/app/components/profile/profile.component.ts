@@ -121,20 +121,33 @@ export class ProfileComponent implements OnInit {
             URL[0],
             this.storagedUser._id
           )
-          .subscribe(() => {
-            // actualizo la imagen
-            this.urlImagen = URL;
-            // guardo localmente al usuario actualizado
-            this.userService.updateStoragedUser(
-              this.mainForm.controls,
-              URL[0],
-              this.tipoUsuario,
-              this.storagedUser._id
-            );
-            // actualizo la promiedad storagedUser para que se renderizen bien el html
-            this.storagedUser = JSON.parse(localStorage.getItem('user'));
-            this.openSnackBar('¡Su usuario ha sido actualizado!', 'OK');
-          });
+          .subscribe(
+            () => {
+              // actualizo la imagen
+              this.urlImagen = URL;
+              // guardo localmente al usuario actualizado
+              this.userService.updateStoragedUser(
+                this.mainForm.controls,
+                URL[0],
+                this.tipoUsuario,
+                this.storagedUser._id
+              );
+              // actualizo la promiedad storagedUser para que se renderizen bien el html
+              this.storagedUser = JSON.parse(localStorage.getItem('user'));
+              this.openSnackBar('¡Su usuario ha sido actualizado!', 'OK');
+            },
+            () => {
+              this.snackBar
+                .open('Error al editar perfil', 'Ir al Login', {
+                  duration: 5000,
+                })
+                .onAction()
+                .subscribe(() => {
+                  this.userService.clearLocalStoragedUser();
+                  this.router.navigate(['/login']);
+                });
+            }
+          );
 
         this.imageFile = null;
       });

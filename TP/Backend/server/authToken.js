@@ -8,8 +8,8 @@ module.exports = (req, res, next) => {
     if (req.headers.authorization) {
       // verifico que el token sea valido
       let token = req.headers.authorization.split(" ")[1];
-      jwt.verify(token, process.env.AUTH_SECRET, (error, decoded) => {
-        if (error) return res.status(500).send({ error });
+      jwt.verify(token, process.env.AUTH_SECRET, (error) => {
+        if (error) return res.status(500).send({ status: "Error",error });
         next();
       });
     } else {

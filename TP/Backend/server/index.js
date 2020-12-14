@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 const env = require("node-env-file");
 const authToken = require("./authToken");
 require("./database");
+const cors = require("cors");
 
 // --------------- setttings del servidor --------------- //
 env(__dirname + "/.env.dist");
@@ -25,16 +26,20 @@ app.use(morgan("dev"));
 app.use(fileUpload());
 // Sirve para poder entender el formato Json.
 app.use(express.json());
-// Autenticación
-app.use(authToken);
 
+// CORS
+app.use(cors());
 // Sirve para ver a quien le contesta las peticiones. Por ahora a todos.
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+
   next();
 });
+
+// Autenticación
+app.use(authToken);
 
 // --------------- Routes --------------- //
 app.use("/api/rubros", require("./routes/rubros.routes"));
