@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const { response } = require('express');
-
 const {Schema , model} = mongoose;
 
 
