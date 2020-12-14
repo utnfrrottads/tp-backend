@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ComprasVentasListComponent } from './components/compras-ventas-list/compras-ventas-list.component';
 import { LoginCreationComponent } from './components/login-creation/login-creation.component';
 import { ProductsResolverService } from './services/products-resolver.service';
+import {AuthGuardService} from './services/auth-guard.service'
 
 const routes: Routes = [
   { path: 'rubros', component: ListaRubrosComponent },
@@ -32,9 +33,9 @@ const routes: Routes = [
   },
   { path: 'profile', component: ProfileComponent },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'compraventa/:type', component: ComprasVentasListComponent },
-  { path: 'ventas', component: ComprasVentasListComponent },
-  { path: 'compras', component: ComprasVentasListComponent },
+  { path: 'compraventa/:type', component: ComprasVentasListComponent, canActivate: [AuthGuardService] },
+  { path: 'ventas', component: ComprasVentasListComponent, canActivate: [AuthGuardService] },
+  { path: 'compras', component: ComprasVentasListComponent, canActivate: [AuthGuardService] },
   { path: 'publicar', component: SubirProductoComponent },
   { path: 'productos/editar/:idProducto', component: SubirProductoComponent },
   { path: 'productos/eliminar/:idProducto', component: SubirProductoComponent },

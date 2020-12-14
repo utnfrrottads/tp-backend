@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 const env = require("node-env-file");
 const authToken = require("./authToken");
 require("./database");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 // --------------- setttings del servidor --------------- //
@@ -58,6 +59,23 @@ app.post("/api/uploadImage", (req, res) => {
         res.send({ status: "ok", url: info.url });
       })
       .end(req.files.file.data);
+  }
+});
+
+// Para validar tokens.
+app.post("/api/verifyToken", (req, res) => {
+  if (req.headers.authorization) {
+    let token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, process.env.AUTH_SECRET, (error) => {
+      if (error) {
+        console.log("le dije que esta todo mal al front - FF F F F FF");
+        return res.status(500).send({ status: "Error", error });
+      }
+      console.log("le dije que esta todo ok al front");
+      res.status(200).send({ status: "ok" });
+    });
+  } else {
+    return res.status(500).send({ status: "Error" });
   }
 });
 
