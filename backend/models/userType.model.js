@@ -15,4 +15,3 @@ UserTypeSchema.method('toJSON',function(){
 module.exports= model('UserType',UserTypeSchema);
 
 //COMO CREAR 3 POR DEFECTO UNA VEZ Y QUE QUEDEN??
-// O LOS CREO POR BD UNA VEZ Y CHAU??
