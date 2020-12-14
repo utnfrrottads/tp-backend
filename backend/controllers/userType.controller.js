@@ -114,5 +114,4 @@ userTypeCtrl.deleteUserType = async (req = request, res = response) => {
     }
 }
 
-
 module.exports = userTypeCtrl;
