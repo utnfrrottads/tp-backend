@@ -18,13 +18,13 @@ export class AuthGuardService implements CanActivate {
 
   // Redirect the user to login if not logged in.
   public async canActivate(): Promise<boolean> {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token == null) {
       this.router.navigate(['/login']);
       return false;
     }
 
-    let rta = await this.verifyToken(token).then(
+    const rta = await this.verifyToken(token).then(
       () => {
         return true;
       },

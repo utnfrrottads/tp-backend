@@ -72,7 +72,7 @@ export class UserService {
     };
 
     const headers = new HttpHeaders()
-      .append('Authorization', `${localStorage.getItem('token')}`)
+      .append('Authorization', `${localStorage.getItem('token')}`);
 
     return this.http.put(URL, body, { headers });
   }
@@ -102,8 +102,8 @@ export class UserService {
     }
   }
 
-  clearLocalStoragedUser():any{
-    localStorage.clear()
+  clearLocalStoragedUser(): any{
+    localStorage.clear();
   }
 
   getEmpresas(): Observable<any> {
