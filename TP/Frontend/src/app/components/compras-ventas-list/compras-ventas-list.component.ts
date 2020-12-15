@@ -8,68 +8,70 @@ import { Route } from '@angular/compiler/src/core';
 @Component({
   selector: 'app-compras-ventas-list',
   templateUrl: './compras-ventas-list.component.html',
-  styleUrls: ['./compras-ventas-list.component.scss']
+  styleUrls: ['./compras-ventas-list.component.scss'],
 })
 export class ComprasVentasListComponent implements OnInit {
-
   ventas: any = [];
   modo = '';
+  enabledToShowNoItems = false;
 
-  constructor(public dialog: MatDialog,
-              private service: VentasService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    public dialog: MatDialog,
+    private service: VentasService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-
     let user = localStorage.getItem('user');
     user = JSON.parse(user);
     this.route.params.subscribe((params) => {
       if (params.type === 'ventas') {
         this.modo = 'Ventas';
-        this.service
-          .getVentasByUser(user)
-          .subscribe((res) => {
-            this.ventas = res;
-          });
-      }
-      else {
+        this.service.getVentasByUser(user).subscribe((res) => {
+          this.ventas = res;
+          this.enabledToShowNoItems = true;
+        });
+      } else {
         if (params.type === 'compras') {
-        this.modo = 'Compras';
-        this.service
-          .getComprasByUser(user)
-          .subscribe((res) => {
+          this.modo = 'Compras';
+          this.service.getComprasByUser(user).subscribe((res) => {
             this.ventas = res;
+            this.enabledToShowNoItems = true;
           });
+        } else {
+          this.router.navigate(['/rubros']);
+        }
       }
-      else { this.router.navigate(['/rubros']); }
-    }});
+    });
   }
 
   calcularTotal(venta): number {
     let total = 0;
 
-    venta.productos.forEach(producto => {
+    venta.productos.forEach((producto) => {
       total += producto.producto.precio * producto.cantidad;
     });
     if (this.modo === 'Ventas') {
       return total;
-    }
-    else {
+    } else {
       return total + venta.comisionista.precio;
     }
-
   }
 
   openDialog(venta): void {
     this.dialog.open(DialogCompraVentaComponent, {
       data: {
         venta,
-        modo: this.modo
-      } ,
+        modo: this.modo,
+      },
       height: '400px',
-      width: '600px'
+      width: '600px',
     });
   }
 
+  hayVentas(): boolean {
+    const res = this.enabledToShowNoItems && this.ventas <= 0 ? false : true;
+    return res;
+  }
 }

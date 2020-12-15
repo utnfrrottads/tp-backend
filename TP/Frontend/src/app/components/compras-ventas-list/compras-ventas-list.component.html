@@ -1,59 +1,64 @@
-<div class="container" >
-    <table *ngIf="this.ventas.length > 0" class="striped">
-        <thead>
-            <tr>
-                <th class="hide-on-tiny">Id</th>
-                <th>Fecha</th>
-                <th *ngIf="this.modo === 'Compras'">Comisionista</th>
-                <th>Cantidad de productos</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-    
-        <tbody>
-            <!-- para todos los productos de la lista-->
-            <tr *ngFor="let venta of ventas">
-                <td class="hide-on-tiny">
-                    <p class="max-4-lines">{{venta._id}}</p>
-                </td>
-                <td class="justified">
-                    <p class="max-4-lines">{{venta.fecha}}</p>
-                </td>
-                <td *ngIf="this.modo === 'Compras'" class="justified hide-on-tiny">
-                    <p class="max-4-lines">{{venta.comisionista.nombre}}</p>
-                </td>
-                <td class="justified">
-                    <p class="max-4-lines">{{venta.productos.length}}</p>
-                </td>
-                <td class="justified">
-                    ${{this.calcularTotal(venta)}}
-                </td>
-                <td>
-                    <div class="unselectable ">
-                        <div class="flechas center">
-                            <a style="cursor:pointer"><i class="material-icons" (click)="openDialog(venta)">zoom_in</i></a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        </table>
+<div class="container">
+  <table *ngIf="this.ventas.length > 0" class="striped">
+    <thead>
+      <tr>
+        <th class="hide-on-tiny">Id</th>
+        <th>Fecha</th>
+        <th *ngIf="this.modo === 'Compras'">Comisionista</th>
+        <th>Cantidad de productos</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
 
-        <div class="big-msg-container" *ngIf="this.ventas.length == 0">
-            <h3 class="big-msg-text">¡No se encontraron {{this.modo}} !</h3>
-        
-            <i class="fa fa-exclamation-circle center fa-5x" style="color: white;"></i>
-        
-            <div>
-                <div class="center">
-                    <button [routerLink]="[rubros]" class="waves-effect waves-light btn-large deep-purple">
-                        <i class="material-icons right">view_module</i>
-                        Volver al Inicio
-                    </button>
-                </div>
+    <tbody>
+      <!-- para todos los productos de la lista-->
+      <tr *ngFor="let venta of ventas">
+        <td class="hide-on-tiny">
+          <p class="max-4-lines">{{venta._id}}</p>
+        </td>
+        <td class="justified">
+          <p class="max-4-lines">{{venta.fecha | date: 'short'}}</p>
+        </td>
+        <td *ngIf="this.modo === 'Compras'" class="justified hide-on-tiny">
+          <p class="max-4-lines">{{venta.comisionista.nombre}}</p>
+        </td>
+        <td class="justified">
+          <p class="max-4-lines">{{venta.productos.length}}</p>
+        </td>
+        <td class="justified">
+          ${{this.calcularTotal(venta)}}
+        </td>
+        <td>
+          <div class="unselectable">
+            <div class="flechas center">
+              <a style="cursor: pointer;"
+                ><i class="material-icons" (click)="openDialog(venta)"
+                  >zoom_in</i
+                ></a
+              >
             </div>
-        </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
+  <div class="big-msg-container" *ngIf="!hayVentas()">
+    <h3 class="big-msg-text">¡No se encontraron {{this.modo}} !</h3>
+
+    <i class="fa fa-exclamation-circle center fa-5x" style="color: white;"></i>
+
+    <div>
+      <div class="center">
+        <button
+          [routerLink]="[rubros]"
+          class="waves-effect waves-light btn-large deep-purple"
+        >
+          <i class="material-icons right">view_module</i>
+          Volver al Inicio
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-
