@@ -16,7 +16,7 @@ Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|De
 |Listado simple|1|1|  1 - Rubros <br> 2 - Empresas
 |Listado complejo obligatorio|1|2| 1 - Productos: se filtran los productos por rubro. <br> (Filtro por atributo “rubro”). <br> 2 - Productos: se filtran todos los productos que <br> pertenecen a una Empresa. (Filtro por atributo “empresa”). 
 |Listado adicional con filtro|0|0| -
-|Detalle básico|1(*)|2(*)| 1 - Producto: el detalle de un producto se obtiene desde <br> el listado de productos. <br> 2 - Empresa: el detalle de una empresa se obtiene desde <br> el listado de empresas.
+|Detalle básico|1(*)|2(*)| 1 - Producto: el detalle de un producto se obtiene desde <br> el listado de productos. <br> 2 - Ventas: el detalle de una venta se obtiene desde <br> el listado de ventas.
 |Detalle parametrizable|0|0| -
 |Otros|0|0| -
 
