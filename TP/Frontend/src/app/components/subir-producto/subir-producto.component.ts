@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Rubro } from 'src/app/model/rubros';
-import { Producto } from 'src/app/model/productos';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { RubrosService } from 'src/app/services/rubros.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ImageUploaderService } from '../../services/image-uploader.service';
-import { ProductCardsService } from 'src/app/services/product-cards.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogoComponent } from '../dialogo/dialogo.component';
+import { Component, OnInit } from "@angular/core";
+import { Rubro } from "src/app/model/rubros";
+import { Producto } from "src/app/model/productos";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { RubrosService } from "src/app/services/rubros.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { ImageUploaderService } from "../../services/image-uploader.service";
+import { ProductCardsService } from "src/app/services/product-cards.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogoComponent } from "../dialogo/dialogo.component";
 
 declare const M: any;
 
 @Component({
-  selector: 'app-subir-producto',
-  templateUrl: './subir-producto.component.html',
-  styleUrls: ['./subir-producto.component.scss'],
+  selector: "app-subir-producto",
+  templateUrl: "./subir-producto.component.html",
+  styleUrls: ["./subir-producto.component.scss"],
 })
 export class SubirProductoComponent implements OnInit {
-
   constructor(
     private imgService: ImageUploaderService,
     private rubrosService: RubrosService,
@@ -34,17 +33,17 @@ export class SubirProductoComponent implements OnInit {
   modoEdicion: any;
 
   productForm = new FormGroup({
-    idRubro: new FormControl('', [Validators.required]),
-    idVendedor: new FormControl(''),
-    nombre: new FormControl('', [Validators.required]),
-    descripcion: new FormControl('', [Validators.required]),
-    stock: new FormControl('', [
+    idRubro: new FormControl("", [Validators.required]),
+    idVendedor: new FormControl(""),
+    nombre: new FormControl("", [Validators.required]),
+    descripcion: new FormControl("", [Validators.required]),
+    stock: new FormControl("", [
       Validators.required,
-      Validators.pattern('^[0-9]*$')
+      Validators.pattern("^[0-9]*$"),
     ]),
-    precio: new FormControl('', [
+    precio: new FormControl("", [
       Validators.required,
-      Validators.pattern('^[0-9]*$')
+      Validators.pattern("^[0-9]*$"),
     ]),
     // url: new FormControl('', [Validators.required]),
   });
@@ -59,45 +58,45 @@ export class SubirProductoComponent implements OnInit {
       this.rubros = res;
     });
 
-    if (this.route.snapshot.paramMap.get('idProducto') !== null){
-    this.modoEdicion = true;
-    // me traigo el id de Producto
-    this.producto._id = this.route.snapshot.paramMap.get('idProducto');
+    if (this.route.snapshot.paramMap.get("idProducto") !== null) {
+      this.modoEdicion = true;
+      // me traigo el id de Producto
+      this.producto._id = this.route.snapshot.paramMap.get("idProducto");
 
-    this.pService.getProducto(this.producto._id)
-      .subscribe((res: Producto) => {
-        this.producto = res;
-        this.idRubroSeleccionado = this.producto.rubro._id;
+      this.pService
+        .getProducto(this.producto._id)
+        .subscribe((res: Producto) => {
+          this.producto = res;
+          this.idRubroSeleccionado = this.producto.rubro._id;
 
-        this.productForm.patchValue({
-          idRubro : this.producto.rubro._id,
-          idVendedor : this.producto.idVendedor,
-          nombre : this.producto.nombre,
-          descripcion : this.producto.descripcion,
-          stock : this.producto.stock,
-          precio: this.producto.precio,
-          url : this.producto.url
+          this.productForm.patchValue({
+            idRubro: this.producto.rubro._id,
+            idVendedor: this.producto.idVendedor,
+            nombre: this.producto.nombre,
+            descripcion: this.producto.descripcion,
+            stock: this.producto.stock,
+            precio: this.producto.precio,
+            url: this.producto.url,
+          });
         });
-      });
-    }
-    else{
+    } else {
       this.producto = {
-        _id : '',
-        rubro : this.rubros,
+        _id: "",
+        rubro: this.rubros,
         idVendedor: 0,
-        nombre: '',
-        descripcion : '',
-        stock : 0,
-        cantComprar : 0,
-        precio : 0,
-        url : [ ]
+        nombre: "",
+        descripcion: "",
+        stock: 0,
+        cantComprar: 0,
+        precio: 0,
+        url: [],
       };
-      this.idRubroSeleccionado = 'Seleccione un rubro para su producto';
+      this.idRubroSeleccionado = "Seleccione un rubro para su producto";
     }
   }
   actualizarRubroSeleccionado(): void {
     this.productForm.patchValue({
-      idRubro : this.idRubroSeleccionado
+      idRubro: this.idRubroSeleccionado,
     });
   }
 
@@ -122,7 +121,7 @@ export class SubirProductoComponent implements OnInit {
         }
       }
 
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem("user"));
       const nuevoProducto = {
         nombre: this.productForm.controls.nombre.value,
         rubro,
@@ -134,22 +133,21 @@ export class SubirProductoComponent implements OnInit {
       };
 
       this.service.createProducto(nuevoProducto).subscribe((res: any) => {
-
         this.dialogo
-        .open(DialogoComponent, {
-          data: {
-            mensaje: `¡Se ha cargado el producto exitosamente!`,
-            tipoDialogEliminar: false,
-            tipoDialogAceptar: true
-          }
-        })
-        .afterClosed()
-        .subscribe((confirmado: boolean) => {
-          // cuando ya leyó el cartel y dió click en aceptar, lo redirijo al producto
-          if (confirmado) {
-            this.router.navigate(['rubros/productos/', res._id]);
-          }
-        });
+          .open(DialogoComponent, {
+            data: {
+              mensaje: `¡Se ha cargado el producto exitosamente!`,
+              tipoDialogEliminar: false,
+              tipoDialogAceptar: true,
+            },
+          })
+          .afterClosed()
+          .subscribe((confirmado: boolean) => {
+            // cuando ya leyó el cartel y dió click en aceptar, lo redirijo al producto
+            if (confirmado) {
+              this.router.navigate(["rubros/productos/", res._id]);
+            }
+          });
       });
     });
   }
@@ -160,17 +158,17 @@ export class SubirProductoComponent implements OnInit {
     // subo la imagen:
     this.subirImagenYObtenerURL().then((res) => {
       if (res == null) {
-        alert('No se pudo subir imagen');
+        alert("No se pudo subir imagen");
       } else {
-        for (const elemento of res){
+        for (const elemento of res) {
           this.producto.url.push(elemento.url);
         }
       }
 
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem("user"));
 
       const nuevoProducto = {
-        idProducto : this.route.snapshot.paramMap.get('idProducto'),
+        idProducto: this.route.snapshot.paramMap.get("idProducto"),
         nombre: this.productForm.controls.nombre.value,
         rubro,
         idVendedor: user._id,
@@ -181,25 +179,10 @@ export class SubirProductoComponent implements OnInit {
       };
 
       this.service.editProducto(nuevoProducto).subscribe(() => {
-        this.router.navigate(['rubros/productos/', nuevoProducto.idProducto]);
+        this.router.navigate(["rubros/productos/", nuevoProducto.idProducto]);
       });
     });
   }
 
-  txtAreaTextChanges(input): void  {
-    const txtAreas = Array.from(document.getElementsByClassName(
-      'txt-area'
-    )) as any as HTMLScriptElement[]; // as HTMLCollectionOf<HTMLElement>;
-
-    txtAreas.forEach(e => {
-      const txtAltura = e.scrollHeight + 2;
-      e.style.height = `${txtAltura}px`;
-    });
-
-/*
-    for (let i = 0; i < txtAreas.length; i++) {
-      const txtAltura = txtAreas[i].scrollHeight + 2;
-      txtAreas[i].style.height = `${txtAltura}px`;
-    }*/
-  }
+  
 }
