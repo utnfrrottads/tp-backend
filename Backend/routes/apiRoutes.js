@@ -11,10 +11,12 @@ router.get("/find/:id", (req, res) => {
     }).then(cama => res.send(cama));
   });
 
-// post new cama
+// post new cama //no funciona, arreglar
 router.post("/new", (req, res) => {
+    const body = req.body;
     db.Cama.create({
-      text: req.body.text
+      id: body.id,
+      estado: body.estado
     }).then(submitedCama => res.send(submitedCama));
   });
 

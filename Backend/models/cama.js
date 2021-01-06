@@ -1,13 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
     const Cama = sequelize.define("Cama", {
+      //completar y averiguar como hacer foraneas aca
       id: {
-        primaryKey:true,
+        primaryKey: true,
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
       },
       estado:{
           type: DataTypes.BOOLEAN,
-          allowNull: false
+          allowNull: true
       }
     });
     return Cama;
