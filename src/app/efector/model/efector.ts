@@ -11,10 +11,10 @@ export interface Efector{
     geo: GeoLocation,
     colorMarker: string,
     colorTextoMarker: string,
-    options: any,    
+    options: any,     
 }
  
 export interface GeoLocation{
     lat:number;
     lng:number;
-} 
+}  

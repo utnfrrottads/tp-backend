@@ -8,7 +8,7 @@ import { CamaSummary, CamaMonthly, TipoCama, EstadoCama, Cama } from '../models/
   providedIn: 'root'
 })
 export class CamaService {
-
+  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -44,18 +44,23 @@ export class CamaService {
 
 
   getCamas(): Observable<Cama[]>{ 
-    //return this.httpClient.get<EstadoCama[]>(this.baseUrl);
-    return of([ 
-        //{id: 1, descripcion: 'Hydrogen', estadoCama: {id: 1, descripcion: "ejemplo"}, tipoCama: {id: 1, descripcion: "ejemplo"}},
-        {id: 1, descripcion: 'UTI', estadoCama: "Fuera de linea", tipoCama: "Crítica"}, 
-        {id: 2, descripcion: 'UTI', estadoCama: "Reparacion", tipoCama: "Crítica"}, 
-        {id: 3, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica"}, 
-        {id: 4, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica"}, 
-        {id: 5, descripcion: 'UTI', estadoCama: "Libre", tipoCama: "Crítica"}, 
-        {id: 6, descripcion: 'General', estadoCama: "Potencialmente disponible", tipoCama: "General"}, 
-        {id: 7, descripcion: 'UTI', estadoCama: "Potencialmente disponible", tipoCama: "Crítica"}  , 
-        {id: 8, descripcion: 'General', estadoCama: "Ocupada", tipoCama: "General"}  
-    ]);
+    
+    return this.httpClient.get<any[]>(this.baseUrl+'/api-beds');
+
+    
+    //return this.httpClient.get<Cama[]>(this.baseUrl+'/api-beds');
+
+    // return of([ 
+    //     //{id: 1, descripcion: 'Hydrogen', estadoCama: {id: 1, descripcion: "ejemplo"}, tipoCama: {id: 1, descripcion: "ejemplo"}},
+    //     {id: 1, descripcion: 'UTI', estadoCama: "Fuera de linea", tipoCama: "Crítica", subTipo: "Adulto"}, 
+    //     {id: 2, descripcion: 'UTI', estadoCama: "Reparacion", tipoCama: "Crítica", subTipo: "Adulto"}, 
+    //     {id: 3, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica", subTipo: "Adulto"}, 
+    //     {id: 4, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica", subTipo: "Adulto"}, 
+    //     {id: 5, descripcion: 'UTI', estadoCama: "Libre", tipoCama: "Crítica", subTipo: "Neonatología"}, 
+    //     {id: 6, descripcion: 'General', estadoCama: "Potencialmente disponible", tipoCama: "General", subTipo: "Neonatología"}, 
+    //     {id: 7, descripcion: 'UTI', estadoCama: "Potencialmente disponible", tipoCama: "Crítica", subTipo: "Pediátrico"}  , 
+    //     {id: 8, descripcion: 'General', estadoCama: "Ocupada", tipoCama: "General", subTipo: "Pediátrico"}  
+    // ]);
   }
 
   getTipoCama(): Observable<TipoCama[]>{ 

@@ -1,1 +1,0 @@
-export { beds } from './routes/bed.routes';
