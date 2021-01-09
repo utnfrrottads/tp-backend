@@ -21,16 +21,9 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
-            const beds = [];
-            const bedsSnapshot = await bedRepository.find();
-            bedsSnapshot.forEach((doc) => {
-                beds.push({
-                    id: doc.id,
-                    data: doc
-                });
-            });
+            const bedsSnapshot = await bedRepository.find();            
 
-            res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
+            res.status(200).json({ success: true, camas: bedsSnapshot, msg: "Camas obtenidas con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }

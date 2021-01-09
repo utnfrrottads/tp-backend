@@ -20,17 +20,10 @@ module.exports = {
                 console.log(errors.mapped());
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
+            
+            const hospitalsSnapshot = await hospitalRepository.find();            
 
-            const hospitals = [];
-            const hospitalsSnapshot = await hospitalRepository.find();
-            hospitalsSnapshot.forEach((doc) => {
-                hospitals.push({
-                    id: doc.id,
-                    data: doc
-                });
-            });
-
-            res.status(200).json({ success: true, hospitals: hospitals, msg: "Hospitales obtenidos con éxito" });
+            res.status(200).json({ success: true, hospitals: hospitalsSnapshot, msg: "Hospitales obtenidos con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
