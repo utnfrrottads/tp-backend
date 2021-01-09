@@ -10,12 +10,13 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class CamaComponent implements OnInit {
   public dataCama : Cama[];  
-  dataSource = new MatTableDataSource(this.dataCama); 
+  //dataSource = new MatTableDataSource(this.dataCama); 
   @Input() camaSelected : Cama = {
     id: 0,
     descripcion: '',
     estadoCama: '',
-    tipoCama: ''
+    tipoCama: '',
+    subTipo: ''
   };
 
   constructor(
@@ -26,14 +27,20 @@ export class CamaComponent implements OnInit {
     this.loadCama();
   } 
   loadCama(){
+    console.log('LOAD CAMA');
     this.camaService.getCamas().subscribe({
       next: res =>{
-        this.dataCama = res;
+        console.log('dataCama', res);
+        //this.dataCama = res;
       }
-    })
+    ,
+      error: err =>{
+        console.log('error dataCama', err); 
+      }
+    });
   } 
   setCamaSelected(cama: Cama){
-    console.log('se seteó en cama.component')
+    console.log('se seteó en cama.component');
     this.camaSelected = cama;
     console.log(this.camaSelected);
   }

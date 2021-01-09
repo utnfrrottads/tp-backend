@@ -20,7 +20,7 @@ Podemos citar las siguientes características:
 	Coordenadas
 	Cantidad de camas
 ###Cama:
-	Estado (libre/ocupada/fuera de linea/reparacion/reservada/potencialmente disponible)
+	Estado (libre/ocupada)
 	Tipo de cama (criticas/general)
 	Subtipo(adulto/neonatología/pediátrico)
 ###Ambulancia: 

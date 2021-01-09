@@ -5,6 +5,7 @@ export interface Cama {
     // tipoCama: TipoCama,
     estadoCama: string,
     tipoCama: string,
+    subTipo: string,
 }
 export class CamaSummary {
     title: string;

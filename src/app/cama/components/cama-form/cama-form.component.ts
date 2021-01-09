@@ -17,7 +17,8 @@ export class CamaFormComponent implements OnInit {
     id: 0,
     descripcion: '',
     estadoCama: '',
-    tipoCama: ''
+    tipoCama: '',
+    subTipo: ''
   };
   
   constructor(
