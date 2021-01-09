@@ -5,7 +5,10 @@ import { Collection } from 'fireorm';
 @Collection()
 export class Bed {
     id: string;
+    description: string;
     status: string;
+    type: string;
+    subtype: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
 };

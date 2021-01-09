@@ -11,8 +11,11 @@ fireorm.initialize(db);
 
 export const app = express();
 
-// support json encoded bodies
-app.use(bodyParser.json()); 
-// support encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); 
+// Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
+
+// support json encoded bodies
+app.use(bodyParser.json());
+
+// support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
