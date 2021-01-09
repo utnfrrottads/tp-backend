@@ -43,11 +43,9 @@ export class CamaService {
   }
 
 
-  getCamas(): Observable<Cama[]>{ 
+  getCamas(): Observable<any[]>{ 
     
-    return this.httpClient.get<any[]>(this.baseUrl+'/api-beds');
-
-    
+    return this.httpClient.get<any[]>(this.baseUrl+'/api-beds', { responseType: 'json' }); 
     //return this.httpClient.get<Cama[]>(this.baseUrl+'/api-beds');
 
     // return of([ 

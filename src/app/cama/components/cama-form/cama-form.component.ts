@@ -59,14 +59,14 @@ export class CamaFormComponent implements OnInit {
     });  
   }
   loadCamaSelected(){
-    console.log('load cama selected') ;
-    if (this.camaSelected !== undefined && this.camaSelected.id !== null) {
-      this.camaForm.patchValue({ 
-        id: this.camaSelected.id,
-        descripcion: this.camaSelected.descripcion, 
-        tipoCama: this.camaSelected.tipoCama,
-        estadoCama: this.camaSelected.estadoCama
-      })
-    }
+    // console.log('load cama selected') ;
+    // if (this.camaSelected !== undefined && this.camaSelected.id !== null) {
+    //   this.camaForm.patchValue({ 
+    //     id: this.camaSelected.id,
+    //     descripcion: this.camaSelected.descripcion, 
+    //     tipoCama: this.camaSelected.tipoCama,
+    //     estadoCama: this.camaSelected.estadoCama
+    //   })
+    // }
   }
 }
