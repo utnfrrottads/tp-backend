@@ -49,7 +49,7 @@ module.exports = {
                 description: req.body.description,
                 status: req.body.status,
                 type: req.body.type,
-                subType: req.body.subType,
+                subtype: req.body.subtype,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
                 createdAt: admin.firestore.FieldValue.serverTimestamp(),
             }
@@ -92,7 +92,7 @@ module.exports = {
                 description: req.body.description ?? bed.description,
                 status: req.body.status ?? bed.status,
                 type: req.body.type ?? bed.type,
-                subType: req.body.subType ?? bed.subType,
+                subtype: req.body.subtype ?? bed.subtype,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
             }
 

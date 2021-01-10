@@ -3,7 +3,7 @@ export interface Bed {
     description: string,
     status: string,
     type: string,
-    subType: string,
+    subtype: string,
 }
 export interface BedResult {
     camas: Bed[],  // TODO : cambiar por beds

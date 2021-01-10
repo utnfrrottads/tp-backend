@@ -16,7 +16,7 @@ export class CamaComponent implements OnInit {
     description: '',
     status: '',
     type: '',
-    subType: ''
+    subtype: ''
   };
 
   constructor(

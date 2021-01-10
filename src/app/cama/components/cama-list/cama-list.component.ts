@@ -10,7 +10,7 @@ import { Bed } from '../../models/bed'
 export class CamaListComponent implements OnInit { 
   @Input() dataBed: Bed[];   
   @Output() bedSelected = new EventEmitter();
-  displayedColumns: string[] = ['id', 'description', 'status', 'type', 'subType', 'actions'];
+  displayedColumns: string[] = ['id', 'description', 'status', 'type', 'subtype', 'actions'];
 
   constructor() { }
 

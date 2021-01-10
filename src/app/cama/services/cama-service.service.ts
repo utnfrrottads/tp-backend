@@ -48,17 +48,18 @@ export class CamaService {
   }
   createBed(bed: Bed): Observable<BedResult>{    
     const body: any = {
-      status: bed.status,
-      description: bed.description,
-      subType: bed.subType,
-      type: bed.type
+      // status: bed.status,
+      // description: bed.description,
+      // subType: bed.subType,
+      // type: bed.type
+      /////bed: 
     };
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<BedResult>(
       this.baseUrl+'/api-beds/createBed',
-      body,
+      bed,
       httpOptions);
   }
   

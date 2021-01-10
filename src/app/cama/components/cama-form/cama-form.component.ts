@@ -19,7 +19,7 @@ export class CamaFormComponent implements OnInit {
     description: '',
     status: '',
     type: '',
-    subType: ''
+    subtype: ''
   };
   
   constructor(
@@ -41,7 +41,7 @@ export class CamaFormComponent implements OnInit {
       description: new FormControl('', [Validators.required]), 
       status: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]) ,
-      subType: new FormControl('', [Validators.required])
+      subtype: new FormControl('', [Validators.required])
     }); 
   }
   loadTipoCama(){
@@ -72,7 +72,7 @@ export class CamaFormComponent implements OnInit {
         id: this.bedSelected.id,
         description: this.bedSelected.description, 
         type: this.bedSelected.type,
-        subType: this.bedSelected.subType,
+        subtype: this.bedSelected.subtype,
         status: this.bedSelected.status
       })
     }
