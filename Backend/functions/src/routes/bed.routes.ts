@@ -14,33 +14,42 @@ bed.use(cors({ origin: true }));
 bed.get('/', BedsController.getAllBeds);
 
 /**
-* `CREATES` a bed.
+* `CREATES` a bed by idHospital and adds it as a subcollection.
 */
-bed.post('/createBed', [
+bed.post('/createBedByIdHospital/:id', [
+  param('id').not().isEmpty().withMessage('El campo id es requerido'),
+  param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
+  param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
   check('status').not().isEmpty().withMessage('El campo status es requerido'),
   check('type').not().isEmpty().withMessage('El campo type es requerido'),
   check('subtype').not().isEmpty().withMessage('El campo subtype es requerido'),
   check('description').not().isEmpty().withMessage('El campo description es requerido'),
   sanitizeBody(['status', 'type', 'subtype', 'description']).trim(),
-], BedsController.createBed);
+], BedsController.createBedByIdHospital);
 
 /**
-* `UPDATES` a bed by ID.
+* `UPDATES` a bed by idHospital and idBed.
 */
-bed.put('/updateBedById/:id', [
-  param('id').not().isEmpty().withMessage('El campo id es requerido'),
-  param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
-  param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
+bed.put('/updatebyIds/:idHospital/:idBed', [
+  param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+  param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+  param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+  param('idBed').not().isEmpty().withMessage('El campo idBed es requerido'),
+  param('idBed').isLength({ min: 20, max: 20 }).withMessage('El idBed debe tener 20 caracteres'),
+  param('idBed').isAlphanumeric().withMessage('El idBed debe ser alfanumérico'),
   sanitizeBody(['status', 'type', 'subtype', 'description']).trim(),
-], BedsController.updateBedById);
+], BedsController.updatebyIds);
 
 /**
-* `DELETES` a bed by ID.
+* `DELETES` a bed by idHospital and idBed.
 */
-bed.delete('/deleteBedById/:id', [
-  param('id').not().isEmpty().withMessage('El campo id es requerido'),
-  param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
-  param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
-], BedsController.deleteBedById);
+bed.delete('/deleteBedByIds/:idHospital/:idBed', [
+  param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+  param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+  param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+  param('idBed').not().isEmpty().withMessage('El campo idBed es requerido'),
+  param('idBed').isLength({ min: 20, max: 20 }).withMessage('El idBed debe tener 20 caracteres'),
+  param('idBed').isAlphanumeric().withMessage('El idBed debe ser alfanumérico'),
+], BedsController.deleteBedByIds);
 
 export const beds = functions.https.onRequest(bed);

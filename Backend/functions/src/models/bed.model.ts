@@ -5,6 +5,7 @@ import { Collection } from 'fireorm';
 @Collection()
 export class Bed {
     id: string;
+    idHospital: string;
     description: string;
     status: string;
     type: string;

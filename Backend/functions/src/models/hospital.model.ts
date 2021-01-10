@@ -1,8 +1,9 @@
 import * as admin from 'firebase-admin';
 type Timestamp = admin.firestore.Timestamp;
 type Geopoint = admin.firestore.GeoPoint;
-import { Collection } from 'fireorm';
- 
+import { Collection, SubCollection, ISubCollection } from 'fireorm';
+import { Bed } from './bed.model';
+
 @Collection()
 export class Hospital {
     id: string;
@@ -12,6 +13,9 @@ export class Hospital {
     phone: string;
     location: Geopoint;
     atentionLevel: string;
-    createdAt?:	Timestamp;
-    updatedAt?:	Timestamp;		
+    createdAt?: Timestamp;
+    updatedAt?: Timestamp;
+
+    @SubCollection(Bed)
+    beds?: ISubCollection<Bed>;
 };

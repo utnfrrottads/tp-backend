@@ -20,8 +20,8 @@ module.exports = {
                 console.log(errors.mapped());
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
-            
-            const hospitalsSnapshot = await hospitalRepository.find();            
+
+            const hospitalsSnapshot = await hospitalRepository.find();
 
             res.status(200).json({ success: true, hospitals: hospitalsSnapshot, msg: "Hospitales obtenidos con éxito" });
         } catch (e) {

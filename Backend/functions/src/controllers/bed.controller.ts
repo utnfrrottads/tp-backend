@@ -1,10 +1,11 @@
 
-import '../http';
+import { db } from '../http';
 import { Bed } from '../models/bed.model';
+import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
 import { validationResult } from 'express-validator/check';
 const admin = require('firebase-admin');
-const bedRepository = getRepository(Bed);
+const hospitalRepository = getRepository(Hospital);
 
 module.exports = {
     /**
@@ -21,27 +22,50 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
-            const bedsSnapshot = await bedRepository.find();            
+            const beds = [];
 
-            res.status(200).json({ success: true, camas: bedsSnapshot, msg: "Camas obtenidas con éxito" });
+            const bedsSnapshot = await db.collectionGroup('beds').get();
+            bedsSnapshot.docs.forEach(element => {
+                const bed: Bed = {
+                    id: element.data()["id"],
+                    description: element.data()["description"],
+                    status: element.data()["status"],
+                    subtype: element.data()["subtype"],
+                    type: element.data()["type"],
+                    idHospital: element.data()["idHospital"],
+                    createdAt: element.data()["createdAt"].toDate(),
+                    updatedAt: element.data()["updatedAt"].toDate(),
+                }
+                beds.push(bed);
+            });
+
+            res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
     },
     /**
-    * `CREATES` a bed.
+    * `CREATES` a bed by hospital ID and adds it as a subcollection.
     *
+    * @param id - Id of the hospital that will create a bed
     * @body Json with required fields to create a bed
     * 
     * @returns The created bed
     */
-    createBed: async (req, res, next) => {
+    createBedByIdHospital: async (req, res, next) => {
         try {
             // Checks if there's errors on the body
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 console.log(errors.mapped());
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+            const id = req.params.id;
+
+            const hospital = await hospitalRepository.findById(id);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
             }
 
             const bed: Bed = {
@@ -50,11 +74,12 @@ module.exports = {
                 status: req.body.status,
                 type: req.body.type,
                 subtype: req.body.subtype,
+                idHospital: hospital.id,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
                 createdAt: admin.firestore.FieldValue.serverTimestamp(),
             }
 
-            const bedCreated = await bedRepository.create(bed);
+            const bedCreated = await hospital.beds.create(bed);
 
             res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
         } catch (e) {
@@ -62,14 +87,15 @@ module.exports = {
         }
     },
     /**
-    * `UPDATES` a bed by ID.
+    * `UPDATES` a bed by idHospital and idBed.
     *
     * @body Json with fields to update a bed
-    * @param id - Id of the bed that will be updated
+    * @param idHospital - Id of the hospital that will update a bed
+    * @param idBed - Id of the bed that will be updated
     * 
     * @returns The updated bed
     */
-    updateBedById: async (req, res, next) => {
+    updatebyIds: async (req, res, next) => {
         try {
             // Checks if there's errors on the body
             const errors = validationResult(req);
@@ -78,9 +104,15 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
-            const id = req.params.id;
+            const idHospital = req.params.idHospital;
+            const idBed = req.params.idBed;
+            const hospital = await hospitalRepository.findById(idHospital);
 
-            const bed = await bedRepository.findById(id);
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const bed = await hospital.beds.findById(idBed);
 
             if (bed === null) {
                 return res.status(404).json({ success: false, msg: "No se encontró una cama con ese ID" });
@@ -88,6 +120,7 @@ module.exports = {
 
             const bedToUpdate: Bed = {
                 id: bed.id,
+                idHospital: req.body.idHospital ?? bed.idHospital,
                 description: req.body.description ?? bed.description,
                 status: req.body.status ?? bed.status,
                 type: req.body.type ?? bed.type,
@@ -95,7 +128,7 @@ module.exports = {
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
             }
 
-            const bedUpdated = await bedRepository.update(bedToUpdate);
+            const bedUpdated = await hospital.beds.update(bedToUpdate);
 
             res.status(200).json({ success: true, cama: bedUpdated, msg: "Cama actualizada con éxito" });
         } catch (e) {
@@ -103,13 +136,14 @@ module.exports = {
         }
     },
     /**
-    * `DELETES` a bed by ID.
+    * `DELETES` a bed by idHospital and idBed.
     *
-    * @param id - Id of the bed that will be deleted
+    * @param idHospital - Id of the hospital that will delete a bed
+    * @param idBed - Id of the bed that will be deleted
     * 
     * @returns The success message
     */
-    deleteBedById: async (req, res, next) => {
+    deleteBedByIds: async (req, res, next) => {
         try {
             // Checks if there's errors on the body
             const errors = validationResult(req);
@@ -118,14 +152,21 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
-            const id = req.params.id;
-            const bed = await bedRepository.findById(id);
+            const idHospital = req.params.idHospital;
+            const idBed = req.params.idBed;
+            const hospital = await hospitalRepository.findById(idHospital);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const bed = await hospital.beds.findById(idBed);
 
             if (bed === null) {
                 return res.status(404).json({ success: false, msg: "No se encontró una cama con ese ID" });
             }
 
-            await bedRepository.delete(id);
+            await hospital.beds.delete(idBed);
             return res.status(200).json({ success: true, msg: "Cama eliminada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
