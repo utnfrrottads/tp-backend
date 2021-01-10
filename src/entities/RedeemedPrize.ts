@@ -16,6 +16,6 @@ export class RedeemedPrize {
     @ManyToOne(type => Client, client => client.card)
     client?: Client;
 
-    @OneToMany(type => Prize, prize => prize.redeemedPrizes)
+    @ManyToOne(type => Prize)
     prize?: Prize;
 }

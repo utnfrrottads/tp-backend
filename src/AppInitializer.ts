@@ -27,18 +27,13 @@ export default class AppInitializer {
       password: process.env["DB_PASSWORD"],
       database: process.env["DB_DATABASE"],
       synchronize: true,
-      entities: [Client, Card],
+      entities: [__dirname + "/entities/*.js"],
     };
     try {
       this.connection = await createConnection(options);
       const port = parseInt(process.env["APP_PORT"]!) || 4444;
 
       this.app.use(bodyParser.json({ limit: "500kb" }));
-
-      const contactController = new ContactController();
-      const userController = new UserController();
-      //this.app.use("/v1/contacts", contactController.router);
-      //this.app.use("/v1/users", userController.router);
 
       this.app.use(errorHandler);
 

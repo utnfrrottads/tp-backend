@@ -11,7 +11,4 @@ export class Product {
 
     @Column()
     price?: number;
-
-    @OneToMany(type => PurchaseItem, purchaseItem => purchaseItem.product)
-    purchaseItems?: PurchaseItem[];
 }

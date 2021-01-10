@@ -24,7 +24,7 @@ export class Client {
     birthdate?: Date;
 
     @Column()
-    gender?: string;
+    gender?: "male"|"female";
 
     @Column()
     points?: number;
@@ -33,7 +33,7 @@ export class Client {
     card?: Card;
 
     @OneToMany(type => RedeemedPrize, redeemedPrize => redeemedPrize.client)
-    redemedPrizes?: RedeemedPrize[];
+    redeemedPrizes?: RedeemedPrize[];
 
     @OneToMany(type => Purchase, purchase => purchase.client)
     purchases?: Purchase[];

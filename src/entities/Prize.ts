@@ -11,7 +11,4 @@ export class Prize {
 
     @Column()
     pointPrice?: number;
-
-    @OneToMany(type => RedeemedPrize, redeemedPrize => redeemedPrize.prize)
-    redeemedPrizes?: RedeemedPrize;
 }

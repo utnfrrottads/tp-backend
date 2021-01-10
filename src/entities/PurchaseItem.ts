@@ -13,6 +13,6 @@ export class PurchaseItem {
     @ManyToOne(type => Purchase, purchase => purchase.purchaseItems)
     purchase?: Purchase;
 
-    @ManyToOne(type => Product, product => product.purchaseItems)
+    @ManyToOne(type=>Product)
     product?: Product;
 }
