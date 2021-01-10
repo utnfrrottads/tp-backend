@@ -2,8 +2,10 @@ import '../http';
 import { HealthInsurance } from '../models/healthInsurance.model';
 import { getRepository } from 'fireorm';
 import { validationResult } from 'express-validator/check';
+import { Hospital } from '../models/hospital.model';
 const admin = require('firebase-admin');
 const healthInsuranceRepository = getRepository(HealthInsurance);
+const hospitalRepository = getRepository(Hospital);
 
 module.exports = {
     /**
@@ -55,6 +57,51 @@ module.exports = {
             const healthInsuranceCreated = await healthInsuranceRepository.create(healthInsurance);
 
             res.status(200).json({ success: true, HealthInsurance: healthInsuranceCreated, msg: "Obra social creada con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `ADDS` an AffiliatedHealthInsurance.
+    *
+    * @param idHospital - Id of the hospital that will add a HealthInsurance
+    * @param idHealthInsurance - Id of the HealthInsurance that will be added
+    * 
+    * @returns The created AffiliatedHealthInsurance
+    */
+    addToHospitalByIds: async (req, res, next) => {
+        try {
+            // Checks if there's errors on the body
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log(errors.mapped());
+                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+
+            const idHospital = req.params.idHospital;
+            const idHealthInsurance = req.params.idHealthInsurance;
+            const hospital = await hospitalRepository.findById(idHospital);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const healthInsurance = await healthInsuranceRepository.findById(idHealthInsurance);
+
+            if (healthInsurance === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una obra social con ese ID" });
+            }
+
+            const healthInsuranceToAdd: HealthInsurance = {
+                id: healthInsurance.id,
+                fantasyName: healthInsurance.fantasyName,
+                legalName: healthInsurance.legalName,
+                phone: healthInsurance.phone
+            }
+
+            const healthInsuranceAdded = await hospital.healthInsurances.create(healthInsuranceToAdd);
+
+            res.status(200).json({ success: true, obraSocial: healthInsuranceAdded, msg: "Obra social agregada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }

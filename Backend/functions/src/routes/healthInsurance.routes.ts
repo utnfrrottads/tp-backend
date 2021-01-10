@@ -23,6 +23,18 @@ healthInsurance.post('/createHealthInsurance', [
 ], HealthInsurancesController.createHealthInsurance);
 
 /**
+* `ADDS` an AffiliatedHealthInsurance.
+*/
+healthInsurance.post('/addToHospitalByIds/:idHospital/:idHealthInsurance', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+    param('idHealthInsurance').not().isEmpty().withMessage('El campo idHealthInsurance es requerido'),
+    param('idHealthInsurance').isLength({ min: 20, max: 20 }).withMessage('El idHealthInsurance debe tener 20 caracteres'),
+    param('idHealthInsurance').isAlphanumeric().withMessage('El idHealthInsurance debe ser alfanumérico'),
+], HealthInsurancesController.addToHospitalByIds);
+
+/**
 * `UPDATES` a HealthInsurance by ID.
 */
 healthInsurance.put('/updateHealthInsuranceById/:id', [
