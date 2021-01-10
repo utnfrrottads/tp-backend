@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Client } from './Client';
 
@@ -6,6 +7,7 @@ export class Card {
     @PrimaryGeneratedColumn()
     id?: number;
 
+    @Type(() => Date)
     @Column()
     creationDate?: Date;
 
