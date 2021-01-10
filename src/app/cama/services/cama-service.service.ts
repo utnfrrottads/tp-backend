@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { CamaSummary, CamaMonthly, TipoCama, EstadoCama, Cama } from '../models/cama';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CamaSummary, CamaMonthly, BedType, BedStatus, Bed, BedResult, BedSubType } from '../models/bed';
 
 
 @Injectable({
@@ -43,42 +43,74 @@ export class CamaService {
   }
 
 
-  getCamas(): Observable<Cama[]>{ 
-    
-    return this.httpClient.get<any[]>(this.baseUrl+'/api-beds');
-
-    
-    //return this.httpClient.get<Cama[]>(this.baseUrl+'/api-beds');
-
-    // return of([ 
-    //     //{id: 1, descripcion: 'Hydrogen', estadoCama: {id: 1, descripcion: "ejemplo"}, tipoCama: {id: 1, descripcion: "ejemplo"}},
-    //     {id: 1, descripcion: 'UTI', estadoCama: "Fuera de linea", tipoCama: "Crítica", subTipo: "Adulto"}, 
-    //     {id: 2, descripcion: 'UTI', estadoCama: "Reparacion", tipoCama: "Crítica", subTipo: "Adulto"}, 
-    //     {id: 3, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica", subTipo: "Adulto"}, 
-    //     {id: 4, descripcion: 'UTI', estadoCama: "Reservada", tipoCama: "Crítica", subTipo: "Adulto"}, 
-    //     {id: 5, descripcion: 'UTI', estadoCama: "Libre", tipoCama: "Crítica", subTipo: "Neonatología"}, 
-    //     {id: 6, descripcion: 'General', estadoCama: "Potencialmente disponible", tipoCama: "General", subTipo: "Neonatología"}, 
-    //     {id: 7, descripcion: 'UTI', estadoCama: "Potencialmente disponible", tipoCama: "Crítica", subTipo: "Pediátrico"}  , 
-    //     {id: 8, descripcion: 'General', estadoCama: "Ocupada", tipoCama: "General", subTipo: "Pediátrico"}  
-    // ]);
+  getCamas(): Observable<BedResult>{ 
+    return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
   }
+  createBed(bed: Bed): Observable<BedResult>{    
+    const body: any = {
+      // status: bed.status,
+      // description: bed.description,
+      // subType: bed.subType,
+      // type: bed.type
+      /////bed: 
+    };
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.httpClient.post<BedResult>(
+      this.baseUrl+'/api-beds/createBed',
+      bed,
+      httpOptions);
+  }
+  
+  updateCamasById(): Observable<BedResult>{    
+    return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
+  }
+  deleteBedById(): Observable<BedResult>{    
+    return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
+  }
+  // bed.post('/createBed', [
+  // bed.put('/updateBedById/:id', [
+  // bed.delete('/deleteBedById/:id', [
 
-  getTipoCama(): Observable<TipoCama[]>{ 
+    // arriesgaLetra(letra: string): Observable<Resultado> {
+    //   const body: any = {
+    //     Letra: letra
+    //   };
+    //   const httpOptions = {
+    //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    //   };
+    //   return this.http.post<Resultado>(
+    //     this.baseUrl + 'arriesgaLetra'
+    //     , body
+    //     , httpOptions
+    //   );
+    // }
+
+  getTipoCama(): Observable<BedType[]>{ 
     //return this.httpClient.get<TipoCama[]>(this.baseUrl);
     return of([
-      {"id": 1,"descripcion": "Crítica" },
-      {"id": 2,"descripcion": "General" }
+      {"id": 1,"description": "Crítica" },
+      {"id": 2,"description": "General" }
     ]);
   }
-  getEstadoCama(): Observable<EstadoCama[]>{ 
+  getSubTipoCama(): Observable<BedSubType[]>{ 
+    //return this.httpClient.get<TipoCama[]>(this.baseUrl);
+    return of([
+      {"id": 1,"description": "Adulto" },
+      {"id": 2,"description": "Neonatología" },
+      {"id": 3,"description": "Pediátrico" },
+    ]);
+  }
+  getEstadoCama(): Observable<BedStatus[]>{ 
     //return this.httpClient.get<EstadoCama[]>(this.baseUrl);
     return of([
-      {"id": 1,"descripcion": "Libre" },
-      {"id": 2,"descripcion": "Ocupada" },
-      {"id": 3,"descripcion": "Fuera de linea" },
-      {"id": 4,"descripcion": "Reparacion" },
-      {"id": 5,"descripcion": "Reservada" },
-      {"id": 6,"descripcion": "Potencialmente disponible" }
+      {"id": 1,"description": "Libre" },
+      {"id": 2,"description": "Ocupada" },
+      {"id": 3,"description": "Fuera de linea" },
+      {"id": 4,"description": "Reparacion" },
+      {"id": 5,"description": "Reservada" },
+      {"id": 6,"description": "Potencialmente disponible" }
     ]);
   } 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CamaService } from '../../services/cama-service.service';
-import { TipoCama, EstadoCama, Cama } from '../../models/cama';
+import { BedType, BedStatus, Bed, BedSubType } from '../../models/bed';
 
 @Component({
   selector: 'app-cama-form',
@@ -10,15 +10,16 @@ import { TipoCama, EstadoCama, Cama } from '../../models/cama';
 })
 export class CamaFormComponent implements OnInit {
 
-  camaForm: FormGroup;
-  dataTipoCama: TipoCama[];
-  dataEstadoCama: EstadoCama[];
-  @Input() camaSelected: Cama =  {
-    id: 0,
-    descripcion: '',
-    estadoCama: '',
-    tipoCama: '',
-    subTipo: ''
+  bedForm: FormGroup;
+  dataBedType: BedType[];
+  dataBedSubType: BedSubType[];
+  dataBedStatus: BedStatus[];
+  @Input() bedSelected: Bed =  {
+    id: '',
+    description: '',
+    status: '',
+    type: '',
+    subtype: ''
   };
   
   constructor(
@@ -28,45 +29,65 @@ export class CamaFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.loadTipoCama();
+    this.loadSubTipoCama();
     this.loadEstadoCama();
   }
   ngOnChanges(){ 
     this.loadCamaSelected();
   }
-  onSubmit(){
-    console.log(this.camaForm.value);
-  }
   initForm(){
-    this.camaForm = new FormGroup({
-      id: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', [Validators.required]), 
-      tipoCama: new FormControl('', [Validators.required]) ,
-      estadoCama: new FormControl('', [Validators.required])
+    this.bedForm = new FormGroup({
+      id: new FormControl(''),
+      description: new FormControl('', [Validators.required]), 
+      status: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]) ,
+      subtype: new FormControl('', [Validators.required])
     }); 
   }
   loadTipoCama(){
     this.camaService.getTipoCama().subscribe({
       next: res => {
-      this.dataTipoCama = res;
-      }, 
+      this.dataBedType = res;
+      },
+    });  
+  }
+  loadSubTipoCama(){
+    this.camaService.getSubTipoCama().subscribe({
+      next: res => {
+      this.dataBedSubType = res;
+      },
     });  
   }
   loadEstadoCama(){
     this.camaService.getEstadoCama().subscribe({
       next: res => {
-      this.dataEstadoCama = res;
+      this.dataBedStatus = res;
       }, 
     });  
   }
   loadCamaSelected(){
     console.log('load cama selected') ;
-    if (this.camaSelected !== undefined && this.camaSelected.id !== null) {
-      this.camaForm.patchValue({ 
-        id: this.camaSelected.id,
-        descripcion: this.camaSelected.descripcion, 
-        tipoCama: this.camaSelected.tipoCama,
-        estadoCama: this.camaSelected.estadoCama
+    if (this.bedSelected !== undefined && this.bedSelected.id !== null) {
+      this.bedForm.patchValue({ 
+        id: this.bedSelected.id,
+        description: this.bedSelected.description, 
+        type: this.bedSelected.type,
+        subtype: this.bedSelected.subtype,
+        status: this.bedSelected.status
       })
     }
+  }
+  onSubmit(){
+    this.createBed();
+  }
+  createBed(){
+    console.log(this.bedForm.value);
+    
+    this.camaService.createBed(this.bedForm.value).subscribe({
+      next: res => {
+      //this.data = res;
+      console.log('resultado del guardado', res);
+      },
+    });
   }
 }

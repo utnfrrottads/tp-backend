@@ -81,7 +81,8 @@ module.exports = {
 
             const bedCreated = await hospital.beds.create(bed);
 
-            res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
+            //res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
+            res.status(200).json({ success: true, bed: bedCreated, msg: "Cama creada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
@@ -130,7 +131,8 @@ module.exports = {
 
             const bedUpdated = await hospital.beds.update(bedToUpdate);
 
-            res.status(200).json({ success: true, cama: bedUpdated, msg: "Cama actualizada con éxito" });
+            // res.status(200).json({ success: true, cama: bedUpdated, msg: "Cama actualizada con éxito" });
+            res.status(200).json({ success: true, bed: bedUpdated, msg: "Cama actualizada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }

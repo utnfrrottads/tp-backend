@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { CamaSummary } from 'src/app/cama/models/cama';
+import { CamaSummary } from 'src/app/cama/models/bed';
 import { CamaService } from 'src/app/cama/services/cama-service.service';
 
 @Component({

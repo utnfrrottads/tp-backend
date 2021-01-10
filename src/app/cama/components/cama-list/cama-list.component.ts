@@ -1,6 +1,6 @@
  
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Cama } from '../../models/cama'
+import { Bed } from '../../models/bed'
  
 @Component({
   selector: 'app-cama-list',
@@ -8,20 +8,20 @@ import { Cama } from '../../models/cama'
   styleUrls: ['./cama-list.component.sass']
 })
 export class CamaListComponent implements OnInit { 
-  @Input() dataCama: Cama[];   
-  @Output() camaSelected = new EventEmitter();
-  displayedColumns: string[] = ['id', 'descripcion', 'estadoCama', 'tipoCama', 'actions'];
+  @Input() dataBed: Bed[];   
+  @Output() bedSelected = new EventEmitter();
+  displayedColumns: string[] = ['id', 'description', 'status', 'type', 'subtype', 'actions'];
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.dataCama);
+    //console.log(this.dataCama);
   }
-  editCama(cama: Cama){
+  editCama(bed: Bed){
     console.log('se emitió');
-    this.camaSelected.emit(cama);
+    this.bedSelected.emit(bed);
   }
-  deleteCama(cama: Cama){
+  deleteCama(cama: Bed){
     console.log('cama eliminada'); // to do
   }
 }
