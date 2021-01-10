@@ -50,7 +50,7 @@ export class CamaService {
     const body: any = {
       status: bed.status,
       description: bed.description,
-      subtype: bed.subType,
+      subType: bed.subType,
       type: bed.type
     };
     const httpOptions = {

@@ -21,6 +21,7 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
+<<<<<<< HEAD
             const beds = [];
             const bedsSnapshot = await bedRepository.find();
             bedsSnapshot.forEach((doc) => {
@@ -32,6 +33,11 @@ module.exports = {
 
             //res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
             res.status(200).json({ success: true, beds: beds, msg: "Camas obtenidas con éxito" });
+=======
+            const bedsSnapshot = await bedRepository.find();            
+
+            res.status(200).json({ success: true, camas: bedsSnapshot, msg: "Camas obtenidas con éxito" });
+>>>>>>> 587205e8e890cf8d7703aad758000b0901127584
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
@@ -52,10 +58,16 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
-            const bed = new Bed();
-            bed.status = req.body.status;
-            bed.updatedAt = admin.firestore.FieldValue.serverTimestamp();
-            bed.createdAt = admin.firestore.FieldValue.serverTimestamp();
+            const bed: Bed = {
+                id: "",
+                description: req.body.description,
+                status: req.body.status,
+                type: req.body.type,
+                subtype: req.body.subtype,
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            }
+
             const bedCreated = await bedRepository.create(bed);
 
             //res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
@@ -89,10 +101,16 @@ module.exports = {
                 return res.status(404).json({ success: false, msg: "No se encontró una cama con ese ID" });
             }
 
-            bed.status = req.body.status;
-            bed.updatedAt = admin.firestore.FieldValue.serverTimestamp();
+            const bedToUpdate: Bed = {
+                id: bed.id,
+                description: req.body.description ?? bed.description,
+                status: req.body.status ?? bed.status,
+                type: req.body.type ?? bed.type,
+                subtype: req.body.subtype ?? bed.subtype,
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            }
 
-            const bedUpdated = await bedRepository.update(bed);
+            const bedUpdated = await bedRepository.update(bedToUpdate);
 
             // res.status(200).json({ success: true, cama: bedUpdated, msg: "Cama actualizada con éxito" });
             res.status(200).json({ success: true, bed: bedUpdated, msg: "Cama actualizada con éxito" });
