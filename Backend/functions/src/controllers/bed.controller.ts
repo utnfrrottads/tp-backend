@@ -30,7 +30,8 @@ module.exports = {
                 });
             });
 
-            res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
+            //res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
+            res.status(200).json({ success: true, beds: beds, msg: "Camas obtenidas con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
@@ -57,7 +58,8 @@ module.exports = {
             bed.createdAt = admin.firestore.FieldValue.serverTimestamp();
             const bedCreated = await bedRepository.create(bed);
 
-            res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
+            //res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
+            res.status(200).json({ success: true, bed: bedCreated, msg: "Cama creada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
@@ -92,7 +94,8 @@ module.exports = {
 
             const bedUpdated = await bedRepository.update(bed);
 
-            res.status(200).json({ success: true, cama: bedUpdated, msg: "Cama actualizada con éxito" });
+            // res.status(200).json({ success: true, cama: bedUpdated, msg: "Cama actualizada con éxito" });
+            res.status(200).json({ success: true, bed: bedUpdated, msg: "Cama actualizada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }

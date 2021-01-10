@@ -30,3 +30,12 @@ Podemos citar las siguientes características:
 	Complejidad o estado (critico, leve, reservado)
 	Obra social	
 	
+###Niveles de atención (ejemplos):
+	1-Centro de salud, la persona puede asistir por su cuenta
+	2-Hospital Carrasco
+	3-EVa perón, HECA
+
+###Tipo auxilio:
+	Rojo: atencion inmediata
+	Urgencia 
+	Consulta

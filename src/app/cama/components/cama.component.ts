@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CamaService } from '../services/cama-service.service';
-import { Cama } from '../models/cama';
+import { Bed } from '../models/bed';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -9,14 +9,14 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./cama.component.sass']
 })
 export class CamaComponent implements OnInit {
-  public dataCama : Cama[];  
+  public dataBed : Bed[];  
   //dataSource = new MatTableDataSource(this.dataCama); 
-  @Input() camaSelected : Cama = {
-    id: 0,
-    descripcion: '',
-    estadoCama: '',
-    tipoCama: '',
-    subTipo: ''
+  bedSelected : Bed = {
+    id: '',
+    description: '',
+    status: '',
+    type: '',
+    subType: ''
   };
 
   constructor(
@@ -24,24 +24,26 @@ export class CamaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadCama();
+    this.loadCamas();
   } 
-  loadCama(){
+  loadCamas(){
     console.log('LOAD CAMA');
     this.camaService.getCamas().subscribe({
       next: res =>{
-        console.log('dataCama', res);
-        //this.dataCama = res;
-      }
-    ,
+        console.log('res', res);
+        console.log('res.camas', res.camas); 
+        console.log('res.camas.values', res.camas.values); 
+        this.dataBed = res.camas;
+      
+      },
       error: err =>{
         console.log('error dataCama', err); 
       }
     });
   } 
-  setCamaSelected(cama: Cama){
+  setCamaSelected(bed: Bed){
     console.log('se seteó en cama.component');
-    this.camaSelected = cama;
-    console.log(this.camaSelected);
+    this.bedSelected = bed;
+    console.log(this.bedSelected);
   }
 } 

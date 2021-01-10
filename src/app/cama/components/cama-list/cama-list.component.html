@@ -1,36 +1,42 @@
+ {{ dataBed | json }} 
 <h2>
     Listado de camas 
 </h2>
-
-<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataCama">
+ 
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataBed">
 
   <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-      <mat-cell *matCellDef="let cama">{{cama.id}}</mat-cell>
+      <mat-cell *matCellDef="let bed">{{bed.id}}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="descripcion">
+  <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
-      <mat-cell *matCellDef="let cama">{{cama.descripcion}}</mat-cell>
+      <mat-cell *matCellDef="let bed">{{bed.description}}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="estadoCama">
+  <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
-      <mat-cell *matCellDef="let cama">{{cama.estadoCama}}</mat-cell>
+      <mat-cell *matCellDef="let bed">{{bed.status}}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="tipoCama">
+  <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
-    <mat-cell *matCellDef="let cama">{{cama.tipoCama}}</mat-cell>
+    <mat-cell *matCellDef="let bed">{{bed.type}}</mat-cell>
   </ng-container>
   
+  <ng-container matColumnDef="subType">
+    <mat-header-cell *matHeaderCellDef>Sub Tipo</mat-header-cell>
+    <mat-cell *matCellDef="let bed">{{bed.subType}}</mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>   
-    <td mat-cell *matCellDef="let cama"> 
-      <button mat-mini-fab color="accent" (click)="editCama(cama)">
+    <td mat-cell *matCellDef="let bed"> 
+      <button mat-mini-fab color="accent" (click)="editCama(bed)">
         <mat-icon>edit</mat-icon>
       </button>  
-      <button mat-mini-fab color="primary" (click)="deleteCama(cama)" aria-label="Eliminar cama">
+      <button mat-mini-fab color="primary" (click)="deleteCama(bed)" aria-label="Eliminar cama">
         <mat-icon>delete</mat-icon>
       </button> 
     </td>
@@ -40,3 +46,4 @@
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
    
 </mat-table>
+
