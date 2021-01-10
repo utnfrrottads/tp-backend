@@ -1,4 +1,3 @@
-
 import '../http';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';

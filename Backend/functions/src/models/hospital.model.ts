@@ -3,6 +3,7 @@ type Timestamp = admin.firestore.Timestamp;
 type Geopoint = admin.firestore.GeoPoint;
 import { Collection, SubCollection, ISubCollection } from 'fireorm';
 import { Bed } from './bed.model';
+import { HealthInsurance } from './healthInsurance.model';
 
 @Collection()
 export class Hospital {
@@ -18,4 +19,7 @@ export class Hospital {
 
     @SubCollection(Bed)
     beds?: ISubCollection<Bed>;
+
+    @SubCollection(HealthInsurance)
+    healthInsurances?: ISubCollection<HealthInsurance>;
 };
