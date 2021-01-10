@@ -20,8 +20,8 @@ export class Purchase {
     usedPoints?: number;
 
     @ManyToOne(type => Client, client => client.purchases)
-    client?: Client;
+    client?: Promise<Client>;
 
     @OneToMany(type => PurchaseItem, purchaseItem => purchaseItem.purchase)
-    purchaseItems?: PurchaseItem[];
+    purchaseItems?: Promise<PurchaseItem[]>;
 }

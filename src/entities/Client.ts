@@ -30,11 +30,11 @@ export class Client {
     points?: number;
 
     @OneToOne(type => Card, card => card.client)
-    card?: Card;
+    card?: Promise<Card>;
 
     @OneToMany(type => RedeemedPrize, redeemedPrize => redeemedPrize.client)
-    redeemedPrizes?: RedeemedPrize[];
+    redeemedPrizes?: Promise<RedeemedPrize[]>;
 
     @OneToMany(type => Purchase, purchase => purchase.client)
-    purchases?: Purchase[];
+    purchases?: Promise<Purchase[]>;
 }

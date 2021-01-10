@@ -10,5 +10,5 @@ export class Card {
     creationDate?: Date;
 
     @OneToOne(type => Client, client => client.card)
-    client?: Client;
+    client?: Promise<Client>;
 }

@@ -1,18 +1,18 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Product } from './Product';
-import { Purchase } from './Purchase';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./Product";
+import { Purchase } from "./Purchase";
 
 @Entity()
 export class PurchaseItem {
-    @PrimaryGeneratedColumn()
-    id?: number;
+  @PrimaryGeneratedColumn()
+  id?: number;
 
-    @Column()
-    quantity?: number;
+  @Column()
+  quantity?: number;
 
-    @ManyToOne(type => Purchase, purchase => purchase.purchaseItems)
-    purchase?: Purchase;
+  @ManyToOne((type) => Purchase, (purchase) => purchase.purchaseItems)
+  purchase?: Promise<Purchase>;
 
-    @ManyToOne(type=>Product)
-    product?: Product;
+  @ManyToOne((type) => Product, { eager: true })
+  product?: Product;
 }
