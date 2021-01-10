@@ -8,7 +8,7 @@ export class Bed {
     description: string;
     status: string;
     type: string;
-    subtype: string;
+    subType: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
 };

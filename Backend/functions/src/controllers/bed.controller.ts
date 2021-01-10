@@ -21,23 +21,9 @@ module.exports = {
                 return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
             }
 
-<<<<<<< HEAD
-            const beds = [];
-            const bedsSnapshot = await bedRepository.find();
-            bedsSnapshot.forEach((doc) => {
-                beds.push({
-                    id: doc.id,
-                    data: doc
-                });
-            });
-
-            //res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
-            res.status(200).json({ success: true, beds: beds, msg: "Camas obtenidas con éxito" });
-=======
             const bedsSnapshot = await bedRepository.find();            
 
             res.status(200).json({ success: true, camas: bedsSnapshot, msg: "Camas obtenidas con éxito" });
->>>>>>> 587205e8e890cf8d7703aad758000b0901127584
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
@@ -63,7 +49,7 @@ module.exports = {
                 description: req.body.description,
                 status: req.body.status,
                 type: req.body.type,
-                subtype: req.body.subtype,
+                subType: req.body.subType,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
                 createdAt: admin.firestore.FieldValue.serverTimestamp(),
             }
@@ -106,7 +92,7 @@ module.exports = {
                 description: req.body.description ?? bed.description,
                 status: req.body.status ?? bed.status,
                 type: req.body.type ?? bed.type,
-                subtype: req.body.subtype ?? bed.subtype,
+                subType: req.body.subType ?? bed.subType,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
             }
 
