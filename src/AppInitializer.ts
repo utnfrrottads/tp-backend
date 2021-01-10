@@ -1,13 +1,13 @@
-import { ConnectionOptions, createConnection, Connection } from "typeorm";
-import "reflect-metadata";
-import express from "express";
 import bodyParser from "body-parser";
-import { ContactController } from "./controllers/ContactController";
-import errorHandler from "./middleware/errorHandler";
-import { User } from "./entities/User";
-import { Contact } from "./entities/Contact";
+import express from "express";
 import { Server } from "http";
-import { UserController } from "./controllers/UserController";
+import "reflect-metadata";
+import { Connection, ConnectionOptions, createConnection } from "typeorm";
+//import { ContactController } from "./controllers/ContactController";
+//import { UserController } from "./controllers/UserController";
+import { Card } from "./entities/Card";
+import { Client } from "./entities/Client";
+import errorHandler from "./middleware/errorHandler";
 
 export default class AppInitializer {
   public app: express.Application;
@@ -27,7 +27,7 @@ export default class AppInitializer {
       password: process.env["DB_PASSWORD"],
       database: process.env["DB_DATABASE"],
       synchronize: true,
-      entities: [User, Contact],
+      entities: [Client, Card],
     };
     try {
       this.connection = await createConnection(options);
@@ -37,8 +37,8 @@ export default class AppInitializer {
 
       const contactController = new ContactController();
       const userController = new UserController();
-      this.app.use("/v1/contacts", contactController.router);
-      this.app.use("/v1/users", userController.router);
+      //this.app.use("/v1/contacts", contactController.router);
+      //this.app.use("/v1/users", userController.router);
 
       this.app.use(errorHandler);
 
