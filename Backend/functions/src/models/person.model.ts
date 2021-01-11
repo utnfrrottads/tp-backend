@@ -14,8 +14,9 @@ export class Person {
     phone: string;
 
     bloodType?: string;
-
-    nurseId?: string;
+    emergencyContact?: Person;
+    
+    nurseWorkId?: string;
     user?: string;
     password?: string;
 

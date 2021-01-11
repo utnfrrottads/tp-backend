@@ -8,7 +8,7 @@ import { AccidentOrDisease } from './accidentOrDisease.model';
 export class Emergency {
     id: string;
     dateOfEntrance: Timestamp;
-    dateOfExit: Timestamp;
+    dateOfExit?: Timestamp;
     locality: string;
     location: Geopoint;
     ambulanceLicensePlate: string;
@@ -16,7 +16,6 @@ export class Emergency {
     idHospital?: string;
     idPatient?: string;
     idNurse?: string;
-    idContact?: string;
     idBed?: string;
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
