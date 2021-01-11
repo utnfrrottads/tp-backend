@@ -23,8 +23,9 @@ bed.post('/createBedByIdHospital/:id', [
   check('status').not().isEmpty().withMessage('El campo status es requerido'),
   check('type').not().isEmpty().withMessage('El campo type es requerido'),
   check('subtype').not().isEmpty().withMessage('El campo subtype es requerido'),
+  check('hospitalName').not().isEmpty().withMessage('El campo subtype es requerido'),
   check('description').not().isEmpty().withMessage('El campo description es requerido'),
-  sanitizeBody(['status', 'type', 'subtype', 'description']).trim(),
+  sanitizeBody(['status', 'type', 'subtype', 'description', 'hospitalName']).trim(),
 ], BedsController.createBedByIdHospital);
 
 /**
@@ -37,7 +38,7 @@ bed.put('/updatebyIds/:idHospital/:idBed', [
   param('idBed').not().isEmpty().withMessage('El campo idBed es requerido'),
   param('idBed').isLength({ min: 20, max: 20 }).withMessage('El idBed debe tener 20 caracteres'),
   param('idBed').isAlphanumeric().withMessage('El idBed debe ser alfanumérico'),
-  sanitizeBody(['status', 'type', 'subtype', 'description']).trim(),
+  sanitizeBody(['status', 'type', 'subtype', 'description', 'hospitalName']).trim(),
 ], BedsController.updatebyIds);
 
 /**

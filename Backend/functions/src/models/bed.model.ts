@@ -10,6 +10,7 @@ export class Bed {
     status: string;
     type: string;
     subtype: string;
+    hospitalName: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
 };
