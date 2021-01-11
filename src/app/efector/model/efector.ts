@@ -1,20 +1,27 @@
 export interface Efector{ 
     id: number,
-    nombre: string,
-    domicilio: string,
-    localidad: string,
-    zona: string,
-    distrito: string,
-    info: string,
-    telefono: number, 
+    name: string,
+    address: string,
+    locality: string,
+    phone: number, 
     zipcode: string,
-    geo: GeoLocation,
+    location: GeoLocation,
+    
+    // zona: string,
+    // info: string,
+    // distrito: string,
     colorMarker: string,
     colorTextoMarker: string,
     options: any,     
+
+    atentionLevel: string
 }
- 
 export interface GeoLocation{
     lat:number;
     lng:number;
 }  
+export interface HospitalResult{
+    hospitals: Efector[],  
+    msg: string,
+    success: boolean,
+}

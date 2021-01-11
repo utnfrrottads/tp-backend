@@ -11,7 +11,7 @@ export class CamaListComponent implements OnInit {
 
   @Input() dataBed: Bed[];   
   @Output() bedSelected = new EventEmitter();
-  displayedColumns: string[] = ['id', 'description', 'status', 'type', 'subtype', 'actions'];
+  displayedColumns: string[] = ['description', 'status', 'type', 'subtype', 'hospitalName', 'actions'];
 
   constructor() { }
 

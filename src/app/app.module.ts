@@ -46,6 +46,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component';
 import { MatBadgeModule } from '@angular/material/badge'; 
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSelectModule,
     MatDialogModule,
     MatExpansionModule,
+    MatSnackBarModule,
     GoogleMapsModule,
   ],
   providers: [],

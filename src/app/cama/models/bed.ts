@@ -4,9 +4,12 @@ export interface Bed {
     status: string,
     type: string,
     subtype: string,
+    idHospital: string,
+    hospitalName: string,
 }
+
 export interface BedResult {
-    camas: Bed[],  // TODO : cambiar por beds
+    camas: Bed[],  // TODO : cambiar para que la variable se llame beds
     msg: string,
     success: boolean,
 }

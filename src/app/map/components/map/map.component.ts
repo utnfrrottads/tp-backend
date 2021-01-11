@@ -132,8 +132,8 @@ export class MapComponent implements OnInit {
       //console.log(efector.nombre, efector.geo.lat, efector.geo.lng);
       let myLat = this.myPosition.lat;
       let myLng = this.myPosition.lng;
-      let markerLat = efector.geo.lat;
-      let markerLng = efector.geo.lng; 
+      let markerLat = efector.location.lat;
+      let markerLng = efector.location.lng; 
 
       let dLat  = this.rad(markerLat - myLat);
       let dLong = this.rad(markerLng - myLng);

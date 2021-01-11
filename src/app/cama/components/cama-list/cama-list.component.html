@@ -1,8 +1,8 @@
 <h2>
-    Listado de camas 
-    <mat-icon>list</mat-icon>
-</h2>
- 
+  Listado de camas 
+  <mat-icon>list</mat-icon>
+</h2> 
+
 <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataBed">
 
   <ng-container matColumnDef="id">
@@ -28,6 +28,16 @@
   <ng-container matColumnDef="subtype">
     <mat-header-cell *matHeaderCellDef>Sub Tipo</mat-header-cell>
     <mat-cell *matCellDef="let bed">{{bed.subtype}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="idHospital">
+    <mat-header-cell *matHeaderCellDef>Hospital</mat-header-cell>
+    <mat-cell *matCellDef="let bed">{{bed.idHospital}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="hospitalName">
+    <mat-header-cell *matHeaderCellDef>Hospital</mat-header-cell>
+    <mat-cell *matCellDef="let bed">{{bed.hospitalName}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="actions">

@@ -46,7 +46,7 @@ export class MapEmergenciaComponent implements OnInit {
   fillMapWithEfectores(efectores: Efector[]){
     for (var i=0;i< efectores.length;i++) {
       this.marker = new ttMaps.Marker({draggable:false, color:'#123456', scale: 0.5 })
-          .setLngLat([efectores[i].geo.lng,efectores[i].geo.lat])
+          .setLngLat([efectores[i].location.lng,efectores[i].location.lat])
           .addTo(this.map);
     }
   }

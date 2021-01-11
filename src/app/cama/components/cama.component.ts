@@ -11,7 +11,7 @@ import { MatAccordion } from '@angular/material/expansion';
   styleUrls: ['./cama.component.sass']
 })
 export class CamaComponent implements OnInit {
-  @ViewChild(MatAccordion) accordion: MatAccordion;
+  // @ViewChild(MatAccordion) accordion: MatAccordion;
   public dataBed : Bed[];  
   //dataSource = new MatTableDataSource(this.dataCama); 
   bedSelected : Bed = {
@@ -19,7 +19,9 @@ export class CamaComponent implements OnInit {
     description: '',
     status: '',
     type: '',
-    subtype: ''
+    subtype: '',
+    idHospital: '',
+    hospitalName: ''
   }; 
   inputType: number = 0;
 
@@ -49,11 +51,11 @@ export class CamaComponent implements OnInit {
     console.log('se seteó en cama.component');
     this.bedSelected = bed;
     this.inputType = InputType.edit;
-    this.accordion.openAll();
+    // this.accordion.openAll();
     console.log(this.bedSelected);
   }
   setInputTypeCreate(){
     this.inputType = InputType.create;
-    this.accordion.openAll();
-  }
+    // this.accordion.openAll();
+  } 
 } 
