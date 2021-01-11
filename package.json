@@ -23,5 +23,8 @@
     "build": "tsc",
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
     "start:dev": "cross-env NODE_ENV=development node ./dist/main.js"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }

@@ -1,4 +1,4 @@
-import { Exclude, Type } from "class-transformer";
+import { Exclude, Type } from 'class-transformer';
 import {
   Column,
   Entity,
@@ -6,10 +6,10 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Card } from "./Card";
-import { Purchase } from "./Purchase";
-import { RedeemedPrize } from "./RedeemedPrize";
+} from 'typeorm';
+import { Card } from './Card';
+import { Purchase } from './Purchase';
+import { RedeemedPrize } from './RedeemedPrize';
 
 @Entity()
 export class Client {
@@ -27,7 +27,7 @@ export class Client {
   birthdate?: Date;
 
   @Column()
-  gender?: "male" | "female";
+  gender?: 'male' | 'female';
 
   @Column()
   points?: number;

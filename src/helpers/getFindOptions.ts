@@ -1,4 +1,4 @@
-import stripObject from "./getStrippedObject";
+import stripObject from './getStrippedObject';
 
 // Adapts to typeORM's find options format
 export default function getFindOptions(
@@ -6,7 +6,7 @@ export default function getFindOptions(
   limit?: number,
   skip?: number
 ) {
-  const maxLimit = parseInt(process.env["MAX_SEARCH_LIMIT"]!) || 100;
+  const maxLimit = parseInt(process.env['MAX_SEARCH_LIMIT']!) || 100;
   let finalLimit = maxLimit;
   if (limit && limit > 0 && limit < maxLimit) {
     finalLimit = limit;

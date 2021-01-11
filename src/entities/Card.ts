@@ -4,13 +4,13 @@ import { Client } from './Client';
 
 @Entity()
 export class Card {
-    @PrimaryGeneratedColumn()
-    id?: number;
+  @PrimaryGeneratedColumn()
+  id?: number;
 
-    @Type(() => Date)
-    @Column()
-    creationDate?: Date;
+  @Type(() => Date)
+  @Column()
+  creationDate?: Date;
 
-    @OneToOne(type => Client, client => client.card)
-    client?: Promise<Client>;
+  @OneToOne((type) => Client, (client) => client.card)
+  client?: Promise<Client>;
 }
