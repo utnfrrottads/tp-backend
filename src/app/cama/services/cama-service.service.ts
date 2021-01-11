@@ -47,13 +47,6 @@ export class CamaService {
     return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
   }
   createBed(bed: Bed): Observable<BedResult>{    
-    const body: any = {
-      // status: bed.status,
-      // description: bed.description,
-      // subType: bed.subType,
-      // type: bed.type
-      /////bed: 
-    };
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -62,30 +55,26 @@ export class CamaService {
       bed,
       httpOptions);
   }
-  
-  updateCamasById(): Observable<BedResult>{    
-    return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
-  }
-  deleteBedById(): Observable<BedResult>{    
-    return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
-  }
-  // bed.post('/createBed', [
-  // bed.put('/updateBedById/:id', [
-  // bed.delete('/deleteBedById/:id', [
 
-    // arriesgaLetra(letra: string): Observable<Resultado> {
-    //   const body: any = {
-    //     Letra: letra
-    //   };
-    //   const httpOptions = {
-    //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    //   };
-    //   return this.http.post<Resultado>(
-    //     this.baseUrl + 'arriesgaLetra'
-    //     , body
-    //     , httpOptions
-    //   );
-    // }
+  updateBedById(bed: Bed): Observable<BedResult>{    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };     
+    return this.httpClient.put<BedResult>(
+      this.baseUrl + '/api-beds/updateBedById/' + bed.id,
+      bed,
+      httpOptions);
+  }
+
+  
+  deleteBedById(bedId: number): Observable<BedResult>{    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };     
+    return this.httpClient.put<BedResult>(
+      this.baseUrl + '/api-beds/deleteBedById/' + bedId,
+      httpOptions);
+  } 
 
   getTipoCama(): Observable<BedType[]>{ 
     //return this.httpClient.get<TipoCama[]>(this.baseUrl);

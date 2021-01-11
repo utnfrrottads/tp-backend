@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CamaService } from '../services/cama-service.service';
 import { Bed } from '../models/bed';
 import { MatTableDataSource } from '@angular/material/table';
+import { InputType } from '../../common/models/typeInputEnum';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-cama',
@@ -9,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./cama.component.sass']
 })
 export class CamaComponent implements OnInit {
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   public dataBed : Bed[];  
   //dataSource = new MatTableDataSource(this.dataCama); 
   bedSelected : Bed = {
@@ -17,7 +20,8 @@ export class CamaComponent implements OnInit {
     status: '',
     type: '',
     subtype: ''
-  };
+  }; 
+  inputType: number = 0;
 
   constructor(
     private camaService: CamaService
@@ -44,6 +48,12 @@ export class CamaComponent implements OnInit {
   setCamaSelected(bed: Bed){
     console.log('se seteó en cama.component');
     this.bedSelected = bed;
+    this.inputType = InputType.edit;
+    this.accordion.openAll();
     console.log(this.bedSelected);
+  }
+  setInputTypeCreate(){
+    this.inputType = InputType.create;
+    this.accordion.openAll();
   }
 } 

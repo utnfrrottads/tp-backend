@@ -1,6 +1,6 @@
- {{ dataBed | json }} 
 <h2>
     Listado de camas 
+    <mat-icon>list</mat-icon>
 </h2>
  
 <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataBed">
@@ -36,7 +36,7 @@
       <button mat-mini-fab color="accent" (click)="editCama(bed)">
         <mat-icon>edit</mat-icon>
       </button>  
-      <button mat-mini-fab color="primary" (click)="deleteCama(bed)" aria-label="Eliminar cama">
+      <button mat-mini-fab color="warn" (click)="deleteCama(bed)" aria-label="Eliminar cama">
         <mat-icon>delete</mat-icon>
       </button> 
     </td>

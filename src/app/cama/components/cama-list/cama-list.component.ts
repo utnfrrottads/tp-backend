@@ -8,6 +8,7 @@ import { Bed } from '../../models/bed'
   styleUrls: ['./cama-list.component.sass']
 })
 export class CamaListComponent implements OnInit { 
+
   @Input() dataBed: Bed[];   
   @Output() bedSelected = new EventEmitter();
   displayedColumns: string[] = ['id', 'description', 'status', 'type', 'subtype', 'actions'];

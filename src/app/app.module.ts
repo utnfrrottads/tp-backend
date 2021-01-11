@@ -20,6 +20,7 @@ import { DashComponent } from './dashboard/dash/dash.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { Routes, RouterModule } from '@angular/router';
 import { CamaComponent } from './cama/components/cama.component';
 import { CardComponent } from './dashboard/card/card.component';
@@ -33,7 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MiniCardComponent } from './dashboard/mini-card/mini-card.component';  
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input'; 
@@ -42,9 +43,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MapComponent } from './map/components/map/map.component';
 import { MapEmergenciaComponent } from './map/components/map-emergencia/map-emergencia.component'; 
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component'
-
-import {MatBadgeModule} from '@angular/material/badge'; 
+import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component';
+import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatInputModule,
     MatCheckboxModule, 
     MatSelectModule,
+    MatDialogModule,
+    MatExpansionModule,
     GoogleMapsModule,
   ],
   providers: [],

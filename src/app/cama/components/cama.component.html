@@ -1,7 +1,26 @@
-<app-cama-form
-    [bedSelected]="this.bedSelected"
->
-</app-cama-form>
+<div class="example-button-container">
+    <button mat-raised-button color="primary" aria-label="Agregar cama" (click)="setInputTypeCreate()">
+        Agregar cama <mat-icon>plus_one</mat-icon>
+    </button>
+</div>
+<br>
+ 
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Formulario <mat-icon>edit</mat-icon>
+      </mat-expansion-panel-header>
+  
+        <app-cama-form 
+            [bedSelected]="this.bedSelected"
+            [inputType]="this.inputType">
+        </app-cama-form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+
+<br>
 <app-cama-list
     [dataBed]="dataBed"
     (bedSelected)="setCamaSelected($event)"
