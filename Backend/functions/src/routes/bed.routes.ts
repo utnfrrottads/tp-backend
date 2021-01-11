@@ -23,9 +23,8 @@ bed.post('/createBedByIdHospital/:id', [
   check('status').not().isEmpty().withMessage('El campo status es requerido'),
   check('type').not().isEmpty().withMessage('El campo type es requerido'),
   check('subtype').not().isEmpty().withMessage('El campo subtype es requerido'),
-  check('hospitalName').not().isEmpty().withMessage('El campo subtype es requerido'),
   check('description').not().isEmpty().withMessage('El campo description es requerido'),
-  sanitizeBody(['status', 'type', 'subtype', 'description', 'hospitalName']).trim(),
+  sanitizeBody(['status', 'type', 'subtype', 'description']).trim(),
 ], BedsController.createBedByIdHospital);
 
 /**
