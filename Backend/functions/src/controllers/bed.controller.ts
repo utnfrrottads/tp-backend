@@ -32,6 +32,7 @@ module.exports = {
                     status: element.data()["status"],
                     subtype: element.data()["subtype"],
                     type: element.data()["type"],
+                    hospitalName: element.data()["hospitalName"],
                     idHospital: element.data()["idHospital"],
                     createdAt: element.data()["createdAt"].toDate(),
                     updatedAt: element.data()["updatedAt"].toDate(),
@@ -75,6 +76,7 @@ module.exports = {
                 type: req.body.type,
                 subtype: req.body.subtype,
                 idHospital: hospital.id,
+                hospitalName: hospital.name,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
                 createdAt: admin.firestore.FieldValue.serverTimestamp(),
             }
@@ -126,6 +128,7 @@ module.exports = {
                 status: req.body.status ?? bed.status,
                 type: req.body.type ?? bed.type,
                 subtype: req.body.subtype ?? bed.subtype,
+                hospitalName: req.body.hospitalName ?? bed.hospitalName,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
             }
 

@@ -1,10 +1,11 @@
-
 import '../http';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
 import { validationResult } from 'express-validator/check';
+import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 const admin = require('firebase-admin');
 const hospitalRepository = getRepository(Hospital);
+const accidentOrDiseaseRepository = getRepository(AccidentOrDisease);
 
 module.exports = {
     /**
@@ -59,6 +60,49 @@ module.exports = {
             const hospitalCreated = await hospitalRepository.create(hospital);
 
             res.status(200).json({ success: true, hospital: hospitalCreated, msg: "Hospital creado con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `ADDS` an AccidentOrDisease.
+    *
+    * @param idHospital - Id of the hospital that will add a HealthInsurance
+    * @param idAccidentOrDisease - Id of the AccidentOrDisease that will be added
+    * 
+    * @returns The added AccidentOrDisease
+    */
+    addToAccidentOrDiseaseByIds: async (req, res, next) => {
+        try {
+            // Checks if there's errors on the body
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log(errors.mapped());
+                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+
+            const idHospital = req.params.idHospital;
+            const idAccidentOrDisease = req.params.idAccidentOrDisease;
+            const hospital = await hospitalRepository.findById(idHospital);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const accidentOrDisease = await accidentOrDiseaseRepository.findById(idAccidentOrDisease);
+
+            if (accidentOrDisease === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un accidente o enfermedad con ese ID" });
+            }
+
+            const accidentOrDiseaseToAdd: AccidentOrDisease = {
+                id: accidentOrDisease.id,
+                description: accidentOrDisease.description,
+            }
+
+            const accidentOrDiseaseAdded = await hospital.accidentOrDiseases.create(accidentOrDiseaseToAdd);
+
+            res.status(200).json({ success: true, obraSocial: accidentOrDiseaseAdded, msg: "Accidente o enfermedad agregado con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }

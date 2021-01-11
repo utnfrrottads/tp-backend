@@ -3,14 +3,9 @@ type Timestamp = admin.firestore.Timestamp;
 import { Collection } from 'fireorm';
  
 @Collection()
-export class Bed {
+export class AccidentOrDisease {
     id: string;
-    idHospital: string;
     description: string;
-    status: string;
-    type: string;
-    subtype: string;
-    hospitalName: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
 };

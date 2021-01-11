@@ -26,6 +26,18 @@ hospital.post('/createHospital', [
 ], HospitalsController.createHospital);
 
 /**
+* `ADDS` an AccidentOrDisease treated by hospital.
+*/
+hospital.post('/addToAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+    param('idAccidentOrDisease').not().isEmpty().withMessage('El campo idAccidentOrDisease es requerido'),
+    param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
+    param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
+], HospitalsController.addToAccidentOrDiseaseByIds);
+
+/**
 * `UPDATES` a hospital by ID.
 */
 hospital.put('/updateHospitalById/:id', [
