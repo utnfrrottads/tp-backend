@@ -1,4 +1,3 @@
- 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonService } from 'src/app/common/services/common.service';
@@ -15,15 +14,11 @@ export class CamaListComponent {
   @Output() bedSelected = new EventEmitter();
   @Output() bedDeleted = new EventEmitter();
   displayedColumns: string[] = ['description', 'status', 'type', 'subtype', 'hospitalName', 'actions'];
-
-  constructor() { }
  
-
   editBed(bed: Bed){
     this.bedSelected.emit(bed);
   }
   deleteBed(bed: Bed) {
     this.bedDeleted.emit(bed);
   }
-  
 }

@@ -8,7 +8,8 @@ import { CommonService } from 'src/app/common/services/common.service';
 
 @Component({
   selector: 'app-cama',
-  templateUrl: './cama.component.html'
+  templateUrl: './cama.component.html',
+  styleUrls: ['./cama.component.css']
 })
 export class CamaComponent implements OnInit{
   @ViewChild(MatAccordion) accordion: MatAccordion;
@@ -87,5 +88,8 @@ export class CamaComponent implements OnInit{
         this.commonService.openSnackBar('Ups... algo falló al querer editar la cama','Cerrar');
        }
     });
+  }
+  isCreate(): boolean{
+    return this.inputType===1 ? true : false;
   }
 } 
