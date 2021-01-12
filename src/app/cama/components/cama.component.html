@@ -4,24 +4,25 @@
     </button>
 </div>
 <br> 
-<!--  
-  <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        Formulario <mat-icon>edit</mat-icon>
-      </mat-expansion-panel-header>
-   -->
+
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <h3>Formulario</h3> <mat-icon>edit</mat-icon>
+    </mat-expansion-panel-header>
+  
         <app-cama-form 
             [bedSelected]="this.bedSelected"
-            [inputType]="this.inputType">
+            [inputType]="this.inputType"
+            (add)="onBedCreated($event)"
+            (edit)="onBedEdited($event)">
         </app-cama-form>
-    <!-- </mat-expansion-panel>
-  </mat-accordion> -->
-
-
-
+    </mat-expansion-panel>
+  </mat-accordion> 
 <br>
 <app-cama-list
-    (bedSelected)="setCamaSelected($event)"
+    [dataBed]="this.dataBed"
+    (bedSelected)="onBedSelected($event)"
+    (bedDeleted)="onBedDeleted($event)" 
     >
-</app-cama-list>
+</app-cama-list> 

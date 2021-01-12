@@ -1,112 +1,94 @@
+<h2 *ngIf="inputType!=2">Agregar cama</h2>
+<h2 *ngIf="inputType===2">Editar cama</h2>
 
-<mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <h3>Formulario</h3> <mat-icon>edit</mat-icon>
-    </mat-expansion-panel-header>
-  
-
-<!-- <mat-card class="example-card form">
-    <mat-card-header>  -->
-      <!-- <mat-card-title> -->
-        <h2 *ngIf="inputType!=2">Agregar cama</h2>
-        <h2 *ngIf="inputType===2">Editar cama</h2>
-      <!-- </mat-card-title> 
-    </mat-card-header>
-    <mat-card-content> -->
-        <form  [formGroup]="bedForm" (ngSubmit)="onSubmit()">
-            <p>        
-                <mat-form-field appearance="fill">
-                    <mat-label>Hospital</mat-label>
-                    <!--formControlName es para asignar al formGroup
-                        mat-select -> [value] es para presetear un valor
-                        mat-option -> [value] es el valor del ngFor
-                    -->
-                    <mat-select matNativeControl required formControlName='idHospital' [value]='bedSelected.idHospital'>
-                        <mat-option *ngFor="let hospital of dataHospital" [value]="hospital.id"> 
-                            {{hospital.name}} 
-                        </mat-option> 
-                    </mat-select>            
-                    <mat-error *ngIf="bedForm.controls.hospitalName.touched && bedForm.controls.hospitalName.invalid">
-                        <span *ngIf="bedForm.controls.hospitalName.errors.required">No te olvides de elegir el Hospital!</span>  
-                    </mat-error> 
-                </mat-form-field>  
-            </p>  
-            <h3>Camas</h3>
-            <!-- <p> 
-                <mat-form-field>
-                    <mat-label> Id: </mat-label>
-                    <input matInput formControlName="id" placeholder="ID de la cama">
-                    <mat-error *ngIf="bedForm.controls.id.touched && bedForm.controls.id.invalid">
-                        <span *ngIf="bedForm.controls.id.errors.required">No te ovlvides de completarlo!</span>  
-                    </mat-error> 
-                </mat-form-field>
-            </p> -->
-            <p> 
-                <mat-form-field  appearance="standard">
-                    <mat-label> Decripción: </mat-label>
-                    <input matInput formControlName="description" placeholder="Descripcion de la cama" >
-                    <mat-error *ngIf="bedForm.controls.description.touched && bedForm.controls.description.invalid">
-                        <span *ngIf="bedForm.controls.description.errors.required">No te olvides de completarlo!</span>  
-                    </mat-error> 
-                </mat-form-field>
-            </p>  
-            <p>        
-                <mat-form-field appearance="fill">
-                    <mat-label>Estado</mat-label>
-                    <!--formControlName es para asignar al formGroup
-                        mat-select -> [value] es para presetear un valor
-                        mat-option -> [value] es el valor del ngFor
-                    -->
-                    <mat-select matNativeControl required formControlName='status'  [value]='bedSelected.status'>
-                        <mat-option *ngFor="let status of dataBedStatus" [value]="status.description"> 
-                            {{status.description}} 
-                        </mat-option> 
-                    </mat-select>
-                    <mat-error *ngIf="bedForm.controls.status.touched && bedForm.controls.status.invalid">
-                        <span *ngIf="bedForm.controls.status.errors.required">No te olvides de elegir cual es el estado de la cama!</span>  
-                    </mat-error> 
-                </mat-form-field>  
-            </p> 
-            <p>        
-                <mat-form-field appearance="fill">
-                    <mat-label>Tipo cama</mat-label>
-                    <!--formControlName es para asignar al formGroup
-                        mat-select -> [value] es para presetear un valor
-                        mat-option -> [value] es el valor del ngFor
-                    -->
-                    <mat-select matNativeControl required formControlName='type' [value]='bedSelected.type'>
-                        <mat-option *ngFor="let type of dataBedType" [value]="type.description"> 
-                            {{type.description}} 
-                        </mat-option> 
-                    </mat-select>            
-                    <mat-error *ngIf="bedForm.controls.type.touched && bedForm.controls.type.invalid">
-                        <span *ngIf="bedForm.controls.type.errors.required">No te olvides de elegir el tipo de cama!</span>  
-                    </mat-error> 
-                </mat-form-field>  
-            </p>
-            <p>        
-                <mat-form-field appearance="fill">
-                    <mat-label>Sub Tipo</mat-label>
-                    <!--formControlName es para asignar al formGroup
-                        mat-select -> [value] es para presetear un valor
-                        mat-option -> [value] es el valor del ngFor
-                    -->
-                    <mat-select matNativeControl required formControlName='subtype' [value]='bedSelected.subtype'>
-                        <mat-option *ngFor="let subtype of dataBedSubType" [value]="subtype.description"> 
-                            {{subtype.description}} 
-                        </mat-option> 
-                    </mat-select>            
-                    <mat-error *ngIf="bedForm.controls.subtype.touched && bedForm.controls.subtype.invalid">
-                        <span *ngIf="bedForm.controls.subtype.errors.required">No te olvides de elegir el sub tipo de cama!</span>  
-                    </mat-error> 
-                </mat-form-field>  
-            </p>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!bedForm.valid">{{setButtonText()}}</button>
-        </form>
-    <!-- </mat-card-content>
-</mat-card> -->
-
-
-</mat-expansion-panel>
-</mat-accordion>
+<form  [formGroup]="bedForm" (ngSubmit)="onSubmit()">
+    <p>        
+        <mat-form-field appearance="fill">
+            <mat-label>Hospital</mat-label>
+            <!--formControlName es para asignar al formGroup
+                mat-select -> [value] es para presetear un valor
+                mat-option -> [value] es el valor del ngFor
+            -->
+            <mat-select matNativeControl required formControlName='idHospital' [value]='bedSelected.idHospital'>
+                <mat-option *ngFor="let hospital of dataHospital" [value]="hospital.id"> 
+                    {{hospital.name}} 
+                </mat-option> 
+            </mat-select>            
+            <mat-error *ngIf="bedForm.controls.hospitalName.touched && bedForm.controls.hospitalName.invalid">
+                <span *ngIf="bedForm.controls.hospitalName.errors.required">No te olvides de elegir el Hospital!</span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>  
+    <h3>Camas</h3>
+    <!-- <p> 
+        <mat-form-field>
+            <mat-label> Id: </mat-label>
+            <input matInput formControlName="id" placeholder="ID de la cama">
+            <mat-error *ngIf="bedForm.controls.id.touched && bedForm.controls.id.invalid">
+                <span *ngIf="bedForm.controls.id.errors.required">No te ovlvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p> -->
+    <p> 
+        <mat-form-field  appearance="standard">
+            <mat-label> Decripción: </mat-label>
+            <input matInput formControlName="description" placeholder="Descripcion de la cama" >
+            <mat-error *ngIf="bedForm.controls.description.touched && bedForm.controls.description.invalid">
+                <span *ngIf="bedForm.controls.description.errors.required">No te olvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <p>        
+        <mat-form-field appearance="fill">
+            <mat-label>Estado</mat-label>
+            <!--formControlName es para asignar al formGroup
+                mat-select -> [value] es para presetear un valor
+                mat-option -> [value] es el valor del ngFor
+            -->
+            <mat-select matNativeControl required formControlName='status'  [value]='bedSelected.status'>
+                <mat-option *ngFor="let status of dataBedStatus" [value]="status.description"> 
+                    {{status.description}} 
+                </mat-option> 
+            </mat-select>
+            <mat-error *ngIf="bedForm.controls.status.touched && bedForm.controls.status.invalid">
+                <span *ngIf="bedForm.controls.status.errors.required">No te olvides de elegir cual es el estado de la cama!</span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p> 
+    <p>        
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo cama</mat-label>
+            <!--formControlName es para asignar al formGroup
+                mat-select -> [value] es para presetear un valor
+                mat-option -> [value] es el valor del ngFor
+            -->
+            <mat-select matNativeControl required formControlName='type' [value]='bedSelected.type'>
+                <mat-option *ngFor="let type of dataBedType" [value]="type.description"> 
+                    {{type.description}} 
+                </mat-option> 
+            </mat-select>            
+            <mat-error *ngIf="bedForm.controls.type.touched && bedForm.controls.type.invalid">
+                <span *ngIf="bedForm.controls.type.errors.required">No te olvides de elegir el tipo de cama!</span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>
+    <p>        
+        <mat-form-field appearance="fill">
+            <mat-label>Sub Tipo</mat-label>
+            <!--formControlName es para asignar al formGroup
+                mat-select -> [value] es para presetear un valor
+                mat-option -> [value] es el valor del ngFor
+            -->
+            <mat-select matNativeControl required formControlName='subtype' [value]='bedSelected.subtype'>
+                <mat-option *ngFor="let subtype of dataBedSubType" [value]="subtype.description"> 
+                    {{subtype.description}} 
+                </mat-option> 
+            </mat-select>            
+            <mat-error *ngIf="bedForm.controls.subtype.touched && bedForm.controls.subtype.invalid">
+                <span *ngIf="bedForm.controls.subtype.errors.required">No te olvides de elegir el sub tipo de cama!</span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!bedForm.valid">{{setButtonText()}}</button>
+</form>
+ 

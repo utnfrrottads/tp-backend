@@ -9,44 +9,21 @@ import { CamaService } from '../../services/cama-service.service';
   selector: 'app-cama-list',
   templateUrl: './cama-list.component.html'
 })
-export class CamaListComponent implements OnInit { 
+export class CamaListComponent { 
 
-  dataBed: Bed[];   
+  @Input() dataBed: Bed[];   
   @Output() bedSelected = new EventEmitter();
+  @Output() bedDeleted = new EventEmitter();
   displayedColumns: string[] = ['description', 'status', 'type', 'subtype', 'hospitalName', 'actions'];
 
-  constructor(
-    private camaService: CamaService, 
-    private commonService: CommonService
-    ) { }
+  constructor() { }
+ 
 
-  ngOnInit() {
-    this.loadCamas();
-  }
-  editCama(bed: Bed){
+  editBed(bed: Bed){
     this.bedSelected.emit(bed);
   }
-  deleteCama(bed: Bed){
-    this.camaService.deleteBedById(bed).subscribe({
-      next: res => {
-        // Para no ir de nuevo al backend y reducir la red
-        this.dataBed = this.dataBed.filter( item => !(item.id===bed.id && item.idHospital===bed.idHospital));
-        this.commonService.openSnackBar('La cama se ha eliminado correctamente','Perfecto!');
-      },
-      error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama','Cerrar');
-       } 
-    });
+  deleteBed(bed: Bed) {
+    this.bedDeleted.emit(bed);
   }
-  loadCamas(){
-    this.camaService.getCamas().subscribe({
-      next: res =>{
-        console.log('se recargo');
-        this.dataBed = res.camas;
-      },
-      error: err =>{
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar las camas','Cerrar');
-      }
-    });
-  }  
+  
 }
