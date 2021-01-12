@@ -8,3 +8,4 @@ coverage/
 **/.vs
 **/.vscode
 !**/.vscode/tasks.json
+yarn-error.log

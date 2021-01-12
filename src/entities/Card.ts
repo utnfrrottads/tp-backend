@@ -11,6 +11,6 @@ export class Card {
     @CreateDateColumn()
     creationDate?: Date;
 
-    @OneToOne(type => Client, client => client.card)
-    client?: Promise<Client>;
+  @OneToOne((type) => Client, (client) => client.card)
+  client?: Promise<Client>;
 }

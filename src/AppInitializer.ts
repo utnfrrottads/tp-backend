@@ -1,10 +1,7 @@
-import bodyParser from "body-parser";
 import Koa from "koa";
 import { Server } from "http";
 import "reflect-metadata";
 import { Connection, ConnectionOptions, createConnection } from "typeorm";
-import { Card } from "./entities/Card";
-import { Client } from "./entities/Client";
 import errorHandler from "./middleware/errorHandler";
 import { createKoaServer } from "routing-controllers";
 import { CardController } from "./controllers/CardController";
@@ -24,12 +21,12 @@ export default class AppInitializer {
 
   public async init(connectionOptions?: ConnectionOptions) {
     const options: ConnectionOptions = connectionOptions || {
-      type: "postgres",
-      host: process.env["DB_HOST"],
-      port: parseInt(process.env["DB_PORT"]!),
-      username: process.env["DB_USERNAME"],
-      password: process.env["DB_PASSWORD"],
-      database: process.env["DB_DATABASE"],
+      type: 'postgres',
+      host: process.env['DB_HOST'],
+      port: parseInt(process.env['DB_PORT']!),
+      username: process.env['DB_USERNAME'],
+      password: process.env['DB_PASSWORD'],
+      database: process.env['DB_DATABASE'],
       synchronize: true,
       entities: [
         __dirname + "/entities/*." + (process.env["IS_TS"] ? "ts" : "js"),
@@ -40,7 +37,7 @@ export default class AppInitializer {
       const port = parseInt(process.env["APP_PORT"]!) || 4444;
       this.app.on("error", errorHandler);
       this.server = this.app.listen(port, () =>
-        console.log("Listening on port " + port)
+        console.log('Listening on port ' + port)
       );
     } catch (error) {
       console.error(error);

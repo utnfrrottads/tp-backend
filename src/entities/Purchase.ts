@@ -1,13 +1,13 @@
-import { Exclude, Type } from "class-transformer";
+import { Exclude, Type } from 'class-transformer';
 import {
   Column,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Client } from "./Client";
-import { PurchaseItem } from "./PurchaseItem";
+} from 'typeorm';
+import { Client } from './Client';
+import { PurchaseItem } from './PurchaseItem';
 
 @Entity()
 export class Purchase {
