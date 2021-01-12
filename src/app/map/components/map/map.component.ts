@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { EfectorService } from '../../../efector/services/efector.service'
-import { Efector } from 'src/app/efector/model/efector';  
+import { HospitalService } from '../../../efector/services/hospital.service'
+import { Hospital } from 'src/app/efector/model/hospital';  
 import { MapService } from '../../services/map.service';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
  
@@ -26,14 +26,14 @@ export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
   myMapita: google.maps.Map;
-  efectorData: Efector[];
-  efectorClosest: Efector;
+  hospitalData: Hospital[];
+  hospitalClosest: Hospital;
   myMarkers = [];
   infoContent = '';
   mensajeDistancia: string = '';
   zoom = 12;
   iconMarkerAmbulance: string = '../../../../../assets/img/MarkerAmbulance.png';
-  iconEfectorClosest: string = '../../../../../assets/img/MarkerEfectorRed.png';
+  iconHospitalClosest: string = '../../../../../assets/img/MarkerEfectorRed.png';
   myPosition: google.maps.LatLngLiteral; 
   options: google.maps.MapOptions = {
     // mapTypeId: 'hybrid',
@@ -45,12 +45,12 @@ export class MapComponent implements OnInit {
   }    
 
   constructor(
-    private efectorService: EfectorService, 
+    private hospitalService: HospitalService, 
   ) { }
   
   ngOnInit() {
     this.getCurrentPosition();
-    this.getEfectores();
+    this.gethospitales();
   }
   getCurrentPosition(){
     navigator.geolocation.getCurrentPosition((position) => { 
@@ -60,10 +60,10 @@ export class MapComponent implements OnInit {
       }
     });
   }
-  getEfectores(){  
-    this.efectorService.getEfectoresLocalization().subscribe(
-      (res: Efector[]) => {
-        this.efectorData = res; 
+  gethospitales(){  
+    this.hospitalService.getEfectoresLocalization().subscribe(
+      (res: Hospital[]) => {
+        this.hospitalData = res; 
     });
   }
   logCenter() {
@@ -119,7 +119,7 @@ export class MapComponent implements OnInit {
     this.getDistancia(origen, destino);
 
   }  
-  getNearestEfector(){
+  getNearesthospital(){
     this.getCurrentPosition();
     this.compareDistances(); 
   }
@@ -128,12 +128,12 @@ export class MapComponent implements OnInit {
     let distances = [];
     let closest: number = -999 ; 
     let closestDist: number = 99999999;
-    for(let efector of this.efectorData){ 
-      //console.log(efector.nombre, efector.geo.lat, efector.geo.lng);
+    for(let hospital of this.hospitalData){ 
+      //console.log(hospital.nombre, hospital.geo.lat, hospital.geo.lng);
       let myLat = this.myPosition.lat;
       let myLng = this.myPosition.lng;
-      let markerLat = efector.location.lat;
-      let markerLng = efector.location.lng; 
+      let markerLat = hospital.location.lat;
+      let markerLng = hospital.location.lng; 
 
       let dLat  = this.rad(markerLat - myLat);
       let dLong = this.rad(markerLng - myLng);
@@ -143,22 +143,22 @@ export class MapComponent implements OnInit {
       let distance = radiusHeart * c;
 
       if ( closest == -999 || distance < closestDist ) {
-        closest = efector.id;
+        closest = hospital.id;
         closestDist = distance; 
-        this.efectorClosest = efector;
+        this.hospitalClosest = hospital;
         //console.log('mas cercano',closest + '-' + closestDist);
       }
     }
-    //console.log('objeto',this.efectorClosest);
+    //console.log('objeto',this.hospitalClosest);
     //console.log(closest, closestDist) ;
     this.mensajeDistancia = closestDist.toString();
 
 
-    for(let efector of this.efectorData){  
-      if ( efector.id == this.efectorClosest.id ) {
-        efector.options = {
+    for(let hospital of this.hospitalData){  
+      if ( hospital.id == this.hospitalClosest.id ) {
+        hospital.options = {
           animation: google.maps.Animation.BOUNCE, //DROP
-          icon: this.iconEfectorClosest,  
+          icon: this.iconHospitalClosest,  
         }
       }
     };

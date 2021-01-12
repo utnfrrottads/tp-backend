@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Efector, HospitalResult } from '../model/efector'
+import { Hospital, HospitalResult } from '../model/hospital'
 
 @Injectable({
   providedIn: 'root'
 })
-export class EfectorService {
+export class HospitalService {
 
   baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
   constructor(
@@ -17,7 +17,7 @@ export class EfectorService {
     return this.httpClient.get<HospitalResult>(this.baseUrl+'/api-hospitals');
   }
 
-  getEfectoresLocalization(): Observable<Efector[]> {
+  getEfectoresLocalization(): Observable<Hospital[]> {
     return of([   
       {id: 3171, name: 'Centro de Salud "Elena Bazzet"', address: 'CABRINI MADRE 2717', locality: 'Rosario',  phone: 444555, zipcode: '2000',  options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', location: {lat:-33.005810, lng: -60.671392}},
       {id: 1175, name: 'Centro de Salud "Dr. Salvador Mazza"', address: 'GRANDOLI FLODUARDO 3498', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', location: {lat:-32.886982, lng:  -60.734015}},

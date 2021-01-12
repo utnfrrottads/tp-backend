@@ -1,13 +1,10 @@
-import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CamaService } from '../../services/cama-service.service';
-import { CommonService } from '../../../common/services/common.service'
 import { BedType, BedStatus, Bed, BedSubType } from '../../models/bed';
 import { InputType } from 'src/app/common/models/typeInputEnum';
 import { EfectorService } from 'src/app/efector/services/efector.service';
 import { Efector } from 'src/app/efector/model/efector';
-import { MatAccordion } from '@angular/material/expansion';
-import { CamaListComponent } from '../cama-list/cama-list.component';
 
 @Component({
   selector: 'app-cama-form',
@@ -22,15 +19,7 @@ export class CamaFormComponent implements OnInit {
   dataBedStatus: BedStatus[];
   dataHospital: Efector[];
   @Input() inputType: InputType;
-  @Input() bedSelected: Bed /*=  {
-    id: '',
-    description: '',
-    status: '',
-    type: '',
-    subtype: '',
-    idHospital: '',
-    hospitalName: ''
-  }*/; 
+  @Input() bedSelected: Bed; 
 
   @Output() add = new EventEmitter();
   @Output() edit = new EventEmitter();
@@ -40,7 +29,6 @@ export class CamaFormComponent implements OnInit {
     private hospitalService: EfectorService
   ) {}
 
-  
   ngOnInit() {
     this.initForm();
     this.loadDropDown();
@@ -49,7 +37,6 @@ export class CamaFormComponent implements OnInit {
   ngOnChanges(){
     this.initForm();
     this.loadCamaSelected();
-    //this.accordion.openAll();
   }
   initForm(){
     this.bedForm = new FormGroup({
@@ -87,11 +74,6 @@ export class CamaFormComponent implements OnInit {
   reset() {
     this.bedForm.reset();
   }
-
-
-
-
-
 
   loadDropDown(){
     this.loadTipoCama();

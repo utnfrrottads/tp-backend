@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit} from '@angular/core';
-import { EfectorService } from '../../../efector/services/efector.service'
-import { Efector } from 'src/app/efector/model/efector';  
+import { HospitalService } from '../../../efector/services/hospital.service'
+import { Hospital } from 'src/app/efector/model/hospital';  
 import { MapService } from '../../services/map.service';
 import { default as defServices, services, tt as ttServices } from '@tomtom-international/web-sdk-services';
 import { default as tt, map, LngLat} from '@tomtom-international/web-sdk-maps';
@@ -16,13 +16,13 @@ export class MapTomtomComponent implements OnInit {
   map:any;
   marker:any;
   passengerMarker: any;
-  efectorData: Efector[];
+  efectorData: Hospital[];
   passengerInitCoordinates = [4.876935, 52.360306];
   rutaImagenPersona: string = '../../../../assets/img/manHere.png'; 
 
   constructor(
     private mapService: MapService, 
-    private efectorService: EfectorService,
+    private hospitalService: HospitalService,
     private elementRef:ElementRef,
   ) { }
 
@@ -51,13 +51,13 @@ export class MapTomtomComponent implements OnInit {
     //this.initTaxi();
   }
   getEfectores(){ //TO DO: ¿pasarlo a otro componente y que no sea mapa?
-    this.efectorService.getEfectoresLocalization().subscribe(
-      (res: Efector[]) => {
+    this.hospitalService.getEfectoresLocalization().subscribe(
+      (res: Hospital[]) => {
         this.efectorData = res;
         this.fillMapWithEfectores(res);
     });
   }
-  fillMapWithEfectores(efectores: Efector[]){
+  fillMapWithEfectores(efectores: Hospital[]){
     for (var i=0;i< efectores.length;i++) {
       this.marker = new tt.Marker({draggable:false, color:'#123456', scale: 0.5 })
           .setLngLat([efectores[i].location.lng,efectores[i].location.lat])

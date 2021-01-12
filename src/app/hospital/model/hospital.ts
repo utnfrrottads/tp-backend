@@ -1,4 +1,4 @@
-export interface Efector{ 
+export interface Hospital{ 
     id: number,
     name: string,
     address: string,
@@ -21,7 +21,7 @@ export interface GeoLocation{
     lng:number;
 }  
 export interface HospitalResult{
-    hospitals: Efector[],  
+    hospitals: Hospital[],  
     msg: string,
     success: boolean,
 }

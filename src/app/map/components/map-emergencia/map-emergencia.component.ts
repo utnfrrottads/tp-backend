@@ -3,8 +3,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { default as ttServices } from '@tomtom-international/web-sdk-services';
 import { default as ttMaps } from '@tomtom-international/web-sdk-maps';
-import { EfectorService } from 'src/app/efector/services/efector.service';
-import { Efector } from 'src/app/efector/model/efector';
+import { HospitalService } from 'src/app/efector/services/hospital.service';
+import { Hospital } from 'src/app/efector/model/hospital';
 
 @Component({
   selector: 'app-map-emergencia',
@@ -15,11 +15,11 @@ import { Efector } from 'src/app/efector/model/efector';
 export class MapEmergenciaComponent implements OnInit {
   map:any;
   marker: any;
-  efectorData: Efector[]; 
+  efectorData: Hospital[]; 
   passengerInitCoordinates = [4.876935, 52.360306];
   apiKey: string = ''
   constructor(
-    private efectorService: EfectorService
+    private efectorService: HospitalService
   ) { }
 
   ngOnInit(): void { 
@@ -38,12 +38,12 @@ export class MapEmergenciaComponent implements OnInit {
   }
   getEfectores(){ //TO DO: ¿pasarlo a otro componente y que no sea mapa?
     this.efectorService.getEfectoresLocalization().subscribe(
-      (res: Efector[]) => {
+      (res: Hospital[]) => {
         this.efectorData = res;
         this.fillMapWithEfectores(res);
     });
   }
-  fillMapWithEfectores(efectores: Efector[]){
+  fillMapWithEfectores(efectores: Hospital[]){
     for (var i=0;i< efectores.length;i++) {
       this.marker = new ttMaps.Marker({draggable:false, color:'#123456', scale: 0.5 })
           .setLngLat([efectores[i].location.lng,efectores[i].location.lat])

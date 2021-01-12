@@ -1,8 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonService } from 'src/app/common/services/common.service';
-import { Bed } from '../../models/bed'
-import { CamaService } from '../../services/cama-service.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core'; 
+import { Bed } from '../../models/bed' 
  
 @Component({
   selector: 'app-cama-list',
