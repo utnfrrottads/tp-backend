@@ -69,15 +69,15 @@ export class CamaService {
       this.baseUrl + '/api-beds/updatebyIds/' + bed.idHospital + '/' + bed.id,
       bed,
       httpOptions);
-  }
-  
+  } 
   // DELETES a bed by idHospital and idBed
   // /deleteBedByIds/:idHospital/:idBed
   deleteBedById(bed: Bed): Observable<BedResult>{    
+    console.log('por eliminar: ',bed);
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };     
-    return this.httpClient.put<BedResult>(
+    return this.httpClient.delete<BedResult>(
       this.baseUrl + '/api-beds/deleteBedByIds/' + bed.idHospital + '/' + bed.id,
       httpOptions);
   } 

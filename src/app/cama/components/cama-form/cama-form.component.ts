@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CamaService } from '../../services/cama-service.service';
+import { CommonService } from '../../../common/services/common.service'
 import { BedType, BedStatus, Bed, BedSubType } from '../../models/bed';
 import { InputType } from 'src/app/common/models/typeInputEnum';
 import { EfectorService } from 'src/app/efector/services/efector.service';
 import { Efector } from 'src/app/efector/model/efector';
 import { MatAccordion } from '@angular/material/expansion';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { CamaListComponent } from '../cama-list/cama-list.component';
 
 @Component({
   selector: 'app-cama-form',
@@ -15,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CamaFormComponent implements OnInit {
 
+  @ViewChild(CamaListComponent) camaListComponent: CamaListComponent;
   @ViewChild(MatAccordion) accordion: MatAccordion;
   bedForm: FormGroup;
   dataBedType: BedType[];
@@ -34,8 +36,8 @@ export class CamaFormComponent implements OnInit {
   
   constructor(
     private camaService: CamaService, 
-    private hospitalService: EfectorService,
-    private _snackBar: MatSnackBar
+    private hospitalService: EfectorService, 
+    private commonService: CommonService
   ) {}
 
   
@@ -114,8 +116,6 @@ export class CamaFormComponent implements OnInit {
     } else if(this.inputType===InputType.edit){
       this.updateBedById();
     }
-
-    // this.bedToDataBase.emit(this.bedForm.value);
   }
   setButtonText(){
     return this.inputType===InputType.edit ? 'Actualizar': 'Agregar';
@@ -124,35 +124,29 @@ export class CamaFormComponent implements OnInit {
     this.inputType = InputType.cancel;
   }
   createBed(){
-    console.log(this.bedForm.value);
-    
+    // console.log(this.bedForm.value);
     this.camaService.createBed(this.bedForm.value).subscribe({
       next: res => {
-      //this.data = res; 
        this.accordion.closeAll();  
-       this.openSnackBar('Se insertó exitosamente','');
-      
-      } 
-
+       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
+       this.camaListComponent.loadCamas();
+      },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar la cama','Cerrar');
+       } 
     });
   }
   updateBedById(){
-
-    console.log('updateBedById', this.bedForm.value);
+    // console.log('updateBedById', this.bedForm.value);
     this.camaService.updateBedById(this.bedForm.value).subscribe({
       next: res => {
-      //this.data = res;
-      // console.log('resultado de la actualizacion', res); 
        this.accordion.closeAll();  
-       this.openSnackBar('Se actualizó exitosamente','');
+       this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
+       this.camaListComponent.loadCamas();
       },
-    });
-  }  
-  
-  // Muestra mensaje pop up
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 10000,
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer editar la cama','Cerrar');
+       }
     });
   }
 }
