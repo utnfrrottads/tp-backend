@@ -1,16 +1,11 @@
-import { NextFunction, Response, Request } from "express";
 import HttpError from "../errors/HttpError";
+import Koa from "koa";
 
-export default function errorHandler(
-  err: HttpError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export default function errorHandler(err: HttpError, ctx: Koa.Context) {
   if (err.shouldLog && err.innerError) console.error(err.innerError);
-  res.status(err.status).json({
+  ctx.throw(err, {
     message: err.message,
-    status: err.status,
+    status: err.status || 500,
     ...(err.detail && { detail: err.detail }),
   });
 }

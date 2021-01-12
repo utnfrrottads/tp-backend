@@ -1,14 +1,14 @@
 import { Type } from 'class-transformer';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { Client } from './Client';
 
 @Entity()
 export class Card {
-    @PrimaryGeneratedColumn()
-    id?: number;
+    @PrimaryColumn()
+    id?: string;
 
     @Type(() => Date)
-    @Column()
+    @CreateDateColumn()
     creationDate?: Date;
 
     @OneToOne(type => Client, client => client.card)

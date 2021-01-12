@@ -1,21 +1,25 @@
 import bodyParser from "body-parser";
-import express from "express";
+import Koa from "koa";
 import { Server } from "http";
 import "reflect-metadata";
 import { Connection, ConnectionOptions, createConnection } from "typeorm";
-//import { ContactController } from "./controllers/ContactController";
-//import { UserController } from "./controllers/UserController";
 import { Card } from "./entities/Card";
 import { Client } from "./entities/Client";
 import errorHandler from "./middleware/errorHandler";
+import { createKoaServer } from "routing-controllers";
+import { CardController } from "./controllers/CardController";
 
 export default class AppInitializer {
-  public app: express.Application;
+  public app: Koa;
   public server?: Server;
   public connection?: Connection;
 
   constructor() {
-    this.app = express();
+    this.app = createKoaServer({
+      routePrefix: "/v1",
+      classTransformer: true,
+      controllers: [CardController],
+    });
   }
 
   public async init(connectionOptions?: ConnectionOptions) {
@@ -27,16 +31,14 @@ export default class AppInitializer {
       password: process.env["DB_PASSWORD"],
       database: process.env["DB_DATABASE"],
       synchronize: true,
-      entities: [__dirname + "/entities/*.js"],
+      entities: [
+        __dirname + "/entities/*." + (process.env["IS_TS"] ? "ts" : "js"),
+      ],
     };
     try {
       this.connection = await createConnection(options);
       const port = parseInt(process.env["APP_PORT"]!) || 4444;
-
-      this.app.use(bodyParser.json({ limit: "500kb" }));
-
-      this.app.use(errorHandler);
-
+      this.app.on("error", errorHandler);
       this.server = this.app.listen(port, () =>
         console.log("Listening on port " + port)
       );
