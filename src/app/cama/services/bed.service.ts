@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CamaSummary, CamaMonthly, BedType, BedStatus, Bed, BedResult, BedSubType } from '../models/bed';
-
+import { BedSummary, BedMonthly, BedType, BedStatus, Bed, BedResult, BedSubType } from '../models/bed';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CamaService {
+export class BedService {
+
   baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  getCamaSummary(): Observable<CamaSummary[]> {
+  getBedSummary(): Observable<BedSummary[]> {
     return of([
       { title: "Gasto público Covid", value: "4657863", isIncrease: false, color: "accent", percentValue: "0.2544", icon: "local_atm", isCurrency: true },
       { title: "Camas libres", value: "34", isIncrease: false, color: "primary", percentValue: "0.9383", icon: "single_bed", isCurrency: false },
@@ -22,12 +23,11 @@ export class CamaService {
     ]);
   }
 
-  getCamaCount(): Observable<any[]> {
+  getBedCount(): Observable<any[]> {
     return of([20]); // to do 
   }
     
-  getCamasByMonth(): Observable<CamaMonthly[]>{ 
-    //return this.httpClient.get<CamaMonthly[]>(this.baseUrl);
+  getBedsByMonth(): Observable<BedMonthly[]>{
     return of([
       {"month": "Ene","count": 35 },
       {"month": "Feb","count": 25},
@@ -43,7 +43,7 @@ export class CamaService {
   }
 
 
-  getCamas(): Observable<BedResult>{ 
+  getBeds(): Observable<BedResult>{ 
     return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
   }
 
@@ -82,23 +82,20 @@ export class CamaService {
       httpOptions);
   } 
 
-  getTipoCama(): Observable<BedType[]>{ 
-    //return this.httpClient.get<TipoCama[]>(this.baseUrl);
+  getBedType(): Observable<BedType[]>{
     return of([
       {"id": 1,"description": "Crítica" },
       {"id": 2,"description": "General" }
     ]);
   }
-  getSubTipoCama(): Observable<BedSubType[]>{ 
-    //return this.httpClient.get<TipoCama[]>(this.baseUrl);
+  getBedSubType(): Observable<BedSubType[]>{
     return of([
       {"id": 1,"description": "Adulto" },
       {"id": 2,"description": "Neonatología" },
       {"id": 3,"description": "Pediátrico" },
     ]);
   }
-  getEstadoCama(): Observable<BedStatus[]>{ 
-    //return this.httpClient.get<EstadoCama[]>(this.baseUrl);
+  getBedStatus(): Observable<BedStatus[]>{
     return of([
       {"id": 1,"description": "Libre" },
       {"id": 2,"description": "Ocupada" },

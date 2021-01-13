@@ -3,8 +3,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { default as ttServices } from '@tomtom-international/web-sdk-services';
 import { default as ttMaps } from '@tomtom-international/web-sdk-maps';
-import { HospitalService } from 'src/app/efector/services/hospital.service';
-import { Hospital } from 'src/app/efector/model/hospital';
+import { HospitalService } from 'src/app/hospital/services/hospital.service';
+import { Hospital } from 'src/app/hospital/model/hospital';
 
 @Component({
   selector: 'app-map-emergencia',

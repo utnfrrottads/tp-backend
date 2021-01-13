@@ -9,11 +9,11 @@ export interface Bed {
 }
 
 export interface BedResult {
-    camas: Bed[],  // TODO : cambiar para que la variable se llame beds
+    beds: Bed[],
     msg: string,
     success: boolean,
 }
-export class CamaSummary {
+export class BedSummary {
     title: string;
     value: string;
     isIncrease: boolean;
@@ -22,7 +22,7 @@ export class CamaSummary {
     icon: string;
     isCurrency: boolean;
 }
-export class CamaMonthly {
+export class BedMonthly {
     month: string; 
     count: number;
 }

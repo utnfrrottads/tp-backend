@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { CamaService } from '../services/cama-service.service';
+import { BedService } from '../services/bed.service';
 import { Bed } from '../models/bed';
-import { MatTableDataSource } from '@angular/material/table';
 import { InputType } from '../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
 import { CommonService } from 'src/app/common/services/common.service';
@@ -26,22 +25,24 @@ export class CamaComponent implements OnInit{
   inputType: number = InputType.create;
 
   constructor(
-    private camaService: CamaService, 
+    private bedService: BedService, 
     private commonService: CommonService
   ) { }
 
   ngOnInit() {
-    this.loadCamas();
+    this.loadBeds();
   }
   setInputTypeCreate(){
     this.accordion.openAll();  
     this.inputType = InputType.create;
   } 
-  loadCamas(){
-    this.camaService.getCamas().subscribe({
+  loadBeds(){
+    this.bedService.getBeds().subscribe({
       next: res =>{
         console.log('se recargo');
-        this.dataBed = res.camas;
+        console.log('res.beds',res.beds);
+        console.log('this.dataBed',this.dataBed);
+        this.dataBed = res.beds;
       },
       error: err =>{
         this.commonService.openSnackBar('Ups... algo falló al querer cargar las camas','Cerrar');
@@ -54,7 +55,7 @@ export class CamaComponent implements OnInit{
     this.inputType = InputType.edit;
   }
   onBedDeleted(bed: Bed){
-    this.camaService.deleteBedById(bed).subscribe({
+    this.bedService.deleteBedById(bed).subscribe({
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
         this.dataBed = this.dataBed.filter( item => !(item.id===bed.id && item.idHospital===bed.idHospital));
@@ -66,11 +67,11 @@ export class CamaComponent implements OnInit{
     });
   }
   onBedCreated(bed: Bed){
-    this.camaService.createBed(bed).subscribe({
+    this.bedService.createBed(bed).subscribe({
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
-       this.loadCamas();
+       this.loadBeds();
       },
       error: err => {
         this.commonService.openSnackBar('Ups... algo falló al querer agregar la cama','Cerrar');
@@ -78,11 +79,11 @@ export class CamaComponent implements OnInit{
     });
   }
   onBedEdited(bed: Bed){ 
-    this.camaService.updateBedById(bed).subscribe({
+    this.bedService.updateBedById(bed).subscribe({
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
-       this.loadCamas();
+       this.loadBeds();
       },
       error: err => {
         this.commonService.openSnackBar('Ups... algo falló al querer editar la cama','Cerrar');

@@ -40,7 +40,7 @@ module.exports = {
                 beds.push(bed);
             });
 
-            res.status(200).json({ success: true, camas: beds, msg: "Camas obtenidas con éxito" });
+            res.status(200).json({ success: true, beds: beds, msg: "Camas obtenidas con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }

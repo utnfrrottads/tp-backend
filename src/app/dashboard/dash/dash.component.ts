@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { CamaSummary } from 'src/app/cama/models/bed';
-import { CamaService } from 'src/app/cama/services/cama-service.service';
+import { BedSummary } from 'src/app/cama/models/bed';
+import { BedService } from 'src/app/cama/services/bed.service';
 
 @Component({
   selector: 'app-dash',
@@ -51,11 +51,11 @@ export class DashComponent implements OnInit{
     })
   );
 
-  miniCardData: CamaSummary[];
+  miniCardData: BedSummary[];
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private camaService: CamaService,
+    private bedService: BedService,
     ) {}
 
   ngOnInit(){
@@ -63,7 +63,7 @@ export class DashComponent implements OnInit{
   }
 
   getCamaSummary(){
-    this.camaService.getCamaSummary().subscribe({
+    this.bedService.getBedSummary().subscribe({
       next: summaryData => {
         this.miniCardData = summaryData;
       }

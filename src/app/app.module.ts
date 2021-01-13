@@ -47,9 +47,6 @@ import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.compo
 import { MatBadgeModule } from '@angular/material/badge'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HospitalFormComponent } from './efectores/components/hospital-form/hospital-form.component';
-import { HospitalListComponent } from './efectores/components/hospital-list/hospital-list.component';
-import { HospitalComponent } from './efectores/components/hospital/hospital.component';
 
 @NgModule({
   declarations: [
@@ -71,9 +68,6 @@ import { HospitalComponent } from './efectores/components/hospital/hospital.comp
     MapComponent,
     MapEmergenciaComponent,
     MapTomtomComponent,
-    HospitalFormComponent,
-    HospitalListComponent,
-    HospitalComponent,   
   ],
   imports: [
     BrowserModule,

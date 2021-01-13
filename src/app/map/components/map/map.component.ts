@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { HospitalService } from '../../../efector/services/hospital.service'
-import { Hospital } from 'src/app/efector/model/hospital';  
+import { HospitalService } from '../../../hospital/services/hospital.service'
+import { Hospital } from 'src/app/hospital/model/hospital';  
 import { MapService } from '../../services/map.service';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
  
@@ -119,7 +119,7 @@ export class MapComponent implements OnInit {
     this.getDistancia(origen, destino);
 
   }  
-  getNearesthospital(){
+  getNearestHospital(){
     this.getCurrentPosition();
     this.compareDistances(); 
   }

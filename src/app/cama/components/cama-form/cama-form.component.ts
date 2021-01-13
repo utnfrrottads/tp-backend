@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CamaService } from '../../services/cama-service.service';
+import { BedService } from '../../services/bed.service';
 import { BedType, BedStatus, Bed, BedSubType } from '../../models/bed';
 import { InputType } from 'src/app/common/models/typeInputEnum';
-import { EfectorService } from 'src/app/efector/services/efector.service';
-import { Efector } from 'src/app/efector/model/efector';
+import { HospitalService } from 'src/app/hospital/services/hospital.service';
+import { Hospital } from 'src/app/hospital/model/hospital';
 
 @Component({
   selector: 'app-cama-form',
@@ -13,20 +13,19 @@ import { Efector } from 'src/app/efector/model/efector';
 })
 export class CamaFormComponent implements OnInit {
   
+  @Input() inputType: InputType;
+  @Input() bedSelected: Bed;
+  @Output() add = new EventEmitter();
+  @Output() edit = new EventEmitter();
   bedForm: FormGroup;
   dataBedType: BedType[];
   dataBedSubType: BedSubType[];
   dataBedStatus: BedStatus[];
-  dataHospital: Efector[];
-  @Input() inputType: InputType;
-  @Input() bedSelected: Bed; 
-
-  @Output() add = new EventEmitter();
-  @Output() edit = new EventEmitter();
+  dataHospital: Hospital[];
 
   constructor(
-    private camaService: CamaService, 
-    private hospitalService: EfectorService
+    private bedService: BedService, 
+    private hospitalService: HospitalService
   ) {}
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class CamaFormComponent implements OnInit {
   }
   ngOnChanges(){
     this.initForm();
-    this.loadCamaSelected();
+    this.loadBedSelected();
   }
   initForm(){
     this.bedForm = new FormGroup({
@@ -49,7 +48,7 @@ export class CamaFormComponent implements OnInit {
       hospitalName: new FormControl('')
     }); 
   }
-  loadCamaSelected(){ 
+  loadBedSelected(){ 
     if (this.bedSelected !== undefined && this.bedSelected.id !== null && this.bedSelected.id !== '') {
       this.bedForm.patchValue({ 
         id: this.bedSelected.id,
@@ -76,26 +75,26 @@ export class CamaFormComponent implements OnInit {
   }
 
   loadDropDown(){
-    this.loadTipoCama();
-    this.loadSubTipoCama();
-    this.loadEstadoCama();
+    this.loadBedType();
+    this.loadBedSubType();
+    this.loadBedStatus();
   }
-  loadTipoCama(){
-    this.camaService.getTipoCama().subscribe({
+  loadBedType(){
+    this.bedService.getBedType().subscribe({
       next: res => {
       this.dataBedType = res;
       },
     });  
   }
-  loadSubTipoCama(){
-    this.camaService.getSubTipoCama().subscribe({
+  loadBedSubType(){
+    this.bedService.getBedSubType().subscribe({
       next: res => {
       this.dataBedSubType = res;
       },
     });  
   }
-  loadEstadoCama(){
-    this.camaService.getEstadoCama().subscribe({
+  loadBedStatus(){
+    this.bedService.getBedStatus().subscribe({
       next: res => {
       this.dataBedStatus = res;
       }, 

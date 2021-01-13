@@ -16,10 +16,10 @@
     </map-marker> 
     <map-marker
       #markerElem
-      *ngFor="let efector of efectorData"
+      *ngFor="let efector of hospitalData"
       [position]="efector.geo"
-      [label]="efector.nombre"
-      [title]="efector.nombre"   
+      [label]="efector.name"
+      [title]="efector.name"   
       [options]="efector.options"
       (mapClick)="openInfo(markerElem, efector.info)">
     </map-marker> 
@@ -35,7 +35,7 @@
 </button>
  
 <button (click)="calculateDistancia()">Calcular distancia con Google</button>
-<button (click)="getNearestEfector()" mat-raised-button color="primary">
+<button (click)="getNearestHospital()" mat-raised-button color="primary">
   <span class="material-icons">location_searching</span> 
   Efector más cercano
 </button>
@@ -44,12 +44,12 @@
 <!-- <img src="..\..\..\..\..\assets\img\cab1.png"> -->
 
 
-<mat-card class="example-card" *ngIf="this.efectorClosest">
+<mat-card class="example-card" *ngIf="this.hospitalClosest">
   <mat-card-header> 
-    <mat-card-title>Efector más cercano: {{this.efectorClosest.nombre}}</mat-card-title>
+    <mat-card-title>Efector más cercano: {{this.hospitalClosest.nombre}}</mat-card-title>
     <mat-card-subtitle>  
       <span class="material-icons">pin_drop</span>
-      {{this.efectorClosest.domicilio}}, {{this.efectorClosest.localidad}}
+      {{this.hospitalClosest.domicilio}}, {{this.hospitalClosest.localidad}}
     </mat-card-subtitle>
   </mat-card-header>
   <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->

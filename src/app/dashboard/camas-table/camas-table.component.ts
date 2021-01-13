@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CamasTableDataSource, CamasEfectoresItem } from './camas-table-datasource';
-import { CamaService } from 'src/app/cama/services/cama-service.service';
+import { BedService } from 'src/app/cama/services/bed.service';
 
 @Component({
   selector: 'app-camas-table',
@@ -30,12 +30,12 @@ export class CamasTableComponent implements AfterViewInit, OnInit {
     "diasOcupada",
   ]; 
   
-  constructor(private camaService: CamaService){}
+  constructor(private bedService: BedService){}
 
   ngOnInit() {
-    this.dataSource = new CamasTableDataSource(this.camaService);
+    this.dataSource = new CamasTableDataSource(this.bedService);
 
-    this.camaService.getCamaCount().subscribe({
+    this.bedService.getBedCount().subscribe({
       next: orderCount => {
       this.dataLength = orderCount[0];
       }, 

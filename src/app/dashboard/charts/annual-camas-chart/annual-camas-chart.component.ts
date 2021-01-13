@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { CamaService } from 'src/app/cama/services/cama-service.service';
+import { BedService } from 'src/app/cama/services/bed.service';
 
 @Component({
   selector: 'app-annual-camas-chart',
@@ -33,7 +33,7 @@ export class AnnualCamasChartComponent implements OnInit {
   public lineChartPlugins = [];
 
   constructor(
-    private camaService: CamaService
+    private bedService: BedService
   ) { }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class AnnualCamasChartComponent implements OnInit {
   }
 
   getCamaData(){
-    this.camaService.getCamasByMonth().subscribe({
+    this.bedService.getBedsByMonth().subscribe({
       next: camasItem => {
         camasItem.forEach(li => {
           this.lineChartData[0].data.push(li.count);
