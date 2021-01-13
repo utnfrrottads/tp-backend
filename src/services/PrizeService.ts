@@ -5,19 +5,22 @@ import stripObject from '../helpers/stripObject';
 export class PrizeService {
   private prizeRepository = getRepository(Prize);
 
-  public findById(id: number) {
+  public async findById(id: number) {
     return this.prizeRepository.findOne(id);
   }
-  public find(where: Prize) {
+  public async existsById(id: number) {
+    return (await this.prizeRepository.count({ where: { id } })) === 1;
+  }
+  public async find(where: Prize) {
     return this.prizeRepository.find({ where: stripObject(where) });
   }
-  public deleteById(id: number) {
+  public async deleteById(id: number) {
     return this.prizeRepository.delete(id);
   }
-  public update(id: number, prize: Prize) {
+  public async update(id: number, prize: Prize) {
     return this.prizeRepository.update(id, prize);
   }
-  public create(prize: Prize) {
+  public async create(prize: Prize) {
     return this.prizeRepository.save(prize);
   }
 }

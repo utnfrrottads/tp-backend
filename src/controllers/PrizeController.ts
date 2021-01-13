@@ -9,6 +9,7 @@ import {
   QueryParams,
 } from 'routing-controllers';
 import { Prize } from '../entities/Prize';
+import EntityNotFoundError from '../errors/EntityNotFoundError';
 import { PrizeService } from '../services/PrizeService';
 
 @JsonController('/prizes')
@@ -16,29 +17,32 @@ export class PrizeController {
   private prizeService = new PrizeService();
 
   @Get('/')
-  getAll(@QueryParams() query: Prize) {
+  public async getAll(@QueryParams() query: Prize) {
     return this.prizeService.find(query);
   }
 
   @Get('/:id')
-  getOne(@Param('id') id: number) {
-    return this.prizeService.findById(id);
+  public async getOne(@Param('id') id: number) {
+    const prize = await this.prizeService.findById(id);
+    if (!prize) throw new EntityNotFoundError();
   }
 
   @Post('/')
-  async post(@Body() prize: Prize) {
+  public async post(@Body() prize: Prize) {
     delete prize.id;
     return await this.prizeService.create(prize);
   }
 
   @Put('/:id')
-  put(@Param('id') id: number, @Body() prize: Prize) {
+  public async put(@Param('id') id: number, @Body() prize: Prize) {
+    if (!this.prizeService.existsById(id)) throw new EntityNotFoundError();
     const safeEntity = { ...prize, id };
     return this.prizeService.update(id, safeEntity);
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: number) {
+  public async remove(@Param('id') id: number) {
+    if (!this.prizeService.existsById(id)) throw new EntityNotFoundError();
     return this.prizeService.deleteById(id);
   }
 }

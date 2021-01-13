@@ -37,11 +37,15 @@ export class Client {
   @Type(() => Card)
   card?: Card;
 
-  @OneToMany((type) => RedeemedPrize, (redeemedPrize) => redeemedPrize.client)
+  @OneToMany((type) => RedeemedPrize, (redeemedPrize) => redeemedPrize.client, {
+    cascade: ['remove'],
+  })
   @Exclude()
   redeemedPrizes?: Promise<RedeemedPrize[]>;
 
-  @OneToMany((type) => Purchase, (purchase) => purchase.client)
+  @OneToMany((type) => Purchase, (purchase) => purchase.client, {
+    cascade: ['remove'],
+  })
   @Exclude()
   purchases?: Promise<Purchase[]>;
 }

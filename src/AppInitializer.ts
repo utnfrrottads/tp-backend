@@ -2,7 +2,7 @@ import Koa from "koa";
 import { Server } from "http";
 import "reflect-metadata";
 import { Connection, ConnectionOptions, createConnection } from "typeorm";
-import errorHandler from "./middleware/errorHandler";
+import { ErrorHandler } from "./middleware/ErrorHandler";
 import { createKoaServer } from "routing-controllers";
 import { CardController } from "./controllers/CardController";
 
@@ -16,6 +16,8 @@ export default class AppInitializer {
       routePrefix: "/v1",
       classTransformer: true,
       controllers: [CardController],
+      middlewares:[ErrorHandler],
+      defaultErrorHandler:false,
     });
   }
 
@@ -35,7 +37,6 @@ export default class AppInitializer {
     try {
       this.connection = await createConnection(options);
       const port = parseInt(process.env["APP_PORT"]!) || 4444;
-      this.app.on("error", errorHandler);
       this.server = this.app.listen(port, () =>
         console.log('Listening on port ' + port)
       );

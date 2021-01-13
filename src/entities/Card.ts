@@ -5,7 +5,7 @@ import { Client } from './Client';
 @Entity()
 export class Card {
   @PrimaryGeneratedColumn()
-  id?: number;
+  id?: string;
 
   @Type(() => Date)
   @Column()

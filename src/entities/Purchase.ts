@@ -25,7 +25,9 @@ export class Purchase {
   @Exclude()
   client?: Promise<Client>;
 
-  @OneToMany((type) => PurchaseItem, (purchaseItem) => purchaseItem.purchase)
+  @OneToMany((type) => PurchaseItem, (purchaseItem) => purchaseItem.purchase, {
+    cascade: ['remove'],
+  })
   @Exclude()
   purchaseItems?: Promise<PurchaseItem[]>;
 }
