@@ -23,6 +23,7 @@ export class CamaComponent implements OnInit{
     hospitalName: ''
   }; 
   inputType: number = InputType.create;
+  flagListIsReady: boolean = false;
 
   constructor(
     private bedService: BedService, 
@@ -37,12 +38,11 @@ export class CamaComponent implements OnInit{
     this.inputType = InputType.create;
   } 
   loadBeds(){
+    this.flagListIsReady = true;
     this.bedService.getBeds().subscribe({
       next: res =>{
-        console.log('se recargo');
-        console.log('res.beds',res.beds);
-        console.log('this.dataBed',this.dataBed);
         this.dataBed = res.beds;
+        this.flagListIsReady = false;
       },
       error: err =>{
         this.commonService.openSnackBar('Ups... algo falló al querer cargar las camas','Cerrar');

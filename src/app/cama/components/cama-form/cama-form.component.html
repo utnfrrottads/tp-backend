@@ -1,9 +1,9 @@
 <h2 *ngIf="inputType!=2">Agregar cama</h2>
 <h2 *ngIf="inputType===2">Editar cama</h2>
 
-<form  [formGroup]="bedForm" (ngSubmit)="onSubmit()">
+<form  [formGroup]="bedForm" (ngSubmit)="onSubmit()" class="mi-form">
     <p>        
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Hospital</mat-label>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
@@ -30,7 +30,7 @@
         </mat-form-field>
     </p> -->
     <p> 
-        <mat-form-field  appearance="standard">
+        <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Decripción: </mat-label>
             <input matInput formControlName="description" placeholder="Descripcion de la cama" >
             <mat-error *ngIf="bedForm.controls.description.touched && bedForm.controls.description.invalid">
@@ -39,7 +39,7 @@
         </mat-form-field>
     </p>  
     <p>        
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Estado</mat-label>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
@@ -56,7 +56,7 @@
         </mat-form-field>  
     </p> 
     <p>        
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Tipo cama</mat-label>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
@@ -73,7 +73,7 @@
         </mat-form-field>  
     </p>
     <p>        
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Sub Tipo</mat-label>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor

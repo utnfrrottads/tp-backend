@@ -70,10 +70,6 @@ export class CamaFormComponent implements OnInit {
       this.edit.emit(this.bedForm.value);
     } 
   }
-  reset() {
-    this.bedForm.reset();
-  }
-
   loadDropDown(){
     this.loadBedType();
     this.loadBedSubType();

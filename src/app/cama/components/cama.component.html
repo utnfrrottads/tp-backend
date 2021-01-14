@@ -30,4 +30,5 @@
     [dataBed]="this.dataBed"
     (bedSelected)="onBedSelected($event)"
     (bedDeleted)="onBedDeleted($event)">
-</app-cama-list> 
+</app-cama-list>  
+<mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar> 

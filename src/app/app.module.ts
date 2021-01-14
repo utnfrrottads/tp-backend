@@ -47,6 +47,10 @@ import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.compo
 import { MatBadgeModule } from '@angular/material/badge'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HealthInsuranceComponent } from './health-insurance/components/health-insurance/health-insurance.component';
+import { HealthInsuranceFormComponent } from './health-insurance/components/health-insurance-form/health-insurance-form.component';
+import { HealthInsuranceListComponent } from './health-insurance/components/health-insurance-list/health-insurance-list.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -68,6 +72,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MapComponent,
     MapEmergenciaComponent,
     MapTomtomComponent,
+    HealthInsuranceComponent,
+    HealthInsuranceFormComponent,
+    HealthInsuranceListComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +107,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     GoogleMapsModule,
   ],
   providers: [],

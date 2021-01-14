@@ -1,0 +1,48 @@
+<h2 *ngIf="inputType!=2">Agregar obra social</h2>
+<h2 *ngIf="inputType===2">Editar obra social</h2>
+
+<form  [formGroup]="healthInsuranceForm" (ngSubmit)="onSubmit()" class="mi-form">
+    <h3>Obras sociales</h3>
+    <!-- <p> 
+        <mat-form-field>
+            <mat-label> Id: </mat-label>
+            <input matInput formControlName="id" placeholder="ID de la obra social">
+            <mat-error *ngIf="healthInsuranceForm.controls.id.touched && healthInsuranceForm.controls.id.invalid">
+                <span *ngIf="healthInsuranceForm.controls.id.errors.required">No te ovlvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>     -->
+    <p> 
+        <mat-form-field  appearance="standard" class="mi-full-width">
+            <mat-label> Nombre legal: </mat-label>
+            <input matInput formControlName="legalName" placeholder="Nombre legal de la obra social" >
+            <mat-error *ngIf="healthInsuranceForm.controls.legalName.touched && healthInsuranceForm.controls.legalName.invalid">
+                <span *ngIf="healthInsuranceForm.controls.legalName.errors.required">No te olvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <p> 
+        <mat-form-field  appearance="standard" class="mi-full-width">
+            <mat-label> Nombre de fantasía: </mat-label>
+            <input matInput formControlName="fantasyName" placeholder="Nombre de fantasía de la obra social" >
+            <mat-error *ngIf="healthInsuranceForm.controls.fantasyName.touched && healthInsuranceForm.controls.fantasyName.invalid">
+                <span *ngIf="healthInsuranceForm.controls.fantasyName.errors.required">No te olvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <p> 
+
+        <mat-form-field  appearance="standard" class="mi-full-width">
+            <mat-label> Teléfono: </mat-label>
+            <span matPrefix>+54 &nbsp;</span>
+            <input type="tel" matInput formControlName="phone" placeholder="0341-444-4444" >
+            <mat-icon matSuffix>mode_edit</mat-icon>
+            <mat-error *ngIf="healthInsuranceForm.controls.phone.touched && healthInsuranceForm.controls.phone.invalid">
+                <span *ngIf="healthInsuranceForm.controls.phone.errors.required">No te olvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <button mat-raised-button color="primary" type="submit" [disabled]="!healthInsuranceForm.valid">{{setButtonText()}}</button>
+    <button mat-raised-button (click)="resetForm()" >Limpiar formulario</button>
+</form>
+ 
