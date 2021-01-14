@@ -28,23 +28,21 @@ export class HealthInsuranceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadHealthInsurances();
+    this.getHealthInsurances();
   }
 
   setInputTypeCreate(){
     this.accordion.openAll();  
     this.inputType = InputType.create;
   } 
-  loadHealthInsurances(){
+  getHealthInsurances(){
     this.flagListIsReady = true;
     this.healthInsuranceService.getHealthInsurances().subscribe({
-      next: res =>{
-        console.log('res', res);
+      next: res =>{ 
         this.dataHealthInsurance = res.healthInsurances;
         this.flagListIsReady = false;
       },
       error: err =>{
-        console.log('err',err);
         this.commonService.openSnackBar('Ups... algo falló al querer cargar las Obras sociales','Cerrar');
       }
     });
@@ -62,7 +60,6 @@ export class HealthInsuranceComponent implements OnInit {
         this.commonService.openSnackBar('La obra social se ha eliminado correctamente','Perfecto!');
       },
       error: err => {
-        console.log('err',err);
         this.commonService.openSnackBar('Ups... algo falló al querer eliminar la obra social','Cerrar');
        } 
     });
@@ -72,10 +69,9 @@ export class HealthInsuranceComponent implements OnInit {
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
-       this.loadHealthInsurances();
+       this.getHealthInsurances();
       },
       error: err => {
-        console.log('err',err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar la obra social','Cerrar');
        } 
     });
@@ -85,15 +81,20 @@ export class HealthInsuranceComponent implements OnInit {
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
-       this.loadHealthInsurances();
+       this.getHealthInsurances();
       },
       error: err => {
-        console.log('err',err);
         this.commonService.openSnackBar('Ups... algo falló al querer editar la obra social','Cerrar');
        }
     });
   }
   isCreate(): boolean{
     return this.inputType===1 ? true : false;
+  }
+  resetForm(){
+    this.healthInsuranceSelected.id = '';
+    this.healthInsuranceSelected.fantasyName = '';
+    this.healthInsuranceSelected.legalName = '';
+    this.healthInsuranceSelected.phone = 0;
   }
 }

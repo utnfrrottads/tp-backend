@@ -59,8 +59,4 @@ export class HealthInsuranceFormComponent implements OnInit {
   setButtonText(){
     return this.inputType===InputType.edit ? 'Actualizar': 'Agregar';
   }
-  resetForm(){
-    this.healthInsuranceForm.reset();
-  }
-
 }

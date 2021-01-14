@@ -2,7 +2,6 @@
 <h2 *ngIf="inputType===2">Editar obra social</h2>
 
 <form  [formGroup]="healthInsuranceForm" (ngSubmit)="onSubmit()" class="mi-form">
-    <h3>Obras sociales</h3>
     <!-- <p> 
         <mat-form-field>
             <mat-label> Id: </mat-label>
@@ -43,6 +42,4 @@
         </mat-form-field>
     </p>  
     <button mat-raised-button color="primary" type="submit" [disabled]="!healthInsuranceForm.valid">{{setButtonText()}}</button>
-    <!-- <button mat-raised-button (click)="resetForm()" >Limpiar formulario</button> -->
-</form>
- 
+</form>  
