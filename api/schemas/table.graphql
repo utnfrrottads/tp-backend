@@ -1,7 +1,9 @@
 type Table {
 	id: ID!
 	size: Int!
-	orders(limit: Int): [Order!]
+	currentOrder: Order
+	nextReservation: Reservation
+	reservations: [Reservation!]
 }
 
 # Inputs
