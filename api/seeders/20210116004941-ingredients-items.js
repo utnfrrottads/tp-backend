@@ -2,25 +2,22 @@
 
 module.exports = {
 	up: (queryInterface) => {
-		return queryInterface.bulkInsert('staffs', [
+		return queryInterface.bulkInsert('ingredients_items', [
 			{
-				id: '1',
-				firstName: 'Joaquín',
-				lastName: 'Sabina',
+				ingredientId: 8,
+				itemId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				id: '2',
-				firstName: 'Julia',
-				lastName: 'Blanco',
+				ingredientId: 2,
+				itemId: 2,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				id: '3',
-				firstName: 'Sol',
-				lastName: 'Perez',
+				ingredientId: 11,
+				itemId: 2,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
@@ -28,6 +25,6 @@ module.exports = {
 	},
 
 	down: (queryInterface) => {
-		return queryInterface.bulkDelete('staffs', null);
+		return queryInterface.bulkDelete('ingredients_items', null, {});
 	},
 };

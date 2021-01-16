@@ -1,5 +1,3 @@
-
-
 module.exports = {
 	up: (queryInterface) => {
 		return queryInterface.bulkInsert('tables', [

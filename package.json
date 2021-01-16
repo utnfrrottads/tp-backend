@@ -5,7 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "nodemon --exec babel-node api/server.js",
-		"build": "webpack --entry ./app/public/js/index.js --output-filename bundle.min.js --output-path ./app/public/js "
+		"build": "webpack --entry ./app/public/js/index.js --output-filename bundle.min.js --output-path ./app/public/js ",
+		"db:seed": "cd api/ && npx sequelize-cli db:seed:all",
+		"db:seed:undo": "cd api/ && npx sequelize-cli db:seed:undo:all"
 	},
 	"repository": {
 		"type": "git",
