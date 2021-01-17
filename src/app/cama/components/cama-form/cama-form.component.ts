@@ -62,8 +62,7 @@ export class CamaFormComponent implements OnInit {
     }
   }
 
-  onSubmit(){  
-    console.log('onSubmit');
+  onSubmit(){
     if(this.inputType===InputType.create){
       this.add.emit(this.bedForm.value);
     } else if(this.inputType===InputType.edit){

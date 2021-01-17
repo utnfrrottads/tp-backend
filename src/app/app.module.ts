@@ -20,9 +20,8 @@ import { DashComponent } from './dashboard/dash/dash.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatDialogModule } from '@angular/material/dialog';
-import { Routes, RouterModule } from '@angular/router';
-import { CamaComponent } from './cama/components/cama.component';
+import { MatDialogModule } from '@angular/material/dialog'; 
+import { CamaComponent } from './cama/components/cama/cama.component';
 import { CardComponent } from './dashboard/card/card.component';
 import { CamasByNivelChartComponent } from './dashboard/charts/camas-by-nivel-chart/camas-by-nivel-chart.component';
 import { EmergenciasByTipoChartComponent } from './dashboard/charts/emergencias-by-tipo-chart/emergencias-by-tipo-chart.component';
@@ -51,6 +50,12 @@ import { HealthInsuranceComponent } from './health-insurance/components/health-i
 import { HealthInsuranceFormComponent } from './health-insurance/components/health-insurance-form/health-insurance-form.component';
 import { HealthInsuranceListComponent } from './health-insurance/components/health-insurance-list/health-insurance-list.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { PersonComponent } from './person/components/person/person.component';
+import { PersonFormComponent } from './person/components/person-form/person-form.component';
+import { PersonListComponent } from './person/components/person-list/person-list.component';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatNativeDateModule } from '@angular/material/core'; 
+
 
 @NgModule({
   declarations: [
@@ -75,6 +80,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     HealthInsuranceComponent,
     HealthInsuranceFormComponent,
     HealthInsuranceListComponent,
+    PersonComponent,
+    PersonFormComponent,
+    PersonListComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +116,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatExpansionModule,
     MatSnackBarModule,
     MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     GoogleMapsModule,
   ],
   providers: [],

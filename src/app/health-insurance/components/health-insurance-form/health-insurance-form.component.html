@@ -29,13 +29,12 @@
             </mat-error> 
         </mat-form-field>
     </p>  
-    <p> 
-
+    <p>
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Teléfono: </mat-label>
             <span matPrefix>+54 &nbsp;</span>
             <input type="tel" matInput formControlName="phone" placeholder="0341-444-4444" >
-            <mat-icon matSuffix>mode_edit</mat-icon>
+            <mat-icon matSuffix>phone</mat-icon>
             <mat-error *ngIf="healthInsuranceForm.controls.phone.touched && healthInsuranceForm.controls.phone.invalid">
                 <span *ngIf="healthInsuranceForm.controls.phone.errors.required">No te olvides de completarlo!</span>  
             </mat-error> 

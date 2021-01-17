@@ -48,8 +48,7 @@ export class HealthInsuranceFormComponent implements OnInit {
     }
   }
 
-  onSubmit(){  
-    console.log('onSubmit');
+  onSubmit(){
     if(this.inputType===InputType.create){
       this.add.emit(this.healthInsuranceForm.value);
     } else if(this.inputType===InputType.edit){

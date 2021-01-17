@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { BedService } from '../services/bed.service';
-import { Bed } from '../models/bed';
-import { InputType } from '../../common/models/typeInputEnum';
+import { BedService } from '../../services/bed.service';
+import { Bed } from '../../models/bed';
+import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
-import { CommonService } from 'src/app/common/services/common.service';
+import { CommonService } from '../../../common/services/common.service';
 
 @Component({
   selector: 'app-cama',
