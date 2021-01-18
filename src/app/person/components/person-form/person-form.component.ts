@@ -22,6 +22,8 @@ export class PersonFormComponent implements OnInit {
   dataGender: Gender[];
   dataBloodType: BloodType[];
   maxDate: Date;
+  hide = true;
+
 
   constructor(
     private personService: PersonService, 
@@ -34,7 +36,6 @@ export class PersonFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.loadDropDown();
-    this.getHealthInsurances();
   }
   ngOnChanges(){
     this.initForm();
@@ -83,7 +84,9 @@ export class PersonFormComponent implements OnInit {
     } 
   }
   loadDropDown(){
-    this.loadBloodTypes(); 
+    this.getBloodTypes(); 
+    this.getHealthInsurances();
+    this.getGenders();
   }
   getHealthInsurances(){
     this.healthInsuranceService.getHealthInsurances().subscribe({
@@ -92,14 +95,14 @@ export class PersonFormComponent implements OnInit {
       }, 
     });  
   }
-  loadBloodTypes(){
+  getBloodTypes(){
     this.personService.getBloodTypes().subscribe({
       next: res => {
       this.dataBloodType = res;
       }, 
     });  
   }
-  getGender(){
+  getGenders(){
     this.personService.getGenders().subscribe({
       next: res => {
       this.dataGender = res;

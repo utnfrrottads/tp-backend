@@ -16,7 +16,7 @@ export class PersonService {
 
   /** `GETS` all persons of the collection. */ 
   getPersons(): Observable<PersonResult>{ 
-    return this.httpClient.get<PersonResult>(this.baseUrl+'/api-person');
+    return this.httpClient.get<PersonResult>(this.baseUrl+'/api-persons');
   }
 
   /** CREATES` a Person.

@@ -50,6 +50,7 @@ export class PersonComponent implements OnInit {
     this.flagListIsReady = true;
     this.personService.getPersons().subscribe({
       next: res =>{ 
+        console.log('res person list', res);
         this.dataPerson = res.person;
         this.flagListIsReady = false;
       },

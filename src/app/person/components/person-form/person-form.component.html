@@ -12,9 +12,9 @@
         </mat-form-field>
     </p> -->
     <p> 
-        <mat-form-field  appearance="standard" class="mi-full-width">
-            <mat-label> DNI: </mat-label>
-            <input matInput formControlName="dni" placeholder="Número de documento" >
+        <mat-form-field  appearance="fill" class="mi-full-width">
+            <mat-label> DNI </mat-label>
+            <input matInput type="number" formControlName="dni" placeholder="Número de documento" >
             <mat-error *ngIf="personForm.controls.dni.touched && personForm.controls.dni.invalid">
                 <span *ngIf="personForm.controls.dni.errors.required">No te olvides de completarlo!</span>  
             </mat-error> 
@@ -90,19 +90,25 @@
     </p>
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>nurseWorkId?</mat-label> 
+            <mat-label>nurseWorkId?</mat-label>
+            <input matInput formControlName="nurseWorkId" placeholder="Enfermero" >  
         </mat-form-field>  
     </p>
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>user?</mat-label> 
+            <mat-label>User?</mat-label> 
+            <input matInput formControlName="user" placeholder="Usuario" >  
         </mat-form-field>  
     </p>
-    <p>
+    <p> 
         <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>password?</mat-label> 
-        </mat-form-field>  
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" placeholder="Contraseña" > 
+        </mat-form-field>
     </p>
+
+
+      
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Obra social</mat-label>
@@ -110,8 +116,8 @@
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor -->
             <mat-select matNativeControl required formControlName='healthInsurances' [value]='personSelected.healthInsurances'>
-                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.description"> 
-                    {{healthInsurance.description}} 
+                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.fantasyName"> 
+                    {{healthInsurance.fantasyName}} 
                 </mat-option> 
             </mat-select>
         </mat-form-field>  
