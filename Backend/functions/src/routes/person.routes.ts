@@ -21,13 +21,7 @@ person.post('/createPerson', [
     check('lastName').not().isEmpty().withMessage('El campo lastName es requerido'),
     check('bornDate').not().isEmpty().withMessage('El campo bornDate es requerido'),
     check('gender').not().isEmpty().withMessage('El campo gender es requerido'),
-    check('phone').not().isEmpty().withMessage('El campo phone es requerido'),
-    check('bloodType').not().isEmpty().withMessage('El campo bloodType es requerido'),
-    check('emergencyContact').not().isEmpty().withMessage('El campo emergencyContact es requerido'),
-    check('nurseWorkId').not().isEmpty().withMessage('El campo nurseWorkId es requerido'),
-    check('user').not().isEmpty().withMessage('El campo user es requerido'),
-    check('password').not().isEmpty().withMessage('El campo password es requerido'),
-    
+    check('phone').not().isEmpty().withMessage('El campo phone es requerido'),    
     sanitizeBody(['dni', 'firstName', 'lastName', 'bornDate', 'gender','phone','bloodType','emergencyContact','nurseWorkId','user','password']).trim(),
 ], PersonsController.createPerson);
 
