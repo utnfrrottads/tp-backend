@@ -51,14 +51,15 @@ module.exports = {
                 dni: req.body.dni,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                bornDate:req.body.bornDate ,
+                bornDate: req.body.bornDate,
                 gender: req.body.gender,
-                phone: req.body.phone,
-                bloodType: req.body.bloodType,
-                emergencyContact: req.body.emergencyContact,
-                nurseWorkId: req.body.nurseWorkId,
-                user: req.body.user,
-                password: req.body.password,
+                phone: req.body.phone, 
+                bloodType: req.body.bloodType ?? null,
+                emergencyContact: req.body.emergencyContact ?? null,
+                nurseWorkId: req.body.nurseWorkId ?? null,
+                user: req.body.user ?? null,
+                password: req.body.password ?? null,
+
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
                 createdAt: admin.firestore.FieldValue.serverTimestamp(),
             }
@@ -150,17 +151,17 @@ module.exports = {
                 bornDate: req.body.bornDate ?? person.bornDate,
                 gender: req.body.gender ?? person.gender,
                 phone: req.body.phone ?? person.phone,
-                bloodType: req.body.bloodType ?? person.bloodType,
-                emergencyContact: req.body.emergencyContact ?? person.emergencyContact,
-                nurseWorkId: req.body.nurseWorkId ?? person.nurseWorkId,
-                user: req.body.user ?? person.user,
-                password: req.body.password ?? person.password,
+                bloodType: req.body.bloodType ?? person.bloodType ?? null,
+                emergencyContact: req.body.emergencyContact ?? person.emergencyContact ?? null,
+                nurseWorkId: req.body.nurseWorkId ?? person.nurseWorkId ?? null,
+                user: req.body.user ?? person.user ?? null,
+                password: req.body.password ?? person.password ?? null,
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
             }
 
             const personUpdated = await personRepository.update(personToUpdate);
 
-            res.status(200).json({ success: true, person:personUpdated, msg: "Persona actualizada con éxito" });
+            res.status(200).json({ success: true, person: personUpdated, msg: "Persona actualizada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
