@@ -17,7 +17,8 @@ export default {
 		order: (parent, { id }, { db }) => db.order.findByPk(id),
 	},
 	Mutation: {
-		createOrder: (parent, args, { db }) => db.order.create({}),
+		createOrder: (parent, { tableId }, { db }) =>
+			db.order.create({ tableId }),
 		deleteOrder: (parent, { id }, { db }) =>
 			db.order.destroy({ where: { id } }),
 	},
