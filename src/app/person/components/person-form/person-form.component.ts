@@ -66,6 +66,7 @@ export class PersonFormComponent implements OnInit {
         firstName: this.personSelected.firstName,
         lastName: this.personSelected.lastName,
         bornDate: this.personSelected.bornDate,
+        gender: this.personSelected.gender,
         phone: this.personSelected.phone,
         bloodType: this.personSelected.bloodType,
         nurseWorkId: this.personSelected.nurseWorkId,

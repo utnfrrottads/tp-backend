@@ -9,7 +9,7 @@ export class PersonListComponent{
   
   @Input() dataPerson: Person[];   
   @Output() personSelected = new EventEmitter();
-  @Output() personSelectedDeleted = new EventEmitter();
+  @Output() personDeleted = new EventEmitter();
   displayedColumns: string[] 
     = ['id','dni'
       ,'firstName','lastName'
@@ -24,7 +24,7 @@ export class PersonListComponent{
     this.personSelected.emit(person);
   }
   deletePerson(person: Person) {
-    this.personSelectedDeleted.emit(person);
+    this.personDeleted.emit(person);
   } 
 
 }

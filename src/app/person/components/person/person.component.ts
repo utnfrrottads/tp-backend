@@ -29,7 +29,6 @@ export class PersonComponent implements OnInit {
     password:null,          // TODO es ok?
     healthInsurances:  null,// TODO es ok?
   }; 
-
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
 
@@ -65,6 +64,7 @@ export class PersonComponent implements OnInit {
     this.inputType = InputType.edit;
   }
   onPersonDeleted(person: Person){
+    console.log('se llego a form');
     this.personService.deletePersonById(person).subscribe({
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
