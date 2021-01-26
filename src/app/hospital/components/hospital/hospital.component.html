@@ -1,12 +1,8 @@
-<h1>
-https://dev.to/benneee_/creating-a-show-or-hide-password-feature-for-angular-forms-4fdk
-</h1>
-
 <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel>
     <mat-expansion-panel-header color="primary">
       <mat-panel-title>
-        Formulario de personas
+        Formulario de hospitales
       </mat-panel-title>
       <mat-panel-description> 
         <div *ngIf="!isCreate()"> Editar </div>
@@ -15,24 +11,24 @@ https://dev.to/benneee_/creating-a-show-or-hide-password-feature-for-angular-for
         <div *ngIf="isCreate()"><mat-icon>plus_one</mat-icon></div>
       </mat-panel-description>
     </mat-expansion-panel-header>
-        <app-person-form 
-            [personSelected]="this.personSelected"
+        <app-hospital-form 
+            [hospitalSelected]="this.hospitalSelected"
             [inputType]="this.inputType"
-            (add)="onPersonCreated($event)"
-            (edit)="onPersonEdited($event)">
-        </app-person-form>
+            (add)="onHospitalCreated($event)"
+            (edit)="onHospitalEdited($event)">
+        </app-hospital-form>
     </mat-expansion-panel>
   </mat-accordion> 
   <br> 
   <div *ngIf="!isCreate()">
-    <button mat-raised-button aria-label="Agregar persona" (click)="setInputTypeCreate()">
+    <button mat-raised-button aria-label="Agregar hospital" (click)="setInputTypeCreate()">
         Volver a form de creación <mat-icon>plus_one</mat-icon>
     </button>
   </div>
   <br>
-  <app-person-list
-      [dataPerson]="this.dataPerson"
-      (personSelected)="onPersonSelected($event)"
-      (personDeleted)="onPersonDeleted($event)">
-  </app-person-list>  
+  <app-hospital-list
+      [dataHospital]="this.dataHospital"
+      (hospitalSelected)="onHospitalSelected($event)"
+      (hospitalDeleted)="onHospitalDeleted($event)">
+  </app-hospital-list>  
   <mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar> 

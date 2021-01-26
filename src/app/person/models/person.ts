@@ -17,7 +17,7 @@ export interface Person {
     healthInsurances: HealthInsurance[],    // TODO opcional ?
 }
 export interface PersonResult {
-    person: Person[],
+    persons: Person[],
     msg: string,
     success: boolean,
 }

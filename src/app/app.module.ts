@@ -54,7 +54,10 @@ import { PersonComponent } from './person/components/person/person.component';
 import { PersonFormComponent } from './person/components/person-form/person-form.component';
 import { PersonListComponent } from './person/components/person-list/person-list.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
-import { MatNativeDateModule } from '@angular/material/core'; 
+import { MatNativeDateModule } from '@angular/material/core';
+import { HospitalComponent } from './hospital/components/hospital/hospital.component';
+import { HospitalFormComponent } from './hospital/components/hospital-form/hospital-form.component';
+import { HospitalListComponent } from './hospital/components/hospital-list/hospital-list.component'; 
 
 
 @NgModule({
@@ -83,6 +86,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     PersonComponent,
     PersonFormComponent,
     PersonListComponent,
+    HospitalComponent,
+    HospitalFormComponent,
+    HospitalListComponent,
   ],
   imports: [
     BrowserModule,

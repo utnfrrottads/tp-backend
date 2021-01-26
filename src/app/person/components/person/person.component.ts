@@ -51,7 +51,7 @@ export class PersonComponent implements OnInit {
     this.personService.getPersons().subscribe({
       next: res =>{ 
         console.log('res person list', res);
-        this.dataPerson = res.person;
+        this.dataPerson = res.persons;
         this.flagListIsReady = false;
       },
       error: err =>{

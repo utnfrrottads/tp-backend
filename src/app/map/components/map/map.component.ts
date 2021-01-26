@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service'
-import { Hospital } from 'src/app/hospital/model/hospital';  
+import { Hospital } from 'src/app/hospital/models/hospital';  
 import { MapService } from '../../services/map.service';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
  
@@ -126,14 +126,14 @@ export class MapComponent implements OnInit {
   compareDistances(){
     let radiusHeart = 6371; // radius of earth in km
     let distances = [];
-    let closest: number = -999 ; 
+    let closest: string = '-999' ; 
     let closestDist: number = 99999999;
     for(let hospital of this.hospitalData){ 
       //console.log(hospital.nombre, hospital.geo.lat, hospital.geo.lng);
       let myLat = this.myPosition.lat;
       let myLng = this.myPosition.lng;
-      let markerLat = hospital.location.lat;
-      let markerLng = hospital.location.lng; 
+      let markerLat = hospital.location.latitude;
+      let markerLng = hospital.location.longitude; 
 
       let dLat  = this.rad(markerLat - myLat);
       let dLong = this.rad(markerLng - myLng);
@@ -142,7 +142,7 @@ export class MapComponent implements OnInit {
       let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       let distance = radiusHeart * c;
 
-      if ( closest == -999 || distance < closestDist ) {
+      if ( closest === '-999' || distance < closestDist ) {
         closest = hospital.id;
         closestDist = distance; 
         this.hospitalClosest = hospital;

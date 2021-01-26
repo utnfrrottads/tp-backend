@@ -7,12 +7,14 @@ import { MapComponent } from './map/components/map/map.component';
 import { MapEmergenciaComponent } from './map/components/map-emergencia/map-emergencia.component';
 import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component';
 import { HealthInsuranceComponent } from './health-insurance/components/health-insurance/health-insurance.component';
+import { HospitalComponent } from './hospital/components/hospital/hospital.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashComponent },
   {path: 'camas', component: CamaComponent },
   {path: 'obrassociales', component: HealthInsuranceComponent },
   {path: 'personas', component: PersonComponent },
+  {path: 'hospitales', component: HospitalComponent },  
   {path: 'emergencia', component: MapComponent },  
   {path: 'mapEmergencia', component: MapEmergenciaComponent },
   {path: 'mapDispatcher', component: MapTomtomComponent },

@@ -4,7 +4,7 @@ import { BedService } from '../../services/bed.service';
 import { BedType, BedStatus, Bed, BedSubType } from '../../models/bed';
 import { InputType } from 'src/app/common/models/typeInputEnum';
 import { HospitalService } from 'src/app/hospital/services/hospital.service';
-import { Hospital } from 'src/app/hospital/model/hospital';
+import { Hospital } from 'src/app/hospital/models/hospital';
 
 @Component({
   selector: 'app-cama-form',

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit} from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service'
-import { Hospital } from 'src/app/hospital/model/hospital';  
+import { Hospital } from 'src/app/hospital/models/hospital';  
 import { MapService } from '../../services/map.service';
 import { default as defServices, services, tt as ttServices } from '@tomtom-international/web-sdk-services';
 import { default as tt, map, LngLat} from '@tomtom-international/web-sdk-maps';
@@ -60,7 +60,7 @@ export class MapTomtomComponent implements OnInit {
   fillMapWithEfectores(efectores: Hospital[]){
     for (var i=0;i< efectores.length;i++) {
       this.marker = new tt.Marker({draggable:false, color:'#123456', scale: 0.5 })
-          .setLngLat([efectores[i].location.lng,efectores[i].location.lat])
+          .setLngLat([efectores[i].location.longitude,efectores[i].location.latitude])
           .addTo(this.map);
     } 
   }

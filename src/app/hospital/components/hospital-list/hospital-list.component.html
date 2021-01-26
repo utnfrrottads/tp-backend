@@ -1,0 +1,100 @@
+<h2>
+    Listado de hospitales 
+    <mat-icon>list</mat-icon>
+  </h2> 
+       
+  <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataHospital">
+  
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let bed">{{bed.id}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let bed">{{bed.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="locality">
+      <mat-header-cell *matHeaderCellDef>Localidad</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.locality}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef>Dirección</mat-header-cell>
+        <mat-cell *matCellDef="let bed">{{bed.address}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.phone}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="zipcode">
+      <mat-header-cell *matHeaderCellDef>CP</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.zipcode}}</mat-cell>
+    </ng-container>
+  
+    <!-- <ng-container matColumnDef="location.lat">
+        <mat-header-cell *matHeaderCellDef>Lat</mat-header-cell>
+        <mat-cell *matCellDef="let bed">{{bed.location.lat}}</mat-cell>
+      </ng-container>
+  
+    <ng-container matColumnDef="location.lat">
+      <mat-header-cell *matHeaderCellDef>Long</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.location.lat}}</mat-cell>
+    </ng-container> -->
+  
+    <ng-container matColumnDef="colorMarker">
+      <mat-header-cell *matHeaderCellDef>colorMarker</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.colorMarker}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="colorTextoMarker">
+      <mat-header-cell *matHeaderCellDef>colorTextoMarker</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.colorTextoMarker}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <mat-header-cell *matHeaderCellDef>Opciones</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.options}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="atentionLevel">
+      <mat-header-cell *matHeaderCellDef>Nivel de atención</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.atentionLevel}}</mat-cell>
+    </ng-container>
+<!-- 
+    <ng-container matColumnDef="healthInsurances">
+      <mat-header-cell *matHeaderCellDef>Obra social</mat-header-cell>
+      <mat-cell *matCellDef="let bed">{{bed.healthInsurances}}</mat-cell>
+    </ng-container>
+     
+    <ng-container matColumnDef="accidentOrDiseases">
+        <mat-header-cell *matHeaderCellDef>Accidentes o enfermedades atendidas</mat-header-cell>
+        <mat-cell *matCellDef="let bed">{{bed.accidentOrDiseases}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="beds">
+        <mat-header-cell *matHeaderCellDef>Camas</mat-header-cell>
+        <mat-cell *matCellDef="let bed">{{bed.beds}}</mat-cell>
+    </ng-container> -->
+       
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>   
+      <td mat-cell *matCellDef="let bed"> 
+        <button mat-mini-fab color="accent" (click)="editBed(bed)">
+          <mat-icon>edit</mat-icon>
+        </button>  
+        <button mat-mini-fab color="warn" (click)="deleteBed(bed)" aria-label="Eliminar cama">
+          <mat-icon>delete</mat-icon>
+        </button> 
+      </td>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+     
+  </mat-table>
+  
+  
