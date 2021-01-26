@@ -21,8 +21,11 @@
   </ng-container>
   <ng-container matColumnDef="bornDate">
       <mat-header-cell *matHeaderCellDef>bornDate</mat-header-cell>
-      <mat-cell *matCellDef="let person">{{person.bornDate}}</mat-cell>
+      <mat-cell *matCellDef="let person">{{ person.bornDate.substring(0,10) }}</mat-cell>
   </ng-container>
+
+  
+
   <ng-container matColumnDef="gender">
       <mat-header-cell *matHeaderCellDef>gender</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.gender}}</mat-cell>

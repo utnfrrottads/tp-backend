@@ -25,6 +25,6 @@ export class PersonListComponent{
   }
   deletePerson(person: Person) {
     this.personSelectedDeleted.emit(person);
-  }
+  } 
 
 }
