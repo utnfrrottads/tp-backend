@@ -67,7 +67,7 @@ export class MapComponent implements OnInit {
     });
   }
   logCenter() {
-    console.log(JSON.stringify(this.map.getCenter()))
+    alert(JSON.stringify(this.map.getCenter()));
   }
   addMarkerCurrentPosition() {   
     //Obtengo la posición actual

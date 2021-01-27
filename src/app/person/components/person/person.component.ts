@@ -8,7 +8,8 @@ import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-person',
-  templateUrl: './person.component.html'
+  templateUrl: './person.component.html',
+  styleUrls: ['./person.component.css']
 })
 export class PersonComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
@@ -28,6 +29,7 @@ export class PersonComponent implements OnInit {
     user:null,              // TODO es ok?
     password:null,          // TODO es ok?
     healthInsurances:  null,// TODO es ok?
+    healthInsuranceId: '',
   }; 
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
@@ -77,22 +79,36 @@ export class PersonComponent implements OnInit {
     });
   }
   onPersonCreated(person: Person){
+    console.log(person);
     this.personService.createPerson(person).subscribe({
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
-       this.getPersons();
+       this.getPersons(); 
       },
       error: err => {
         this.commonService.openSnackBar('Ups... algo falló al querer agregar la persona','Cerrar');
        } 
     });
   }
+  createAffiliatedHealthInsurance(person: Person){
+    this.personService.createAffiliatedHealthInsurance(person).subscribe({
+      next: res => {
+       this.commonService.openSnackBar('Se creó la afiliación a la obra social exitosamente','Perfecto!');
+      },
+      error: err => {
+        console.log(err);
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social','Cerrar');
+       } 
+    });
+  }
+
   onPersonEdited(person: Person){ 
     this.personService.updatePersonById(person).subscribe({
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
+       this.createAffiliatedHealthInsurance(person);
        this.getPersons();
       },
       error: err => {

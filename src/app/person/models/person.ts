@@ -15,6 +15,7 @@ export interface Person {
     user?:string,
     password?:string,
     healthInsurances: HealthInsurance[],    // TODO opcional ?
+    healthInsuranceId: string,    // TODO opcional ?
 }
 export interface PersonResult {
     persons: Person[],

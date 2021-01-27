@@ -1,12 +1,12 @@
-<mat-accordion class="example-headers-align" multi>
+  <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel>
     <mat-expansion-panel-header color="primary">
       <mat-panel-title>
         Formulario de personas
       </mat-panel-title>
       <mat-panel-description> 
-        <div *ngIf="!isCreate()"> Editar </div>
-        <div *ngIf="isCreate()"> Agregar </div>
+        <div *ngIf="!isCreate()" class="row"> Editar <mat-icon matSuffix>person_pin</mat-icon></div>
+        <div *ngIf="isCreate()" class="row"> Agregar <mat-icon matSuffix>person_pin</mat-icon></div>
         <div *ngIf="!isCreate()"><mat-icon>edit</mat-icon></div>
         <div *ngIf="isCreate()"><mat-icon>plus_one</mat-icon></div>
       </mat-panel-description>

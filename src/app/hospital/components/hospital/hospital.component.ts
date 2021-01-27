@@ -18,8 +18,7 @@ export class HospitalComponent implements OnInit {
     name: '',
     address: '',
     locality: '',
-    phone: 0, 
-    zipcode: '', 
+    phone: 0,
     colorMarker: '',
     colorTextoMarker: '',
     options: '',
@@ -79,30 +78,57 @@ export class HospitalComponent implements OnInit {
     });
   }
   onHospitalCreated(hospital: Hospital){
-    this.hospitalService.createHospital(hospital).subscribe({
+    console.log('hospital form', hospital);
+    const hospitalToSend = this.mapForm(hospital);
+    console.log('hospital cast', hospitalToSend);
+    this.hospitalService.createHospital(hospitalToSend).subscribe({
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
        this.getHospitals();
       },
       error: err => {
+        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar el hospital','Cerrar');
        } 
     });
   }
   onHospitalEdited(hospital: Hospital){ 
-    this.hospitalService.updateHospitalById(hospital).subscribe({
+    console.log('hospital form', hospital);
+    const hospitalToSend = this.mapForm(hospital);
+    console.log('hospital cast', hospitalToSend);
+    this.hospitalService.updateHospitalById(hospitalToSend).subscribe({
       next: res => {
        this.accordion.closeAll();  
        this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
        this.getHospitals();
       },
       error: err => {
+        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer editar el hospital','Cerrar');
        }
     });
   }
   isCreate(): boolean{
     return this.inputType===1 ? true : false;
+  }
+  mapForm(hospital: any): Hospital{
+    return {  id: hospital.id,
+        name: hospital.name, 
+        address: hospital.address, 
+        locality: hospital.locality, 
+        phone: hospital.phone,
+        location: {
+            latitude: hospital.latitude,
+            longitude: hospital.longitude
+        },
+        colorMarker: hospital.colorMarker, 
+        colorTextoMarker: hospital.colorTextoMarker, 
+        options: hospital.options, 
+        atentionLevel: hospital.atentionLevel, 
+        healthInsurances: hospital.healthInsurances, 
+        accidentOrDiseases: hospital.accidentOrDiseases, 
+        beds: hospital.beds, 
+  }
   }
 }

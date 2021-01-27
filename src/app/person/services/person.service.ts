@@ -31,17 +31,18 @@ export class PersonService {
       httpOptions);
   }
 
+
   /** `ADDS` a HealthInsurance that belongs to the person.
    *  '/addToHealthInsuranceById/:idPerson/:idHealthInsurance'  
   */ 
-  createAffiliatedHealthInsurance(person: Person, idHealthInsurance: string): Observable<PersonResult>{    
+  createAffiliatedHealthInsurance(person: Person): Observable<PersonResult>{    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<PersonResult>(
       this.baseUrl + '/api-persons/addToHealthInsuranceById' 
                     + '/' + person.id
-                    + '/' + idHealthInsurance,
+                    + '/' + person.healthInsuranceId,
                     person,
       httpOptions);
   }

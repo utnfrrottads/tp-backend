@@ -3,51 +3,51 @@
     <mat-icon>list</mat-icon>
 </h2>
 <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataPerson">
-  <ng-container matColumnDef="id">
+  <!-- <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.id}}</mat-cell>
-  </ng-container>
+  </ng-container> -->
   <ng-container matColumnDef="dni">
-      <mat-header-cell *matHeaderCellDef>dni</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>DNI</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.dni}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="firstName">
-      <mat-header-cell *matHeaderCellDef>firstName</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.firstName}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="lastName">
-      <mat-header-cell *matHeaderCellDef>lastName</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Apellido</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.lastName}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="bornDate">
-      <mat-header-cell *matHeaderCellDef>bornDate</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Fecha de nac</mat-header-cell>
       <mat-cell *matCellDef="let person">{{ person.bornDate.substring(0,10) }}</mat-cell>
   </ng-container>
 
   
 
   <ng-container matColumnDef="gender">
-      <mat-header-cell *matHeaderCellDef>gender</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Género</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.gender}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="bloodType">
-      <mat-header-cell *matHeaderCellDef>bloodType</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Sangre</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.bloodType}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="nurseWorkId">
-      <mat-header-cell *matHeaderCellDef>nurseWorkId</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Enfermero ID</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.nurseWorkId}}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="user">
+  <!-- <ng-container matColumnDef="user">
       <mat-header-cell *matHeaderCellDef>user</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.user}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="password">
       <mat-header-cell *matHeaderCellDef>password</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.password}}</mat-cell>
-  </ng-container>
+  </ng-container> -->
   <ng-container matColumnDef="healthInsurances">
-      <mat-header-cell *matHeaderCellDef>health Insurances</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Obra social</mat-header-cell>
       <mat-cell *matCellDef="let person">{{person.healthInsurances.legalName }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="actions">

@@ -49,8 +49,8 @@ export class HospitalFormComponent implements OnInit {
       address: new FormControl('', [Validators.required]),
       locality: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
-      zipcode: new FormControl('', [Validators.required]),
-      location: new FormControl(''),
+      latitude: new FormControl('', [Validators.required]),
+      longitude: new FormControl('', [Validators.required]),
       colorMarker: new FormControl(''),
       colorTextoMarker: new FormControl(''),
       options: new FormControl(''),
@@ -61,15 +61,16 @@ export class HospitalFormComponent implements OnInit {
     }); 
   }
   loadHospitalSelected(){ 
+    console.log(this.hospitalSelected);
     if (this.hospitalSelected !== undefined && this.hospitalSelected.id !== null && this.hospitalSelected.id !== '') {
       this.hospitalForm.patchValue({ 
         id: this.hospitalSelected.id,
         name: this.hospitalSelected.name, 
         address: this.hospitalSelected.address, 
         locality: this.hospitalSelected.locality, 
-        phone: this.hospitalSelected.phone, 
-        zipcode: this.hospitalSelected.zipcode, 
-        location: this.hospitalSelected.location, 
+        phone: this.hospitalSelected.phone,
+        latitude: this.hospitalSelected.location.latitude, 
+        longitude: this.hospitalSelected.location.longitude, 
         colorMarker: this.hospitalSelected.colorMarker, 
         colorTextoMarker: this.hospitalSelected.colorTextoMarker, 
         options: this.hospitalSelected.options, 

@@ -5,8 +5,8 @@
       Formulario de camas
     </mat-panel-title>
     <mat-panel-description> 
-      <div *ngIf="!isCreate()"> Editar </div>
-      <div *ngIf="isCreate()"> Agregar </div>
+      <div *ngIf="!isCreate()"class="row"> Editar <mat-icon matSuffix>single_bed</mat-icon> </div>
+      <div *ngIf="isCreate()"class="row"> Agregar <mat-icon matSuffix>single_bed</mat-icon>  </div>
       <div *ngIf="!isCreate()"><mat-icon>edit</mat-icon></div>
       <div *ngIf="isCreate()"><mat-icon>plus_one</mat-icon></div>
     </mat-panel-description>

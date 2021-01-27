@@ -7,8 +7,7 @@ export interface Hospital{
     name: string,
     address: string,
     locality: string,
-    phone: number, 
-    zipcode: string,
+    phone: number,
     location: GeoLocation,
     
     // zona: string,
@@ -24,8 +23,8 @@ export interface Hospital{
     beds: Bed[]
 }
 export interface GeoLocation{
-    latitude:number;
-    longitude:number;
+    latitude: number;
+    longitude: number;
 }  
 export interface HospitalResult{
     hospitals: Hospital[],  

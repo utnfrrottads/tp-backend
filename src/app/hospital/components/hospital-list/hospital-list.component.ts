@@ -12,10 +12,10 @@ export class HospitalListComponent{
   @Output() hospitalDeleted = new EventEmitter();
   displayedColumns: string[] = [
     'name', 'address',
-    // 'locality',
-     'phone', 'zipcode',
-    // 'lat', 'long',
-    'colorMarker', 'colorTextoMarker', 'options',
+    'locality',
+     'phone',
+    //'latitude', 'longitude',
+    //'colorMarker', 'colorTextoMarker',
     'atentionLevel', 
     /*'healthInsurances', 'accidentOrDiseases', 'beds',*/
     'actions'];  

@@ -5,6 +5,7 @@
     <p>        
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Hospital</mat-label>
+            <mat-icon matSuffix>local_hospital</mat-icon>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor
@@ -30,7 +31,7 @@
         </mat-form-field>
     </p> -->
     <p> 
-        <mat-form-field  appearance="standard" class="mi-full-width">
+        <mat-form-field  appearance="fill" class="mi-full-width">
             <mat-label> Decripción: </mat-label>
             <input matInput formControlName="description" placeholder="Descripcion de la cama" >
             <mat-error *ngIf="bedForm.controls.description.touched && bedForm.controls.description.invalid">

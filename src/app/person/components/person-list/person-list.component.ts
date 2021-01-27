@@ -11,14 +11,15 @@ export class PersonListComponent{
   @Output() personSelected = new EventEmitter();
   @Output() personDeleted = new EventEmitter();
   displayedColumns: string[] 
-    = ['id','dni'
-      ,'firstName','lastName'
-      ,'bornDate','gender'
-      ,'bloodType'
-      ,'nurseWorkId'
-      ,'user','password'
-      ,'healthInsurances'
-      ,'actions']; 
+    = [//'id',
+      'dni',
+      'firstName','lastName',
+      'bornDate','gender',
+      'bloodType',
+      'nurseWorkId',
+      // ,'user','password'
+      //'healthInsurances',
+      'actions']; 
 
   editPerson(person: Person){
     this.personSelected.emit(person);

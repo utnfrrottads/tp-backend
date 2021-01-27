@@ -1,8 +1,7 @@
-<h2 *ngIf="inputType!=2">Agregar cama</h2>
-<h2 *ngIf="inputType===2">Editar cama</h2>
+<h2 *ngIf="inputType!=2">Agregar hospital <mat-icon matSuffix>local_hospital</mat-icon></h2>
+<h2 *ngIf="inputType===2">Editar hospital <mat-icon matSuffix>local_hospital</mat-icon></h2>
 
 <form  [formGroup]="hospitalForm" (ngSubmit)="onSubmit()" class="mi-form">
-    <h3>Hospital</h3>
     <!-- <p> 
         <mat-form-field>
             <mat-label> Id: </mat-label>
@@ -14,7 +13,7 @@
     </p> -->
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
-            <mat-label> Nombre: </mat-label>
+            <mat-label>Nombre</mat-label>
             <input matInput formControlName="name" placeholder="Nombre del hospital" >
             <mat-error *ngIf="hospitalForm.controls.name.touched && hospitalForm.controls.name.invalid">
                 <span *ngIf="hospitalForm.controls.name.errors.required">No te olvides de completarlo!</span>  
@@ -42,39 +41,32 @@
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Teléfono: </mat-label>
+            <span matPrefix>+54 &nbsp;</span>
             <input matInput formControlName="phone" placeholder="Teléfono del hospital" >
+            <mat-icon matSuffix>phone</mat-icon>
             <mat-error *ngIf="hospitalForm.controls.phone.touched && hospitalForm.controls.phone.invalid">
                 <span *ngIf="hospitalForm.controls.phone.errors.required">No te olvides de completarlo!</span>  
             </mat-error> 
-        </mat-form-field>
-    </p>  
+        </mat-form-field>  
+    </p>
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
-            <mat-label> Código postal: </mat-label>
-            <input matInput formControlName="zipcode" placeholder="Código postal del hospital" >
-            <mat-error *ngIf="hospitalForm.controls.zipcode.touched && hospitalForm.controls.zipcode.invalid">
-                <span *ngIf="hospitalForm.controls.zipcode.errors.required">No te olvides de completarlo!</span>  
-            </mat-error> 
-        </mat-form-field>
-    </p>   
-    <!-- <p> 
-        <mat-form-field  appearance="standard" class="mi-full-width">
-            <mat-label> Latitude: </mat-label>
-            <input matInput formControlName="latitude" placeholder="Latitud del hospital" >
+            <mat-label> Latitud </mat-label>
+            <input matInput type="number" formControlName="latitude" placeholder="Latitud del hospital" >
             <mat-error *ngIf="hospitalForm.controls.latitude.touched && hospitalForm.controls.latitude.invalid">
                 <span *ngIf="hospitalForm.controls.latitude.errors.required">No te olvides de completarlo!</span>  
             </mat-error> 
         </mat-form-field>
-    </p>  
+    </p>
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
-            <mat-label> Longitude: </mat-label>
-            <input matInput formControlName="location.longitude" placeholder="Longitud del hospital" >
+            <mat-label> Longitud </mat-label>
+            <input matInput type="number" formControlName="longitude" placeholder="Longitud del hospital" >
             <mat-error *ngIf="hospitalForm.controls.longitude.touched && hospitalForm.controls.longitude.invalid">
                 <span *ngIf="hospitalForm.controls.longitude.errors.required">No te olvides de completarlo!</span>  
             </mat-error> 
         </mat-form-field>
-    </p>   -->
+    </p>
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Color Marker MAP: </mat-label>
@@ -92,15 +84,14 @@
             <mat-label> Opciones: </mat-label>
             <input matInput formControlName="options" placeholder="Opciones del hospital" >
         </mat-form-field>
-    </p>
-    revisar dropdowns
+    </p> 
     <p>        
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Nivel de atención</mat-label>
-            <!--formControlName es para asignar al formGroup
+            <!-- formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor
-            -->
+                mat-option -> [value] es el valor del ngFor -->
+            
             <mat-select matNativeControl required formControlName='atentionLevel'  [value]='hospitalSelected.atentionLevel'>
                 <mat-option *ngFor="let atentionLevel of dataAtentionLevel" [value]="atentionLevel.description"> 
                     {{atentionLevel.description}} 
@@ -108,13 +99,13 @@
             </mat-select>
         </mat-form-field>  
     </p> 
-    <p>        
+    <!-- <p>        
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Obra sociales</mat-label>
-            <!--formControlName es para asignar al formGroup
+            formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor
-            -->
+           
             <mat-select matNativeControl required formControlName='type' [value]='hospitalSelected.healthInsurances'>
                 <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.description"> 
                     {{healthInsurances.description}} 
@@ -125,10 +116,10 @@
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Accidentes o enfermedades atendidas</mat-label>
-            <!--formControlName es para asignar al formGroup
+            formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor
-            -->
+            
             <mat-select matNativeControl required formControlName='accidentOrDiseases' [value]='hospitalSelected.accidentOrDiseases'>
                 <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.description"> 
                     {{accidentOrDiseases.description}} 
@@ -139,17 +130,17 @@
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Camas</mat-label>
-            <!--formControlName es para asignar al formGroup
+            formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor
-            -->
+            
             <mat-select matNativeControl required formControlName='beds' [value]='hospitalSelected.beds'>
                 <mat-option *ngFor="let bed of dataBed" [value]="bed.description"> 
                     {{bed.description}} 
                 </mat-option> 
             </mat-select>
         </mat-form-field>
-    </p>
+    </p> -->
     <button mat-raised-button color="primary" type="submit" [disabled]="!hospitalForm.valid">{{setButtonText()}}</button>
 </form>
  

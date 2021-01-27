@@ -115,8 +115,8 @@
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor -->
-            <mat-select matNativeControl required formControlName='healthInsurances' [value]='personSelected.healthInsurances'>
-                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.fantasyName"> 
+            <mat-select matNativeControl required formControlName='healthInsuranceId' [value]='personSelected.healthInsuranceId'>
+                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.id"> 
                     {{healthInsurance.fantasyName}} 
                 </mat-option> 
             </mat-select>
