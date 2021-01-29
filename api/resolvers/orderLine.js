@@ -18,6 +18,8 @@ export default {
 	},
 	Mutation: {
 		createLine: (parent, { line }, { db }) => db.line.create(line),
+		deleteLine: (parent, { id }, { db }) =>
+			db.line.destroy({ where: { id } }),
 
 		lineCancel: (_, { id }, { db }) =>
 			db.line.update({ canceledAt: new Date() }, { where: { id } }),
