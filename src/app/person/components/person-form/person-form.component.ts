@@ -23,7 +23,8 @@ export class PersonFormComponent implements OnInit {
   dataBloodType: BloodType[];
   maxDate: Date;
   hide = true;
-
+  tipoPersona: string= "Paciente";
+ 
 
   constructor(
     private personService: PersonService, 

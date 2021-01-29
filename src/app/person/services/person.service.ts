@@ -90,5 +90,5 @@ export class PersonService {
       {"id": 2,"description": "Masculino" },
       {"id": 3,"description": "Otro" }, 
     ]);
-  }
+  } 
 }

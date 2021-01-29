@@ -58,6 +58,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { HospitalComponent } from './hospital/components/hospital/hospital.component';
 import { HospitalFormComponent } from './hospital/components/hospital-form/hospital-form.component';
 import { HospitalListComponent } from './hospital/components/hospital-list/hospital-list.component'; 
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -124,6 +125,7 @@ import { HospitalListComponent } from './hospital/components/hospital-list/hospi
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRadioModule,
     GoogleMapsModule,
   ],
   providers: [],

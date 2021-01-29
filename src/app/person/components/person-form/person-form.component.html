@@ -1,16 +1,18 @@
-<h2 *ngIf="inputType!=2">Agregar persona</h2>
-<h2 *ngIf="inputType===2">Editar persona</h2>
+<h2 *ngIf="inputType!=2">Agregar {{tipoPersona}}</h2>
+<h2 *ngIf="inputType===2">Editar {{tipoPersona}}</h2>
 
 <form  [formGroup]="personForm" (ngSubmit)="onSubmit()" class="mi-form">
-    <!-- <p> 
-        <mat-form-field>
-            <mat-label> Id: </mat-label>
-            <input matInput formControlName="id" placeholder="ID de la cama">
-            <mat-error *ngIf="personForm.controls.id.touched && personForm.controls.id.invalid">
-                <span *ngIf="personForm.controls.id.errors.required">No te ovlvides de completarlo!</span>  
-            </mat-error> 
+
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Tipo de persona</mat-label>
+            <mat-select matNativeControl disabled [value]="tipoPersona">
+                <mat-option value="Paciente"> 
+                    Paciente 
+                </mat-option> 
+            </mat-select>    
         </mat-form-field>
-    </p> -->
+    </p>
     <p> 
         <mat-form-field  appearance="fill" class="mi-full-width">
             <mat-label> DNI </mat-label>
@@ -88,7 +90,7 @@
             </mat-select>
         </mat-form-field>  
     </p>
-    <p>
+    <!-- <p>
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>nurseWorkId?</mat-label>
             <input matInput formControlName="nurseWorkId" placeholder="Enfermero" >  
@@ -105,7 +107,7 @@
             <mat-label>Contraseña</mat-label>
             <input matInput formControlName="password" placeholder="Contraseña" > 
         </mat-form-field>
-    </p>
+    </p> -->
 
 
       
