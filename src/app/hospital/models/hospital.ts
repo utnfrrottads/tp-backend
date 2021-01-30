@@ -23,8 +23,8 @@ export interface Hospital{
     beds: Bed[]
 }
 export interface GeoLocation{
-    latitude: number;
-    longitude: number;
+    lat: number;
+    lng: number;
 }  
 export interface HospitalResult{
     hospitals: Hospital[],  
@@ -37,3 +37,8 @@ export interface AtentionLevel{
     description: string,
 }
 
+export interface HospitalClosest{
+    closest : string,
+    closestDist : number,
+    hospitalClosest: Hospital
+} 

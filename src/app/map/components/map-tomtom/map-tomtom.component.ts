@@ -51,16 +51,18 @@ export class MapTomtomComponent implements OnInit {
     //this.initTaxi();
   }
   getEfectores(){ //TO DO: ¿pasarlo a otro componente y que no sea mapa?
-    this.hospitalService.getEfectoresLocalization().subscribe(
-      (res: Hospital[]) => {
-        this.efectorData = res;
-        this.fillMapWithEfectores(res);
-    });
-  }
+    this.hospitalService.getHospitals().subscribe({
+      next: res => {
+        this.efectorData = res.hospitals;
+        //this.efectorData = this.getFormatHospital(res.hospitals); //por si necesita lat y lng
+        this.fillMapWithEfectores(res.hospitals);
+    }});
+  } 
+
   fillMapWithEfectores(efectores: Hospital[]){
     for (var i=0;i< efectores.length;i++) {
       this.marker = new tt.Marker({draggable:false, color:'#123456', scale: 0.5 })
-          .setLngLat([efectores[i].location.longitude,efectores[i].location.latitude])
+          .setLngLat([efectores[i].location.lng,efectores[i].location.lat])
           .addTo(this.map);
     } 
   }

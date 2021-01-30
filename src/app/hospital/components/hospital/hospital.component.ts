@@ -27,8 +27,8 @@ export class HospitalComponent implements OnInit {
     // distrito: string,
     atentionLevel: '',
     location:{
-      latitude:0,
-      longitude:0 },
+      lat:0,
+      lng:0 },
     healthInsurances: [],
     accidentOrDiseases: [],
     beds: []
@@ -119,8 +119,8 @@ export class HospitalComponent implements OnInit {
         locality: hospital.locality, 
         phone: hospital.phone,
         location: {
-            latitude: hospital.latitude,
-            longitude: hospital.longitude
+            lat: hospital.lat,
+            lng: hospital.lng
         },
         colorMarker: hospital.colorMarker, 
         colorTextoMarker: hospital.colorTextoMarker, 

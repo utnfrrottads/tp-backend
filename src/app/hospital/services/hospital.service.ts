@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AtentionLevel, Hospital, HospitalResult } from '../models/hospital';
+import { AtentionLevel, GeoLocation, Hospital, HospitalClosest, HospitalResult } from '../models/hospital';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,50 @@ export class HospitalService {
   constructor(
     private httpClient: HttpClient
   ) { }
-
-  getEfectoresLocalization(): Observable<Hospital[]> {
-    return of([   
-      {id: '3171', name: 'Centro de Salud "Elena Bazzet"', address: 'CABRINI MADRE 2717', locality: 'Rosario',  phone: 444555, zipcode: '2000',  options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {latitude:-33.005810, longitude: -60.671392}},
-      {id: '1175', name: 'Centro de Salud "Dr. Salvador Mazza"', address: 'GRANDOLI FLODUARDO 3498', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'',  healthInsurances:[], accidentOrDiseases: [], beds: [],location: {latitude:-32.886982, longitude:  -60.734015}},
-      {id: '1220', name: 'Hospital Provincial', address: 'ALEM LEANDRO N 1450', locality: 'Rosario', phone: 4807841, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {latitude:-32.956261, longitude: -60.630512}},
-      {id: '3169', name: 'Centro de Salud "Santa Lucí­a"', address: '1739 7691', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {latitude:-32.955491, longitude: -60.726453}}, 
-      {id: '3743', name: 'Policlínico "San Martín"', address: 'CHUBUT 7145', locality: 'Rosario', phone: 4807800, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {latitude:-32.945930, longitude: -60.717514}}, 
-    ]);
+/**
+ * Formatea el hospital para que obtenga correctamente el lat y lng para el mapa de Google
+ * @param hospitals array con los datos de los hospitales
+ */
+  getFormatHospital(hospitals: Hospital[]): Hospital[] {    
+    return hospitals.map(item =>{
+      let objetFormat = this.initObjectHospital();
+      objetFormat.id = item.id,
+      objetFormat.name= item.name,
+      objetFormat.address= item.address,
+      objetFormat.locality= item.locality,
+      objetFormat.phone= item.phone,
+      objetFormat.location = { lat: item.location['latitude'], lng: item.location['longitude'] },
+        
+      objetFormat.colorMarker = item.colorMarker,
+      objetFormat.colorTextoMarker = item.colorTextoMarker,
+      objetFormat.options = item.options, 
+      objetFormat.atentionLevel = item.atentionLevel,
+      objetFormat.healthInsurances = item.healthInsurances,
+      objetFormat.accidentOrDiseases = item.accidentOrDiseases,
+      objetFormat.beds = item.beds
+      
+      return objetFormat;
+    }) ; 
+  }
+/**
+ * Inicializa el objeto 
+ */  
+  initObjectHospital(): Hospital {
+    return { 
+      id : '',
+      name :'',
+      address : '',
+      locality : '',
+      phone : 0,
+      location : {lat: 0, lng: 0},  
+      colorMarker: '',
+      colorTextoMarker: '',
+      options: '', 
+      atentionLevel: '',
+      healthInsurances: [],
+      accidentOrDiseases: [],
+      beds: []
+    };
   }
 
 /**
@@ -97,3 +132,12 @@ updateHospitalById(hospital: Hospital): Observable<HospitalResult>{
     ]);
   }
 }
+// getEfectoresLocalization(): Observable<Hospital[]> {
+//   return of([   
+//     {id: '3171', name: 'Centro de Salud "Elena Bazzet"', address: 'CABRINI MADRE 2717', locality: 'Rosario',  phone: 444555, zipcode: '2000',  options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-33.005810, lng: -60.671392}},
+//     {id: '1175', name: 'Centro de Salud "Dr. Salvador Mazza"', address: 'GRANDOLI FLODUARDO 3498', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'',  healthInsurances:[], accidentOrDiseases: [], beds: [],location: {lat:-32.886982, lng:  -60.734015}},
+//     {id: '1220', name: 'Hospital Provincial', address: 'ALEM LEANDRO N 1450', locality: 'Rosario', phone: 4807841, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-32.956261, lng: -60.630512}},
+//     {id: '3169', name: 'Centro de Salud "Santa Lucí­a"', address: '1739 7691', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-32.955491, lng: -60.726453}}, 
+//     {id: '3743', name: 'Policlínico "San Martín"', address: 'CHUBUT 7145', locality: 'Rosario', phone: 4807800, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-32.945930, lng: -60.717514}}, 
+//   ]);
+// }

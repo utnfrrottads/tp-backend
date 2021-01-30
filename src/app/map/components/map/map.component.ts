@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service'
-import { Hospital } from 'src/app/hospital/models/hospital';  
+import { GeoLocation, Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
 import { MapService } from '../../services/map.service';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
  
@@ -46,13 +46,36 @@ export class MapComponent implements OnInit {
 
   constructor(
     private hospitalService: HospitalService, 
+    private mapService: MapService, 
   ) { }
   
-  ngOnInit() {
+  ngOnInit(): void{
     this.getCurrentPosition();
-    this.gethospitales();
+    this.getHospitals();
   }
-  getCurrentPosition(){
+
+  getHospitals(): void{  
+    this.hospitalService.getHospitals().subscribe({
+      next: res => { 
+        this.hospitalData = this.hospitalService.getFormatHospital(res.hospitals); 
+    }});
+  }
+/**
+ * Agrega marcador en el mapa con mi posición actual
+ */  
+  addMarkerCurrentPosition(): void{   
+    // Obtengo la posición actual
+    this.getCurrentPosition(); 
+    // Limpio el marcador
+    this.myMarkers = [];
+    // Agrego marcador a mapa
+    this.myMarkers.push( this.mapService.addMarkerToMap(this.myPosition , this.iconMarkerAmbulance));
+  }
+
+/**
+ * Obtiene la posición actual del usuario
+ */  
+  getCurrentPosition(): void{
     navigator.geolocation.getCurrentPosition((position) => { 
       this.myPosition = {
         lat: position.coords.latitude,
@@ -60,99 +83,15 @@ export class MapComponent implements OnInit {
       }
     });
   }
-  gethospitales(){  
-    this.hospitalService.getEfectoresLocalization().subscribe(
-      (res: Hospital[]) => {
-        this.hospitalData = res; 
-    });
-  }
-  logCenter() {
-    alert(JSON.stringify(this.map.getCenter()));
-  }
-  addMarkerCurrentPosition() {   
-    //Obtengo la posición actual
+/**
+ * Obtiene la posición actual del usuario 
+ * y la compara con todos los hospitales para obtener cual es el más cercano
+ */   
+  getNearestHospital(): void{
     this.getCurrentPosition(); 
-    //Agrego marcador a mapa
-    this.myMarkers.push({
-      position: {
-        lat: this.myPosition.lat,
-        lng: this.myPosition.lng,
-      },
-      label: {
-        color: 'red',
-        text: 'Mi posición actual'
-      },
-      title: 'Usted se encuentra aquí',
-      info: 'Info detallada ',    
-      //draggable: true,
-       
-      options: {
-        animation: google.maps.Animation.BOUNCE, //DROP
-        icon: this.iconMarkerAmbulance,  
-      },
-    });
- 
-  }
-
-  openInfo(marker: MapMarker, content) {
-    this.infoContent = content
-    this.info.open(marker)
-  }
-
-  public getDistancia(origen: string, destino: string) {
-    //
-    return new google.maps.DistanceMatrixService().getDistanceMatrix({'origins': [origen], 'destinations': [destino] , travelMode:  google.maps.TravelMode.DRIVING}, (results: any) => {
-        this.mensajeDistancia =  results.rows[0].elements[0].distance.value
-    });
-  }
-  calculateDistancia(){
-    let myCurrentPosition = { lat: -32.951416888801205,
-      lng: -60.721738511040954
-    }
-    let destinoPosition = {lat:-33.0493740313205,lng:-60.6216922731336}
- 
-    let srcOriginLat: '11.127122499999999'
-    let srcOriginLng: '78.6568942'
-    
-    let origen =  myCurrentPosition.lat +  "," + myCurrentPosition.lng 
-    let destino = destinoPosition.lat +  "," + destinoPosition.lng   
-    this.getDistancia(origen, destino);
-
-  }  
-  getNearestHospital(){
-    this.getCurrentPosition();
-    this.compareDistances(); 
-  }
-  compareDistances(){
-    let radiusHeart = 6371; // radius of earth in km
-    let distances = [];
-    let closest: string = '-999' ; 
-    let closestDist: number = 99999999;
-    for(let hospital of this.hospitalData){ 
-      //console.log(hospital.nombre, hospital.geo.lat, hospital.geo.lng);
-      let myLat = this.myPosition.lat;
-      let myLng = this.myPosition.lng;
-      let markerLat = hospital.location.latitude;
-      let markerLng = hospital.location.longitude; 
-
-      let dLat  = this.rad(markerLat - myLat);
-      let dLong = this.rad(markerLng - myLng);
-      let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.cos(this.rad(myLat)) * Math.cos(this.rad(myLat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
-      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      let distance = radiusHeart * c;
-
-      if ( closest === '-999' || distance < closestDist ) {
-        closest = hospital.id;
-        closestDist = distance; 
-        this.hospitalClosest = hospital;
-        //console.log('mas cercano',closest + '-' + closestDist);
-      }
-    }
-    //console.log('objeto',this.hospitalClosest);
-    //console.log(closest, closestDist) ;
-    this.mensajeDistancia = closestDist.toString();
-
+    const closest = this.mapService.getHospitalClosest(this.hospitalData, this.myPosition);
+    this.hospitalClosest = closest.hospitalClosest;
+    this.mensajeDistancia = closest.closestDist.toString(); 
 
     for(let hospital of this.hospitalData){  
       if ( hospital.id == this.hospitalClosest.id ) {
@@ -161,28 +100,98 @@ export class MapComponent implements OnInit {
           icon: this.iconHospitalClosest,  
         }
       }
-    };
-
-    // this.efectorData.filter( 
-    //   efec => {
-    //     if(efec.id === this.efectorClosest.id){
-    //       efec.options = {
-    //         animation: google.maps.Animation.BOUNCE, //DROP
-    //         icon: this.iconManMarker,  
-    // }}});
-
-  }
-  rad(degrees){  
-    return degrees * (Math.PI/180);
+    }; 
   }
 
- 
+  logCenter(): void{
+    alert(JSON.stringify(this.map.getCenter()));
+  }
+
+  
+  openInfo(marker: MapMarker, content): void{
+    this.infoContent = content
+    this.info.open(marker)
+  }
+
+  // ******************************************************************
+  // *********************** GOOGLE MAPS FUNCTIONS ********************
+  // ******************************************************************
+/** FUNCION DE GOOGLE MAPS 
+ * OBTIENE LA DISTANCIA ENTRE DOS PUNTOS
+*/
+  public getDistancia(origen: string, destino: string): void{
+    //
+    return new google.maps.DistanceMatrixService().getDistanceMatrix({'origins': [origen], 'destinations': [destino] , travelMode:  google.maps.TravelMode.DRIVING}, (results: any) => {
+        this.mensajeDistancia =  results.rows[0].elements[0].distance.value
+    });
+  }
+/** FUNCION DE GOOGLE MAPS 
+ * Calcula la distancia utilizando los servicios de Google (tiene un máximo de solicitudes gratis, luego es pago)
+ */  
+  calculateDistancia(): void{
+    let myCurrentPosition = { lat: -32.951416888801205,
+      lng: -60.721738511040954
+    }
+    let destinoPosition = {lat:-33.0493740313205,lng:-60.6216922731336}
+
+    let srcOriginLat: '11.127122499999999'
+    let srcOriginLng: '78.6568942'
+    
+    let origen =  myCurrentPosition.lat +  "," + myCurrentPosition.lng 
+    let destino = destinoPosition.lat +  "," + destinoPosition.lng   
+    this.getDistancia(origen, destino);
+
+  } 
 
 
 
 
+  // let radiusHeart = 6371; // radius of earth in km
+  // let distances = [];
+  // let closest: string = '-999' ; 
+  // let closestDist: number = 99999999;
+  // for(let hospital of this.hospitalData){ 
+  //   //console.log(hospital.nombre, hospital.geo.lat, hospital.geo.lng);
+  //   let myLat = this.myPosition.lat;
+  //   let myLng = this.myPosition.lng;
+  //   let markerLat = hospital.location.lat;
+  //   let markerLng = hospital.location.lng; 
+
+  //   let dLat  = this.rad(markerLat - myLat);
+  //   let dLong = this.rad(markerLng - myLng);
+  //   let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+  //           Math.cos(this.rad(myLat)) * Math.cos(this.rad(myLat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+  //   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  //   let distance = radiusHeart * c;
+
+  //   if ( closest === '-999' || distance < closestDist ) {
+  //     closest = hospital.id;
+  //     closestDist = distance; 
+  //     this.hospitalClosest = hospital;
+  //     //console.log('mas cercano',closest + '-' + closestDist);
+  //   }
+  // }
+  // //console.log('objeto',this.hospitalClosest);
+  // //console.log(closest, closestDist) ;
+  // this.mensajeDistancia = closestDist.toString();
 
 
+  // for(let hospital of this.hospitalData){  
+  //   if ( hospital.id == this.hospitalClosest.id ) {
+  //     hospital.options = {
+  //       animation: google.maps.Animation.BOUNCE, //DROP
+  //       icon: this.iconHospitalClosest,  
+  //     }
+  //   }
+  // };
+
+  // // this.efectorData.filter( 
+  // //   efec => {
+  // //     if(efec.id === this.efectorClosest.id){
+  // //       efec.options = {
+  // //         animation: google.maps.Animation.BOUNCE, //DROP
+  // //         icon: this.iconManMarker,  
+  // // }}});
 
 
 
