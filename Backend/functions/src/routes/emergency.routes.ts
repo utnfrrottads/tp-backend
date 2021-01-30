@@ -43,8 +43,8 @@ emergency.put('/updateemergencyById/:id', [
     param('id').not().isEmpty().withMessage('El campo id es requerido'),
     param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
     param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
-    sanitizeBody(['name', 'address', 'locality', 'phone', 'atentionLevel']).trim(),
-], emergencysController.updateemergencyById);
+    sanitizeBody(['dateOfEntrance', 'dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
+], emergencysController.updateEmergencyById);
 
 /**
 * `DELETES` a emergency by ID.

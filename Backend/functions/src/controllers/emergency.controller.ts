@@ -1,4 +1,4 @@
-import { db } from '../http';
+import  '../http';
 import { Emergency } from '../models/emergency.model';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
@@ -193,8 +193,8 @@ module.exports = {
 
       res.status(200).json({
         success: true,
-        obraSocial: accidentOrDiseaseAdded,
-        msg: 'Accidente o enfermedad agregado con éxito',
+        AccidentOrDisease: accidentOrDiseaseAdded,
+        msg: 'Accidente o enfermedad agregada con éxito',
       });
     } catch (e) {
       res.status(500).json({
