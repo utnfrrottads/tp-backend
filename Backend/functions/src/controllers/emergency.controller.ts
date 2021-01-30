@@ -187,7 +187,7 @@ module.exports = {
         description: accidentOrDisease.description,
       };
 
-      const accidentOrDiseaseAdded = await emergency.accidentOrDiseases.create(
+      const accidentOrDiseaseAdded = await emergency.accidentOrDisease.create(
         accidentOrDiseaseToAdd
       );
 
