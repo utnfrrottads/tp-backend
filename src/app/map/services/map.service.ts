@@ -56,6 +56,8 @@ export class MapService {
  * Obtiene el hospital más cercano 
  * @param hospitalData arrays de los hospitales a comparar
  * @param myPosition posición con lat y lng a utilizar para buscar el hospital más cercano a esta
+ * 
+ * @returns hospital más cercano, distancia y ID
  */  
   getHospitalClosest(hospitalData: Hospital[], myPosition: GeoLocation): HospitalClosest{
     let distance: number;
@@ -67,8 +69,7 @@ export class MapService {
 
       if ( closest === '-999' || distance < closestDist ) {
         closestDist = distance;
-        return {
-          closest : hospital.id,
+        return { 
           closestDist : distance,
           hospitalClosest: hospital
         }

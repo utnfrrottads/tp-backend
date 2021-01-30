@@ -38,7 +38,6 @@ export interface AtentionLevel{
 }
 
 export interface HospitalClosest{
-    closest : string,
-    closestDist : number,
-    hospitalClosest: Hospital
+    hospitalClosest: Hospital,
+    closestDist : number
 } 
