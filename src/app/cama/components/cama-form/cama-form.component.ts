@@ -98,7 +98,7 @@ export class CamaFormComponent implements OnInit {
   getHospitals(){
     this.hospitalService.getHospitals().subscribe({
       next: res => {
-      this.dataHospital = res.hospitals;
+      this.dataHospital = this.hospitalService.getFormatOkFrontendHospital(res.hospitals);
       }, 
     });  
   }

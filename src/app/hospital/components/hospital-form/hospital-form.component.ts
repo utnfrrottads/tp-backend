@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HospitalService } from '../../services/hospital.service';
 import { HealthInsuranceService } from '../../../health-insurance/services/health-insurance.service';
 import { BedService } from '../../../cama/services/bed.service';
-import { AtentionLevel, Hospital, HospitalResult } from '../../models/hospital';
+import { AtentionLevel, Hospital } from '../../models/hospital';
 import { InputType } from '../../../common/models/typeInputEnum';  
 import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
 import { Bed } from '../../../cama/models/bed';
@@ -49,8 +49,8 @@ export class HospitalFormComponent implements OnInit {
       address: new FormControl('', [Validators.required]),
       locality: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
-      lat: new FormControl('', [Validators.required]),
-      lng: new FormControl('', [Validators.required]),
+      latitude: new FormControl('', [Validators.required]),
+      longitude: new FormControl('', [Validators.required]),
       colorMarker: new FormControl(''),
       colorTextoMarker: new FormControl(''),
       options: new FormControl(''),
@@ -69,8 +69,8 @@ export class HospitalFormComponent implements OnInit {
         address: this.hospitalSelected.address, 
         locality: this.hospitalSelected.locality, 
         phone: this.hospitalSelected.phone,
-        lat: this.hospitalSelected.location.lat, 
-        lng: this.hospitalSelected.location.lng, 
+        latitude: this.hospitalSelected.location.latitude, 
+        longitude: this.hospitalSelected.location.longitude, 
         colorMarker: this.hospitalSelected.colorMarker, 
         colorTextoMarker: this.hospitalSelected.colorTextoMarker, 
         options: this.hospitalSelected.options, 

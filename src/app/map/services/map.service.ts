@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GeoLocation, Hospital, HospitalClosest } from 'src/app/hospital/models/hospital';
+import { GeoLocationGoogleMap, Hospital, HospitalClosest } from 'src/app/hospital/models/hospital';
 
 @Injectable({
   providedIn: 'root'
@@ -59,13 +59,13 @@ export class MapService {
  * 
  * @returns hospital más cercano, distancia y ID
  */  
-  getHospitalClosest(hospitalData: Hospital[], myPosition: GeoLocation): HospitalClosest{
+  getHospitalClosest(hospitalData: Hospital[], myPosition: GeoLocationGoogleMap): HospitalClosest{
     let distance: number;
     let closest: string = '-999' ; 
     let closestDist: number = 99999999;
     for(let hospital of hospitalData){ 
 
-      distance = this.calcDistance(myPosition.lat, myPosition.lng, hospital.location.lat, hospital.location.lng);
+      distance = this.calcDistance(myPosition.lat, myPosition.lng, hospital.locationGoogleMap.lat, hospital.locationGoogleMap.lng);
 
       if ( closest === '-999' || distance < closestDist ) {
         closestDist = distance;

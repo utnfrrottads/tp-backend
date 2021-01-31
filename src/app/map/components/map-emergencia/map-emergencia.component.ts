@@ -40,7 +40,7 @@ export class MapEmergenciaComponent implements OnInit {
     this.efectorService.getHospitals().subscribe({
       next: res => {
         this.efectorData = res.hospitals;
-        //this.efectorData = this.getFormatHospital(res.hospitals); //por si necesita lat y lng
+        //this.efectorData = this.getFormatOkFrontendHospital(res.hospitals); //por si necesita lat y lng
         this.fillMapWithEfectores(res.hospitals);
     }}); 
   } 
@@ -48,7 +48,7 @@ export class MapEmergenciaComponent implements OnInit {
   fillMapWithEfectores(efectores: Hospital[]){
     for (var i=0;i< efectores.length;i++) {
       this.marker = new ttMaps.Marker({draggable:false, color:'#123456', scale: 0.5 })
-          .setLngLat([efectores[i].location.lng,efectores[i].location.lat])
+          .setLngLat([efectores[i].location.longitude,efectores[i].location.latitude])
           .addTo(this.map);
     }
   }

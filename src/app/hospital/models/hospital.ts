@@ -7,12 +7,12 @@ export interface Hospital{
     name: string,
     address: string,
     locality: string,
-    phone: number,
-    location: GeoLocation,
-    
-    // zona: string,
-    // info: string,
-    // distrito: string,
+    phone: number, 
+    /** Firestore utiliza location con latitude y longitude. Es utilizado para el CRUD */
+    location: GeoLocationFirestore, 
+    /** Google maps utiliza location con lat y lng. Es utilizado para google maps solamente */
+    locationGoogleMap: GeoLocationGoogleMap,
+     
     colorMarker: string,
     colorTextoMarker: string,
     options: any,     
@@ -22,7 +22,11 @@ export interface Hospital{
     accidentOrDiseases: AccidentOrDiseases[],
     beds: Bed[]
 }
-export interface GeoLocation{
+export interface GeoLocationFirestore{
+    latitude: number;
+    longitude: number;
+}  
+export interface GeoLocationGoogleMap{
     lat: number;
     lng: number;
 }  

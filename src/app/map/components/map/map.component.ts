@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service'
-import { GeoLocation, Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
+import { Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
 import { MapService } from '../../services/map.service';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
  
@@ -57,7 +57,7 @@ export class MapComponent implements OnInit {
   getHospitals(): void{  
     this.hospitalService.getHospitals().subscribe({
       next: res => { 
-        this.hospitalData = this.hospitalService.getFormatHospital(res.hospitals); 
+        this.hospitalData = this.hospitalService.getFormatOkFrontendHospital(res.hospitals); 
     }});
   }
 /**

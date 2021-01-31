@@ -27,8 +27,11 @@ export class HospitalComponent implements OnInit {
     // distrito: string,
     atentionLevel: '',
     location:{
-      lat:0,
-      lng:0 },
+      latitude:0,
+      longitude:0 },
+    locationGoogleMap:{
+        lat:0,
+        lng:0 },
     healthInsurances: [],
     accidentOrDiseases: [],
     beds: []
@@ -52,7 +55,7 @@ export class HospitalComponent implements OnInit {
     this.flagListIsReady = true;
     this.hospitalService.getHospitals().subscribe({
       next: res =>{
-        this.dataHospital = res.hospitals;
+        this.dataHospital = this.hospitalService.getFormatOkFrontendHospital(res.hospitals);
         this.flagListIsReady = false;
       },
       error: err =>{
@@ -113,15 +116,19 @@ export class HospitalComponent implements OnInit {
     return this.inputType===1 ? true : false;
   }
   mapForm(hospital: any): Hospital{
-    return {  id: hospital.id,
+    return {  
+        id: hospital.id,
         name: hospital.name, 
         address: hospital.address, 
         locality: hospital.locality, 
         phone: hospital.phone,
+       // location: hospital.location,
+        
         location: {
-            lat: hospital.lat,
-            lng: hospital.lng
+          latitude: hospital.latitude,
+          longitude: hospital.longitude
         },
+        locationGoogleMap: hospital.locationGoogleMap,  // este no se usa
         colorMarker: hospital.colorMarker, 
         colorTextoMarker: hospital.colorTextoMarker, 
         options: hospital.options, 

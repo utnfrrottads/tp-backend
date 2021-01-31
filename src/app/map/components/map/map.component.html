@@ -9,7 +9,7 @@
     <map-marker
       #markerElem
       *ngFor="let myMark of myMarkers"
-      [position]="myMark.position"
+      [position]="myMark.locationGoogleMap"
       [label]="myMark.title"
       [title]="myMark.label"
       [options]="myMark.options">
@@ -17,7 +17,7 @@
     <map-marker
       #markerElem
       *ngFor="let efector of hospitalData"
-      [position]="efector.location"
+      [position]="efector.locationGoogleMap"
       [label]="efector.name"
       [title]="efector.name"   
       [options]="efector.options"
@@ -52,13 +52,9 @@
       {{this.hospitalClosest.address}}, {{this.hospitalClosest.locality}}
     </mat-card-subtitle>
   </mat-card-header>
-  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
   <mat-card-content>  
       Cantidad de camas
-      <mat-icon matBadge="15" matBadgeColor="warn">single_bed</mat-icon> 
-        <span class="cdk-visually-hidden">
-          La cantidad de camas disponibles es 155555555555 (es para accesibilidad este texto>>>>>>>>>>>>)
-        </span> 
+      <mat-icon matBadge="15" matBadgeColor="warn">single_bed</mat-icon>  
   </mat-card-content>
   <mat-card-actions>
     <button  mat-raised-button color="warn">Tomar cama e ir!</button>

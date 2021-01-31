@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AtentionLevel, GeoLocation, Hospital, HospitalClosest, HospitalResult } from '../models/hospital';
+import { AtentionLevel, Hospital, HospitalClosest, HospitalResult } from '../models/hospital';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class HospitalService {
  * Formatea el hospital para que obtenga correctamente el lat y lng para el mapa de Google
  * @param hospitals array con los datos de los hospitales
  */
-  getFormatHospital(hospitals: Hospital[]): Hospital[] {    
+  getFormatOkFrontendHospital(hospitals: Hospital[]): Hospital[] {    
     return hospitals.map(item =>{
       let objetFormat = this.initObjectHospital();
       objetFormat.id = item.id,
@@ -26,7 +26,8 @@ export class HospitalService {
       objetFormat.address= item.address,
       objetFormat.locality= item.locality,
       objetFormat.phone= item.phone,
-      objetFormat.location = { lat: item.location['latitude'], lng: item.location['longitude'] },
+      objetFormat.location = item.location,
+      objetFormat.locationGoogleMap = { lat: item.location['latitude'], lng: item.location['longitude'] },
         
       objetFormat.colorMarker = item.colorMarker,
       objetFormat.colorTextoMarker = item.colorTextoMarker,
@@ -38,7 +39,7 @@ export class HospitalService {
       
       return objetFormat;
     }) ; 
-  }
+  } 
 /**
  * Inicializa el objeto 
  */  
@@ -49,7 +50,8 @@ export class HospitalService {
       address : '',
       locality : '',
       phone : 0,
-      location : {lat: 0, lng: 0},  
+      location : {latitude: 0, longitude: 0},  
+      locationGoogleMap : {lat: 0, lng: 0},  
       colorMarker: '',
       colorTextoMarker: '',
       options: '', 
