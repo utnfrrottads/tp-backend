@@ -19,8 +19,6 @@ export class HospitalComponent implements OnInit {
     address: '',
     locality: '',
     phone: 0,
-    colorMarker: '',
-    colorTextoMarker: '',
     options: '',
     // zona: string,
     // info: string,
@@ -129,8 +127,6 @@ export class HospitalComponent implements OnInit {
           longitude: hospital.longitude
         },
         locationGoogleMap: hospital.locationGoogleMap,  // este no se usa
-        colorMarker: hospital.colorMarker, 
-        colorTextoMarker: hospital.colorTextoMarker, 
         options: hospital.options, 
         atentionLevel: hospital.atentionLevel, 
         healthInsurances: hospital.healthInsurances, 

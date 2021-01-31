@@ -13,8 +13,8 @@ export interface Hospital{
     /** Google maps utiliza location con lat y lng. Es utilizado para google maps solamente */
     locationGoogleMap: GeoLocationGoogleMap,
      
-    colorMarker: string,
-    colorTextoMarker: string,
+    // colorMarker: string,
+    // colorTextoMarker: string,
     options: any,     
 
     atentionLevel: string,
