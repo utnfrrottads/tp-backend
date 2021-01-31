@@ -1,4 +1,4 @@
- 
+ {{myMarkers | json}}
   <!-- (mapClick)="click($event)" -->
 <google-map  
   height="500px"
@@ -9,7 +9,7 @@
     <map-marker
       #markerElem
       *ngFor="let myMark of myMarkers"
-      [position]="myMark.locationGoogleMap"
+      [position]="myMark.position"
       [label]="myMark.title"
       [title]="myMark.label"
       [options]="myMark.options">
