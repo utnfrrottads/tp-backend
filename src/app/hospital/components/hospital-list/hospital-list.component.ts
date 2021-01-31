@@ -15,7 +15,6 @@ export class HospitalListComponent{
     'locality',
      'phone',
     //'lat', 'lng',
-    //'colorMarker', 'colorTextoMarker',
     'atentionLevel', 
     /*'healthInsurances', 'accidentOrDiseases', 'beds',*/
     'actions'];  

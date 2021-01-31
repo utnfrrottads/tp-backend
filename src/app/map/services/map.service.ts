@@ -29,7 +29,7 @@ export class MapService {
       options: {
         animation: google.maps.Animation.BOUNCE, //DROP
         icon: iconMarkerAmbulance,  
-      },
+      }
     }
   }
    
@@ -63,18 +63,21 @@ export class MapService {
     let distance: number;
     let closest: string = '-999' ; 
     let closestDist: number = 99999999;
+    let hospitalClosest: HospitalClosest;
     for(let hospital of hospitalData){ 
 
       distance = this.calcDistance(myPosition.lat, myPosition.lng, hospital.locationGoogleMap.lat, hospital.locationGoogleMap.lng);
 
       if ( closest === '-999' || distance < closestDist ) {
         closestDist = distance;
-        return { 
+        closest = hospital.id;
+        hospitalClosest = { 
           closestDist : distance,
           hospitalClosest: hospital
         }
       }
     }
+    return hospitalClosest
     
   }
  
