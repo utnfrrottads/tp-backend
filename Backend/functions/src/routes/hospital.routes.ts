@@ -4,7 +4,7 @@ import { check, param } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import * as cors from 'cors';
 const HospitalsController = require('../controllers/hospital.controller');
-const { validate } = require('../utils/middlewares/authorization');
+const { validate } = require('../utils/middlewares/validation');
 
 const hospital = express();
 hospital.use(cors({ origin: true }));
@@ -16,7 +16,10 @@ hospital.get('/', validate, HospitalsController.getAllHospitals);
 /**
 * `GETS` the closest hospitals by lat long.
 */
-hospital.put('/getClosestHospitals', validate, HospitalsController.getClosestHospitals);
+hospital.put('/getClosestHospitals', [
+    sanitizeBody(['atentionLevel']).trim(),
+    check('atentionLevel').not().isEmpty().withMessage('El campo atentionLevel es requerido'),
+], validate, HospitalsController.getClosestHospitals);
 /**
 * `CREATES` a hospital.
 */

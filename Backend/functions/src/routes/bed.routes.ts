@@ -4,7 +4,7 @@ import { check, param } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import * as cors from 'cors';
 const BedsController = require('../controllers/bed.controller');
-const { validate } = require('../utils/middlewares/authorization');
+const { validate } = require('../utils/middlewares/validation');
 
 const bed = express();
 bed.use(cors({ origin: true }));

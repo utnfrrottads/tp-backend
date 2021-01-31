@@ -4,7 +4,7 @@ import { check, param } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import * as cors from 'cors';
 const EmergencysController = require('../controllers/emergency.controller');
-const { validate } = require('../utils/middlewares/authorization');
+const { validate } = require('../utils/middlewares/validation');
 
 const emergency = express();
 emergency.use(cors({ origin: true }));
