@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service'
 import { Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
-import { MapService } from '../../services/map.service';
-import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
+import { MapService } from '../../services/map.service'; 
+import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'; 
  
 
 import {MatBadgeModule} from '@angular/material/badge'; 
@@ -68,8 +68,9 @@ export class MapComponent implements OnInit {
     this.getCurrentPosition(); 
     // Limpio el marcador
     this.myMarkers = [];
-    // Agrego marcador a mapa
+    // Agrego marcador a mapa 
     this.myMarkers.push( this.mapService.addMarkerToMap(this.myPosition , this.iconMarkerAmbulance));
+ 
   }
 
 /**
