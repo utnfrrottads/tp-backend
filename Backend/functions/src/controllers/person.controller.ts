@@ -31,6 +31,29 @@ module.exports = {
         }
     },
     /**
+    * `GETS` a Person and it's health insurances by personId
+    *
+    * @returns The list of person retrieved and a list of healthInsurances
+    */
+    getPersonAndHealthInsurancesById: async (req, res, next) => {
+        try {
+            // Checks if there's errors on the body
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log(errors.mapped());
+                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+            const idPerson = req.params.idPerson;
+            const personsSnapshot = await personRepository.findById(idPerson);
+
+            const healthInsurances = await personsSnapshot.healthInsurances.find();
+
+            res.status(200).json({ success: true, persons: personsSnapshot, healthInsurances: healthInsurances, msg: "Hospitales obtenidos con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `CREATES` a person.
     *
     * @body Json with required fields to create a person
@@ -53,7 +76,7 @@ module.exports = {
                 lastName: req.body.lastName,
                 bornDate: req.body.bornDate,
                 gender: req.body.gender,
-                phone: req.body.phone, 
+                phone: req.body.phone,
                 bloodType: req.body.bloodType ?? null,
                 emergencyContact: req.body.emergencyContact ?? null,
                 nurseWorkId: req.body.nurseWorkId ?? null,

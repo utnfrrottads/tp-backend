@@ -1,4 +1,4 @@
-import  '../http';
+import '../http';
 import { Emergency } from '../models/emergency.model';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
@@ -186,10 +186,9 @@ module.exports = {
         id: accidentOrDisease.id,
         description: accidentOrDisease.description,
       };
-
-      const accidentOrDiseaseAdded = await emergency.accidentOrDisease.create(
-        accidentOrDiseaseToAdd
-      );
+      emergency.accidentOrDisease = accidentOrDiseaseToAdd;
+      
+      const accidentOrDiseaseAdded = await emergencyRepository.update(emergency);
 
       res.status(200).json({
         success: true,
@@ -297,15 +296,15 @@ module.exports = {
         locality: req.body.locality ?? emergency.locality,
         location: req.body.location
           ? new admin.firestore.GeoPoint(
-              req.body.location.latitude,
-              req.body.location.longitude
-            )
+            req.body.location.latitude,
+            req.body.location.longitude
+          )
           : emergency.location,
-          ambulanceLicensePlate: req.body.ambulanceLicensePlate ?? emergency.ambulanceLicensePlate,
-          idHospital: req.body.idHospital ?? emergency.idHospital,
-          idPatient: req.body.idPatient ?? emergency.idPatient,
-          idNurse: req.body.idNurse ?? emergency.idNurse,
-          idBed: req.body.idBed ?? emergency.idBed,
+        ambulanceLicensePlate: req.body.ambulanceLicensePlate ?? emergency.ambulanceLicensePlate,
+        idHospital: req.body.idHospital ?? emergency.idHospital,
+        idPatient: req.body.idPatient ?? emergency.idPatient,
+        idNurse: req.body.idNurse ?? emergency.idNurse,
+        idBed: req.body.idBed ?? emergency.idBed,
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       };
 
