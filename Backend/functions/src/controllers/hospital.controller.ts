@@ -43,10 +43,6 @@ module.exports = {
         for (const hospital of hospitals) {
             if (isPointWithinRadius({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
                 { latitude: hospital.location.latitude, longitude: hospital.location.longitude, }, distance)) {
-                // In meters
-                const distance: number = getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
-                    { latitude: hospital.location.latitude, longitude: hospital.location.longitude, });
-                console.log(distance);
                 matchedHospitals.push(hospital)
             };
         }
