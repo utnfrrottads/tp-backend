@@ -12,7 +12,7 @@ module.exports = {
    *
    * @returns The list of AccidentOrDiseases retrieved
    */
-  getAllAccidentOrDiseases: async (req, res, next) => {
+  getAllAccidentOrDiseases: async (req, res) => {
     try {
       const accidentOrDiseasesSnapshot = await accidentOrDiseaseRepository.find();
 
@@ -40,7 +40,7 @@ module.exports = {
    *
    * @returns The created accidentOrDisease
    */
-  createAccidentOrDisease: async (req, res, next) => {
+  createAccidentOrDisease: async (req, res) => {
     try {
       const accidentOrDisease: AccidentOrDisease = {
         id: '',
@@ -78,7 +78,7 @@ module.exports = {
    *
    * @returns The created AffiliatedaccidentOrDisease
    */
-  addToHospitalByIds: async (req, res, next) => {
+  addToHospitalByIds: async (req, res) => {
     try {
       const idHospital = req.params.idHospital;
       const idaccidentOrDisease = req.params.idaccidentOrDisease;
@@ -140,7 +140,7 @@ module.exports = {
    *
    * @returns The updated accidentOrDisease
    */
-  updateAccidentOrDiseaseById: async (req, res, next) => {
+  updateAccidentOrDiseaseById: async (req, res) => {
     try {
       const id = req.params.id;
 
@@ -189,7 +189,7 @@ module.exports = {
    *
    * @returns The success message
    */
-  deleteAccidentOrDiseaseById: async (req, res, next) => {
+  deleteAccidentOrDiseaseById: async (req, res) => {
     try {
       const id = req.params.id;
       const accidentOrDisease = await accidentOrDiseaseRepository.findById(id);

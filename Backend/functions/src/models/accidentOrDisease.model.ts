@@ -8,4 +8,4 @@ export class AccidentOrDisease {
     description: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
-};
+}
