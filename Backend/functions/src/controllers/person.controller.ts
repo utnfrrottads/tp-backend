@@ -93,6 +93,87 @@ module.exports = {
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
+    },    /**
+    * `CREATES` an EmergencyContact.
+    *
+    * @body Json with required fields to create an emergencyContact
+    * 
+    * @returns The created emergencyContact
+    */
+    createEmergencyContact: async (req, res, next) => {
+        try {
+            // Checks if there's errors on the body
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log(errors.mapped());
+                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+
+            const emergencyContact: Person = {
+                id: "",
+                dni: req.body.dni,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                bornDate: req.body.bornDate,
+                gender: req.body.gender,
+                phone: req.body.phone,
+                bloodType: req.body.bloodType,
+                emergencyContact: req.body.emergencyContact ?? null,
+                nurseWorkId: req.body.nurseWorkId ?? null,
+                user: req.body.user ?? null,
+                password: req.body.password ?? null,
+
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            }
+
+            const emergencyContactCreated = await personRepository.create(emergencyContact);
+
+            res.status(200).json({ success: true, emergencyContact: emergencyContactCreated, msg: "Contacto de emergencia creado con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `CREATES` a nurse.
+    *
+    * @body Json with required fields to create a nurse
+    * 
+    * @returns The created nurse
+    */
+    createNurse: async (req, res, next) => {
+        try {
+            // Checks if there's errors on the body
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log(errors.mapped());
+                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+
+            const nurse: Person = {
+                id: "",
+                dni: req.body.dni,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                bornDate: req.body.bornDate,
+                gender: req.body.gender,
+                phone: req.body.phone,
+                bloodType: req.body.bloodType ?? null,
+                emergencyContact: req.body.emergencyContact ?? null,
+                nurseWorkId: req.body.nurseWorkId,
+                user: req.body.user,
+                password: req.body.password,
+
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            }
+
+            const nurseCreated = await personRepository.create(nurse);
+
+            res.status(200).json({ success: true, persona: nurseCreated, msg: "Enfermero creado con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
     },
     /**
     * `ADDS` an HealthInsurance.
@@ -186,6 +267,63 @@ module.exports = {
 
             res.status(200).json({ success: true, person: personUpdated, msg: "Persona actualizada con éxito" });
         } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * ``ADD` an EmergencyContact by personId and contactId
+    *
+    * @param personId - personId of the person that will be updated
+    * @param contactId - contactId of the person that will be updated
+    * 
+    * @returns The updated person
+    */
+    addEmergencyContactById: async (req, res, next) => {
+        try {
+            // Checks if there's errors on the body
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log(errors.mapped());
+                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
+            }
+
+            const personId = req.params.personId;
+            const contactId = req.params.contactId;
+
+            const person = await personRepository.findById(personId);
+
+            if (person === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una persona con ese ID" });
+            }
+
+            const emergencyContact = await personRepository.findById(contactId);
+
+            if (emergencyContact === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una persona con ese ID" });
+            }
+            
+            const emergencyContactToAdd: Person = {
+                id: emergencyContact.id,
+                dni: emergencyContact.dni,
+                firstName: emergencyContact.firstName,
+                lastName: emergencyContact.lastName,
+                bornDate: emergencyContact.bornDate,
+                gender: emergencyContact.gender,
+                phone: req.body.phone ?? emergencyContact.phone,
+                bloodType: req.body.bloodType ?? emergencyContact.bloodType ?? null,
+                emergencyContact: emergencyContact.emergencyContact ?? null,
+                nurseWorkId: emergencyContact.nurseWorkId ?? null,
+                user: emergencyContact.user ?? null,
+                password: emergencyContact.password ?? null,
+            }
+
+            person.emergencyContact = emergencyContactToAdd;
+
+            const personUpdated = await personRepository.update(person);
+
+            res.status(200).json({ success: true, person: personUpdated, msg: "Contacto de emergencia añadido con éxito" });
+        } catch (e) {
+            console.log(e.message);
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
     },
