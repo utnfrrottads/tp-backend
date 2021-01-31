@@ -13,6 +13,16 @@ person.use(cors({ origin: true }));
 */
 person.get('/', PersonsController.getAllPersons);
 /**
+* `GETS` a Person and it's health insurances by personId
+*
+* @returns The list of person retrieved and a list of healthInsurances
+*/
+person.get('/getPersonAndHealthInsurancesById/:idPerson', [
+    param('idPerson').not().isEmpty().withMessage('El campo idPerson es requerido'),
+    param('idPerson').isLength({ min: 20, max: 20 }).withMessage('El idPerson debe tener 20 caracteres'),
+    param('idPerson').isAlphanumeric().withMessage('El idPerson debe ser alfanumérico'),
+], PersonsController.getPersonAndHealthInsurancesById);
+/**
 * `CREATES` a person.
 */
 person.post('/createPerson', [
@@ -21,8 +31,8 @@ person.post('/createPerson', [
     check('lastName').not().isEmpty().withMessage('El campo lastName es requerido'),
     check('bornDate').not().isEmpty().withMessage('El campo bornDate es requerido'),
     check('gender').not().isEmpty().withMessage('El campo gender es requerido'),
-    check('phone').not().isEmpty().withMessage('El campo phone es requerido'),    
-    sanitizeBody(['dni', 'firstName', 'lastName', 'bornDate', 'gender','phone','bloodType','emergencyContact','nurseWorkId','user','password']).trim(),
+    check('phone').not().isEmpty().withMessage('El campo phone es requerido'),
+    sanitizeBody(['dni', 'firstName', 'lastName', 'bornDate', 'gender', 'phone', 'bloodType', 'emergencyContact', 'nurseWorkId', 'user', 'password']).trim(),
 ], PersonsController.createPerson);
 
 /**
