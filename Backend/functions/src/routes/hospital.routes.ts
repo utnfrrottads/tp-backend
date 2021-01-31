@@ -13,6 +13,10 @@ hospital.use(cors({ origin: true }));
 */
 hospital.get('/', HospitalsController.getAllHospitals);
 /**
+* `GETS` the closest hospitals by lat long.
+*/
+hospital.put('/getClosestHospitals', HospitalsController.getClosestHospitals);
+/**
 * `CREATES` a hospital.
 */
 hospital.post('/createHospital', [

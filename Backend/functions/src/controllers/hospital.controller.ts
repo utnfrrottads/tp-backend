@@ -6,6 +6,7 @@ import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 const admin = require('firebase-admin');
 const hospitalRepository = getRepository(Hospital);
 const accidentOrDiseaseRepository = getRepository(AccidentOrDisease);
+import { getDistance, isPointWithinRadius } from 'geolib';
 
 module.exports = {
     /**
@@ -28,6 +29,33 @@ module.exports = {
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
+    },
+    /**
+    * `GETS` the closest hospitals by lat long.
+    *
+    * @returns The list of hospitals retrieved
+    */
+    getClosestHospitals: async (req, res) => {
+        const distance = 20000;
+        let matchedHospitals: Hospital[] = [];
+        const hospitals = await hospitalRepository.whereEqualTo("atentionLevel", req.body.atentionLevel).find();
+        //first we test origins and destinations
+        for (const hospital of hospitals) {
+            if (isPointWithinRadius({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+                { latitude: hospital.location.latitude, longitude: hospital.location.longitude, }, distance)) {
+                // In meters
+                const distance: number = getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+                    { latitude: hospital.location.latitude, longitude: hospital.location.longitude, });
+                console.log(distance);
+                matchedHospitals.push(hospital)
+            };
+        }
+
+        matchedHospitals.sort((a, b) => (getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+            { latitude: a.location.latitude, longitude: a.location.longitude, }) > getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+                { latitude: b.location.latitude, longitude: b.location.longitude, }) ? -1 : 1));
+
+        res.status(200).json({ success: true, hospitals: matchedHospitals, msg: "Hospitales obtenidos con éxito" });
     },
     /**
     * `CREATES` a hospital.
