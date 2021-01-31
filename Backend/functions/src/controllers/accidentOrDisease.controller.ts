@@ -1,7 +1,6 @@
 import '../http';
 import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 import { getRepository } from 'fireorm';
-import { validationResult } from 'express-validator/check';
 import { Hospital } from '../models/hospital.model';
 const admin = require('firebase-admin');
 const accidentOrDiseaseRepository = getRepository(AccidentOrDisease);
@@ -15,19 +14,6 @@ module.exports = {
    */
   getAllAccidentOrDiseases: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res
-          .status(400)
-          .json({
-            success: false,
-            errors: errors.mapped(),
-            msg: 'Error en alguno de los datos recibidos',
-          });
-      }
-
       const accidentOrDiseasesSnapshot = await accidentOrDiseaseRepository.find();
 
       res
@@ -56,19 +42,6 @@ module.exports = {
    */
   createAccidentOrDisease: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res
-          .status(400)
-          .json({
-            success: false,
-            errors: errors.mapped(),
-            msg: 'Error en alguno de los datos recibidos',
-          });
-      }
-
       const accidentOrDisease: AccidentOrDisease = {
         id: '',
         description: req.body.description,
@@ -107,19 +80,6 @@ module.exports = {
    */
   addToHospitalByIds: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res
-          .status(400)
-          .json({
-            success: false,
-            errors: errors.mapped(),
-            msg: 'Error en alguno de los datos recibidos',
-          });
-      }
-
       const idHospital = req.params.idHospital;
       const idaccidentOrDisease = req.params.idaccidentOrDisease;
       const hospital = await hospitalRepository.findById(idHospital);
@@ -182,19 +142,6 @@ module.exports = {
    */
   updateAccidentOrDiseaseById: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res
-          .status(400)
-          .json({
-            success: false,
-            errors: errors.mapped(),
-            msg: 'Error en alguno de los datos recibidos',
-          });
-      }
-
       const id = req.params.id;
 
       const accidentOrDisease = await accidentOrDiseaseRepository.findById(id);
@@ -244,19 +191,6 @@ module.exports = {
    */
   deleteAccidentOrDiseaseById: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res
-          .status(400)
-          .json({
-            success: false,
-            errors: errors.mapped(),
-            msg: 'Error en alguno de los datos recibidos',
-          });
-      }
-
       const id = req.params.id;
       const accidentOrDisease = await accidentOrDiseaseRepository.findById(id);
 

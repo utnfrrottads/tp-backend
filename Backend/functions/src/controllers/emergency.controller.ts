@@ -19,17 +19,6 @@ module.exports = {
    */
   getAllEmergency: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res.status(400).json({
-          success: false,
-          errors: errors.mapped(),
-          msg: 'Error en alguno de los datos recibidos',
-        });
-      }
-
       const emergencysSnapshot = await emergencyRepository.find();
 
       res.status(200).json({
@@ -149,17 +138,6 @@ module.exports = {
 
   addToAccidentOrDiseaseByIds: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res.status(400).json({
-          success: false,
-          errors: errors.mapped(),
-          msg: 'Error en alguno de los datos recibidos',
-        });
-      }
-
       const idEmergency = req.params.idEmergency;
       const idAccidentOrDisease = req.params.idAccidentOrDisease;
       const emergency = await emergencyRepository.findById(idEmergency);
@@ -187,7 +165,7 @@ module.exports = {
         description: accidentOrDisease.description,
       };
       emergency.accidentOrDisease = accidentOrDiseaseToAdd;
-      
+
       const accidentOrDiseaseAdded = await emergencyRepository.update(emergency);
 
       res.status(200).json({
@@ -214,17 +192,6 @@ module.exports = {
    */
   updateEmergencyById: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res.status(400).json({
-          success: false,
-          errors: errors.mapped(),
-          msg: 'Error en alguno de los datos recibidos',
-        });
-      }
-
       const id = req.params.id;
       const idHospital = req.params.idHospital;
       const idBed = req.params.idBed;
@@ -332,17 +299,6 @@ module.exports = {
    */
   deleteHospitalById: async (req, res, next) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res.status(400).json({
-          success: false,
-          errors: errors.mapped(),
-          msg: 'Error en alguno de los datos recibidos',
-        });
-      }
-
       const id = req.params.id;
       const emergency = await emergencyRepository.findById(id);
 

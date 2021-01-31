@@ -3,7 +3,6 @@ import { db } from '../http';
 import { Bed } from '../models/bed.model';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
-import { validationResult } from 'express-validator/check';
 const admin = require('firebase-admin');
 const hospitalRepository = getRepository(Hospital);
 
@@ -15,13 +14,6 @@ module.exports = {
     */
     getAllBeds: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const beds = [];
 
             const bedsSnapshot = await db.collectionGroup('beds').get();
@@ -55,12 +47,6 @@ module.exports = {
     */
     createBedByIdHospital: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
             const id = req.params.id;
 
             const hospital = await hospitalRepository.findById(id);
@@ -100,13 +86,6 @@ module.exports = {
     */
     updatebyIds: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const idHospital = req.params.idHospital;
             const idBed = req.params.idBed;
             const hospital = await hospitalRepository.findById(idHospital);
@@ -150,13 +129,6 @@ module.exports = {
     */
     deleteBedByIds: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const idHospital = req.params.idHospital;
             const idBed = req.params.idBed;
             const hospital = await hospitalRepository.findById(idHospital);
