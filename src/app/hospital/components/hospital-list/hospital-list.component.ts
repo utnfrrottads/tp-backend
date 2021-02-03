@@ -13,16 +13,14 @@ export class HospitalListComponent{
   displayedColumns: string[] = [
     'name', 'address',
     'locality',
-     'phone',
-    //'lat', 'lng',
-    'atentionLevel', 
-    /*'healthInsurances', 'accidentOrDiseases', 'beds',*/
+    'phone',
+    'atentionLevel',
     'actions'];  
 
-  editBed(hospital: Hospital){
+  editHospital(hospital: Hospital){
     this.hospitalSelected.emit(hospital);
   }
-  deleteBed(hospital: Hospital) {
+  deleteHospital(hospital: Hospital) {
     this.hospitalDeleted.emit(hospital);
   }
 

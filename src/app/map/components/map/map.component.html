@@ -1,4 +1,47 @@
-  <!-- (mapClick)="click($event)" -->
+
+<form  [formGroup]="emergencyForm" (ngSubmit)="onSubmit()" class="mi-form">
+  <p>        
+    <mat-form-field appearance="fill" class="mi-full-width">
+        <mat-label>Nivel de atención</mat-label>
+        <!-- formControlName es para asignar al formGroup
+            mat-select -> [value] es para presetear un valor
+            mat-option -> [value] es el valor del ngFor -->
+        
+        <mat-select matNativeControl required formControlName='atentionLevel'>
+            <mat-option *ngFor="let atentionLevel of dataAtentionLevel" [value]="atentionLevel.description"> 
+                {{atentionLevel.description}} 
+            </mat-option> 
+        </mat-select>
+    </mat-form-field>  
+</p> 
+  <button mat-raised-button color="primary" type="submit" [disabled]="!emergencyForm.valid"> Buscar hospitales </button>
+</form>
+
+
+<div class="row">
+    
+
+  <!-- formControlName="dni" -->
+  <mat-form-field  appearance="fill" >
+    <mat-label> DNI </mat-label>
+    <input matInput type="number" placeholder="Número de documento" > 
+  </mat-form-field>
+
+  <!-- (click)="getNearestHospital()" -->
+  <button mat-raised-button color="primary"> 
+    Buscar persona
+  </button>
+
+
+  <button mat-raised-button color="primary"> 
+    (Oculto-No se encontró) Crear 
+  </button>
+
+</div>
+
+
+
+<!-- (mapClick)="click($event)" -->
 <google-map  
   height="500px"
   width="100%"

@@ -59,6 +59,9 @@ import { HospitalComponent } from './hospital/components/hospital/hospital.compo
 import { HospitalFormComponent } from './hospital/components/hospital-form/hospital-form.component';
 import { HospitalListComponent } from './hospital/components/hospital-list/hospital-list.component'; 
 import { MatRadioModule } from '@angular/material/radio';
+import { HospitalHealthInsuranceFormComponent } from './hospital/components/hospital-health-insurance-form/hospital-health-insurance-form.component';
+import { HospitalHealthInsuranceListComponent } from './hospital/components/hospital-health-insurance-list/hospital-health-insurance-list.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -90,6 +93,8 @@ import { MatRadioModule } from '@angular/material/radio';
     HospitalComponent,
     HospitalFormComponent,
     HospitalListComponent,
+    HospitalHealthInsuranceFormComponent,
+    HospitalHealthInsuranceListComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +131,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
+    MatTabsModule,
     GoogleMapsModule,
   ],
   providers: [],

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { HospitalService } from '../../services/hospital.service';
-import { Hospital } from '../../models/hospital';
+import { Hospital, HospitalAccidentOrDiseases, HospitalHealthInsurances } from '../../models/hospital';
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
 import { CommonService } from '../../../common/services/common.service';
@@ -79,9 +79,7 @@ export class HospitalComponent implements OnInit {
     });
   }
   onHospitalCreated(hospital: Hospital){
-    console.log('hospital form', hospital);
     const hospitalToSend = this.mapForm(hospital);
-    console.log('hospital cast', hospitalToSend);
     this.hospitalService.createHospital(hospitalToSend).subscribe({
       next: res => {
        this.accordion.closeAll();  
@@ -132,6 +130,20 @@ export class HospitalComponent implements OnInit {
         healthInsurances: hospital.healthInsurances, 
         accidentOrDiseases: hospital.accidentOrDiseases, 
         beds: hospital.beds, 
+    }
   }
+  // Hospitales Obras sociales 
+  onHospitalHealthInsuranceCreated(hospitalHealthInsurance: HospitalHealthInsurances){
+    alert('mensaje no implementado, esperando backend');
+  }
+  onHospitalHealthInsuranceDeleted(hospitalHealthInsurance: HospitalHealthInsurances){
+    alert('mensaje no implementado, esperando backend');
+  }
+  // Hospitales Enfermedades accidentes atendidos
+  onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
+    alert('mensaje no implementado, esperando backend');
+  }
+  onHospitalAccidentOrDiseaseDeleted(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
+    alert('mensaje no implementado, esperando backend');
   }
 }

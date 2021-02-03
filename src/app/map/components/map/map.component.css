@@ -13,3 +13,11 @@
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
+.mi-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+} 
+.mi-full-width {
+width: 100%;
+}

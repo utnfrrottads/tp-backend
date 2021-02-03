@@ -45,3 +45,12 @@ export interface HospitalClosest{
     hospitalClosest: Hospital,
     closestDist : number
 } 
+
+export interface HospitalHealthInsurances{ 
+    hospital: Hospital,
+    healthInsurances: HealthInsurance,
+}
+export interface HospitalAccidentOrDiseases{ 
+    hospital: Hospital,
+    accidentOrDiseases: AccidentOrDiseases,
+}

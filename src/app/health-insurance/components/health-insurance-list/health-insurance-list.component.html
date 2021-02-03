@@ -4,11 +4,6 @@
 </h2>
 <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataHealthInsurance">
 
-  <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-      <mat-cell *matCellDef="let healthInsurance">{{healthInsurance.id}}</mat-cell>
-  </ng-container>
-
   <ng-container matColumnDef="legalName">
       <mat-header-cell *matHeaderCellDef>Nombre legal</mat-header-cell>
       <mat-cell *matCellDef="let healthInsurance">{{healthInsurance.legalName}}</mat-cell>

@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service'
-import { Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
+import { AtentionLevel, Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
 import { MapService } from '../../services/map.service'; 
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'; 
  
 
 import {MatBadgeModule} from '@angular/material/badge'; 
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -22,10 +23,10 @@ export class MapComponent implements OnInit {
   //   color: 'red',
   //   text: 'Emergencia'
   // }
-  
+  emergencyForm: FormGroup;
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
-  myMapita: google.maps.Map;
+  dataAtentionLevel: AtentionLevel[];
   hospitalData: Hospital[];
   hospitalClosest: Hospital;
   myMarkers = [];
@@ -50,8 +51,10 @@ export class MapComponent implements OnInit {
   ) { }
   
   ngOnInit(): void{
+    this.initForm();
     this.getCurrentPosition();
     this.getHospitals();
+    this.getAtentionLevel();
   }
 
   getHospitals(): void{  
@@ -114,6 +117,24 @@ export class MapComponent implements OnInit {
     this.info.open(marker)
   }
 
+
+
+  
+  initForm(){
+    this.emergencyForm = new FormGroup({
+      atentionLevel: new FormControl({ value: ''}),  
+    }); 
+  }
+  onSubmit(){
+
+  }
+  getAtentionLevel(){
+    this.hospitalService.getAtentionLevel().subscribe({
+      next: res => {
+      this.dataAtentionLevel = res;
+      },
+    });  
+  }
   // ******************************************************************
   // *********************** GOOGLE MAPS FUNCTIONS ********************
   // ******************************************************************

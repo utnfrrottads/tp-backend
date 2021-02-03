@@ -86,49 +86,7 @@
                 </mat-option> 
             </mat-select>
         </mat-form-field>  
-    </p> 
-    <!-- <p>        
-        <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>Obra sociales</mat-label>
-            formControlName es para asignar al formGroup
-                mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor
-           
-            <mat-select matNativeControl required formControlName='type' [value]='hospitalSelected.healthInsurances'>
-                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.description"> 
-                    {{healthInsurances.description}} 
-                </mat-option> 
-            </mat-select>
-        </mat-form-field>  
     </p>
-    <p>
-        <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>Accidentes o enfermedades atendidas</mat-label>
-            formControlName es para asignar al formGroup
-                mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor
-            
-            <mat-select matNativeControl required formControlName='accidentOrDiseases' [value]='hospitalSelected.accidentOrDiseases'>
-                <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.description"> 
-                    {{accidentOrDiseases.description}} 
-                </mat-option> 
-            </mat-select>
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>Camas</mat-label>
-            formControlName es para asignar al formGroup
-                mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor
-            
-            <mat-select matNativeControl required formControlName='beds' [value]='hospitalSelected.beds'>
-                <mat-option *ngFor="let bed of dataBed" [value]="bed.description"> 
-                    {{bed.description}} 
-                </mat-option> 
-            </mat-select>
-        </mat-form-field>
-    </p> -->
     <button mat-raised-button color="primary" type="submit" [disabled]="!hospitalForm.valid">{{setButtonText()}}</button>
 </form>
  

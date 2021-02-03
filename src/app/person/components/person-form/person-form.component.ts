@@ -44,7 +44,7 @@ export class PersonFormComponent implements OnInit {
   }
   initForm(){
     this.personForm = new FormGroup({
-      id: new FormControl({ value: ''}),
+      id: new FormControl(''),
       dni: new FormControl('', [Validators.required]), 
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),

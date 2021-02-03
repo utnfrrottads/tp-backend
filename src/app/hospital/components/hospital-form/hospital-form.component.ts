@@ -21,12 +21,36 @@ export class HospitalFormComponent implements OnInit {
   @Input() hospitalSelected: Hospital;
   @Output() add = new EventEmitter();
   @Output() edit = new EventEmitter();
-  hospitalForm: FormGroup; 
-  dataHospital: Hospital[];
+  hospitalForm: FormGroup;
   dataAtentionLevel: AtentionLevel[];
-  dataHealthInsurance: HealthInsurance[];
-  dataAccidentOrDiseases: AccidentOrDiseases[];
   dataBed: Bed[];
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  dataAccidentOrDiseases: AccidentOrDiseases[];
+
+
+
+
+
+
+
+
+
+
+
+
 
   constructor( 
     private hospitalService: HospitalService,
@@ -86,20 +110,12 @@ export class HospitalFormComponent implements OnInit {
     } 
   }
   loadDropDown(){
-    this.getAtentionLevel();
-    this.getHealthInsurances();
+    this.getAtentionLevel(); 
   }
   getAtentionLevel(){
     this.hospitalService.getAtentionLevel().subscribe({
       next: res => {
       this.dataAtentionLevel = res;
-      },
-    });  
-  }
-  getHealthInsurances(){
-    this.healthInsuranceService.getHealthInsurances().subscribe({
-      next: res => {
-      this.dataHealthInsurance = res.healthInsurances;
       },
     });  
   }

@@ -10,7 +10,7 @@ export class HealthInsuranceListComponent {
   @Input() dataHealthInsurance: HealthInsurance[];   
   @Output() healthInsuranceSelected = new EventEmitter();
   @Output() healthInsuranceDeleted = new EventEmitter();
-  displayedColumns: string[] = ['id', 'legalName', 'fantasyName', 'phone', 'actions'];
+  displayedColumns: string[] = ['legalName', 'fantasyName', 'phone', 'actions'];
  
   editHealthInsurance(healthInsurance: HealthInsurance){
     this.healthInsuranceSelected.emit(healthInsurance);
