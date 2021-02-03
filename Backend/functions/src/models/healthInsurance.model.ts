@@ -10,4 +10,4 @@ export class HealthInsurance {
     phone: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
-};
+}

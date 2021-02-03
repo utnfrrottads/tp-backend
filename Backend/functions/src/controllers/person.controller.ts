@@ -1,7 +1,6 @@
 import '../http';
 import { Person } from '../models/person.model';
 import { getRepository } from 'fireorm';
-import { validationResult } from 'express-validator/check';
 import { HealthInsurance } from '../models/healthInsurance.model';
 
 const healthInsuranceRepository = getRepository(HealthInsurance);
@@ -16,13 +15,6 @@ module.exports = {
     */
     getAllPersons: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const personsSnapshot = await personRepository.find();
 
             res.status(200).json({ success: true, persons: personsSnapshot, msg: "Hospitales obtenidos con éxito" });
@@ -37,12 +29,6 @@ module.exports = {
     */
     getPersonAndHealthInsurancesById: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
             const idPerson = req.params.idPerson;
             const personsSnapshot = await personRepository.findById(idPerson);
 
@@ -62,13 +48,6 @@ module.exports = {
     */
     createPerson: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const person: Person = {
                 id: "",
                 dni: req.body.dni,
@@ -102,13 +81,6 @@ module.exports = {
     */
     createEmergencyContact: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const emergencyContact: Person = {
                 id: "",
                 dni: req.body.dni,
@@ -143,13 +115,6 @@ module.exports = {
     */
     createNurse: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const nurse: Person = {
                 id: "",
                 dni: req.body.dni,
@@ -185,13 +150,6 @@ module.exports = {
     */
     addToHealthInsuranceByIds: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const idPerson = req.params.idPerson;
             const idHealthInsurance = req.params.idHealthInsurance;
             const person = await personRepository.findById(idPerson);
@@ -232,13 +190,6 @@ module.exports = {
     */
     updatePersonById: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const id = req.params.id;
 
             const person = await personRepository.findById(id);
@@ -280,13 +231,6 @@ module.exports = {
     */
     addEmergencyContactById: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const personId = req.params.personId;
             const contactId = req.params.contactId;
 
@@ -301,7 +245,7 @@ module.exports = {
             if (emergencyContact === null) {
                 return res.status(404).json({ success: false, msg: "No se encontró una persona con ese ID" });
             }
-            
+
             const emergencyContactToAdd: Person = {
                 id: emergencyContact.id,
                 dni: emergencyContact.dni,
@@ -336,13 +280,6 @@ module.exports = {
     */
     deletePersonById: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const id = req.params.id;
             const person = await personRepository.findById(id);
 

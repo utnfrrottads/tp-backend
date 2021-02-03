@@ -4,6 +4,7 @@ import { check, param } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import * as cors from 'cors';
 const BedsController = require('../controllers/bed.controller');
+const { validate } = require('../utils/middlewares/validation');
 
 const bed = express();
 bed.use(cors({ origin: true }));
@@ -11,7 +12,7 @@ bed.use(cors({ origin: true }));
 /**
 * `GETS` all beds of the collection.
 */
-bed.get('/', BedsController.getAllBeds);
+bed.get('/', validate, BedsController.getAllBeds);
 
 /**
 * `CREATES` a bed by idHospital and adds it as a subcollection.
@@ -25,7 +26,7 @@ bed.post('/createBedByIdHospital/:id', [
   check('subtype').not().isEmpty().withMessage('El campo subtype es requerido'),
   check('description').not().isEmpty().withMessage('El campo description es requerido'),
   sanitizeBody(['status', 'type', 'subtype', 'description']).trim(),
-], BedsController.createBedByIdHospital);
+], validate, BedsController.createBedByIdHospital);
 
 /**
 * `UPDATES` a bed by idHospital and idBed.
@@ -38,7 +39,7 @@ bed.put('/updatebyIds/:idHospital/:idBed', [
   param('idBed').isLength({ min: 20, max: 20 }).withMessage('El idBed debe tener 20 caracteres'),
   param('idBed').isAlphanumeric().withMessage('El idBed debe ser alfanumérico'),
   sanitizeBody(['status', 'type', 'subtype', 'description', 'hospitalName']).trim(),
-], BedsController.updatebyIds);
+], validate, BedsController.updatebyIds);
 
 /**
 * `DELETES` a bed by idHospital and idBed.
@@ -50,6 +51,6 @@ bed.delete('/deleteBedByIds/:idHospital/:idBed', [
   param('idBed').not().isEmpty().withMessage('El campo idBed es requerido'),
   param('idBed').isLength({ min: 20, max: 20 }).withMessage('El idBed debe tener 20 caracteres'),
   param('idBed').isAlphanumeric().withMessage('El idBed debe ser alfanumérico'),
-], BedsController.deleteBedByIds);
+], validate, BedsController.deleteBedByIds);
 
 export const beds = functions.https.onRequest(bed);

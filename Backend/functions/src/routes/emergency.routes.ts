@@ -3,7 +3,8 @@ import * as functions from 'firebase-functions';
 import { check, param } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import * as cors from 'cors';
-const emergencysController = require('../controllers/emergency.controller');
+const EmergencysController = require('../controllers/emergency.controller');
+const { validate } = require('../utils/middlewares/validation');
 
 const emergency = express();
 emergency.use(cors({ origin: true }));
@@ -11,7 +12,7 @@ emergency.use(cors({ origin: true }));
 /**
 * `GETS` all emergencys of the collection.
 */
-emergency.get('/', emergencysController.getAllemergencys);
+emergency.get('/', validate, EmergencysController.getAllemergencys);
 /**
 * `CREATES` a emergency.
 */
@@ -22,7 +23,7 @@ emergency.post('/createEmergency', [
     check('ambulanceLicensePlate').not().isEmpty().withMessage('El campo ambulanceLicensePlate es requerido'),
     check('location').not().isEmpty().withMessage('El campo location es requerido'),
     sanitizeBody(['dateOfEntrance', 'dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
-], emergencysController.createEmergency);
+], validate, EmergencysController.createEmergency);
 
 /**
 * `ADDS` an AccidentOrDisease treated by emergency.
@@ -34,7 +35,7 @@ emergency.post('/addToAccidentOrDiseaseByIds/:idEmergency/:idAccidentOrDisease',
     param('idAccidentOrDisease').not().isEmpty().withMessage('El campo idAccidentOrDisease es requerido'),
     param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
     param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
-], emergencysController.addToAccidentOrDiseaseByIds);
+], validate, EmergencysController.addToAccidentOrDiseaseByIds);
 
 /**
 * `UPDATES` a emergency by ID.
@@ -44,7 +45,7 @@ emergency.put('/updateemergencyById/:id', [
     param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
     param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
     sanitizeBody(['dateOfEntrance', 'dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
-], emergencysController.updateEmergencyById);
+], validate, EmergencysController.updateEmergencyById);
 
 /**
 * `DELETES` a emergency by ID.
@@ -53,6 +54,6 @@ emergency.delete('/deleteEmergencyById/:id', [
     param('id').not().isEmpty().withMessage('El campo id es requerido'),
     param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
     param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
-], emergencysController.deleteEmergencyById);
+], validate, EmergencysController.deleteEmergencyById);
 
 export const emergencys = functions.https.onRequest(emergency);

@@ -13,4 +13,4 @@ export class Bed {
     hospitalName: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
-};
+}

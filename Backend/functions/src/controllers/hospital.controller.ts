@@ -1,11 +1,11 @@
 import '../http';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
-import { validationResult } from 'express-validator/check';
 import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 const admin = require('firebase-admin');
 const hospitalRepository = getRepository(Hospital);
 const accidentOrDiseaseRepository = getRepository(AccidentOrDisease);
+import { getDistance, isPointWithinRadius } from 'geolib';
 
 module.exports = {
     /**
@@ -15,19 +15,35 @@ module.exports = {
     */
     getAllHospitals: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const hospitalsSnapshot = await hospitalRepository.find();
 
             res.status(200).json({ success: true, hospitals: hospitalsSnapshot, msg: "Hospitales obtenidos con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
+    },
+    /**
+    * `GETS` the closest hospitals by lat long.
+    *
+    * @returns The list of hospitals retrieved
+    */
+    getClosestHospitals: async (req, res) => {
+        const distance = 20000;
+        let matchedHospitals: Hospital[] = [];
+        const hospitals = await hospitalRepository.whereEqualTo("atentionLevel", req.body.atentionLevel).find();
+        //first we test origins and destinations
+        for (const hospital of hospitals) {
+            if (isPointWithinRadius({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+                { latitude: hospital.location.latitude, longitude: hospital.location.longitude, }, distance)) {
+                matchedHospitals.push(hospital)
+            };
+        }
+
+        matchedHospitals.sort((a, b) => (getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+            { latitude: a.location.latitude, longitude: a.location.longitude, }) > getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
+                { latitude: b.location.latitude, longitude: b.location.longitude, }) ? -1 : 1));
+
+        res.status(200).json({ success: true, hospitals: matchedHospitals, msg: "Hospitales obtenidos con éxito" });
     },
     /**
     * `CREATES` a hospital.
@@ -38,13 +54,6 @@ module.exports = {
     */
     createHospital: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const hospital: Hospital = {
                 id: "",
                 address: req.body.address,
@@ -74,13 +83,6 @@ module.exports = {
     */
     addToAccidentOrDiseaseByIds: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const idHospital = req.params.idHospital;
             const idAccidentOrDisease = req.params.idAccidentOrDisease;
             const hospital = await hospitalRepository.findById(idHospital);
@@ -117,13 +119,6 @@ module.exports = {
     */
     updateHospitalById: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const id = req.params.id;
 
             const hospital = await hospitalRepository.findById(id);
@@ -159,13 +154,6 @@ module.exports = {
     */
     deleteHospitalById: async (req, res, next) => {
         try {
-            // Checks if there's errors on the body
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors.mapped());
-                return res.status(400).json({ success: false, errors: errors.mapped(), msg: "Error en alguno de los datos recibidos" });
-            }
-
             const id = req.params.id;
             const hospital = await hospitalRepository.findById(id);
 

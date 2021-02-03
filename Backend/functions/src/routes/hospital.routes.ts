@@ -4,6 +4,7 @@ import { check, param } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import * as cors from 'cors';
 const HospitalsController = require('../controllers/hospital.controller');
+const { validate } = require('../utils/middlewares/validation');
 
 const hospital = express();
 hospital.use(cors({ origin: true }));
@@ -11,7 +12,14 @@ hospital.use(cors({ origin: true }));
 /**
 * `GETS` all hospitals of the collection.
 */
-hospital.get('/', HospitalsController.getAllHospitals);
+hospital.get('/', validate, HospitalsController.getAllHospitals);
+/**
+* `GETS` the closest hospitals by lat long.
+*/
+hospital.put('/getClosestHospitals', [
+    sanitizeBody(['atentionLevel']).trim(),
+    check('atentionLevel').not().isEmpty().withMessage('El campo atentionLevel es requerido'),
+], validate, HospitalsController.getClosestHospitals);
 /**
 * `CREATES` a hospital.
 */
@@ -23,7 +31,7 @@ hospital.post('/createHospital', [
     check('location').not().isEmpty().withMessage('El campo location es requerido'),
     check('atentionLevel').not().isEmpty().withMessage('El campo atentionLevel es requerido'),
     sanitizeBody(['name', 'address', 'locality', 'phone', 'atentionLevel']).trim(),
-], HospitalsController.createHospital);
+], validate, HospitalsController.createHospital);
 
 /**
 * `ADDS` an AccidentOrDisease treated by hospital.
@@ -35,7 +43,7 @@ hospital.post('/addToAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease', [
     param('idAccidentOrDisease').not().isEmpty().withMessage('El campo idAccidentOrDisease es requerido'),
     param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
     param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
-], HospitalsController.addToAccidentOrDiseaseByIds);
+], validate, HospitalsController.addToAccidentOrDiseaseByIds);
 
 /**
 * `UPDATES` a hospital by ID.
@@ -45,7 +53,7 @@ hospital.put('/updateHospitalById/:id', [
     param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
     param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
     sanitizeBody(['name', 'address', 'locality', 'phone', 'atentionLevel']).trim(),
-], HospitalsController.updateHospitalById);
+], validate, HospitalsController.updateHospitalById);
 
 /**
 * `DELETES` a hospital by ID.
@@ -54,6 +62,6 @@ hospital.delete('/deleteHospitalById/:id', [
     param('id').not().isEmpty().withMessage('El campo id es requerido'),
     param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
     param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
-], HospitalsController.deleteHospitalById);
+], validate, HospitalsController.deleteHospitalById);
 
 export const hospitals = functions.https.onRequest(hospital);
