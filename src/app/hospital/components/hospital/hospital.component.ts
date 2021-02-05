@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { HospitalService } from '../../services/hospital.service';
-import { Hospital, HospitalAccidentOrDiseases, HospitalHealthInsurances } from '../../models/hospital';
+import { Hospital, HospitalAccidentOrDiseases, HospitalHealthInsurance, HospitalHealthInsurances } from '../../models/hospital';
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
 import { CommonService } from '../../../common/services/common.service';
+import { HospitalHealthInsuranceFormComponent } from '../hospital-health-insurance-form/hospital-health-insurance-form.component';
+import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
 
 @Component({
   selector: 'app-hospital',
@@ -38,7 +40,8 @@ export class HospitalComponent implements OnInit {
   flagListIsReady: boolean = false;
 
   constructor(
-    private hospitalService: HospitalService, 
+    private hospitalService: HospitalService,
+    private healthInsuranceService: HealthInsuranceService, 
     private commonService: CommonService
   ) { }
 
@@ -87,15 +90,12 @@ export class HospitalComponent implements OnInit {
        this.getHospitals();
       },
       error: err => {
-        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar el hospital','Cerrar');
        } 
     });
   }
-  onHospitalEdited(hospital: Hospital){ 
-    console.log('hospital form', hospital);
-    const hospitalToSend = this.mapForm(hospital);
-    console.log('hospital cast', hospitalToSend);
+  onHospitalEdited(hospital: Hospital){  
+    const hospitalToSend = this.mapForm(hospital); 
     this.hospitalService.updateHospitalById(hospitalToSend).subscribe({
       next: res => {
        this.accordion.closeAll();  
@@ -103,7 +103,6 @@ export class HospitalComponent implements OnInit {
        this.getHospitals();
       },
       error: err => {
-        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer editar el hospital','Cerrar');
        }
     });
@@ -132,14 +131,37 @@ export class HospitalComponent implements OnInit {
         beds: hospital.beds, 
     }
   }
-  // Hospitales Obras sociales 
-  onHospitalHealthInsuranceCreated(hospitalHealthInsurance: HospitalHealthInsurances){
-    alert('mensaje no implementado, esperando backend');
+  /////////////////////////////////////////////////////////////////////////
+  ////////////////////// Hospitales Obras sociales ////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+  onHospitalHealthInsuranceCreated(hospitalHealthInsurance: HospitalHealthInsurance){ 
+    // console.log('hospitalHealthInsurance', hospitalHealthInsurance);
+    // const hospitalHealthInsuranceToSend = this.mapToHospitalHealthInsuranceForm(hospitalHealthInsurance);
+    //console.log('hospitalHealthInsuranceToSend', hospitalHealthInsuranceToSend);
+    this.healthInsuranceService.createAffiliatedHealthInsurance(hospitalHealthInsurance).subscribe({
+      next: res => { 
+      this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
+      },
+      error: err => {
+        console.log('err', err);
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar el hospital','Cerrar');
+      } 
+    });
   }
+  
+  mapToHospitalHealthInsuranceForm(hospitalHealthInsurance: HospitalHealthInsurances): any{
+    return {  
+        idHospital: hospitalHealthInsurance.hospital.id,
+        idAccidentOrDisease: hospitalHealthInsurance.healthInsurances.id
+    }
+  }
+
   onHospitalHealthInsuranceDeleted(hospitalHealthInsurance: HospitalHealthInsurances){
     alert('mensaje no implementado, esperando backend');
   }
-  // Hospitales Enfermedades accidentes atendidos
+  /////////////////////////////////////////////////////////////////////////
+  ///////////// Hospitales Enfermedades accidentes atendidos  /////////////
+  /////////////////////////////////////////////////////////////////////////
   onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
     alert('mensaje no implementado, esperando backend');
   }

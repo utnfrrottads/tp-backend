@@ -42,7 +42,7 @@ export class PersonService {
     return this.httpClient.post<PersonResult>(
       this.baseUrl + '/api-persons/addToHealthInsuranceById' 
                     + '/' + person.id
-                    + '/' + person.healthInsuranceId,
+                    + '/' + person.healthInsuranceId, //nuevo nombre sera idHealthInsurance
                     person,
       httpOptions);
   }

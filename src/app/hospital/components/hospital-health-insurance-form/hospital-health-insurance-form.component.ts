@@ -32,7 +32,7 @@ export class HospitalHealthInsuranceFormComponent implements OnInit {
   initForm(){
     this.hospitalHealthInsuranceForm = new FormGroup({
       idHospital: new FormControl({ value: ''}),
-      healthInsuranceId: new FormControl('', [Validators.required])
+      idHealthInsurance: new FormControl('', [Validators.required])
     }); 
   }
   loadHospitalSelected(){ 

@@ -29,7 +29,7 @@ export class PersonComponent implements OnInit {
     user:null,              // TODO es ok?
     password:null,          // TODO es ok?
     healthInsurances:  null,// TODO es ok?
-    healthInsuranceId: '',
+    healthInsuranceId: '', //nuevo nombre sera idHealthInsurance
   }; 
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;

@@ -1,4 +1,4 @@
-<form  [formGroup]="hospitalHealthInsuranceForm" (ngSubmit)="onSubmit()" class="mi-form">
+<form  [formGroup]="hospitalAccidentOrDiseasesForm" (ngSubmit)="onSubmit()" class="mi-form">
     <p>        
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Hospital</mat-label>
@@ -12,26 +12,26 @@
                     {{hospital.name}} 
                 </mat-option> 
             </mat-select>            
-            <mat-error *ngIf="hospitalHealthInsuranceForm.controls.idHospital.touched && hospitalHealthInsuranceForm.controls.idHospital.invalid">
-                <span *ngIf="hospitalHealthInsuranceForm.controls.idHospital.errors.required">No te olvides de elegir el Hospital!</span>  
+            <mat-error *ngIf="hospitalAccidentOrDiseasesForm.controls.idHospital.touched && hospitalAccidentOrDiseasesForm.controls.idHospital.invalid">
+                <span *ngIf="hospitalAccidentOrDiseasesForm.controls.idHospital.errors.required">No te olvides de elegir el Hospital!</span>  
             </mat-error> 
         </mat-form-field>  
     </p>  
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>Obra social que atiende</mat-label>
+            <mat-label>Accidentes o enfermedades que atiende</mat-label>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor -->
             <mat-select matNativeControl required formControlName='idHealthInsurance' >
-                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.id"> 
-                    {{healthInsurance.fantasyName}} 
+                <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.id"> 
+                    {{accidentOrDiseases.description}} 
                 </mat-option> 
             </mat-select>
-            <mat-error *ngIf="hospitalHealthInsuranceForm.controls.idHealthInsurance.touched && hospitalHealthInsuranceForm.controls.idHealthInsurance.invalid">
-                <span *ngIf="hospitalHealthInsuranceForm.controls.idHealthInsurance.errors.required">No te olvides de elegir la Obra Social!</span>  
+            <mat-error *ngIf="hospitalAccidentOrDiseasesForm.controls.idAccidentOrDisease.touched && hospitalAccidentOrDiseasesForm.controls.idAccidentOrDisease.invalid">
+                <span *ngIf="hospitalAccidentOrDiseasesForm.controls.idAccidentOrDisease.errors.required">No te olvides de elegir el Accidente o enfermedad!</span>  
             </mat-error> 
         </mat-form-field>  
     </p>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!hospitalHealthInsuranceForm.valid">Agregar relación</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!hospitalAccidentOrDiseasesForm.valid">Agregar relación</button>
 </form> 

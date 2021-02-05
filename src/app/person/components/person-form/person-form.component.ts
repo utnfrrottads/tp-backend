@@ -57,7 +57,7 @@ export class PersonFormComponent implements OnInit {
       user: new FormControl(''),
       password: new FormControl(''),
       healthInsurances: new FormControl(''),
-      healthInsuranceId: new FormControl(''),
+      healthInsuranceId: new FormControl(''), //nuevo nombre sera idHealthInsurance
     });
   }
   loadPersonSelected(){ 
@@ -75,7 +75,7 @@ export class PersonFormComponent implements OnInit {
         user: this.personSelected.user,
         password: this.personSelected.password,
         healthInsurances: this.personSelected.healthInsurances,
-        healthInsuranceId: this.personSelected.healthInsuranceId
+        healthInsuranceId: this.personSelected.healthInsuranceId //nuevo nombre sera idHealthInsurance
       })
     }
   }

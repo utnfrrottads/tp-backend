@@ -50,7 +50,11 @@ export interface HospitalHealthInsurances{
     hospital: Hospital,
     healthInsurances: HealthInsurance,
 }
+export interface HospitalHealthInsurance{ 
+    idHospital: string,
+    idHealthInsurance: string,
+}
 export interface HospitalAccidentOrDiseases{ 
-    hospital: Hospital,
-    accidentOrDiseases: AccidentOrDiseases,
+    idHospital: string,
+    idAccidentOrDisease: string,
 }

@@ -7,12 +7,12 @@
    
     <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Hospital</mat-header-cell>
-        <mat-cell *matCellDef="let hhi">{{hhi.hospital.name}}</mat-cell>
+        <mat-cell *matCellDef="let hhi">{{hhi.idHospital}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="legalName">
         <mat-header-cell *matHeaderCellDef>Obra social</mat-header-cell>
-        <mat-cell *matCellDef="let hhi">{{hhi.healthInsurances.legalName}}</mat-cell>
+        <mat-cell *matCellDef="let hhi">{{hhi.idHealthInsurance}}</mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="actions">

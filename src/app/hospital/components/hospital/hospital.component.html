@@ -1,6 +1,7 @@
 <h1>Hospitales</h1>
 <mat-tab-group mat-align-tabs="start">
   <mat-tab label="Hospital">
+    <br> 
     <mat-accordion class="example-headers-align" multi>
       <mat-expansion-panel>
       <mat-expansion-panel-header color="primary">
@@ -21,15 +22,22 @@
               (edit)="onHospitalEdited($event)">
           </app-hospital-form>
       </mat-expansion-panel>
+      <br> 
+      <app-hospital-list
+          [dataHospital]="this.dataHospital"
+          (hospitalSelected)="onHospitalSelected($event)"
+          (hospitalDeleted)="onHospitalDeleted($event)">
+      </app-hospital-list>  
     </mat-accordion> 
   </mat-tab>
 
   <mat-tab label="Obras sociales atendidas">
+    <br> 
     <mat-accordion class="example-headers-align" multi>
       <mat-expansion-panel>
       <mat-expansion-panel-header color="primary">
         <mat-panel-title>
-          Obras sociales atendidas
+          Administración de obras sociales atendidas
         </mat-panel-title>
         <mat-panel-description> 
           <div class="row"> Agregar </div>
@@ -43,14 +51,14 @@
           >
         </app-hospital-health-insurance-form>
       </mat-expansion-panel>
+      <br> 
+      <app-hospital-health-insurance-list
+        (hospitalHealthInsuranceDeleted)="onHospitalHealthInsuranceDeleted($event)">
+      </app-hospital-health-insurance-list> 
     </mat-accordion>  
-    <app-hospital-health-insurance-list
-      (hospitalHealthInsuranceDeleted)="onHospitalHealthInsuranceDeleted($event)"
-    >
-
-    </app-hospital-health-insurance-list> 
   </mat-tab>
   <mat-tab label="Tratamientos atendidos"> 
+    <br> 
     <mat-accordion class="example-headers-align" multi>
       <mat-expansion-panel>
         <mat-expansion-panel-header color="primary">
@@ -62,7 +70,11 @@
             <div><mat-icon>plus_one</mat-icon></div>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        En desarrollo
+        <app-hospital-accident-diseases-form
+          [hospitalSelected]="this.hospitalSelected"
+          [dataHospital]="this.dataHospital"
+          (add)="onHospitalHealthInsuranceCreated($event)">
+        </app-hospital-accident-diseases-form>
       </mat-expansion-panel>
     </mat-accordion>   
   </mat-tab>
@@ -71,22 +83,11 @@
   
 
       
-  <br> 
-  <div *ngIf="!isCreate()">
-    <button mat-raised-button aria-label="Agregar hospital" (click)="setInputTypeCreate()">
-        Volver a form de creación <mat-icon>plus_one</mat-icon>
-    </button>
-  </div>
-  
-  <br>
-  
-    
-      
-  <br>
+<br> 
+<div *ngIf="!isCreate()">
+  <button mat-raised-button aria-label="Agregar hospital" (click)="setInputTypeCreate()">
+      Volver a form de creación <mat-icon>plus_one</mat-icon>
+  </button>
+</div>
 
-  <app-hospital-list
-      [dataHospital]="this.dataHospital"
-      (hospitalSelected)="onHospitalSelected($event)"
-      (hospitalDeleted)="onHospitalDeleted($event)">
-  </app-hospital-list>  
-  <mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar> 
+<mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar> 
