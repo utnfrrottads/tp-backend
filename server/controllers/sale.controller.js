@@ -9,8 +9,8 @@ const { findById } = require('../models/sale');
 
 const saleCtrl = {};
 
-saleCtrl.updateStock = async(cart, mode) => {
-    cart.forEach(item => {
+saleCtrl.updateStock = async(item, mode) => {
+    try{
         let product = Product.findById(item.product);
         switch (mode) {
             case "new":
@@ -19,8 +19,14 @@ saleCtrl.updateStock = async(cart, mode) => {
             case "delete":
                 product.stock = product.stock + item.quantity;
                 break;
-        }
-    });
+            }
+                Product.findOneAndUpdate(product.id, {$set: product}).catch(err =>
+                    next(err)
+                );
+            
+    } catch(err){
+        next(err);
+    }
 }
 
 saleCtrl.checkProductAndStock = async(cart) => {
@@ -31,12 +37,10 @@ saleCtrl.checkProductAndStock = async(cart) => {
             if(p.stock < product.quantity){
                 let article = Article.findById(p.article);
                 msg = "El producto "+article.name+" no tiene stock suficiente";
-                break;
             }
         } else {
             let article = Article.findById(p.article);
             msg = "No se encontro el producto "+article.name;
-            break
         }
     });
     if(msg != null){
@@ -92,7 +96,10 @@ saleCtrl.createSale = async (req, res, next) => {
         })
         if(validations){
             await sale.save();
-            await saleCtrl.updateStock(sale.cart, "new");
+            await sale.cart.forEach( item => {
+                    saleCtrl.updateStock(item, "new")
+                }
+            )
             res.json({ status: 'Venta creada' });
         }
     } catch(err) {
@@ -132,14 +139,20 @@ saleCtrl.updateSale = async (req, res, next) => {
             next(err);
             validations = false;
         })
-        await saleCtrl.updateStock(oldSale.cart, "delete"); 
+        await oldSale.cart.forEach(item => {
+            saleCtrl.updateStock(item, "delete")
+        }) 
         await saleCtrl.checkProductAndStock(newSale.cart).catch((err) => {
             next(err);
             validations = false;
-            await saleCtrl.updateStock(oldSale.cart, "new");
+            oldSale.cart.forEach( item =>{
+                saleCtrl.updateStock(item, "new")
+            })
         })
         if(validations){
-            saleCtrl.updateStock(oldSale.cart, "new");
+            await oldSale.cart.forEach(item => {
+                saleCtrl.updateStock(item, "new")
+            })
             await Sale.findByIdAndUpdate(id, {$set: newSale});
             res.json({ status: 'Venta actualizada' });
         }
