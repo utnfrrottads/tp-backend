@@ -10,7 +10,7 @@ import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../models/accident
 export class AccidentDiseasesService {
 
   baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
-  controller: string = '/api-hospitals/';
+  controller: string = '/api-accidentOrDisease/';
 
   constructor(
     private httpClient: HttpClient

@@ -38,8 +38,7 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit {
   loadHospitalSelected(){ 
     if (this.hospitalSelected !== undefined && this.hospitalSelected.id !== null && this.hospitalSelected.id !== '') {
       this.hospitalAccidentOrDiseasesForm.patchValue({ 
-        idHospital: this.hospitalSelected.id,
-        hospitalName: this.hospitalSelected.name
+        idHospital: this.hospitalSelected.id
       })
     }
   }
@@ -54,7 +53,7 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit {
     this.accidentDiseasesService.getAccidentOrDiseases().subscribe({
       next: res => {
         console.log(res.accidentOrDiseases)
-      this.dataAccidentOrDiseases = res.accidentOrDiseases;
+        this.dataAccidentOrDiseases = res.accidentOrDiseases;
       },
     });  
   }

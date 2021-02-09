@@ -17,13 +17,16 @@
             </mat-error> 
         </mat-form-field>  
     </p>  
+
+    no esta desarrollado el endpoint
+    
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Accidentes o enfermedades que atiende</mat-label>
             <!--formControlName es para asignar al formGroup
                 mat-select -> [value] es para presetear un valor
                 mat-option -> [value] es el valor del ngFor -->
-            <mat-select matNativeControl required formControlName='idHealthInsurance' >
+            <mat-select matNativeControl required formControlName='idAccidentOrDisease' >
                 <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.id"> 
                     {{accidentOrDiseases.description}} 
                 </mat-option> 

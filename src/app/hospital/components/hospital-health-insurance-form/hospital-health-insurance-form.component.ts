@@ -39,7 +39,7 @@ export class HospitalHealthInsuranceFormComponent implements OnInit {
     if (this.hospitalSelected !== undefined && this.hospitalSelected.id !== null && this.hospitalSelected.id !== '') {
       this.hospitalHealthInsuranceForm.patchValue({ 
         idHospital: this.hospitalSelected.id,
-        hospitalName: this.hospitalSelected.name
+        //hospitalName: this.hospitalSelected.name
       })
     }
   }
