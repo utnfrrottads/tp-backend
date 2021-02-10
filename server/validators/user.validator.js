@@ -16,7 +16,7 @@ exports.validateUserCreate = [
     check('phone').isString(),
     check('employee').isBoolean(),
     check('client').isBoolean(),
-    check('roles').isString(),
+    check('roles').isArray(),
 
     (req, res, next) => {
       const errors = validationResult(req);
@@ -41,7 +41,7 @@ exports.validateUserUpdate = [
     check('phone').isString(),
     check('employee').isBoolean(),
     check('client').isBoolean(),
-    check('roles').isString(),
+    check('roles').isArray(),
 
     (req, res, next) => {
       const errors = validationResult(req);

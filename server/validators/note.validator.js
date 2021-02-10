@@ -3,7 +3,7 @@ const {check, validationResult} = require('express-validator');
 
 exports.validateNoteCreate = [
 
-    check('name').isAlpha(),
+    check('name').isString(),
 
     (req, res, next) => {
       const errors = validationResult(req);
@@ -15,7 +15,7 @@ exports.validateNoteCreate = [
 
 exports.validateNoteUpdate = [
 
-    check('name').isAlpha(),
+    check('name').isString(),
 
     (req, res, next) => {
       const errors = validationResult(req);
