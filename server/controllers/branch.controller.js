@@ -10,7 +10,7 @@ branchCtrl.checkCuit = async(cuit, id = ' ') => {
     let branches = await Branch.find({ cuit: cuit }).select('_id');
     if ((await branches).length > 0) {
         (await branches).forEach(branch => {
-            if (branch._id !== id) {
+            if (branch._id.toString() !== id) {
                 throw ApiError.badRequest('El cuit de la sucursal se encuentra repetido.');
             }
         })

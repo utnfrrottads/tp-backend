@@ -18,7 +18,7 @@ articlesCtrl.checkName = async(name, id = ' ') => {
     let articles = await Articles.find({ name: name }).select('_id');
     if ((await articles).length > 0) {
         (await articles).forEach(article => {
-            if (article._id !== id) {
+            if (article._id.toString() !== id) {
                 throw ApiError.badRequest('El nombre del rol se encuentra repetido.');
             }
         })

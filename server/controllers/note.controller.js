@@ -8,7 +8,7 @@ NoteCtrl.checkName = async(name, id = ' ') => {
     let notes = await Note.find({ name: name }).select('_id');
     if ((await notes).length > 0) {
         (await notes).forEach(note => {
-            if (note._id !== id) {
+            if (note._id.toString() !== id) {
                 throw ApiError.badRequest('El nombre de la nota se encuentra repetido.');
             }
         })

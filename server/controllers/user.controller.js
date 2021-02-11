@@ -38,7 +38,7 @@ UserCtrl.checkDNI = async(dni, id = ' ') => {
     let users = await User.find({ dni: dni }).select('_id');
     if (users.length > 0) {
         users.forEach((user) => {
-            if (user._id !== id) {
+            if (user._id.toString() !== id) {
                 throw ApiError.badRequest('El DNI ingresado ya se encuentra registrado.');
             }
         });
