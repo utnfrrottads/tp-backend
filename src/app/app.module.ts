@@ -39,10 +39,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'; 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { MapComponent } from './map/components/map/map.component';
-import { MapEmergenciaComponent } from './map/components/map-emergencia/map-emergencia.component'; 
+import { MapComponent } from './emergency/map/components/map/map.component';
+import { MapEmergenciaComponent } from './emergency/map/components/map-emergencia/map-emergencia.component'; 
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MapTomtomComponent } from './map/components/map-tomtom/map-tomtom.component';
+import { MapTomtomComponent } from './emergency/map/components/map-tomtom/map-tomtom.component';
 import { MatBadgeModule } from '@angular/material/badge'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -64,6 +64,7 @@ import { HospitalHealthInsuranceListComponent } from './hospital/components/hosp
 import { MatTabsModule } from '@angular/material/tabs';
 import { HospitalAccidentDiseasesFormComponent } from './hospital/components/hospital-accident-diseases-form/hospital-accident-diseases-form.component';
 import { HospitalAccidentDiseasesListComponent } from './hospital/components/hospital-accident-diseases-list/hospital-accident-diseases-list.component';
+import { EmergencyPersonComponent } from './emergency/emergency-person/emergency-person.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { HospitalAccidentDiseasesListComponent } from './hospital/components/hos
     HospitalHealthInsuranceListComponent,
     HospitalAccidentDiseasesFormComponent,
     HospitalAccidentDiseasesListComponent,
+    EmergencyPersonComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BloodType, Gender, Person, PersonResult } from '../models/person';
+import { BloodType, Gender, Person, PersonHealthInsuranceResult, PersonResult } from '../models/person';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,16 @@ export class PersonService {
   /** `GETS` all persons of the collection. */ 
   getPersons(): Observable<PersonResult>{ 
     return this.httpClient.get<PersonResult>(this.baseUrl+'/api-persons');
+  }
+  /**
+  * `GETS` a Person and it's health insurances by personId 
+  * @returns The list of person retrieved and a list of healthInsurances
+  */ 
+  getPersonAndHealthInsurancesById(personId: number): Observable<PersonHealthInsuranceResult>{ 
+    return this.httpClient.get<PersonHealthInsuranceResult>(
+      this.baseUrl + '/api-persons'
+                   + '/getPersonAndHealthInsurancesById'
+                   + '/' + personId);
   }
 
   /** CREATES` a Person.

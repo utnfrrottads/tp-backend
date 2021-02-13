@@ -62,6 +62,15 @@ export class HospitalService {
   getHospitals(): Observable<HospitalResult>{ 
     return this.httpClient.get<HospitalResult>(this.baseUrl + this.controller);
   }
+  /**
+  * `GETS` the closest hospitals by lat long.
+  */
+ getClosestHospitals(atentionLevel: string): Observable<HospitalResult>{ 
+    return this.httpClient.get<HospitalResult>(
+      this.baseUrl + this.controller
+      + '/getClosestHospitals'
+      + '/' + atentionLevel);
+  }
 
 /**
 * `CREATES` a hospital.

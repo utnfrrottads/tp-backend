@@ -22,6 +22,14 @@ export interface PersonResult {
     msg: string,
     success: boolean,
 }
+
+export interface PersonHealthInsuranceResult {
+    persons: Person,
+    healthInsurances: HealthInsurance[],
+    msg: string,
+    success: boolean,
+}
+
 export interface Gender {
     id: number,
     description: string

@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { HospitalService } from '../../../hospital/services/hospital.service'
+import { HospitalService } from '../../../../hospital/services/hospital.service'
 import { AtentionLevel, Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
 import { MapService } from '../../services/map.service'; 
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'; 
- 
-
-import {MatBadgeModule} from '@angular/material/badge'; 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { PersonService } from 'src/app/person/services/person.service';
+import { PersonHealthInsuranceResult } from 'src/app/person/models/person';
+import { CommonService } from 'src/app/common/services/common.service';
+import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
+import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
+import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -14,20 +18,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit { 
-  // title="gmaps";
-  // position = {
-  //   lat: -34.681,
-  //   lng: -58.371
-  // }
-  // label = {
-  //   color: 'red',
-  //   text: 'Emergencia'
-  // }
-  emergencyForm: FormGroup;
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
+  emergencyForm: FormGroup;
+  personForm: FormGroup;
   dataAtentionLevel: AtentionLevel[];
   hospitalData: Hospital[];
+  dataAccidentOrDiseases: AccidentOrDiseases[];
+  personHealthInsuranceResultData: PersonHealthInsuranceResult = {
+    persons : { id: '',
+      dni: 0,
+      firstName: '',
+      lastName: '',
+      bornDate: '', // Date
+      gender: '',
+      phone: '',
+      bloodType: '', 
+  
+      nurseWorkId:'',
+      user:'',
+      password:'',
+      healthInsurances: [],    // TODO opcional ?
+      healthInsuranceId:''
+    },
+    healthInsurances : [],
+    msg:'',
+    success: false
+  };
+  flagGetPersonHealth: boolean = false;
   hospitalClosest: Hospital;
   myMarkers = [];
   infoContent = '';
@@ -45,9 +63,22 @@ export class MapComponent implements OnInit {
     // scrollwheel: false,
   }    
 
+  // title="gmaps";
+  // position = {
+  //   lat: -34.681,
+  //   lng: -58.371
+  // }
+  // label = {
+  //   color: 'red',
+  //   text: 'Emergencia'
+  // }
   constructor(
     private hospitalService: HospitalService, 
+    private personService: PersonService, 
     private mapService: MapService, 
+    private accidentDiseasesService: AccidentDiseasesService,
+    private router: Router,
+    private commonService: CommonService
   ) { }
   
   ngOnInit(): void{
@@ -61,7 +92,11 @@ export class MapComponent implements OnInit {
     this.hospitalService.getHospitals().subscribe({
       next: res => { 
         this.hospitalData = this.hospitalService.getFormatOkFrontendHospital(res.hospitals); 
-    }});
+    },
+    error: err => {
+      this.commonService.openSnackBar('Ups... algo falló al querer obtener los Hospitales','Cerrar');
+     } 
+  });
   }
 /**
  * Agrega marcador en el mapa con mi posición actual
@@ -122,19 +157,70 @@ export class MapComponent implements OnInit {
   
   initForm(){
     this.emergencyForm = new FormGroup({
-      atentionLevel: new FormControl({ value: ''}),  
+      atentionLevel: new FormControl(''),  
     }); 
+    this.personForm = new FormGroup({
+      dni: new FormControl(''),
+    })
   }
-  onSubmit(){
-
-  }
+  
   getAtentionLevel(){
     this.hospitalService.getAtentionLevel().subscribe({
       next: res => {
       this.dataAtentionLevel = res;
       },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer obtener los Niveles de Atención','Cerrar');
+       } 
     });  
   }
+ 
+  
+  getPersonAndHealthInsurancesById(): void{  
+    this.flagGetPersonHealth = true;
+    this.personService.getPersonAndHealthInsurancesById(this.personForm.controls.dni.value).subscribe({
+      next: res => { 
+        console.log('se obtuvo la persona del dni', res);
+        this.personHealthInsuranceResultData = res; 
+        this.flagGetPersonHealth = false;
+        console.log(this.personHealthInsuranceResultData);
+    },
+    error: err => {
+      console.log('error',err);
+      this.commonService.openSnackBar('Ups... algo falló al querer buscar la persona y sus obras sociales','Cerrar');
+     } 
+    });
+  }
+
+  // getAccidentOrDiseases(): void{  
+  //   this.accidentDiseasesService.getAccidentOrDiseases().subscribe({
+  //     next: res => {  
+  //       this.dataAccidentOrDiseases = res.accidentOrDiseases;  
+  //   },
+  //   error: err => {
+  //     this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
+  //    } 
+  //   });
+  // }
+  redirectToPersonForm(){
+    this.router.navigate(['personas']);
+  }
+  
+
+
+
+
+  hospitals : Hospital[];
+  
+  getClosestHospitals(){ 
+    this.hospitalService.getClosestHospitals(this.emergencyForm.controls.atentionLevel.value).subscribe({
+      next: res => {
+        this.hospitals = res.hospitals;
+      }
+    })
+  }
+
+
   // ******************************************************************
   // *********************** GOOGLE MAPS FUNCTIONS ********************
   // ******************************************************************
