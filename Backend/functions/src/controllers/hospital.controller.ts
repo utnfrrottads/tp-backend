@@ -13,7 +13,7 @@ module.exports = {
     *
     * @returns The list of hospitals retrieved
     */
-    getAllHospitals: async (req, res, next) => {
+    getAllHospitals: async (req, res) => {
         try {
             const hospitalsSnapshot = await hospitalRepository.find();
 
@@ -24,21 +24,50 @@ module.exports = {
     },
     /**
     * `GETS` the closest hospitals by lat long.
+    * Filters by freeBeds, idHealthInsurance, idAccidentOrDisease
     *
-    * @returns The list of hospitals retrieved
+    * @returns The list of hospitals retrieved ordered by closest one
     */
     getClosestHospitals: async (req, res) => {
+        const idHealthCareInsurance = req.body.idHealthInsurance;
+        const idAccidentOrDisease = req.body.idAccidentOrDisease;
         const distance = 20000;
-        let matchedHospitals: Hospital[] = [];
-        const hospitals = await hospitalRepository.whereEqualTo("atentionLevel", req.body.atentionLevel).find();
-        //first we test origins and destinations
-        for (const hospital of hospitals) {
+        const matchedHospitals: Hospital[] = [];
+        const hospitalsIndexesToRemove = [];
+        const hospitalsToFilter = await hospitalRepository.whereEqualTo("atentionLevel", req.body.atentionLevel).whereGreaterThan("freeBeds", 0).find();
+
+        console.log("idHealthCareInsurance: " + idHealthCareInsurance);
+        console.log("idAccidentOrDisease: " + idAccidentOrDisease);
+        console.log("Lenght: " + hospitalsToFilter.length);
+
+        async function filterHospitalsByInsuranceAndDisease(hospitalsToFilter) {
+            // Filters by healthInsurance and accidentOrDisease
+            for (let index = 0; index < hospitalsToFilter.length; index++) {
+                const healthInsuranceMatch = await hospitalsToFilter[index].healthInsurances.findById(idHealthCareInsurance);
+                const accidentOrDiseaseMatch = await hospitalsToFilter[index].accidentOrDiseases.findById(idAccidentOrDisease);
+                if (!healthInsuranceMatch || !accidentOrDiseaseMatch) {
+                    hospitalsIndexesToRemove.push(index);
+                }
+            }
+            // Removes hospitals that don't match healthInsurance or accidentOrDisease
+            for (const hospitalToRemove of hospitalsIndexesToRemove) {
+                const index = matchedHospitals.findIndex(element => element === hospitalToRemove);
+                matchedHospitals.splice(index, 1);
+            }
+        }
+
+        // Filters by radius
+        for (const hospital of hospitalsToFilter) {
             if (isPointWithinRadius({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
                 { latitude: hospital.location.latitude, longitude: hospital.location.longitude, }, distance)) {
                 matchedHospitals.push(hospital)
-            };
+            }
         }
 
+        // Filters by healthInsurance and accidentOrDisease
+        await filterHospitalsByInsuranceAndDisease(matchedHospitals);
+
+        // Sorts by distance
         matchedHospitals.sort((a, b) => (getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
             { latitude: a.location.latitude, longitude: a.location.longitude, }) > getDistance({ latitude: req.body.emergency.latitude, longitude: req.body.emergency.longitude },
                 { latitude: b.location.latitude, longitude: b.location.longitude, }) ? -1 : 1));
@@ -52,11 +81,12 @@ module.exports = {
     * 
     * @returns The created hospital
     */
-    createHospital: async (req, res, next) => {
+    createHospital: async (req, res) => {
         try {
             const hospital: Hospital = {
                 id: "",
                 address: req.body.address,
+                freeBeds: 0,
                 atentionLevel: req.body.atentionLevel,
                 locality: req.body.locality,
                 location: new admin.firestore.GeoPoint(req.body.location.latitude, req.body.location.longitude),
@@ -81,7 +111,7 @@ module.exports = {
     * 
     * @returns The added AccidentOrDisease
     */
-    addToAccidentOrDiseaseByIds: async (req, res, next) => {
+    addToAccidentOrDiseaseByIds: async (req, res) => {
         try {
             const idHospital = req.params.idHospital;
             const idAccidentOrDisease = req.params.idAccidentOrDisease;
@@ -117,7 +147,7 @@ module.exports = {
     * 
     * @returns The updated hospital
     */
-    updateHospitalById: async (req, res, next) => {
+    updateHospitalById: async (req, res) => {
         try {
             const id = req.params.id;
 
@@ -129,6 +159,7 @@ module.exports = {
 
             const hospitalToUpdate: Hospital = {
                 id: hospital.id,
+                freeBeds: req.body.freeBeds ?? hospital.freeBeds,
                 address: req.body.address ?? hospital.address,
                 atentionLevel: req.body.atentionLevel ?? hospital.atentionLevel,
                 locality: req.body.locality ?? hospital.locality,
@@ -152,7 +183,7 @@ module.exports = {
     * 
     * @returns The success message
     */
-    deleteHospitalById: async (req, res, next) => {
+    deleteHospitalById: async (req, res) => {
         try {
             const id = req.params.id;
             const hospital = await hospitalRepository.findById(id);

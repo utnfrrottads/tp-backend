@@ -13,10 +13,10 @@ export class Emergency {
     location: Geopoint;
     ambulanceLicensePlate: string;
     accidentOrDisease?: AccidentOrDisease;
-    idHospital?: string;
+    idHospital: string;
     idPatient?: string;
     idNurse?: string;
     idBed?: string;
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
-};
+}

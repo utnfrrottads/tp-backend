@@ -26,4 +26,4 @@ export class Person {
     @SubCollection(HealthInsurance)
     healthInsurances?: ISubCollection<HealthInsurance>;
 
-};
+}

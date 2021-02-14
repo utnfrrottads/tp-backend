@@ -13,7 +13,7 @@ module.exports = {
     *
     * @returns The list of persons retrieved
     */
-    getAllPersons: async (req, res, next) => {
+    getAllPersons: async (req, res) => {
         try {
             const personsSnapshot = await personRepository.find();
 
@@ -27,7 +27,7 @@ module.exports = {
     *
     * @returns The list of person retrieved and a list of healthInsurances
     */
-    getPersonAndHealthInsurancesById: async (req, res, next) => {
+    getPersonAndHealthInsurancesById: async (req, res) => {
         try {
             const idPerson = req.params.idPerson;
             const personsSnapshot = await personRepository.findById(idPerson);
@@ -46,7 +46,7 @@ module.exports = {
     * 
     * @returns The created person
     */
-    createPerson: async (req, res, next) => {
+    createPerson: async (req, res) => {
         try {
             const person: Person = {
                 id: "",
@@ -79,7 +79,7 @@ module.exports = {
     * 
     * @returns The created emergencyContact
     */
-    createEmergencyContact: async (req, res, next) => {
+    createEmergencyContact: async (req, res) => {
         try {
             const emergencyContact: Person = {
                 id: "",
@@ -113,7 +113,7 @@ module.exports = {
     * 
     * @returns The created nurse
     */
-    createNurse: async (req, res, next) => {
+    createNurse: async (req, res) => {
         try {
             const nurse: Person = {
                 id: "",
@@ -148,7 +148,7 @@ module.exports = {
     * 
     * @returns The added HealthInsurance
     */
-    addToHealthInsuranceByIds: async (req, res, next) => {
+    addToHealthInsuranceByIds: async (req, res) => {
         try {
             const idPerson = req.params.idPerson;
             const idHealthInsurance = req.params.idHealthInsurance;
@@ -188,7 +188,7 @@ module.exports = {
     * 
     * @returns The updated person
     */
-    updatePersonById: async (req, res, next) => {
+    updatePersonById: async (req, res) => {
         try {
             const id = req.params.id;
 
@@ -229,7 +229,7 @@ module.exports = {
     * 
     * @returns The updated person
     */
-    addEmergencyContactById: async (req, res, next) => {
+    addEmergencyContactById: async (req, res) => {
         try {
             const personId = req.params.personId;
             const contactId = req.params.contactId;
@@ -278,7 +278,7 @@ module.exports = {
     * 
     * @returns The success message
     */
-    deletePersonById: async (req, res, next) => {
+    deletePersonById: async (req, res) => {
         try {
             const id = req.params.id;
             const person = await personRepository.findById(id);
