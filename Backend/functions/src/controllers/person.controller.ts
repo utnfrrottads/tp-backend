@@ -40,6 +40,23 @@ module.exports = {
         }
     },
     /**
+    * `GETS` a Person and it's health insurances by person dni
+    *
+    * @returns The list of person retrieved and a list of healthInsurances
+    */
+    getPersonAndHealthInsurancesByDni: async (req, res) => {
+        try {
+            const dni = req.body.dni;
+            const personsSnapshot = await personRepository.whereEqualTo('dni', dni).findOne();
+
+            const healthInsurances = await personsSnapshot.healthInsurances.find();
+
+            res.status(200).json({ success: true, persons: personsSnapshot, healthInsurances: healthInsurances, msg: "Persona obtenida con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `CREATES` a person.
     *
     * @body Json with required fields to create a person

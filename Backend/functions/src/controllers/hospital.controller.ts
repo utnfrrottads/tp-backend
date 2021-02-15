@@ -75,6 +75,54 @@ module.exports = {
         res.status(200).json({ success: true, hospitals: matchedHospitals, msg: "Hospitales obtenidos con éxito" });
     },
     /**
+    * `GETS` all AccidentOrDiseases of the Hospital.
+    *
+    * @returns The list of AccidentOrDiseases retrieved
+    */
+    getAllAccidentsOrDiseasesById: async (req, res) => {
+        const idHospital = req.params.idHospital;
+        try {
+            const hospitalsSnapshot = await hospitalRepository.findById(idHospital);
+            const accidentOrDiseases = await hospitalsSnapshot.accidentOrDiseases.find();
+
+            res.status(200).json({ success: true, accidentOrDiseases: accidentOrDiseases, msg: "Accidentes o enermedades obtenidos con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `GETS` all HealthInsurances of the Hospital.
+    *
+    * @returns The list of HealthInsurances retrieved
+    */
+    getAllHealthInsurancesById: async (req, res) => {
+        const idHospital = req.params.idHospital;
+        try {
+            const hospitalsSnapshot = await hospitalRepository.findById(idHospital);
+            const healthInsurances = await hospitalsSnapshot.healthInsurances.find();
+
+            res.status(200).json({ success: true, healthInsurances: healthInsurances, msg: "Obras sociales obtenidas con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `GETS` all Beds of the Hospital.
+    *
+    * @returns The list of Beds retrieved
+    */
+    getAllBedsById: async (req, res) => {
+        const idHospital = req.params.idHospital;
+        try {
+            const hospitalsSnapshot = await hospitalRepository.findById(idHospital);
+            const beds = await hospitalsSnapshot.beds.find();
+
+            res.status(200).json({ success: true, beds: beds, msg: "Camas obtenidas con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `CREATES` a hospital.
     *
     * @body Json with required fields to create a hospital

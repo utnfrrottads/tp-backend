@@ -16,7 +16,7 @@ export class Emergency {
     idHospital: string;
     idPatient?: string;
     idNurse?: string;
-    idBed?: string;
+    idBed: string;
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
 }
