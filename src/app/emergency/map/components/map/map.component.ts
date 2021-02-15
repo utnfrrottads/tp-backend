@@ -4,11 +4,7 @@ import { AtentionLevel, Hospital, HospitalResult } from 'src/app/hospital/models
 import { MapService } from '../../services/map.service'; 
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'; 
 import { FormControl, FormGroup } from '@angular/forms';
-import { PersonService } from 'src/app/person/services/person.service';
-import { PersonHealthInsuranceResult } from 'src/app/person/models/person';
 import { CommonService } from 'src/app/common/services/common.service';
-import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
-import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
 import { Router } from '@angular/router';
 
@@ -20,31 +16,10 @@ import { Router } from '@angular/router';
 export class MapComponent implements OnInit { 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
-  emergencyForm: FormGroup;
-  personForm: FormGroup;
+  emergencyForm: FormGroup; 
   dataAtentionLevel: AtentionLevel[];
   hospitalData: Hospital[];
-  dataAccidentOrDiseases: AccidentOrDiseases[];
-  personHealthInsuranceResultData: PersonHealthInsuranceResult = {
-    persons : { id: '',
-      dni: 0,
-      firstName: '',
-      lastName: '',
-      bornDate: '', // Date
-      gender: '',
-      phone: '',
-      bloodType: '', 
-  
-      nurseWorkId:'',
-      user:'',
-      password:'',
-      healthInsurances: [],    // TODO opcional ?
-      healthInsuranceId:''
-    },
-    healthInsurances : [],
-    msg:'',
-    success: false
-  };
+  dataAccidentOrDiseases: AccidentOrDiseases[]; 
   flagGetPersonHealth: boolean = false;
   hospitalClosest: Hospital;
   myMarkers = [];
@@ -73,11 +48,8 @@ export class MapComponent implements OnInit {
   //   text: 'Emergencia'
   // }
   constructor(
-    private hospitalService: HospitalService, 
-    private personService: PersonService, 
-    private mapService: MapService, 
-    private accidentDiseasesService: AccidentDiseasesService,
-    private router: Router,
+    private hospitalService: HospitalService,
+    private mapService: MapService,
     private commonService: CommonService
   ) { }
   
@@ -150,18 +122,12 @@ export class MapComponent implements OnInit {
   openInfo(marker: MapMarker, content): void{
     this.infoContent = content
     this.info.open(marker)
-  }
-
-
-
+  } 
   
   initForm(){
     this.emergencyForm = new FormGroup({
       atentionLevel: new FormControl(''),  
-    }); 
-    this.personForm = new FormGroup({
-      dni: new FormControl(''),
-    })
+    });
   }
   
   getAtentionLevel(){
@@ -176,21 +142,6 @@ export class MapComponent implements OnInit {
   }
  
   
-  getPersonAndHealthInsurancesById(): void{  
-    this.flagGetPersonHealth = true;
-    this.personService.getPersonAndHealthInsurancesById(this.personForm.controls.dni.value).subscribe({
-      next: res => { 
-        console.log('se obtuvo la persona del dni', res);
-        this.personHealthInsuranceResultData = res; 
-        this.flagGetPersonHealth = false;
-        console.log(this.personHealthInsuranceResultData);
-    },
-    error: err => {
-      console.log('error',err);
-      this.commonService.openSnackBar('Ups... algo falló al querer buscar la persona y sus obras sociales','Cerrar');
-     } 
-    });
-  }
 
   // getAccidentOrDiseases(): void{  
   //   this.accidentDiseasesService.getAccidentOrDiseases().subscribe({
@@ -202,9 +153,6 @@ export class MapComponent implements OnInit {
   //    } 
   //   });
   // }
-  redirectToPersonForm(){
-    this.router.navigate(['personas']);
-  }
   
 
 
@@ -220,6 +168,12 @@ export class MapComponent implements OnInit {
     })
   }
 
+  onPersonHealthInsuranceSelect(personHealthInsurance: any){
+    console.log('personHealthInsurance',personHealthInsurance);
+  }
+  // ******************************************************************
+  // ***********************     MAPS FUNCTIONS    ********************
+  // ******************************************************************
 
   // ******************************************************************
   // *********************** GOOGLE MAPS FUNCTIONS ********************

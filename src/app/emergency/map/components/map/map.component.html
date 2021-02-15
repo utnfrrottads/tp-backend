@@ -1,52 +1,7 @@
-<form  [formGroup]="personForm" (ngSubmit)="getPersonAndHealthInsurancesById()" class="mi-form">
-    <p>
-      <mat-form-field  appearance="fill" class="mi-full-width">
-        <mat-label> DNI </mat-label>
-        <input matInput  formControlName="dni" placeholder="Número de documento" >
-        <mat-error *ngIf="personForm.controls.dni.touched && personForm.controls.dni.invalid">
-            <span *ngIf="personForm.controls.dni.errors.required">No te olvides de completarlo!</span>  
-        </mat-error> 
-      </mat-form-field>
-  RVsIaTME4sBnBxE6xvOe
-    </p> 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> Buscar persona </button>
-</form>
+<app-emergency-person
+  (personSelect)="onPersonHealthInsuranceSelect($event)">
   
-<button mat-raised-button (click)="redirectToPersonForm()"> 
-  Registrar persona
-</button>
-
-<br>
-<br>
-<mat-progress-bar mode="indeterminate" *ngIf="flagGetPersonHealth"></mat-progress-bar>
-<mat-card class="example-card" *ngIf="personHealthInsuranceResultData.persons.id">
-  <mat-card-header>
-    <div mat-card-avatar class="material-icons">
-      perm_contact_calendar
-    </div>
-    <mat-card-title>
-      {{ personHealthInsuranceResultData.persons.lastName}}
-      , {{ personHealthInsuranceResultData.persons.firstName}}
-    </mat-card-title>
-    <mat-card-subtitle>
-      Tipo sangre {{ personHealthInsuranceResultData.persons.bloodType}}
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Fecha de nac: {{ personHealthInsuranceResultData.persons.bornDate}} </p>
-    <p>Tel: {{ personHealthInsuranceResultData.persons.phone}} </p>       
-    <p>Género: {{ personHealthInsuranceResultData.persons.gender}} </p>       
-    
-      <mat-selection-list #personHealthInsurance [multiple]="false" >
-        <mat-list-option *ngFor="let item of personHealthInsuranceResultData.healthInsurances" [value]="item">
-          {{item.fantasyName}}
-        </mat-list-option>
-      </mat-selection-list>
-  </mat-card-content>
-  <mat-card-actions>
-      Obra social elegida: {{personHealthInsurance.selectedOptions.selected[0]?.value.fantasyName}}
-  </mat-card-actions>
-</mat-card>
+</app-emergency-person>
   <br>
   <br>
 {{hospitals | json}}
@@ -114,7 +69,7 @@
 <!-- <img src="..\..\..\..\..\assets\img\cab1.png"> -->
 
 
-<mat-card class="example-card" *ngIf="this.hospitalClosest">
+<mat-card class="example-card" *ngIf="this.hospitalClosest" >
   <mat-card-header> 
     <mat-card-title>Efector más cercano: {{this.hospitalClosest.name}}</mat-card-title>
     <mat-card-subtitle>  

@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'hospitales', component: HospitalComponent },  
   {path: 'emergencia', component: MapComponent },  
   {path: 'mapEmergencia', component: MapEmergenciaComponent },
-  {path: 'mapDispatcher', component: MapTomtomComponent },
+  {path: 'mapDispatcher', component: MapTomtomComponent }, 
 ];
 
 @NgModule({

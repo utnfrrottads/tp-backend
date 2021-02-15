@@ -85,6 +85,94 @@ export class MapService {
   rad(degrees: number): number { 
     return degrees * (Math.PI/180);
   }
+  
+/**
+* `GETS` all emergencys of the collection.
+*/
+  getBeds(): Observable<BedResult>{ 
+    return this.httpClient.get<BedResult>(this.baseUrl+'/api-beds');
+  }
+emergency.get('/', validate, EmergencysController.getAllemergencys);
+
+
+
+  // CREATES a bed by idHospital and adds it as a subcollection
+  // /createBedByIdHospital/:id
+  createBed(bed: Bed): Observable<BedResult>{    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.httpClient.post<BedResult>(
+      this.baseUrl + '/api-beds/createBedByIdHospital/' + bed.idHospital,
+      bed,
+      httpOptions);
+  }
+
+  // UPDATES a bed by idHospital and idBed.
+  // /updatebyIds/:idHospital/:idBed
+  updateBedById(bed: Bed): Observable<BedResult>{    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };     
+    return this.httpClient.put<BedResult>(
+      this.baseUrl + '/api-beds/updatebyIds/' + bed.idHospital + '/' + bed.id,
+      bed,
+      httpOptions);
+  } 
+  // DELETES a bed by idHospital and idBed
+  // /deleteBedByIds/:idHospital/:idBed
+  deleteBedById(bed: Bed): Observable<BedResult>{    
+    console.log('por eliminar: ',bed);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };     
+    return this.httpClient.delete<BedResult>(
+      this.baseUrl + '/api-beds/deleteBedByIds/' + bed.idHospital + '/' + bed.id,
+      httpOptions);
+  } 
+
+/**
+* `CREATES` a emergency.
+*/
+emergency.post('/createEmergency', [
+    check('dateOfEntrance').not().isEmpty().withMessage('El campo dateOfEntrance es requerido'),
+    check('dateOfExit').not().isEmpty().withMessage('El campo dateOfExit es requerido'),
+    check('locality').not().isEmpty().withMessage('El campo locality es requerido'),
+    check('ambulanceLicensePlate').not().isEmpty().withMessage('El campo ambulanceLicensePlate es requerido'),
+    check('location').not().isEmpty().withMessage('El campo location es requerido'),
+    sanitizeBody(['dateOfEntrance', 'dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
+], validate, EmergencysController.createEmergency);
+
+/**
+* `ADDS` an AccidentOrDisease treated by emergency.
+*/
+emergency.post('/addToAccidentOrDiseaseByIds/:idEmergency/:idAccidentOrDisease', [
+    param('idEmergency').not().isEmpty().withMessage('El campo idEmergency es requerido'),
+    param('idEmergency').isLength({ min: 20, max: 20 }).withMessage('El idEmergency debe tener 20 caracteres'),
+    param('idEmergency').isAlphanumeric().withMessage('El idEmergency debe ser alfanumérico'),
+    param('idAccidentOrDisease').not().isEmpty().withMessage('El campo idAccidentOrDisease es requerido'),
+    param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
+    param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
+], validate, EmergencysController.addToAccidentOrDiseaseByIds);
+
+/**
+* `UPDATES` a emergency by ID.
+*/
+emergency.put('/updateemergencyById/:id', [
+    param('id').not().isEmpty().withMessage('El campo id es requerido'),
+    param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
+    param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
+    sanitizeBody(['dateOfEntrance', 'dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
+], validate, EmergencysController.updateEmergencyById);
+
+/**
+* `DELETES` a emergency by ID.
+*/
+emergency.delete('/deleteEmergencyById/:id', [
+    param('id').not().isEmpty().withMessage('El campo id es requerido'),
+    param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),
+    param('id').isAlphanumeric().withMessage('El id debe ser alfanumérico'),
+], validate, EmergencysController.deleteEmergencyById);
 
 
 }
