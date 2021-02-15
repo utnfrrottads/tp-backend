@@ -21,6 +21,30 @@ hospital.put('/getClosestHospitals', [
     check('atentionLevel').not().isEmpty().withMessage('El campo atentionLevel es requerido'),
 ], validate, HospitalsController.getClosestHospitals);
 /**
+* `GETS` all AccidentOrDiseases of the Hospital.
+*/
+hospital.get('/getAllAccidentsOrDiseasesById/:idHospital', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+], validate, HospitalsController.getAllAccidentsOrDiseasesById);
+/**
+* `GETS` all HealthInsurances of the Hospital.
+*/
+hospital.get('/getAllHealthInsurancesById/:idHospital', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+], validate, HospitalsController.getAllHealthInsurancesById);
+/**
+* `GETS` all Beds of the Hospital.
+*/
+hospital.get('/getAllBedsById/:idHospital', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+], validate, HospitalsController.getAllBedsById);
+/**
 * `CREATES` a hospital.
 */
 hospital.post('/createHospital', [

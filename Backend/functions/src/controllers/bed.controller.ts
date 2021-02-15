@@ -12,14 +12,14 @@ module.exports = {
     *
     * @returns The list of beds retrieved
     */
-    getAllBeds: async (req, res, next) => {
+    getAllBeds: async (req, res) => {
         try {
             const beds = [];
 
             const bedsSnapshot = await db.collectionGroup('beds').get();
             bedsSnapshot.docs.forEach(element => {
                 const bed: Bed = {
-                    id: element.data()["id"],
+                    id: element.data().id,
                     description: element.data()["description"],
                     status: element.data()["status"],
                     subtype: element.data()["subtype"],
@@ -45,7 +45,7 @@ module.exports = {
     * 
     * @returns The created bed
     */
-    createBedByIdHospital: async (req, res, next) => {
+    createBedByIdHospital: async (req, res) => {
         try {
             const id = req.params.id;
 
@@ -68,6 +68,8 @@ module.exports = {
             }
 
             const bedCreated = await hospital.beds.create(bed);
+            hospital.freeBeds = admin.firestore.FieldValue.increment(1);
+            await hospitalRepository.update(hospital);
 
             //res.status(200).json({ success: true, cama: bedCreated, msg: "Cama creada con éxito" });
             res.status(200).json({ success: true, bed: bedCreated, msg: "Cama creada con éxito" });
@@ -84,7 +86,7 @@ module.exports = {
     * 
     * @returns The updated bed
     */
-    updatebyIds: async (req, res, next) => {
+    updatebyIds: async (req, res) => {
         try {
             const idHospital = req.params.idHospital;
             const idBed = req.params.idBed;
@@ -127,7 +129,7 @@ module.exports = {
     * 
     * @returns The success message
     */
-    deleteBedByIds: async (req, res, next) => {
+    deleteBedByIds: async (req, res) => {
         try {
             const idHospital = req.params.idHospital;
             const idBed = req.params.idBed;

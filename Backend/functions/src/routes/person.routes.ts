@@ -24,6 +24,14 @@ person.get('/getPersonAndHealthInsurancesById/:idPerson', [
     param('idPerson').isAlphanumeric().withMessage('El idPerson debe ser alfanumérico'),
 ], validate, PersonsController.getPersonAndHealthInsurancesById);
 /**
+* `GETS` a Person and it's health insurances by dni
+*
+* @returns The list of person retrieved and a list of healthInsurances
+*/
+person.get('/getPersonAndHealthInsurancesByDni', [
+    check('dni').not().isEmpty().withMessage('El campo dni es requerido'),
+], validate, PersonsController.getPersonAndHealthInsurancesByDni);
+/**
 * `CREATES` a person.
 */
 person.post('/createPerson', [

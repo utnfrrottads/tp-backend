@@ -13,7 +13,7 @@ module.exports = {
     *
     * @returns The list of persons retrieved
     */
-    getAllPersons: async (req, res, next) => {
+    getAllPersons: async (req, res) => {
         try {
             const personsSnapshot = await personRepository.find();
 
@@ -27,7 +27,7 @@ module.exports = {
     *
     * @returns The list of person retrieved and a list of healthInsurances
     */
-    getPersonAndHealthInsurancesById: async (req, res, next) => {
+    getPersonAndHealthInsurancesById: async (req, res) => {
         try {
             const idPerson = req.params.idPerson;
             const personsSnapshot = await personRepository.findById(idPerson);
@@ -40,13 +40,30 @@ module.exports = {
         }
     },
     /**
+    * `GETS` a Person and it's health insurances by person dni
+    *
+    * @returns The list of person retrieved and a list of healthInsurances
+    */
+    getPersonAndHealthInsurancesByDni: async (req, res) => {
+        try {
+            const dni = req.body.dni;
+            const personsSnapshot = await personRepository.whereEqualTo('dni', dni).findOne();
+
+            const healthInsurances = await personsSnapshot.healthInsurances.find();
+
+            res.status(200).json({ success: true, persons: personsSnapshot, healthInsurances: healthInsurances, msg: "Persona obtenida con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `CREATES` a person.
     *
     * @body Json with required fields to create a person
     * 
     * @returns The created person
     */
-    createPerson: async (req, res, next) => {
+    createPerson: async (req, res) => {
         try {
             const person: Person = {
                 id: "",
@@ -79,7 +96,7 @@ module.exports = {
     * 
     * @returns The created emergencyContact
     */
-    createEmergencyContact: async (req, res, next) => {
+    createEmergencyContact: async (req, res) => {
         try {
             const emergencyContact: Person = {
                 id: "",
@@ -113,7 +130,7 @@ module.exports = {
     * 
     * @returns The created nurse
     */
-    createNurse: async (req, res, next) => {
+    createNurse: async (req, res) => {
         try {
             const nurse: Person = {
                 id: "",
@@ -148,7 +165,7 @@ module.exports = {
     * 
     * @returns The added HealthInsurance
     */
-    addToHealthInsuranceByIds: async (req, res, next) => {
+    addToHealthInsuranceByIds: async (req, res) => {
         try {
             const idPerson = req.params.idPerson;
             const idHealthInsurance = req.params.idHealthInsurance;
@@ -188,7 +205,7 @@ module.exports = {
     * 
     * @returns The updated person
     */
-    updatePersonById: async (req, res, next) => {
+    updatePersonById: async (req, res) => {
         try {
             const id = req.params.id;
 
@@ -229,7 +246,7 @@ module.exports = {
     * 
     * @returns The updated person
     */
-    addEmergencyContactById: async (req, res, next) => {
+    addEmergencyContactById: async (req, res) => {
         try {
             const personId = req.params.personId;
             const contactId = req.params.contactId;
@@ -278,7 +295,7 @@ module.exports = {
     * 
     * @returns The success message
     */
-    deletePersonById: async (req, res, next) => {
+    deletePersonById: async (req, res) => {
         try {
             const id = req.params.id;
             const person = await personRepository.findById(id);

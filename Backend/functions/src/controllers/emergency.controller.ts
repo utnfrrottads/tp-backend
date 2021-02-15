@@ -2,7 +2,6 @@ import '../http';
 import { Emergency } from '../models/emergency.model';
 import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
-import { validationResult } from 'express-validator/check';
 import { Person } from '../models/person.model';
 import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 const admin = require('firebase-admin');
@@ -17,7 +16,7 @@ module.exports = {
    *
    * @returns The list of emergencys retrieved
    */
-  getAllEmergency: async (req, res, next) => {
+  getAllEmergencies: async (req, res) => {
     try {
       const emergencysSnapshot = await emergencyRepository.find();
 
@@ -34,91 +33,101 @@ module.exports = {
       });
     }
   },
-  //TODO agregarle comentario
-  createEmergency: async (req, res, next) => {
+  /**
+  * `CREATES` a Emergency and adds it to the hospital.
+  *
+  * @body Json with required fields to create an Emergency and optional: idPatient and idNurse
+  * 
+  * @returns The created Emergency
+  */
+  createEmergency: async (req, res) => {
     try {
-      // Checks if there's errors on the body
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        console.log(errors.mapped());
-        return res.status(400).json({
-          success: false,
-          errors: errors.mapped(),
-          msg: 'Error en alguno de los datos recibidos',
-        });
-      }
       const idHospital = req.params.idHospital;
       const idBed = req.params.idBed;
-      const idPatient = req.params.idPerson;
       const idAccidentOrDisease = req.params.idAccidentOrDisease;
-      const idNurse = req.params.idNurse;
+      const idPatient = req.body.idPatient;
+      const idNurse = req.body.idNurse;
 
       const hospital = await hospitalRepository.findById(idHospital);
-
       if (hospital === null) {
         return res.status(404).json({
           success: false,
           msg: 'No se encontró un hospital con ese ID',
         });
       }
-      const bed = await hospital.beds.findById(idBed);
 
+      const bed = await hospital.beds.findById(idBed);
       if (bed === null) {
         return res
           .status(404)
           .json({ success: false, msg: 'No se encontró una cama con ese ID' });
       }
-      const patient = await personRepository.findById(idPatient);
 
-      if (patient === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un paciente con ese ID',
-        });
-      }
-      const nurse = await personRepository.findById(idNurse);
-
-      if (nurse === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un enfermero con ese ID',
-        });
-      }
-      const accidentOrDisease = await accidentOrDiseaseRepository.findById(
-        idAccidentOrDisease
-      );
-
+      const accidentOrDisease = await accidentOrDiseaseRepository.findById(idAccidentOrDisease);
       if (accidentOrDisease === null) {
         return res.status(404).json({
           success: false,
           msg: 'No se encontró un accidente o enfermedad con ese ID',
         });
       }
+      const accidentOrDiseaseToAdd: AccidentOrDisease = {
+        id: accidentOrDisease.id,
+        description: accidentOrDisease.description,
+      }
+
+      if (idPatient) {
+        const patient = await personRepository.findById(idPatient);
+        if (patient === null) {
+          return res.status(404).json({
+            success: false,
+            msg: 'No se encontró un paciente con ese ID',
+          });
+        }
+      }
+
+      if (idNurse) {
+        const nurse = await personRepository.findById(idNurse);
+        if (nurse === null) {
+          return res.status(404).json({
+            success: false,
+            msg: 'No se encontró un enfermero con ese ID',
+          });
+        }
+      }
+
       const emergency: Emergency = {
         id: '',
-        dateOfEntrance: req.body.dateOfEntrance,
-        dateOfExit: req.body.dateOfExit,
+        dateOfEntrance: admin.firestore.Timestamp.fromDate(new Date(req.body.dateOfEntrance)),
+        dateOfExit: req.body.dateOfExit ? admin.firestore.Timestamp.fromDate(new Date(req.body.dateOfExit)) : null,
         locality: req.body.locality,
         location: new admin.firestore.GeoPoint(
           req.body.location.latitude,
           req.body.location.longitude
         ),
+        accidentOrDisease: accidentOrDiseaseToAdd,
         ambulanceLicensePlate: req.body.ambulanceLicensePlate,
-        idHospital: req.body.idHospital ?? null,
+        idHospital: idHospital,
         idPatient: req.body.idPatient ?? null,
         idNurse: req.body.idNurse ?? null,
-        idBed: req.body.idBed ?? null,
+        idBed: idBed,
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
       };
 
+      // Creates emergency
       const emergencyCreated = await emergencyRepository.create(emergency);
 
-      res.status(200).json({
-        success: true,
-        emergency: emergencyCreated,
-        msg: 'Emergencia creada con éxito',
-      });
+      // Adds emergency to the hospital
+      await hospital.emergencies.create(emergencyCreated);
+
+      // Decrements the freeBeds
+      hospital.freeBeds = admin.firestore.FieldValue.increment(-1);
+      await hospitalRepository.update(hospital);
+
+      // Sets the bed as busy
+      await hospital.beds.update({ id: bed.id, status: "Ocupada" });
+
+      res.status(200).json({ success: true, emergency: emergencyCreated, msg: 'Emergencia creada con éxito' });
     } catch (e) {
       res.status(500).json({
         success: false,
@@ -136,7 +145,7 @@ module.exports = {
    * @returns The added AccidentOrDisease
    */
 
-  addToAccidentOrDiseaseByIds: async (req, res, next) => {
+  addToAccidentOrDiseaseByIds: async (req, res) => {
     try {
       const idEmergency = req.params.idEmergency;
       const idAccidentOrDisease = req.params.idAccidentOrDisease;
@@ -183,24 +192,24 @@ module.exports = {
   },
 
   /**
-   * `UPDATES` a hospital by ID.
+   * `UPDATES` an Emergency by ID.
    *
-   * @body Json with fields to update a hospital
-   * @param id - Id of the hospital that will be updated
+   * @body Json with fields to update an Emergency
+   * @param id - Id of the Emergency that will be updated
    *
-   * @returns The updated hospital
+   * @returns The updated Emergency
    */
-  updateEmergencyById: async (req, res, next) => {
+  updateEmergencyById: async (req, res) => {
     try {
-      const id = req.params.id;
-      const idHospital = req.params.idHospital;
-      const idBed = req.params.idBed;
-      const idPatient = req.params.idPerson;
-      const idAccidentOrDisease = req.params.idAccidentOrDisease;
-      const idNurse = req.params.idNurse;
+      const emergencyId = req.params.id;
+      const idHospital = req.body.idHospital;
+      const idBed = req.body.idBed;
+      const idPatient = req.body.idPatient;
+      const idNurse = req.body.idNurse;
+      const idAccidentOrDisease = req.body.idAccidentOrDisease;
+      let accidentOrDiseaseToAdd: AccidentOrDisease;
 
-      const emergency = await emergencyRepository.findById(id);
-
+      const emergency = await emergencyRepository.findById(emergencyId);
       if (emergency === null) {
         return res.status(404).json({
           success: false,
@@ -208,58 +217,78 @@ module.exports = {
         });
       }
 
-      const hospital = await hospitalRepository.findById(idHospital);
+      // To update hospital or bed, idHospital and idBed is required
+      if (idHospital && idBed && idHospital !== emergency.idHospital && idBed !== emergency.idBed) {
 
-      if (hospital === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un hospital con ese ID',
-        });
-      }
-      const bed = await hospital.beds.findById(idBed);
+        const newHospital = await hospitalRepository.findById(idHospital);
+        if (newHospital === null) {
+          return res.status(404).json({ success: false, msg: 'No se encontró un hospital con ese ID' });
+        }
 
-      if (bed === null) {
-        return res
-          .status(404)
-          .json({ success: false, msg: 'No se encontró una cama con ese ID' });
-      }
-      const patient = await personRepository.findById(idPatient);
+        const bed = await newHospital.beds.findById(idBed);
+        if (bed === null) {
+          return res.status(404).json({ success: false, msg: 'No se encontró una cama con ese ID' });
+        }
 
-      if (patient === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un paciente con ese ID',
-        });
-      }
-      const nurse = await personRepository.findById(idNurse);
+        const oldHospital = await hospitalRepository.findById(emergency.idHospital);
+        // Increments the freeBeds in oldHospital
+        oldHospital.freeBeds = admin.firestore.FieldValue.increment(1);
+        await hospitalRepository.update(oldHospital);
 
-      if (nurse === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un enfermero con ese ID',
-        });
-      }
-      const accidentOrDisease = await accidentOrDiseaseRepository.findById(
-        idAccidentOrDisease
-      );
+        // Sets the old bed as free
+        await oldHospital.beds.update({ id: emergency.idBed, status: "Libre" });
+        
+        // Deletes the emergency from the old hospital
+        await oldHospital.emergencies.delete(emergency.id);
 
-      if (accidentOrDisease === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un accidente o enfermedad con ese ID',
-        });
+        // Decrements the freeBeds in newHospital
+        newHospital.freeBeds = admin.firestore.FieldValue.increment(-1);
+        await hospitalRepository.update(newHospital);
+
+        // Sets the new bed as busy
+        await newHospital.beds.update({ id: bed.id, status: "Ocupada" });
       }
-      if (hospital === null) {
-        return res.status(404).json({
-          success: false,
-          msg: 'No se encontró un hospital con ese ID',
-        });
+
+      if (idPatient) {
+        const patient = await personRepository.findById(idPatient);
+        if (patient === null) {
+          return res.status(404).json({
+            success: false,
+            msg: 'No se encontró un paciente con ese ID',
+          });
+        }
+      }
+
+      if (idNurse) {
+        const nurse = await personRepository.findById(idNurse);
+        if (nurse === null) {
+          return res.status(404).json({
+            success: false,
+            msg: 'No se encontró un enfermero con ese ID',
+          });
+        }
+      }
+
+      if (idAccidentOrDisease) {
+        const accidentOrDisease = await accidentOrDiseaseRepository.findById(
+          idAccidentOrDisease
+        );
+        if (accidentOrDisease === null) {
+          return res.status(404).json({
+            success: false,
+            msg: 'No se encontró un accidente o enfermedad con ese ID',
+          });
+        }
+        accidentOrDiseaseToAdd = {
+          id: accidentOrDisease.id,
+          description: accidentOrDisease.description,
+        };
       }
 
       const emergencyToUpdate: Emergency = {
         id: emergency.id,
-        dateOfEntrance: req.body.dateOfEntrance ?? emergency.dateOfEntrance,
-        dateOfExit: req.body.dateOfExit ?? emergency.dateOfExit,
+        dateOfEntrance: req.body.dateOfEntrance ? admin.firestore.Timestamp.fromDate(new Date(req.body.dateOfEntrance)) : emergency.dateOfEntrance,
+        dateOfExit: req.body.dateOfExit ? admin.firestore.Timestamp.fromDate(new Date(req.body.dateOfExit)) : emergency.dateOfExit,
         locality: req.body.locality ?? emergency.locality,
         location: req.body.location
           ? new admin.firestore.GeoPoint(
@@ -267,21 +296,21 @@ module.exports = {
             req.body.location.longitude
           )
           : emergency.location,
+        accidentOrDisease: accidentOrDiseaseToAdd ?? emergency.accidentOrDisease,
         ambulanceLicensePlate: req.body.ambulanceLicensePlate ?? emergency.ambulanceLicensePlate,
-        idHospital: req.body.idHospital ?? emergency.idHospital,
-        idPatient: req.body.idPatient ?? emergency.idPatient,
-        idNurse: req.body.idNurse ?? emergency.idNurse,
-        idBed: req.body.idBed ?? emergency.idBed,
+        idHospital: idHospital ?? emergency.idHospital,
+        idPatient: idPatient ?? emergency.idPatient,
+        idNurse: idNurse ?? emergency.idNurse,
+        idBed: idBed ?? emergency.idBed,
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       };
 
+      // Updates emergency collection and subcollection
       const emergencyUpdated = await emergencyRepository.update(emergencyToUpdate);
+      await (await hospitalRepository.findById(emergency.idHospital)).emergencies.update(emergencyToUpdate);
 
-      res.status(200).json({
-        success: true,
-        hospital: emergencyUpdated,
-        msg: 'Emergencia actualizada con éxito',
-      });
+
+      res.status(200).json({ success: true, emergencyUpdated: emergencyUpdated, msg: 'Emergencia actualizada con éxito' });
     } catch (e) {
       res.status(500).json({
         success: false,
@@ -291,13 +320,13 @@ module.exports = {
     }
   },
   /**
-   * `DELETES` a hospital by ID.
+   * `DELETES` a Emergency by ID.
    *
-   * @param id - Id of the hospital that will be deleted
+   * @param id - Id of the Emergency that will be deleted
    *
    * @returns The success message
    */
-  deleteHospitalById: async (req, res, next) => {
+  deleteEmergencyById: async (req, res) => {
     try {
       const id = req.params.id;
       const emergency = await emergencyRepository.findById(id);
@@ -309,10 +338,19 @@ module.exports = {
         });
       }
 
+      const hospitalWithEmergency = await hospitalRepository.findById(emergency.idHospital);
+
+      // Deletes emergency
+      await hospitalWithEmergency.emergencies.delete(id);
       await emergencyRepository.delete(id);
-      return res
-        .status(200)
-        .json({ success: true, msg: 'Emergencia eliminado con éxito' });
+
+      // Increments the freeBeds
+      hospitalWithEmergency.freeBeds = admin.firestore.FieldValue.increment(1);
+      await hospitalRepository.update(hospitalWithEmergency);
+
+      // Sets the bed as free
+      await hospitalWithEmergency.beds.update({ id: emergency.idBed, status: "Libre" });
+      return res.status(200).json({ success: true, msg: 'Emergencia eliminada con éxito' });
     } catch (e) {
       res.status(500).json({
         success: false,

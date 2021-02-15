@@ -4,6 +4,7 @@ type Geopoint = admin.firestore.GeoPoint;
 import { Collection, SubCollection, ISubCollection } from 'fireorm';
 import { AccidentOrDisease } from './accidentOrDisease.model';
 import { Bed } from './bed.model';
+import { Emergency } from './emergency.model';
 import { HealthInsurance } from './healthInsurance.model';
 
 @Collection()
@@ -15,6 +16,7 @@ export class Hospital {
     phone: string;
     location: Geopoint;
     atentionLevel: string;
+    freeBeds: number;
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
 
@@ -26,4 +28,7 @@ export class Hospital {
 
     @SubCollection(AccidentOrDisease)
     accidentOrDiseases?: ISubCollection<AccidentOrDisease>;
-};
+
+    @SubCollection(Emergency)
+    emergencies?: ISubCollection<Emergency>
+}
