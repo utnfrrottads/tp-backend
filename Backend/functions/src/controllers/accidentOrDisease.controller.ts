@@ -1,4 +1,4 @@
-import '../http';
+import { db } from '../http';
 import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 import { getRepository } from 'fireorm';
 import { Hospital } from '../models/hospital.model';
@@ -12,7 +12,7 @@ module.exports = {
    *
    * @returns The list of AccidentOrDiseases retrieved
    */
-  getAllAccidentOrDiseases: async (req, res) => {
+  getAllAccidentsOrDiseases: async (req, res) => {
     try {
       const accidentOrDiseasesSnapshot = await accidentOrDiseaseRepository.find();
 
@@ -31,6 +31,45 @@ module.exports = {
           errors: e.message,
           msg: 'Se ha producido un error interno en el servidor.',
         });
+    }
+  },
+  /**
+  * `GETS` all hospitals by accidentOrDisease of the collection.
+  *
+  * @returns The list of hospitals retrieved
+  */
+  getAllHospitalsByAccidentOrDiseasesId: async (req, res) => {
+    try {
+
+      const idaccidentOrDisease = req.params.idaccidentOrDisease;
+      const hospitals = [];
+
+      async function addToArray(accidentsOrDiseases) {
+        for (let index = 0; index < accidentsOrDiseases.length; index++) {
+          const hospitalSnapshot = await hospitalRepository.findById(accidentsOrDiseases[index].data()["idHospital"]);
+          const hospital: Hospital = {
+            id: hospitalSnapshot.id,
+            address: hospitalSnapshot.address,
+            location: hospitalSnapshot.location,
+            atentionLevel: hospitalSnapshot.atentionLevel,
+            freeBeds: hospitalSnapshot.freeBeds,
+            locality: hospitalSnapshot.locality,
+            name: hospitalSnapshot.name,
+            phone: hospitalSnapshot.phone,
+            createdAt: hospitalSnapshot.createdAt,
+            updatedAt: hospitalSnapshot.updatedAt,
+          }
+          hospitals.push(hospital);
+        }
+      }
+
+      const accidentsOrDiseases = await db.collectionGroup('accidentOrDiseases').where("id", "==", idaccidentOrDisease).get();
+      
+      await addToArray(accidentsOrDiseases.docs);
+
+      res.status(200).json({ success: true, hospitals: hospitals, msg: "Hospitales obtenidos con éxito" });
+    } catch (e) {
+      res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
     }
   },
   /**

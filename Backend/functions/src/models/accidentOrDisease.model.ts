@@ -6,6 +6,7 @@ import { Collection } from 'fireorm';
 export class AccidentOrDisease {
     id: string;
     description: string;
+    idHospital?: string;
     createdAt?:	Timestamp;
     updatedAt?:	Timestamp;		
 }

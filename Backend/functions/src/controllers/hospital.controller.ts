@@ -177,6 +177,7 @@ module.exports = {
 
             const accidentOrDiseaseToAdd: AccidentOrDisease = {
                 id: accidentOrDisease.id,
+                idHospital: hospital.id,
                 description: accidentOrDisease.description,
             }
 

@@ -46,7 +46,7 @@ module.exports = {
     */
     getPersonAndHealthInsurancesByDni: async (req, res) => {
         try {
-            const dni = req.body.dni;
+            const dni:number = +req.params.dni;
             const personsSnapshot = await personRepository.whereEqualTo('dni', dni).findOne();
 
             const healthInsurances = await personsSnapshot.healthInsurances.find();
