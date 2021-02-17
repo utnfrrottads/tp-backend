@@ -3,12 +3,11 @@
   
 </app-emergency-person>
   <br>
-  <br>
-{{hospitals | json}}
+  <br> 
 <form *ngIf="dataAtentionLevel" [formGroup]="emergencyForm" (ngSubmit)="getClosestHospitals()" class="mi-form">
-  <p>        
+  <p>
     <mat-form-field appearance="fill" class="mi-full-width">
-        <mat-label>Nivel de atención</mat-label>
+        <mat-label>Nivel de atención (deshabilitado el boton)</mat-label>
         <!-- formControlName es para asignar al formGroup
             mat-select -> [value] es para presetear un valor
             mat-option -> [value] es el valor del ngFor -->
@@ -19,11 +18,28 @@
             </mat-option> 
         </mat-select>
     </mat-form-field>  
-</p> 
-  <button mat-raised-button color="primary" type="submit" [disabled]="!emergencyForm.valid"> Buscar hospitales </button>
+  </p>
+  
+  <button mat-raised-button color="primary" type="submit" [disabled]="true"> Buscar hospitales </button>
 </form> 
 
-
+<form [formGroup]="accidentOrDiseasesForm" (ngSubmit)="getAllHospitalsByAccidentOrDiseasesId()" class="mi-form">
+  <p>        
+    <mat-form-field appearance="fill" class="mi-full-width">
+        <mat-label>Accidente o enfermedad</mat-label>
+        <!-- formControlName es para asignar al formGroup
+            mat-select -> [value] es para presetear un valor
+            mat-option -> [value] es el valor del ngFor -->
+        
+        <mat-select matNativeControl required formControlName='accidentOrDiseases'>
+            <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.id"> 
+                {{accidentOrDiseases.description}} 
+            </mat-option> 
+        </mat-select>
+    </mat-form-field>  
+  </p>
+<button mat-raised-button color="primary" type="submit" [disabled]="!accidentOrDiseasesForm.valid"> Buscar hospitales </button>
+</form> 
 <!-- (mapClick)="click($event)" -->
 <google-map  
   height="500px"

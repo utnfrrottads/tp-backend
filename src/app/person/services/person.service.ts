@@ -24,11 +24,19 @@ export class PersonService {
   */ 
   getPersonAndHealthInsurancesById(personId: number): Observable<PersonHealthInsuranceResult>{ 
     return this.httpClient.get<PersonHealthInsuranceResult>(
-      this.baseUrl + '/api-persons'
-                   + '/getPersonAndHealthInsurancesById'
+      this.baseUrl + '/api-persons/getPersonAndHealthInsurancesById'
                    + '/' + personId);
   }
-
+  /**
+  * `GETS` a Person and it's health insurances by dni
+    get('/getPersonAndHealthInsurancesByDni/:dni'
+  * @returns The list of person retrieved and a list of healthInsurances
+  */
+  getPersonAndHealthInsurancesByDni(dni: number): Observable<PersonHealthInsuranceResult>{ 
+    return this.httpClient.get<PersonHealthInsuranceResult>(
+      this.baseUrl + '/api-persons/getPersonAndHealthInsurancesByDni'
+                  + '/' + dni);
+  }
   /** CREATES` a Person.
    *  createHealthInsurance */  
   createPerson(person: Person): Observable<PersonResult>{    

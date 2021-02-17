@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit} from '@angular/core';
-import { HospitalService } from '../../../../hospital/services/hospital.service'
-import { Hospital } from 'src/app/hospital/models/hospital';  
-import { MapService } from '../../services/map.service';
+import { HospitalService } from '../../hospital/services/hospital.service'
+import { Hospital } from '../../hospital/models/hospital';  
+import { MapService } from '../services/map.service';
 import { default as defServices, services, tt as ttServices } from '@tomtom-international/web-sdk-services';
 import { default as tt, map, LngLat} from '@tomtom-international/web-sdk-maps';
  

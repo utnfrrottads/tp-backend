@@ -77,6 +77,23 @@ export class EmergencyPersonComponent implements OnInit {
     });
   }
 
+  getPersonAndHealthInsurancesByDni(): void{
+    this.flagGetPersonHealth = true;
+    this.personService.getPersonAndHealthInsurancesByDni(this.personForm.controls.dni.value).subscribe({
+      next: res => { 
+        console.log('se obtuvo la persona del dni', res);
+        this.personHealthInsuranceResultData = res; 
+        this.flagGetPersonHealth = false;
+        console.log(this.personHealthInsuranceResultData);
+    },
+    error: err => {
+      console.log('error',err);
+      this.flagGetPersonHealth = false;
+      this.commonService.openSnackBar('Ups... algo falló al querer buscar la persona y sus obras sociales','Cerrar');
+     } 
+    });
+  }
+
   redirectToPersonForm(): void{
     this.router.navigate(['personas']);
   }

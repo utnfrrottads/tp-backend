@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { HospitalService } from '../../../../hospital/services/hospital.service'
-import { AtentionLevel, Hospital, HospitalResult } from 'src/app/hospital/models/hospital';  
-import { MapService } from '../../services/map.service'; 
+import { HospitalService } from '../../hospital/services/hospital.service'
+import { AtentionLevel, Hospital, HospitalResult } from '../../hospital/models/hospital';  
+import { MapService } from '../services/map.service'; 
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'; 
 import { FormControl, FormGroup } from '@angular/forms';
-import { CommonService } from 'src/app/common/services/common.service';
-import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { CommonService } from '../../common/services/common.service';
+import { AccidentOrDiseases } from '../../accident-diseases/models/accidentOrDiseases';
 import { Router } from '@angular/router';
+import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 
 @Component({
   selector: 'app-map',
@@ -17,6 +18,7 @@ export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
   emergencyForm: FormGroup; 
+  accidentOrDiseasesForm: FormGroup; 
   dataAtentionLevel: AtentionLevel[];
   hospitalData: Hospital[];
   dataAccidentOrDiseases: AccidentOrDiseases[]; 
@@ -50,6 +52,7 @@ export class MapComponent implements OnInit {
   constructor(
     private hospitalService: HospitalService,
     private mapService: MapService,
+    private accidentDiseasesService: AccidentDiseasesService,
     private commonService: CommonService
   ) { }
   
@@ -58,6 +61,7 @@ export class MapComponent implements OnInit {
     this.getCurrentPosition();
     this.getHospitals();
     this.getAtentionLevel();
+    this.getAllAccidentsOrDiseases();
   }
 
   getHospitals(): void{  
@@ -126,7 +130,10 @@ export class MapComponent implements OnInit {
   
   initForm(){
     this.emergencyForm = new FormGroup({
-      atentionLevel: new FormControl(''),  
+      atentionLevel: new FormControl('')
+    });
+    this.accidentOrDiseasesForm = new FormGroup({ 
+      accidentOrDiseases: new FormControl(''),  
     });
   }
   
@@ -140,20 +147,42 @@ export class MapComponent implements OnInit {
        } 
     });  
   }
- 
+
+
+
+
+
+
+
+
+  getAllAccidentsOrDiseases(){
+    this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
+      next: res => {
+        console.log('res',res);
+      this.dataAccidentOrDiseases = res.AccidentOrDiseases;
+      },
+      error: err => {
+        console.log('err',err);
+        this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
+      } 
+    });  
+  }
+  
+  getAllHospitalsByAccidentOrDiseasesId(){
+    const idaccidentOrDisease: string = this.accidentOrDiseasesForm.controls.accidentOrDiseases.value;
+    this.accidentDiseasesService.getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease).subscribe({
+      next: res => {
+        console.log(res);
+        this.hospitalData = this.hospitalService.getFormatOkFrontendHospital(res.hospitals); 
+      },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
+      } 
+    });  
+  }
   
 
-  // getAccidentOrDiseases(): void{  
-  //   this.accidentDiseasesService.getAccidentOrDiseases().subscribe({
-  //     next: res => {  
-  //       this.dataAccidentOrDiseases = res.accidentOrDiseases;  
-  //   },
-  //   error: err => {
-  //     this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
-  //    } 
-  //   });
-  // }
-  
+
 
 
 
@@ -171,9 +200,36 @@ export class MapComponent implements OnInit {
   onPersonHealthInsuranceSelect(personHealthInsurance: any){
     console.log('personHealthInsurance',personHealthInsurance);
   }
+
+
+
+
+
+
+
+
+
+
   // ******************************************************************
   // ***********************     MAPS FUNCTIONS    ********************
   // ******************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // ******************************************************************
   // *********************** GOOGLE MAPS FUNCTIONS ********************
@@ -204,6 +260,34 @@ export class MapComponent implements OnInit {
     this.getDistancia(origen, destino);
 
   } 
+
+
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -305,13 +389,6 @@ export class MapComponent implements OnInit {
   //     }
   //   );
   // }
-} 
-
-
-
-
-
-
 
 
   // zoomIn() {
