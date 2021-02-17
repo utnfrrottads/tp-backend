@@ -28,8 +28,8 @@ person.get('/getPersonAndHealthInsurancesById/:idPerson', [
 *
 * @returns The list of person retrieved and a list of healthInsurances
 */
-person.get('/getPersonAndHealthInsurancesByDni', [
-    check('dni').not().isEmpty().withMessage('El campo dni es requerido'),
+person.get('/getPersonAndHealthInsurancesByDni/:dni', [
+    param('dni').not().isEmpty().withMessage('El campo dni es requerido'),
 ], validate, PersonsController.getPersonAndHealthInsurancesByDni);
 /**
 * `CREATES` a person.

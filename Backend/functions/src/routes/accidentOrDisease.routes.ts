@@ -12,7 +12,13 @@ accidentOrDisease.use(cors({ origin: true }));
 /**
 * `GETS` all accidentOrDiseases of the collection.
 */
-accidentOrDisease.get('/', validate, AccidentOrDiseasesController.getAllaccidentOrDiseases);
+accidentOrDisease.get('/getAllAccidentsOrDiseases', [], validate, AccidentOrDiseasesController.getAllAccidentsOrDiseases);
+/**
+* `GETS` all hospitals by accidentOrDisease of the collection.
+*/
+accidentOrDisease.get('/getAllHospitalsByAccidentOrDiseasesId/:idaccidentOrDisease', [
+    param('idaccidentOrDisease').not().isEmpty().withMessage('El campo idaccidentOrDisease es requerido'),
+], validate, AccidentOrDiseasesController.getAllHospitalsByAccidentOrDiseasesId);
 /**
 * `CREATES` a accidentOrDisease.
 */
