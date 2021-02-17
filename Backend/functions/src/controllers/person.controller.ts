@@ -46,9 +46,12 @@ module.exports = {
     */
     getPersonAndHealthInsurancesByDni: async (req, res) => {
         try {
-            const dni:number = +req.params.dni;
+            const dni: number = +req.params.dni;
             const personsSnapshot = await personRepository.whereEqualTo('dni', dni).findOne();
 
+            if (personsSnapshot === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una persona con ese DNI" });
+            }
             const healthInsurances = await personsSnapshot.healthInsurances.find();
 
             res.status(200).json({ success: true, persons: personsSnapshot, healthInsurances: healthInsurances, msg: "Persona obtenida con éxito" });
