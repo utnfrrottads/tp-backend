@@ -46,13 +46,15 @@ export class HospitalService {
       address : '',
       locality : '',
       phone : 0,
+      freeBeds: 0,
       location : {latitude: 0, longitude: 0},  
       locationGoogleMap : {lat: 0, lng: 0},
       options: '', 
       atentionLevel: '',
       healthInsurances: [],
       accidentOrDiseases: [],
-      beds: []
+      beds: [],
+      emergencies: []
     };
   }
 
@@ -62,16 +64,45 @@ export class HospitalService {
   getHospitals(): Observable<HospitalResult>{ 
     return this.httpClient.get<HospitalResult>(this.baseUrl + this.controller);
   }
-  /**
-  * `GETS` the closest hospitals by lat long.
-  */
+/**
+* `GETS` the closest hospitals by lat long.
+*/
  getClosestHospitals(atentionLevel: string): Observable<HospitalResult>{ 
     return this.httpClient.get<HospitalResult>(
       this.baseUrl + this.controller
       + '/getClosestHospitals'
       + '/' + atentionLevel);
   }
-
+/**
+* `GETS` the closest hospitals by lat long.
+* get('/getAllAccidentsOrDiseasesById/:idHospital'
+*/
+ getAllAccidentsOrDiseasesById(idHospital: string): Observable<HospitalResult>{ 
+    return this.httpClient.get<HospitalResult>(
+      this.baseUrl + this.controller
+      + '/getAllAccidentsOrDiseasesById'
+      + '/' + idHospital);
+  }
+/**
+* `GETS` all HealthInsurances of the Hospital.
+* get('/getAllHealthInsurancesById/:idHospital'
+*/
+ getAllHealthInsurancesById(idHospital: string): Observable<HospitalResult>{ 
+    return this.httpClient.get<HospitalResult>(
+      this.baseUrl + this.controller
+      + '/getAllHealthInsurancesById'
+      + '/' + idHospital);
+  }
+/**
+* `GETS` all Beds of the Hospital.
+  get('/getAllBedsById/:idHospital',
+*/
+  getAllBedsById(idHospital: string): Observable<HospitalResult>{ 
+    return this.httpClient.get<HospitalResult>(
+      this.baseUrl + this.controller
+      + '/getAllBedsById'
+      + '/' + idHospital);
+  }
 /**
 * `CREATES` a hospital.
 */

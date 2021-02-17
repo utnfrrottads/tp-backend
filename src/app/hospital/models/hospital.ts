@@ -1,6 +1,7 @@
 import { Bed } from "src/app/cama/models/bed";
 import { HealthInsurance } from "src/app/health-insurance/models/health-insurance";
 import { AccidentOrDiseases } from "src/app/accident-diseases/models/accidentOrDiseases";
+import { Emergency } from "../../emergency/models/emergency";
 
 export interface Hospital{ 
     id: string,
@@ -8,6 +9,7 @@ export interface Hospital{
     address: string,
     locality: string,
     phone: number, 
+    freeBeds: number,
     /** Firestore utiliza location con latitude y longitude. Es utilizado para el CRUD */
     location: GeoLocationFirestore, 
     /** Google maps utiliza location con lat y lng. Es utilizado para google maps solamente */
@@ -20,7 +22,8 @@ export interface Hospital{
     atentionLevel: string,
     healthInsurances: HealthInsurance[],
     accidentOrDiseases: AccidentOrDiseases[],
-    beds: Bed[]
+    beds: Bed[],
+    emergencies: Emergency[]
 }
 export interface GeoLocationFirestore{
     latitude: number;

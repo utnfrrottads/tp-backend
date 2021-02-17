@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HospitalAccidentOrDiseases } from 'src/app/hospital/models/hospital';
+import { Hospital, HospitalAccidentOrDiseases, HospitalResult } from 'src/app/hospital/models/hospital';
 import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../models/accidentOrDiseases';
 
 @Injectable({
@@ -10,26 +10,38 @@ import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../models/accident
 export class AccidentDiseasesService {
 
   baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
-  controller: string = '/api-accidentOrDisease/';
+  controller: string = '/api-accidentOrDiseases/';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-
-  /**
-   * `GETS` all accidentOrDiseases of the collection.
-   * get('/'
-  */
-  getAccidentOrDiseases(): Observable<AccidentOrDiseasesResult>{ 
-    return this.httpClient.get<AccidentOrDiseasesResult>(this.baseUrl + this.controller);
+/**
+* `GETS` all accidentOrDiseases of the collection.
+  @tutorial get '/getAllAccidentsOrDiseases'
+*/
+  getAllAccidentsOrDiseases(): Observable<AccidentOrDiseasesResult>{ 
+    return this.httpClient.get<AccidentOrDiseasesResult>(
+        this.baseUrl
+         + this.controller
+         + 'getAllAccidentsOrDiseases/');
   }
 
-
+/**
+* `GETS` all hospitals by accidentOrDisease of the collection.
+  @tutorial get '/getAllHospitalsByAccidentOrDiseasesId/:idaccidentOrDisease'
+*/
+getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<HospitalResult>{ 
+  return this.httpClient.get<HospitalResult>(
+    this.baseUrl + this.controller 
+                 + 'getAllHospitalsByAccidentOrDiseasesId/' 
+                 + idaccidentOrDisease
+    );
+}
 
   /**
   * `CREATES` a accidentOrDisease.
-    post('/createAccidentOrDisease' 
+    @tutorial post '/createAccidentOrDisease' 
   */
   createAccidentOrDisease(accidentOrDiseases: AccidentOrDiseases): Observable<AccidentOrDiseasesResult>{    
     const httpOptions = {
@@ -44,17 +56,16 @@ export class AccidentDiseasesService {
   
   /**
   * `ADDS` an AffiliatedAccidentOrDisease
-  ' put(/addToHospitalByIds/:idHospital/:idAccidentOrDisease'
+    @tutorial post /addToHospitalByIds/:idHospital/:idAccidentOrDisease
   */
-  affiliatedAccidentOrDisease(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases): Observable<AccidentOrDiseasesResult>{    
+ addToHospitalByIds(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases): Observable<AccidentOrDiseasesResult>{    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<AccidentOrDiseasesResult>(
       this.baseUrl + this.controller + 'addToHospitalByIds'
-                    + '/' + hospitalAccidentOrDiseases.idHospital
-                    + '/' + hospitalAccidentOrDiseases.idAccidentOrDisease
-      ,
+                   + '/' + hospitalAccidentOrDiseases.idHospital
+                   + '/' + hospitalAccidentOrDiseases.idAccidentOrDisease,
       hospitalAccidentOrDiseases,
       httpOptions);
   } 
@@ -62,7 +73,7 @@ export class AccidentDiseasesService {
 
   /**
   * `UPDATES` a AccidentOrDisease by ID.
-    put('/updateAccidentOrDiseaseById/:id'
+    @tutorial put /updateAccidentOrDiseaseById/:id
   */
   updateAccidentOrDiseaseById(accidentOrDiseases: AccidentOrDiseases): Observable<AccidentOrDiseasesResult>{    
     const httpOptions = {
@@ -76,7 +87,7 @@ export class AccidentDiseasesService {
   
   /**
   * `DELETES` a hospital by ID.
-  * /deleteAccidentOrDiseaseById/:id
+  * @tutorial delete deleteAccidentOrDiseaseById/:id
   */
   deleteAccidentOrDiseaseById(accidentOrDiseases: AccidentOrDiseases): Observable<AccidentOrDiseasesResult>{     
     const httpOptions = {

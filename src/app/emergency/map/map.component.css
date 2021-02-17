@@ -1,0 +1,22 @@
+@import "@tomtom-international/web-sdk-maps";
+
+#map {
+    height: 80vh;
+    width: 80vw;
+}
+
+.example-card {
+    max-width: 400px;
+  }
+  
+.example-header-image {
+  background-size: cover;
+}
+.mi-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+} 
+.mi-full-width {
+width: 100%;
+}

@@ -8,6 +8,7 @@ import { InputType } from '../../../common/models/typeInputEnum';
 import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
 import { Bed } from '../../../cama/models/bed';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 
 @Component({
   selector: 'app-hospital-form',
@@ -24,38 +25,12 @@ export class HospitalFormComponent implements OnInit {
   hospitalForm: FormGroup;
   dataAtentionLevel: AtentionLevel[];
   dataBed: Bed[];
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
   dataAccidentOrDiseases: AccidentOrDiseases[];
-
-
-
-
-
-
-
-
-
-
-
-
 
   constructor( 
     private hospitalService: HospitalService,
     private healthInsuranceService : HealthInsuranceService,
-    private bedService: BedService
+    private bedService: BedService,
   ) {}
 
   ngOnInit() {

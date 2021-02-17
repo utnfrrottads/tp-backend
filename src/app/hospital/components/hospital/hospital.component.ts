@@ -6,6 +6,7 @@ import { MatAccordion } from '@angular/material/expansion';
 import { CommonService } from '../../../common/services/common.service';
 import { HospitalHealthInsuranceFormComponent } from '../hospital-health-insurance-form/hospital-health-insurance-form.component';
 import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
+import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 
 @Component({
   selector: 'app-hospital',
@@ -22,6 +23,7 @@ export class HospitalComponent implements OnInit {
     locality: '',
     phone: 0,
     options: '',
+    freeBeds: 0,
     // zona: string,
     // info: string,
     // distrito: string,
@@ -34,7 +36,8 @@ export class HospitalComponent implements OnInit {
         lng:0 },
     healthInsurances: [],
     accidentOrDiseases: [],
-    beds: []
+    beds: [],
+    emergencies: []
   }; 
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
@@ -42,6 +45,7 @@ export class HospitalComponent implements OnInit {
   constructor(
     private hospitalService: HospitalService,
     private healthInsuranceService: HealthInsuranceService, 
+    private accidentDiseasesService: AccidentDiseasesService, 
     private commonService: CommonService
   ) { }
 
@@ -117,6 +121,7 @@ export class HospitalComponent implements OnInit {
         address: hospital.address, 
         locality: hospital.locality, 
         phone: hospital.phone,
+        freeBeds: hospital.freeBeds,
        // location: hospital.location,
         
         location: {
@@ -129,6 +134,7 @@ export class HospitalComponent implements OnInit {
         healthInsurances: hospital.healthInsurances, 
         accidentOrDiseases: hospital.accidentOrDiseases, 
         beds: hospital.beds, 
+        emergencies: hospital.emergencies, 
     }
   }
   /////////////////////////////////////////////////////////////////////////
@@ -163,7 +169,16 @@ export class HospitalComponent implements OnInit {
   ///////////// Hospitales Enfermedades accidentes atendidos  /////////////
   /////////////////////////////////////////////////////////////////////////
   onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
-    alert('mensaje no implementado, esperando backend');
+    console.log('hospitalAccidentOrDiseases',hospitalAccidentOrDiseases);
+    this.accidentDiseasesService.addToHospitalByIds(hospitalAccidentOrDiseases).subscribe({
+      next: res => { 
+      this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
+      },
+      error: err => {
+        console.log('err', err);
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital','Cerrar');
+      } 
+    });
   }
   onHospitalAccidentOrDiseaseDeleted(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
     alert('mensaje no implementado, esperando backend');

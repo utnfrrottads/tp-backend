@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccidentDiseasesService } from '../../../accident-diseases/services/accident-diseases.service'
 import { Hospital } from '../../models/hospital';  
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { CommonService } from 'src/app/common/services/common.service';
 
 @Component({
   selector: 'app-hospital-accident-diseases-form',
@@ -18,7 +19,8 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit {
   dataAccidentOrDiseases: AccidentOrDiseases[]; 
 
   constructor(
-    private accidentDiseasesService : AccidentDiseasesService
+    private accidentDiseasesService : AccidentDiseasesService, 
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {
@@ -42,20 +44,24 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit {
       })
     }
   }
-
   onSubmit(){
     this.add.emit(this.hospitalAccidentOrDiseasesForm.value);
   }
   loadDropDown(){
-    this.getAccidentOrDiseases();
+    this.getAllAccidentsOrDiseases();
   }
-  getAccidentOrDiseases(){
-    this.accidentDiseasesService.getAccidentOrDiseases().subscribe({
+  getAllAccidentsOrDiseases(){
+    this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
       next: res => {
-        console.log(res.accidentOrDiseases)
-        this.dataAccidentOrDiseases = res.accidentOrDiseases;
+        console.log('res',res);
+        this.dataAccidentOrDiseases = res.AccidentOrDiseases;
       },
+      error: err => {
+        console.log(err);
+        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama','Cerrar');
+       } 
     });  
   }
-
 }
+
+ 

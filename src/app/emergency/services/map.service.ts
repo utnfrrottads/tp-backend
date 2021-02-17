@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { GeoLocationGoogleMap, Hospital, HospitalClosest } from 'src/app/hospital/models/hospital';
+import { GeoLocationGoogleMap, Hospital, HospitalClosest } from '../../hospital/models/hospital';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService { 
   //apiKey='';
-  constructor() { }
+   
 
   getApiKey(){
     //return this.apiKey;
@@ -85,6 +85,5 @@ export class MapService {
   rad(degrees: number): number { 
     return degrees * (Math.PI/180);
   }
-
-
+  
 }

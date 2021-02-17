@@ -1,10 +1,10 @@
 export interface AccidentOrDiseases{
     id:string;
-    description:string;
+    description:string; 
+    idHospital?: string	
 }
 export interface AccidentOrDiseasesResult{
-    accidentOrDiseases: AccidentOrDiseases[],  
+    AccidentOrDiseases: AccidentOrDiseases[],  
     msg: string,
     success: boolean,
 }
-  

@@ -1,16 +1,9 @@
-@import "@tomtom-international/web-sdk-maps";
-
-#map {
-    height: 80vh;
-    width: 80vw;
-}
 
 .example-card {
     max-width: 400px;
   }
   
 .example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
 .mi-form {
