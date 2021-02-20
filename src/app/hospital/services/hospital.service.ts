@@ -32,6 +32,7 @@ export class HospitalService {
       objetFormat.healthInsurances = item.healthInsurances,
       objetFormat.accidentOrDiseases = item.accidentOrDiseases,
       objetFormat.beds = item.beds
+      objetFormat.freeBeds = item.freeBeds
       
       return objetFormat;
     }) ; 
@@ -77,7 +78,7 @@ export class HospitalService {
 * `GETS` the closest hospitals by lat long.
 * get('/getAllAccidentsOrDiseasesById/:idHospital'
 */
- getAllAccidentsOrDiseasesById(idHospital: string): Observable<HospitalResult>{ 
+  getAllAccidentsOrDiseasesById(idHospital: string): Observable<HospitalResult>{ 
     return this.httpClient.get<HospitalResult>(
       this.baseUrl + this.controller
       + '/getAllAccidentsOrDiseasesById'
@@ -87,7 +88,7 @@ export class HospitalService {
 * `GETS` all HealthInsurances of the Hospital.
 * get('/getAllHealthInsurancesById/:idHospital'
 */
- getAllHealthInsurancesById(idHospital: string): Observable<HospitalResult>{ 
+  getAllHealthInsurancesById(idHospital: string): Observable<HospitalResult>{ 
     return this.httpClient.get<HospitalResult>(
       this.baseUrl + this.controller
       + '/getAllHealthInsurancesById'

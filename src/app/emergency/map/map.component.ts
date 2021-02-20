@@ -1,13 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, ElementRef, AfterViewInit, ViewChild} from '@angular/core';
-import { HospitalService } from '../../hospital/services/hospital.service'
-import { AtentionLevel, Hospital, HospitalResult } from '../../hospital/models/hospital';  
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+import { Hospital } from '../../hospital/models/hospital';  
 import { MapService } from '../services/map.service'; 
-import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'; 
-import { FormControl, FormGroup } from '@angular/forms';
-import { CommonService } from '../../common/services/common.service';
-import { AccidentOrDiseases } from '../../accident-diseases/models/accidentOrDiseases';
-import { Router } from '@angular/router';
-import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
+import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 
 @Component({
   selector: 'app-map',
@@ -17,12 +11,8 @@ import { AccidentDiseasesService } from 'src/app/accident-diseases/services/acci
 export class MapComponent implements OnInit { 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
-  emergencyForm: FormGroup; 
-  accidentOrDiseasesForm: FormGroup; 
-  dataAtentionLevel: AtentionLevel[];
-  hospitalData: Hospital[];
-  dataAccidentOrDiseases: AccidentOrDiseases[]; 
-  flagGetPersonHealth: boolean = false;
+  @Input() hospitalData: Hospital[];
+  @Output() hospitalSelected = new EventEmitter();
   hospitalClosest: Hospital;
   myMarkers = [];
   infoContent = '';
@@ -31,6 +21,7 @@ export class MapComponent implements OnInit {
   iconMarkerAmbulance: string = '../../../../../assets/img/MarkerAmbulance.png';
   iconHospitalClosest: string = '../../../../../assets/img/MarkerEfectorRed.png';
   myPosition: google.maps.LatLngLiteral; 
+  @Output() position = new EventEmitter();
   options: google.maps.MapOptions = {
     // mapTypeId: 'hybrid',
     // disableDoubleClickZoom: true,
@@ -38,42 +29,16 @@ export class MapComponent implements OnInit {
     // minZoom: 8,
     // zoomControl: false,
     // scrollwheel: false,
-  }    
+  }
 
-  // title="gmaps";
-  // position = {
-  //   lat: -34.681,
-  //   lng: -58.371
-  // }
-  // label = {
-  //   color: 'red',
-  //   text: 'Emergencia'
-  // }
   constructor(
-    private hospitalService: HospitalService,
-    private mapService: MapService,
-    private accidentDiseasesService: AccidentDiseasesService,
-    private commonService: CommonService
+    private mapService: MapService
   ) { }
   
-  ngOnInit(): void{
-    this.initForm();
-    this.getCurrentPosition();
-    this.getHospitals();
-    this.getAtentionLevel();
-    this.getAllAccidentsOrDiseases();
+  ngOnInit(): void{ 
+    this.getCurrentPosition(); 
   }
 
-  getHospitals(): void{  
-    this.hospitalService.getHospitals().subscribe({
-      next: res => { 
-        this.hospitalData = this.hospitalService.getFormatOkFrontendHospital(res.hospitals); 
-    },
-    error: err => {
-      this.commonService.openSnackBar('Ups... algo falló al querer obtener los Hospitales','Cerrar');
-     } 
-  });
-  }
 /**
  * Agrega marcador en el mapa con mi posición actual
  */  
@@ -96,11 +61,27 @@ export class MapComponent implements OnInit {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       }
+      this.position.emit(this.myPosition);
     });
   }
+
+  logCenter(): void{
+    alert(JSON.stringify(this.map.getCenter()));
+  }
+
+  
+  openInfo(marker: MapMarker, content): void{
+    this.infoContent = content
+    this.info.open(marker)
+  } 
+
+
+
+
 /**
  * Obtiene la posición actual del usuario 
- * y la compara con todos los hospitales para obtener cual es el más cercano
+ * y la compara con todos los hospitales para obtener cual es el más cercano.
+ * Una vez que se obtiene el más cercano se lo resalta en el mapa y se emite el hospital cercano
  */   
   getNearestHospital(): void{
     this.getCurrentPosition(); 
@@ -113,96 +94,12 @@ export class MapComponent implements OnInit {
         hospital.options = {
           animation: google.maps.Animation.BOUNCE, //DROP
           icon: this.iconHospitalClosest,  
-        }
+        };
+
+        this.hospitalSelected.emit(hospital);
       }
     }; 
   }
-
-  logCenter(): void{
-    alert(JSON.stringify(this.map.getCenter()));
-  }
-
-  
-  openInfo(marker: MapMarker, content): void{
-    this.infoContent = content
-    this.info.open(marker)
-  } 
-  
-  initForm(){
-    this.emergencyForm = new FormGroup({
-      atentionLevel: new FormControl('')
-    });
-    this.accidentOrDiseasesForm = new FormGroup({ 
-      accidentOrDiseases: new FormControl(''),  
-    });
-  }
-  
-  getAtentionLevel(){
-    this.hospitalService.getAtentionLevel().subscribe({
-      next: res => {
-      this.dataAtentionLevel = res;
-      },
-      error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer obtener los Niveles de Atención','Cerrar');
-       } 
-    });  
-  }
-
-
-
-
-
-
-
-
-  getAllAccidentsOrDiseases(){
-    this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
-      next: res => {
-        console.log('res',res);
-      this.dataAccidentOrDiseases = res.AccidentOrDiseases;
-      },
-      error: err => {
-        console.log('err',err);
-        this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
-      } 
-    });  
-  }
-  
-  getAllHospitalsByAccidentOrDiseasesId(){
-    const idaccidentOrDisease: string = this.accidentOrDiseasesForm.controls.accidentOrDiseases.value;
-    this.accidentDiseasesService.getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease).subscribe({
-      next: res => {
-        console.log(res);
-        this.hospitalData = this.hospitalService.getFormatOkFrontendHospital(res.hospitals); 
-      },
-      error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
-      } 
-    });  
-  }
-  
-
-
-
-
-
-
-  hospitals : Hospital[];
-  
-  getClosestHospitals(){ 
-    this.hospitalService.getClosestHospitals(this.emergencyForm.controls.atentionLevel.value).subscribe({
-      next: res => {
-        this.hospitals = res.hospitals;
-      }
-    })
-  }
-
-  onPersonHealthInsuranceSelect(personHealthInsurance: any){
-    console.log('personHealthInsurance',personHealthInsurance);
-  }
-
-
-
 
 
 

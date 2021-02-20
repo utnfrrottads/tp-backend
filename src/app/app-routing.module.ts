@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashComponent } from './dashboard/dash/dash.component';
 import { CamaComponent } from './cama/components/cama/cama.component';
 import { PersonComponent } from './person/components/person/person.component';
-import { MapComponent } from './emergency/map/map.component';
+import { EmergencyComponent } from './emergency/emergency/emergency.component';
 import { MapEmergenciaComponent } from './emergency/map-emergencia/map-emergencia.component';
 import { MapTomtomComponent } from './emergency/map-tomtom/map-tomtom.component';
 import { HealthInsuranceComponent } from './health-insurance/components/health-insurance/health-insurance.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'obrassociales', component: HealthInsuranceComponent },
   {path: 'personas', component: PersonComponent },
   {path: 'hospitales', component: HospitalComponent },  
-  {path: 'emergencia', component: MapComponent },  
+  {path: 'emergencia', component: EmergencyComponent },  
   {path: 'mapEmergencia', component: MapEmergenciaComponent },
   {path: 'mapDispatcher', component: MapTomtomComponent }, 
 ];

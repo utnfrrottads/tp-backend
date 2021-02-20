@@ -65,6 +65,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HospitalAccidentDiseasesFormComponent } from './hospital/components/hospital-accident-diseases-form/hospital-accident-diseases-form.component';
 import { HospitalAccidentDiseasesListComponent } from './hospital/components/hospital-accident-diseases-list/hospital-accident-diseases-list.component';
 import { EmergencyPersonComponent } from './emergency/emergency-person/emergency-person.component';
+import { EmergencyComponent } from './emergency/emergency/emergency.component';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import { EmergencyPersonComponent } from './emergency/emergency-person/emergency
     HospitalAccidentDiseasesFormComponent,
     HospitalAccidentDiseasesListComponent,
     EmergencyPersonComponent,
+    EmergencyComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,45 +1,3 @@
-<app-emergency-person
-  (personSelect)="onPersonHealthInsuranceSelect($event)">
-  
-</app-emergency-person>
-  <br>
-  <br> 
-<form *ngIf="dataAtentionLevel" [formGroup]="emergencyForm" (ngSubmit)="getClosestHospitals()" class="mi-form">
-  <p>
-    <mat-form-field appearance="fill" class="mi-full-width">
-        <mat-label>Nivel de atención (deshabilitado el boton)</mat-label>
-        <!-- formControlName es para asignar al formGroup
-            mat-select -> [value] es para presetear un valor
-            mat-option -> [value] es el valor del ngFor -->
-        
-        <mat-select matNativeControl required formControlName='atentionLevel'>
-            <mat-option *ngFor="let atentionLevel of dataAtentionLevel" [value]="atentionLevel.description"> 
-                {{atentionLevel.description}} 
-            </mat-option> 
-        </mat-select>
-    </mat-form-field>  
-  </p>
-  
-  <button mat-raised-button color="primary" type="submit" [disabled]="true"> Buscar hospitales </button>
-</form> 
-
-<form [formGroup]="accidentOrDiseasesForm" (ngSubmit)="getAllHospitalsByAccidentOrDiseasesId()" class="mi-form">
-  <p>        
-    <mat-form-field appearance="fill" class="mi-full-width">
-        <mat-label>Accidente o enfermedad</mat-label>
-        <!-- formControlName es para asignar al formGroup
-            mat-select -> [value] es para presetear un valor
-            mat-option -> [value] es el valor del ngFor -->
-        
-        <mat-select matNativeControl required formControlName='accidentOrDiseases'>
-            <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.id"> 
-                {{accidentOrDiseases.description}} 
-            </mat-option> 
-        </mat-select>
-    </mat-form-field>  
-  </p>
-<button mat-raised-button color="primary" type="submit" [disabled]="!accidentOrDiseasesForm.valid"> Buscar hospitales </button>
-</form> 
 <!-- (mapClick)="click($event)" -->
 <google-map  
   height="500px"
@@ -68,36 +26,19 @@
     {{ infoContent }}
   </map-info-window>
 </google-map>
- 
-<button (click)="logCenter()" mat-raised-button color="info">Mostrar lat y long del centro del mapa</button>
+ <br>
+<button (click)="logCenter()" mat-raised-button color="info">
+  Mostrar lat y long del centro del mapa
+</button>
 <button (click)="addMarkerCurrentPosition()" mat-raised-button color="primary" >
   <span class="material-icons">person_pin_circle</span>
   Mi ubicación
+</button> 
+<button (click)="calculateDistancia()">
+  Calcular distancia con Google
 </button>
- 
-<button (click)="calculateDistancia()">Calcular distancia con Google</button>
 <button (click)="getNearestHospital()" mat-raised-button color="primary">
   <span class="material-icons">location_searching</span> 
   Efector más cercano
 </button>
- 
 
-<!-- <img src="..\..\..\..\..\assets\img\cab1.png"> -->
-
-
-<mat-card class="example-card" *ngIf="this.hospitalClosest" >
-  <mat-card-header> 
-    <mat-card-title>Efector más cercano: {{this.hospitalClosest.name}}</mat-card-title>
-    <mat-card-subtitle>  
-      <span class="material-icons">pin_drop</span>
-      {{this.hospitalClosest.address}}, {{this.hospitalClosest.locality}}
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>  
-      Cantidad de camas
-      <mat-icon matBadge="15" matBadgeColor="warn">single_bed</mat-icon>  
-  </mat-card-content>
-  <mat-card-actions>
-    <button  mat-raised-button color="warn">Tomar cama e ir!</button>
-  </mat-card-actions>
-</mat-card>

@@ -23,7 +23,7 @@ getEmergencies(): Observable<EmergencyResult>{
 
 /**
 * `CREATES` a emergency.
-* post('/createEmergency/hospital/:idHospital/bed/:idBed/accidendOrDisease/:idAccidentOrDisease'
+*  post /createEmergency/hospital/:idHospital/bed/:idBed/accidendOrDisease/:idAccidentOrDisease
     @property dateOfEntrance requerido.
     @property locality requerido.
     @property ambulanceLicensePlate requerido.

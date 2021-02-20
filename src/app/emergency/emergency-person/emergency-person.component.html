@@ -1,10 +1,10 @@
 <form  [formGroup]="personForm" (ngSubmit)="getPersonAndHealthInsurancesByDni()" class="mi-form">
     <p>
       <mat-form-field  appearance="fill" class="mi-full-width">
-        <mat-label> DNI </mat-label>
+        <mat-label> DNI de la persona </mat-label>
         <input matInput  formControlName="dni" placeholder="Número de documento" >
         <mat-error *ngIf="personForm.controls.dni.touched && personForm.controls.dni.invalid">
-            <span *ngIf="personForm.controls.dni.errors.required">No te olvides de completarlo!</span>  
+            <span *ngIf="personForm.controls.dni.errors.required">Necesitás registrar la persona!</span>  
         </mat-error> 
       </mat-form-field>
     </p> 
