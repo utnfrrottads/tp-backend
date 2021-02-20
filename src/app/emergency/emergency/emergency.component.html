@@ -12,7 +12,10 @@
             </mat-option> 
         </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!accidentOrDiseasesForm.valid"> Buscar hospitales </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!accidentOrDiseasesForm.valid"> 
+        Buscar hospitales 
+        <mat-icon>local_hospital</mat-icon> 
+    </button>
 </form> 
 
 37888777
@@ -28,7 +31,12 @@
 
 <mat-card class="example-card" *ngIf="this.hospitalSelected" >
     <mat-card-header> 
-      <mat-card-title>Efector más cercano: {{this.hospitalSelected.name}}</mat-card-title>
+      <mat-card-title>
+        Efector más cercano: 
+        <br>
+        <mat-icon>local_hospital</mat-icon>
+        <b>{{this.hospitalSelected.name}}</b>        
+      </mat-card-title>
       <mat-card-subtitle>  
         <span class="material-icons">pin_drop</span>
         {{this.hospitalSelected.address}}, {{this.hospitalSelected.locality}}
@@ -45,5 +53,3 @@
        Tomar cama e ir! 
     </button>
 </form>
-
-{{ emergencyForm.value | json }}

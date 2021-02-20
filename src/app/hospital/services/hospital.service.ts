@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { Bed } from 'src/app/cama/models/bed';
+import { HealthInsurance } from 'src/app/health-insurance/models/health-insurance';
 import { AtentionLevel, Hospital, HospitalResult } from '../models/hospital';
 
 @Injectable({
@@ -78,8 +81,8 @@ export class HospitalService {
 * `GETS` the closest hospitals by lat long.
 * get('/getAllAccidentsOrDiseasesById/:idHospital'
 */
-  getAllAccidentsOrDiseasesById(idHospital: string): Observable<HospitalResult>{ 
-    return this.httpClient.get<HospitalResult>(
+  getAllAccidentsOrDiseasesById(idHospital: string): Observable<AccidentOrDiseases[]>{ 
+    return this.httpClient.get<AccidentOrDiseases[]>(
       this.baseUrl + this.controller
       + '/getAllAccidentsOrDiseasesById'
       + '/' + idHospital);
@@ -88,8 +91,8 @@ export class HospitalService {
 * `GETS` all HealthInsurances of the Hospital.
 * get('/getAllHealthInsurancesById/:idHospital'
 */
-  getAllHealthInsurancesById(idHospital: string): Observable<HospitalResult>{ 
-    return this.httpClient.get<HospitalResult>(
+  getAllHealthInsurancesById(idHospital: string): Observable<HealthInsurance[]>{ 
+    return this.httpClient.get<HealthInsurance[]>(
       this.baseUrl + this.controller
       + '/getAllHealthInsurancesById'
       + '/' + idHospital);
@@ -98,8 +101,8 @@ export class HospitalService {
 * `GETS` all Beds of the Hospital.
   get('/getAllBedsById/:idHospital',
 */
-  getAllBedsById(idHospital: string): Observable<HospitalResult>{ 
-    return this.httpClient.get<HospitalResult>(
+  getAllBedsById(idHospital: string): Observable<Bed[]>{ 
+    return this.httpClient.get<Bed[]>(
       this.baseUrl + this.controller
       + '/getAllBedsById'
       + '/' + idHospital);

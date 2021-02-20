@@ -54,19 +54,6 @@ export class EmergencyPersonComponent implements OnInit {
       dni: new FormControl('',[Validators.required]),
     })
   }
-  
-  getPersonAndHealthInsurancesById(): void{  
-    this.flagGetPersonHealth = true;
-    this.personService.getPersonAndHealthInsurancesById(this.personForm.controls.dni.value).subscribe({
-      next: res => {
-        this.personHealthInsuranceResultData = res; 
-        this.flagGetPersonHealth = false;
-    },
-    error: err => {
-      this.commonService.openSnackBar('Ups... algo falló al querer buscar la persona y sus obras sociales','Cerrar');
-     } 
-    });
-  }
 
   getPersonAndHealthInsurancesByDni(): void{
     this.flagGetPersonHealth = true;

@@ -73,10 +73,10 @@ export class EmergencyComponent implements OnInit {
       , this.emergencyForm.controls.idAccidentOrDisease.value 
       ).subscribe({
         next: res => {
-          console.log(res);
+          this.commonService.openSnackBar(res.msg, 'Cerrar');
         },
         error: err => {
-          console.log(err);
+          this.commonService.openSnackBar('Ups... algo falló al querer tomar la cama. ' + err.msg, 'Cerrar');
         }
       }
     ) 

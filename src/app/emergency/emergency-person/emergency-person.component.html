@@ -8,7 +8,10 @@
         </mat-error> 
       </mat-form-field>
     </p> 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> Buscar persona </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> 
+      Buscar persona 
+      <mat-icon>person_search</mat-icon>
+    </button>
 </form>
   
 <button mat-raised-button (click)="redirectToPersonForm()"> 
