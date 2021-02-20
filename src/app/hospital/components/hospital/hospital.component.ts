@@ -4,9 +4,9 @@ import { Hospital, HospitalAccidentOrDiseases, HospitalHealthInsurance, Hospital
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
 import { CommonService } from '../../../common/services/common.service';
-import { HospitalHealthInsuranceFormComponent } from '../hospital-health-insurance-form/hospital-health-insurance-form.component';
 import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
 import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
+import { HealthInsurance } from 'src/app/health-insurance/models/health-insurance';
 
 @Component({
   selector: 'app-hospital',
@@ -41,6 +41,7 @@ export class HospitalComponent implements OnInit {
   }; 
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
+  dataHospitalHealthInsurances: HealthInsurance[];
 
   constructor(
     private hospitalService: HospitalService,
@@ -72,6 +73,8 @@ export class HospitalComponent implements OnInit {
     this.accordion.openAll();  
     this.hospitalSelected = hospital;
     this.inputType = InputType.edit;
+
+    this.geHospitalHealthInsurance(hospital.id);
   }
   onHospitalDeleted(hospital: Hospital){
     this.hospitalService.deleteHospitalById(hospital).subscribe({
@@ -140,10 +143,11 @@ export class HospitalComponent implements OnInit {
   /////////////////////////////////////////////////////////////////////////
   ////////////////////// Hospitales Obras sociales ////////////////////////
   /////////////////////////////////////////////////////////////////////////
-  onHospitalHealthInsuranceCreated(hospitalHealthInsurance: HospitalHealthInsurance){ 
-    // console.log('hospitalHealthInsurance', hospitalHealthInsurance);
-    // const hospitalHealthInsuranceToSend = this.mapToHospitalHealthInsuranceForm(hospitalHealthInsurance);
-    //console.log('hospitalHealthInsuranceToSend', hospitalHealthInsuranceToSend);
+  /**
+   * Se agrega en DB el permiso de atención del hospital para la Obra social
+   * @param hospitalHealthInsurance datos para ser insertados
+   */
+  onHospitalHealthInsuranceCreated(hospitalHealthInsurance: HospitalHealthInsurance){
     this.healthInsuranceService.createAffiliatedHealthInsurance(hospitalHealthInsurance).subscribe({
       next: res => { 
       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
@@ -161,9 +165,23 @@ export class HospitalComponent implements OnInit {
         idAccidentOrDisease: hospitalHealthInsurance.healthInsurances.id
     }
   }
-
   onHospitalHealthInsuranceDeleted(hospitalHealthInsurance: HospitalHealthInsurances){
     alert('mensaje no implementado, esperando backend');
+  }
+  
+  geHospitalHealthInsurance(idHospital: string ){
+
+    this.hospitalService.getAllHealthInsurancesById(idHospital).subscribe({
+      next: res => { 
+        console.log('geHospitalHealthInsurance', res);
+        this.dataHospitalHealthInsurances = res.healthInsurances;
+      },
+      error: err => {
+        console.log('err', err);
+        this.commonService.openSnackBar('Ups... algo falló al querer obtener las OS del hospital.', 'Cerrar');
+      } 
+    });
+
   }
   /////////////////////////////////////////////////////////////////////////
   ///////////// Hospitales Enfermedades accidentes atendidos  /////////////
@@ -182,5 +200,18 @@ export class HospitalComponent implements OnInit {
   }
   onHospitalAccidentOrDiseaseDeleted(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
     alert('mensaje no implementado, esperando backend');
+  }
+
+  getHospitalAccidentOrDisease(hospitalId: string ){
+    // this.accidentDiseasesService.addToHospitalByIds(hospitalAccidentOrDiseases).subscribe({
+    //   next: res => { 
+    //   this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
+    //   },
+    //   error: err => {
+    //     console.log('err', err);
+    //     this.commonService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital','Cerrar');
+    //   } 
+    // });
+
   }
 }

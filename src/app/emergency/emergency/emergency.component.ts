@@ -146,7 +146,7 @@ export class EmergencyComponent implements OnInit {
     this.hospitalSelected = hospital;
     this.emergencyForm.patchValue({
       idHospital: hospital.id
-    })
+    });
   }
   /** Set idAccidentOrDisease in form */
   onAccidentOrDiseasesSelected(){

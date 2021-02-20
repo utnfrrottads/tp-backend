@@ -4,7 +4,7 @@
         <mat-label> DNI de la persona </mat-label>
         <input matInput  formControlName="dni" placeholder="Número de documento" >
         <mat-error *ngIf="personForm.controls.dni.touched && personForm.controls.dni.invalid">
-            <span *ngIf="personForm.controls.dni.errors.required">Necesitás registrar la persona!</span>  
+            <span *ngIf="personForm.controls.dni.errors.required">Necesitás ingresar su DNI para buscarla!</span>  
         </mat-error> 
       </mat-form-field>
     </p> 

@@ -29,6 +29,13 @@
           (hospitalDeleted)="onHospitalDeleted($event)">
       </app-hospital-list>  
     </mat-accordion> 
+    
+    <br> 
+    <div *ngIf="!isCreate()">
+      <button mat-raised-button aria-label="Agregar hospital" (click)="setInputTypeCreate()">
+          Volver a form de creación <mat-icon>plus_one</mat-icon>
+      </button>
+    </div>
   </mat-tab>
 
   <mat-tab label="Obras sociales atendidas">
@@ -53,6 +60,7 @@
       </mat-expansion-panel>
       <br> 
       <app-hospital-health-insurance-list
+        [dataHospitalHealthInsurances] = "dataHospitalHealthInsurances"
         (hospitalHealthInsuranceDeleted)="onHospitalHealthInsuranceDeleted($event)">
       </app-hospital-health-insurance-list> 
     </mat-accordion>  
@@ -83,15 +91,5 @@
     </mat-accordion>   
   </mat-tab>
 </mat-tab-group>
-
-  
-
-      
-<br> 
-<div *ngIf="!isCreate()">
-  <button mat-raised-button aria-label="Agregar hospital" (click)="setInputTypeCreate()">
-      Volver a form de creación <mat-icon>plus_one</mat-icon>
-  </button>
-</div>
 
 <mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar> 
