@@ -50,8 +50,7 @@ export class PersonComponent implements OnInit {
   getPersons(){
     this.flagListIsReady = true;
     this.personService.getPersons().subscribe({
-      next: res =>{ 
-        console.log('res person list', res);
+      next: res =>{
         this.dataPerson = res.persons;
         this.flagListIsReady = false;
       },
@@ -66,7 +65,6 @@ export class PersonComponent implements OnInit {
     this.inputType = InputType.edit;
   }
   onPersonDeleted(person: Person){
-    console.log('se llego a form');
     this.personService.deletePersonById(person).subscribe({
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
@@ -79,7 +77,6 @@ export class PersonComponent implements OnInit {
     });
   }
   onPersonCreated(person: Person){
-    console.log(person);
     this.personService.createPerson(person).subscribe({
       next: res => {
        this.accordion.closeAll();  
@@ -97,7 +94,6 @@ export class PersonComponent implements OnInit {
        this.commonService.openSnackBar('Se creó la afiliación a la obra social exitosamente','Perfecto!');
       },
       error: err => {
-        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social','Cerrar');
        } 
     });

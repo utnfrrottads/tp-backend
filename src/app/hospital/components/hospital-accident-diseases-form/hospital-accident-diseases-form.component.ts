@@ -53,11 +53,9 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit {
   getAllAccidentsOrDiseases(){
     this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
       next: res => {
-        console.log('res',res);
         this.dataAccidentOrDiseases = res.accidentOrDiseases;
       },
       error: err => {
-        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama','Cerrar');
        } 
     });  

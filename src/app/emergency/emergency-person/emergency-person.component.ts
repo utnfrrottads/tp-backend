@@ -61,7 +61,6 @@ export class EmergencyPersonComponent implements OnInit {
       next: res => {
         this.personHealthInsuranceResultData = res; 
         this.flagGetPersonHealth = false;
-        console.log(this.personHealthInsuranceResultData);
     },
     error: err => {
       this.flagGetPersonHealth = false;

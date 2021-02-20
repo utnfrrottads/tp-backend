@@ -57,8 +57,7 @@ export class HospitalFormComponent implements OnInit {
       beds: new FormControl(''),
     }); 
   }
-  loadHospitalSelected(){ 
-    console.log(this.hospitalSelected);
+  loadHospitalSelected(){
     if (this.hospitalSelected !== undefined && this.hospitalSelected.id !== null && this.hospitalSelected.id !== '') {
       this.hospitalForm.patchValue({ 
         id: this.hospitalSelected.id,

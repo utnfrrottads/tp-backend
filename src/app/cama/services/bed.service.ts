@@ -72,8 +72,7 @@ export class BedService {
   } 
   // DELETES a bed by idHospital and idBed
   // /deleteBedByIds/:idHospital/:idBed
-  deleteBedById(bed: Bed): Observable<BedResult>{    
-    console.log('por eliminar: ',bed);
+  deleteBedById(bed: Bed): Observable<BedResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };     

@@ -155,7 +155,6 @@ export class HospitalComponent implements OnInit {
       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
       },
       error: err => {
-        console.log('err', err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar el hospital','Cerrar');
       } 
     });
@@ -187,13 +186,11 @@ export class HospitalComponent implements OnInit {
 
   /**Se obtienen los accidentes y enfermedades que atiende un hospital */
   onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
-    console.log('hospitalAccidentOrDiseases',hospitalAccidentOrDiseases);
     this.accidentDiseasesService.addToHospitalByIds(hospitalAccidentOrDiseases).subscribe({
       next: res => { 
       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
       },
       error: err => {
-        console.log('err', err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital','Cerrar');
       } 
     });
@@ -204,8 +201,7 @@ export class HospitalComponent implements OnInit {
   /**Se obtienen los accidentes y enfermedades que atiende un hospital */
   getHospitalAccidentOrDisease(idHospital: string ){
     this.hospitalService.getAllAccidentsOrDiseasesById(idHospital).subscribe({
-      next: res => { 
-        console.log('getHospitalAccidentOrDisease',res);
+      next: res => {
         this.dataHospitalAccidentOrDisease = res.accidentOrDiseases;
       },
       error: err => {

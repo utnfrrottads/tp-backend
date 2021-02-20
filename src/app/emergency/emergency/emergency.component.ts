@@ -157,7 +157,6 @@ export class EmergencyComponent implements OnInit {
   }
   /** Set idAccidentOrDisease in form */
   onPositionUpdated(position: any){
-    console.log('position',position);
     this.emergencyForm.patchValue({
       location: { 
         latitude: position.lat,
