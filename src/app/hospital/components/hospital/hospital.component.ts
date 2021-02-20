@@ -42,6 +42,7 @@ export class HospitalComponent implements OnInit {
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
   dataHospitalHealthInsurances: HealthInsurance[];
+  dataHospitalAccidentOrDisease: import("c:/Users/genti/Documents/SISTEMAS/Proyectos/OneHospital/tp-backend-2020/src/app/accident-diseases/models/accidentOrDiseases").AccidentOrDiseases[];
 
   constructor(
     private hospitalService: HospitalService,
@@ -75,6 +76,7 @@ export class HospitalComponent implements OnInit {
     this.inputType = InputType.edit;
 
     this.geHospitalHealthInsurance(hospital.id);
+    this.getHospitalAccidentOrDisease(hospital.id);
   }
   onHospitalDeleted(hospital: Hospital){
     this.hospitalService.deleteHospitalById(hospital).subscribe({
@@ -170,22 +172,20 @@ export class HospitalComponent implements OnInit {
   }
   
   geHospitalHealthInsurance(idHospital: string ){
-
     this.hospitalService.getAllHealthInsurancesById(idHospital).subscribe({
       next: res => { 
-        console.log('geHospitalHealthInsurance', res);
         this.dataHospitalHealthInsurances = res.healthInsurances;
       },
       error: err => {
-        console.log('err', err);
         this.commonService.openSnackBar('Ups... algo falló al querer obtener las OS del hospital.', 'Cerrar');
       } 
     });
-
   }
   /////////////////////////////////////////////////////////////////////////
   ///////////// Hospitales Enfermedades accidentes atendidos  /////////////
   /////////////////////////////////////////////////////////////////////////
+
+  /**Se obtienen los accidentes y enfermedades que atiende un hospital */
   onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
     console.log('hospitalAccidentOrDiseases',hospitalAccidentOrDiseases);
     this.accidentDiseasesService.addToHospitalByIds(hospitalAccidentOrDiseases).subscribe({
@@ -201,17 +201,16 @@ export class HospitalComponent implements OnInit {
   onHospitalAccidentOrDiseaseDeleted(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
     alert('mensaje no implementado, esperando backend');
   }
-
-  getHospitalAccidentOrDisease(hospitalId: string ){
-    // this.accidentDiseasesService.addToHospitalByIds(hospitalAccidentOrDiseases).subscribe({
-    //   next: res => { 
-    //   this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
-    //   },
-    //   error: err => {
-    //     console.log('err', err);
-    //     this.commonService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital','Cerrar');
-    //   } 
-    // });
-
+  /**Se obtienen los accidentes y enfermedades que atiende un hospital */
+  getHospitalAccidentOrDisease(idHospital: string ){
+    this.hospitalService.getAllAccidentsOrDiseasesById(idHospital).subscribe({
+      next: res => { 
+        console.log('getHospitalAccidentOrDisease',res);
+        this.dataHospitalAccidentOrDisease = res.accidentOrDiseases;
+      },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades del hospital.', 'Cerrar');
+      } 
+    });
   }
 }

@@ -13,4 +13,8 @@ export class HospitalHealthInsuranceListComponent{
   deleteHospitalHealthInsurance(hospitalHealthInsurances: HospitalHealthInsurances) {
     this.hospitalHealthInsuranceDeleted.emit(hospitalHealthInsurances);
   }
+
+  deleteHi(){
+    alert("Funcionalidad no implementada");
+  }
 }
