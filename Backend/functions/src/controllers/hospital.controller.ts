@@ -23,6 +23,46 @@ module.exports = {
         }
     },
     /**
+    * `GETS` all hospitals by Insurance and AccidentOrDisease.
+    *
+    * @returns The list of hospitals retrieved
+    */
+    getHospitalsByHealthInsuranceAndAccidentOrDisease: async (req, res) => {
+        try {
+            const idAccidentOrDisease = req.params.idAccidentOrDisease;
+            const idHealthInsurance = req.params.idHealthInsurance;
+            const hospitalsIndexesToRemove = [];
+            let matchedHospitals: Hospital[] = [];
+            const hospitalsToFilter = await hospitalRepository.find();
+
+            console.log("idHealthInsurance: " + idHealthInsurance);
+            console.log("idAccidentOrDisease: " + idAccidentOrDisease);
+            console.log("Lenght: " + hospitalsToFilter.length);
+
+            async function filterHospitalsByInsuranceAndDisease(hospitalsToFilter) {
+                // Filters by healthInsurance and accidentOrDisease
+                for (let index = 0; index < hospitalsToFilter.length; index++) {
+                    const healthInsuranceMatch = await hospitalsToFilter[index].healthInsurances.findById(idHealthInsurance);
+                    const accidentOrDiseaseMatch = await hospitalsToFilter[index].accidentOrDiseases.findById(idAccidentOrDisease);
+                    if (!healthInsuranceMatch || !accidentOrDiseaseMatch) {
+                        hospitalsIndexesToRemove.push(index);
+                    }
+                }
+                // Removes hospitals that don't match healthInsurance or accidentOrDisease
+                for (const hospitalToRemove of hospitalsIndexesToRemove) {
+                    delete hospitalsToFilter[hospitalToRemove];
+                }
+                matchedHospitals = hospitalsToFilter.filter(() => true);
+            }
+
+            await filterHospitalsByInsuranceAndDisease(hospitalsToFilter);
+
+            res.status(200).json({ success: true, hospitals: matchedHospitals, msg: "Hospitales obtenidos con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `GETS` the closest hospitals by lat long.
     * Filters by freeBeds, idHealthInsurance, idAccidentOrDisease
     *
@@ -32,7 +72,7 @@ module.exports = {
         const idHealthCareInsurance = req.body.idHealthInsurance;
         const idAccidentOrDisease = req.body.idAccidentOrDisease;
         const distance = 20000;
-        const matchedHospitals: Hospital[] = [];
+        let matchedHospitals: Hospital[] = [];
         const hospitalsIndexesToRemove = [];
         const hospitalsToFilter = await hospitalRepository.whereEqualTo("atentionLevel", req.body.atentionLevel).whereGreaterThan("freeBeds", 0).find();
 
@@ -51,9 +91,9 @@ module.exports = {
             }
             // Removes hospitals that don't match healthInsurance or accidentOrDisease
             for (const hospitalToRemove of hospitalsIndexesToRemove) {
-                const index = matchedHospitals.findIndex(element => element === hospitalToRemove);
-                matchedHospitals.splice(index, 1);
+                delete matchedHospitals[hospitalToRemove];
             }
+            matchedHospitals = hospitalsToFilter.filter(() => true);
         }
 
         // Filters by radius

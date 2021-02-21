@@ -97,7 +97,7 @@ module.exports = {
 
       const emergency: Emergency = {
         id: '',
-        dateOfEntrance: admin.firestore.Timestamp.fromDate(new Date(req.body.dateOfEntrance)),
+        dateOfEntrance: admin.firestore.FieldValue.serverTimestamp(),
         dateOfExit: req.body.dateOfExit ? admin.firestore.Timestamp.fromDate(new Date(req.body.dateOfExit)) : null,
         locality: req.body.locality,
         location: new admin.firestore.GeoPoint(

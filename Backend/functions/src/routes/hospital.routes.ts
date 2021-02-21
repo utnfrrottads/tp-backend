@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as functions from 'firebase-functions';
 import { check, param } from 'express-validator/check';
-import { sanitizeBody } from 'express-validator/filter';
+import { sanitizeBody, sanitizeParam } from 'express-validator/filter';
 import * as cors from 'cors';
 const HospitalsController = require('../controllers/hospital.controller');
 const { validate } = require('../utils/middlewares/validation');
@@ -13,6 +13,18 @@ hospital.use(cors({ origin: true }));
 * `GETS` all hospitals of the collection.
 */
 hospital.get('/', validate, HospitalsController.getAllHospitals);
+/**
+* `GETS` all hospitals by Insurance and AccidentOrDisease.
+*/
+hospital.get('/getHospitalsByHealthInsuranceAndAccidentOrDisease/:idAccidentOrDisease/:idHealthInsurance', [
+    sanitizeParam(['idAccidentOrDisease', 'idHealthInsurance']).trim(),
+    param('idAccidentOrDisease').not().isEmpty().withMessage('El campo idAccidentOrDisease es requerido'),
+    param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
+    param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
+    param('idHealthInsurance').not().isEmpty().withMessage('El campo idHealthInsurance es requerido'),
+    param('idHealthInsurance').isLength({ min: 20, max: 20 }).withMessage('El idHealthInsurance debe tener 20 caracteres'),
+    param('idHealthInsurance').isAlphanumeric().withMessage('El idHealthInsurance debe ser alfanumérico'),
+], validate, HospitalsController.getHospitalsByHealthInsuranceAndAccidentOrDisease);
 /**
 * `GETS` the closest hospitals by lat long.
 */
