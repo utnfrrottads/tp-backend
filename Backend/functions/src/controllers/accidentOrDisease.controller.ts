@@ -20,7 +20,7 @@ module.exports = {
         .status(200)
         .json({
           success: true,
-          AccidentOrDiseases: accidentOrDiseasesSnapshot,
+          accidentOrDiseases: accidentOrDiseasesSnapshot,
           msg: 'Accidentes o enfermedades obtenidas con éxito',
         });
     } catch (e) {

@@ -17,11 +17,10 @@ emergency.get('/', validate, EmergencysController.getAllEmergencies);
 * `CREATES` a emergency.
 */
 emergency.post('/createEmergency/hospital/:idHospital/bed/:idBed/accidendOrDisease/:idAccidentOrDisease', [
-    check('dateOfEntrance').not().isEmpty().withMessage('El campo dateOfEntrance es requerido'),
     check('locality').not().isEmpty().withMessage('El campo locality es requerido'),
     check('ambulanceLicensePlate').not().isEmpty().withMessage('El campo ambulanceLicensePlate es requerido'),
     check('location').not().isEmpty().withMessage('El campo location es requerido'),
-    sanitizeBody(['dateOfEntrance', 'dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
+    sanitizeBody(['dateOfExit', 'locality', 'location', 'ambulanceLicensePlate']).trim(),
 ], validate, EmergencysController.createEmergency);
 
 /**
