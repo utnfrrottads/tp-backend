@@ -4,7 +4,7 @@ export interface AccidentOrDiseases{
     idHospital?: string	
 }
 export interface AccidentOrDiseasesResult{
-    AccidentOrDiseases: AccidentOrDiseases[],  
+    accidentOrDiseases: AccidentOrDiseases[],  
     msg: string,
     success: boolean,
 }

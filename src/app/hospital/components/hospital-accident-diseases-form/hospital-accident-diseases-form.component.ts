@@ -54,7 +54,7 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit {
     this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
       next: res => {
         console.log('res',res);
-        this.dataAccidentOrDiseases = res.AccidentOrDiseases;
+        this.dataAccidentOrDiseases = res.accidentOrDiseases;
       },
       error: err => {
         console.log(err);

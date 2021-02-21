@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { AccidentOrDiseases, AccidentOrDiseasesResult } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { Bed, BedResult } from 'src/app/cama/models/bed';
+import { HealthInsurance, HealthInsuranceResult } from 'src/app/health-insurance/models/health-insurance';
 import { AtentionLevel, Hospital, HospitalResult } from '../models/hospital';
 
 @Injectable({
@@ -71,37 +74,37 @@ export class HospitalService {
  getClosestHospitals(atentionLevel: string): Observable<HospitalResult>{ 
     return this.httpClient.get<HospitalResult>(
       this.baseUrl + this.controller
-      + '/getClosestHospitals'
+      + 'getClosestHospitals'
       + '/' + atentionLevel);
   }
 /**
 * `GETS` the closest hospitals by lat long.
 * get('/getAllAccidentsOrDiseasesById/:idHospital'
 */
-  getAllAccidentsOrDiseasesById(idHospital: string): Observable<HospitalResult>{ 
-    return this.httpClient.get<HospitalResult>(
+  getAllAccidentsOrDiseasesById(idHospital: string): Observable<AccidentOrDiseasesResult>{ 
+    return this.httpClient.get<AccidentOrDiseasesResult>(
       this.baseUrl + this.controller
-      + '/getAllAccidentsOrDiseasesById'
+      + 'getAllAccidentsOrDiseasesById'
       + '/' + idHospital);
   }
 /**
 * `GETS` all HealthInsurances of the Hospital.
 * get('/getAllHealthInsurancesById/:idHospital'
 */
-  getAllHealthInsurancesById(idHospital: string): Observable<HospitalResult>{ 
-    return this.httpClient.get<HospitalResult>(
+  getAllHealthInsurancesById(idHospital: string): Observable<HealthInsuranceResult>{ 
+    return this.httpClient.get<HealthInsuranceResult>(
       this.baseUrl + this.controller
-      + '/getAllHealthInsurancesById'
+      + 'getAllHealthInsurancesById'
       + '/' + idHospital);
   }
 /**
 * `GETS` all Beds of the Hospital.
   get('/getAllBedsById/:idHospital',
 */
-  getAllBedsById(idHospital: string): Observable<HospitalResult>{ 
-    return this.httpClient.get<HospitalResult>(
+  getAllBedsById(idHospital: string): Observable<BedResult>{ 
+    return this.httpClient.get<BedResult>(
       this.baseUrl + this.controller
-      + '/getAllBedsById'
+      + 'getAllBedsById'
       + '/' + idHospital);
   }
 /**

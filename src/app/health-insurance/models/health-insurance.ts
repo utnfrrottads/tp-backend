@@ -5,7 +5,7 @@ export interface HealthInsurance {
     phone: number 
 }
 export interface HealthInsuranceResult {
-    healthInsurances: HealthInsurance[],
+    healthInsurances: HealthInsurance[], 
     msg: string,
     success: boolean,
 }

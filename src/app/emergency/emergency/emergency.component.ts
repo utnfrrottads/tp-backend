@@ -73,10 +73,10 @@ export class EmergencyComponent implements OnInit {
       , this.emergencyForm.controls.idAccidentOrDisease.value 
       ).subscribe({
         next: res => {
-          console.log(res);
+          this.commonService.openSnackBar(res.msg, 'Cerrar');
         },
         error: err => {
-          console.log(err);
+          this.commonService.openSnackBar('Ups... algo falló al querer tomar la cama. ' + err.msg, 'Cerrar');
         }
       }
     ) 
@@ -91,7 +91,7 @@ export class EmergencyComponent implements OnInit {
   getAllAccidentsOrDiseases(){
     this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
       next: res => {
-        this.dataAccidentOrDiseases = res.AccidentOrDiseases;
+        this.dataAccidentOrDiseases = res.accidentOrDiseases;
       },
       error: err => {
         this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades','Cerrar');
@@ -146,7 +146,7 @@ export class EmergencyComponent implements OnInit {
     this.hospitalSelected = hospital;
     this.emergencyForm.patchValue({
       idHospital: hospital.id
-    })
+    });
   }
   /** Set idAccidentOrDisease in form */
   onAccidentOrDiseasesSelected(){

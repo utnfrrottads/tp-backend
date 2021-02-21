@@ -4,11 +4,14 @@
         <mat-label> DNI de la persona </mat-label>
         <input matInput  formControlName="dni" placeholder="Número de documento" >
         <mat-error *ngIf="personForm.controls.dni.touched && personForm.controls.dni.invalid">
-            <span *ngIf="personForm.controls.dni.errors.required">Necesitás registrar la persona!</span>  
+            <span *ngIf="personForm.controls.dni.errors.required">Necesitás ingresar su DNI para buscarla!</span>  
         </mat-error> 
       </mat-form-field>
     </p> 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> Buscar persona </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> 
+      Buscar persona 
+      <mat-icon>person_search</mat-icon>
+    </button>
 </form>
   
 <button mat-raised-button (click)="redirectToPersonForm()"> 
