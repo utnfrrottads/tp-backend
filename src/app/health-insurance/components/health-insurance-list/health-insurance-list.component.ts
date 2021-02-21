@@ -7,6 +7,8 @@ import { HealthInsurance } from '../../models/health-insurance';
 })
 export class HealthInsuranceListComponent {
 
+  @Input() allowEdit: boolean = false;   
+  @Input() allowDelete: boolean = false;
   @Input() dataHealthInsurance: HealthInsurance[];   
   @Output() healthInsuranceSelected = new EventEmitter();
   @Output() healthInsuranceDeleted = new EventEmitter();

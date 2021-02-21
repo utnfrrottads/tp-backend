@@ -28,6 +28,8 @@
 <br>
 <app-health-insurance-list
     [dataHealthInsurance]="this.dataHealthInsurance"
+    [allowEdit]="true"
+    [allowDelete]="true"
     (healthInsuranceSelected)="onHealthInsuranceSelected($event)"
     (healthInsuranceDeleted)="onHealthInsuranceDeleted($event)">
 </app-health-insurance-list> 

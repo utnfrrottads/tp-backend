@@ -57,7 +57,7 @@ export class EmergencyComponent implements OnInit {
       idHospital: new FormControl(''),
       idPatient: new FormControl(''),
       idNurse: new FormControl(''),
-      idBed: new FormControl('ydQdNmXYVit8x1Eu757O'), // TODO
+      idBed: new FormControl(''), // TODO
     });
     this.accidentOrDiseasesForm = new FormGroup({ 
       accidentOrDiseases: new FormControl(''),  
@@ -163,7 +163,16 @@ export class EmergencyComponent implements OnInit {
         longitude: position.lng
       }
     }) 
-
+  }
+    /**
+   * Set idHospital in form.
+   * Event output generated in map. 
+   * @param personHealthInsurance person and health insurance selected
+   */
+  onBedSelected(bed: any){
+    this.emergencyForm.patchValue({
+      idBed: bed.id
+    });
   }
 
 

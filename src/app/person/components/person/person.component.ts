@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Person } from '../../models/person';
+import { Person, PersonHealthInsuranceResult } from '../../models/person';
 import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
 import { PersonService } from '../../services/person.service';
 import { CommonService } from 'src/app/common/services/common.service';
@@ -31,6 +31,13 @@ export class PersonComponent implements OnInit {
     healthInsurances:  null,// TODO es ok?
     healthInsuranceId: '', //nuevo nombre sera idHealthInsurance
   }; 
+  
+  personHealthInsuranceResultData: PersonHealthInsuranceResult = {
+    persons : this.personSelected,
+    healthInsurances : [],
+    msg:'',
+    success: false
+  };
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
 
@@ -63,6 +70,7 @@ export class PersonComponent implements OnInit {
     this.accordion.openAll();  
     this.personSelected = person;
     this.inputType = InputType.edit;
+    this.getPersonAndHealthInsurancesByDni();
   }
   onPersonDeleted(person: Person){
     this.personService.deletePersonById(person).subscribe({
@@ -130,4 +138,19 @@ export class PersonComponent implements OnInit {
     this.personSelected.password = '';
     this.personSelected.healthInsurances = null; // TODO 
   }
+  
+  getPersonAndHealthInsurancesByDni(): void{ 
+    this.personService.getPersonAndHealthInsurancesByDni(this.personSelected.dni).subscribe({
+      next: res => {
+        this.personHealthInsuranceResultData = res;
+    },
+    error: err => {
+      this.commonService.openSnackBar(err.error.msg,'Cerrar');
+     } 
+    });
+  }
+  onHealthInsuranceDeleted(healthInsurance: HealthInsurance){
+    alert("no implementado");
+  }
+
 }

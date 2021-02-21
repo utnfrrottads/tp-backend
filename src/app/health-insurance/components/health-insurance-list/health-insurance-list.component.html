@@ -21,10 +21,10 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>   
     <td mat-cell *matCellDef="let healthInsurance"> 
-      <button mat-mini-fab color="accent" (click)="editHealthInsurance(healthInsurance)">
+      <button mat-mini-fab color="accent" (click)="editHealthInsurance(healthInsurance)" *ngIf="allowEdit">
         <mat-icon>edit</mat-icon>
       </button>  
-      <button mat-mini-fab color="warn" (click)="deleteHealthInsurance(healthInsurance)" aria-label="Eliminar obra social">
+      <button mat-mini-fab color="warn" (click)="deleteHealthInsurance(healthInsurance)" *ngIf="allowDelete">
         <mat-icon>delete</mat-icon>
       </button> 
     </td>

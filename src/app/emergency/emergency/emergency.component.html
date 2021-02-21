@@ -29,6 +29,15 @@
     (position)="onPositionUpdated($event)">
 </app-map>
 
+
+<app-emergency-bed
+    (bedSelected) = "onBedSelected($event)"
+    [idHospital] = "hospitalSelected"
+>
+
+
+</app-emergency-bed>
+
 <mat-card class="example-card" *ngIf="this.hospitalSelected" >
     <mat-card-header> 
       <mat-card-title>
