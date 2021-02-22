@@ -7,6 +7,9 @@ import { Bed } from '../../models/bed'
 })
 export class CamaListComponent { 
 
+  @Input() allowEdit: boolean = false;   
+  @Input() allowDelete: boolean = false;
+  @Input() allowSelect: boolean = false;
   @Input() dataBed: Bed[];   
   @Output() bedSelected = new EventEmitter();
   @Output() bedDeleted = new EventEmitter();
@@ -17,5 +20,8 @@ export class CamaListComponent {
   }
   deleteBed(bed: Bed) {
     this.bedDeleted.emit(bed);
+  }
+  selectBed(bed: Bed) {
+    this.bedSelected.emit(bed);
   }
 }

@@ -1,4 +1,5 @@
 <h2>Emergencia</h2>
+
 <form [formGroup]="accidentOrDiseasesForm" (ngSubmit)="getAllHospitalsByAccidentOrDiseasesId()" class="mi-form">       
     <mat-form-field appearance="fill" class="mi-full-width">
         <mat-label>Accidente o enfermedad</mat-label>
@@ -29,14 +30,12 @@
     (position)="onPositionUpdated($event)">
 </app-map>
 
-
+<!-- 
 <app-emergency-bed
     (bedSelected) = "onBedSelected($event)"
     [idHospital] = "hospitalSelected"
 >
-
-
-</app-emergency-bed>
+</app-emergency-bed> -->
 
 <mat-card class="example-card" *ngIf="this.hospitalSelected" >
     <mat-card-header> 
@@ -57,8 +56,19 @@
     </mat-card-content> 
 </mat-card> 
 
+
+<app-cama-list
+    [allowSelect] = "true"
+    [dataBed]="this.dataBeds"
+    (bedSelected)="onBedSelected($event)"
+    *ngIf="this.dataBeds">
+</app-cama-list>  
+
 <form [formGroup]="emergencyForm" (ngSubmit)="onCreateEmergency()" class="mi-form" *ngIf="this.hospitalSelected" >       
     <button mat-raised-button color="warn" type="submit" [disabled]="!emergencyForm.valid">
        Tomar cama e ir! 
     </button>
 </form>
+
+
+{{ emergencyForm.value | json }}

@@ -27,6 +27,9 @@
 </div>
 <br>
 <app-cama-list
+    [allowEdit] = "true"
+    [allowDelete] = "true"
+    [allowSelect] = "true"
     [dataBed]="this.dataBed"
     (bedSelected)="onBedSelected($event)"
     (bedDeleted)="onBedDeleted($event)">

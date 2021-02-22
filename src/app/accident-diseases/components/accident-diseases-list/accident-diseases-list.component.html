@@ -23,3 +23,8 @@
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
      
   </mat-table>
+
+  <br>
+  <i *ngIf="!dataAccidentOrDisease">
+    Sin registros
+  </i>

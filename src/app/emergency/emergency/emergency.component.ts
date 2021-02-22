@@ -6,6 +6,7 @@ import { CommonService } from '../../common/services/common.service';
 import { AccidentOrDiseases } from '../../accident-diseases/models/accidentOrDiseases';
 import { EmergencyService } from '../services/emergency.service'
 import { AccidentDiseasesService } from '../../accident-diseases/services/accident-diseases.service';
+import { Bed } from 'src/app/cama/models/bed';
 
 @Component({
   selector: 'app-emergency',
@@ -23,7 +24,9 @@ export class EmergencyComponent implements OnInit {
   /**Hospital selected in the map (closest)) */
   hospitalSelected: Hospital;
   /** Accident-Diseases data set */
-  dataAccidentOrDiseases: AccidentOrDiseases[]; 
+  dataAccidentOrDiseases: AccidentOrDiseases[];
+  /** Beds data set */
+  dataBeds: Bed[]; 
   /** It allows to indicate if the data set was obtained*/
   flagGetPersonHealth: boolean = false;
   
@@ -147,6 +150,7 @@ export class EmergencyComponent implements OnInit {
     this.emergencyForm.patchValue({
       idHospital: hospital.id
     });
+    this.getAllBedsById(hospital.id);
   }
   /** Set idAccidentOrDisease in form */
   onAccidentOrDiseasesSelected(){
@@ -164,7 +168,7 @@ export class EmergencyComponent implements OnInit {
       }
     }) 
   }
-    /**
+  /**
    * Set idHospital in form.
    * Event output generated in map. 
    * @param personHealthInsurance person and health insurance selected
@@ -174,7 +178,16 @@ export class EmergencyComponent implements OnInit {
       idBed: bed.id
     });
   }
-
+  getAllBedsById(idHospital: string): void{
+    this.hospitalService.getAllBedsById(idHospital).subscribe({
+      next: res => {
+        this.dataBeds = res.beds.filter( b => b.status="Libre"); 
+    },
+    error: err => {
+      this.commonService.openSnackBar(err.error.msg,'Cerrar');
+     } 
+    });
+  }
 
 
   

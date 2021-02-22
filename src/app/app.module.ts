@@ -62,12 +62,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HospitalHealthInsuranceFormComponent } from './hospital/components/hospital-health-insurance-form/hospital-health-insurance-form.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HospitalAccidentDiseasesFormComponent } from './hospital/components/hospital-accident-diseases-form/hospital-accident-diseases-form.component';
-import { HospitalAccidentDiseasesListComponent } from './hospital/components/hospital-accident-diseases-list/hospital-accident-diseases-list.component';
 import { EmergencyPersonComponent } from './emergency/emergency-person/emergency-person.component';
 import { EmergencyComponent } from './emergency/emergency/emergency.component';
-import { EmergencyBedComponent } from './emergency/emergency-bed/emergency-bed.component';
 import { AccidentDiseasesListComponent } from './accident-diseases/components/accident-diseases-list/accident-diseases-list.component';
 import { AccidentDiseasesComponent } from './accident-diseases/components/accident-diseases/accident-diseases.component';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 @NgModule({
   declarations: [
@@ -100,10 +100,8 @@ import { AccidentDiseasesComponent } from './accident-diseases/components/accide
     HospitalListComponent,
     HospitalHealthInsuranceFormComponent,
     HospitalAccidentDiseasesFormComponent,
-    HospitalAccidentDiseasesListComponent,
     EmergencyPersonComponent,
     EmergencyComponent,
-    EmergencyBedComponent,
     AccidentDiseasesListComponent,
     AccidentDiseasesComponent,
   ],
@@ -143,6 +141,7 @@ import { AccidentDiseasesComponent } from './accident-diseases/components/accide
     MatNativeDateModule,
     MatRadioModule,
     MatTabsModule,
+    MatStepperModule,
     GoogleMapsModule,
   ],
   providers: [],
