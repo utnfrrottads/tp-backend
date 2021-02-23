@@ -2,10 +2,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Bed } from '../../models/bed' 
  
 @Component({
-  selector: 'app-cama-list',
-  templateUrl: './cama-list.component.html'
+  selector: 'app-bed-list',
+  templateUrl: './bed-list.component.html'
 })
-export class CamaListComponent { 
+export class BedListComponent { 
 
   @Input() allowEdit: boolean = false;   
   @Input() allowDelete: boolean = false;

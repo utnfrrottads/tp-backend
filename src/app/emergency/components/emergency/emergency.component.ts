@@ -6,7 +6,7 @@ import { CommonService } from '../../../common/services/common.service';
 import { AccidentOrDiseases } from '../../../accident-diseases/models/accidentOrDiseases';
 import { EmergencyService } from '../../services/emergency.service'
 import { AccidentDiseasesService } from '../../../accident-diseases/services/accident-diseases.service';
-import { Bed } from 'src/app/cama/models/bed';
+import { Bed } from 'src/app/bed/models/bed';
 
 @Component({
   selector: 'app-emergency',
@@ -64,7 +64,7 @@ export class EmergencyComponent implements OnInit {
   initForm(){
     this.emergencyForm = new FormGroup({
       id: new FormControl(''),
-      dateOfEntrance: new FormControl('', [Validators.required]),
+      dateOfEntrance: new FormControl(''),
       dateOfExit: new FormControl(''),
       location: new FormControl('', [Validators.required]),
       locality: new FormControl('Rosario', [Validators.required]),

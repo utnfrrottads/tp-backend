@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CamaListComponent } from './cama/components/cama-list/cama-list.component';
+import { BedListComponent } from './bed/components/bed-list/bed-list.component';
 import { ConfirmationDialogComponent } from './common/components/confirmation-dialog/confirmation-dialog.component';
-import { CamaFormComponent } from './cama/components/cama-form/cama-form.component';
+import { BedFormComponent } from './bed/components/bed-form/bed-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { ChartsModule } from 'ng2-charts';
@@ -21,7 +21,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog'; 
-import { CamaComponent } from './cama/components/cama/cama.component';
+import { BedComponent } from './bed/components/bed/bed.component';
 import { CardComponent } from './dashboard/card/card.component';
 import { CamasByNivelChartComponent } from './dashboard/charts/camas-by-nivel-chart/camas-by-nivel-chart.component';
 import { EmergenciasByTipoChartComponent } from './dashboard/charts/emergencias-by-tipo-chart/emergencias-by-tipo-chart.component';
@@ -74,12 +74,12 @@ import { EmergencyHomeComponent } from './emergency/components/emergency-home/em
 @NgModule({
   declarations: [
     AppComponent,
-    CamaListComponent,
+    BedListComponent,
     ConfirmationDialogComponent,
-    CamaFormComponent,
+    BedFormComponent,
     NavComponent,
     DashComponent,
-    CamaComponent,
+    BedComponent,
     CardComponent,
     CamasByNivelChartComponent,
     EmergenciasByTipoChartComponent,

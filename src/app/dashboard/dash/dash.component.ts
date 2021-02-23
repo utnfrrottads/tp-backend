@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { BedSummary } from 'src/app/cama/models/bed';
-import { BedService } from 'src/app/cama/services/bed.service';
+import { BedSummary } from 'src/app/bed/models/bed';
+import { BedService } from 'src/app/bed/services/bed.service';
 
 @Component({
   selector: 'app-dash',

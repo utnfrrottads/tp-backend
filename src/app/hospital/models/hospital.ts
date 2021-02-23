@@ -1,4 +1,4 @@
-import { Bed } from "src/app/cama/models/bed";
+import { Bed } from "src/app/bed/models/bed";
 import { HealthInsurance } from "src/app/health-insurance/models/health-insurance";
 import { AccidentOrDiseases } from "src/app/accident-diseases/models/accidentOrDiseases";
 import { Emergency } from "../../emergency/models/emergency";

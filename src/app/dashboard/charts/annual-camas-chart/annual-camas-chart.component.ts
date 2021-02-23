@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { BedService } from 'src/app/cama/services/bed.service';
+import { BedService } from 'src/app/bed/services/bed.service';
 
 @Component({
   selector: 'app-annual-camas-chart',

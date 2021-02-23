@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CamasTableDataSource, CamasEfectoresItem } from './camas-table-datasource';
-import { BedService } from 'src/app/cama/services/bed.service';
+import { BedService } from 'src/app/bed/services/bed.service';
 
 @Component({
   selector: 'app-camas-table',

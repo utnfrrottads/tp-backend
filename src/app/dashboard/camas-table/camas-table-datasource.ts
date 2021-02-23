@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { BedService } from 'src/app/cama/services/bed.service';
+import { BedService } from 'src/app/bed/services/bed.service';
 
 // TODO: Replace this with your own data model type
 export class CamasEfectoresItem { //to do<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

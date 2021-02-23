@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/common/services/common.service';
-import { HealthInsurance } from 'src/app/health-insurance/models/health-insurance';
 import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../../models/accidentOrDiseases';
 import { AccidentDiseasesService } from '../../services/accident-diseases.service';
 
@@ -18,6 +17,7 @@ export class AccidentDiseasesComponent implements OnInit {
     private commonService: CommonService
   ) { }
   ngOnInit(): void {
+    this.getHospitalAccidentOrDisease();
   }
 
   

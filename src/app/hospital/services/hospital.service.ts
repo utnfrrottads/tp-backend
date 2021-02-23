@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AccidentOrDiseases, AccidentOrDiseasesResult } from 'src/app/accident-diseases/models/accidentOrDiseases';
-import { Bed, BedResult } from 'src/app/cama/models/bed';
+import { Bed, BedResult } from 'src/app/bed/models/bed';
 import { HealthInsurance, HealthInsuranceResult } from 'src/app/health-insurance/models/health-insurance';
 import { AtentionLevel, Hospital, HospitalResult } from '../models/hospital';
 

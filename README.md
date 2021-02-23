@@ -172,7 +172,7 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
         1-Efectores cercanos al lugar de la emergencia
           .Atributos a mostrar: Efector, NivelAtencion, cantidad de camas disponibles y distancia
           .Filtros: NivelAtencion, ubicaciónActual y obraSocial.
-          
+
         2-Camas ocupadas: 
           .Atributos a mostrar: Cama, NivelAtencion, Efector, obraSocial, dias Ocupada
           .Filtros: obraSocial 

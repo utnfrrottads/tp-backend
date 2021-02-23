@@ -70,7 +70,6 @@ getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<H
       httpOptions);
   } 
 
-
   /**
   * `UPDATES` a AccidentOrDisease by ID.
     @tutorial put /updateAccidentOrDiseaseById/:id

@@ -19,5 +19,5 @@ export class NavComponent {
   constructor(private breakpointObserver: BreakpointObserver) {}
 
   // menuItems = ['dashboard', 'emergencia', 'mapEmergencia', 'mapDispatcher', 'hospitales', 'obrassociales', 'personas', 'camas'];
-  menuItems = ['dashboard', 'emergencia', 'hospitales', 'obrassociales', 'personas', 'camas'];
+  menuItems = ['dashboard', 'emergencia', 'hospitales', 'tratamientos', 'obrassociales', 'personas', 'camas'];
 }

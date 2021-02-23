@@ -1,4 +1,8 @@
-
-.example-button-container {
-    display: flex;
+.example-card {
+    max-width: 400px;
+  } 
+  .both {
+    border-collapse: separate;
+    border-spacing: 5px 10px;
+    border: 1px solid rgb(224, 224, 224);
   }

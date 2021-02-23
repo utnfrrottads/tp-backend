@@ -2,11 +2,11 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HospitalService } from '../../services/hospital.service';
 import { HealthInsuranceService } from '../../../health-insurance/services/health-insurance.service';
-import { BedService } from '../../../cama/services/bed.service';
+import { BedService } from '../../../bed/services/bed.service';
 import { AtentionLevel, Hospital } from '../../models/hospital';
 import { InputType } from '../../../common/models/typeInputEnum';  
 import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
-import { Bed } from '../../../cama/models/bed';
+import { Bed } from '../../../bed/models/bed';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
 import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 

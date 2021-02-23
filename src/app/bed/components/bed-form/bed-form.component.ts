@@ -7,11 +7,11 @@ import { HospitalService } from 'src/app/hospital/services/hospital.service';
 import { Hospital } from 'src/app/hospital/models/hospital';
 
 @Component({
-  selector: 'app-cama-form',
-  templateUrl: './cama-form.component.html',
-  styleUrls: ['./cama-form.component.css']
+  selector: 'app-bed-form',
+  templateUrl: './bed-form.component.html',
+  styleUrls: ['./bed-form.component.css']
 })
-export class CamaFormComponent implements OnInit {
+export class BedFormComponent implements OnInit {
   
   @Input() inputType: InputType;
   @Input() bedSelected: Bed;

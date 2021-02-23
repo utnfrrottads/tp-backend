@@ -6,11 +6,11 @@ import { MatAccordion } from '@angular/material/expansion';
 import { CommonService } from '../../../common/services/common.service';
 
 @Component({
-  selector: 'app-cama',
-  templateUrl: './cama.component.html',
-  styleUrls: ['./cama.component.css']
+  selector: 'app-bed',
+  templateUrl: './bed.component.html',
+  styleUrls: ['./bed.component.css']
 })
-export class CamaComponent implements OnInit{
+export class BedComponent implements OnInit{
   @ViewChild(MatAccordion) accordion: MatAccordion;
   public dataBed : Bed[];
   bedSelected : Bed = {

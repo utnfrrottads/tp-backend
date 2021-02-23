@@ -1,24 +1,47 @@
-<div class="example-button-container">
-    <button mat-fab color="primary" (click)="redirectToFastEmergency()">
-        <mat-icon>bolt</mat-icon>
-    </button>
-    <h2>Crear emergencia inmediata</h2>
-</div>
-<div class="example-button-container">
-    <button mat-fab color="primary" disabled>
-        <mat-icon>healing</mat-icon>
-    </button>
-    <h2>Crear emergencia</h2>
-</div>
-<div class="example-button-container">
-    <button mat-fab color="primary" disabled>
-        <mat-icon>edit</mat-icon>
-    </button>
-    <h2>Actualizar emergencia</h2>
-</div>
-<div class="example-button-container">
-    <button mat-fab color="primary" disabled>
-        <mat-icon>medical_services</mat-icon>
-    </button>
-    <h2>Asignar emergencia</h2>
-</div>
+<div class = "row">
+    <div class="card  p-3 mb-3" style="max-width: 18rem;">
+      <div class="card-header">Crear emergencia inmediata</div>
+      <div class="card-body">
+        <p class="card-text">Emergencia instantanea para reservar una cama</p>
+        
+        <button mat-raised-button color="primary" (click)="redirectToFastEmergency()">
+          Ir  <mat-icon>bolt</mat-icon>
+        </button>
+      </div>
+    </div>
+    
+    
+    <div class="card   p-3 mb-3 " style="max-width: 18rem;">
+      <div class="card-header">Crear emergencia</div>
+      <div class="card-body">
+        <p class="card-text">Emergencia a asistir</p>
+        
+        <button mat-raised-button color="primary" disabled>
+          Ir  <mat-icon>healing</mat-icon>
+        </button>
+      </div>
+    </div>  
+</div>  
+<div class = "row">
+  <div class="card   p-3 mb-3" style="max-width: 18rem;">
+    <div class="card-header">Actualizar emergencia</div>
+    <div class="card-body">
+      <p class="card-text">Actualice el estado de una emergencia con los datos del paciente, cama o ubicación</p>
+      
+      <button mat-raised-button color="primary" disabled>
+        Ir  <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>  
+
+  <div class="card p-3 mb-3" style="max-width: 18rem;">
+    <div class="card-header">Asignar emergencia</div>
+    <div class="card-body">
+      <p class="card-text">Asignar una emergencia a una ambulancia/enfermero</p>
+      
+      <button mat-raised-button color="primary" disabled>
+        Ir  <mat-icon>medical_services</mat-icon>
+      </button>
+    </div>
+  </div>   
+</div> 

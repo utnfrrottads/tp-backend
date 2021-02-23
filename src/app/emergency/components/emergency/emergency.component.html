@@ -32,8 +32,6 @@
         <app-emergency-person
             (personSelected)="onPersonHealthInsuranceSelected($event)">
         </app-emergency-person>
-      
-        <br>
         <div>
           <button mat-button matStepperPrevious>Volver</button>
           <button mat-button matStepperNext>Siguiente</button>
@@ -42,12 +40,12 @@
     </mat-step>
     <mat-step [optional]="true">
         <ng-template matStepLabel>Cama</ng-template>
-        <app-cama-list
+        <app-bed-list
             [allowSelect] = "true"
             [dataBed]="this.dataBeds"
             (bedSelected)="onBedSelected($event)"
             *ngIf="this.dataBeds">
-        </app-cama-list>
+        </app-bed-list>
         <div *ngIf="!this.hospitalSelected">
             No te olvides de buscar el efector más cercano
         </div>
