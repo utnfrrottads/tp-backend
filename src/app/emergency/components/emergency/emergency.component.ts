@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HospitalService } from '../../hospital/services/hospital.service'
-import { Hospital } from '../../hospital/models/hospital';  
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../common/services/common.service';
-import { AccidentOrDiseases } from '../../accident-diseases/models/accidentOrDiseases';
-import { EmergencyService } from '../services/emergency.service'
-import { AccidentDiseasesService } from '../../accident-diseases/services/accident-diseases.service';
+import { HospitalService } from '../../../hospital/services/hospital.service'
+import { Hospital } from '../../../hospital/models/hospital';  
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CommonService } from '../../../common/services/common.service';
+import { AccidentOrDiseases } from '../../../accident-diseases/models/accidentOrDiseases';
+import { EmergencyService } from '../../services/emergency.service'
+import { AccidentDiseasesService } from '../../../accident-diseases/services/accident-diseases.service';
 import { Bed } from 'src/app/cama/models/bed';
 
 @Component({
@@ -29,12 +29,26 @@ export class EmergencyComponent implements OnInit {
   dataBeds: Bed[]; 
   /** It allows to indicate if the data set was obtained*/
   flagGetPersonHealth: boolean = false;
-  
+
+
+
+
+
+
+
+  isOptional= true;
+
+
+
+
+
+
   constructor(
     private hospitalService: HospitalService,
     private accidentDiseasesService: AccidentDiseasesService,
     private commonService: CommonService,
-    private emergencyService: EmergencyService
+    private emergencyService: EmergencyService,
+    private _formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void{
@@ -62,8 +76,12 @@ export class EmergencyComponent implements OnInit {
       idNurse: new FormControl(''),
       idBed: new FormControl(''), // TODO
     });
-    this.accidentOrDiseasesForm = new FormGroup({ 
-      accidentOrDiseases: new FormControl(''),  
+    // this.accidentOrDiseasesForm = new FormGroup({ 
+    //   accidentOrDiseases: new FormControl(''),  
+    // });
+
+    this.accidentOrDiseasesForm = this._formBuilder.group({
+      accidentOrDiseases: ['', Validators.required]
     });
   }
   

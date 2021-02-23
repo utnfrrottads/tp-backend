@@ -1,3 +1,11 @@
+<button (click)="addMarkerCurrentPosition()" mat-raised-button color="primary" >
+  <span class="material-icons">person_pin_circle</span>
+  Mi ubicación
+</button> 
+<button (click)="getNearestHospital()" mat-raised-button color="primary">
+  <span class="material-icons">location_searching</span> 
+  Efector más cercano
+</button>
 <!-- (mapClick)="click($event)" -->
 <google-map  
   height="500px"
@@ -26,19 +34,10 @@
     {{ infoContent }}
   </map-info-window>
 </google-map>
- <br>
-<button (click)="logCenter()" mat-raised-button color="info">
+<!-- <button (click)="logCenter()" mat-raised-button color="info">
   Mostrar lat y long del centro del mapa
 </button>
-<button (click)="addMarkerCurrentPosition()" mat-raised-button color="primary" >
-  <span class="material-icons">person_pin_circle</span>
-  Mi ubicación
-</button> 
 <button (click)="calculateDistancia()">
   Calcular distancia con Google
-</button>
-<button (click)="getNearestHospital()" mat-raised-button color="primary">
-  <span class="material-icons">location_searching</span> 
-  Efector más cercano
-</button>
+</button> -->
 

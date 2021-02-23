@@ -39,10 +39,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'; 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { MapComponent } from './emergency/map/map.component';
-import { MapEmergenciaComponent } from './emergency/map-emergencia/map-emergencia.component'; 
+import { MapComponent } from './emergency/components/map/map.component';
+import { MapEmergenciaComponent } from './emergency/components/map-emergencia/map-emergencia.component'; 
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MapTomtomComponent } from './emergency/map-tomtom/map-tomtom.component';
+import { MapTomtomComponent } from './emergency/components/map-tomtom/map-tomtom.component';
 import { MatBadgeModule } from '@angular/material/badge'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -62,11 +62,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HospitalHealthInsuranceFormComponent } from './hospital/components/hospital-health-insurance-form/hospital-health-insurance-form.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HospitalAccidentDiseasesFormComponent } from './hospital/components/hospital-accident-diseases-form/hospital-accident-diseases-form.component';
-import { EmergencyPersonComponent } from './emergency/emergency-person/emergency-person.component';
-import { EmergencyComponent } from './emergency/emergency/emergency.component';
+import { EmergencyPersonComponent } from './emergency/components/emergency-person/emergency-person.component';
+import { EmergencyComponent } from './emergency/components/emergency/emergency.component';
 import { AccidentDiseasesListComponent } from './accident-diseases/components/accident-diseases-list/accident-diseases-list.component';
 import { AccidentDiseasesComponent } from './accident-diseases/components/accident-diseases/accident-diseases.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { EmergencyAccidentDiseasesComponent } from './emergency/components/emergency-accident-diseases/emergency-accident-diseases.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     EmergencyComponent,
     AccidentDiseasesListComponent,
     AccidentDiseasesComponent,
+    EmergencyAccidentDiseasesComponent,
   ],
   imports: [
     BrowserModule,

@@ -51,7 +51,7 @@ export class EmergencyPersonComponent implements OnInit {
   
   initForm(){
     this.personForm = new FormGroup({
-      dni: new FormControl('',[Validators.required]),
+      dni: new FormControl(''), // ,[Validators.required]
     })
   }
 

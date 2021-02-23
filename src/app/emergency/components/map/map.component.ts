@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import { Hospital } from '../../hospital/models/hospital';  
-import { MapService } from '../services/map.service'; 
+import { Hospital } from '../../../hospital/models/hospital';  
+import { MapService } from '../../services/map.service'; 
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 
 @Component({

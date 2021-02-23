@@ -20,11 +20,9 @@ export class EmergencyService{
 getEmergencies(): Observable<EmergencyResult>{ 
   return this.httpClient.get<EmergencyResult>(this.baseUrl+'/api-emergencies');
 } 
-
 /**
 * `CREATES` a emergency.
 *  post /createEmergency/hospital/:idHospital/bed/:idBed/accidendOrDisease/:idAccidentOrDisease
-    @property dateOfEntrance requerido.
     @property locality requerido.
     @property ambulanceLicensePlate requerido.
     @property location requerido.

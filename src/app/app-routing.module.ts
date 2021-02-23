@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashComponent } from './dashboard/dash/dash.component';
 import { CamaComponent } from './cama/components/cama/cama.component';
 import { PersonComponent } from './person/components/person/person.component';
-import { EmergencyComponent } from './emergency/emergency/emergency.component';
-import { MapEmergenciaComponent } from './emergency/map-emergencia/map-emergencia.component';
-import { MapTomtomComponent } from './emergency/map-tomtom/map-tomtom.component';
+import { EmergencyComponent } from './emergency/components/emergency/emergency.component';
+import { MapEmergenciaComponent } from './emergency/components/map-emergencia/map-emergencia.component';
+import { MapTomtomComponent } from './emergency/components/map-tomtom/map-tomtom.component';
 import { HealthInsuranceComponent } from './health-insurance/components/health-insurance/health-insurance.component';
 import { HospitalComponent } from './hospital/components/hospital/hospital.component';
 
