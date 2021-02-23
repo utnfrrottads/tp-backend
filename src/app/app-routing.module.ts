@@ -8,6 +8,7 @@ import { MapEmergenciaComponent } from './emergency/components/map-emergencia/ma
 import { MapTomtomComponent } from './emergency/components/map-tomtom/map-tomtom.component';
 import { HealthInsuranceComponent } from './health-insurance/components/health-insurance/health-insurance.component';
 import { HospitalComponent } from './hospital/components/hospital/hospital.component';
+import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'obrassociales', component: HealthInsuranceComponent },
   {path: 'personas', component: PersonComponent },
   {path: 'hospitales', component: HospitalComponent },  
-  {path: 'emergencia', component: EmergencyComponent },  
+  {path: 'emergencia', component: EmergencyHomeComponent },  
+  {path: 'emergenciaInmediata', component: EmergencyComponent },  
   {path: 'mapEmergencia', component: MapEmergenciaComponent },
   {path: 'mapDispatcher', component: MapTomtomComponent }, 
 ];

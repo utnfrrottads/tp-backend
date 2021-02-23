@@ -68,6 +68,7 @@ import { AccidentDiseasesListComponent } from './accident-diseases/components/ac
 import { AccidentDiseasesComponent } from './accident-diseases/components/accident-diseases/accident-diseases.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { EmergencyAccidentDiseasesComponent } from './emergency/components/emergency-accident-diseases/emergency-accident-diseases.component';
+import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
 
 
 @NgModule({
@@ -106,6 +107,7 @@ import { EmergencyAccidentDiseasesComponent } from './emergency/components/emerg
     AccidentDiseasesListComponent,
     AccidentDiseasesComponent,
     EmergencyAccidentDiseasesComponent,
+    EmergencyHomeComponent,
   ],
   imports: [
     BrowserModule,
