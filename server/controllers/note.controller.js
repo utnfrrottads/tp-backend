@@ -16,7 +16,6 @@ NoteCtrl.checkName = async(name, id = ' ') => {
 }
 
 
-
 //Metodo GetAll (res= response y req= request)
 NoteCtrl.getNotes = async(req, res, next) => {
     try {
