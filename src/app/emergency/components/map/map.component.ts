@@ -14,14 +14,14 @@ export class MapComponent implements OnInit {
   @Input() hospitalData: Hospital[];
   @Output() hospitalSelected = new EventEmitter();
   hospitalClosest: Hospital;
+  myPosition: google.maps.LatLngLiteral; 
+  @Output() position = new EventEmitter();
   myMarkers = [];
   infoContent = '';
   mensajeDistancia: string = '';
   zoom = 12;
   iconMarkerAmbulance: string = '../../../../../assets/img/MarkerAmbulance.png';
   iconHospitalClosest: string = '../../../../../assets/img/MarkerEfectorRed.png';
-  myPosition: google.maps.LatLngLiteral; 
-  @Output() position = new EventEmitter();
   options: google.maps.MapOptions = {
     // mapTypeId: 'hybrid',
     // disableDoubleClickZoom: true,

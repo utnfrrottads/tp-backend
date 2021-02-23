@@ -64,7 +64,7 @@ export class EmergencyComponent implements OnInit {
   initForm(){
     this.emergencyForm = new FormGroup({
       id: new FormControl(''),
-      dateOfEntrance: new FormControl('2021-02-20', [Validators.required]),
+      dateOfEntrance: new FormControl('', [Validators.required]),
       dateOfExit: new FormControl(''),
       location: new FormControl('', [Validators.required]),
       locality: new FormControl('Rosario', [Validators.required]),
