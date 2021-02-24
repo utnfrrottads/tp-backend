@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InputType } from 'src/app/common/models/typeInputEnum';
 import { HealthInsurance } from '../../models/health-insurance';
@@ -9,7 +9,7 @@ import { HealthInsuranceService } from '../../services/health-insurance.service'
   templateUrl: './health-insurance-form.component.html',
   styleUrls: ['./health-insurance-form.component.css']
 })
-export class HealthInsuranceFormComponent implements OnInit {
+export class HealthInsuranceFormComponent implements OnInit, OnChanges {
 
 
   @Input() inputType: InputType;
@@ -22,40 +22,40 @@ export class HealthInsuranceFormComponent implements OnInit {
     private healthInsuranceService: HealthInsuranceService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
   }
-  ngOnChanges(){
+  ngOnChanges(): void {
     this.initForm();
     this.loadHealthInsuranceSelected();
   }
-  initForm(){
+  initForm(): void {
     this.healthInsuranceForm = new FormGroup({
       id: new FormControl({ value: ''}),
-      legalName: new FormControl('', [Validators.required]), 
+      legalName: new FormControl('', [Validators.required]),
       fantasyName: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required])
-    }); 
+    });
   }
-  loadHealthInsuranceSelected(){ 
+  loadHealthInsuranceSelected(): void {
     if (this.healthInsuranceSelected !== undefined && this.healthInsuranceSelected.id !== null && this.healthInsuranceSelected.id !== '') {
-      this.healthInsuranceForm.patchValue({ 
+      this.healthInsuranceForm.patchValue({
         id: this.healthInsuranceSelected.id,
-        legalName: this.healthInsuranceSelected.legalName, 
+        legalName: this.healthInsuranceSelected.legalName,
         fantasyName: this.healthInsuranceSelected.fantasyName,
         phone: this.healthInsuranceSelected.phone
-      })
+      });
     }
   }
 
-  onSubmit(){
-    if(this.inputType===InputType.create){
+  onSubmit(): void {
+    if (this.inputType === InputType.create){
       this.add.emit(this.healthInsuranceForm.value);
-    } else if(this.inputType===InputType.edit){
+    } else if (this.inputType === InputType.edit){
       this.edit.emit(this.healthInsuranceForm.value);
-    } 
+    }
   }
-  setButtonText(){
-    return this.inputType===InputType.edit ? 'Actualizar': 'Agregar';
+  setButtonText(): string{
+    return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
   }
 }

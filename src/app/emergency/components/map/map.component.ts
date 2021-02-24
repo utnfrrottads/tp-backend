@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import { Hospital } from '../../../hospital/models/hospital';  
-import { MapService } from '../../services/map.service'; 
+import { Hospital } from '../../../hospital/models/hospital';
+import { MapService } from '../../services/map.service';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
 
 @Component({
@@ -8,20 +8,20 @@ import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
-export class MapComponent implements OnInit { 
+export class MapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
   @Input() hospitalData: Hospital[];
   @Output() hospitalSelected = new EventEmitter();
   hospitalClosest: Hospital;
-  myPosition: google.maps.LatLngLiteral; 
+  myPosition: google.maps.LatLngLiteral;
   @Output() position = new EventEmitter();
   myMarkers = [];
   infoContent = '';
-  mensajeDistancia: string = '';
+  mensajeDistancia = '';
   zoom = 12;
-  iconMarkerAmbulance: string = '../../../../../assets/img/MarkerAmbulance.png';
-  iconHospitalClosest: string = '../../../../../assets/img/MarkerEfectorRed.png';
+  iconMarkerAmbulance = '../../../../../assets/img/MarkerAmbulance.png';
+  iconHospitalClosest = '../../../../../assets/img/MarkerEfectorRed.png';
   options: google.maps.MapOptions = {
     // mapTypeId: 'hybrid',
     // disableDoubleClickZoom: true,
@@ -29,38 +29,37 @@ export class MapComponent implements OnInit {
     // minZoom: 8,
     // zoomControl: false,
     // scrollwheel: false,
-  }
+  };
 
   constructor(
     private mapService: MapService
   ) { }
-  
-  ngOnInit(): void{ 
-    this.getCurrentPosition(); 
+
+  ngOnInit(): void{
+    this.getCurrentPosition();
   }
 
 /**
  * Agrega marcador en el mapa con mi posición actual
- */  
-  addMarkerCurrentPosition(): void{   
+ */
+  addMarkerCurrentPosition(): void{
     // Obtengo la posición actual
-    this.getCurrentPosition(); 
+    this.getCurrentPosition();
     // Limpio el marcador
     this.myMarkers = [];
-    // Agrego marcador a mapa 
+    // Agrego marcador a mapa
     this.myMarkers.push( this.mapService.addMarkerToMap(this.myPosition , this.iconMarkerAmbulance));
- 
   }
 
 /**
  * Obtiene la posición actual del usuario
- */  
+ */
   getCurrentPosition(): void{
-    navigator.geolocation.getCurrentPosition((position) => { 
+    navigator.geolocation.getCurrentPosition((position) => {
       this.myPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      }
+      };
       this.position.emit(this.myPosition);
     });
   }
@@ -69,36 +68,35 @@ export class MapComponent implements OnInit {
     alert(JSON.stringify(this.map.getCenter()));
   }
 
-  
   openInfo(marker: MapMarker, content): void{
-    this.infoContent = content
-    this.info.open(marker)
-  } 
+    this.infoContent = content;
+    this.info.open(marker);
+  }
 
 
 
 
 /**
- * Obtiene la posición actual del usuario 
+ * Obtiene la posición actual del usuario
  * y la compara con todos los hospitales para obtener cual es el más cercano.
  * Una vez que se obtiene el más cercano se lo resalta en el mapa y se emite el hospital cercano
- */   
+ */
   getNearestHospital(): void{
-    this.getCurrentPosition(); 
+    this.getCurrentPosition();
     const closest = this.mapService.getHospitalClosest(this.hospitalData, this.myPosition);
     this.hospitalClosest = closest.hospitalClosest;
-    this.mensajeDistancia = closest.closestDist.toString(); 
+    this.mensajeDistancia = closest.closestDist.toString();
 
-    for(let hospital of this.hospitalData){  
-      if ( hospital.id == this.hospitalClosest.id ) {
+    for (const hospital of this.hospitalData){
+      if ( hospital.id === this.hospitalClosest.id ) {
         hospital.options = {
-          animation: google.maps.Animation.BOUNCE, //DROP
-          icon: this.iconHospitalClosest,  
+          animation: google.maps.Animation.BOUNCE, // DROP
+          icon: this.iconHospitalClosest,
         };
 
         this.hospitalSelected.emit(hospital);
       }
-    }; 
+    }
   }
 
 
@@ -131,36 +129,36 @@ export class MapComponent implements OnInit {
   // ******************************************************************
   // *********************** GOOGLE MAPS FUNCTIONS ********************
   // ******************************************************************
-/** FUNCION DE GOOGLE MAPS 
+/** FUNCION DE GOOGLE MAPS
  * OBTIENE LA DISTANCIA ENTRE DOS PUNTOS
-*/
+ */
   public getDistancia(origen: string, destino: string): void{
-    //
-    return new google.maps.DistanceMatrixService().getDistanceMatrix({'origins': [origen], 'destinations': [destino] , travelMode:  google.maps.TravelMode.DRIVING}, (results: any) => {
-        this.mensajeDistancia =  results.rows[0].elements[0].distance.value
+    return new google.maps.DistanceMatrixService()
+      .getDistanceMatrix(
+        { origins: [origen]
+          , destinations: [destino]
+          , travelMode:  google.maps.TravelMode.DRIVING}
+          , (results: any) => {
+        this.mensajeDistancia =  results.rows[0].elements[0].distance.value;
     });
   }
-/** FUNCION DE GOOGLE MAPS 
+/** FUNCION DE GOOGLE MAPS
  * Calcula la distancia utilizando los servicios de Google (tiene un máximo de solicitudes gratis, luego es pago)
- */  
+ */
   calculateDistancia(): void{
-    let myCurrentPosition = { lat: -32.951416888801205,
+    const myCurrentPosition = { lat: -32.951416888801205,
       lng: -60.721738511040954
-    }
-    let destinoPosition = {lat:-33.0493740313205,lng:-60.6216922731336}
-
-    let srcOriginLat: '11.127122499999999'
-    let srcOriginLng: '78.6568942'
-    
-    let origen =  myCurrentPosition.lat +  "," + myCurrentPosition.lng 
-    let destino = destinoPosition.lat +  "," + destinoPosition.lng   
+    };
+    const destinoPosition = {
+      lat: -33.0493740313205,
+      lng: -60.6216922731336
+    };
+    const origen =  myCurrentPosition.lat +  ', ' + myCurrentPosition.lng;
+    const destino = destinoPosition.lat + ', ' + destinoPosition.lng;
     this.getDistancia(origen, destino);
 
-  } 
-
-
-
-} 
+  }
+}
 
 
 
@@ -191,14 +189,14 @@ export class MapComponent implements OnInit {
 
   // let radiusHeart = 6371; // radius of earth in km
   // let distances = [];
-  // let closest: string = '-999' ; 
+  // let closest: string = '-999' ;
   // let closestDist: number = 99999999;
-  // for(let hospital of this.hospitalData){ 
+  // for(let hospital of this.hospitalData){
   //   //console.log(hospital.nombre, hospital.geo.lat, hospital.geo.lng);
   //   let myLat = this.myPosition.lat;
   //   let myLng = this.myPosition.lng;
   //   let markerLat = hospital.location.lat;
-  //   let markerLng = hospital.location.lng; 
+  //   let markerLng = hospital.location.lng;
 
   //   let dLat  = this.rad(markerLat - myLat);
   //   let dLong = this.rad(markerLng - myLng);
@@ -209,7 +207,7 @@ export class MapComponent implements OnInit {
 
   //   if ( closest === '-999' || distance < closestDist ) {
   //     closest = hospital.id;
-  //     closestDist = distance; 
+  //     closestDist = distance;
   //     this.hospitalClosest = hospital;
   //     //console.log('mas cercano',closest + '-' + closestDist);
   //   }
@@ -219,21 +217,21 @@ export class MapComponent implements OnInit {
   // this.mensajeDistancia = closestDist.toString();
 
 
-  // for(let hospital of this.hospitalData){  
+  // for(let hospital of this.hospitalData){
   //   if ( hospital.id == this.hospitalClosest.id ) {
   //     hospital.options = {
   //       animation: google.maps.Animation.BOUNCE, //DROP
-  //       icon: this.iconHospitalClosest,  
+  //       icon: this.iconHospitalClosest,
   //     }
   //   }
   // };
 
-  // // this.efectorData.filter( 
+  // // this.efectorData.filter(
   // //   efec => {
   // //     if(efec.id === this.efectorClosest.id){
   // //       efec.options = {
   // //         animation: google.maps.Animation.BOUNCE, //DROP
-  // //         icon: this.iconManMarker,  
+  // //         icon: this.iconManMarker,
   // // }}});
 
 
@@ -249,7 +247,6 @@ export class MapComponent implements OnInit {
   //     }
   //   );
   //   directionsRenderer.setMap(map);
-  
   //   const onChangeHandler = function () {
   //     this.calculateAndDisplayRoute(directionsService, directionsRenderer);
   //   };
@@ -262,7 +259,6 @@ export class MapComponent implements OnInit {
   //     onChangeHandler
   //   );
   // }
-  
   // calculateAndDisplayRoute(
   //   directionsService: google.maps.DirectionsService,
   //   directionsRenderer: google.maps.DirectionsRenderer

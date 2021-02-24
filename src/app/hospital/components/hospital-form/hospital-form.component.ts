@@ -1,21 +1,18 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HospitalService } from '../../services/hospital.service';
-import { HealthInsuranceService } from '../../../health-insurance/services/health-insurance.service';
 import { BedService } from '../../../bed/services/bed.service';
 import { AtentionLevel, Hospital } from '../../models/hospital';
-import { InputType } from '../../../common/models/typeInputEnum';  
-import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
+import { InputType } from '../../../common/models/typeInputEnum';
 import { Bed } from '../../../bed/models/bed';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
-import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 
 @Component({
   selector: 'app-hospital-form',
   templateUrl: './hospital-form.component.html',
   styleUrls: ['./hospital-form.component.css']
 })
-export class HospitalFormComponent implements OnInit {
+export class HospitalFormComponent implements OnInit, OnChanges {
 
 
   @Input() inputType: InputType;
@@ -27,24 +24,23 @@ export class HospitalFormComponent implements OnInit {
   dataBed: Bed[];
   dataAccidentOrDiseases: AccidentOrDiseases[];
 
-  constructor( 
+  constructor(
     private hospitalService: HospitalService,
-    private healthInsuranceService : HealthInsuranceService,
     private bedService: BedService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
     this.loadDropDown();
   }
-  ngOnChanges(){
+  ngOnChanges(): void {
     this.initForm();
     this.loadHospitalSelected();
   }
-  initForm(){
+  initForm(): void {
     this.hospitalForm = new FormGroup({
       id: new FormControl({ value: ''}),
-      name: new FormControl('', [Validators.required]), 
+      name: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       locality: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
@@ -55,52 +51,52 @@ export class HospitalFormComponent implements OnInit {
       healthInsurances: new FormControl(''),
       accidentOrDiseases: new FormControl(''),
       beds: new FormControl(''),
-    }); 
+    });
   }
-  loadHospitalSelected(){
+  loadHospitalSelected(): void {
     if (this.hospitalSelected !== undefined && this.hospitalSelected.id !== null && this.hospitalSelected.id !== '') {
-      this.hospitalForm.patchValue({ 
+      this.hospitalForm.patchValue({
         id: this.hospitalSelected.id,
-        name: this.hospitalSelected.name, 
-        address: this.hospitalSelected.address, 
-        locality: this.hospitalSelected.locality, 
+        name: this.hospitalSelected.name,
+        address: this.hospitalSelected.address,
+        locality: this.hospitalSelected.locality,
         phone: this.hospitalSelected.phone,
-        latitude: this.hospitalSelected.location.latitude, 
+        latitude: this.hospitalSelected.location.latitude,
         longitude: this.hospitalSelected.location.longitude,
-        options: this.hospitalSelected.options, 
-        atentionLevel: this.hospitalSelected.atentionLevel, 
-        healthInsurances: this.hospitalSelected.healthInsurances, 
-        accidentOrDiseases: this.hospitalSelected.accidentOrDiseases, 
-        beds: this.hospitalSelected.beds, 
-      })
+        options: this.hospitalSelected.options,
+        atentionLevel: this.hospitalSelected.atentionLevel,
+        healthInsurances: this.hospitalSelected.healthInsurances,
+        accidentOrDiseases: this.hospitalSelected.accidentOrDiseases,
+        beds: this.hospitalSelected.beds,
+      });
     }
   }
 
-  onSubmit(){
-    if(this.inputType===InputType.create){
+  onSubmit(): void {
+    if (this.inputType === InputType.create){
       this.add.emit(this.hospitalForm.value);
-    } else if(this.inputType===InputType.edit){
+    } else if (this.inputType === InputType.edit){
       this.edit.emit(this.hospitalForm.value);
-    } 
+    }
   }
-  loadDropDown(){
-    this.getAtentionLevel(); 
+  loadDropDown(): void {
+    this.getAtentionLevel();
   }
-  getAtentionLevel(){
+  getAtentionLevel(): void {
     this.hospitalService.getAtentionLevel().subscribe({
       next: res => {
       this.dataAtentionLevel = res;
       },
-    });  
+    });
   }
-  getBeds(){
+  getBeds(): void {
     this.bedService.getBeds().subscribe({
       next: res => {
       this.dataBed = res.beds;
-      }, 
-    });  
+      },
+    });
   }
-  setButtonText(){
-    return this.inputType===InputType.edit ? 'Actualizar': 'Agregar';
+  setButtonText(): string {
+    return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
   }
 }

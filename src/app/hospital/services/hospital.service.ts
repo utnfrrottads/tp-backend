@@ -45,7 +45,7 @@ export class HospitalService {
   } 
 /**
  * Inicializa el objeto 
- */  
+ */
   initObjectHospital(): Hospital {
     return { 
       id : '',

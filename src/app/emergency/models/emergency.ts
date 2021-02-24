@@ -4,22 +4,22 @@ import { Person } from '../../person/models/person';
 import { Bed } from '../../bed/models/bed';
 
 export interface Emergency{
-    id: string,
-    dateOfEntrance: string,
-    dateOfExit?: string,
-    location: GeoLocationGoogleMap,
-    locality: string,
-    ambulanceLicensePlate: string,
-    accidentOrDisease?: AccidentOrDiseases,
+    id: string;
+    dateOfEntrance: string;
+    dateOfExit?: string;
+    location: GeoLocationGoogleMap;
+    locality: string;
+    ambulanceLicensePlate: string;
+    accidentOrDisease?: AccidentOrDiseases;
 
-    idHospital?: string,
-    idPatient?: string,
-    idNurse?: string,
-    idBed?: string
+    idHospital?: string;
+    idPatient?: string;
+    idNurse?: string;
+    idBed?: string;
 }
 
 export interface EmergencyResult{
-    emergency: Emergency,
-    msg: string,
-    success: boolean,
+    emergency: Emergency;
+    msg: string;
+    success: boolean;
 }

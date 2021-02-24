@@ -8,7 +8,7 @@ import { Emergency, EmergencyResult } from '../models/emergency';
   providedIn: 'root'
 })
 export class EmergencyService{
-  
+
   baseUrl = environment.baseUrl;
 
   constructor(
@@ -16,73 +16,73 @@ export class EmergencyService{
     ) { }
 
 /**
-* `GETS` all emergencys of the collection.
-*/
-getEmergencies(): Observable<EmergencyResult>{ 
-  return this.httpClient.get<EmergencyResult>(this.baseUrl+'/api-emergencies');
-} 
+ * `GETS` all emergencys of the collection.
+ */
+getEmergencies(): Observable<EmergencyResult>{
+  return this.httpClient.get<EmergencyResult>(this.baseUrl + '/api-emergencies');
+}
 /**
-* `CREATES` a emergency.
-*  post /createEmergency/hospital/:idHospital/bed/:idBed/accidendOrDisease/:idAccidentOrDisease
-    @property locality requerido.
-    @property ambulanceLicensePlate requerido.
-    @property location requerido.
-*/
-createEmergency(emergency: Emergency, idHospital: string, idBed: string, idAccidentOrDisease: string): Observable<EmergencyResult>{    
+ * `CREATES` a emergency.
+ *  post /createEmergency/hospital/:idHospital/bed/:idBed/accidendOrDisease/:idAccidentOrDisease
+ *   @property locality requerido.
+ *   @property ambulanceLicensePlate requerido.
+ *   @property location requerido.
+ */
+createEmergency(emergency: Emergency, idHospital: string, idBed: string, idAccidentOrDisease: string): Observable<EmergencyResult>{
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   return this.httpClient.post<EmergencyResult>(
-    this.baseUrl + '/api-emergencies/createEmergency' 
-    + '/hospital/' + idHospital 
-    + '/bed/' + idBed 
+    this.baseUrl + '/api-emergencies/createEmergency'
+    + '/hospital/' + idHospital
+    + '/bed/' + idBed
     + '/accidendOrDisease/' + idAccidentOrDisease,
     emergency,
     httpOptions);
 }
 
 /**
-* `ADDS` an AccidentOrDisease treated by emergency.
-@param idEmergency requerido, 20 caracteres,alfanumérico,
-@param idAccidentOrDisease requerido,20 caracteres,alfanumérico
-*/
-addToAccidentOrDiseaseByIds(emergency: Emergency, idEmergency: string, idAccidentOrDisease: string): Observable<EmergencyResult>{    
+ * `ADDS` an AccidentOrDisease treated by emergency.
+ * @param idEmergency requerido, 20 caracteres,alfanumérico,
+ * @param idAccidentOrDisease requerido,20 caracteres,alfanumérico
+ */
+addToAccidentOrDiseaseByIds(emergency: Emergency, idEmergency: string, idAccidentOrDisease: string): Observable<EmergencyResult>{
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 return this.httpClient.post<EmergencyResult>(
-  this.baseUrl + '/api-emergencies/addToAccidentOrDiseaseByIds/' 
-  + idEmergency 
+  this.baseUrl + '/api-emergencies/addToAccidentOrDiseaseByIds/'
+  + idEmergency
   + idAccidentOrDisease,
   emergency,
   httpOptions);
 }
 
 /**
-* `UPDATES` a emergency by ID.
-@param emergency es utilizado para parámetro y para body 
-*/
-updateEmergencyById(emergency: Emergency): Observable<EmergencyResult>{    
+ * `UPDATES` a emergency by ID.
+ * @param emergency es utilizado para parámetro y para body
+ */
+updateEmergencyById(emergency: Emergency): Observable<EmergencyResult>{
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};     
+};
 return this.httpClient.put<EmergencyResult>(
-  this.baseUrl + '/api-emergencies/updateEmergencyById' 
+  this.baseUrl + '/api-emergencies/updateEmergencyById'
                + '/' + emergency.id,
   emergency,
   httpOptions);
-} 
+}
 
 /**
-* `DELETES` a emergency by ID.
- /deleteEmergencyById/:id
-*/
+ * `DELETES` a emergency by ID.
+ * /deleteEmergencyById/:id
+ */
 deleteEmergencyById(emergency: Emergency): Observable<EmergencyResult>{
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };     
+  };
   return this.httpClient.delete<EmergencyResult>(
     this.baseUrl + '/api-emergencies/deleteEmergencyById/' + emergency.id,
     httpOptions);
-} 
+ }
 }

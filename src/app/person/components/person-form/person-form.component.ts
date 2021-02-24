@@ -103,6 +103,7 @@ export class PersonFormComponent implements OnInit {
     this.personService.getBloodTypes().subscribe({
       next: res => {
       this.dataBloodType = res;
+      
       }, 
     });  
   }

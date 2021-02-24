@@ -7,7 +7,7 @@ import { Hospital } from '../../models/hospital';
 })
 export class HospitalListComponent{
 
-  @Input() dataHospital: Hospital[];   
+  @Input() dataHospital: Hospital[];
   @Output() hospitalSelected = new EventEmitter();
   @Output() hospitalDeleted = new EventEmitter();
   displayedColumns: string[] = [
@@ -15,13 +15,12 @@ export class HospitalListComponent{
     'locality',
     'phone',
     'atentionLevel',
-    'actions'];  
+    'actions'];
 
-  editHospital(hospital: Hospital){
+  editHospital(hospital: Hospital): void {
     this.hospitalSelected.emit(hospital);
   }
-  deleteHospital(hospital: Hospital) {
+  deleteHospital(hospital: Hospital): void {
     this.hospitalDeleted.emit(hospital);
   }
-
 }

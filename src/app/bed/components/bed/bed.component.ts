@@ -12,8 +12,8 @@ import { CommonService } from '../../../common/services/common.service';
 })
 export class BedComponent implements OnInit{
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  public dataBed : Bed[];
-  bedSelected : Bed = {
+  public dataBed: Bed[];
+  bedSelected: Bed = {
     id: '',
     description: '',
     status: '',
@@ -21,76 +21,76 @@ export class BedComponent implements OnInit{
     subtype: '',
     idHospital: '',
     hospitalName: ''
-  }; 
+  };
   inputType: number = InputType.create;
-  flagListIsReady: boolean = false;
+  flagListIsReady = false;
 
   constructor(
-    private bedService: BedService, 
+    private bedService: BedService,
     private commonService: CommonService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadBeds();
   }
-  setInputTypeCreate(){
-    this.accordion.openAll();  
+  setInputTypeCreate(): void {
+    this.accordion.openAll();
     this.inputType = InputType.create;
-  } 
-  loadBeds(){
+  }
+  loadBeds(): void {
     this.flagListIsReady = true;
     this.bedService.getBeds().subscribe({
-      next: res =>{
+      next: res => {
         this.dataBed = res.beds;
         this.flagListIsReady = false;
       },
-      error: err =>{
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar las camas','Cerrar');
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer cargar las camas', 'Cerrar');
       }
     });
-  }  
-  onBedSelected(bed: Bed){
-    this.accordion.openAll();  
+  }
+  onBedSelected(bed: Bed): void {
+    this.accordion.openAll();
     this.bedSelected = bed;
     this.inputType = InputType.edit;
   }
-  onBedDeleted(bed: Bed){
+  onBedDeleted(bed: Bed): void {
     this.bedService.deleteBedById(bed).subscribe({
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
-        this.dataBed = this.dataBed.filter( item => !(item.id===bed.id && item.idHospital===bed.idHospital));
-        this.commonService.openSnackBar('La cama se ha eliminado correctamente','Perfecto!');
+        this.dataBed = this.dataBed.filter( item => !(item.id === bed.id && item.idHospital === bed.idHospital));
+        this.commonService.openSnackBar('La cama se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama','Cerrar');
-       } 
+        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama', 'Cerrar');
+       }
     });
   }
-  onBedCreated(bed: Bed){
+  onBedCreated(bed: Bed): void {
     this.bedService.createBed(bed).subscribe({
       next: res => {
-       this.accordion.closeAll();  
-       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
+       this.accordion.closeAll();
+       this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
        this.loadBeds();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la cama','Cerrar');
-       } 
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar la cama', 'Cerrar');
+       }
     });
   }
-  onBedEdited(bed: Bed){ 
+  onBedEdited(bed: Bed): void {
     this.bedService.updateBedById(bed).subscribe({
       next: res => {
-       this.accordion.closeAll();  
-       this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
+       this.accordion.closeAll();
+       this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
        this.loadBeds();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar la cama','Cerrar');
+        this.commonService.openSnackBar('Ups... algo falló al querer editar la cama', 'Cerrar');
        }
     });
   }
   isCreate(): boolean{
-    return this.inputType===1 ? true : false;
+    return this.inputType === 1 ? true : false;
   }
-} 
+}

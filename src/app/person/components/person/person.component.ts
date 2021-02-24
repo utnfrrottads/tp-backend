@@ -13,8 +13,8 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 export class PersonComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  public dataPerson : Person[];
-  personSelected : Person = {
+  public dataPerson: Person[];
+  personSelected: Person = {
     id: '',
     dni: 0,
     firstName: '',
@@ -25,105 +25,105 @@ export class PersonComponent implements OnInit {
     bloodType: null,        // TODO es ok?
     emergencyContact: null, // TODO es ok?
 
-    nurseWorkId:null,       // TODO es ok?
-    user:null,              // TODO es ok?
-    password:null,          // TODO es ok?
-    healthInsurances:  null,// TODO es ok?
-    healthInsuranceId: '', //nuevo nombre sera idHealthInsurance
-  }; 
-  
+    nurseWorkId: null,       // TODO es ok?
+    user: null,              // TODO es ok?
+    password: null,          // TODO es ok?
+    healthInsurances:  null, // TODO es ok?
+    healthInsuranceId: '', // nuevo nombre sera idHealthInsurance
+  };
+
   personHealthInsuranceResultData: PersonHealthInsuranceResult = {
     persons : this.personSelected,
     healthInsurances : [],
-    msg:'',
+    msg: '',
     success: false
   };
   inputType: number = InputType.create;
-  flagListIsReady: boolean = false;
+  flagListIsReady = false;
 
   constructor(
-    private personService: PersonService, 
+    private personService: PersonService,
     private commonService: CommonService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.getPersons();
   }
 
-  setInputTypeCreate(){
-    this.accordion.openAll();  
+  setInputTypeCreate(): void{
+    this.accordion.openAll();
     this.inputType = InputType.create;
-  } 
-  getPersons(){
+  }
+  getPersons(): void{
     this.flagListIsReady = true;
     this.personService.getPersons().subscribe({
-      next: res =>{
+      next: res => {
         this.dataPerson = res.persons;
         this.flagListIsReady = false;
       },
-      error: err =>{
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar las Personas','Cerrar');
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer cargar las Personas', 'Cerrar');
       }
     });
-  }  
-  onPersonSelected(person: Person){
-    this.accordion.openAll();  
+  }
+  onPersonSelected(person: Person): void{
+    this.accordion.openAll();
     this.personSelected = person;
     this.inputType = InputType.edit;
     this.getPersonAndHealthInsurancesByDni();
   }
-  onPersonDeleted(person: Person){
+  onPersonDeleted(person: Person): void{
     this.personService.deletePersonById(person).subscribe({
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
-        this.dataPerson = this.dataPerson.filter( item => !(item.id===person.id));
-        this.commonService.openSnackBar('La persona se ha eliminado correctamente','Perfecto!');
+        this.dataPerson = this.dataPerson.filter( item => !(item.id === person.id));
+        this.commonService.openSnackBar('La persona se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la persona','Cerrar');
-       } 
+        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la persona', 'Cerrar');
+       }
     });
   }
-  onPersonCreated(person: Person){
+  onPersonCreated(person: Person): void{
     this.personService.createPerson(person).subscribe({
       next: res => {
-       this.accordion.closeAll();  
-       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!');
-       this.getPersons(); 
+       this.accordion.closeAll();
+       this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+       this.getPersons();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la persona','Cerrar');
-       } 
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar la persona', 'Cerrar');
+       }
     });
   }
-  createAffiliatedHealthInsurance(person: Person){
+  createAffiliatedHealthInsurance(person: Person): void{
     this.personService.createAffiliatedHealthInsurance(person).subscribe({
       next: res => {
-       this.commonService.openSnackBar('Se creó la afiliación a la obra social exitosamente','Perfecto!');
+       this.commonService.openSnackBar('Se creó la afiliación a la obra social exitosamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social','Cerrar');
-       } 
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social', 'Cerrar');
+       }
     });
   }
 
-  onPersonEdited(person: Person){ 
+  onPersonEdited(person: Person): void{
     this.personService.updatePersonById(person).subscribe({
       next: res => {
-       this.accordion.closeAll();  
-       this.commonService.openSnackBar('Se actualizó exitosamente','Perfecto!');
+       this.accordion.closeAll();
+       this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
        this.createAffiliatedHealthInsurance(person);
        this.getPersons();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar la persona','Cerrar');
+        this.commonService.openSnackBar('Ups... algo falló al querer editar la persona', 'Cerrar');
        }
     });
   }
   isCreate(): boolean{
-    return this.inputType===1 ? true : false;
+    return this.inputType === 1 ? true : false;
   }
-  resetForm(){
+  resetForm(): void{
     this.personSelected.id = '';
     this.personSelected.dni = 0;
     this.personSelected.firstName = '';
@@ -132,25 +132,25 @@ export class PersonComponent implements OnInit {
     this.personSelected.gender = '';
     this.personSelected.phone = '';
     this.personSelected.bloodType = '';
-    this.personSelected.emergencyContact = null; // TODO 
+    this.personSelected.emergencyContact = null; // TODO
     this.personSelected.nurseWorkId = '';
     this.personSelected.user = '';
     this.personSelected.password = '';
-    this.personSelected.healthInsurances = null; // TODO 
+    this.personSelected.healthInsurances = null; // TODO
   }
-  
-  getPersonAndHealthInsurancesByDni(): void{ 
+
+  getPersonAndHealthInsurancesByDni(): void{
     this.personService.getPersonAndHealthInsurancesByDni(this.personSelected.dni).subscribe({
       next: res => {
         this.personHealthInsuranceResultData = res;
     },
     error: err => {
-      this.commonService.openSnackBar(err.error.msg,'Cerrar');
-     } 
+      this.commonService.openSnackBar(err.error.msg, 'Cerrar');
+     }
     });
   }
-  onHealthInsuranceDeleted(healthInsurance: HealthInsurance){
-    alert("no implementado");
+  onHealthInsuranceDeleted(healthInsurance: HealthInsurance): void{
+    alert('no implementado');
   }
 
 }

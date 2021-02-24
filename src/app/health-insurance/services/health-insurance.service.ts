@@ -14,16 +14,17 @@ export class HealthInsuranceService {
 
   constructor(
     private httpClient: HttpClient
-  ) { }   
-  
+  ) { }
+
   /** GETS all HealthInsurances of the collection. */
-  getHealthInsurances(): Observable<HealthInsuranceResult>{ 
-    return this.httpClient.get<HealthInsuranceResult>(this.baseUrl+'/api-healthInsurances');
+  getHealthInsurances(): Observable<HealthInsuranceResult>{
+    return this.httpClient.get<HealthInsuranceResult>(this.baseUrl + '/api-healthInsurances');
   }
 
   /** CREATES` a healthInsurance.
-   createHealthInsurance */
-  createHealthInsurance(healthInsurance: HealthInsurance): Observable<HealthInsuranceResult>{    
+   * createHealthInsurance
+   */
+  createHealthInsurance(healthInsurance: HealthInsurance): Observable<HealthInsuranceResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -34,45 +35,43 @@ export class HealthInsuranceService {
   }
 
   /** ADD an AffiliatedHealthInsurance
-   addToHospitalByIds/:idHospital/:idHealthInsurance */   
-  createAffiliatedHealthInsurance(hospitalHealthInsurance: HospitalHealthInsurance): Observable<any>{    
-//  createAffiliatedHealthInsurance(hospitalHealthInsurance: HospitalHealthInsurance): Observable<HealthInsuranceResult>{ 
+   * addToHospitalByIds/:idHospital/:idHealthInsurance
+   */
+  createAffiliatedHealthInsurance(hospitalHealthInsurance: HospitalHealthInsurance): Observable<any>{
+//  createAffiliatedHealthInsurance(hospitalHealthInsurance: HospitalHealthInsurance): Observable<HealthInsuranceResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<HealthInsuranceResult>(
-      this.baseUrl + '/api-healthInsurances/addToHospitalByIds' 
+      this.baseUrl + '/api-healthInsurances/addToHospitalByIds'
                     + '/' + hospitalHealthInsurance.idHospital
                     + '/' + hospitalHealthInsurance.idHealthInsurance,
-
-                    
-                    // + '/' + hospitalHealthInsurances.hospital.id
-                    // + '/' + hospitalHealthInsurances.healthInsurances.id,
       hospitalHealthInsurance,
       httpOptions);
   }
-  
-  /** UPDATES a HealthInsurance by ID.
-  updateHealthInsuranceById/:id */
+
+ /** UPDATES a HealthInsurance by ID.
+  * updateHealthInsuranceById/:id
+  */
   updateHealthInsuranceById(healthInsurance: HealthInsurance): Observable<HealthInsuranceResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };     
+    };
     return this.httpClient.put<HealthInsuranceResult>(
       this.baseUrl + '/api-healthInsurances/updateHealthInsuranceById/' + healthInsurance.id,
       healthInsurance,
       httpOptions);
-  } 
+  }
 
-  /**  DELETES a healthInsurance by ID.
-   deleteHealthInsuranceById/:id
+ /**  DELETES a healthInsurance by ID.
+  * deleteHealthInsuranceById/:id
   */
   deleteHealthInsuranceById(healthInsurance: HealthInsurance): Observable<HealthInsuranceResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };     
+    };
     return this.httpClient.delete<HealthInsuranceResult>(
       this.baseUrl + '/api-healthInsurances/deleteHealthInsuranceById/' + healthInsurance.id,
       httpOptions);
-  } 
+  }
 }

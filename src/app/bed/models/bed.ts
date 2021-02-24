@@ -1,17 +1,17 @@
 export interface Bed {
-    id: string,
-    description: string,
-    status: string,
-    type: string,
-    subtype: string,
-    idHospital: string,
-    hospitalName: string,
+    id: string;
+    description: string;
+    status: string;
+    type: string;
+    subtype: string;
+    idHospital: string;
+    hospitalName: string;
 }
 
 export interface BedResult {
-    beds: Bed[],
-    msg: string,
-    success: boolean,
+    beds: Bed[];
+    msg: string;
+    success: boolean;
 }
 export class BedSummary {
     title: string;
@@ -23,18 +23,18 @@ export class BedSummary {
     isCurrency: boolean;
 }
 export class BedMonthly {
-    month: string; 
+    month: string;
     count: number;
 }
 export class BedType {
-    id: number; 
+    id: number;
     description: string;
 }
 export class BedStatus {
-    id: number; 
+    id: number;
     description: string;
 }
 export class BedSubType {
-    id: number; 
+    id: number;
     description: string;
 }

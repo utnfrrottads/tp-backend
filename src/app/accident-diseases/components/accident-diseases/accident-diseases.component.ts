@@ -11,25 +11,24 @@ import { AccidentDiseasesService } from '../../services/accident-diseases.servic
 export class AccidentDiseasesComponent implements OnInit {
 
   dataAccidentOrDisease: AccidentOrDiseases[];
-  
+
   constructor(
-    private accidentDiseasesService: AccidentDiseasesService, 
+    private accidentDiseasesService: AccidentDiseasesService,
     private commonService: CommonService
   ) { }
   ngOnInit(): void {
     this.getHospitalAccidentOrDisease();
   }
 
-  
-  /**Se obtienen los accidentes y enfermedades que atiende un hospital */
-  getHospitalAccidentOrDisease(){
+  /** Se obtienen los accidentes y enfermedades que atiende un hospital */
+  getHospitalAccidentOrDisease(): void {
     this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
       next: res => {
         this.dataAccidentOrDisease = res.accidentOrDiseases;
       },
       error: err => {
         this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades del hospital.', 'Cerrar');
-      } 
+      }
     });
   }
 }

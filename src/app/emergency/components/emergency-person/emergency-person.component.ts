@@ -64,7 +64,7 @@ export class EmergencyPersonComponent implements OnInit {
     },
     error: err => {
       this.flagGetPersonHealth = false;
-      this.commonService.openSnackBar(err.error.msg,'Cerrar');
+      this.commonService.openSnackBar(err.error.msg, 'Cerrar');
      } 
     });
   }

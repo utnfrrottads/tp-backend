@@ -7,17 +7,17 @@ import { HealthInsurance } from '../../models/health-insurance';
 })
 export class HealthInsuranceListComponent {
 
-  @Input() allowEdit: boolean = false;   
-  @Input() allowDelete: boolean = false;
-  @Input() dataHealthInsurance: HealthInsurance[];   
+  @Input() allowEdit = false;
+  @Input() allowDelete = false;
+  @Input() dataHealthInsurance: HealthInsurance[];
   @Output() healthInsuranceSelected = new EventEmitter();
   @Output() healthInsuranceDeleted = new EventEmitter();
   displayedColumns: string[] = ['legalName', 'fantasyName', 'phone', 'actions'];
- 
-  editHealthInsurance(healthInsurance: HealthInsurance){
+
+  editHealthInsurance(healthInsurance: HealthInsurance): void {
     this.healthInsuranceSelected.emit(healthInsurance);
   }
-  deleteHealthInsurance(healthInsurance: HealthInsurance) {
+  deleteHealthInsurance(healthInsurance: HealthInsurance): void {
     this.healthInsuranceDeleted.emit(healthInsurance);
   }
 }
