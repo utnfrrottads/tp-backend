@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BloodType, Gender, Person, PersonHealthInsuranceResult, PersonResult } from '../models/person';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+  baseUrl = environment.baseUrl;
 
   constructor(
     private httpClient: HttpClient
