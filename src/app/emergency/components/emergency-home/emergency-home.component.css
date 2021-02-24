@@ -5,4 +5,21 @@
     border-collapse: separate;
     border-spacing: 5px 10px;
     border: 1px solid rgb(224, 224, 224);
+  }body{
+    background: #fff;
   }
+
+  /* Para resaltar un elemento cuando se realiza el hover */
+  .box {
+    transition: box-shadow .3s;
+    margin: 5px;
+    border-radius:10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    float: left;
+    
+  }
+  .box:hover {
+    transform: scale(1.02, 1.02);
+    box-shadow: 0 0 15px rgba(33,33,33,.2); 
+  } 

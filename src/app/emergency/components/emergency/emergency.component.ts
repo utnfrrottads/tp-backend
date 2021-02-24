@@ -199,7 +199,8 @@ export class EmergencyComponent implements OnInit {
   getAllBedsById(idHospital: string): void{
     this.hospitalService.getAllBedsById(idHospital).subscribe({
       next: res => {
-        this.dataBeds = res.beds.filter( b => b.status="Libre"); 
+        const beds = res.beds.filter( b => b.status==="Libre")
+        this.dataBeds = beds; 
     },
     error: err => {
       this.commonService.openSnackBar(err.error.msg,'Cerrar');

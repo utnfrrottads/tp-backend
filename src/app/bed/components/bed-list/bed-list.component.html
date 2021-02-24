@@ -58,7 +58,11 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-row 
+    *matRowDef="let row; columns: displayedColumns" 
+    [ngClass]="{'highlight': selectedRowIndex == row.id}"
+    (click)="highlight(row)"
+  ></mat-row>
    
 </mat-table>
 

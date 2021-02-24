@@ -166,7 +166,7 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
     Listados por API:
 
         Listado simple: 
-        1-Ambulancias 
+        1-Ambulancias (se hizo más de uno)
 
         Listado complejo:
         1-Efectores cercanos al lugar de la emergencia

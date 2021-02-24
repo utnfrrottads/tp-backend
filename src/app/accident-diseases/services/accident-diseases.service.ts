@@ -59,6 +59,7 @@ getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<H
     @tutorial post /addToHospitalByIds/:idHospital/:idAccidentOrDisease
   */
  addToHospitalByIds(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases): Observable<AccidentOrDiseasesResult>{    
+   console.log('hospitalAccidentOrDiseases',hospitalAccidentOrDiseases);
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };

@@ -7,6 +7,7 @@ import { CommonService } from '../../../common/services/common.service';
 import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
 import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 import { HealthInsurance } from 'src/app/health-insurance/models/health-insurance';
+import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
 
 @Component({
   selector: 'app-hospital',
@@ -42,7 +43,7 @@ export class HospitalComponent implements OnInit {
   inputType: number = InputType.create;
   flagListIsReady: boolean = false;
   dataHospitalHealthInsurances: HealthInsurance[];
-  dataHospitalAccidentOrDisease: import("c:/Users/genti/Documents/SISTEMAS/Proyectos/OneHospital/tp-backend-2020/src/app/accident-diseases/models/accidentOrDiseases").AccidentOrDiseases[];
+  dataHospitalAccidentOrDisease: AccidentOrDiseases[];
 
   constructor(
     private hospitalService: HospitalService,
@@ -167,7 +168,8 @@ export class HospitalComponent implements OnInit {
     }
   }
   onHospitalHealthInsuranceDeleted(hospitalHealthInsurance: HospitalHealthInsurances){
-    alert('mensaje no implementado, esperando backend');
+    alert('mensaje no implementado en backend');
+    // this.dataHospitalHealthInsurances.spli
   }
   
   geHospitalHealthInsurance(idHospital: string ){
@@ -186,9 +188,10 @@ export class HospitalComponent implements OnInit {
 
   /**Se obtienen los accidentes y enfermedades que atiende un hospital */
   onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
-    this.accidentDiseasesService.addToHospitalByIds(hospitalAccidentOrDiseases).subscribe({
+    this.hospitalService.addToAccidentOrDiseaseByIds(this.hospitalSelected ,hospitalAccidentOrDiseases.idAccidentOrDisease).subscribe({
       next: res => {
       this.commonService.openSnackBar('Se insertó exitosamente','Perfecto!'); 
+      this.getHospitalAccidentOrDisease(hospitalAccidentOrDiseases.idHospital);
       },
       error: err => {
         console.log(err);
@@ -196,9 +199,6 @@ export class HospitalComponent implements OnInit {
           + err.error.errors, 'Cerrar');
       } 
     });
-  }
-  onHospitalAccidentOrDiseaseDeleted(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
-    alert('mensaje no implementado, esperando backend');
   }
   /**Se obtienen los accidentes y enfermedades que atiende un hospital */
   getHospitalAccidentOrDisease(idHospital: string ){
@@ -210,5 +210,8 @@ export class HospitalComponent implements OnInit {
         this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades del hospital.', 'Cerrar');
       } 
     });
+  } 
+  onHospitalAccidentOrDiseaseDeleted(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases){
+    alert("no implementado");
   }
 }

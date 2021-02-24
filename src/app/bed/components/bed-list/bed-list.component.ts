@@ -3,7 +3,8 @@ import { Bed } from '../../models/bed'
  
 @Component({
   selector: 'app-bed-list',
-  templateUrl: './bed-list.component.html'
+  templateUrl: './bed-list.component.html',
+  styleUrls: ['./bed-list.component.css']
 })
 export class BedListComponent { 
 
@@ -14,6 +15,7 @@ export class BedListComponent {
   @Output() bedSelected = new EventEmitter();
   @Output() bedDeleted = new EventEmitter();
   displayedColumns: string[] = ['description', 'status', 'type', 'subtype', 'hospitalName', 'actions'];
+  selectedRowIndex: any;
  
   editBed(bed: Bed){
     this.bedSelected.emit(bed);
@@ -23,5 +25,6 @@ export class BedListComponent {
   }
   selectBed(bed: Bed) {
     this.bedSelected.emit(bed);
+    this.selectedRowIndex = bed.id;
   }
 }

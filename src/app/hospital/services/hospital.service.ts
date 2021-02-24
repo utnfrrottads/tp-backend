@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AccidentOrDiseases, AccidentOrDiseasesResult } from 'src/app/accident-diseases/models/accidentOrDiseases';
-import { Bed, BedResult } from 'src/app/bed/models/bed';
-import { HealthInsurance, HealthInsuranceResult } from 'src/app/health-insurance/models/health-insurance';
+import { AccidentOrDiseasesResult } from 'src/app/accident-diseases/models/accidentOrDiseases';
+import { BedResult } from 'src/app/bed/models/bed';
+import { HealthInsuranceResult } from 'src/app/health-insurance/models/health-insurance';
 import { AtentionLevel, Hospital, HospitalResult } from '../models/hospital';
 
 @Injectable({
@@ -124,7 +124,7 @@ export class HospitalService {
 * `ADDS` an AccidentOrDisease treated by hospital.
   post('/addToAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease'
 */ 
-  addToAccidentOrDiseaseByIds(hospital: Hospital, idAccidentOrDisease: number): Observable<HospitalResult>{    
+  addToAccidentOrDiseaseByIds(hospital: Hospital, idAccidentOrDisease: string): Observable<HospitalResult>{    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
