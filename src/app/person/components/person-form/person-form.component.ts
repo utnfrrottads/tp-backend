@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PersonService } from '../../services/person.service';
 import { BloodType, Gender, Person } from '../../models/person';
@@ -11,7 +11,7 @@ import { HealthInsurance } from 'src/app/health-insurance/models/health-insuranc
   templateUrl: './person-form.component.html',
   styleUrls: ['./person-form.component.css']
 })
-export class PersonFormComponent implements OnInit {
+export class PersonFormComponent implements OnInit, OnChanges {
 
   @Input() inputType: InputType;
   @Input() personSelected: Person;
@@ -23,26 +23,25 @@ export class PersonFormComponent implements OnInit {
   dataBloodType: BloodType[];
   maxDate: Date;
   hide = true;
-  tipoPersona: string= "Paciente";
- 
+  tipoPersona = 'Paciente';
 
   constructor(
-    private personService: PersonService, 
+    private personService: PersonService,
     private healthInsuranceService: HealthInsuranceService
   ) {
     const now = new Date();
     this.maxDate = new Date( now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDay());
   }
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.initForm();
     this.loadDropDown();
   }
-  ngOnChanges(){
+  ngOnChanges(): void{
     this.initForm();
     this.loadPersonSelected();
   }
-  initForm(){
+  initForm(): void{
     this.personForm = new FormGroup({
       id: new FormControl(''),
       dni: new FormControl('', [Validators.required]), 
@@ -57,14 +56,14 @@ export class PersonFormComponent implements OnInit {
       user: new FormControl(''),
       password: new FormControl(''),
       healthInsurances: new FormControl(''),
-      healthInsuranceId: new FormControl(''), //nuevo nombre sera idHealthInsurance
+      healthInsuranceId: new FormControl(''), // nuevo nombre sera idHealthInsurance
     });
   }
-  loadPersonSelected(){ 
+  loadPersonSelected(): void{ 
     if (this.personSelected !== undefined && this.personSelected.id !== null && this.personSelected.id !== '') {
-      this.personForm.patchValue({ 
+      this.personForm.patchValue({
         id: this.personSelected.id,
-        dni: this.personSelected.dni, 
+        dni: this.personSelected.dni,
         firstName: this.personSelected.firstName,
         lastName: this.personSelected.lastName,
         bornDate: this.personSelected.bornDate,
@@ -75,46 +74,45 @@ export class PersonFormComponent implements OnInit {
         user: this.personSelected.user,
         password: this.personSelected.password,
         healthInsurances: this.personSelected.healthInsurances,
-        healthInsuranceId: this.personSelected.healthInsuranceId //nuevo nombre sera idHealthInsurance
-      })
+        healthInsuranceId: this.personSelected.healthInsuranceId // nuevo nombre sera idHealthInsurance
+      });
     }
   }
 
-  onSubmit(){
+  onSubmit(): void{
     if(this.inputType===InputType.create){
       this.add.emit(this.personForm.value);
     } else if(this.inputType===InputType.edit){
       this.edit.emit(this.personForm.value);
     } 
   }
-  loadDropDown(){
-    this.getBloodTypes(); 
+  loadDropDown(): void{
+    this.getBloodTypes();
     this.getHealthInsurances();
     this.getGenders();
   }
-  getHealthInsurances(){
+  getHealthInsurances(): void{
     this.healthInsuranceService.getHealthInsurances().subscribe({
       next: res => {
       this.dataHealthInsurance = res.healthInsurances;
-      }, 
-    });  
+      },
+    });
   }
-  getBloodTypes(){
+  getBloodTypes(): void{
     this.personService.getBloodTypes().subscribe({
       next: res => {
       this.dataBloodType = res;
-      
-      }, 
-    });  
+      }
+    });
   }
-  getGenders(){
+  getGenders(): void{
     this.personService.getGenders().subscribe({
       next: res => {
       this.dataGender = res;
-      }, 
-    });  
+      }
+    });
   }
-  setButtonText(){
-    return this.inputType===InputType.edit ? 'Actualizar': 'Agregar';
+  setButtonText(): string{
+    return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
   }
 }

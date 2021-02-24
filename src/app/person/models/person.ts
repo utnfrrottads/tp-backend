@@ -9,11 +9,11 @@ export interface Person {
     gender: string;
     phone: string;
     bloodType?: string;
-    emergencyContact?: Person; 
+    emergencyContact?: Person;
 
-    nurseWorkId?:string;
-    user?:string;
-    password?:string;
+    nurseWorkId?: string;
+    user?: string;
+    password?: string;
     healthInsurances: HealthInsurance[];    // TODO opcional ?
     healthInsuranceId: string;              // TODO opcional ? idHealthInsurance
 }
@@ -32,9 +32,9 @@ export interface PersonHealthInsuranceResult {
 
 export interface Gender {
     id: number;
-    description: string
+    description: string;
 }
 export interface BloodType{
     id: number;
-    description: string
+    description: string;
 }
