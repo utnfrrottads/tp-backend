@@ -5,13 +5,16 @@ import { AccidentOrDiseasesResult } from 'src/app/accident-diseases/models/accid
 import { BedResult } from 'src/app/bed/models/bed';
 import { HealthInsuranceResult } from 'src/app/health-insurance/models/health-insurance';
 import { AtentionLevel, Hospital, HospitalResult } from '../models/hospital';
+import { environment } from '../../../environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HospitalService {
 
-  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+  baseUrl = environment.baseUrl;
   controller: string = '/api-hospitals/';
 
   constructor(

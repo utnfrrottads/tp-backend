@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BedSummary, BedMonthly, BedType, BedStatus, Bed, BedResult, BedSubType } from '../models/bed';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BedService {
 
-  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+  baseUrl = environment.baseUrl;
 
   constructor(
     private httpClient: HttpClient

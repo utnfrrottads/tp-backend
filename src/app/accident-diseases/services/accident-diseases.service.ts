@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hospital, HospitalAccidentOrDiseases, HospitalResult } from 'src/app/hospital/models/hospital';
+import { environment } from 'src/environments/environment';
 import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../models/accidentOrDiseases';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../models/accident
 })
 export class AccidentDiseasesService {
 
-  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+  baseUrl = environment.baseUrl;
   controller: string = '/api-accidentOrDiseases/';
 
   constructor(

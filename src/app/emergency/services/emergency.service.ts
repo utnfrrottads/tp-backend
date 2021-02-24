@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Emergency, EmergencyResult } from '../models/emergency';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Emergency, EmergencyResult } from '../models/emergency';
 })
 export class EmergencyService{
   
-  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+  baseUrl = environment.baseUrl;
 
   constructor(
     private httpClient: HttpClient

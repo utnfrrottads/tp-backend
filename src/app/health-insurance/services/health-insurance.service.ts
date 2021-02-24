@@ -3,13 +3,14 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HealthInsurance, HealthInsuranceResult } from '../models/health-insurance';
 import { HospitalHealthInsurance, HospitalHealthInsurances } from 'src/app/hospital/models/hospital';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HealthInsuranceService {
 
-  baseUrl: string = 'https://us-central1-tp-ttads-cecb8.cloudfunctions.net';
+  baseUrl = environment.baseUrl;
 
   constructor(
     private httpClient: HttpClient
