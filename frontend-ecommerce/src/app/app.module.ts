@@ -16,6 +16,9 @@ import { BranchesComponent } from './Components/branches/branches.component';
 import { NotesComponent } from './Components/notes/notes.component';
 import { RolesComponent } from './Components/roles/roles.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MarketComponent } from './components/market/market.component';
+import { ProductItemComponent } from './components/product-item/product-item.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { AppRoutingModule } from './app-routing.module';
     SalesComponent,
     BranchesComponent,
     NotesComponent,
-    RolesComponent
+    RolesComponent,
+    MarketComponent,
+    ProductItemComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
