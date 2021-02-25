@@ -1,0 +1,38 @@
+<!-- Componente Login -->
+<div *ngIf = "!currentUser">
+    <div class="container ">
+        <div id="errorAlert" class="row m-3" style="visibility: hidden;">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{message}}
+        </div>
+        </div>
+        <div class="col  d-flex justify-content-center">
+            <div class="card ">
+                <div class="card-title d-flex justify-content-center">
+                    <div class="lead">Inicio de Sesión</div>
+                </div>
+                <div class="card-content">
+                    
+                    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="loginUser(username.value, password.value, loginForm)">                 
+                        <div class="row m-1">
+                            <input  class="form-control col s5 "  #username type="text" name="username" placeholder="Enter your Username" required /> 
+                        </div>    
+                        <div class="row m-1">
+                            <input class="form-control col s5"  #password type="text" name="password"  placeholder="Enter your Password" required />
+                        </div>
+                        <div class="row">
+                            <div class="card-action m-1 d-flex justify-content-center">
+                                <button class="btn btn-primary" type="submit" >Iniciar Sesión</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf = "currentUser">
+    <button (click)="logoutUser()">
+        Logout
+    </button>
+</div>
