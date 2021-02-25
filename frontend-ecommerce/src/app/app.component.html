@@ -1,5 +1,8 @@
+
 <app-header></app-header>
 
-<app-login></app-login>
+<div *ngIf="!currentUser">
+    <app-login></app-login>
+</div>
 
 <router-outlet></router-outlet> 
