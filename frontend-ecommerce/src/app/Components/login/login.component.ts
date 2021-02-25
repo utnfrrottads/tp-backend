@@ -13,33 +13,36 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   message = '';
+  validations = true;
 
   constructor(private userService: UserService) { }
   
   ngOnInit(): void {
   }
-  
-  loginUser(username: string, password: string, form: NgForm){
-      try{
 
-        if(username == null || password == null) {
-          this.message= "Ingrese todos los datos necesarios."
-          throw this.message
+  loginUser(username: string, password: string, form: NgForm){
+    document.getElementById('errorAlert')?.setAttribute("style", "visibility=false")
+
+    if( username == "" || password == "" ) {
+      this.message= "Ingrese todos los datos necesarios."
+      this.validations = false
+      console.log("in")
+      document.getElementById('errorAlert')?.setAttribute("style", "visibility=visible")  
+    }
+    
+    if(this.validations){
+      this.userService.loginUser(username, password).subscribe(res => {
+      console.log(JSON.parse(JSON.stringify(res)))
+      }, 
+      (err) => {
+        console.log("iner")
+        if( JSON.stringify(err).includes("error")){
+          form.reset();
+          this.message = JSON.parse(JSON.stringify(err)).error.error
+          // $('#alert').show()
         }
-        
-        this.userService.loginUser(username, password).subscribe(res => {
-          console.log(res)
-        }, 
-        (err) => {
-          if( JSON.stringify(err).includes("error")){
-            form.reset();
-            this.message = JSON.parse(JSON.stringify(err)).error.error
-            $('#alert').slideDown()
-          }
-        })
-      } catch {
-        $('#alert').show()
-      }
+      })
+    }
   }
 
 }

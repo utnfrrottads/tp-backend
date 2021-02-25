@@ -20,11 +20,9 @@ export class UserService {
 
   loginUser(username: string, password: string){
     
-    var login = `{'
-       "username" : ${username},
-       "age"  : ${password}
-       }`;
+    var login = `{"username": "${username}", "password":"${password}"}`;
 
+       console.log(login)
     var url = this.URL_API + "login";
 
     return this.http.post(url, login);
