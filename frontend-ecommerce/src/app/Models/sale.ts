@@ -1,10 +1,11 @@
-import { CartItem } from "./cart-item";
-import { User } from "./user";
+import { CartItem } from './cart-item';
+import { User } from './user';
 
 export class Sale {
-    
-    constructor(_id='', transNum = 0, pc='', date= new Date(), street='', number='', client = '', deletedClient= new User(), cart=[new CartItem()]){
-        this._id=_id;
+
+    // tslint:disable-next-line:max-line-length
+    constructor(_id= '', transNum = 0, pc= '', date= new Date(), street= '', number= '', client = '', deletedClient= new User(), cart= [new CartItem()]){
+        this._id = _id;
         this.transactionNumber = transNum;
         this.pc = pc;
         this.date = date;
@@ -16,7 +17,7 @@ export class Sale {
     }
 
     _id: string;
-    transactionNumber:number;
+    transactionNumber: number;
     pc: string;
     date: Date;
     street: string;

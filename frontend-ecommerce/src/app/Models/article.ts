@@ -1,9 +1,9 @@
-import { Price } from "./price";
+import { Price } from './price';
 
 export class Article {
 
-    constructor(_id='', name='', description='', presentation='', notes=[''], prices=[new Price()]){
-        this._id=_id;
+    constructor(_id= '', name= '', description= '', presentation= '', notes= [''], prices= [new Price()]){
+        this._id = _id;
         this.name = name;
         this.description = description;
         this.presentation = presentation;
