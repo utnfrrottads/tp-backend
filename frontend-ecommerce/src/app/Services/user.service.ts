@@ -23,4 +23,8 @@ export class UserService {
 
     return this.http.post(url, JSON.parse(login));
   }
+
+  logoutUser() {
+    localStorage.removeItem('CurrentUser')
+  }
 }

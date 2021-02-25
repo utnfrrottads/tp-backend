@@ -14,7 +14,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   
-  currentUser: User;
+  currentUser: any;
   message = '';
   validations = true;
 
@@ -23,13 +23,13 @@ export class LoginComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    
   }
 
-  closeSession(){
-    sessionStorage.removeItem('CurrentUser')
+  logoutUser() {
+    console.log("in")
+    this.currentUser = null
+    this.userService.logoutUser()
   }
-
 
   loginUser(username: string, password: string, form: NgForm){
     document.getElementById('errorAlert')?.setAttribute("style", "visibility=hidden")
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     if(this.validations){
       this.userService.loginUser(username, password).subscribe(res => {
       this.currentUser = res as User
-      sessionStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
+      localStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
       console.log("ok")
       }, 
       (err) => {
