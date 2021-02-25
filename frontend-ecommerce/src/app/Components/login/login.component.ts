@@ -10,16 +10,16 @@ import {UserService} from '../../Services/user.service'
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
+  // username: string;
+  // password: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
 
-  loginUser(form: NgForm){
-      this.userService.loginUser(, form.value)
-  }
+  // loginUser(form: NgForm){
+  //     this.userService.loginUser(, form.value)
+  // }
 
 }
