@@ -108,6 +108,17 @@ person.put('/addEmergencyContactById/:personId/:contactId', [
 /**
 * `DELETES` a person by ID.
 */
+person.delete('/deleteHealthInsuranceById/:idPerson/:idHealthInsurance', [
+    param('idPerson').not().isEmpty().withMessage('El campo idPerson es requerido'),
+    param('idPerson').isLength({ min: 20, max: 20 }).withMessage('El idPerson debe tener 20 caracteres'),
+    param('idPerson').isAlphanumeric().withMessage('El idPerson debe ser alfanumérico'),
+    param('idHealthInsurance').not().isEmpty().withMessage('El campo idHealthInsurance es requerido'),
+    param('idHealthInsurance').isLength({ min: 20, max: 20 }).withMessage('El idHealthInsurance debe tener 20 caracteres'),
+    param('idHealthInsurance').isAlphanumeric().withMessage('El idHealthInsurance debe ser alfanumérico'),
+], validate, PersonsController.deleteHealthInsuranceById);
+/**
+* `DELETES` a person by ID.
+*/
 person.delete('/deletePersonById/:id', [
     param('id').not().isEmpty().withMessage('El campo id es requerido'),
     param('id').isLength({ min: 20, max: 20 }).withMessage('El Id debe tener 20 caracteres'),

@@ -23,6 +23,43 @@ module.exports = {
         }
     },
     /**
+    * `GETS` all hospitals by Insurance.
+    *
+    * @returns The list of hospitals retrieved
+    */
+    getHospitalsByHealthInsurance: async (req, res) => {
+        try {
+            const idHealthInsurance = req.params.idHealthInsurance;
+            const hospitalsIndexesToRemove = [];
+            let matchedHospitals: Hospital[] = [];
+            const hospitalsToFilter = await hospitalRepository.find();
+
+            console.log("idHealthInsurance: " + idHealthInsurance);
+            console.log("Lenght: " + hospitalsToFilter.length);
+
+            async function filterHospitalsByInsuranceAndDisease(hospitalsToFilter) {
+                // Filters by healthInsurance and accidentOrDisease
+                for (let index = 0; index < hospitalsToFilter.length; index++) {
+                    const healthInsuranceMatch = await hospitalsToFilter[index].healthInsurances.findById(idHealthInsurance);
+                    if (!healthInsuranceMatch) {
+                        hospitalsIndexesToRemove.push(index);
+                    }
+                }
+                // Removes hospitals that don't match healthInsurance or accidentOrDisease
+                for (const hospitalToRemove of hospitalsIndexesToRemove) {
+                    delete hospitalsToFilter[hospitalToRemove];
+                }
+                matchedHospitals = hospitalsToFilter.filter(() => true);
+            }
+
+            await filterHospitalsByInsuranceAndDisease(hospitalsToFilter);
+
+            res.status(200).json({ success: true, hospitals: matchedHospitals, msg: "Hospitales obtenidos con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `GETS` all hospitals by Insurance and AccidentOrDisease.
     *
     * @returns The list of hospitals retrieved
