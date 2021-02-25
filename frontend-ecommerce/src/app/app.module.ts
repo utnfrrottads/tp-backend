@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { FormsModule, NgModel} from '@angular/forms'
-import {HttpClientModule} from '@angular/common/http'
+import { FormsModule, NgModel} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
@@ -15,6 +15,7 @@ import { SalesComponent } from './Components/sales/sales.component';
 import { BranchesComponent } from './Components/branches/branches.component';
 import { NotesComponent } from './Components/notes/notes.component';
 import { RolesComponent } from './Components/roles/roles.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RolesComponent } from './Components/roles/roles.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

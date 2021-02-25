@@ -1,7 +1,7 @@
 export class Role {
 
-    constructor(_id='', name = '', description='', permissions = ['']){
-        this._id=_id;
+    constructor(_id= '', name = '', description= '', permissions = ['']){
+        this._id = _id;
         this.name = name;
         this.description = description;
         this.permissions = permissions;
