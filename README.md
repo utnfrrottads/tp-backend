@@ -150,36 +150,38 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
     ABMC:
 
         ABMC de entidad simple 
-        1-Cama
-        2-TipoAuxilio
-        3-Ambulancia
-        4-ObraSocial
+        1-Cama (ok)
+        2-Tratamientos (ok)
+        3-ObraSocial (ok)
+        
 
         ABMC compleja. 
-        1-Paciente (relacionado con entidades: Persona, Contacto, Obra Social)
-        2-Emergencia (relacionado con entidades: Efector, Paciente, Enfermero, AccidenteEnfermedad, Cama, Ambulancia)
+        1-Persona (relacionado con entidades: Persona, Contacto, Obra Social)
+        2-Emergencia (MAPA) (relacionado con entidades: Efector, Paciente, Enfermero, AccidenteEnfermedad, Cama, Ambulancia) 
+        
         
         ABMC por API
-        1-Efectores
+        1-Hospital
  
 
     Listados por API:
 
         Listado simple: 
-        1-Ambulancias (se hizo más de uno)
+        1-Obras sociales
 
-        Listado complejo:
-        1-Efectores cercanos al lugar de la emergencia
+        Listado complejo: 
+
+        1-Hospitales cercanos al lugar de la emergencia (MAPA CRUD+"Listado")
           .Atributos a mostrar: Efector, NivelAtencion, cantidad de camas disponibles y distancia
           .Filtros: NivelAtencion, ubicaciónActual y obraSocial.
 
-        2-Camas ocupadas: 
-          .Atributos a mostrar: Cama, NivelAtencion, Efector, obraSocial, dias Ocupada
+        2-Camas libres disponibles a una obra social:
+          .Atributos a mostrar: NivelAtencion, Hospital, obraSocial, freeBeds
           .Filtros: obraSocial 
-          
-    Detalle del listado "Efectores cercanos al lugar de la emergencia":
-        1-Se podrá ver la información del Paciente, con el detalle de su Nombre y de la persona de contacto.
-       
+
+ 
+    Detalle del listado "1-Hospitales cercanos al lugar de la emergencia --> Contacto paciente":
+      1-Se podrá ver la información del Paciente, con el detalle de su Nombre y de la persona de contacto.
        
        
 Miembros del equipo:

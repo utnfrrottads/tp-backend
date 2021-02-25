@@ -47,9 +47,9 @@
   <mat-tab label="Obras sociales adheridas">
     <br>
       <app-health-insurance-list
-      [dataHealthInsurance]="this.personHealthInsuranceResultData.healthInsurances"
-      [allowDelete]="true"
-      (healthInsuranceDeleted)="onHealthInsuranceDeleted($event)">
+        [dataHealthInsurance]="this.personHealthInsuranceResultData.healthInsurances"
+        [allowDelete]="true"
+        (healthInsuranceDeleted)="onHealthInsuranceDeleted($event)">
       </app-health-insurance-list> 
   </mat-tab>
 </mat-tab-group>
