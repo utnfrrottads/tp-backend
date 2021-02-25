@@ -5,12 +5,8 @@ const {Schema} = mongoose; //Importo los esquemas de Mongo
 const ProductSchema = new Schema({
     branch: {type: Schema.Types.ObjectId, required: true},
     article: {type: Schema.Types.ObjectId, required: true},
-    stock:[
-        {
-            quantity: {type: Number},
-            date: {type: Date}
-        }
-    ]
+    stock:{type: Number, required: true},
+    isActive: {type: Boolean, required: true}
 },
 {collection: 'products'})
 

@@ -1,0 +1,25 @@
+<!-- Componente Login -->
+
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)")>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="username" [(ngModel)]="username" placeholder="Enter your Username">
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" name="password" #password = "ngModel" placeholder="Enter your Username">
+                        </div>
+                        <div class="card-action">
+                            <div class="input-field col s12">
+                                <button class="btn-primary center">Iniciar Sesión</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
