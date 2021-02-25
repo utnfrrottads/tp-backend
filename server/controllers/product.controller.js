@@ -18,7 +18,7 @@ ProductCtrl.checkDuplicate = async(articleID, branchID, productID = '  ') => {
 //Valida que el articulo exista
 ProductCtrl.checkArticle = async(articleID) => {
     let article = await Article.findById(articleID);
-    if(!(article.length > 0)) {
+    if(!(article._id.toString().length > 0)) {
         throw ApiError.badRequest('El articulo ingresado no existe.');
     }
 }
@@ -26,7 +26,7 @@ ProductCtrl.checkArticle = async(articleID) => {
 //Valida que la rama exista
 ProductCtrl.checkBranch = async(branchID) => {
     let branch = await Branch.findById(branchID);
-    if(!(branch.length > 0)) {
+    if(!(branch._id.toString().length > 0)) {
         throw ApiError.badRequest('La rama seleccionada no existe');
     }
 }

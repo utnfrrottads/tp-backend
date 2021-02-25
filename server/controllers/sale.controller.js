@@ -33,7 +33,7 @@ saleCtrl.checkProductAndStock = async(cart) => {
     let msg;
     cart.forEach(product => {
         let p = Product.findById(product.product)
-        if(p.length > 0){
+        if(p.toString().length > 0){
             if(p.stock < product.quantity){
                 let article = Article.findById(p.article);
                 msg = "El producto "+article.name+" no tiene stock suficiente";
@@ -49,8 +49,8 @@ saleCtrl.checkProductAndStock = async(cart) => {
 }
 
 saleCtrl.checkClient = async(clientID) => {
-    let user = User.find({_id: clientID, client:true});
-    if(!(user.length>0)){
+    let user = await User.findById({_id: clientID, client:true});
+    if(!(user._id.toString().length > 0)){
         throw ApiError.badRequest('El cliente seleccionado no existe');
     }
 }
@@ -86,20 +86,18 @@ saleCtrl.createSale = async (req, res, next) => {
             next(err);
             validations = false;
         })
-        await saleCrtl.checkClient(sale.client).catch((err) => {
-            next(err);
-            validations = false;
-        })
         await saleCtrl.checkProductAndStock(sale.cart).catch((err) => {
             next(err);
             validations = false;
         })
         if(validations){
             await sale.save();
+            console.log("llego")
             await sale.cart.forEach( item => {
                     saleCtrl.updateStock(item, "new")
                 }
             )
+            
             res.json({ status: 'Venta creada' });
         }
     } catch(err) {
@@ -110,8 +108,9 @@ saleCtrl.createSale = async (req, res, next) => {
 //M�todo borrar venta
 saleCtrl.deleteSale = async (req, res, next) => {
     try{
-        let sale = await findById(req.params.id);
-        await findByIdAndRemove(req.params.id);
+        let sale = await Sale.findById(req.params.id);
+        console.log(sale._id)
+        await Sale.findByIdAndRemove(sale._id);
         await saleCtrl.updateStock(sale.cart,"delete");
         res.json({ status: 'Venta eliminada'});
     } catch(err){
