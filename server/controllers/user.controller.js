@@ -128,6 +128,8 @@ UserCtrl.createUser = async(req, res, next) => {
             client: (req.body.client) ? req.body.client : false,
             roles: req.body.roles
         });
+        console.log(req.body.roles)
+        console.log(newUser.roles)
         await UserCtrl.checkValidDNI(newUser.dni).catch((err) => {
             next(err);
             validations = false;
@@ -150,7 +152,7 @@ UserCtrl.createUser = async(req, res, next) => {
         });
         if (validations) {
             await newUser.save()
-            res.json('Usuario guardado correctamente.');
+            res.json({ status: 'Usuario guardado correctamente.'});
         }
     } catch (err) {
         next(err);
