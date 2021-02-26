@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from './Services/user.service';
+import { Article } from './Models/article';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,7 @@ import { UserService } from './Services/user.service';
 })
 export class AppComponent {
   title = 'frontend-ecommerce';
+
+  article = new Article('asd', 'test', 'testdesc', '50ml', ['fruta'], [{price:15.5, date: new Date()}])
+  
 }
