@@ -42,7 +42,24 @@ articlesCtrl.checkName = async(name, id = ' ') => {
 articlesCtrl.getArticles = async(req, res, next) => {
     try {
         const articles = await Articles.find();
-        res.json(articles);
+        let articles1=[]
+        for(let i in req.name){
+            articles1.push(articles.filter((val) => val.name == req.name[i]))             
+        }
+        for(let i in req.presentation){
+            articles1.push(articles.filter((val) => val.presentation == req.presentation[i]))
+        }
+        for(let i in req.notes){
+            articles1.push(articles.filter((val) => val.notes == req.notes[i]))
+        }
+        
+        let artOrigin=[]
+        for(let i=0; i<articles1.length; i++){
+            artOrigin = artOrigin.concat(articles1[i])
+        }
+        
+        const articles2 = [...new Set(artOrigin)];
+        articles2.length === 0 ? res.json(articles) : res.json(articles2)
     } catch (err) {
         next(err)
     }
