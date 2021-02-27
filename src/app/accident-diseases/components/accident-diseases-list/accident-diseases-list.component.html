@@ -13,6 +13,12 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>   
       <td mat-cell *matCellDef="let ad"> 
+        <button mat-mini-fab color="primary" (click)="selectHad(ad)" *ngIf="allowSelect">
+          <mat-icon>input</mat-icon> 
+        </button>  
+        <button mat-mini-fab color="accent" (click)="editHad(ad)" *ngIf="allowEdit">
+          <mat-icon>edit</mat-icon>
+        </button>  
         <button mat-mini-fab color="warn" (click)="deleteHad(ad)" *ngIf="allowDelete">
           <mat-icon>delete</mat-icon>
         </button> 

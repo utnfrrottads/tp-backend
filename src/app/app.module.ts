@@ -20,7 +20,7 @@ import { DashComponent } from './dashboard/dash/dash.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatDialogModule } from '@angular/material/dialog'; 
+import { MatDialogModule } from '@angular/material/dialog';
 import { BedComponent } from './bed/components/bed/bed.component';
 import { CardComponent } from './dashboard/card/card.component';
 import { CamasByNivelChartComponent } from './dashboard/charts/camas-by-nivel-chart/camas-by-nivel-chart.component';
@@ -32,18 +32,18 @@ import { CamasTableComponent } from './dashboard/camas-table/camas-table.compone
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MiniCardComponent } from './dashboard/mini-card/mini-card.component';  
+import { MiniCardComponent } from './dashboard/mini-card/mini-card.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatFormFieldModule } from '@angular/material/form-field'; 
-import { MatInputModule } from '@angular/material/input'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MapComponent } from './emergency/components/map/map.component';
-import { MapEmergenciaComponent } from './emergency/components/map-emergencia/map-emergencia.component'; 
+import { MapEmergenciaComponent } from './emergency/components/map-emergencia/map-emergencia.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapTomtomComponent } from './emergency/components/map-tomtom/map-tomtom.component';
-import { MatBadgeModule } from '@angular/material/badge'; 
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HealthInsuranceComponent } from './health-insurance/components/health-insurance/health-insurance.component';
@@ -53,11 +53,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PersonComponent } from './person/components/person/person.component';
 import { PersonFormComponent } from './person/components/person-form/person-form.component';
 import { PersonListComponent } from './person/components/person-list/person-list.component';
-import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HospitalComponent } from './hospital/components/hospital/hospital.component';
 import { HospitalFormComponent } from './hospital/components/hospital-form/hospital-form.component';
-import { HospitalListComponent } from './hospital/components/hospital-list/hospital-list.component'; 
+import { HospitalListComponent } from './hospital/components/hospital-list/hospital-list.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { HospitalHealthInsuranceFormComponent } from './hospital/components/hospital-health-insurance-form/hospital-health-insurance-form.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -69,6 +69,7 @@ import { AccidentDiseasesComponent } from './accident-diseases/components/accide
 import { MatStepperModule } from '@angular/material/stepper';
 import { EmergencyAccidentDiseasesComponent } from './emergency/components/emergency-accident-diseases/emergency-accident-diseases.component';
 import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
+import { AccidentDiseasesFormComponent } from './accident-diseases/components/accident-diseases-form/accident-diseases-form.component';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { EmergencyHomeComponent } from './emergency/components/emergency-home/em
     AccidentDiseasesComponent,
     EmergencyAccidentDiseasesComponent,
     EmergencyHomeComponent,
+    AccidentDiseasesFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,8 +126,8 @@ import { EmergencyHomeComponent } from './emergency/components/emergency-home/em
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule, 
-    MatFormFieldModule, 
+    MatMenuModule,
+    MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -135,7 +137,7 @@ import { EmergencyHomeComponent } from './emergency/components/emergency-home/em
     AppRoutingModule,
     HttpClientModule,
     MatInputModule,
-    MatCheckboxModule, 
+    MatCheckboxModule,
     MatSelectModule,
     MatDialogModule,
     MatExpansionModule,

@@ -39,7 +39,7 @@ export class BedFormComponent implements OnInit, OnChanges {
   }
   initForm(): void {
     this.bedForm = new FormGroup({
-      id: new FormControl({ value: ''}),
+      id: new FormControl(''),
       description: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),

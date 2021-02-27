@@ -8,19 +8,21 @@ import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../../models/accid
 })
 export class AccidentDiseasesListComponent {
 
-  @Input() allowEdit: boolean = false;   
-  @Input() allowDelete: boolean = false;
-  @Input() dataAccidentOrDisease: HospitalAccidentOrDiseases[];  
-  @Output() accidentOrDiseaseDeleted = new EventEmitter();  
+  @Input() allowEdit = false;
+  @Input() allowDelete = false;
+  @Input() allowSelect = false;
+  @Input() dataAccidentOrDisease: HospitalAccidentOrDiseases[];
+  @Output() accidentOrDiseaseDeleted = new EventEmitter();
+  @Output() accidentOrDiseaseSelected = new EventEmitter();
   displayedColumns: string[] = ['description', 'actions'];
 
-  // deleteHospitalHealthInsurance(hospitalHealthInsurances: HospitalHealthInsurances) {
-  //   this.hospitalHealthInsuranceDeleted.emit(hospitalHealthInsurances);
-  // }
-
-  deleteHad(accidentOrDiseases: AccidentOrDiseases){
+  deleteHad(accidentOrDiseases: AccidentOrDiseases): void{
     this.accidentOrDiseaseDeleted.emit(accidentOrDiseases);
   }
-
-
+  editHad(accidentOrDiseases: AccidentOrDiseases): void {
+    this.accidentOrDiseaseSelected.emit(accidentOrDiseases);
+  }
+  selectHad(accidentOrDiseases: AccidentOrDiseases): void {
+    this.accidentOrDiseaseSelected.emit(accidentOrDiseases);
+  }
 }

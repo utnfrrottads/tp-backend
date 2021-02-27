@@ -91,10 +91,4 @@ export class HealthInsuranceComponent implements OnInit {
   isCreate(): boolean{
     return this.inputType === 1 ? true : false;
   }
-  resetForm(): void {
-    this.healthInsuranceSelected.id = '';
-    this.healthInsuranceSelected.fantasyName = '';
-    this.healthInsuranceSelected.legalName = '';
-    this.healthInsuranceSelected.phone = 0;
-  }
 }

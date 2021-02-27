@@ -175,7 +175,7 @@ Podemos citar las siguientes características a desarrollar para el TP en cuesti
           .Atributos a mostrar: Efector, NivelAtencion, cantidad de camas disponibles y distancia
           .Filtros: NivelAtencion, ubicaciónActual y obraSocial.
 
-        2-Camas libres disponibles a una obra social:
+        2-Camas disponibles a una obra social:
           .Atributos a mostrar: NivelAtencion, Hospital, obraSocial, freeBeds
           .Filtros: obraSocial 
 

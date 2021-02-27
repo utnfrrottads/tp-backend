@@ -1,0 +1,18 @@
+<h2 *ngIf="inputType!=2">Agregar tratamiento</h2>
+<h2 *ngIf="inputType===2">Editar tratamiento</h2>
+
+<form  [formGroup]="accidentDiseasesForm" (ngSubmit)="onSubmit()" class="mi-form">
+    <h3>Accidente - Enfermedad</h3>
+    <p> 
+        <mat-form-field  appearance="fill" class="mi-full-width">
+            <mat-label> Descripción: </mat-label>
+            <input matInput formControlName="description" placeholder="Descripcion del accidente o enfermedad" >
+            <mat-error *ngIf="accidentDiseasesForm.controls.description.touched && accidentDiseasesForm.controls.description.invalid">
+                <span *ngIf="accidentDiseasesForm.controls.description.errors.required">No te olvides de completarlo!</span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <button mat-raised-button color="primary" type="submit" [disabled]="!accidentDiseasesForm.valid">{{setButtonText()}}</button>
+</form>
+ 
+{{accidentDiseasesForm.value | json }}

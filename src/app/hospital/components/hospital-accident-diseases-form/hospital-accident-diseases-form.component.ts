@@ -33,7 +33,7 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit, OnChanges 
   }
   initForm(): void {
     this.hospitalAccidentOrDiseasesForm = new FormGroup({
-      idHospital: new FormControl({ value: ''}),
+      idHospital: new FormControl(''),
       idAccidentOrDisease: new FormControl('', [Validators.required])
     });
   }

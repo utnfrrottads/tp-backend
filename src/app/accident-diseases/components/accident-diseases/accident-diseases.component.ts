@@ -1,34 +1,95 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
+import { InputType } from 'src/app/common/models/typeInputEnum';
 import { CommonService } from 'src/app/common/services/common.service';
 import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../../models/accidentOrDiseases';
 import { AccidentDiseasesService } from '../../services/accident-diseases.service';
 
 @Component({
   selector: 'app-accident-diseases',
-  templateUrl: './accident-diseases.component.html',
-  styleUrls: ['./accident-diseases.component.sass']
+  templateUrl: './accident-diseases.component.html'
 })
 export class AccidentDiseasesComponent implements OnInit {
 
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   dataAccidentOrDisease: AccidentOrDiseases[];
+  accidentOrDiseasesSelected: AccidentOrDiseases = {
+    id: '',
+    description: '',
+  };
+  inputType: number = InputType.create;
+  flagListIsReady = false;
 
   constructor(
     private accidentDiseasesService: AccidentDiseasesService,
     private commonService: CommonService
   ) { }
+
   ngOnInit(): void {
-    this.getHospitalAccidentOrDisease();
+    this.getAllAccidentsOrDiseases();
   }
 
-  /** Se obtienen los accidentes y enfermedades que atiende un hospital */
-  getHospitalAccidentOrDisease(): void {
+  getAllAccidentsOrDiseases(): void {
+    this.flagListIsReady = true;
     this.accidentDiseasesService.getAllAccidentsOrDiseases().subscribe({
       next: res => {
         this.dataAccidentOrDisease = res.accidentOrDiseases;
+        this.flagListIsReady = false;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades del hospital.', 'Cerrar');
+        this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades', 'Cerrar');
       }
     });
+  }
+
+  setInputTypeCreate(): void {
+    this.accordion.openAll();
+    this.inputType = InputType.create;
+  }
+  onAccidentDiseaseSelected(accidentOrDiseases: AccidentOrDiseases): void {
+    console.log('accidentOrDiseases', accidentOrDiseases);
+    this.accordion.openAll();
+    this.accidentOrDiseasesSelected = accidentOrDiseases;
+    this.inputType = InputType.edit;
+  }
+  onAccidentDiseaseDeleted(accidentOrDiseases: AccidentOrDiseases): void {
+    this.accidentDiseasesService.deleteAccidentOrDiseaseById(accidentOrDiseases).subscribe({
+      next: res => {
+        // Para no ir de nuevo al backend y reducir la red
+        this.dataAccidentOrDisease = this.dataAccidentOrDisease.filter( item => !(item.id === accidentOrDiseases.id));
+        this.commonService.openSnackBar('El Accidente-Enfermedad se ha eliminado correctamente', 'Perfecto!');
+      },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer eliminar el Accidente-Enfermedad', 'Cerrar');
+       }
+    });
+  }
+  onAccidentDiseaseCreated(accidentOrDiseases: AccidentOrDiseases): void {
+    this.accidentDiseasesService.createAccidentOrDisease(accidentOrDiseases).subscribe({
+      next: res => {
+        console.log('res', res);
+        this.accordion.closeAll();
+        this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+        this.getAllAccidentsOrDiseases();
+      },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer agregar el Accidente-Enfermedad', 'Cerrar');
+       }
+    });
+  }
+  onAccidentDiseaseEdited(accidentOrDiseases: AccidentOrDiseases): void {
+    this.accidentDiseasesService.updateAccidentOrDiseaseById(accidentOrDiseases).subscribe({
+      next: res => {
+        this.accordion.closeAll();
+        this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
+        this.getAllAccidentsOrDiseases();
+      },
+      error: err => {
+        this.commonService.openSnackBar('Ups... algo falló al querer editar el Accidente-Enfermedad', 'Cerrar');
+       }
+    });
+  }
+  isCreate(): boolean{
+    return this.inputType === 1 ? true : false;
   }
 }

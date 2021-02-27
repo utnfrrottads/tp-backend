@@ -1,4 +1,36 @@
-<app-accident-diseases-list
-    [dataAccidentOrDisease]="dataAccidentOrDisease"
->
-</app-accident-diseases-list>
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header color="primary">
+        <mat-panel-title>
+          Formulario de Accidentes - Enfermedades 
+        </mat-panel-title>
+        <mat-panel-description> 
+          <div *ngIf="!isCreate()"> Editar </div>
+          <div *ngIf="isCreate()"> Agregar </div>
+          <div *ngIf="!isCreate()"><mat-icon>edit</mat-icon></div>
+          <div *ngIf="isCreate()"><mat-icon>plus_one</mat-icon></div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+          <app-accident-diseases-form
+              [accidentDiseasesSelected]="this.accidentOrDiseasesSelected"
+              [inputType]="this.inputType"
+              (add)="onAccidentDiseaseCreated($event)"
+              (edit)="onAccidentDiseaseEdited($event)">
+          </app-accident-diseases-form>
+    </mat-expansion-panel>
+  </mat-accordion> 
+  <br> 
+  <div *ngIf="!isCreate()">
+    <button mat-raised-button aria-label="Agregar obra social" (click)="setInputTypeCreate()">
+        Volver a form de creación <mat-icon>plus_one</mat-icon>
+    </button>
+  </div>
+  <br>
+    <app-accident-diseases-list
+        [dataAccidentOrDisease]="dataAccidentOrDisease"
+        [allowEdit]="true"
+        [allowDelete]="true"
+        (accidentOrDiseaseSelected)="onAccidentDiseaseSelected($event)"
+        (accidentOrDiseaseDeleted)="onAccidentDiseaseDeleted($event)">
+    </app-accident-diseases-list>
+<mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar>
