@@ -13,7 +13,7 @@ export default {
 			const table = await db.table.findByPk(reservation.tableId);
 
 			if (!table) {
-				// ToDo: Throw Excepction table not found.
+				// ToDo: Throw Exception table not found.
 			}
 
 			const newReservation = await db.reservation.create(reservation);
@@ -24,7 +24,7 @@ export default {
 			const table = await db.table.findByPk(reservation.tableId);
 
 			if (!table) {
-				// ToDo: Throw Excepction table not found.
+				// ToDo: Throw Exception table not found.
 			}
 
 			await db.reservation.update(reservation, {
