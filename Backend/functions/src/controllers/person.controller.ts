@@ -201,6 +201,37 @@ module.exports = {
         }
     },
     /**
+    * `DELETE` a HealthInsurance.
+    *
+    * @param idPerson - Id of the person that will delete a HealthInsurance
+    * @param idHealthInsurance - Id of the HealthInsurance that will be deleted
+    * 
+    * @returns The deleted HealthInsurance
+    */
+    deleteHealthInsuranceById: async (req, res) => {
+        try {
+            const idPerson = req.params.idPerson;
+            const idHealthInsurance = req.params.idHealthInsurance;
+            const person = await personRepository.findById(idPerson);
+
+            if (person === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una persona con ese ID" });
+            }
+
+            const healthInsurance = await healthInsuranceRepository.findById(idHealthInsurance);
+
+            if (healthInsurance === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una obra social con ese ID" });
+            }
+
+            await person.healthInsurances.delete(healthInsurance.id);
+
+            res.status(200).json({ success: true, obraSocial: healthInsurance, msg: "Obra social eliminada con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `UPDATES` a person by ID.
     *
     * @body Json with fields to update a person

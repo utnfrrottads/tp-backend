@@ -69,8 +69,7 @@ import { AccidentDiseasesComponent } from './accident-diseases/components/accide
 import { MatStepperModule } from '@angular/material/stepper';
 import { EmergencyAccidentDiseasesComponent } from './emergency/components/emergency-accident-diseases/emergency-accident-diseases.component';
 import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
-import { AccidentDiseasesFormComponent } from './accident-diseases/components/accident-diseases-form/accident-diseases-form.component';
-
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -109,7 +108,6 @@ import { AccidentDiseasesFormComponent } from './accident-diseases/components/ac
     AccidentDiseasesComponent,
     EmergencyAccidentDiseasesComponent,
     EmergencyHomeComponent,
-    AccidentDiseasesFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,7 +148,7 @@ import { AccidentDiseasesFormComponent } from './accident-diseases/components/ac
     MatStepperModule,
     GoogleMapsModule,
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

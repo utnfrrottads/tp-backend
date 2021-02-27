@@ -14,6 +14,15 @@ hospital.use(cors({ origin: true }));
 */
 hospital.get('/', validate, HospitalsController.getAllHospitals);
 /**
+* `GETS` all hospitals by Insurance.
+*/
+hospital.get('/getHospitalsByHealthInsurance/:idHealthInsurance', [
+    sanitizeParam(['idAccidentOrDisease', 'idHealthInsurance']).trim(),
+    param('idHealthInsurance').not().isEmpty().withMessage('El campo idHealthInsurance es requerido'),
+    param('idHealthInsurance').isLength({ min: 20, max: 20 }).withMessage('El idHealthInsurance debe tener 20 caracteres'),
+    param('idHealthInsurance').isAlphanumeric().withMessage('El idHealthInsurance debe ser alfanumérico'),
+], validate, HospitalsController.getHospitalsByHealthInsurance);
+/**
 * `GETS` all hospitals by Insurance and AccidentOrDisease.
 */
 hospital.get('/getHospitalsByHealthInsuranceAndAccidentOrDisease/:idAccidentOrDisease/:idHealthInsurance', [
@@ -80,6 +89,42 @@ hospital.post('/addToAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease', [
     param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
     param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
 ], validate, HospitalsController.addToAccidentOrDiseaseByIds);
+
+/**
+* `DELETES` an AccidentOrDisease.
+*/
+hospital.delete('/deleteAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+    param('idAccidentOrDisease').not().isEmpty().withMessage('El campo idAccidentOrDisease es requerido'),
+    param('idAccidentOrDisease').isLength({ min: 20, max: 20 }).withMessage('El idAccidentOrDisease debe tener 20 caracteres'),
+    param('idAccidentOrDisease').isAlphanumeric().withMessage('El idAccidentOrDisease debe ser alfanumérico'),
+], validate, HospitalsController.deleteAccidentOrDiseaseByIds);
+
+/**
+* `DELETES` a HealthInsurance.
+*/
+hospital.delete('/deleteHealthInsuranceByIds/:idHospital/:idHealthInsurance', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+    param('idHealthInsurance').not().isEmpty().withMessage('El campo idHealthInsurance es requerido'),
+    param('idHealthInsurance').isLength({ min: 20, max: 20 }).withMessage('El idHealthInsurance debe tener 20 caracteres'),
+    param('idHealthInsurance').isAlphanumeric().withMessage('El idHealthInsurance debe ser alfanumérico'),
+], validate, HospitalsController.deleteHealthInsuranceByIds);
+
+/**
+* `DELETES` a Bed.
+*/
+hospital.delete('/deleteBedByIds/:idHospital/:idBed', [
+    param('idHospital').not().isEmpty().withMessage('El campo idHospital es requerido'),
+    param('idHospital').isLength({ min: 20, max: 20 }).withMessage('El idHospital debe tener 20 caracteres'),
+    param('idHospital').isAlphanumeric().withMessage('El idHospital debe ser alfanumérico'),
+    param('idBed').not().isEmpty().withMessage('El campo idBed es requerido'),
+    param('idBed').isLength({ min: 20, max: 20 }).withMessage('El idBed debe tener 20 caracteres'),
+    param('idBed').isAlphanumeric().withMessage('El idBed debe ser alfanumérico'),
+], validate, HospitalsController.deleteBedByIds);
 
 /**
 * `UPDATES` a hospital by ID.

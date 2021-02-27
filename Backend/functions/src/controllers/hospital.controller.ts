@@ -3,8 +3,10 @@ import { Hospital } from '../models/hospital.model';
 import { getRepository } from 'fireorm';
 import { AccidentOrDisease } from '../models/accidentOrDisease.model';
 const admin = require('firebase-admin');
+import { HealthInsurance } from '../models/healthInsurance.model';
 const hospitalRepository = getRepository(Hospital);
 const accidentOrDiseaseRepository = getRepository(AccidentOrDisease);
+const healthInsuranceRepository = getRepository(HealthInsurance);
 import { getDistance, isPointWithinRadius } from 'geolib';
 
 module.exports = {
@@ -18,6 +20,43 @@ module.exports = {
             const hospitalsSnapshot = await hospitalRepository.find();
 
             res.status(200).json({ success: true, hospitals: hospitalsSnapshot, msg: "Hospitales obtenidos con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `GETS` all hospitals by Insurance.
+    *
+    * @returns The list of hospitals retrieved
+    */
+    getHospitalsByHealthInsurance: async (req, res) => {
+        try {
+            const idHealthInsurance = req.params.idHealthInsurance;
+            const hospitalsIndexesToRemove = [];
+            let matchedHospitals: Hospital[] = [];
+            const hospitalsToFilter = await hospitalRepository.find();
+
+            console.log("idHealthInsurance: " + idHealthInsurance);
+            console.log("Lenght: " + hospitalsToFilter.length);
+
+            async function filterHospitalsByInsuranceAndDisease(hospitalsToFilter) {
+                // Filters by healthInsurance and accidentOrDisease
+                for (let index = 0; index < hospitalsToFilter.length; index++) {
+                    const healthInsuranceMatch = await hospitalsToFilter[index].healthInsurances.findById(idHealthInsurance);
+                    if (!healthInsuranceMatch) {
+                        hospitalsIndexesToRemove.push(index);
+                    }
+                }
+                // Removes hospitals that don't match healthInsurance or accidentOrDisease
+                for (const hospitalToRemove of hospitalsIndexesToRemove) {
+                    delete hospitalsToFilter[hospitalToRemove];
+                }
+                matchedHospitals = hospitalsToFilter.filter(() => true);
+            }
+
+            await filterHospitalsByInsuranceAndDisease(hospitalsToFilter);
+
+            res.status(200).json({ success: true, hospitals: matchedHospitals, msg: "Hospitales obtenidos con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
@@ -229,6 +268,36 @@ module.exports = {
         }
     },
     /**
+    * `DELETES` an AccidentOrDisease.
+    *
+    * @param idHospital - Id of the hospital that will delete a HealthInsurance
+    * @param idAccidentOrDisease - Id of the AccidentOrDisease that will be deleted
+    * 
+    * @returns The deleted AccidentOrDisease
+    */
+    deleteAccidentOrDiseaseByIds: async (req, res) => {
+        try {
+            const idHospital = req.params.idHospital;
+            const idAccidentOrDisease = req.params.idAccidentOrDisease;
+            const hospital = await hospitalRepository.findById(idHospital);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const accidentOrDisease = await accidentOrDiseaseRepository.findById(idAccidentOrDisease);
+
+            if (accidentOrDisease === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un accidente o enfermedad con ese ID" });
+            }
+            await hospital.accidentOrDiseases.delete(accidentOrDisease.id);
+
+            res.status(200).json({ success: true, accidentOrDisease: accidentOrDisease, msg: "Accidente o enfermedad eliminado con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
     * `UPDATES` a hospital by ID.
     *
     * @body Json with fields to update a hospital
@@ -261,6 +330,66 @@ module.exports = {
             const hospitalUpdated = await hospitalRepository.update(hospitalToUpdate);
 
             res.status(200).json({ success: true, hospital: hospitalUpdated, msg: "Hospital actualizado con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `DELETES` a HealthInsurance.
+    *
+    * @param idHospital - Id of the hospital that will delete a HealthInsurance
+    * @param idHealthInsurance - Id of the HealthInsurance that will be deleted
+    * 
+    * @returns The deleted HealthInsurance
+    */
+    deleteHealthInsuranceByIds: async (req, res) => {
+        try {
+            const idHospital = req.params.idHospital;
+            const idHealthInsurance = req.params.idHealthInsurance;
+            const hospital = await hospitalRepository.findById(idHospital);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const healthInsurance = await healthInsuranceRepository.findById(idHealthInsurance);
+
+            if (healthInsurance === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un accidente o enfermedad con ese ID" });
+            }
+            await hospital.healthInsurances.delete(healthInsurance.id);
+
+            res.status(200).json({ success: true, healthInsurance: healthInsurance, msg: "Obra social eliminada con éxito" });
+        } catch (e) {
+            res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
+        }
+    },
+    /**
+    * `DELETES` a Bed.
+    *
+    * @param idHospital - Id of the hospital that will delete a Bed
+    * @param idBed - Id of the Bed that will be deleted
+    * 
+    * @returns The deleted Bed
+    */
+    deleteBedByIds: async (req, res) => {
+        try {
+            const idHospital = req.params.idHospital;
+            const idBed = req.params.idBed;
+            const hospital = await hospitalRepository.findById(idHospital);
+
+            if (hospital === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró un hospital con ese ID" });
+            }
+
+            const bed = await hospital.beds.findById(idBed);
+
+            if (bed === null) {
+                return res.status(404).json({ success: false, msg: "No se encontró una cama con ese ID" });
+            }
+            await hospital.beds.delete(bed.id);
+
+            res.status(200).json({ success: true, bed: bed, msg: "Cama eliminada con éxito" });
         } catch (e) {
             res.status(500).json({ success: false, errors: e.message, msg: "Se ha producido un error interno en el servidor." });
         }
