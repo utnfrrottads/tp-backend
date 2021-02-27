@@ -1,7 +1,7 @@
 import { OnChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { InputType } from 'src/app/common/models/typeInputEnum';
+import { InputType } from '../../../common/models/typeInputEnum';
 import { AccidentOrDiseases } from '../../models/accidentOrDiseases';
 import { AccidentDiseasesService } from '../../services/accident-diseases.service';
 

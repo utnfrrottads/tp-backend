@@ -31,11 +31,19 @@
       </app-card>
    </mat-grid-tile>
     <!--Table-->
+
     <mat-grid-tile [colspan]="( cardLayout | async )?.table.cols" [rowspan]="( cardLayout | async )?.table.rows">
       <app-card title="Camas">
           <app-camas-table></app-camas-table>   
       </app-card>
    </mat-grid-tile>
+   <mat-grid-tile [colspan]="( cardLayout | async )?.table.cols" [rowspan]="( cardLayout | async )?.table.rows">
+      <app-card title="Obras sociales">
+          <app-health-insurance-list
+            [dataHealthInsurance]="dataHealthInsurance">
+          </app-health-insurance-list>
+      </app-card>
+    </mat-grid-tile>
   </mat-grid-list>
  </div>
  

@@ -38,6 +38,9 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>   
       <td mat-cell *matCellDef="let hospital"> 
+        <button mat-mini-fab color="primary" (click)="selectHospital(hospital)" *ngIf="allowSelect">
+          <mat-icon>input</mat-icon> 
+        </button>  
         <button mat-mini-fab color="accent" (click)="editHospital(hospital)">
           <mat-icon>edit</mat-icon>
         </button>  

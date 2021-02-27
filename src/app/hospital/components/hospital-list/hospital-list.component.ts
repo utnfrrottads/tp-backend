@@ -8,6 +8,9 @@ import { Hospital } from '../../models/hospital';
 export class HospitalListComponent{
 
   @Input() dataHospital: Hospital[];
+  @Input() allowEdit = false;
+  @Input() allowDelete = false;
+  @Input() allowSelect = false;
   @Output() hospitalSelected = new EventEmitter();
   @Output() hospitalDeleted = new EventEmitter();
   displayedColumns: string[] = [

@@ -25,6 +25,8 @@
       <br> 
       <app-hospital-list
           [dataHospital]="this.dataHospital"
+          [allowEdit] = "true"
+          [allowDelete] = "true"
           (hospitalSelected)="onHospitalSelected($event)"
           (hospitalDeleted)="onHospitalDeleted($event)">
       </app-hospital-list>  
