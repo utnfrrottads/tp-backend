@@ -19,6 +19,9 @@ import { ListNoteComponent } from './Components/notes/components/list/list.compo
 import { AddNoteComponent } from './Components/notes/components/add/add.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MarketComponent } from './Components/market/market.component';
+import { ProductItemComponent } from './Components/product-item/product-item.component';
+import { MainComponent } from './Components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BranchesComponent,
     ListNoteComponent,
     RolesComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    RolesComponent,
+    MarketComponent,
+    ProductItemComponent,
+    MainComponent
   ],
   imports: [
   BrowserModule,

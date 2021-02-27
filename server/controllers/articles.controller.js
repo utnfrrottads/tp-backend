@@ -1,5 +1,6 @@
 //Metodos a la BD aqui
 const Articles = require('../models/article');
+const Note = require('../models/note')
 const ApiError = require('../error/ApiError');
 const article = require('../models/article');
 const articlesCtrl = {};
@@ -12,6 +13,18 @@ articlesCtrl.checkDependencies = async(id) => {
     }
 }
 
+//Valida que la nota exista
+articlesCtrl.checkNotes = async(notes) => {
+    if (notes.length > 0) {
+        let query = await Note.find().select('_id');
+        let allNotes = JSON.stringify(query);
+        notes.forEach(note => {
+            if (!allNotes.includes(note)) {
+                throw ApiError.badRequest('Alguna nota inexistente');
+            }
+        })
+    }
+}
 
 //Controla nombre repetido
 articlesCtrl.checkName = async(name, id = ' ') => {
@@ -19,7 +32,7 @@ articlesCtrl.checkName = async(name, id = ' ') => {
     if ((await articles).length > 0) {
         (await articles).forEach(article => {
             if (article._id.toString() !== id) {
-                throw ApiError.badRequest('El nombre del rol se encuentra repetido.');
+                throw ApiError.badRequest('El nombre del articulo se encuentra repetido.');
             }
         })
     }
@@ -98,20 +111,28 @@ articlesCtrl.deleteArticle = async(req, res, next) => {
 //Metodo crear nuevo articulo
 articlesCtrl.createArticle = async(req, res, next) => {
     try {
+        console.log("pase")
         let validations = true;
         const article = new Articles({
             name: req.body.name,
             description: req.body.description,
             presentation: req.body.presentation,
-            notes: req.body.notes,
+            notes: req.body.note,
             prices: req.body.prices
+        })
+
+
+        //console.log(Articles.notes)
+
+        await articlesCtrl.checkNotes(article.notes).catch((err) => {
+            next(err);
+            validations = false;
         })
         await articlesCtrl.checkName(article.name).catch((err) => {
             next(err);
             validations = false;
         })
         if (validations) {
-            const article = new Articles(req.body);
             await article.save();
             res.json({ status: "Articulo guardado correctamente" })
         }
