@@ -1,1 +1,49 @@
-<p>market works!</p>
+<!-- Sidebar -->
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+    
+    <div class="h2 text-white">
+        Filters
+    </div>
+    <div class="lean text-white m-2">
+        Notas
+    </div>
+    <div class="btn-group-vertical m-8">  
+        <div *ngFor="let note of filterValues.notes" class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{note}}" id="flexCheckChecked" (change)="onCBNote($event)">
+            <label  class="form-check-label text-white" for="flexCheckChecked">
+                {{note}}
+            </label>
+        </div>
+    </div>
+    <div class="lean text-white m-2">
+        Presentacion
+    </div>
+    <div class="btn-group-vertical m-8">  
+        <div *ngFor="let presentation of filterValues.presentations" class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{presentation}" id="flexCheckChecked">
+            <label class="form-check-label text-white" for="flexCheckChecked">
+                {{presentation}}
+            </label>
+        </div>
+    </div>
+</div>
+    
+    <!-- Use any element to open the sidenav -->
+    <!-- Page Content -->
+<div id="main">
+    <div class="col">
+        <button (click)="openNav()" class="btn btn-outline-info">
+            Filtros
+            <svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="col">
+        <div *ngFor="let article of articleService.articles" class="row">
+            <app-product-item [article]="article"></app-product-item>
+        </div>
+    </div>
+    <app-login></app-login>
+</div>
