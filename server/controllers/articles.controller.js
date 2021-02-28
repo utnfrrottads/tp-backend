@@ -41,16 +41,30 @@ articlesCtrl.checkName = async(name, id = ' ') => {
 //Metodo Obtener todos los articulos
 articlesCtrl.getArticles = async(req, res, next) => {
     try {
+        let arrNotes = []
+        for(let i in req.body.notes){
+            arrNotes[i] = await Note.find({name : req.body.notes[i]}).select('_id')
+        }
+        let notesOrigin=[]
+        for(let i=0; i<arrNotes.length; i++){
+            notesOrigin = notesOrigin.concat(arrNotes[i])
+        }
+        let i=0;
+        (notesOrigin).forEach(note =>{
+            req.body.notes[i] = note._id.toString()
+            i +=1
+        })
+
         const articles = await Articles.find();
         let articles1=[]
-        for(let i in req.name){
-            articles1.push(articles.filter((val) => val.name == req.name[i]))             
+        for(let i in req.body.name){
+            articles1.push(articles.filter((val) => val.name == req.body.name[i]))             
         }
-        for(let i in req.presentation){
-            articles1.push(articles.filter((val) => val.presentation == req.presentation[i]))
+        for(let i in req.body.presentation){
+            articles1.push(articles.filter((val) => val.presentation == req.body.presentation[i]))
         }
-        for(let i in req.notes){
-            articles1.push(articles.filter((val) => val.notes == req.notes[i]))
+        for(let i in req.body.notes){
+            articles1.push(articles.filter((val) => val.notes == req.body.notes[i]))
         }
         
         let artOrigin=[]
