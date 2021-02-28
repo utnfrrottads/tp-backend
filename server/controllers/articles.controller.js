@@ -43,13 +43,13 @@ articlesCtrl.getArticles = async(req, res, next) => {
     try {
         const articles = await Articles.find();
         let articles1=[]
-        for(let i in req.name){
+        for(let i in req.body.name){
             articles1.push(articles.filter((val) => val.name == req.name[i]))             
         }
-        for(let i in req.presentation){
+        for(let i in req.body.presentation){
             articles1.push(articles.filter((val) => val.presentation == req.presentation[i]))
         }
-        for(let i in req.notes){
+        for(let i in req.body.notes){
             articles1.push(articles.filter((val) => val.notes == req.notes[i]))
         }
         
