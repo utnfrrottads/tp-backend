@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
+import { ListNoteComponent } from './Components/notes/components/list/list.component';
+import { AddNoteComponent } from './Components/notes/components/add/add.component';
 
-import { NotesComponent } from './Components/notes/notes.component';
 
 const routes: Routes = [
-  { path: 'notes', component: NotesComponent },
+  { path: 'notes', component: ListNoteComponent },
+  { path: 'edit-note', component: AddNoteComponent },
+  { path: 'edit-note/:id', component: AddNoteComponent },
 ];
 
 // configures NgModule imports and exports

@@ -1,0 +1,21 @@
+<section class="pb-5 header text-center">
+  <div class="container py-5 text-white">
+
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                  <div class="card-body p-5">
+
+                 <form novalidate [formGroup]="noteForm" (ngSubmit)="onSubmit()" >
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Ingrese el nombre de la nota">
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary">{{isEdit ? 'Actualizar' : 'Agregar'}}</button>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

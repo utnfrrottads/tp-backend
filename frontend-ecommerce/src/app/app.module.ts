@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { FormsModule, NgModel} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -13,12 +13,15 @@ import { ArticlesComponent } from './Components/articles/articles.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { SalesComponent } from './Components/sales/sales.component';
 import { BranchesComponent } from './Components/branches/branches.component';
-import { NotesComponent } from './Components/notes/notes.component';
 import { RolesComponent } from './Components/roles/roles.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MarketComponent } from './components/market/market.component';
-import { ProductItemComponent } from './components/product-item/product-item.component';
-import { MainComponent } from './components/main/main.component';
+import { ListNoteComponent } from './Components/notes/components/list/list.component';
+import { AddNoteComponent } from './Components/notes/components/add/add.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MarketComponent } from './Components/market/market.component';
+import { ProductItemComponent } from './Components/product-item/product-item.component';
+import { MainComponent } from './Components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -31,17 +34,22 @@ import { MainComponent } from './components/main/main.component';
     ProductsComponent,
     SalesComponent,
     BranchesComponent,
-    NotesComponent,
+    ListNoteComponent,
+    RolesComponent,
+    AddNoteComponent,
     RolesComponent,
     MarketComponent,
     ProductItemComponent,
     MainComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]
