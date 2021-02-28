@@ -25,6 +25,7 @@ export class PrizeController {
   public async getOne(@Param('id') id: number) {
     const prize = await this.prizeService.findById(id);
     if (!prize) throw new EntityNotFoundError();
+    return prize;
   }
 
   @Post('/')

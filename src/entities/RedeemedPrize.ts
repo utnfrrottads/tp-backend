@@ -17,7 +17,7 @@ export class RedeemedPrize {
 
     @Exclude()
     @ManyToOne(type => Client, client => client.card)
-    client?: Promise<Client>;
+    client?: Client;
 
     @Exclude()
     @ManyToOne(type => Prize, { eager: true })

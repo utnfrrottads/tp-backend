@@ -5,6 +5,9 @@ import { Connection, ConnectionOptions, createConnection } from "typeorm";
 import { ErrorHandler } from "./middleware/ErrorHandler";
 import { createKoaServer } from "routing-controllers";
 import { CardController } from "./controllers/CardController";
+import { ClientController } from "./controllers/ClientController";
+import { PrizeController } from "./controllers/PrizeController";
+import { RedeemedPrizeController } from "./controllers/RedeemedPrizeController";
 
 export default class AppInitializer {
   public app: Koa;
@@ -15,7 +18,7 @@ export default class AppInitializer {
     this.app = createKoaServer({
       routePrefix: "/v1",
       classTransformer: true,
-      controllers: [CardController],
+      controllers: [CardController, ClientController, PrizeController, RedeemedPrizeController],
       middlewares:[ErrorHandler],
       defaultErrorHandler:false,
     });

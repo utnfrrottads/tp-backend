@@ -25,6 +25,7 @@ export class ClientController {
   public async getOne(@Param('id') id: number) {
     const client = await this.clientService.findById(id);
     if (!client) throw new EntityNotFoundError();
+    return client;
   }
 
   @Post('/')
