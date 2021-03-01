@@ -58,7 +58,7 @@ articlesCtrl.getArticles = async(req, res, next) => {
         const articles = await Articles.find();
         let articles1=[]
         for(let i in req.body.name){
-            articles1.push(articles.filter((val) => val.name.includes(req.body.name[i])))             
+            articles1.push(articles.filter((val) => val.name.toLowerCase().includes(req.body.name[i].toLowerCase())))             
         }
 
         for(let i in req.body.presentation){
