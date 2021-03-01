@@ -60,9 +60,11 @@ articlesCtrl.getArticles = async(req, res, next) => {
         for(let i in req.body.name){
             articles1.push(articles.filter((val) => val.name == req.body.name[i]))             
         }
+
         for(let i in req.body.presentation){
             articles1.push(articles.filter((val) => val.presentation == req.body.presentation[i]))
         }
+
         for(let i in req.body.notes){
             articles1.push(articles.filter((val) => val.notes == req.body.notes[i]))
         }
