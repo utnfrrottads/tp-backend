@@ -20,8 +20,8 @@ export class ArticleService {
       return this.http.get(this.URL_API+`${article._id}`)
   }
 
-  getArticles(){
-    return this.http.get(this.URL_API)
+  getArticles(filters: object){
+    return this.http.get(this.URL_API, filters)
   }
 
   postArticle(article: Article){

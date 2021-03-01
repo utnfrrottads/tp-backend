@@ -12,8 +12,8 @@ export class MarketComponent implements OnInit {
 
   filters= {
     "name": "",
-    "presentations": ["50 ml", "25 ml", "15 ml"],
-    "notes": ["Frutal", "Floral", "Citrico"]
+    "presentations": [""],
+    "notes": [""]
   }
 
   filterValues={
@@ -22,19 +22,31 @@ export class MarketComponent implements OnInit {
     "notes": [""]
   }
 
+  filtersEmpty = {
+    "name": [""],
+    "presentation": [""],
+    "notes":[""]
+  }
+
+  filtersArticle: Array<Article> = []
+
   constructor(public articleService: ArticleService) { }
 
   ngOnInit(): void {
-    this.getArticles(this.filters)
+    this.getArticles(this.filtersEmpty)
     this.getFilters()
   }
   
   ngOnChanges():void {
-    this.getFilters()
+    this.getArticles(this.filterValues)
   }
 
-  getFilters(){
-      this.articleService.articles.forEach(article => {
+  getFilters(){ 
+    this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
+        this.filtersArticle = (res as Array<Article>)
+      })
+    console.log(this.filtersArticle)
+    this.filtersArticle.forEach(article => {
         article.notes.forEach(note => {
           this.filterValues.notes.push(note)
         });
@@ -52,9 +64,8 @@ export class MarketComponent implements OnInit {
   }
 
   getArticles(filters: object){
-    this.articleService.getArticles().subscribe(res => {
+    this.articleService.getArticles(filters).subscribe(res => {
       this.articleService.articles = res as Article[]
-      console.log(res)
     })
   }
 
