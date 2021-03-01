@@ -58,7 +58,7 @@ articlesCtrl.getArticles = async(req, res, next) => {
         const articles = await Articles.find();
         let articles1=[]
         for(let i in req.body.name){
-            articles1.push(articles.filter((val) => val.name == req.body.name[i]))             
+            articles1.push(articles.filter((val) => val.name.includes(req.body.name[i])))             
         }
 
         for(let i in req.body.presentation){
@@ -75,7 +75,7 @@ articlesCtrl.getArticles = async(req, res, next) => {
         }
         
         const articles2 = [...new Set(artOrigin)];
-        articles2.length === 0 ? res.json(articles) : res.json(articles2)
+        articles2.length === 0 ? res.json({ status: "No se encontró ningun producto" }) : res.json(articles2)
     } catch (err) {
         next(err)
     }
