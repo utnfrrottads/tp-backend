@@ -59,7 +59,6 @@ export class MarketComponent implements OnInit {
         if (index > -1) {
           this.filterValues.presentations.splice(index, 1);
         }
-      console.log(this.filterValues)
       });
 
   }
