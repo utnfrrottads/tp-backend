@@ -23,5 +23,6 @@ type Query {
 
 type Mutation {
 	createOrder(tableId: ID): Order!
+	closeOrder(id: ID!): [Int]!
 	deleteOrder(id: ID!): Int!
 }

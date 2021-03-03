@@ -19,6 +19,16 @@ export default {
 	Mutation: {
 		createOrder: (parent, { tableId }, { db }) =>
 			db.order.create({ tableId }),
+
+		closeOrder: (_, { id }, { db }) =>
+			db.order.update(
+				{
+					paidAt: Date.now(),
+				},
+				{
+					where: { id },
+				}
+			),
 		deleteOrder: (parent, { id }, { db }) =>
 			db.order.destroy({ where: { id } }),
 	},
