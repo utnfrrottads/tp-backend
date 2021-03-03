@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BranchService } from '../../../Services/branch.service';
@@ -22,12 +22,10 @@ export class AddBranchComponent implements OnInit{
     private branchService: BranchService,
     private toastr: ToastrService,
     private route: ActivatedRoute
-
   ) {
     this.branchForm = this.fb.group({
-      id: [''],
       cuit: ['', Validators.required],
-      street: ['', Validators.required], 
+      street: ['', Validators.required],
       number: ['', Validators.required],
       pc: ['', Validators.required],
       phone: ['' , Validators.required]});
@@ -40,7 +38,6 @@ export class AddBranchComponent implements OnInit{
       this.branchService.getById(params.get('id')).subscribe(branch => {
         this.isEdit = true;
         this.branchForm.patchValue({
-          id: branch._id,
           cuit: branch.cuit,
           street: branch.street,
           number: branch.number,
@@ -58,7 +55,6 @@ export class AddBranchComponent implements OnInit{
     if (this.branchForm.valid) {
 
       const branch: any = {
-        _id: formModel.id,
         cuit: formModel.cuit,
         street: formModel.street,
         number: formModel.number,

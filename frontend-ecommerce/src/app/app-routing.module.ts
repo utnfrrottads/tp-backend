@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'branches', component: BranchesComponent },
   { path: 'add-branch', component: AddBranchComponent },
   { path: 'edit-branch/:id', component: AddBranchComponent }
-  
+
 ];
 
 // configures NgModule imports and exports

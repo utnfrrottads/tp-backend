@@ -6,7 +6,7 @@ function apiErrorHandler(err, req, res, next){
         return;
     }
     if(err.message.includes('validation failed:')){
-        res.status(400).json({error: 'Hay un campo obligatorio incompleto o un dato erróneo.'});
+        res.status(400).json({error: 'Hay un campo obligatorio incompleto o un dato erróneo.', detail: err.message});
         return;
     }
     if(err.message.includes('Cast to ObjectId failed for value')){
