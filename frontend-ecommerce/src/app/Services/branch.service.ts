@@ -1,39 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Branch } from '../Models/branch';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BranchService {
 
-  selectedBranch: Branch
-  branches: Branch[]
+  private baseUrl = environment.baseUrl;
 
-  readonly API_URL = "http://localhost:3000/api/branch/"
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {
-    this.selectedBranch = new Branch()
-    this.branches =  []
-   }
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl + 'branch');
+  }
 
-   getBranches(){
-     return this.http.get(this.API_URL)
-   }
+  addBranch(branch: any) {
+    return this.http.post<any[]>(this.baseUrl + 'branch', branch);
+  }
 
-   getBranch(branch: Branch){
-      return this.http.get(this.API_URL+`${branch._id}`)
-   }
+  updateBranch(branch: any) {
+    return this.http.put<any[]>(this.baseUrl + 'branch/' + branch._id, branch);
+  }
 
-   postBranch(branch: Branch){
-     return this.http.post(this.API_URL, branch)
-   }
+  getById(id: any): Observable<any>{
+    return this.http.get<any[]>(this.baseUrl + 'branch/' + id);
+  }
 
-   putBranch(branch: Branch){
-     return this.http.put(this.API_URL+`${branch._id}`, branch)
-   }
-
-   deleteBranch(branch: Branch){
-     this.http.delete(this.API_URL+`${branch._id}`)
-   }
+  deleteBranch(id: any) {
+    return this.http.delete(this.baseUrl + 'branch/' + id);
+  }
 }

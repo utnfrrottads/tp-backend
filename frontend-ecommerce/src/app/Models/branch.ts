@@ -1,6 +1,6 @@
 export class Branch {
 
-    constructor(_id= '', cuit= '', street= '', number= 0, pc= '', phone= 0){
+    constructor(_id= '', cuit= '', street= '', number= '', pc= '', phone= 0){
         this._id = _id;
         this.cuit = cuit;
         this.street = street;
@@ -12,7 +12,7 @@ export class Branch {
     _id: string;
     cuit: string;
     street: string;
-    number: number;
+    number: string;
     pc: string;
     phone: number;
 }

@@ -1,3 +1,4 @@
+import { Branch } from './Models/branch';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,7 +13,8 @@ import { FooterComponent } from './Components/footer/footer.component';
 import { ArticlesComponent } from './Components/articles/articles.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { SalesComponent } from './Components/sales/sales.component';
-import { BranchesComponent } from './Components/branches/branches.component';
+import { BranchesComponent } from './Components/branches/list/list.component';
+import { AddBranchComponent} from './Components/branches/add/add.component';
 import { RolesComponent } from './Components/roles/roles.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListNoteComponent } from './Components/notes/components/list/list.component';
@@ -34,6 +36,7 @@ import { MainComponent } from './Components/main/main.component';
     ProductsComponent,
     SalesComponent,
     BranchesComponent,
+    AddBranchComponent,
     ListNoteComponent,
     RolesComponent,
     AddNoteComponent,

@@ -1,0 +1,70 @@
+<div style="margin-left:20px; text-align: center;">
+    <h2 style="margin-top:10px">Sucursales</h2>
+  
+    <button type="button" class="btn btn-info" (click)="addBranch()">Nueva sucursal</button>
+  </div>
+  <!-- Demo header-->
+  <section class="pb-5 header text-center">
+    <div class="container py-5 text-white">
+  
+        <div class="row">
+            <div class="col-lg-7 mx-auto">
+                <div class="card border-0 shadow">
+                    <div class="card-body pb-5">
+  
+                        <!-- Responsive table -->
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Cuit</th>
+                                        <th scope="col">Calle</th>
+                                        <th scope="col">Número</th>
+                                        <th scope="col">Código postal</th>
+                                        <th scope="col">Teléfono</th>
+                                        <th scope="col">Editar/Eliminar</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let branch of items">
+                                      <td>
+                                        <span>{{branch.cuit}}</span>
+                                      </td>
+                                
+                                      <td>
+                                        <span>{{branch.street}}</span>
+                                      </td>
+                                      
+                                      <td>
+                                        <span>{{branch.number}}</span>
+                                      </td>
+                                     
+                                      <td>
+                                        <span>{{branch.pc}}</span>
+                                      </td>
+                                     
+                                      <td>
+                                        <span>{{branch.phone}}</span>
+                                      </td>
+                                      <td>
+                                          <!-- Call to action buttons -->
+                                          <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="editBranch(branch)"><i class="fa fa-edit"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteBranch(branch)"><i class="fa fa-trash"></i></button>
+                                            </li>
+                                          </ul>
+                                      </td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
