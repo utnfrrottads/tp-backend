@@ -5,8 +5,8 @@ type Item {
 	cookTime: Int
 	servings: Float
 	pricePerUnit: Float
-	categories: [Category]
-	ingredients: [Ingredient!]
+	categories: [Category!]!
+	ingredients: [Ingredient!]!
 }
 
 type Query {
@@ -16,14 +16,16 @@ type Query {
 
 type Mutation {
 	createItem(item: itemInput!): Item!
-	updateItem(id: ID!, item: itemInput!): [Int!]!
+	updateItem(id: ID!, itemInput: itemInput!): Item
 	deleteItem(id: ID!): Int!
 }
 
 input itemInput {
-	title: String!
+	title: String
 	desc: String
 	cookTime: Int
 	servings: Float
 	pricePerUnit: Float
+	categoriesId: [ID!]
+	ingredientsId: [ID!]
 }
