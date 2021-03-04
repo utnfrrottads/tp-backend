@@ -11,21 +11,21 @@ import { ArticleService } from 'src/app/Services/article.service';
 export class MarketComponent implements OnInit {
 
   filters= {
-    "name": "",
-    "presentations": [""],
+    "name": [""],
+    "presentation": [""],
     "notes": [""]
   }
 
   filterValues={
-    "name": "",
-    "presentations": [""],
+    "name": [""],
+    "presentation": [""],
     "notes": [""]
   }
 
   filtersEmpty = {
-    "name": [""],
-    "presentation": [""],
-    "notes":[""]
+    "name": [],
+    "presentation": [],
+    "notes":[]
   }
 
   filtersArticle: Array<Article> = []
@@ -42,22 +42,23 @@ export class MarketComponent implements OnInit {
   }
 
   getFilters(){ 
+    console.log("entre")
     this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
-        this.filtersArticle = (res as Array<Article>)
+        this.filtersArticle = (res as Article[])
       })
     console.log(this.filtersArticle)
     this.filtersArticle.forEach(article => {
         article.notes.forEach(note => {
           this.filterValues.notes.push(note)
         });
-        this.filterValues.presentations.push(article.presentation)
+        this.filterValues.presentation.push(article.presentation)
         var index = this.filterValues.notes.indexOf("", 0);
         if (index > -1) {
           this.filterValues.notes.splice(index, 1);
         }
-        index = this.filterValues.presentations.indexOf("", 0);
+        index = this.filterValues.presentation.indexOf("", 0);
         if (index > -1) {
-          this.filterValues.presentations.splice(index, 1);
+          this.filterValues.presentation.splice(index, 1);
         }
       });
 
@@ -67,6 +68,7 @@ export class MarketComponent implements OnInit {
     this.articleService.getArticles(filters).subscribe(res => {
       this.articleService.articles = res as Article[]
     })
+    console.log(this.articleService.articles)
   }
 
   onCBNote(e:any){
