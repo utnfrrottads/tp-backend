@@ -41,41 +41,48 @@ articlesCtrl.checkName = async(name, id = ' ') => {
 //Metodo Obtener todos los articulos
 articlesCtrl.getArticles = async(req, res, next) => {
     try {
-        let arrNotes = []
-        for(let i in req.body.notes){
-            arrNotes[i] = await Note.find({name : req.body.notes[i]}).select('_id')
-        }
-        let notesOrigin=[]
-        for(let i=0; i<arrNotes.length; i++){
-            notesOrigin = notesOrigin.concat(arrNotes[i])
-        }
-        let i=0;
-        (notesOrigin).forEach(note =>{
-            req.body.notes[i] = note._id.toString()
-            i +=1
-        })
-
+        
         const articles = await Articles.find();
-        let articles1=[]
-        for(let i in req.body.name){
-            articles1.push(articles.filter((val) => val.name.toLowerCase().includes(req.body.name[i].toLowerCase())))             
+        if(req.body.notes.length > 0 || req.body.presentation.length >0 || req.body.name.length > 0) {
+            let arrNotes = []
+            for(let i in req.body.notes){
+                arrNotes[i] = await Note.find({name : req.body.notes[i]}).select('_id')
+            }
+            let notesOrigin=[]
+            for(let i=0; i<arrNotes.length; i++){
+                notesOrigin = notesOrigin.concat(arrNotes[i])
+            }
+            let i=0;
+            (notesOrigin).forEach(note =>{
+                req.body.notes[i] = note._id.toString()
+                i +=1
+            })
+
+            let articles1=[]
+            for(let i in req.body.name){
+                articles1.push(articles.filter((val) => val.name.toLowerCase().includes(req.body.name[i].toLowerCase())))             
+            }
+            
+            for(let i in req.body.presentation){
+                articles1.push(articles.filter((val) => val.presentation == req.body.presentation[i]))
+            }
+            
+            for(let i in req.body.notes){
+                articles1.push(articles.filter((val) => val.notes == req.body.notes[i]))
+            }
+            
+            let artOrigin=[]
+            for(let i=0; i<articles1.length; i++){
+                artOrigin = artOrigin.concat(articles1[i])
+            }
+
+
+            const articles2 = [...new Set(artOrigin)];
+            articles2.length === 0 ? res.json({ status: "No se encontró ningun producto" }) : res.json(articles2)
+        } else {
+            res.json(articles)
         }
 
-        for(let i in req.body.presentation){
-            articles1.push(articles.filter((val) => val.presentation == req.body.presentation[i]))
-        }
-
-        for(let i in req.body.notes){
-            articles1.push(articles.filter((val) => val.notes == req.body.notes[i]))
-        }
-        
-        let artOrigin=[]
-        for(let i=0; i<articles1.length; i++){
-            artOrigin = artOrigin.concat(articles1[i])
-        }
-        
-        const articles2 = [...new Set(artOrigin)];
-        articles2.length === 0 ? res.json({ status: "No se encontró ningun producto" }) : res.json(articles2)
     } catch (err) {
         next(err)
     }
