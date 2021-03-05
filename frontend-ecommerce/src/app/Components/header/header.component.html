@@ -36,8 +36,12 @@
         </li>
       </ul>
       <form class="d-flex">
-        <input #searchInput class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
-        <button (click)="onSearch(searchInput.value)" class="btn btn-success" type="submit">Search</button>
+        <input #searchInput
+        (input)="onTxtBoxChanged(searchInput.value)"
+        class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
+        <button 
+        (click)="onSearch(searchInput.value)" 
+        class="btn btn-success" type="submit">Search</button>
       </form>
     </div>
   </div>

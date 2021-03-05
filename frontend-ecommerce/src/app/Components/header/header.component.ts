@@ -22,4 +22,10 @@ export class HeaderComponent implements OnInit {
     this.searchActive.emit(text)
   }
 
+  onTxtBoxChanged(text: string){
+    if(text.length==0){
+      this.searchActive.emit('')
+    }
+  }
+
 }

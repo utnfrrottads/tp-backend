@@ -32,7 +32,7 @@ export class MarketComponent implements OnInit {
   
 
   ngOnChanges():void {
-    this.getArticles(this.articleService.filterValues)
+    this.getArticles(this.articleService.filters)
   }
 
   getFilters(){ 
@@ -43,13 +43,15 @@ export class MarketComponent implements OnInit {
             var noteValue: string = ""
             this.noteService.getById(note).subscribe(res =>{
               noteValue = (res as Note).name
-              this.asignName(noteValue)
+              if(!this.articleService.filterValues.notes.includes(noteValue)){
+                this.asignName(noteValue)
+              }
             })
           });
-          this.articleService.filterValues.presentation.push(article.presentation)
+          if(!this.articleService.filterValues.presentation.includes(article.presentation)){
+            this.articleService.filterValues.presentation.push(article.presentation)
+          }
         });
-        this.articleService.filterValues.notes = [...new Set(this.articleService.filterValues.notes)]
-        this.articleService.filterValues.presentation = [...new Set(this.articleService.filterValues.presentation)]
         this.articleService.filterValues.notes.forEach(note => {
               if(this.articleService.filters.notes.includes(note)){
                 (document.getElementById(`noteItem${note}`) as HTMLFormElement).checked = true
@@ -84,7 +86,6 @@ export class MarketComponent implements OnInit {
           this.articleService.filters.notes.splice(index, 1);
       }
     }
-    console.log(this.articleService.filters)
     this.getArticles(this.articleService.filters)
   }
 
@@ -114,7 +115,9 @@ export class MarketComponent implements OnInit {
 
   onNameSearched(e: any){
     this.articleService.filters.name=[]
-    this.articleService.filters.name.push(e)
+    if(e !== ""){
+      this.articleService.filters.name.push(e)
+    }
     this.getArticles(this.articleService.filters)
   }
 }
