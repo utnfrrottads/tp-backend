@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Article } from 'src/app/Models/article';
+import { Note } from 'src/app/Models/note';
 import { ArticleService } from 'src/app/Services/article.service';
+import { NoteService } from 'src/app/Services/note.service';
+
 
 @Component({
   selector: 'app-market',
@@ -10,76 +13,89 @@ import { ArticleService } from 'src/app/Services/article.service';
 })
 export class MarketComponent implements OnInit {
 
-  filters= {
-    "name": [""],
-    "presentation": [""],
-    "notes": [""]
-  }
-
-  filterValues={
-    "name": [""],
-    "presentation": [""],
-    "notes": [""]
-  }
-
   filtersEmpty = {
     "name": [],
     "presentation": [],
     "notes":[]
   }
 
-  filtersArticle: Array<Article> = []
-
-  constructor(public articleService: ArticleService) { }
+  constructor(public articleService: ArticleService, public noteService: NoteService) {
+  }
 
   ngOnInit(): void {
+
     this.getArticles(this.filtersEmpty)
     this.getFilters()
   }
   
+
   ngOnChanges():void {
-    this.getArticles(this.filterValues)
+    this.getArticles(this.articleService.filterValues)
   }
 
   getFilters(){ 
-    console.log("entre")
     this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
-        this.filtersArticle = (res as Article[])
-      })
-    console.log(this.filtersArticle)
-    this.filtersArticle.forEach(article => {
-        article.notes.forEach(note => {
-          this.filterValues.notes.push(note)
+        this.articleService.allArticles = res as Article[]
+        this.articleService.allArticles.forEach(article => {
+          article.notes.forEach(note => {
+            var noteValue: string = ""
+            this.noteService.getById(note).subscribe(res =>{
+              noteValue = (res as Note).name
+              this.asignName(noteValue)
+            })
+          });
+          this.articleService.filterValues.presentation.push(article.presentation)
         });
-        this.filterValues.presentation.push(article.presentation)
-        var index = this.filterValues.notes.indexOf("", 0);
-        if (index > -1) {
-          this.filterValues.notes.splice(index, 1);
-        }
-        index = this.filterValues.presentation.indexOf("", 0);
-        if (index > -1) {
-          this.filterValues.presentation.splice(index, 1);
-        }
-      });
+        this.articleService.filterValues.notes = [...new Set(this.articleService.filterValues.notes)]
+        this.articleService.filterValues.presentation = [...new Set(this.articleService.filterValues.presentation)]
+        this.articleService.filterValues.notes.forEach(note => {
+              if(this.articleService.filters.notes.includes(note)){
+                (document.getElementById(`noteItem${note}`) as HTMLFormElement).checked = true
+              }
+        });
+        this.articleService.filterValues.presentation.forEach(presentation => {
+            if(this.articleService.filters.presentation.includes(presentation)){
+              (document.getElementById(`presentationItem${presentation}`) as HTMLFormElement)
+            }
+        })
+      })
+  } 
 
+  asignName(name: string){
+    this.articleService.filterValues.notes.push(name)
   }
 
   getArticles(filters: object){
     this.articleService.getArticles(filters).subscribe(res => {
       this.articleService.articles = res as Article[]
-    })
-    console.log(this.articleService.articles)
+      console.log(this.articleService.articles)
+    })  
   }
 
   onCBNote(e:any){
     if(e.target.checked){
-      this.filters.notes.push(e.target.value)
+      this.articleService.filters.notes.push(e.target.value)
     }else{
-      const index = this.filters.notes.indexOf(e.target.value, 0);
+      const index = this.articleService.filters.notes.indexOf(e.target.value, 0);
         if (index > -1) {
-          this.filters.notes.splice(index, 1);
+          this.articleService.filters.notes.splice(index, 1);
       }
     }
+    console.log(this.articleService.filters)
+    this.getArticles(this.articleService.filters)
+  }
+
+  onCBPresentation(e:any){
+    if(e.target.checked){
+      this.articleService.filters.presentation.push(e.target.value)
+    }else{
+      const index = this.articleService.filters.presentation.indexOf(e.target.value, 0);
+        if (index > -1) {
+          this.articleService.filters.presentation.splice(index, 1);
+      }
+    }
+    console.log(this.articleService.filters)
+    this.getArticles(this.articleService.filters)
   }
   /* Set the width of the side navigation to 250px */
 /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */

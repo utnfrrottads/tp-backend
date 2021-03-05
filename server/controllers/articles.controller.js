@@ -43,6 +43,7 @@ articlesCtrl.getArticles = async(req, res, next) => {
     try {
         
         const articles = await Articles.find();
+        console.log(req.body)
         if(req.body.notes.length > 0 || req.body.presentation.length >0 || req.body.name.length > 0) {
             let arrNotes = []
             for(let i in req.body.notes){

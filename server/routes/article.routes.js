@@ -4,7 +4,7 @@ const articleRouter = express.Router();
 const article = require('../controllers/articles.controller');
 const articleValidator = require('../validators/article.validator');
 
-articleRouter.get('/', article.getArticles);
+articleRouter.post('/', article.getArticles);
 articleRouter.get('/:id', article.getArticle);
 articleRouter.post('/', articleValidator.validateArticleCreate, article.createArticle);
 articleRouter.put('/:id', articleValidator.validateArticleUpdate, article.editArticle);
