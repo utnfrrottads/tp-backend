@@ -13,6 +13,8 @@ import { NoteService } from 'src/app/Services/note.service';
 })
 export class MarketComponent implements OnInit {
 
+  searchBar = true
+
   filtersEmpty = {
     "name": [],
     "presentation": [],
@@ -69,7 +71,8 @@ export class MarketComponent implements OnInit {
     this.articleService.getArticles(filters).subscribe(res => {
       this.articleService.articles = res as Article[]
       console.log(this.articleService.articles)
-    })  
+    }) 
+    console.log(this.articleService.filters) 
   }
 
   onCBNote(e:any){
@@ -94,20 +97,24 @@ export class MarketComponent implements OnInit {
           this.articleService.filters.presentation.splice(index, 1);
       }
     }
-    console.log(this.articleService.filters)
     this.getArticles(this.articleService.filters)
   }
   /* Set the width of the side navigation to 250px */
-/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-openNav() {
-  (document.getElementById("mySidenav") as HTMLFormElement).style.width = "250px";
-  (document.getElementById("main") as HTMLFormElement).style.marginLeft = "250px";
-}
+  /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+  openNav() {
+    (document.getElementById("mySidenav") as HTMLFormElement).style.width = "250px";
+    (document.getElementById("main") as HTMLFormElement).style.marginLeft = "250px";
+  }
 
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-closeNav() {
-  (document.getElementById("mySidenav") as HTMLFormElement).style.width = "0";
-  (document.getElementById("main") as HTMLFormElement).style.marginLeft = "0";
-}
+  /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+  closeNav() {
+    (document.getElementById("mySidenav") as HTMLFormElement).style.width = "0";
+    (document.getElementById("main") as HTMLFormElement).style.marginLeft = "0";
+  }
 
+  onNameSearched(e: any){
+    this.articleService.filters.name=[]
+    this.articleService.filters.name.push(e)
+    this.getArticles(this.articleService.filters)
+  }
 }
