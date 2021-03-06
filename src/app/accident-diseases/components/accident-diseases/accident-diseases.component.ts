@@ -47,7 +47,6 @@ export class AccidentDiseasesComponent implements OnInit {
     this.inputType = InputType.create;
   }
   onAccidentDiseaseSelected(accidentOrDiseases: AccidentOrDiseases): void {
-    console.log('accidentOrDiseases', accidentOrDiseases);
     this.accordion.openAll();
     this.accidentOrDiseasesSelected = accidentOrDiseases;
     this.inputType = InputType.edit;
@@ -67,7 +66,6 @@ export class AccidentDiseasesComponent implements OnInit {
   onAccidentDiseaseCreated(accidentOrDiseases: AccidentOrDiseases): void {
     this.accidentDiseasesService.createAccidentOrDisease(accidentOrDiseases).subscribe({
       next: res => {
-        console.log('res', res);
         this.accordion.closeAll();
         this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
         this.getAllAccidentsOrDiseases();

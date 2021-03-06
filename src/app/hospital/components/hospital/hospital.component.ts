@@ -193,7 +193,6 @@ export class HospitalComponent implements OnInit {
       this.getHospitalAccidentOrDisease(hospitalAccidentOrDiseases.idHospital);
       },
       error: err => {
-        console.log(err);
         this.commonService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital.'
           + err.error.errors, 'Cerrar');
       }

@@ -31,8 +31,6 @@ export class MapTomtomComponent implements OnInit {
   }
 
   initMap(): void {
-    // console.log('ttMaps',tt);
-    // console.log('ttServices',ttServices);
     this.map = tt.map({
       key: this.mapService.getApiKey(),
       container: 'map',
@@ -89,9 +87,8 @@ export class MapTomtomComponent implements OnInit {
   if the Reverse Geocoding Response contains an address, then a marker with the previous
    position is removed and a new one is created at the indicated location.*/
   drawPassengerMarkerOnMap(geoResponse): void {
-    // console.log('darpassenger')
     if (geoResponse && geoResponse.addresses
-        && geoResponse.addresses[0].address.freeformAddress) { 
+        && geoResponse.addresses[0].address.freeformAddress) {
           this.passengerMarker.remove();
           this.passengerMarker = this.createPassengerMarker(geoResponse.addresses[0].position,
               new tt.Popup({ offset: 35 }).setHTML(geoResponse.addresses[0].address.freeformAddress));
@@ -100,10 +97,8 @@ export class MapTomtomComponent implements OnInit {
   }
 
   onMapClickAngular(): void {
-    // console.log('onMapClickAngular');
     this.map.on('click', function(evento) {
       const position = evento.lngLat;
-      // console.log('click()',position);
 
       defServices.services.reverseGeocode({
           key: this.mapService.getApiKey(),
@@ -137,7 +132,6 @@ export class MapTomtomComponent implements OnInit {
     };
   }
   initTaxi(): void {
-    // console.log('initTaxi');
     this.setDefaultTaxiConfig(); 
     this.taxiConfig.forEach(function(taxi) {
       const carMarkerElement = document.createElement('div');
@@ -157,7 +151,6 @@ export class MapTomtomComponent implements OnInit {
   createTaxiMarker(markerCoordinates, popup): void {
     const passengerMarkerElement = document.createElement('div');
     passengerMarkerElement.innerHTML = "<img src='" + this.rutaImagenPersona + "' style='width: 30px; height: 30px';>";
-    // console.log('passengerMarkerElement',passengerMarkerElement)
     return new tt.Marker({ element: passengerMarkerElement })
       .setLngLat(markerCoordinates)
       .setPopup(popup)

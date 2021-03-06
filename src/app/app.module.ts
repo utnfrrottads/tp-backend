@@ -68,7 +68,6 @@ import { AccidentDiseasesComponent } from './accident-diseases/components/accide
 import { AccidentDiseasesFormComponent } from './accident-diseases/components/accident-diseases-form/accident-diseases-form.component';
 import { AccidentDiseasesListComponent } from './accident-diseases/components/accident-diseases-list/accident-diseases-list.component';
 import { MatStepperModule } from '@angular/material/stepper';
-import { EmergencyAccidentDiseasesComponent } from './emergency/components/emergency-accident-diseases/emergency-accident-diseases.component';
 import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
@@ -108,7 +107,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     EmergencyComponent,
     AccidentDiseasesListComponent,
     AccidentDiseasesComponent,
-    EmergencyAccidentDiseasesComponent,
     EmergencyHomeComponent,
   ],
   imports: [
