@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, Form } from '@angular/forms';
 import { BedService } from '../../services/bed.service';
 import { BedType, BedStatus, Bed, BedSubType } from '../../models/bed';
 import { InputType } from 'src/app/common/models/typeInputEnum';
@@ -104,5 +104,13 @@ export class BedFormComponent implements OnInit, OnChanges {
   }
   setButtonText(): string {
     return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
+  }
+
+  checkFieldError(field: string): boolean{
+    return this.bedForm.controls[field].touched
+        && this.bedForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.bedForm.controls[field].errors.required;
   }
 }

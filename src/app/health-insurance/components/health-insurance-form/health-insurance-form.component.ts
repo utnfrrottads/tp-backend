@@ -58,4 +58,11 @@ export class HealthInsuranceFormComponent implements OnInit, OnChanges {
   setButtonText(): string{
     return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
   }
+  checkFieldError(field: string): boolean{
+    return this.healthInsuranceForm.controls[field].touched
+        && this.healthInsuranceForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.healthInsuranceForm.controls[field].errors.required;
+  }
 }

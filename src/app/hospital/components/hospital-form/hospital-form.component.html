@@ -2,21 +2,14 @@
 <h2 *ngIf="inputType===2">Editar hospital <mat-icon matSuffix>local_hospital</mat-icon></h2>
 
 <form  [formGroup]="hospitalForm" (ngSubmit)="onSubmit()" class="mi-form">
-    <!-- <p> 
-        <mat-form-field>
-            <mat-label> Id: </mat-label>
-            <input matInput formControlName="id" placeholder="ID de la cama">
-            <mat-error *ngIf="hospitalForm.controls.id.touched && hospitalForm.controls.id.invalid">
-                <span *ngIf="hospitalForm.controls.id.errors.required">No te ovlvides de completarlo!</span>  
-            </mat-error> 
-        </mat-form-field>
-    </p> -->
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="name" placeholder="Nombre del hospital" >
-            <mat-error *ngIf="hospitalForm.controls.name.touched && hospitalForm.controls.name.invalid">
-                <span *ngIf="hospitalForm.controls.name.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('name')">
+                <span *ngIf="checkFieldRequiredError('name')">
+                    No te olvides de completar el nombre!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>  
@@ -24,8 +17,10 @@
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Localidad: </mat-label>
             <input matInput formControlName="locality" placeholder="Localidad del hospital" >
-            <mat-error *ngIf="hospitalForm.controls.locality.touched && hospitalForm.controls.locality.invalid">
-                <span *ngIf="hospitalForm.controls.locality.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('locality')">
+                <span *ngIf="checkFieldRequiredError('locality')">
+                    No te olvides de completar la Localidad!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>  
@@ -33,8 +28,9 @@
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Dirección: </mat-label>
             <input matInput formControlName="address" placeholder="Dirección del hospital" >
-            <mat-error *ngIf="hospitalForm.controls.address.touched && hospitalForm.controls.address.invalid">
-                <span *ngIf="hospitalForm.controls.address.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('address')">
+                <span *ngIf="checkFieldRequiredError('address')">
+                    No te olvides de completar la dirección!</span>  
             </mat-error> 
         </mat-form-field>
     </p>  
@@ -44,26 +40,32 @@
             <span matPrefix>+54 &nbsp;</span>
             <input matInput formControlName="phone" placeholder="Teléfono del hospital" >
             <mat-icon matSuffix>phone</mat-icon>
-            <mat-error *ngIf="hospitalForm.controls.phone.touched && hospitalForm.controls.phone.invalid">
-                <span *ngIf="hospitalForm.controls.phone.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('phone')">
+                <span *ngIf="checkFieldRequiredError('phone')">
+                    No te olvides de completar el teléfono!
+                </span>  
             </mat-error> 
         </mat-form-field>  
     </p>
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Latitud </mat-label>
-            <input matInput type="number" formControlName="latitude" placeholder="Latitud del hospital" >
-            <mat-error *ngIf="hospitalForm.controls.latitude.touched && hospitalForm.controls.latitude.invalid">
-                <span *ngIf="hospitalForm.controls.latitude.errors.required">No te olvides de completarlo!</span>  
+            <input matInput type="number" formControlName="latitude" placeholder="Latitud del hospital">
+            <mat-error *ngIf="checkFieldError('latitude')">
+                <span *ngIf="checkFieldRequiredError('latitude')">
+                    No te olvides de completar la Latitud!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Longitud </mat-label>
-            <input matInput type="number" formControlName="longitude" placeholder="Longitud del hospital" >
-            <mat-error *ngIf="hospitalForm.controls.longitude.touched && hospitalForm.controls.longitude.invalid">
-                <span *ngIf="hospitalForm.controls.longitude.errors.required">No te olvides de completarlo!</span>  
+            <input matInput type="number" formControlName="longitude" placeholder="Longitud del hospital">
+            <mat-error *ngIf="checkFieldError('longitude')">
+                <span *ngIf="checkFieldRequiredError('longitude')">
+                    No te olvides de completar la Longitud!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>
@@ -76,10 +78,6 @@
     <p>        
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Nivel de atención</mat-label>
-            <!-- formControlName es para asignar al formGroup
-                mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor -->
-            
             <mat-select matNativeControl required formControlName='atentionLevel'  [value]='hospitalSelected.atentionLevel'>
                 <mat-option *ngFor="let atentionLevel of dataAtentionLevel" [value]="atentionLevel.description"> 
                     {{atentionLevel.description}} 

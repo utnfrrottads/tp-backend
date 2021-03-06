@@ -57,4 +57,11 @@ export class HospitalHealthInsuranceFormComponent implements OnInit, OnChanges {
       },
     });
   }
+  checkFieldError(field: string): boolean{
+    return this.hospitalHealthInsuranceForm.controls[field].touched
+        && this.hospitalHealthInsuranceForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.hospitalHealthInsuranceForm.controls[field].errors.required;
+  }
 }

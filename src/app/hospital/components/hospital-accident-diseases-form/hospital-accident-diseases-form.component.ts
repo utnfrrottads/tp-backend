@@ -60,4 +60,11 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit, OnChanges 
        }
     });
   }
+  checkFieldError(field: string): boolean{
+    return this.hospitalAccidentOrDiseasesForm.controls[field].touched
+        && this.hospitalAccidentOrDiseasesForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.hospitalAccidentOrDiseasesForm.controls[field].errors.required;
+  }
 }

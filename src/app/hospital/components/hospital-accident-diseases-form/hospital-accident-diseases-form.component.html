@@ -3,33 +3,30 @@
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Hospital</mat-label>
             <mat-icon matSuffix>local_hospital</mat-icon>
-            <!--formControlName es para asignar al formGroup
-                mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor
-            -->
             <mat-select matNativeControl required formControlName='idHospital' [value]='hospitalSelected.id'>
                 <mat-option *ngFor="let hospital of dataHospital" [value]="hospital.id"> 
                     {{hospital.name}} 
                 </mat-option> 
-            </mat-select>            
-            <mat-error *ngIf="hospitalAccidentOrDiseasesForm.controls.idHospital.touched && hospitalAccidentOrDiseasesForm.controls.idHospital.invalid">
-                <span *ngIf="hospitalAccidentOrDiseasesForm.controls.idHospital.errors.required">No te olvides de elegir el Hospital!</span>  
+            </mat-select>
+            <mat-error *ngIf="checkFieldError('idHospital')">
+                <span *ngIf="checkFieldRequiredError('idHospital')">
+                    No te olvides de elegir el Hospital!
+                </span>  
             </mat-error> 
         </mat-form-field>  
     </p>
     <p>
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Accidentes o enfermedades que atiende</mat-label>
-            <!--formControlName es para asignar al formGroup
-                mat-select -> [value] es para presetear un valor
-                mat-option -> [value] es el valor del ngFor -->
             <mat-select matNativeControl required formControlName='idAccidentOrDisease' >
                 <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.id"> 
                     {{accidentOrDiseases.description}} 
                 </mat-option> 
             </mat-select>
-            <mat-error *ngIf="hospitalAccidentOrDiseasesForm.controls.idAccidentOrDisease.touched && hospitalAccidentOrDiseasesForm.controls.idAccidentOrDisease.invalid">
-                <span *ngIf="hospitalAccidentOrDiseasesForm.controls.idAccidentOrDisease.errors.required">No te olvides de elegir el Accidente o enfermedad!</span>  
+            <mat-error *ngIf="checkFieldError('idAccidentOrDisease')">
+                <span *ngIf="checkFieldRequiredError('idAccidentOrDisease')">
+                    No te olvides de elegir el Accidente o enfermedad!
+                </span>  
             </mat-error> 
         </mat-form-field>  
     </p>

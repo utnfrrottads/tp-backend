@@ -99,4 +99,11 @@ export class HospitalFormComponent implements OnInit, OnChanges {
   setButtonText(): string {
     return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
   }
+  checkFieldError(field: string): boolean{
+    return this.hospitalForm.controls[field].touched
+        && this.hospitalForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.hospitalForm.controls[field].errors.required;
+  }
 }

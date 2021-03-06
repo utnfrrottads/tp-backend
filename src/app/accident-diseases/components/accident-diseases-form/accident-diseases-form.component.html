@@ -7,12 +7,12 @@
         <mat-form-field  appearance="fill" class="mi-full-width">
             <mat-label> Descripción: </mat-label>
             <input matInput formControlName="description" placeholder="Descripcion del accidente o enfermedad" >
-            <mat-error *ngIf="accidentDiseasesForm.controls.description.touched && accidentDiseasesForm.controls.description.invalid">
-                <span *ngIf="accidentDiseasesForm.controls.description.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('description')">
+                <span *ngIf="checkFieldRequiredError('description')">
+                    No te olvides de completar la Descripción!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>  
     <button mat-raised-button color="primary" type="submit" [disabled]="!accidentDiseasesForm.valid">{{setButtonText()}}</button>
 </form>
- 
-{{accidentDiseasesForm.value | json }}

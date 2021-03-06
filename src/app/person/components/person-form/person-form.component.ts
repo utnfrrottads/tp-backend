@@ -44,7 +44,7 @@ export class PersonFormComponent implements OnInit, OnChanges {
   initForm(): void{
     this.personForm = new FormGroup({
       id: new FormControl(''),
-      dni: new FormControl('', [Validators.required]), 
+      dni: new FormControl('', [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       bornDate: new FormControl(''),
@@ -59,7 +59,7 @@ export class PersonFormComponent implements OnInit, OnChanges {
       healthInsuranceId: new FormControl(''), // nuevo nombre sera idHealthInsurance
     });
   }
-  loadPersonSelected(): void{ 
+  loadPersonSelected(): void{
     if (this.personSelected !== undefined && this.personSelected.id !== null && this.personSelected.id !== '') {
       this.personForm.patchValue({
         id: this.personSelected.id,
@@ -80,11 +80,11 @@ export class PersonFormComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void{
-    if(this.inputType===InputType.create){
+    if (this.inputType === InputType.create){
       this.add.emit(this.personForm.value);
-    } else if(this.inputType===InputType.edit){
+    } else if (this.inputType === InputType.edit){
       this.edit.emit(this.personForm.value);
-    } 
+    }
   }
   loadDropDown(): void{
     this.getBloodTypes();
@@ -114,5 +114,12 @@ export class PersonFormComponent implements OnInit, OnChanges {
   }
   setButtonText(): string{
     return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
+  }
+  checkFieldError(field: string): boolean{
+    return this.personForm.controls[field].touched
+        && this.personForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.personForm.controls[field].errors.required;
   }
 }

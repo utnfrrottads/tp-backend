@@ -51,4 +51,12 @@ export class AccidentDiseasesFormComponent implements OnInit, OnChanges {
   setButtonText(): string {
     return this.inputType === InputType.edit ? 'Actualizar' : 'Agregar';
   }
+
+  checkFieldError(field: string): boolean{
+    return this.accidentDiseasesForm.controls[field].touched
+        && this.accidentDiseasesForm.controls[field].invalid;
+  }
+  checkFieldRequiredError(field: string): boolean{
+    return this.accidentDiseasesForm.controls[field].errors.required;
+  }
 }

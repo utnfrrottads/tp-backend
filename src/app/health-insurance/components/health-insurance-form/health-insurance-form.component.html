@@ -2,21 +2,14 @@
 <h2 *ngIf="inputType===2">Editar obra social</h2>
 
 <form  [formGroup]="healthInsuranceForm" (ngSubmit)="onSubmit()" class="mi-form">
-    <!-- <p> 
-        <mat-form-field>
-            <mat-label> Id: </mat-label>
-            <input matInput formControlName="id" placeholder="ID de la obra social">
-            <mat-error *ngIf="healthInsuranceForm.controls.id.touched && healthInsuranceForm.controls.id.invalid">
-                <span *ngIf="healthInsuranceForm.controls.id.errors.required">No te ovlvides de completarlo!</span>  
-            </mat-error> 
-        </mat-form-field>
-    </p>     -->
     <p> 
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Nombre legal: </mat-label>
             <input matInput formControlName="legalName" placeholder="Nombre legal de la obra social" >
-            <mat-error *ngIf="healthInsuranceForm.controls.legalName.touched && healthInsuranceForm.controls.legalName.invalid">
-                <span *ngIf="healthInsuranceForm.controls.legalName.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('legalName')">
+                <span *ngIf="checkFieldRequiredError('legalName')">
+                    No te olvides de completar el Nombre Legal!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>  
@@ -24,8 +17,10 @@
         <mat-form-field  appearance="standard" class="mi-full-width">
             <mat-label> Nombre de fantasía: </mat-label>
             <input matInput formControlName="fantasyName" placeholder="Nombre de fantasía de la obra social" >
-            <mat-error *ngIf="healthInsuranceForm.controls.fantasyName.touched && healthInsuranceForm.controls.fantasyName.invalid">
-                <span *ngIf="healthInsuranceForm.controls.fantasyName.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('fantasyName')">
+                <span *ngIf="checkFieldRequiredError('fantasyName')">
+                    No te olvides de completar el Nombre de fantasía!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>  
@@ -35,8 +30,10 @@
             <span matPrefix>+54 &nbsp;</span>
             <input type="tel" matInput formControlName="phone" placeholder="0341-444-4444" >
             <mat-icon matSuffix>phone</mat-icon>
-            <mat-error *ngIf="healthInsuranceForm.controls.phone.touched && healthInsuranceForm.controls.phone.invalid">
-                <span *ngIf="healthInsuranceForm.controls.phone.errors.required">No te olvides de completarlo!</span>  
+            <mat-error *ngIf="checkFieldError('phone')">
+                <span *ngIf="checkFieldRequiredError('phone')">
+                    No te olvides de completar el Teléfono!
+                </span>  
             </mat-error> 
         </mat-form-field>
     </p>  
