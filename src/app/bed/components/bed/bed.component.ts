@@ -3,7 +3,7 @@ import { BedService } from '../../services/bed.service';
 import { Bed } from '../../models/bed';
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
-import { CommonService } from '../../../common/services/common.service';
+import { DialogService } from '../../../common/services/dialog.service';
 
 @Component({
   selector: 'app-bed',
@@ -27,7 +27,7 @@ export class BedComponent implements OnInit{
 
   constructor(
     private bedService: BedService,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class BedComponent implements OnInit{
         this.flagListIsReady = false;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar las camas', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer cargar las camas', 'Cerrar');
       }
     });
   }
@@ -59,10 +59,10 @@ export class BedComponent implements OnInit{
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
         this.dataBed = this.dataBed.filter( item => !(item.id === bed.id && item.idHospital === bed.idHospital));
-        this.commonService.openSnackBar('La cama se ha eliminado correctamente', 'Perfecto!');
+        this.dialogService.openSnackBar('La cama se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer eliminar la cama', 'Cerrar');
        }
     });
   }
@@ -70,11 +70,11 @@ export class BedComponent implements OnInit{
     this.bedService.createBed(bed).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
        this.loadBeds();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la cama', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la cama', 'Cerrar');
        }
     });
   }
@@ -82,11 +82,11 @@ export class BedComponent implements OnInit{
     this.bedService.updateBedById(bed).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
        this.loadBeds();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar la cama', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer editar la cama', 'Cerrar');
        }
     });
   }

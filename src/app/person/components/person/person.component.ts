@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Person, PersonHealthInsuranceResult } from '../../models/person';
 import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
 import { PersonService } from '../../services/person.service';
-import { CommonService } from 'src/app/common/services/common.service';
+import { DialogService } from 'src/app/common/services/dialog.service';
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
 
@@ -43,7 +43,7 @@ export class PersonComponent implements OnInit {
 
   constructor(
     private personService: PersonService,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void{
@@ -62,7 +62,7 @@ export class PersonComponent implements OnInit {
         this.flagListIsReady = false;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar las Personas', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer cargar las Personas', 'Cerrar');
       }
     });
   }
@@ -77,10 +77,10 @@ export class PersonComponent implements OnInit {
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
         this.dataPerson = this.dataPerson.filter( item => !(item.id === person.id));
-        this.commonService.openSnackBar('La persona se ha eliminado correctamente', 'Perfecto!');
+        this.dialogService.openSnackBar('La persona se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la persona', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer eliminar la persona', 'Cerrar');
        }
     });
   }
@@ -88,21 +88,21 @@ export class PersonComponent implements OnInit {
     this.personService.createPerson(person).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
        this.getPersons();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la persona', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la persona', 'Cerrar');
        }
     });
   }
   createAffiliatedHealthInsurance(person: Person): void{
     this.personService.createAffiliatedHealthInsurance(person).subscribe({
       next: res => {
-       this.commonService.openSnackBar('Se creó la afiliación a la obra social exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se creó la afiliación a la obra social exitosamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social', 'Cerrar');
        }
     });
   }
@@ -111,12 +111,12 @@ export class PersonComponent implements OnInit {
     this.personService.updatePersonById(person).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
        this.createAffiliatedHealthInsurance(person);
        this.getPersons();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar la persona', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer editar la persona', 'Cerrar');
        }
     });
   }
@@ -145,7 +145,7 @@ export class PersonComponent implements OnInit {
         this.personHealthInsuranceResultData = res;
     },
     error: err => {
-      this.commonService.openSnackBar(err.error.msg, 'Cerrar');
+      this.dialogService.openSnackBar(err.error.msg, 'Cerrar');
      }
     });
   }

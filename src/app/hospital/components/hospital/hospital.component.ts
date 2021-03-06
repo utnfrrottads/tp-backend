@@ -3,7 +3,7 @@ import { HospitalService } from '../../services/hospital.service';
 import { Hospital, HospitalAccidentOrDiseases, HospitalHealthInsurance, HospitalHealthInsurances } from '../../models/hospital';
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
-import { CommonService } from '../../../common/services/common.service';
+import { DialogService } from '../../../common/services/dialog.service';
 import { HealthInsuranceService } from 'src/app/health-insurance/services/health-insurance.service';
 import { AccidentDiseasesService } from 'src/app/accident-diseases/services/accident-diseases.service';
 import { HealthInsurance } from 'src/app/health-insurance/models/health-insurance';
@@ -49,7 +49,7 @@ export class HospitalComponent implements OnInit {
   constructor(
     private hospitalService: HospitalService,
     private healthInsuranceService: HealthInsuranceService,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class HospitalComponent implements OnInit {
         this.flagListIsReady = false;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar los hospitales', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer cargar los hospitales', 'Cerrar');
       }
     });
   }
@@ -84,10 +84,10 @@ export class HospitalComponent implements OnInit {
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
         this.dataHospital = this.dataHospital.filter( item => item.id !== hospital.id);
-        this.commonService.openSnackBar('El hospital se ha eliminado correctamente', 'Perfecto!');
+        this.dialogService.openSnackBar('El hospital se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar el hospital', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer eliminar el hospital', 'Cerrar');
        }
     });
   }
@@ -96,11 +96,11 @@ export class HospitalComponent implements OnInit {
     this.hospitalService.createHospital(hospitalToSend).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
        this.getHospitals();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar el hospital', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar el hospital', 'Cerrar');
        }
     });
   }
@@ -109,11 +109,11 @@ export class HospitalComponent implements OnInit {
     this.hospitalService.updateHospitalById(hospitalToSend).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
        this.getHospitals();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar el hospital', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer editar el hospital', 'Cerrar');
        }
     });
   }
@@ -152,10 +152,10 @@ export class HospitalComponent implements OnInit {
   onHospitalHealthInsuranceCreated(hospitalHealthInsurance: HospitalHealthInsurance): void {
     this.healthInsuranceService.createAffiliatedHealthInsurance(hospitalHealthInsurance).subscribe({
       next: res => {
-      this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+      this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar el hospital', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar el hospital', 'Cerrar');
       }
     });
   }
@@ -177,7 +177,7 @@ export class HospitalComponent implements OnInit {
         this.dataHospitalHealthInsurances = res.healthInsurances;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer obtener las OS del hospital.', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer obtener las OS del hospital.', 'Cerrar');
       }
     });
   }
@@ -189,11 +189,11 @@ export class HospitalComponent implements OnInit {
   onHospitalAccidentOrDiseaseCreated(hospitalAccidentOrDiseases: HospitalAccidentOrDiseases): void {
     this.hospitalService.addToAccidentOrDiseaseByIds(this.hospitalSelected, hospitalAccidentOrDiseases.idAccidentOrDisease).subscribe({
       next: res => {
-      this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+      this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
       this.getHospitalAccidentOrDisease(hospitalAccidentOrDiseases.idHospital);
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital.'
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la atencion en el hospital.'
           + err.error.errors, 'Cerrar');
       }
     });
@@ -205,7 +205,7 @@ export class HospitalComponent implements OnInit {
         this.dataHospitalAccidentOrDisease = res.accidentOrDiseases;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades del hospital.', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades del hospital.', 'Cerrar');
       }
     });
   }

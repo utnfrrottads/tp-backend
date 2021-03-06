@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonService } from 'src/app/person/services/person.service';
 import { PersonHealthInsuranceResult } from 'src/app/person/models/person';
-import { CommonService } from 'src/app/common/services/common.service';
+import { DialogService } from 'src/app/common/services/dialog.service';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
 import { Router } from '@angular/router';
 import { HealthInsurance } from 'src/app/health-insurance/models/health-insurance';
@@ -15,10 +15,10 @@ import { HealthInsurance } from 'src/app/health-insurance/models/health-insuranc
 export class EmergencyPersonComponent implements OnInit {
   @Output() personSelected = new EventEmitter();
   healthInsurance: HealthInsurance;
-  personForm: FormGroup; 
+  personForm: FormGroup;
   dataAccidentOrDiseases: AccidentOrDiseases[];
   personHealthInsuranceResultData: PersonHealthInsuranceResult = {
-    persons : { 
+    persons : {
       id: '',
       dni: 0,
       firstName: '',
@@ -27,32 +27,32 @@ export class EmergencyPersonComponent implements OnInit {
       gender: '',
       phone: '',
       bloodType: '',
-      nurseWorkId:'',
-      user:'',
-      password:'',
+      nurseWorkId: '',
+      user: '',
+      password: '',
       healthInsurances: [],    // TODO opcional ?
-      healthInsuranceId:''
+      healthInsuranceId: ''
     },
     healthInsurances : [],
-    msg:'',
+    msg: '',
     success: false
   };
-  flagGetPersonHealth: boolean = false;
+  flagGetPersonHealth = false;
 
   constructor(
     private personService: PersonService,
     private router: Router,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
     this.initForm();
   }
-  
-  initForm(){
+
+  initForm(): void{
     this.personForm = new FormGroup({
       dni: new FormControl(''), // ,[Validators.required]
-    })
+    });
   }
 
   getPersonAndHealthInsurancesByDni(): void{
@@ -64,8 +64,8 @@ export class EmergencyPersonComponent implements OnInit {
     },
     error: err => {
       this.flagGetPersonHealth = false;
-      this.commonService.openSnackBar(err.error.msg, 'Cerrar');
-     } 
+      this.dialogService.openSnackBar(err.error.msg, 'Cerrar');
+     }
     });
   }
 
@@ -73,15 +73,15 @@ export class EmergencyPersonComponent implements OnInit {
     this.router.navigate(['personas']);
   }
 
-  onSelectHealthInsurance(healthInsurance: HealthInsurance){
+  onSelectHealthInsurance(healthInsurance: HealthInsurance): void{
     this.healthInsurance = healthInsurance;
   }
 
-  selectPerson(){
+  selectPerson(): void{
     const personHI = {
       person: this.personHealthInsuranceResultData.persons,
       healthInsurance: this.healthInsurance
-    }      
+    };
     this.personSelected.emit(personHI);
   }
 

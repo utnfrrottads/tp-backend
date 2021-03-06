@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HospitalService } from '../../../hospital/services/hospital.service';
 import { Hospital } from '../../../hospital/models/hospital';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../../common/services/common.service';
+import { DialogService } from '../../../common/services/dialog.service';
 import { AccidentOrDiseases } from '../../../accident-diseases/models/accidentOrDiseases';
 import { EmergencyService } from '../../services/emergency.service';
 import { AccidentDiseasesService } from '../../../accident-diseases/services/accident-diseases.service';
@@ -30,23 +30,12 @@ export class EmergencyComponent implements OnInit {
   /** It allows to indicate if the data set was obtained */
   flagGetPersonHealth = false;
 
-
-
-
-
-
-
   isOptional = true;
-
-
-
-
-
 
   constructor(
     private hospitalService: HospitalService,
     private accidentDiseasesService: AccidentDiseasesService,
-    private commonService: CommonService,
+    private dialogService: DialogService,
     private emergencyService: EmergencyService,
     private formBuilder: FormBuilder
   ) { }
@@ -93,10 +82,10 @@ export class EmergencyComponent implements OnInit {
       , this.emergencyForm.controls.idAccidentOrDisease.value
       ).subscribe({
         next: res => {
-          this.commonService.openSnackBar(res.msg, 'Cerrar');
+          this.dialogService.openSnackBar(res.msg, 'Cerrar');
         },
         error: err => {
-          this.commonService.openSnackBar('Ups... algo falló al querer tomar la cama. ' + err.msg, 'Cerrar');
+          this.dialogService.openSnackBar('Ups... algo falló al querer tomar la cama. ' + err.msg, 'Cerrar');
         }
       }
     );
@@ -114,7 +103,7 @@ export class EmergencyComponent implements OnInit {
         this.dataAccidentOrDiseases = res.accidentOrDiseases;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades', 'Cerrar');
       }
     });
   }
@@ -130,7 +119,7 @@ export class EmergencyComponent implements OnInit {
         this.onAccidentOrDiseasesSelected();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer traer los accidentes/enfermedades', 'Cerrar');
       }
     });
   }
@@ -202,7 +191,7 @@ export class EmergencyComponent implements OnInit {
         this.dataBeds = beds;
     },
     error: err => {
-      this.commonService.openSnackBar(err.error.msg, 'Cerrar');
+      this.dialogService.openSnackBar(err.error.msg, 'Cerrar');
      }
     });
   }
@@ -213,7 +202,7 @@ export class EmergencyComponent implements OnInit {
           this.hospitalData = this.hospitalService.getFormatOkFrontendHospital(res.hospitals);
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer obtener los Hospitales', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer obtener los Hospitales', 'Cerrar');
       }
     });
   }
@@ -227,7 +216,7 @@ export class EmergencyComponent implements OnInit {
   //     this.dataAtentionLevel = res;
   //     },
   //     error: err => {
-  //       this.commonService.openSnackBar('Ups... algo falló al querer obtener los Niveles de Atención', 'Cerrar');
+  //       this.dialogService.openSnackBar('Ups... algo falló al querer obtener los Niveles de Atención', 'Cerrar');
   //      }
   //   });
   // }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { InputType } from 'src/app/common/models/typeInputEnum';
-import { CommonService } from 'src/app/common/services/common.service';
+import { DialogService } from 'src/app/common/services/dialog.service';
 import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../../models/accidentOrDiseases';
 import { AccidentDiseasesService } from '../../services/accident-diseases.service';
 
@@ -22,7 +22,7 @@ export class AccidentDiseasesComponent implements OnInit {
 
   constructor(
     private accidentDiseasesService: AccidentDiseasesService,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class AccidentDiseasesComponent implements OnInit {
         this.flagListIsReady = false;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer obtener las Accidentes-Enfermedades', 'Cerrar');
       }
     });
   }
@@ -56,10 +56,10 @@ export class AccidentDiseasesComponent implements OnInit {
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
         this.dataAccidentOrDisease = this.dataAccidentOrDisease.filter( item => !(item.id === accidentOrDiseases.id));
-        this.commonService.openSnackBar('El Accidente-Enfermedad se ha eliminado correctamente', 'Perfecto!');
+        this.dialogService.openSnackBar('El Accidente-Enfermedad se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar el Accidente-Enfermedad', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer eliminar el Accidente-Enfermedad', 'Cerrar');
        }
     });
   }
@@ -67,11 +67,11 @@ export class AccidentDiseasesComponent implements OnInit {
     this.accidentDiseasesService.createAccidentOrDisease(accidentOrDiseases).subscribe({
       next: res => {
         this.accordion.closeAll();
-        this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+        this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
         this.getAllAccidentsOrDiseases();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar el Accidente-Enfermedad', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar el Accidente-Enfermedad', 'Cerrar');
        }
     });
   }
@@ -79,11 +79,11 @@ export class AccidentDiseasesComponent implements OnInit {
     this.accidentDiseasesService.updateAccidentOrDiseaseById(accidentOrDiseases).subscribe({
       next: res => {
         this.accordion.closeAll();
-        this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
+        this.dialogService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
         this.getAllAccidentsOrDiseases();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar el Accidente-Enfermedad', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer editar el Accidente-Enfermedad', 'Cerrar');
        }
     });
   }

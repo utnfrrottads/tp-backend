@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BedListComponent } from './bed/components/bed-list/bed-list.component';
-import { ConfirmationDialogComponent } from './common/components/confirmation-dialog/confirmation-dialog.component';
 import { BedFormComponent } from './bed/components/bed-form/bed-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
@@ -76,7 +75,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     AppComponent,
     AccidentDiseasesFormComponent,
     BedListComponent,
-    ConfirmationDialogComponent,
     BedFormComponent,
     NavComponent,
     DashComponent,

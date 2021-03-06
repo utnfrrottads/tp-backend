@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccidentDiseasesService } from '../../../accident-diseases/services/accident-diseases.service';
 import { Hospital } from '../../models/hospital';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
-import { CommonService } from 'src/app/common/services/common.service';
+import { DialogService } from 'src/app/common/services/dialog.service';
 
 @Component({
   selector: 'app-hospital-accident-diseases-form',
@@ -20,7 +20,7 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit, OnChanges 
 
   constructor(
     private accidentDiseasesService: AccidentDiseasesService,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class HospitalAccidentDiseasesFormComponent implements OnInit, OnChanges 
         this.dataAccidentOrDiseases = res.accidentOrDiseases;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la cama', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer eliminar la cama', 'Cerrar');
        }
     });
   }

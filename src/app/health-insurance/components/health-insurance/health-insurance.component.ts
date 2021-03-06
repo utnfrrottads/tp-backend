@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { HealthInsurance } from '../../models/health-insurance';
 import { HealthInsuranceService  } from '../../services/health-insurance.service';
-import { CommonService } from 'src/app/common/services/common.service';
+import { DialogService } from 'src/app/common/services/dialog.service';
 import { InputType } from '../../../common/models/typeInputEnum';
 import { MatAccordion } from '@angular/material/expansion';
 
@@ -24,7 +24,7 @@ export class HealthInsuranceComponent implements OnInit {
 
   constructor(
     private healthInsuranceService: HealthInsuranceService,
-    private commonService: CommonService
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.flagListIsReady = false;
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer cargar las Obras sociales', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer cargar las Obras sociales', 'Cerrar');
       }
     });
   }
@@ -57,10 +57,10 @@ export class HealthInsuranceComponent implements OnInit {
       next: res => {
         // Para no ir de nuevo al backend y reducir la red
         this.dataHealthInsurance = this.dataHealthInsurance.filter( item => !(item.id === healthInsurance.id));
-        this.commonService.openSnackBar('La obra social se ha eliminado correctamente', 'Perfecto!');
+        this.dialogService.openSnackBar('La obra social se ha eliminado correctamente', 'Perfecto!');
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer eliminar la obra social', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer eliminar la obra social', 'Cerrar');
        }
     });
   }
@@ -68,11 +68,11 @@ export class HealthInsuranceComponent implements OnInit {
     this.healthInsuranceService.createHealthInsurance(healthInsurance).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
        this.getHealthInsurances();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer agregar la obra social', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la obra social', 'Cerrar');
        }
     });
   }
@@ -80,11 +80,11 @@ export class HealthInsuranceComponent implements OnInit {
     this.healthInsuranceService.updateHealthInsuranceById(healthInsurance).subscribe({
       next: res => {
        this.accordion.closeAll();
-       this.commonService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
+       this.dialogService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
        this.getHealthInsurances();
       },
       error: err => {
-        this.commonService.openSnackBar('Ups... algo falló al querer editar la obra social', 'Cerrar');
+        this.dialogService.openSnackBar('Ups... algo falló al querer editar la obra social', 'Cerrar');
        }
     });
   }
