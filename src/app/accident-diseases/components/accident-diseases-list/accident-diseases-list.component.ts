@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HospitalAccidentOrDiseases } from 'src/app/hospital/models/hospital';
-import { AccidentOrDiseases, AccidentOrDiseasesResult } from '../../models/accidentOrDiseases';
+import { AccidentOrDiseases } from '../../models/accidentOrDiseases';
 
 @Component({
   selector: 'app-accident-diseases-list',
@@ -16,13 +16,13 @@ export class AccidentDiseasesListComponent {
   @Output() accidentOrDiseaseSelected = new EventEmitter();
   displayedColumns: string[] = ['description', 'actions'];
 
-  deleteHad(accidentOrDiseases: AccidentOrDiseases): void{
+  deleteAccidentOrDisease(accidentOrDiseases: AccidentOrDiseases): void{
     this.accidentOrDiseaseDeleted.emit(accidentOrDiseases);
   }
-  editHad(accidentOrDiseases: AccidentOrDiseases): void {
+  editAccidentOrDisease(accidentOrDiseases: AccidentOrDiseases): void {
     this.accidentOrDiseaseSelected.emit(accidentOrDiseases);
   }
-  selectHad(accidentOrDiseases: AccidentOrDiseases): void {
+  selectAccidentOrDisease(accidentOrDiseases: AccidentOrDiseases): void {
     this.accidentOrDiseaseSelected.emit(accidentOrDiseases);
   }
 }
