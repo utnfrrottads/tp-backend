@@ -16,41 +16,42 @@ export class CamasTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<CamasEfectoresItem>;
-   
   dataLength: number;
   dataSource: CamasTableDataSource;
- 
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
-    "efector",
-    "ciudad",
-    "nivelAtencion",
-    "obraSocial",
-    "cama",
-    "diasOcupada",
-  ]; 
-  
-  constructor(private bedService: BedService){}
+    'efector',
+    'ciudad',
+    'nivelAtencion',
+    'obraSocial',
+    'cama',
+    'diasOcupada',
+  ];
 
-  ngOnInit() {
+  constructor(
+    private bedService: BedService
+    ){}
+
+  ngOnInit(): void{
     this.dataSource = new CamasTableDataSource(this.bedService);
 
     this.bedService.getBedCount().subscribe({
       next: orderCount => {
       this.dataLength = orderCount[0];
-      }, 
-    }); 
+      }
+    });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void{
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
 
-  getClassChip(diasOcupada: number){
-    return diasOcupada <= 5 ? 'warn' 
-          : ( diasOcupada <= 10 ? 'accent' 
-            : 'primary' ) 
+  getClassChip(diasOcupada: number): string{
+    return diasOcupada <= 5 ? 'warn'
+          : ( diasOcupada <= 10 ? 'accent'
+            : 'primary' );
   }
 }

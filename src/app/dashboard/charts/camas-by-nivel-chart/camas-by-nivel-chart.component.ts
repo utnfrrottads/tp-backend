@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 
@@ -7,7 +7,7 @@ import { Label } from 'ng2-charts';
   templateUrl: './camas-by-nivel-chart.component.html',
   styleUrls: ['./camas-by-nivel-chart.component.css']
 })
-export class CamasByNivelChartComponent implements OnInit {
+export class CamasByNivelChartComponent {
 
   public radarChartOptions: ChartOptions = {
     responsive: true,
@@ -15,13 +15,7 @@ export class CamasByNivelChartComponent implements OnInit {
   public radarChartLabels: Label[] = ['Centro de salud', 'Hospitales', 'Alta complejidad'];
 
   public radarChartData: ChartDataSets[] = [
-    { data: [74, 80, 90 ], label: 'Ocupación' } 
+    { data: [74, 80, 90 ], label: 'Ocupación' }
   ];
   public radarChartType: ChartType = 'radar';
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

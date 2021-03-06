@@ -13,12 +13,7 @@ export class AnnualCamasChartComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Camas por mes' },
   ];
- 
-  public lineChartLabels: Label[] = []; 
-  // public lineChartData: ChartDataSets[] = [
-  //   { data: [35, 25, 35, 49, 53, 51, 59, 69, 85, 87], label: 'Series A' },
-  // ];
-  // public lineChartLabels: Label[] = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct'];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -36,11 +31,11 @@ export class AnnualCamasChartComponent implements OnInit {
     private bedService: BedService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.getCamaData();
   }
 
-  getCamaData(){
+  getCamaData(): void{
     this.bedService.getBedsByMonth().subscribe({
       next: camasItem => {
         camasItem.forEach(li => {

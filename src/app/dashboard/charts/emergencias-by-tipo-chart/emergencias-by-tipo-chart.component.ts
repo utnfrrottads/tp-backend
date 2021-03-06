@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
 
@@ -7,7 +7,7 @@ import { Label, SingleDataSet } from 'ng2-charts';
   templateUrl: './emergencias-by-tipo-chart.component.html',
   styleUrls: ['./emergencias-by-tipo-chart.component.css']
 })
-export class EmergenciasByTipoChartComponent implements OnInit {
+export class EmergenciasByTipoChartComponent {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -17,10 +17,5 @@ export class EmergenciasByTipoChartComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

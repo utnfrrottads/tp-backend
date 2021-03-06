@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 
@@ -7,7 +7,7 @@ import { Label } from 'ng2-charts';
   templateUrl: './efector-obra-social-chart.component.html',
   styleUrls: ['./efector-obra-social-chart.component.css']
 })
-export class EfectorObraSocialChartComponent implements OnInit {
+export class EfectorObraSocialChartComponent {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -21,10 +21,4 @@ export class EfectorObraSocialChartComponent implements OnInit {
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'COVID' },
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Otros' }
   ];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }
