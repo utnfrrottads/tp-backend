@@ -10,7 +10,7 @@ export const getEmpresas = async (req: Request, res: Response): Promise<Response
 
 export const getEmpresa = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const empresa = await getRepository(Empresa).findOne(req.params.cuit);
+        const empresa = await getRepository(Empresa).findOne(req.params.cuit);        
         if (empresa !== undefined) {
             return res.status(200).json(empresa);
         } else {
@@ -25,6 +25,11 @@ export const getEmpresa = async (req: Request, res: Response): Promise<Response>
 
 export const createEmpresa = async (req: Request, res: Response): Promise<Response> => {
     try {
+        const empresa = await getRepository(Empresa).findOne(req.params.cuit);        
+        if(empresa !== undefined)
+        {
+            return res.status(302).send({ Message: 'Empresa already exists' });
+        }
         const nuevaEmpresa = await getRepository(Empresa).create(req.body);
         const empre = await getRepository(Empresa).save(nuevaEmpresa);
         if (empre !== undefined && empre) {

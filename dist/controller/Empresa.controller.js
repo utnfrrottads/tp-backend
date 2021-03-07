@@ -74,16 +74,22 @@ exports.getEmpresa = function (req, res) { return __awaiter(void 0, void 0, void
     });
 }); };
 exports.createEmpresa = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nuevaEmpresa, empre, error_2;
+    var empresa, nuevaEmpresa, empre, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).create(req.body)];
+                _a.trys.push([0, 4, , 5]);
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
             case 1:
+                empresa = _a.sent();
+                if (empresa !== undefined) {
+                    return [2 /*return*/, res.status(302).send({ Message: 'Empresa already exists' })];
+                }
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).create(req.body)];
+            case 2:
                 nuevaEmpresa = _a.sent();
                 return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).save(nuevaEmpresa)];
-            case 2:
+            case 3:
                 empre = _a.sent();
                 if (empre !== undefined && empre) {
                     return [2 /*return*/, res.status(200).json(empre)];
@@ -91,11 +97,11 @@ exports.createEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
                 else {
                     return [2 /*return*/, res.status(204).send(empre)];
                 }
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 5];
+            case 4:
                 error_2 = _a.sent();
                 return [2 /*return*/, res.status(400).send({ Message: 'Error al crear la empresa' })];
-            case 4: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
@@ -108,8 +114,6 @@ exports.updateEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
                 return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.body.Cuit)];
             case 1:
                 empresa = _a.sent();
-                console.dir(req.params);
-                debugger;
                 if (!(empresa !== undefined && empresa)) return [3 /*break*/, 3];
                 typeorm_1.getRepository(Empresa_1.Empresa).merge(empresa, req.body);
                 return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).save(empresa)];
