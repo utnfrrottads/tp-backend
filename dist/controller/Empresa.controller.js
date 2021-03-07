@@ -79,7 +79,7 @@ exports.createEmpresa = function (req, res) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.params.cuit)];
+                return [4 /*yield*/, typeorm_1.getRepository(Empresa_1.Empresa).findOne(req.body.Cuit)];
             case 1:
                 empresa = _a.sent();
                 if (empresa !== undefined) {

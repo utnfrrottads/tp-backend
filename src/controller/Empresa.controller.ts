@@ -24,8 +24,8 @@ export const getEmpresa = async (req: Request, res: Response): Promise<Response>
 }
 
 export const createEmpresa = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const empresa = await getRepository(Empresa).findOne(req.params.cuit);        
+    try {        
+        const empresa = await getRepository(Empresa).findOne(req.body.Cuit);
         if(empresa !== undefined)
         {
             return res.status(302).send({ Message: 'Empresa already exists' });
