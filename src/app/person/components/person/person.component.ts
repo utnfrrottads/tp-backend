@@ -22,13 +22,13 @@ export class PersonComponent implements OnInit {
     bornDate: '',
     gender: '',
     phone: '',
-    bloodType: null,        // TODO es ok?
-    emergencyContact: null, // TODO es ok?
+    bloodType: null,
+    emergencyContact: null,
 
-    nurseWorkId: null,       // TODO es ok?
-    user: null,              // TODO es ok?
-    password: null,          // TODO es ok?
-    healthInsurances:  null, // TODO es ok?
+    nurseWorkId: null,
+    user: null,
+    password: null,
+    healthInsurances:  null,
     healthInsuranceId: '', // nuevo nombre sera idHealthInsurance
   };
 
@@ -67,6 +67,7 @@ export class PersonComponent implements OnInit {
     });
   }
   onPersonSelected(person: Person): void{
+    console.log('onPersonSelected');
     this.accordion.openAll();
     this.personSelected = person;
     this.inputType = InputType.edit;

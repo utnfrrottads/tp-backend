@@ -6,7 +6,7 @@ import { GeoLocationGoogleMap, Hospital, HospitalClosest } from '../../hospital/
 })
 export class MapService {
   // apiKey='';
-/** Radio de la tierra en kilómetros km  */
+  /** Radio de la tierra en kilómetros km  */
   radiusHeart = 6371;
 
   getApiKey(){

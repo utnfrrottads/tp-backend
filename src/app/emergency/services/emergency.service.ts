@@ -19,7 +19,7 @@ export class EmergencyService{
  * `GETS` all emergencys of the collection.
  */
 getEmergencies(): Observable<EmergencyResult>{
-  return this.httpClient.get<EmergencyResult>(this.baseUrl + '/api-emergencies');
+  return this.httpClient.get<EmergencyResult>(`${this.baseUrl}/api-emergencies`);
 }
 /**
  * `CREATES` a emergency.
@@ -33,10 +33,8 @@ createEmergency(emergency: Emergency, idHospital: string, idBed: string, idAccid
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   return this.httpClient.post<EmergencyResult>(
-    this.baseUrl + '/api-emergencies/createEmergency'
-    + '/hospital/' + idHospital
-    + '/bed/' + idBed
-    + '/accidendOrDisease/' + idAccidentOrDisease,
+    `${this.baseUrl}/api-emergencies/createEmergency`
+      + `/hospital/${idHospital}/bed/${idBed}/accidendOrDisease/${idAccidentOrDisease}`,
     emergency,
     httpOptions);
 }
@@ -51,9 +49,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 return this.httpClient.post<EmergencyResult>(
-  this.baseUrl + '/api-emergencies/addToAccidentOrDiseaseByIds/'
-  + idEmergency
-  + idAccidentOrDisease,
+  `${this.baseUrl}/api-emergencies/addToAccidentOrDiseaseByIds/${idEmergency}/${idAccidentOrDisease}`,
   emergency,
   httpOptions);
 }
@@ -67,8 +63,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 return this.httpClient.put<EmergencyResult>(
-  this.baseUrl + '/api-emergencies/updateEmergencyById'
-               + '/' + emergency.id,
+  `${this.baseUrl}/api-emergencies/updateEmergencyById/${emergency.id}`,
   emergency,
   httpOptions);
 }
@@ -82,7 +77,7 @@ deleteEmergencyById(emergency: Emergency): Observable<EmergencyResult>{
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   return this.httpClient.delete<EmergencyResult>(
-    this.baseUrl + '/api-emergencies/deleteEmergencyById/' + emergency.id,
+    `${this.baseUrl}/api-emergencies/deleteEmergencyById/${emergency.id}`,
     httpOptions);
  }
 }

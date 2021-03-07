@@ -18,7 +18,9 @@ export class HealthInsuranceService {
 
   /** GETS all HealthInsurances of the collection. */
   getHealthInsurances(): Observable<HealthInsuranceResult>{
-    return this.httpClient.get<HealthInsuranceResult>(this.baseUrl + '/api-healthInsurances');
+    return this.httpClient.get<HealthInsuranceResult>(
+      `${this.baseUrl}/api-healthInsurances`
+      );
   }
 
   /** CREATES` a healthInsurance.
@@ -29,7 +31,7 @@ export class HealthInsuranceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<HealthInsuranceResult>(
-      this.baseUrl + '/api-healthInsurances/createHealthInsurance/',
+      `${this.baseUrl}/api-healthInsurances/createHealthInsurance`,
       healthInsurance,
       httpOptions);
   }
@@ -43,9 +45,9 @@ export class HealthInsuranceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<HealthInsuranceResult>(
-      this.baseUrl + '/api-healthInsurances/addToHospitalByIds'
-                    + '/' + hospitalHealthInsurance.idHospital
-                    + '/' + hospitalHealthInsurance.idHealthInsurance,
+      `${this.baseUrl}/api-healthInsurances/addToHospitalByIds`
+                    + `/${hospitalHealthInsurance.idHospital}`
+                    + `/${hospitalHealthInsurance.idHealthInsurance}`,
       hospitalHealthInsurance,
       httpOptions);
   }
@@ -58,7 +60,7 @@ export class HealthInsuranceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.put<HealthInsuranceResult>(
-      this.baseUrl + '/api-healthInsurances/updateHealthInsuranceById/' + healthInsurance.id,
+      `${this.baseUrl}/api-healthInsurances/updateHealthInsuranceById/${healthInsurance.id}`,
       healthInsurance,
       httpOptions);
   }
@@ -71,7 +73,7 @@ export class HealthInsuranceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.delete<HealthInsuranceResult>(
-      this.baseUrl + '/api-healthInsurances/deleteHealthInsuranceById/' + healthInsurance.id,
+      `${this.baseUrl}/api-healthInsurances/deleteHealthInsuranceById/${healthInsurance.id}`,
       httpOptions);
   }
 }

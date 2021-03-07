@@ -16,7 +16,7 @@ export class BedService {
   ) { }
 
   getBeds(): Observable<BedResult>{
-    return this.httpClient.get<BedResult>(this.baseUrl + '/api-beds');
+    return this.httpClient.get<BedResult>(`${this.baseUrl}/api-beds`);
   }
 
   // CREATES a bed by idHospital and adds it as a subcollection
@@ -26,7 +26,7 @@ export class BedService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<BedResult>(
-      this.baseUrl + '/api-beds/createBedByIdHospital/' + bed.idHospital,
+      `${this.baseUrl}/api-beds/createBedByIdHospital/${bed.idHospital}`,
       bed,
       httpOptions);
   }
@@ -38,7 +38,7 @@ export class BedService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.put<BedResult>(
-      this.baseUrl + '/api-beds/updatebyIds/' + bed.idHospital + '/' + bed.id,
+      `${this.baseUrl}/api-beds/updatebyIds/${bed.idHospital}/${bed.id}`,
       bed,
       httpOptions);
   }
@@ -49,7 +49,7 @@ export class BedService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.delete<BedResult>(
-      this.baseUrl + '/api-beds/deleteBedByIds/' + bed.idHospital + '/' + bed.id,
+      `${this.baseUrl}/api-beds/deleteBedByIds/${bed.idHospital}/${bed.id}`,
       httpOptions);
   }
 /*******************************************************************************

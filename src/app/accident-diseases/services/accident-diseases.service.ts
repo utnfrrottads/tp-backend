@@ -23,9 +23,7 @@ export class AccidentDiseasesService {
  */
   getAllAccidentsOrDiseases(): Observable<AccidentOrDiseasesResult>{
     return this.httpClient.get<AccidentOrDiseasesResult>(
-        this.baseUrl
-         + this.controller
-         + 'getAllAccidentsOrDiseases/');
+        `${this.baseUrl}/api-accidentOrDiseases/getAllAccidentsOrDiseases`);
   }
 
 /**
@@ -34,9 +32,7 @@ export class AccidentDiseasesService {
  */
 getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<HospitalResult>{
   return this.httpClient.get<HospitalResult>(
-    this.baseUrl + this.controller
-                 + 'getAllHospitalsByAccidentOrDiseasesId/'
-                 + idaccidentOrDisease
+    `${this.baseUrl}/api-accidentOrDiseases/getAllHospitalsByAccidentOrDiseasesId/${idaccidentOrDisease}`
     );
 }
 
@@ -49,7 +45,7 @@ getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<H
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<AccidentOrDiseasesResult>(
-      this.baseUrl + this.controller  + 'createAccidentOrDisease',
+      `${this.baseUrl}/api-accidentOrDiseases/createAccidentOrDisease`,
       accidentOrDiseases,
       httpOptions);
   }
@@ -63,9 +59,8 @@ getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<H
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
     return this.httpClient.post<AccidentOrDiseasesResult>(
-      this.baseUrl + this.controller + 'addToHospitalByIds'
-                   + '/' + hospitalAccidentOrDiseases.idHospital
-                   + '/' + hospitalAccidentOrDiseases.idAccidentOrDisease,
+      `${this.baseUrl}/api-accidentOrDiseases/addToHospitalByIds`
+        + `/${hospitalAccidentOrDiseases.idHospital}/${hospitalAccidentOrDiseases.idAccidentOrDisease}`,
       hospitalAccidentOrDiseases,
       httpOptions);
   }
@@ -79,7 +74,7 @@ getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<H
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.put<AccidentOrDiseasesResult>(
-      this.baseUrl  + this.controller + 'updateAccidentOrDiseaseById/' + accidentOrDiseases.id,
+      `${this.baseUrl}/api-accidentOrDiseases/updateAccidentOrDiseaseById/${accidentOrDiseases.id}`,
       accidentOrDiseases,
       httpOptions);
   }
@@ -92,7 +87,7 @@ getAllHospitalsByAccidentOrDiseasesId(idaccidentOrDisease: string): Observable<H
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.delete<AccidentOrDiseasesResult>(
-      this.baseUrl + this.controller + 'deleteAccidentOrDiseaseById/' + accidentOrDiseases.id,
+      `${this.baseUrl}/api-accidentOrDiseases/deleteAccidentOrDiseaseById/${accidentOrDiseases.id}`,
       httpOptions);
   }
 

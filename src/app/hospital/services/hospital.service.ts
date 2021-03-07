@@ -15,7 +15,7 @@ import { environment } from '../../../environments/environment';
 export class HospitalService {
 
   baseUrl = environment.baseUrl;
-  controller: string = '/api-hospitals/';
+  controller = '/api-hospitals/';
 
   constructor(
     private httpClient: HttpClient
@@ -24,39 +24,38 @@ export class HospitalService {
  * Formatea el hospital para que obtenga correctamente el lat y lng para el mapa de Google
  * @param hospitals array con los datos de los hospitales
  */
-  getFormatOkFrontendHospital(hospitals: Hospital[]): Hospital[] {    
-    return hospitals.map(item =>{
-      let objetFormat = this.initObjectHospital();
-      objetFormat.id = item.id,
-      objetFormat.name= item.name,
-      objetFormat.address= item.address,
-      objetFormat.locality= item.locality,
-      objetFormat.phone= item.phone,
-      objetFormat.location = item.location,
-      objetFormat.locationGoogleMap = { lat: item.location['latitude'], lng: item.location['longitude'] }, 
-      objetFormat.atentionLevel = item.atentionLevel,
-      objetFormat.healthInsurances = item.healthInsurances,
-      objetFormat.accidentOrDiseases = item.accidentOrDiseases,
-      objetFormat.beds = item.beds
-      objetFormat.freeBeds = item.freeBeds
-      
+  getFormatOkFrontendHospital(hospitals: Hospital[]): Hospital[] {
+    return hospitals.map(item => {
+      const objetFormat = this.initObjectHospital();
+      objetFormat.id = item.id;
+      objetFormat.name = item.name;
+      objetFormat.address = item.address;
+      objetFormat.locality = item.locality;
+      objetFormat.phone = item.phone;
+      objetFormat.location = item.location;
+      objetFormat.locationGoogleMap = { lat: item.location.latitude, lng: item.location.longitude },
+      objetFormat.atentionLevel = item.atentionLevel;
+      objetFormat.healthInsurances = item.healthInsurances;
+      objetFormat.accidentOrDiseases = item.accidentOrDiseases;
+      objetFormat.beds = item.beds;
+      objetFormat.freeBeds = item.freeBeds;
       return objetFormat;
-    }) ; 
-  } 
+    }) ;
+  }
 /**
- * Inicializa el objeto 
+ * Inicializa el objeto
  */
   initObjectHospital(): Hospital {
-    return { 
+    return {
       id : '',
-      name :'',
+      name: '',
       address : '',
       locality : '',
       phone : 0,
       freeBeds: 0,
-      location : {latitude: 0, longitude: 0},  
+      location : {latitude: 0, longitude: 0},
       locationGoogleMap : {lat: 0, lng: 0},
-      options: '', 
+      options: '',
       atentionLevel: '',
       healthInsurances: [],
       accidentOrDiseases: [],
@@ -66,54 +65,46 @@ export class HospitalService {
   }
 
 /**
-* `GETS` all hospitals of the collection
-*/
-  getHospitals(): Observable<HospitalResult>{ 
+ * `GETS` all hospitals of the collection
+ */
+  getHospitals(): Observable<HospitalResult>{
     return this.httpClient.get<HospitalResult>(this.baseUrl + this.controller);
   }
 /**
-* `GETS` the closest hospitals by lat long.
-*/
- getClosestHospitals(atentionLevel: string): Observable<HospitalResult>{ 
+ * `GETS` the closest hospitals by lat long.
+ */
+ getClosestHospitals(atentionLevel: string): Observable<HospitalResult>{
     return this.httpClient.get<HospitalResult>(
-      this.baseUrl + this.controller
-      + 'getClosestHospitals'
-      + '/' + atentionLevel);
+      `${this.baseUrl}${this.controller}getClosestHospitals/${atentionLevel}`);
   }
 /**
-* `GETS` the closest hospitals by lat long.
-* get('/getAllAccidentsOrDiseasesById/:idHospital'
-*/
-  getAllAccidentsOrDiseasesById(idHospital: string): Observable<AccidentOrDiseasesResult>{ 
+ * `GETS` the closest hospitals by lat long.
+ * get('/getAllAccidentsOrDiseasesById/:idHospital'
+ */
+  getAllAccidentsOrDiseasesById(idHospital: string): Observable<AccidentOrDiseasesResult>{
     return this.httpClient.get<AccidentOrDiseasesResult>(
-      this.baseUrl + this.controller
-      + 'getAllAccidentsOrDiseasesById'
-      + '/' + idHospital);
+      `${this.baseUrl}${this.controller}getAllAccidentsOrDiseasesById/${idHospital}`);
   }
 /**
-* `GETS` all HealthInsurances of the Hospital.
-* get('/getAllHealthInsurancesById/:idHospital'
-*/
-  getAllHealthInsurancesById(idHospital: string): Observable<HealthInsuranceResult>{ 
+ * `GETS` all HealthInsurances of the Hospital.
+ * get('/getAllHealthInsurancesById/:idHospital'
+ */
+  getAllHealthInsurancesById(idHospital: string): Observable<HealthInsuranceResult>{
     return this.httpClient.get<HealthInsuranceResult>(
-      this.baseUrl + this.controller
-      + 'getAllHealthInsurancesById'
-      + '/' + idHospital);
+      `${this.baseUrl}${this.controller}getAllHealthInsurancesById/${idHospital}`);
   }
 /**
-* `GETS` all Beds of the Hospital.
-  get('/getAllBedsById/:idHospital',
-*/
-  getAllBedsById(idHospital: string): Observable<BedResult>{ 
+ * `GETS` all Beds of the Hospital.
+ *  get('/getAllBedsById/:idHospital',
+ */
+  getAllBedsById(idHospital: string): Observable<BedResult>{
     return this.httpClient.get<BedResult>(
-      this.baseUrl + this.controller
-      + 'getAllBedsById'
-      + '/' + idHospital);
+      `${this.baseUrl}${this.controller}getAllBedsById/${idHospital}`);
   }
 /**
-* `CREATES` a hospital.
-*/
-  createHospital(hospital: Hospital): Observable<HospitalResult>{    
+ * `CREATES` a hospital.
+ */
+  createHospital(hospital: Hospital): Observable<HospitalResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -124,63 +115,50 @@ export class HospitalService {
   }
 
 /**
-* `ADDS` an AccidentOrDisease treated by hospital.
-  post('/addToAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease'
-*/ 
-  addToAccidentOrDiseaseByIds(hospital: Hospital, idAccidentOrDisease: string): Observable<HospitalResult>{    
+ * `ADDS` an AccidentOrDisease treated by hospital.
+ *  post('/addToAccidentOrDiseaseByIds/:idHospital/:idAccidentOrDisease'
+ */
+  addToAccidentOrDiseaseByIds(hospital: Hospital, idAccidentOrDisease: string): Observable<HospitalResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<HospitalResult>(
-      this.baseUrl + this.controller + 'addToAccidentOrDiseaseByIds'
-                    + '/' + hospital.id 
-                    + '/' + idAccidentOrDisease
-      ,
+      `${this.baseUrl}${this.controller}addToAccidentOrDiseaseByIds/${hospital.id}/${idAccidentOrDisease}`,
       hospital,
-      httpOptions);
-  }
- 
-/**
-* `UPDATES` a hospital by ID.
-  put('/updateHospitalById/:id'
-*/
-updateHospitalById(hospital: Hospital): Observable<HospitalResult>{    
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };     
-    return this.httpClient.put<HospitalResult>(
-      this.baseUrl  + this.controller + 'updateHospitalById/' + hospital.id,
-      hospital,
-      httpOptions);
-  } 
-  /**
-  * `DELETES` a hospital by ID.
-  * delete('//:id'
-  */
-  deleteHospitalById(hospital: Hospital): Observable<HospitalResult>{     
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };     
-    return this.httpClient.delete<HospitalResult>(
-      this.baseUrl + this.controller + 'deleteHospitalById/' + hospital.id,
       httpOptions);
   }
 
-   
+/**
+ * `UPDATES` a hospital by ID.
+ *  put('/updateHospitalById/:id'
+ */
+updateHospitalById(hospital: Hospital): Observable<HospitalResult>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.httpClient.put<HospitalResult>(
+      `${this.baseUrl}${this.controller}updateHospitalById/${hospital.id}`,
+      hospital,
+      httpOptions);
+  }
+/**
+ * `DELETES` a hospital by ID.
+ * delete('//:id'
+ */
+  deleteHospitalById(hospital: Hospital): Observable<HospitalResult>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.httpClient.delete<HospitalResult>(
+      `${this.baseUrl}${this.controller}deleteHospitalById/${hospital.id}`,
+      httpOptions);
+  }
+
   getAtentionLevel(): Observable<AtentionLevel[]>{
     return of([
-      {"id": '1',"description": "Primer nivel" },
-      {"id": '2',"description": "Segundo nivel" },
-      {"id": '3',"description": "Tercer nivel" }
+      { id: '1', description: 'Primer nivel' },
+      { id: '2', description: 'Segundo nivel' },
+      { id: '3', description: 'Tercer nivel' }
     ]);
   }
 }
-// getEfectoresLocalization(): Observable<Hospital[]> {
-//   return of([   
-//     {id: '3171', name: 'Centro de Salud "Elena Bazzet"', address: 'CABRINI MADRE 2717', locality: 'Rosario',  phone: 444555, zipcode: '2000',  options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-33.005810, lng: -60.671392}},
-//     {id: '1175', name: 'Centro de Salud "Dr. Salvador Mazza"', address: 'GRANDOLI FLODUARDO 3498', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'',  healthInsurances:[], accidentOrDiseases: [], beds: [],location: {lat:-32.886982, lng:  -60.734015}},
-//     {id: '1220', name: 'Hospital Provincial', address: 'ALEM LEANDRO N 1450', locality: 'Rosario', phone: 4807841, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-32.956261, lng: -60.630512}},
-//     {id: '3169', name: 'Centro de Salud "Santa Lucí­a"', address: '1739 7691', locality: 'Rosario', phone: 444555, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-32.955491, lng: -60.726453}}, 
-//     {id: '3743', name: 'Policlínico "San Martín"', address: 'CHUBUT 7145', locality: 'Rosario', phone: 4807800, zipcode: '2000', options:'', colorMarker: 'blanco', colorTextoMarker: 'blanco', atentionLevel:'', healthInsurances:[], accidentOrDiseases: [], beds: [], location: {lat:-32.945930, lng: -60.717514}}, 
-//   ]);
-// }

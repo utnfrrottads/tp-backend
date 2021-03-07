@@ -17,16 +17,17 @@ export class PersonService {
 
   /** `GETS` all persons of the collection. */
   getPersons(): Observable<PersonResult>{
-    return this.httpClient.get<PersonResult>(this.baseUrl + '/api-persons');
+    return this.httpClient.get<PersonResult>( `${this.baseUrl}/api-persons`);
   }
+
+
  /**
   * `GETS` a Person and it's health insurances by personId
   * @returns The list of person retrieved and a list of healthInsurances
   */
   getPersonAndHealthInsurancesById(personId: number): Observable<PersonHealthInsuranceResult>{
     return this.httpClient.get<PersonHealthInsuranceResult>(
-      this.baseUrl + '/api-persons/getPersonAndHealthInsurancesById'
-                   + '/' + personId);
+      `${this.baseUrl}/api-persons/getPersonAndHealthInsurancesById/${personId}`);
   }
  /**
   * `GETS` a Person and it's health insurances by dni
@@ -35,8 +36,7 @@ export class PersonService {
   */
   getPersonAndHealthInsurancesByDni(dni: number): Observable<PersonHealthInsuranceResult>{
     return this.httpClient.get<PersonHealthInsuranceResult>(
-      this.baseUrl + '/api-persons/getPersonAndHealthInsurancesByDni'
-                  + '/' + dni);
+      `${this.baseUrl}/api-persons/getPersonAndHealthInsurancesByDni/${dni}`);
   }
   /** CREATES` a Person.
    *  createHealthInsurance
@@ -46,7 +46,7 @@ export class PersonService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<PersonResult>(
-      this.baseUrl + '/api-persons/createPerson/',
+      `${this.baseUrl}/api-persons/createPerson`,
       person,
       httpOptions);
   }
@@ -60,10 +60,8 @@ export class PersonService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<PersonResult>(
-      this.baseUrl + '/api-persons/addToHealthInsuranceById'
-                    + '/' + person.id
-                    + '/' + person.healthInsuranceId, // nuevo nombre sera idHealthInsurance
-                    person,
+      `${this.baseUrl}/api-persons/addToHealthInsuranceById/${person.id}/${person.healthInsuranceId}`,
+      person,
       httpOptions);
   }
 
@@ -75,7 +73,7 @@ export class PersonService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.put<PersonResult>(
-      this.baseUrl + '/api-persons/updatePersonById/' + person.id,
+      `${this.baseUrl}/api-persons/updatePersonById/${person.id}`,
       person,
       httpOptions);
   }
@@ -88,7 +86,7 @@ export class PersonService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.delete<PersonResult>(
-      this.baseUrl + '/api-persons/deletePersonById/' + person.id,
+      `${this.baseUrl}/api-persons/deletePersonById/${person.id}`,
       httpOptions);
   }
 
