@@ -31,7 +31,7 @@ export class EmergencyPersonComponent implements OnInit {
       user: '',
       password: '',
       healthInsurances: [],    // TODO opcional ?
-      healthInsuranceId: ''
+      idHealthInsurance: ''
     },
     healthInsurances : [],
     msg: '',

@@ -91,16 +91,5 @@
             </mat-select>
         </mat-form-field>  
     </p> 
-    <h3> Agregarle una obra social </h3>   
-    <p>
-        <mat-form-field appearance="fill" class="mi-full-width">
-            <mat-label>Obra social</mat-label>
-            <mat-select matNativeControl required formControlName='healthInsuranceId' [value]='personSelected.healthInsuranceId'>
-                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.id"> 
-                    {{healthInsurance.fantasyName}} 
-                </mat-option> 
-            </mat-select>
-        </mat-form-field>  
-    </p>
     <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid">{{setButtonText()}}</button>
 </form> 

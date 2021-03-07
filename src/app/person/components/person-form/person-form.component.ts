@@ -18,7 +18,6 @@ export class PersonFormComponent implements OnInit, OnChanges {
   @Output() add = new EventEmitter();
   @Output() edit = new EventEmitter();
   personForm: FormGroup;
-  dataHealthInsurance: HealthInsurance[];
   dataGender: Gender[];
   dataBloodType: BloodType[];
   maxDate: Date;
@@ -26,8 +25,7 @@ export class PersonFormComponent implements OnInit, OnChanges {
   tipoPersona = 'Paciente';
 
   constructor(
-    private personService: PersonService,
-    private healthInsuranceService: HealthInsuranceService
+    private personService: PersonService
   ) {
     const now = new Date();
     this.maxDate = new Date( now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDay());
@@ -56,7 +54,7 @@ export class PersonFormComponent implements OnInit, OnChanges {
       user: new FormControl(''),
       password: new FormControl(''),
       healthInsurances: new FormControl(''),
-      healthInsuranceId: new FormControl(''), // nuevo nombre sera idHealthInsurance
+      idHealthInsurance: new FormControl(''),
     });
   }
   loadPersonSelected(): void{
@@ -75,7 +73,7 @@ export class PersonFormComponent implements OnInit, OnChanges {
         user: this.personSelected.user,
         password: this.personSelected.password,
         healthInsurances: this.personSelected.healthInsurances,
-        healthInsuranceId: this.personSelected.healthInsuranceId // nuevo nombre sera idHealthInsurance
+        idHealthInsurance: this.personSelected.idHealthInsurance
       });
     }
   }
@@ -90,15 +88,7 @@ export class PersonFormComponent implements OnInit, OnChanges {
   }
   loadDropDown(): void{
     this.getBloodTypes();
-    this.getHealthInsurances();
     this.getGenders();
-  }
-  getHealthInsurances(): void{
-    this.healthInsuranceService.getHealthInsurances().subscribe({
-      next: res => {
-      this.dataHealthInsurance = res.healthInsurances;
-      },
-    });
   }
   getBloodTypes(): void{
     this.personService.getBloodTypes().subscribe({

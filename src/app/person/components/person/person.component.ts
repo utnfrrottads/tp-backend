@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Person, PersonHealthInsuranceResult } from '../../models/person';
+import { Person, PersonHealthInsurance, PersonHealthInsuranceResult } from '../../models/person';
 import { HealthInsurance } from '../../../health-insurance/models/health-insurance';
 import { PersonService } from '../../services/person.service';
 import { DialogService } from 'src/app/common/services/dialog.service';
@@ -29,7 +29,7 @@ export class PersonComponent implements OnInit {
     user: null,
     password: null,
     healthInsurances:  null,
-    healthInsuranceId: '', // nuevo nombre sera idHealthInsurance
+    idHealthInsurance: '', // nuevo nombre sera idHealthInsurance
   };
 
   personHealthInsuranceResultData: PersonHealthInsuranceResult = {
@@ -97,23 +97,11 @@ export class PersonComponent implements OnInit {
        }
     });
   }
-  createAffiliatedHealthInsurance(person: Person): void{
-    this.personService.createAffiliatedHealthInsurance(person).subscribe({
-      next: res => {
-       this.dialogService.openSnackBar('Se creó la afiliación a la obra social exitosamente', 'Perfecto!');
-      },
-      error: err => {
-        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social', 'Cerrar');
-       }
-    });
-  }
-
   onPersonEdited(person: Person): void{
     this.personService.updatePersonById(person).subscribe({
       next: res => {
        this.accordion.closeAll();
        this.dialogService.openSnackBar('Se actualizó exitosamente', 'Perfecto!');
-       this.createAffiliatedHealthInsurance(person);
        this.getPersons();
       },
       error: err => {
@@ -138,6 +126,21 @@ export class PersonComponent implements OnInit {
     this.personSelected.user = '';
     this.personSelected.password = '';
     this.personSelected.healthInsurances = null; // TODO
+  }
+
+  // ***************************************************************
+  // ********************* HEALT INSURANCES ************************
+  // ***************************************************************
+
+  onPersonHealthInsuranceCreated(personHealthInsurance: PersonHealthInsurance): void{
+    this.personService.createAffiliatedHealthInsurance(personHealthInsurance).subscribe({
+      next: res => {
+       this.dialogService.openSnackBar('Se creó la afiliación a la obra social exitosamente', 'Perfecto!');
+      },
+      error: err => {
+        this.dialogService.openSnackBar('Ups... algo falló al querer agregar la afiliación a la obra social', 'Cerrar');
+       }
+    });
   }
 
   getPersonAndHealthInsurancesByDni(): void{

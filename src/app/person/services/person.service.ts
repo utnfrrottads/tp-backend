@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BloodType, Gender, Person, PersonHealthInsuranceResult, PersonResult } from '../models/person';
+import { BloodType, Gender, Person, PersonHealthInsurance, PersonHealthInsuranceResult, PersonResult } from '../models/person';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -55,13 +55,13 @@ export class PersonService {
   /** `ADDS` a HealthInsurance that belongs to the person.
    *  '/addToHealthInsuranceById/:idPerson/:idHealthInsurance'
    */
-  createAffiliatedHealthInsurance(person: Person): Observable<PersonResult>{
+  createAffiliatedHealthInsurance(personHealthInsurance: PersonHealthInsurance): Observable<PersonResult>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.httpClient.post<PersonResult>(
-      `${this.baseUrl}/api-persons/addToHealthInsuranceById/${person.id}/${person.healthInsuranceId}`,
-      person,
+      `${this.baseUrl}/api-persons/addToHealthInsuranceById/${personHealthInsurance.idPerson}/${personHealthInsurance.idHealthInsurance}`,
+      personHealthInsurance,
       httpOptions);
   }
 

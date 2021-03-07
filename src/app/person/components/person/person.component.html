@@ -1,4 +1,4 @@
-<h1>Hospitales</h1>
+<h1>Personas</h1>
 <mat-tab-group mat-align-tabs="start">
   <mat-tab label="Persona">
     <br> 
@@ -40,6 +40,11 @@
 
   <mat-tab label="Obras sociales adheridas">
     <br>
+      <app-person-health-insurance
+      [personSelected]="this.personSelected"
+      (add)="onPersonHealthInsuranceCreated($event)">
+
+      </app-person-health-insurance>
       <app-health-insurance-list
         [dataHealthInsurance]="this.personHealthInsuranceResultData.healthInsurances"
         [allowDelete]="true"

@@ -5,27 +5,26 @@ import { Person } from '../../models/person';
   selector: 'app-person-list',
   templateUrl: './person-list.component.html'
 })
-export class PersonListComponent{ 
-  
-  @Input() dataPerson: Person[];   
+export class PersonListComponent{
+
+  @Input() dataPerson: Person[];
   @Output() personSelected = new EventEmitter();
   @Output() personDeleted = new EventEmitter();
-  displayedColumns: string[] 
-    = [//'id',
+  displayedColumns: string[]
+    = [// 'id',
       'dni',
-      'firstName','lastName',
-      'bornDate','gender',
+      'firstName', 'lastName',
+      'bornDate', 'gender',
       'bloodType',
       'nurseWorkId',
       // ,'user','password'
-      //'healthInsurances',
-      'actions']; 
+      // 'healthInsurances',
+      'actions'];
 
-  editPerson(person: Person){
+  editPerson(person: Person): void{
     this.personSelected.emit(person);
   }
-  deletePerson(person: Person) {
+  deletePerson(person: Person): void{
     this.personDeleted.emit(person);
-  } 
-
+  }
 }
