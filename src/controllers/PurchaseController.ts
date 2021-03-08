@@ -1,49 +1,78 @@
 import {
-    Body,
-    Delete,
-    Get,
-    JsonController,
-    Param,
-    Post,
-    Put,
-    QueryParams,
-  } from 'routing-controllers';
-  import { Purchase } from '../entities/Purchase';
-  import EntityNotFoundError from '../errors/EntityNotFoundError';
-  import { PurchaseService } from '../services/PurchaseService';
+  Body,
+  Delete,
+  Get,
+  JsonController,
+  Param,
+  Post,
+  Put,
+  QueryParams
+} from 'routing-controllers';
+import { Client } from '../entities/Client';
+import { Purchase } from '../entities/Purchase';
+import EntityNotFoundError from '../errors/EntityNotFoundError';
+import { PurchaseService } from '../services/PurchaseService';
 
-  @JsonController('/purchases')
+  @JsonController('/clients/:clientId/purchases')
   export class PurchaseController {
     private purchaseService = new PurchaseService();
 
     @Get('/')
-    public async getAll(@QueryParams() query: Purchase) {
-      return this.purchaseService.find(query);
+    public async getAll(
+      @Param('clientId') clientId: number,
+      @QueryParams() query: Client
+    ) {
+      return this.purchaseService.find(query, clientId);
     }
 
     @Get('/:id')
-    public async getOne(@Param('id') id: number) {
-      const purchase = await this.purchaseService.findById(id);
-      if (!purchase) throw new EntityNotFoundError();
-      return purchase;
+    public async getOne(
+      @Param('clientId') clientId: number,
+      @Param('id') id: number
+    ) {
+      const client = await this.purchaseService.findByIdAndClientId(
+        id,
+        clientId
+      );
+      if (!client) throw new EntityNotFoundError();
+      return client;
     }
 
     @Post('/')
-    public async post(@Body() purchase: Purchase) {
+    public async post(
+      @Param('clientId') clientId: number,
+      @Body() purchase: Purchase
+    ) {
       delete purchase.id;
-      return await this.purchaseService.create(purchase);
+      return await this.purchaseService.createByIdAndClientId(
+        purchase,
+        clientId
+      );
     }
 
     @Put('/:id')
-    public async put(@Param('id') id: number, @Body() purchase: Purchase) {
-      if (!this.purchaseService.existsById(id)) throw new EntityNotFoundError();
+    public async put(
+      @Param('clientId') clientId: number,
+      @Param('id') id: number,
+      @Body() purchase: Purchase
+    ) {
+      if (!this.purchaseService.existsByIdAndClientId(id, clientId))
+        throw new EntityNotFoundError();
       const safeEntity = { ...purchase, id };
-      return this.purchaseService.update(id, safeEntity);
+      return this.purchaseService.updateByIdAndClientId(
+        id,
+        clientId,
+        safeEntity
+      );
     }
 
     @Delete('/:id')
-    public async remove(@Param('id') id: number) {
-      if (!this.purchaseService.existsById(id)) throw new EntityNotFoundError();
-      return this.purchaseService.deleteById(id);
+    public async remove(
+      @Param('clientId') clientId: number,
+      @Param('id') id: number
+    ) {
+      if (!this.purchaseService.existsByIdAndClientId(id, clientId))
+        throw new EntityNotFoundError();
+      return this.purchaseService.deleteByIdAndClientId(id, clientId);
     }
   }

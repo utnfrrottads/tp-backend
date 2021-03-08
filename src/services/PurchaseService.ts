@@ -1,26 +1,44 @@
 import { getRepository } from 'typeorm';
+import { Client } from '../entities/Client';
 import { Purchase } from '../entities/Purchase';
 import stripObject from '../helpers/stripObject';
 
 export class PurchaseService {
   private purchaseRepository = getRepository(Purchase);
+  private clientRepository = getRepository(Client);
 
-  public async findById(id: number) {
-    return this.purchaseRepository.findOne(id);
+  public async findByIdAndClientId(id: number, clientId: number) {
+    return this.purchaseRepository.findOne({
+      where: { id, client: { id: clientId } },
+    });
   }
-  public async existsById(id: number) {
-    return (await this.purchaseRepository.count({ where: { id } })) === 1;
+  public async existsByIdAndClientId(id: number, clientId: number) {
+    return (
+      (await this.purchaseRepository.count({
+        where: { id, client: { id: clientId } },
+      })) === 1
+    );
   }
-  public async find(where: Purchase) {
-    return this.purchaseRepository.find({ where: stripObject(where) });
+  public async find(where: Purchase, clientId: number) {
+    return this.purchaseRepository.find({
+      where: { ...stripObject(where), client: { id: clientId } },
+    });
   }
-  public async deleteById(id: number) {
-    return this.purchaseRepository.delete(id);
+  public async deleteByIdAndClientId(id: number, clientId: number) {
+    return this.purchaseRepository.delete({
+      id,
+      client: { id: clientId },
+    });
   }
-  public async update(id: number, purchase: Purchase) {
-    return this.purchaseRepository.update(id, purchase);
+  public async updateByIdAndClientId(id: number, clientId: number, purchase: Purchase) {
+    return this.purchaseRepository.update(
+      { id, client: { id: clientId } },
+      purchase
+    );
   }
-  public async create(purchase: Purchase) {
+  public async createByIdAndClientId(purchase: Purchase, clientId: number) {
+    const client = await this.clientRepository.findOne(clientId);
+    purchase.client = client;
     return this.purchaseRepository.save(purchase);
   }
 }
