@@ -13,7 +13,7 @@ export class PurchaseItem {
 
     @Exclude()
     @ManyToOne(type => Purchase, purchase => purchase.purchaseItems)
-    purchase?: Promise<Purchase>;
+    purchase?: Purchase;
 
     @Exclude()
     @ManyToOne(type => Product, { eager: true })
