@@ -10,6 +10,7 @@ import { HealthInsuranceComponent } from './health-insurance/components/health-i
 import { HospitalComponent } from './hospital/components/hospital/hospital.component';
 import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
 import { AccidentDiseasesComponent } from './accident-diseases/components/accident-diseases/accident-diseases.component';
+import { EmergencyListComponent } from './emergency/components/emergency-list/emergency-list.component';
 
 const routes: Routes = [
   {path: 'tratamientos', component: AccidentDiseasesComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'hospitales', component: HospitalComponent },
   {path: 'emergencia', component: EmergencyHomeComponent },
   {path: 'emergenciaInmediata', component: EmergencyComponent },
+  {path: 'emergenciaList', component: EmergencyListComponent },
   {path: 'mapEmergencia', component: MapEmergenciaComponent },
   {path: 'mapDispatcher', component: MapTomtomComponent },
 ];

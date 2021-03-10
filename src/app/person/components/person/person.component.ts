@@ -67,7 +67,6 @@ export class PersonComponent implements OnInit {
     });
   }
   onPersonSelected(person: Person): void{
-    console.log('onPersonSelected');
     this.accordion.openAll();
     this.personSelected = person;
     this.inputType = InputType.edit;
@@ -90,7 +89,8 @@ export class PersonComponent implements OnInit {
       next: res => {
        this.accordion.closeAll();
        this.dialogService.openSnackBar('Se insertó exitosamente', 'Perfecto!');
-       this.getPersons();
+       // this.getPersons();
+       this.dataPerson = this.dataPerson.concat(person);
       },
       error: err => {
         this.dialogService.openSnackBar('Ups... algo falló al querer agregar la persona', 'Cerrar');

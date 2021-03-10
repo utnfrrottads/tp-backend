@@ -1,13 +1,13 @@
-<h2 *ngIf="inputType!=2">Agregar {{tipoPersona}}</h2>
-<h2 *ngIf="inputType===2">Editar {{tipoPersona}}</h2>
+<h2 *ngIf="inputType!=2">Agregar {{personType}}</h2>
+<h2 *ngIf="inputType===2">Editar {{personType}}</h2>
 
 <form  [formGroup]="personForm" (ngSubmit)="onSubmit()" class="mi-form">
     <p>        
         <mat-form-field appearance="fill" class="mi-full-width">
             <mat-label>Tipo de persona</mat-label>
-            <mat-select matNativeControl disabled [value]="tipoPersona">
-                <mat-option value="Paciente"> 
-                    Paciente 
+            <mat-select matNativeControl [value]="personType">
+                <mat-option *ngFor="let personType of dataPersonType" [value]="personType.personType"> 
+                    {{personType.personType}} 
                 </mat-option> 
             </mat-select>    
         </mat-form-field>

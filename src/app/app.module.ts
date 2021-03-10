@@ -70,6 +70,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { EmergencyHomeComponent } from './emergency/components/emergency-home/emergency-home.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { PersonHealthInsuranceComponent } from './person/components/person-health-insurance/person-health-insurance.component';
+import { PersonCardComponent } from './person/components/person-card/person-card.component';
+import { EmergencyListComponent } from './emergency/components/emergency-list/emergency-list.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { PersonHealthInsuranceComponent } from './person/components/person-healt
     AccidentDiseasesComponent,
     EmergencyHomeComponent,
     PersonHealthInsuranceComponent,
+    PersonCardComponent,
+    EmergencyListComponent,
   ],
   imports: [
     BrowserModule,

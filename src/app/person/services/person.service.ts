@@ -25,7 +25,7 @@ export class PersonService {
   * `GETS` a Person and it's health insurances by personId
   * @returns The list of person retrieved and a list of healthInsurances
   */
-  getPersonAndHealthInsurancesById(personId: number): Observable<PersonHealthInsuranceResult>{
+  getPersonAndHealthInsurancesById(personId: string): Observable<PersonHealthInsuranceResult>{
     return this.httpClient.get<PersonHealthInsuranceResult>(
       `${this.baseUrl}/api-persons/getPersonAndHealthInsurancesById/${personId}`);
   }

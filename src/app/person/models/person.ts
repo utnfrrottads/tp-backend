@@ -9,7 +9,7 @@ export interface Person {
     gender: string;
     phone: string;
     bloodType?: string;
-    emergencyContact?: Person;
+    emergencyContact?: string;
 
     nurseWorkId?: string;
     user?: string;

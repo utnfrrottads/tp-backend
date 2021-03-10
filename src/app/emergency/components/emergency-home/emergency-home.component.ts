@@ -14,7 +14,10 @@ export class EmergencyHomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  redirectToFastEmergency(){
+  redirectToFastEmergency(): void{
     this.router.navigate(['emergenciaInmediata']);
+  }
+  redirectToListEmergency(): void{
+    this.router.navigate(['emergenciaList']);
   }
 }

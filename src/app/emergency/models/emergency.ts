@@ -19,7 +19,7 @@ export interface Emergency{
 }
 
 export interface EmergencyResult{
-    emergency: Emergency;
+    emergency: Emergency[];
     msg: string;
     success: boolean;
 }
