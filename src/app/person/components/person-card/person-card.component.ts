@@ -7,12 +7,9 @@ import { Person, PersonHealthInsuranceResult } from '../../models/person';
   templateUrl: './person-card.component.html',
   styleUrls: ['./person-card.component.sass']
 })
-export class PersonCardComponent implements OnChanges {
+export class PersonCardComponent {
 
   @Input() person: Person;
 
-  ngOnChanges(): void {
-    console.log(this.person);
-  }
 
 }
