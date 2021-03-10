@@ -1,1 +1,41 @@
-<p>emergency-list works!</p>
+<h2>
+    Listado de emergencias
+    <mat-icon>list</mat-icon>
+  </h2> 
+       
+  <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataEmergency">
+   
+    <ng-container matColumnDef="dateOfEntrance">
+        <mat-header-cell *matHeaderCellDef>dateOfEntrance</mat-header-cell>
+        <mat-cell *matCellDef="let emergency">{{emergency.dateOfEntrance}}</mat-cell>
+    </ng-container>
+   
+    <ng-container matColumnDef="dateOfExit">
+        <mat-header-cell *matHeaderCellDef>dateOfExit</mat-header-cell>
+        <mat-cell *matCellDef="let emergency">{{emergency.dateOfExit}}</mat-cell>
+    </ng-container>
+   
+    <ng-container matColumnDef="accidentOrDisease">
+        <mat-header-cell *matHeaderCellDef>accidentOrDisease</mat-header-cell>
+        <mat-cell *matCellDef="let emergency">{{emergency.accidentOrDisease.description}}</mat-cell>
+    </ng-container>
+   
+    <ng-container matColumnDef="locality">
+        <mat-header-cell *matHeaderCellDef>locality</mat-header-cell>
+        <mat-cell *matCellDef="let emergency">{{emergency.dateOflocalityEntrance}}</mat-cell>
+    </ng-container>
+   
+    <ng-container matColumnDef="ambulanceLicensePlate">
+        <mat-header-cell *matHeaderCellDef>ambulanceLicensePlate</mat-header-cell>
+        <mat-cell *matCellDef="let emergency">{{emergency.ambulanceLicensePlate}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+     
+  </mat-table>
+
+  <br>
+  <i *ngIf="!dataEmergency">
+    Sin registros
+  </i>

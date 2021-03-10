@@ -64,7 +64,6 @@ export class EmergencyPersonComponent implements OnInit {
       next: res => {
         this.personHealthInsuranceResultData = res;
         this.flagGetPersonHealth = false;
-        console.log(this.personHealthInsuranceResultData.persons);
     },
     error: err => {
       this.flagGetPersonHealth = false;
@@ -79,13 +78,10 @@ export class EmergencyPersonComponent implements OnInit {
       this.personHealthInsuranceResultData.persons.emergencyContact
     ).subscribe({
       next: res => {
-        console.log(res);
-        console.log(res.persons);
         this.personContact = res.persons;
         this.flagGetPersonHealth = false;
     },
     error: err => {
-      console.log(err);
       this.flagGetPersonHealth = false;
       this.dialogService.openSnackBar(err.error.msg, 'Cerrar');
      }
