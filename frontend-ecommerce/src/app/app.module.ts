@@ -1,4 +1,3 @@
-import { Branch } from './Models/branch';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,7 +14,6 @@ import { ProductsComponent } from './Components/products/products.component';
 import { SalesComponent } from './Components/sales/sales.component';
 import { BranchesComponent } from './Components/branches/list/list.component';
 import { AddBranchComponent} from './Components/branches/add/add.component';
-import { RolesComponent } from './Components/roles/roles.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListNoteComponent } from './Components/notes/components/list/list.component';
 import { AddNoteComponent } from './Components/notes/components/add/add.component';
@@ -24,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MarketComponent } from './Components/market/market.component';
 import { ProductItemComponent } from './Components/product-item/product-item.component';
 import { MainComponent } from './Components/main/main.component';
+import { ListRoleComponent } from './Components/roles/list/list.component';
+import { AddRoleComponent } from './Components/roles/add/add.component';
 
 @NgModule({
   declarations: [
@@ -38,15 +38,15 @@ import { MainComponent } from './Components/main/main.component';
     BranchesComponent,
     AddBranchComponent,
     ListNoteComponent,
-    RolesComponent,
     AddNoteComponent,
-    RolesComponent,
+    ListRoleComponent,
+    AddRoleComponent,
     MarketComponent,
     ProductItemComponent,
     MainComponent
   ],
   imports: [
-  BrowserModule,
+BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
