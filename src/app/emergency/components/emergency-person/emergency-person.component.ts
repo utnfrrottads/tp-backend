@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core'; 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonService } from 'src/app/person/services/person.service';
-import { PersonHealthInsuranceResult } from 'src/app/person/models/person';
+import { Person, PersonHealthInsuranceResult } from 'src/app/person/models/person';
 import { DialogService } from 'src/app/common/services/dialog.service';
 import { AccidentOrDiseases } from 'src/app/accident-diseases/models/accidentOrDiseases';
 import { Router } from '@angular/router';
@@ -38,6 +38,9 @@ export class EmergencyPersonComponent implements OnInit {
     success: false
   };
   flagGetPersonHealth = false;
+  personContact: Person;
+  flagVisiblePersonContact = false;
+
 
   constructor(
     private personService: PersonService,
@@ -59,8 +62,9 @@ export class EmergencyPersonComponent implements OnInit {
     this.flagGetPersonHealth = true;
     this.personService.getPersonAndHealthInsurancesByDni(this.personForm.controls.dni.value).subscribe({
       next: res => {
-        this.personHealthInsuranceResultData = res; 
+        this.personHealthInsuranceResultData = res;
         this.flagGetPersonHealth = false;
+        console.log(this.personHealthInsuranceResultData.persons);
     },
     error: err => {
       this.flagGetPersonHealth = false;
@@ -69,6 +73,24 @@ export class EmergencyPersonComponent implements OnInit {
     });
   }
 
+  getContactPersonById(): void{
+    this.flagGetPersonHealth = true;
+    this.personService.getPersonAndHealthInsurancesById(
+      this.personHealthInsuranceResultData.persons.emergencyContact
+    ).subscribe({
+      next: res => {
+        console.log(res);
+        console.log(res.persons);
+        this.personContact = res.persons;
+        this.flagGetPersonHealth = false;
+    },
+    error: err => {
+      console.log(err);
+      this.flagGetPersonHealth = false;
+      this.dialogService.openSnackBar(err.error.msg, 'Cerrar');
+     }
+    });
+  }
   redirectToPersonForm(): void{
     this.router.navigate(['personas']);
   }
@@ -83,6 +105,11 @@ export class EmergencyPersonComponent implements OnInit {
       healthInsurance: this.healthInsurance
     };
     this.personSelected.emit(personHI);
+  }
+
+  showEmergencyContact(): void{
+    this.getContactPersonById();
+    this.flagVisiblePersonContact = true;
   }
 
 }

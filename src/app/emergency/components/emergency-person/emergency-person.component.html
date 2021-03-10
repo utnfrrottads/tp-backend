@@ -4,10 +4,6 @@
         <mat-label> DNI de la persona </mat-label>
         <input matInput  formControlName="dni" placeholder="Número de documento" >
         <mat-hint >Es opcional, luego podrás actualizarlo</mat-hint>
-
-        <!-- <mat-error *ngIf="personForm.controls.dni.touched && personForm.controls.dni.invalid">
-            <span *ngIf="personForm.controls.dni.errors.required">Necesitás ingresar su DNI para buscarla!</span>  
-        </mat-error>  -->
       </mat-form-field>
     </p> 
     <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> 
@@ -21,40 +17,38 @@
 <br>
 <br>
 <mat-progress-bar mode="indeterminate" *ngIf="flagGetPersonHealth"></mat-progress-bar>
-<mat-card class="example-card" *ngIf="personHealthInsuranceResultData.persons.id">
-  <mat-card-header>
-    <div mat-card-avatar class="material-icons">
-      perm_contact_calendar
-    </div>
-    <mat-card-title>
-      {{ personHealthInsuranceResultData.persons.lastName}}
-      , {{ personHealthInsuranceResultData.persons.firstName}}
-    </mat-card-title>
-    <mat-card-subtitle>
-      Tipo sangre {{ personHealthInsuranceResultData.persons.bloodType}}
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Fecha de nac: {{ personHealthInsuranceResultData.persons.bornDate | date}} </p>
-    <p>Tel: {{ personHealthInsuranceResultData.persons.phone}} </p>       
-    <p>Género: {{ personHealthInsuranceResultData.persons.gender}} </p>       
-    
-      <mat-selection-list #personHealthInsurance [multiple]="false" >
-        <mat-list-option 
-            *ngFor="let item of personHealthInsuranceResultData.healthInsurances" 
-            [value]="item"
-            (click)="onSelectHealthInsurance(item)">
-          {{item.fantasyName}}
-        </mat-list-option>
-      </mat-selection-list>
-  </mat-card-content>
-  <mat-card-actions>
-      Obra social elegida: {{personHealthInsurance.selectedOptions.selected[0]?.value.fantasyName}}
-  </mat-card-actions>
-</mat-card>
 
-<br>
+<div *ngIf="personHealthInsuranceResultData.persons.id!=''">
+  <app-person-card
+    [person]="personHealthInsuranceResultData.persons">
+  </app-person-card>
 
-<button mat-raised-button (click)="selectPerson()"  *ngIf="personHealthInsuranceResultData.persons.id"> 
-    Seleccionar persona
-</button>
+  <h3>
+    Obra social: 
+  </h3>
+  <mat-selection-list #personHealthInsurance [multiple]="false" >
+    <mat-list-option 
+        *ngFor="let item of personHealthInsuranceResultData.healthInsurances" 
+        [value]="item"
+        (click)="onSelectHealthInsurance(item)">
+      {{item.fantasyName}}
+    </mat-list-option>
+  </mat-selection-list>
+  Obra social elegida: {{personHealthInsurance.selectedOptions.selected[0]?.value.fantasyName}}
+
+  <br>
+  <br>
+  <button mat-raised-button color="primary" (click)="showEmergencyContact()"> 
+    Ver contacto de emergencia
+    <mat-icon>search</mat-icon>
+  </button>
+  <div class="container"  *ngIf="flagVisiblePersonContact">
+    <h3>Contacto de emergencia</h3>
+      <app-person-card
+        [person]="personContact">
+      </app-person-card>
+    <br>
+  <button mat-raised-button (click)="selectPerson()"  *ngIf="personHealthInsuranceResultData.persons.id"> 
+      Seleccionar persona
+  </button>
+</div>

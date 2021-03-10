@@ -22,7 +22,10 @@ export class PersonFormComponent implements OnInit, OnChanges {
   dataBloodType: BloodType[];
   maxDate: Date;
   hide = true;
-  tipoPersona = 'Paciente';
+  personType = 'Paciente';
+  dataPersonType = [
+    { personType : 'Paciente' },
+    { personType : 'Contacto emergencia' }];
 
   constructor(
     private personService: PersonService
@@ -58,7 +61,6 @@ export class PersonFormComponent implements OnInit, OnChanges {
     });
   }
   loadPersonSelected(): void{
-    console.log('loadPersonSelected');
     if (this.personSelected !== undefined && this.personSelected.id !== null && this.personSelected.id !== '') {
       this.personForm.patchValue({
         id: this.personSelected.id,
@@ -79,7 +81,6 @@ export class PersonFormComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void{
-    console.log('onSubmit');
     if (this.inputType === InputType.create){
       this.add.emit(this.personForm.value);
     } else if (this.inputType === InputType.edit){
