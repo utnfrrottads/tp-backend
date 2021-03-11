@@ -10,4 +10,10 @@ export class Prize {
 
   @Column()
   pointPrice?: number;
+
+  @Column({nullable:true})
+  description?: string;
+
+  @Column({nullable:true})
+  image?: string;
 }
