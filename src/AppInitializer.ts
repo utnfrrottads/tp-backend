@@ -21,6 +21,7 @@ export default class AppInitializer {
       controllers: [CardController, ClientController, PrizeController, RedeemedPrizeController],
       middlewares:[ErrorHandler],
       defaultErrorHandler:false,
+      cors:true,
     });
   }
 

@@ -28,6 +28,12 @@ export class PrizeController {
     return prize;
   }
 
+  @Get('/find-by-name/:partial')
+  public async findByPartialName(@Param('partial') partial: string) {
+    const prizes = await this.prizeService.findByPartialName(partial);
+    return prizes;
+  }
+
   @Post('/')
   public async post(@Body() prize: Prize) {
     delete prize.id;

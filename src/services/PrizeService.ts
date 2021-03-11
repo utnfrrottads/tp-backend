@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 import { Prize } from '../entities/Prize';
 import stripObject from '../helpers/stripObject';
 
@@ -13,6 +13,11 @@ export class PrizeService {
   }
   public async find(where: Prize) {
     return this.prizeRepository.find({ where: stripObject(where) });
+  }
+  public async findByPartialName(partial: string) {
+    return this.prizeRepository.createQueryBuilder("prize")
+     .where("LOWER(prize.name) like :partial", { partial:`%${partial.toLowerCase()}%` })
+     .getMany();
   }
   public async deleteById(id: number) {
     return this.prizeRepository.delete(id);

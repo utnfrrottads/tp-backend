@@ -4,6 +4,7 @@
   "main": "dist/main.js",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "@types/dotenv": "^8.2.0",
     "@types/koa": "^2.11.6",
     "@types/node": "^12.11.7",
@@ -12,6 +13,7 @@
     "class-validator": "^0.13.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
+    "kcors": "^2.2.2",
     "koa": "^2.13.1",
     "pg": "^8.5.1",
     "routing-controllers": "^0.9.0-alpha.6",
