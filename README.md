@@ -1,153 +1,57 @@
-# Contacts API made with Typescript and Express.
-Layered architecture consisting of entities, repositories, services and controllers (routes).
+# TP Backend 2020
 
-Some libraries used:
-- Express
-- TypeORM for data layer
-- Jest for testing
-- Zod for schema validation
+## Concepto General
 
-## How to run:
-Recommended Node.js 14
-```
-yarn
-yarn build
-yarn start
-```
-Tu run tests:
-```
-yarn test
-```
+Se propone desarrollar un Sistema de Puntos para comercios. Mediante él sus clientes recibirían puntos que pueden utilizar para intercambiar por premios como productos, descuentos, etc. A cambio el comercio recibe métricas de las compras de estos clientes.
+Los clientes serían incentivados a registrarse y recibirían una tarjeta NFC. A la hora de abonar sus compras, el cliente presentará la tarjeta con la que el cajero lo identificará. Éste registra la compra y se le asignan puntos proporcionales al monto neto abonado.
+El cliente puede consultar sus puntos y canjearlos por premios mediante una aplicación web. Luego puede acercarse al comercio para retirarlo.
 
-## Basic File structure:
-```
-├── src
-|   ├── controllers
-|   ├── entitites
-|   |   ├── dto
-|   ├── errors
-|   ├── helpers
-|   ├── middleware
-|   ├── repositories
-|   ├── services
-|   ├── AppInitializer.ts
-|   ├── main.ts
-├── test
-```
+## Propuesta de Implementación
 
-## Implementation notes:
+Se utilizará NodeJS en TypeScript como lenguaje de backend. Para persistencia se utilizará MongoDB, mediante TypeORM. El ABM de usuarios del sistema, la asignación de roles y la autenticación se realizará mediante Auth0.
 
-- I chose Typescript and a layered architecture because I find it easier to debug afterwards. I consider using OOP worth the extra work.
-- I chose an ORM over direct DB manipulation because it's easier to switch between different DBs afterwards.
-- A simple User entity was added, just for domain completeness. One User has many Contacts. Only User creation is implemented.
-- The layered architecture could have been implemented with Inversion of Control. The simplest implementation was made for something done in two days, but could be easily refactored into IOC.
-- There's a rate limiter implemented for all endpoints.
-- App is ready to be built into a docker image.
+El sistema tendría 4 roles con vistas independientes:
+|Rol|Vista|
+|:-|:-|
+|Cliente|Consulta de puntos y del listado de premios, canjeo de premios y vista de sus premios sin retirar|
+|Cajero|Registro de compras para clientes|
+|Administrador|Acceso a los ABM de productos, premios, clientes, y tarjetas|
+|Ejecutivo|Acceso al ABM de Vistas de Métrica (filtros predefinidos para Métricas), Métricas y al Email list de Clientes|
 
-## API Endpoints:
+El sistema contaría entonces con las siguientes funcionalidades:
+|Requerimiento funcional|Detalle/Listado de CU|
+|:-|:-|-|
+|ABMC simple|Tarjetas, Productos, Premios|
+|ABMC dependiente|Clientes, Vistas de Métrica|
+|Listado simple|Email list de Clientes|
+|Listado complejo|Lista de Premios disponibles, Lista de Premios A Retirar|
+|Listado Filtrado|Métricas|
+|Detalles|Premios, Clientes|
+|Otros|Canje de premios, Registro de Compra|
 
-### GET /v1/contacts/:userId/:contactId
-Returns the specified contact  
-Example:  
-`GET /v1/contacts/1/624`
+## Integrantes
 
-### POST /v1/contacts/:userId
-Create new contact for a user  
-Example:  
-`POST /v1/contacts/1`  
-Body:  
-```
-{
-    "firstName": "John",
-    "lastName":"Doe",
-    "company": "Microsoft",
-    "profileImage": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
-    "email": "john@doe.com",
-    "birthdate": "11/24/1990",
-    "workPhone": "444333222",
-    "personalPhone": "333222444",
-    "address": "Unnamed Street 342",
-    "state": "CA",
-    "city": "San Francisco"
-}
-```
-### PUT /v1/contacts/:userId/:contactId
-Modifies the specified contact for a user  
-Example:  
-`PUT /v1/contacts/1/624`  
-Body:  
-```
-{
-    "firstName": "Grantley",
-    "lastName": "Abeline",
-    "company": "Jaxbean",
-    "profileImage": "http://dummyimage.com/250x244.png/cc0000/ffffff",
-    "email": "gabell0@sbwire.com",
-    "birthdate": "1974-04-23T02:00:00.000Z",
-    "workPhone": "+1 (862) 990-4036",
-    "personalPhone": null,
-    "address": "3 Mesta Avenue",
-    "state": "NJ",
-    "city": "Newark"
-}
-```
+|Nombre y Apellido|Legajo|
+|:-|-:|
+|Katzaroff, Federico| 44744|
+|Listorti, Hernán| 44775|
+|Giannassi, Franco| 44681|
 
-### DELETE /v1/contacts/:userId/:contactId
-Deletes the specified contact for a user  
-Example:  
-`DELETE /v1/contacts/1/1231`  
+## Modelo de Datos
+El modelo de dominio se encuentra en el siguiente enlace:
+https://drive.google.com/file/d/1j1KXTcTJCSWFpp7mGSsiBoKyN1PE7dQ6/view
 
-### GET /v1/contacts/:userId
-Search endpoint for a particular user.  
-Schema is:  
-```
-{
-    firstName: string
-    lastName: string
-    company: string
-    profileImage: string;
-    email: string
-    birthdate: string
-    workPhone: string
-    personalPhone: string
-    address: string
-    state: string
-    city: string
-}
-```
+## CheckList
 
-There's also the "same" option for searching for contacts with the same field values as another contact:
-```
-{
-    same:
-    {
-        id: number // The id of the contact to be used as reference
-        keys: string[] // The field keys to be compared, like "state" or "city"
-    }
-}
-```
+|Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
+|:-|-:|-:|:-|-|
+|ABMC simple|1 x integ|1 x integ|Tarjetas, Productos, Premios|
+|ABMC dependiente|1|2|Clientes, Vistas de Métrica, Compras, Premios Canjeados|
+|Listado simple|1|1|Todas las entidades|
+|Listado complejo obligatorio|1|2|Lista de Premios disponibles, Lista de Premios A Retirar|
+|Listado adicional con filtro|0|0|Todas las entidades|
+|Detalle básico|1(*)|2(*)|Premios, Clientes|
+|Detalle parametrizable|0|0|-|
+|Otros|0|0|Canje de premios, Registro de Compra|
 
-And the limit and skip options:
-```
-{
-    limit: number // Max is set in .env, defaults to 100
-    skip: number
-}
-```
-
-Examples:
-
-- Retrieve contacts from user 1 that have the same state as contact 624  
-`GET /v1/contacts/1?same[id]=624&same[keys][]=state`  
-- Retrieve contacts from user 1 that have email = tgarment1b@jimdo.com  
-`GET /v1/contacts/1?email=tgarment1b@jimdo.com`  
-
-
-### POST /v1/users
-Creates a new user, for testing purpose only  
-Example:  
-`POST /v1/users`  
-Body:  
-```
-{}
-```
+(\*) Los detalles básicos pueden ser reemplazado por un detalle parametrizados en los
