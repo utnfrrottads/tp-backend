@@ -12,7 +12,9 @@ export class PrizeService {
     return (await this.prizeRepository.count({ where: { id } })) === 1;
   }
   public async find(where: Prize) {
-    return this.prizeRepository.find({ where: stripObject(where) });
+    return this.prizeRepository.find({ where: stripObject(where), order:{ 
+        name: "ASC",
+    } });
   }
   public async findByPartialName(partial: string) {
     return this.prizeRepository.createQueryBuilder("prize")
