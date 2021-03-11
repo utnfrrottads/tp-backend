@@ -15,11 +15,14 @@ export class RedeemedPrize {
     @Column()
     usedPoints?: number;
 
+    @Column()
+    delivered?: boolean;
+
     @Exclude()
-    @ManyToOne(type => Client, client => client.card)
+    @ManyToOne((type) => Client, (client) => client.card)
     client?: Client;
 
     @Exclude()
-    @ManyToOne(type => Prize, { eager: true })
+    @ManyToOne((type) => Prize, { eager: true })
     prize?: Prize;
 }

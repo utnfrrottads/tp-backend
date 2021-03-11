@@ -10,11 +10,13 @@ import {
 } from 'routing-controllers';
 import { Prize } from '../entities/Prize';
 import EntityNotFoundError from '../errors/EntityNotFoundError';
+import { ClientService } from '../services/ClientService';
 import { PrizeService } from '../services/PrizeService';
 
 @JsonController('/prizes')
 export class PrizeController {
   private prizeService = new PrizeService();
+  private clientService = new ClientService();
 
   @Get('/')
   public async getAll(@QueryParams() query: Prize) {
@@ -31,6 +33,16 @@ export class PrizeController {
   @Get('/find-by-name/:partial')
   public async findByPartialName(@Param('partial') partial: string) {
     const prizes = await this.prizeService.findByPartialName(partial);
+    return prizes;
+  }
+
+  @Get('/available-for-client/:clientId')
+  public async findAvailablePrizes(@Param('clientId') clientId: number) {
+    const client = await this.clientService.findById(clientId);
+    if (!client) throw new EntityNotFoundError();
+    const prizes = await this.prizeService.findByPointPriceLessOrEqual(
+      client.points!
+    );
     return prizes;
   }
 

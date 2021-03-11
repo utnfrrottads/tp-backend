@@ -12,14 +12,28 @@ export class PrizeService {
     return (await this.prizeRepository.count({ where: { id } })) === 1;
   }
   public async find(where: Prize) {
-    return this.prizeRepository.find({ where: stripObject(where), order:{ 
-        name: "ASC",
-    } });
+    return this.prizeRepository.find({
+      where: stripObject(where),
+      order: {
+        name: 'ASC',
+      },
+    });
   }
   public async findByPartialName(partial: string) {
-    return this.prizeRepository.createQueryBuilder("prize")
-     .where("LOWER(prize.name) like :partial", { partial:`%${partial.toLowerCase()}%` })
-     .getMany();
+    return this.prizeRepository
+      .createQueryBuilder('prize')
+      .where('LOWER(prize.name) like :partial', {
+        partial: `%${partial.toLowerCase()}%`,
+      })
+      .getMany();
+  }
+  public async findByPointPriceLessOrEqual(points: number) {
+    return this.prizeRepository
+      .createQueryBuilder('prize')
+      .where('prize."pointPrice" <= :points', {
+        points,
+      })
+      .getMany();
   }
   public async deleteById(id: number) {
     return this.prizeRepository.delete(id);

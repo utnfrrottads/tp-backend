@@ -25,6 +25,13 @@ export class RedeemedPrizeController {
     return this.redeemedPrizeService.find(query, clientId);
   }
 
+  @Get('/not-delivered')
+  public async getNotDelivered(
+    @Param('clientId') clientId: number,
+  ) {
+    return this.redeemedPrizeService.find({delivered:false}, clientId);
+  }
+
   @Get('/:id')
   public async getOne(
     @Param('clientId') clientId: number,
