@@ -46,10 +46,10 @@ https://drive.google.com/file/d/1j1KXTcTJCSWFpp7mGSsiBoKyN1PE7dQ6/view
 |Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
 |:-|-:|-:|:-|-|
 |ABMC simple|1 x integ|1 x integ|Tarjetas, Productos, Premios|
-|ABMC dependiente|1|2|Clientes, Vistas de Métrica|
-|Listado simple|1|1|Email list de Clientes|
+|ABMC dependiente|1|2|Clientes, Vistas de Métrica, Compras, Premios Canjeados|
+|Listado simple|1|1|Todas las entidades|
 |Listado complejo obligatorio|1|2|Lista de Premios disponibles, Lista de Premios A Retirar|
-|Listado adicional con filtro|0|0|Métricas|
+|Listado adicional con filtro|0|0|Todas las entidades|
 |Detalle básico|1(*)|2(*)|Premios, Clientes|
 |Detalle parametrizable|0|0|-|
 |Otros|0|0|Canje de premios, Registro de Compra|
