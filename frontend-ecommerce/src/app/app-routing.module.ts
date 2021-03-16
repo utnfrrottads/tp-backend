@@ -6,6 +6,8 @@ import { BranchesComponent } from './Components/branches/list/list.component';
 import { AddBranchComponent} from './Components/branches/add/add.component';
 import { ListRoleComponent } from './Components/roles/list/list.component';
 import { AddRoleComponent } from './Components/roles/add/add.component';
+import { MarketComponent } from './Components/market/market.component';
+import { MainComponent } from './Components/main/main.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'roles', component: ListRoleComponent },
   { path: 'edit-role', component: AddRoleComponent },
   { path: 'edit-role/:id', component: AddRoleComponent },
+  { path: 'market', component: MarketComponent},
+  { path: '', component: MainComponent}
 
 ];
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import {UserService} from '../../Services/user.service'
 
@@ -18,15 +19,16 @@ export class LoginComponent implements OnInit {
   message = '';
   validations = true;
 
-  constructor(private userService: UserService) { 
-    this.currentUser = new User();
+  constructor(private userService: UserService, private router: Router) { 
+    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
+    this.currentUser = JSON.parse(string)
+    console.log(this.currentUser)
   }
   
   ngOnInit(): void {
   }
 
   logoutUser() {
-    console.log("in")
     this.currentUser = null
     this.userService.logoutUser()
   }
@@ -34,26 +36,28 @@ export class LoginComponent implements OnInit {
   loginUser(username: string, password: string, form: NgForm){
     document.getElementById('errorAlert')?.setAttribute("style", "visibility=hidden")
 
-    if( username == "" || password == "" ) {
+    this.validations = true
+
+    if( username.length == 0 || password.length == 0 ) {
       this.message= "Ingrese todos los datos necesarios."
       this.validations = false
-      console.log("in")
       document.getElementById('errorAlert')?.setAttribute("style", "visibility=visible")  
     }
     
     if(this.validations){
-      this.userService.loginUser(username, password).subscribe(res => {
-      this.currentUser = res as User
-      localStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
-      console.log("ok")
-      }, 
-      (err) => {
-        if( JSON.stringify(err).includes("error")){
-          form.reset();
-          this.message = JSON.parse(JSON.stringify(err)).error.error
-        }
+      this.userService.loginUser(username, password).subscribe({
+          next: (res) => {
+            this.currentUser = res as User
+            localStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
+            window.location.reload()  
+          },
+          error: (err) => {
+            if(JSON.stringify(err).includes("error")){
+              form.reset();
+              this.message = JSON.parse(JSON.stringify(err)).error.error;
+            }
+          }
       })
     }
   }
-
 }

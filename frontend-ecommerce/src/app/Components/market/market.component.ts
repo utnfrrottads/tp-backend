@@ -71,9 +71,7 @@ export class MarketComponent implements OnInit {
   getArticles(filters: object){
     this.articleService.getArticles(filters).subscribe(res => {
       this.articleService.articles = res as Article[];
-      console.log(this.articleService.articles);
     });
-    console.log(this.articleService.filters);
   }
 
   onCBNote(e: any){
