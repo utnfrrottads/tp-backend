@@ -19,7 +19,7 @@ export class PrizeController {
   private clientService = new ClientService();
 
   @Get('/')
-  public async getAll(@QueryParams() query: Prize) {
+  public async getAll(@QueryParams({ validate: false }) query: Prize) {
     return this.prizeService.find(query);
   }
 

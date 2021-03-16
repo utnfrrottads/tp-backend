@@ -18,7 +18,7 @@ export class CardController {
   private cardService = new CardService();
 
   @Get('/')
-  public async getAll(@QueryParams() query: Card) {
+  public async getAll(@QueryParams({ validate: false }) query: Card) {
     return this.cardService.find(query);
   }
 

@@ -13,7 +13,7 @@ import { PurchaseItem } from '../entities/PurchaseItem';
 import EntityNotFoundError from '../errors/EntityNotFoundError';
 import { PurchaseItemService } from '../services/PurchaseItemService';
 
-@JsonController('/clients/:clientId/purchase/:purchaseId/purchase-items')
+@JsonController('/clients/:clientId/purchases/:purchaseId/purchase-items')
 export class PurchaseItemController {
   private purchaseItemService = new PurchaseItemService();
 
@@ -21,7 +21,7 @@ export class PurchaseItemController {
   public async getAll(
     @Param('clientId') clientId: number,
     @Param('purchaseId') purchaseId: number,
-    @QueryParams() query: Client
+    @QueryParams({ validate: false }) query: Client
   ) {
     return this.purchaseItemService.find(query, purchaseId, clientId);
   }
@@ -62,7 +62,13 @@ export class PurchaseItemController {
     @Param('id') id: number,
     @Body() purchaseItem: PurchaseItem
   ) {
-    if (!this.purchaseItemService.existsByIdAndPurchaseIdAndClientId(id, purchaseId, clientId))
+    if (
+      !this.purchaseItemService.existsByIdAndPurchaseIdAndClientId(
+        id,
+        purchaseId,
+        clientId
+      )
+    )
       throw new EntityNotFoundError();
     const safeEntity = { ...purchaseItem, id };
     return this.purchaseItemService.updateByIdAndPurchaseIdAndClientId(
@@ -79,8 +85,18 @@ export class PurchaseItemController {
     @Param('purchaseId') purchaseId: number,
     @Param('id') id: number
   ) {
-    if (!this.purchaseItemService.existsByIdAndPurchaseIdAndClientId(id, purchaseId, clientId))
+    if (
+      !this.purchaseItemService.existsByIdAndPurchaseIdAndClientId(
+        id,
+        purchaseId,
+        clientId
+      )
+    )
       throw new EntityNotFoundError();
-    return this.purchaseItemService.deleteByIdAndPurchaseIdAndClientId(id, purchaseId, clientId);
+    return this.purchaseItemService.deleteByIdAndPurchaseIdAndClientId(
+      id,
+      purchaseId,
+      clientId
+    );
   }
 }

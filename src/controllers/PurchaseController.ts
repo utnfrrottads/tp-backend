@@ -20,7 +20,7 @@ import { PurchaseService } from '../services/PurchaseService';
     @Get('/')
     public async getAll(
       @Param('clientId') clientId: number,
-      @QueryParams() query: Client
+      @QueryParams({ validate: false }) query: Client
     ) {
       return this.purchaseService.find(query, clientId);
     }

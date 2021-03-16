@@ -1,4 +1,5 @@
 import { Exclude, Type } from 'class-transformer';
+import { IsInt, IsNotEmpty, Min } from 'class-validator';
 import {
   Column,
   Entity,
@@ -16,19 +17,26 @@ export class Client {
   @PrimaryGeneratedColumn()
   id?: number;
 
+  @IsNotEmpty()
   @Column()
   name?: string;
 
+  @IsNotEmpty()
   @Column()
   lastName?: string;
 
+  @IsNotEmpty()
   @Type(() => Date)
   @Column()
   birthdate?: Date;
 
+  @IsNotEmpty()
   @Column()
   gender?: 'male' | 'female';
 
+  @IsNotEmpty()
+  @Min(0)
+  @IsInt()
   @Column()
   points?: number;
 

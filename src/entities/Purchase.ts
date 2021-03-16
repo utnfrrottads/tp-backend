@@ -1,4 +1,5 @@
 import { Exclude, Type } from 'class-transformer';
+import { IsInt, IsNotEmpty, Min } from 'class-validator';
 import {
   Column,
   Entity,
@@ -14,10 +15,14 @@ export class Purchase {
   @PrimaryGeneratedColumn()
   id?: number;
 
+  @IsNotEmpty()
   @Type(() => Date)
   @Column()
   date?: Date;
 
+  @IsNotEmpty()
+  @Min(0)
+  @IsInt()
   @Column()
   usedPoints?: number;
 

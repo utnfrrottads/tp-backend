@@ -17,7 +17,7 @@ export class MetricViewController {
   private metricViewService = new MetricViewService();
 
   @Get('/')
-  public async getAll(@QueryParams() query: MetricView) {
+  public async getAll(@QueryParams({ validate: false }) query: MetricView) {
     return this.metricViewService.find(query);
   }
 

@@ -20,16 +20,14 @@ export class RedeemedPrizeController {
   @Get('/')
   public async getAll(
     @Param('clientId') clientId: number,
-    @QueryParams() query: Client
+    @QueryParams({ validate: false }) query: Client
   ) {
     return this.redeemedPrizeService.find(query, clientId);
   }
 
   @Get('/not-delivered')
-  public async getNotDelivered(
-    @Param('clientId') clientId: number,
-  ) {
-    return this.redeemedPrizeService.find({delivered:false}, clientId);
+  public async getNotDelivered(@Param('clientId') clientId: number) {
+    return this.redeemedPrizeService.find({ delivered: false }, clientId);
   }
 
   @Get('/:id')

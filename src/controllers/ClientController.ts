@@ -17,7 +17,7 @@ export class ClientController {
   private clientService = new ClientService();
 
   @Get('/')
-  public async getAll(@QueryParams() query: Client) {
+  public async getAll(@QueryParams({validate:false}) query: Client) {
     return this.clientService.find(query);
   }
 

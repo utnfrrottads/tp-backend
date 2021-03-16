@@ -17,7 +17,7 @@ export class ProductController {
   private productService = new ProductService();
 
   @Get('/')
-  public async getAll(@QueryParams() query: Product) {
+  public async getAll(@QueryParams({ validate: false }) query: Product) {
     return this.productService.find(query);
   }
 

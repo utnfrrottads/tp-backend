@@ -1,11 +1,13 @@
 import { Type } from 'class-transformer';
+import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class MetricView {
   @PrimaryGeneratedColumn()
   id?: number;
-
+  
+  @IsNotEmpty()
   @Column()
   name?: string;
 
