@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Article } from '../Models/article';
 import { Product } from '../Models/product';
 
 @Injectable({
@@ -18,22 +19,26 @@ export class ProductService {
    }
 
    getProducts(){
-     this.http.get(this.API_URL)
+     return this.http.get(this.API_URL)
    }
 
    getProduct(product: Product){
-     this.http.get(this.API_URL+`${product._id}`)
+     return this.http.get(this.API_URL+`${product._id}`)
    }
 
    postProduct(product: Product){
-     this.http.post(this.API_URL, product)
+     return this.http.post(this.API_URL, product)
    }
 
    putProduct(product: Product){
-     this.http.put(this.API_URL+`${product._id}`, product)
+     return this.http.put(this.API_URL+`${product._id}`, product)
    }
 
    deleteProduct(product: Product){
-     this.http.delete(this.API_URL+`${product._id}`)
+     return this.http.delete(this.API_URL+`${product._id}`)
+   }
+
+   getWithStock(article:Article, qty: number){
+     return this.http.post(this.API_URL+`stock`, {_id: article._id, qty: qty})
    }
 }

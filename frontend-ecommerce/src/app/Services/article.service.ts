@@ -43,7 +43,7 @@ export class ArticleService {
   }
 
   getArticles(filters: object){
-    return this.http.get(this.URL_API, filters);
+    return this.http.post(this.URL_API, filters);
   }
 
   postArticle(article: Article){

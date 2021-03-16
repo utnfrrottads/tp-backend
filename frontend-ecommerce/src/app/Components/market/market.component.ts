@@ -35,7 +35,7 @@ export class MarketComponent implements OnInit {
   }
 
   getFilters(){
-    /* this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
+    this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
         this.articleService.allArticles = res as Article[];
         this.articleService.allArticles.forEach(article => {
           article.notes.forEach(note => {
@@ -61,7 +61,7 @@ export class MarketComponent implements OnInit {
               (document.getElementById(`presentationItem${presentation}`) as HTMLFormElement);
             }
         });
-      }); */
+      }); 
   }
 
   asignName(name: string){
@@ -70,6 +70,7 @@ export class MarketComponent implements OnInit {
 
   getArticles(filters: object){
     this.articleService.getArticles(filters).subscribe(res => {
+      console.log(res)
       this.articleService.articles = res as Article[];
     });
   }
@@ -116,5 +117,8 @@ export class MarketComponent implements OnInit {
       this.articleService.filters.name.push(e)
     }
     this.getArticles(this.articleService.filters)
+  }
+
+  addArticle(e: any){
   }
 }
