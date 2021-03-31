@@ -1,0 +1,91 @@
+<h2>Emergencia</h2>
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="accidentOrDiseasesForm">
+      <form [formGroup]="accidentOrDiseasesForm">
+        <ng-template matStepLabel>Accidente-Enfermedad</ng-template>
+        <form [formGroup]="accidentOrDiseasesForm" (ngSubmit)="getAllHospitalsByAccidentOrDiseasesId()" class="mi-form">       
+            
+            <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Accidente - Enfermedad</mat-label>
+                <mat-select matNativeControl required formControlName='accidentOrDiseases'>
+                    <mat-option *ngFor="let accidentOrDiseases of dataAccidentOrDiseases" [value]="accidentOrDiseases.id"> 
+                        {{accidentOrDiseases.description}} 
+                    </mat-option> 
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!accidentOrDiseasesForm.valid"> 
+                Buscar hospitales 
+                <mat-icon>local_hospital</mat-icon> 
+            </button>
+        </form> 
+        <br>
+        <div>
+          <button mat-button matStepperNext [disabled]="!this.emergencyForm.controls.idAccidentOrDisease.value">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [optional]="true">
+        <ng-template matStepLabel>Paciente</ng-template>
+        <app-emergency-person
+            (personSelected)="onPersonHealthInsuranceSelected($event)">
+        </app-emergency-person>
+        <div>
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+    </mat-step>
+    <mat-step [optional]="true">
+        <ng-template matStepLabel>Cama</ng-template>
+        <app-bed-list
+            [allowSelect] = "true"
+            [dataBed]="this.dataBeds"
+            (bedSelected)="onBedSelected($event)"
+            *ngIf="this.dataBeds">
+        </app-bed-list>
+        <div *ngIf="!this.hospitalSelected">
+            No te olvides de buscar el efector más cercano
+        </div>
+        <br>
+        <div>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button matStepperNext [disabled]="!this.hospitalSelected">Siguiente</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Ir</ng-template>
+      
+        <mat-card class="example-card" *ngIf="this.hospitalSelected" >
+            <mat-card-header> 
+            <mat-card-title>
+                Efector más cercano: 
+                <br>
+                <mat-icon>local_hospital</mat-icon>
+                <b>{{this.hospitalSelected.name}}</b>        
+            </mat-card-title>
+            <mat-card-subtitle>  
+                <span class="material-icons">pin_drop</span>
+                {{this.hospitalSelected.address}}, {{this.hospitalSelected.locality}}
+            </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>  
+                Cantidad de camas libres
+                <mat-icon matBadge="{{this.hospitalSelected.freeBeds}}" matBadgeColor="warn">single_bed</mat-icon>  
+            </mat-card-content> 
+        </mat-card>
+        <form [formGroup]="emergencyForm" (ngSubmit)="onCreateEmergency()" class="mi-form" *ngIf="this.hospitalSelected" >       
+            <button mat-raised-button color="warn" type="submit" [disabled]="!emergencyForm.valid">
+            Tomar cama e ir! 
+            </button>
+        </form>
+      <div>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button (click)="stepper.reset()">Reiniciar</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+<hr>
+  <app-map
+  [hospitalData]="hospitalData"
+  (hospitalSelected)="onHospitalSelected($event)"
+  (position)="onPositionUpdated($event)">
+  </app-map>

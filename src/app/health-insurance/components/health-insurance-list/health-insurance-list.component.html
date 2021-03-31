@@ -1,0 +1,38 @@
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataHealthInsurance">
+
+  <ng-container matColumnDef="legalName">
+      <mat-header-cell *matHeaderCellDef>Nombre legal</mat-header-cell>
+      <mat-cell *matCellDef="let healthInsurance">{{healthInsurance.legalName}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="fantasyName">
+      <mat-header-cell *matHeaderCellDef>Nombre de fantasía</mat-header-cell>
+      <mat-cell *matCellDef="let healthInsurance">{{healthInsurance.fantasyName}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+      <mat-cell *matCellDef="let healthInsurance">{{healthInsurance.phone}}</mat-cell>
+    </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>   
+    <td mat-cell *matCellDef="let healthInsurance"> 
+      <button mat-mini-fab color="accent" (click)="editHealthInsurance(healthInsurance)" *ngIf="allowEdit">
+        <mat-icon>edit</mat-icon>
+      </button>  
+      <button mat-mini-fab color="warn" (click)="deleteHealthInsurance(healthInsurance)" *ngIf="allowDelete">
+        <mat-icon>delete</mat-icon>
+      </button> 
+    </td>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+   
+</mat-table>
+  
+
+<br>
+<i *ngIf="!dataHealthInsurance">
+  Sin registros
+</i>

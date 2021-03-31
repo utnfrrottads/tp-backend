@@ -1,0 +1,54 @@
+<form  [formGroup]="personForm" (ngSubmit)="getPersonAndHealthInsurancesByDni()" class="mi-form">
+    <p>
+      <mat-form-field  appearance="fill" class="mi-full-width">
+        <mat-label> DNI de la persona </mat-label>
+        <input matInput  formControlName="dni" placeholder="Número de documento" >
+        <mat-hint >Es opcional, luego podrás actualizarlo</mat-hint>
+      </mat-form-field>
+    </p> 
+    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid"> 
+      Buscar persona 
+      <mat-icon>person_search</mat-icon>
+    </button>
+</form>
+<button mat-raised-button (click)="redirectToPersonForm()"> 
+  Registrar persona
+</button>
+<br>
+<br>
+<mat-progress-bar mode="indeterminate" *ngIf="flagGetPersonHealth"></mat-progress-bar>
+
+<div *ngIf="personHealthInsuranceResultData.persons.id!=''">
+  <app-person-card
+    [person]="personHealthInsuranceResultData.persons">
+  </app-person-card>
+
+  <h3>
+    Obra social: 
+  </h3>
+  <mat-selection-list #personHealthInsurance [multiple]="false" >
+    <mat-list-option 
+        *ngFor="let item of personHealthInsuranceResultData.healthInsurances" 
+        [value]="item"
+        (click)="onSelectHealthInsurance(item)">
+      {{item.fantasyName}}
+    </mat-list-option>
+  </mat-selection-list>
+  Obra social elegida: {{personHealthInsurance.selectedOptions.selected[0]?.value.fantasyName}}
+
+  <br>
+  <br>
+  <button mat-raised-button color="primary" (click)="showEmergencyContact()"> 
+    Ver contacto de emergencia
+    <mat-icon>search</mat-icon>
+  </button>
+  <div class="container"  *ngIf="flagVisiblePersonContact">
+    <h3>Contacto de emergencia</h3>
+      <app-person-card
+        [person]="personContact">
+      </app-person-card>
+    <br>
+  <button mat-raised-button (click)="selectPerson()"  *ngIf="personHealthInsuranceResultData.persons.id"> 
+      Seleccionar persona
+  </button>
+</div>

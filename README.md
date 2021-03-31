@@ -37,6 +37,9 @@ Ver [checklist]
     * Presentar un detalle por API de alguno de los elementos en un listado
     * Al realizar el request se debe utilizar un ID u otro identificador obtenido de un elemento del listado, deberán devolverse más datos sobre el mismo que los que figuran en el listado.
     * El mismo debe proveer información de dos o más entidades relacionadas. La información adicional debe ser acorde al tipo de API (REST o GraphQL) utilizada.
+    
+    
+    
 
     *Grupos de 1 o 2 integrates, al menos 1.
     Grupos de 3 y 4 integrantes al menos 2.
@@ -118,3 +121,77 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+
+
+
+# TP Backend 2020 - Grupo n° x - 1H
+
+## Enunciado general 1H:
+ 
+Desarrollaremos una solución para el personal de salud, especificamente a los enfermeros de las ambulancias, permitiendole visualizar rapidamente en tiempo real cual es el hospital más cercano y así poder llevar el paciente de manera rápida y eficaz, quitando todo el proceso burocrático que esto conlleva en la actualidad, perdiendo tiempo y personal de salud ocupandose del tema para desarrollar otras tareas.
+Con lo cual, nuestra aplicación movil consiste en tener dos principales usuarios, por un lado el personal médico de la ambulancia, el cual mediante un dispositivo móvil ingresa datos mínimos del paciente para poder decidir a que efector ir. 
+Y por otro lado, el otro principal usuario es cada institución donde deberá acceder al sistema y así mantener la información de las camas actualizada , como ser la cantidad de cama que posee y el estado de las mismas, entre otros.
+
+Notas:
+Tipo auxilio:
+ -Rojo: atencion inmediata
+ -Urgencia 
+ -Consulta
+ 
+Ejemplos de Niveles de atención:
+ 1-Centro de salud, la persona puede asistir por su cuenta
+ 2-Hospital Carrasco
+ 3-EVa perón, HECA
+ 
+ 
+Podemos citar las siguientes características a desarrollar para el TP en cuestión:
+
+    ABMC:
+
+        ABMC de entidad simple 
+        1-Cama (ok)
+        2-Tratamientos (ok)
+        3-ObraSocial (ok)
+        
+
+        ABMC compleja. 
+        1-Persona (relacionado con entidades: Persona, Contacto, Obra Social)
+        2-Emergencia (MAPA) (relacionado con entidades: Efector, Paciente, Enfermero, AccidenteEnfermedad, Cama, Ambulancia) 
+        
+        
+        ABMC por API
+        1-Hospital
+ 
+
+    Listados por API:
+
+        Listado simple: 
+        1-Obras sociales
+
+        Listado complejo: 
+
+        1-Hospitales cercanos al lugar de la emergencia (MAPA CRUD+"Listado")
+          .Atributos a mostrar: Efector, NivelAtencion, cantidad de camas disponibles y distancia
+          .Filtros: NivelAtencion, ubicaciónActual y obraSocial.
+
+        2-Camas disponibles a una obra social:
+          .Atributos a mostrar: NivelAtencion, Hospital, obraSocial, freeBeds
+          .Filtros: obraSocial 
+
+ 
+    Detalle del listado "1-Hospitales cercanos al lugar de la emergencia --> Contacto paciente":
+      1-Se podrá ver la información del Paciente, con el detalle de su Nombre y de la persona de contacto.
+       
+       
+Miembros del equipo:
+* Alberto Gentilcore 42122
+* Lucio Bevilacqua 42046
+* Lara Mateo 44795
+
+ 
+Modelo de dominio
+https://drive.google.com/file/d/1J5X-OYuCfxFnT9LtSgfd1s7v-u6cTmZR/view?usp=sharing
+
+Modelo Dominio Ambulatorio Firebase
+https://app.diagrams.net/#G1FRbZ7r1t1wksUsOjyLXsGEkXDCzBgSWY

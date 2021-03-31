@@ -1,0 +1,36 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+  <mat-expansion-panel-header color="primary">
+    <mat-panel-title>
+      Formulario de camas
+    </mat-panel-title>
+    <mat-panel-description> 
+      <div *ngIf="!isCreate()"class="row"> Editar <mat-icon matSuffix>single_bed</mat-icon> </div>
+      <div *ngIf="isCreate()"class="row"> Agregar <mat-icon matSuffix>single_bed</mat-icon>  </div>
+      <div *ngIf="!isCreate()"><mat-icon>edit</mat-icon></div>
+      <div *ngIf="isCreate()"><mat-icon>plus_one</mat-icon></div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+      <app-bed-form 
+          [bedSelected]="this.bedSelected"
+          [inputType]="this.inputType"
+          (add)="onBedCreated($event)"
+          (edit)="onBedEdited($event)">
+      </app-bed-form>
+  </mat-expansion-panel>
+</mat-accordion> 
+<br> 
+<div *ngIf="!isCreate()">
+  <button mat-raised-button aria-label="Agregar cama" (click)="setInputTypeCreate()">
+      Volver a form de creación <mat-icon>plus_one</mat-icon>
+  </button>
+</div>
+<br>
+<app-bed-list
+    [allowEdit] = "true"
+    [allowDelete] = "true"
+    [dataBed]="this.dataBed"
+    (bedSelected)="onBedSelected($event)"
+    (bedDeleted)="onBedDeleted($event)">
+</app-bed-list>  
+<mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar> 

@@ -1,0 +1,43 @@
+<button (click)="addMarkerCurrentPosition()" mat-raised-button color="primary" >
+  <span class="material-icons">person_pin_circle</span>
+  Mi ubicación
+</button> 
+<button (click)="getNearestHospital()" mat-raised-button color="primary">
+  <span class="material-icons">location_searching</span> 
+  Efector más cercano
+</button>
+<!-- (mapClick)="click($event)" -->
+<google-map  
+  height="500px"
+  width="100%"
+  [zoom]="zoom"
+  [center]="myPosition"
+  [options]="options" >
+    <map-marker
+      #markerElem
+      *ngFor="let myMark of myMarkers"
+      [position]="myMark.position"
+      [label]="myMark.title"
+      [title]="myMark.label"
+      [options]="myMark.options">
+    </map-marker> 
+    <map-marker
+      #markerElem
+      *ngFor="let efector of hospitalData"
+      [position]="efector.locationGoogleMap"
+      [label]="efector.name"
+      [title]="efector.name"   
+      [options]="efector.options"
+      (mapClick)="openInfo(markerElem, efector.info)">
+    </map-marker> 
+  <map-info-window>
+    {{ infoContent }}
+  </map-info-window>
+</google-map>
+<!-- <button (click)="logCenter()" mat-raised-button color="info">
+  Mostrar lat y long del centro del mapa
+</button>
+<button (click)="calculateDistancia()">
+  Calcular distancia con Google
+</button> -->
+

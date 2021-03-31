@@ -1,0 +1,80 @@
+<h2 *ngIf="inputType!=2">Agregar cama</h2>
+<h2 *ngIf="inputType===2">Editar cama</h2>
+
+<form  [formGroup]="bedForm" (ngSubmit)="onSubmit()" class="mi-form">
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Hospital</mat-label>
+            <mat-icon matSuffix>local_hospital</mat-icon>
+            <mat-select matNativeControl required formControlName='idHospital' [value]='bedSelected.idHospital'>
+                <mat-option *ngFor="let hospital of dataHospital" [value]="hospital.id"> 
+                    {{hospital.name}} 
+                </mat-option> 
+            </mat-select>            
+            <mat-error *ngIf="checkFieldError('hospitalName')">
+                <span *ngIf="checkFieldRequiredError('hospitalName')">
+                    No te olvides de elegir el Hospital!
+                </span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>  
+    <h3>Camas</h3>
+    <p> 
+        <mat-form-field  appearance="fill" class="mi-full-width">
+            <mat-label> Decripción: </mat-label>
+            <input matInput formControlName="description" placeholder="Descripcion de la cama" >
+            <mat-error *ngIf="checkFieldError('description')">
+                <span *ngIf="checkFieldRequiredError('description')">
+                    No te olvides de completarlo!
+                </span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Estado</mat-label>
+            <mat-select matNativeControl required formControlName='status'  [value]='bedSelected.status'>
+                <mat-option *ngFor="let status of dataBedStatus" [value]="status.description"> 
+                    {{status.description}} 
+                </mat-option> 
+            </mat-select>
+            <mat-error *ngIf="checkFieldError('status')">
+                <span *ngIf="checkFieldRequiredError('status')">
+                    No te olvides de elegir cual es el estado de la cama!
+                </span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p> 
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Tipo cama</mat-label>
+            <mat-select matNativeControl required formControlName='type' [value]='bedSelected.type'>
+                <mat-option *ngFor="let type of dataBedType" [value]="type.description"> 
+                    {{type.description}} 
+                </mat-option> 
+            </mat-select>
+            <mat-error *ngIf="checkFieldError('type')">
+                <span *ngIf="checkFieldRequiredError('type')">
+                    No te olvides de elegir el tipo de cama!
+                </span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Sub Tipo</mat-label>
+            <mat-select matNativeControl required formControlName='subtype' [value]='bedSelected.subtype'>
+                <mat-option *ngFor="let subtype of dataBedSubType" [value]="subtype.description"> 
+                    {{subtype.description}} 
+                </mat-option> 
+            </mat-select>
+            <mat-error *ngIf="checkFieldError('subtype')">
+                <span *ngIf="checkFieldRequiredError('subtype')">
+                    No te olvides de elegir el sub tipo de cama!
+                </span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!bedForm.valid">{{setButtonText()}}</button>
+</form>
+ 

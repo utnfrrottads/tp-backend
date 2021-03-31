@@ -1,0 +1,54 @@
+<h1>Personas</h1>
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Persona">
+    <br> 
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+      <mat-expansion-panel-header color="primary">
+        <mat-panel-title>
+          Formulario de personas
+        </mat-panel-title>
+        <mat-panel-description> 
+          <div *ngIf="!isCreate()" class="row"> Editar <mat-icon matSuffix>person_pin</mat-icon></div>
+          <div *ngIf="isCreate()" class="row"> Agregar <mat-icon matSuffix>person_pin</mat-icon></div>
+          <div *ngIf="!isCreate()"><mat-icon>edit</mat-icon></div>
+          <div *ngIf="isCreate()"><mat-icon>plus_one</mat-icon></div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+          <app-person-form 
+              [personSelected]="this.personSelected"
+              [inputType]="this.inputType"
+              (add)="onPersonCreated($event)"
+              (edit)="onPersonEdited($event)">
+          </app-person-form>
+      </mat-expansion-panel>
+    </mat-accordion> 
+    <br> 
+    <div *ngIf="!isCreate()">
+      <button mat-raised-button aria-label="Form de creación" (click)="setInputTypeCreate()">
+          Volver a form de creación <mat-icon>plus_one</mat-icon>
+      </button>
+    </div>
+    <br>
+    <app-person-list
+        [dataPerson]="this.dataPerson"
+        (personSelected)="onPersonSelected($event)"
+        (personDeleted)="onPersonDeleted($event)">
+    </app-person-list>  
+    <mat-progress-bar *ngIf="flagListIsReady" mode="indeterminate"></mat-progress-bar>   
+  </mat-tab>
+
+  <mat-tab label="Obras sociales adheridas">
+    <br>
+      <app-person-health-insurance
+      [personSelected]="this.personSelected"
+      (add)="onPersonHealthInsuranceCreated($event)">
+
+      </app-person-health-insurance>
+      <app-health-insurance-list
+        [dataHealthInsurance]="this.personHealthInsuranceResultData.healthInsurances"
+        [allowDelete]="true"
+        (healthInsuranceDeleted)="onHealthInsuranceDeleted($event)">
+      </app-health-insurance-list> 
+  </mat-tab>
+</mat-tab-group>

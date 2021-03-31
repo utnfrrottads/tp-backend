@@ -1,0 +1,95 @@
+<h2 *ngIf="inputType!=2">Agregar {{personType}}</h2>
+<h2 *ngIf="inputType===2">Editar {{personType}}</h2>
+
+<form  [formGroup]="personForm" (ngSubmit)="onSubmit()" class="mi-form">
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Tipo de persona</mat-label>
+            <mat-select matNativeControl [value]="personType">
+                <mat-option *ngFor="let personType of dataPersonType" [value]="personType.personType"> 
+                    {{personType.personType}} 
+                </mat-option> 
+            </mat-select>    
+        </mat-form-field>
+    </p> 
+    <p> 
+        <mat-form-field  appearance="fill" class="mi-full-width">
+            <mat-label> DNI </mat-label>
+            <input matInput type="number" formControlName="dni" placeholder="Número de documento" >
+            <mat-error *ngIf="checkFieldError('dni')">
+                <span *ngIf="checkFieldRequiredError('dni')">
+                    No te olvides de completar el DNI!
+                </span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>  
+    <p>
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="firstName" placeholder="Nombre(s) de la persona" >
+            <mat-error *ngIf="checkFieldError('firstName')">
+                <span *ngIf="checkFieldRequiredError('firstName')">
+                    No te olvides de completar el nombre!
+                </span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="lastName" placeholder="Apellido(s) de la persona" >
+            <mat-error *ngIf="checkFieldError('lastName')">
+                <span *ngIf="checkFieldRequiredError('lastName')">
+                    No te olvides de completar el apellido!
+                </span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>
+    <p> 
+          <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="bornDate" [max]="maxDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </p>
+    <p>        
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Género</mat-label>
+            <mat-select matNativeControl required formControlName='gender' [value]='personSelected.gender'>
+                <mat-option *ngFor="let gender of dataGender" [value]="gender.description"> 
+                    {{gender.description}} 
+                </mat-option> 
+            </mat-select>
+            <mat-error *ngIf="checkFieldError('gender')">
+                <span *ngIf="checkFieldRequiredError('gender')">
+                    No te olvides de completar el Género!
+                </span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>
+    <p>
+        <mat-form-field  appearance="standard" class="mi-full-width">
+            <mat-label> Teléfono: </mat-label>
+            <span matPrefix>+54 &nbsp;</span>
+            <input type="tel" matInput formControlName="phone" placeholder="0341-444-4444" >
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="checkFieldError('phone')">
+                <span *ngIf="checkFieldRequiredError('phone')">
+                    No te olvides de completarlo!
+                </span>  
+            </mat-error> 
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Tipo de sangre</mat-label>
+            <mat-select matNativeControl required formControlName='bloodType' [value]='personSelected.bloodType'>
+                <mat-option *ngFor="let bloodType of dataBloodType" [value]="bloodType.description"> 
+                    {{bloodType.description}} 
+                </mat-option> 
+            </mat-select>
+        </mat-form-field>  
+    </p> 
+    <button mat-raised-button color="primary" type="submit" [disabled]="!personForm.valid">{{setButtonText()}}</button>
+</form> 

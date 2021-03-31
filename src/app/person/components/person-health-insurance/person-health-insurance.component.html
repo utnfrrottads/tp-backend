@@ -1,0 +1,22 @@
+<form  [formGroup]="personHealthInsuranceForm" (ngSubmit)="onSubmit()" class="mi-form">
+    <h4>Persona:</h4>
+    <h3 *ngIf="personSelected.id!=''"> 
+         {{personSelected.lastName}}, {{personSelected.firstName}}
+    </h3>  
+    <p>
+        <mat-form-field appearance="fill" class="mi-full-width">
+            <mat-label>Obra social</mat-label>
+            <mat-select matNativeControl required formControlName='idHealthInsurance' >
+                <mat-option *ngFor="let healthInsurance of dataHealthInsurance" [value]="healthInsurance.id"> 
+                    {{healthInsurance.fantasyName}} 
+                </mat-option> 
+            </mat-select>
+            <mat-error *ngIf="checkFieldError('idHealthInsurance')">
+                <span *ngIf="checkFieldRequiredError('idHealthInsurance')">
+                    No te olvides de elegir la Obra Social!
+                </span>  
+            </mat-error> 
+        </mat-form-field>  
+    </p>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!personHealthInsuranceForm.valid">Agregar relación</button>
+</form>
