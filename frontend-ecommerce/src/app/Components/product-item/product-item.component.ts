@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Article } from 'src/app/Models/article';
 import { Branch } from 'src/app/Models/branch';
+import { CartItem } from 'src/app/Models/cart-item';
 import { Product } from 'src/app/Models/product';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ProductService } from 'src/app/Services/product.service';
@@ -16,6 +17,7 @@ export interface IMyProduct {
   'qty': number;
 }
 
+
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
@@ -24,18 +26,24 @@ export interface IMyProduct {
 export class ProductItemComponent implements OnInit {
 
   @Input() article = new Article()
+  @Input() item = new CartItem()
+  @Input() mode = "market"
   @Output() addArticle = new EventEmitter<IMyProduct>()
   @Output() getError = new EventEmitter<string>()
+  @Output() deleteItem = new EventEmitter<Product>()
+  @Output() updateItem = new EventEmitter<IMyProduct>()
   
 
   public availableProducts: Array<Product>
   public availableBranches: Array<IMyBranches>
   public message: string = ""
+  public branchDesc: string = ""
   
   constructor(private branchService: BranchService, private productService: ProductService) {
     this.availableProducts = []
     this.availableBranches = []
- 
+    console.log(this.item)
+
   }
   
   
@@ -73,10 +81,12 @@ export class ProductItemComponent implements OnInit {
         this.addArticle.emit(prod);
       }
     );
+    this.availableBranches = []
+    document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
   }
 
   cancelAddProduct() {
-    this.availableBranches = []
+    this.availableBranches = [] 
     document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
   }
 

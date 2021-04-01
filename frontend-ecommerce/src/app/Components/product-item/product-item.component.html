@@ -18,7 +18,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div *ngIf="mode === 'market'" class="col">
+                    <div class="p">
+                        {{article.description}}
+                    </div>
+                </div>
+                <div *ngIf="mode === 'cart'" class="col">
                     <div class="p">
                         {{article.description}}
                     </div>

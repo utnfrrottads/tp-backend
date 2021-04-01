@@ -5,6 +5,9 @@ import { ArticleService } from 'src/app/Services/article.service';
 import { NoteService } from 'src/app/Services/note.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr'
 import { Sale } from 'src/app/Models/sale';
+import { CartItem } from 'src/app/Models/cart-item';
+import { User } from 'src/app/Models/user';
+import { SaleService } from 'src/app/Services/sale.service';
 
 @Component({
   selector: 'app-market',
@@ -26,14 +29,29 @@ export class MarketComponent implements OnInit {
 
   public message : string = ""
 
-  constructor(public articleService: ArticleService, public noteService: NoteService, private toastr: ToastrService) {
-    this.currentSale = new Sale()
+  constructor(public saleService: SaleService,public articleService: ArticleService, public noteService: NoteService, private toastr: ToastrService) {
+    var user = localStorage.getItem("CurrentUser") || JSON.stringify(new User())
+    var currentUser = JSON.parse(user) 
+  
+    var transactionNumber = 0
+    this.saleService.getNextTransNumber().subscribe(res => {
+      transactionNumber = res as number
+    })
+
+    var param = 
+    {
+      'client': currentUser._id,
+      'transactionNumber': transactionNumber,
+      'cart':[]
+    }
+
+    this.currentSale = new Sale(param)
   }
 
   ngOnInit(): void {
 
     this.getArticles(this.filtersEmpty);
-    this.getFilters();
+    this.getFilters();    
   }
 
   ngOnChanges():void {
@@ -125,10 +143,23 @@ export class MarketComponent implements OnInit {
   }
 
   addArticle(e: any){
-    console.log(e)
+    var newItem = new CartItem(e.prod, e.qty)
+    this.currentSale.cart.push(newItem)
+    if(this.currentSale.cart[0].product === ""){
+      this.currentSale.cart.splice(0, 1)
+    }
+    console.log(this.currentSale.cart)
   }
 
   onError(e: any){
     this.toastr.error(e, 'Error')
+  }
+
+  updateQty(e:any) {
+
+  }
+
+  deleteItem(e: any){
+
   }
 }

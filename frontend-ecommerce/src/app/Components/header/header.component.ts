@@ -33,8 +33,7 @@ export class HeaderComponent implements OnInit {
         this.roleService.getById(role).subscribe(res =>{
           this.mapRoles(res as Role)
         })
-      });
-      
+      }); 
     }
   }
 

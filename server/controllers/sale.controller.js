@@ -3,9 +3,7 @@ const Sale = require('../models/sale');
 const User = require('../models/user');
 const Product = require('../models/product');
 const Article = require('../models/article');
-const ObjectId = require('mongodb').ObjectID;
 const ApiError = require('../error/ApiError');
-const { findById } = require('../models/sale');
 
 const saleCtrl = {};
 
@@ -59,6 +57,21 @@ saleCtrl.checkClient = async(clientID) => {
     }
 }
 
+saleCtrl.getNextTransactionNumber = async(req, res, next) => {
+    try{
+        console.log("lastSale")
+        const lastSale = await Sale.find().sort({_id: -1}).limit(1)
+        if(lastSale.length > 0){
+            var transactionNumber = lastSale.transactionNumber + 1
+            res.json({'number': transactionNumber})
+        } else {
+            res.json({'number': 1})
+        }
+    } catch(err){
+        next(err)
+    }
+}
+
 //M�todo obtener todas las ventas
 saleCtrl.getSales = async (req, res, next) => {
     try {
@@ -76,7 +89,7 @@ saleCtrl.getSale = async (req, res, next) => {
     
         const sale = await Sale.findById(id);
         res.json(sale);
-    } catch{
+    } catch(err){
         next(err);
     }
 }
