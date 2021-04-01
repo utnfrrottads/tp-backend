@@ -11,6 +11,11 @@ export interface IMyBranches {
   '_id': string;
 }
 
+export interface IMyProduct {
+  'prod': Product;
+  'qty': number;
+}
+
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
@@ -19,14 +24,13 @@ export interface IMyBranches {
 export class ProductItemComponent implements OnInit {
 
   @Input() article = new Article()
-  @Output() addArticle = new EventEmitter<Product>()
+  @Output() addArticle = new EventEmitter<IMyProduct>()
   @Output() getError = new EventEmitter<string>()
   
 
   public availableProducts: Array<Product>
   public availableBranches: Array<IMyBranches>
   public message: string = ""
- 
   
   constructor(private branchService: BranchService, private productService: ProductService) {
     this.availableProducts = []
@@ -57,30 +61,23 @@ export class ProductItemComponent implements OnInit {
       },
         error: err => {
           this.message = JSON.parse(JSON.stringify(err)).error.error
+          this.availableBranches = []
           this.getError.emit(this.message);
         } 
     })
   }
 
-  addProduct(id: string){
+  addProduct(id: string, qty: string){
       this.productService.getProduct(id).subscribe( res=> {
-        this.addArticle.emit(res as Product);
+        var prod: IMyProduct = {'prod': (res as Product), 'qty': Number.parseInt(qty)}
+        this.addArticle.emit(prod);
       }
     );
   }
 
-  selectBranchChanges(value: string){
-    console.log("change")
-    if(value.length < 0){
-      document.getElementById(`selectBranch${this.article._id}`)?.setAttribute('disable', 'disable')
-    } 
-    else {
-      document.getElementById(`selectBranch${this.article._id}`)?.removeAttribute('disable')
-    }  
-  }
-
-  cancelAddProduct(){
-      document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
+  cancelAddProduct() {
+    this.availableBranches = []
+    document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
   }
 
 }

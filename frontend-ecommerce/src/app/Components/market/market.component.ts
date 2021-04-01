@@ -4,6 +4,7 @@ import { Note } from 'src/app/Models/note';
 import { ArticleService } from 'src/app/Services/article.service';
 import { NoteService } from 'src/app/Services/note.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr'
+import { Sale } from 'src/app/Models/sale';
 
 @Component({
   selector: 'app-market',
@@ -21,9 +22,12 @@ export class MarketComponent implements OnInit {
     notes: []
   };
 
+  public currentSale: Sale;
+
   public message : string = ""
 
   constructor(public articleService: ArticleService, public noteService: NoteService, private toastr: ToastrService) {
+    this.currentSale = new Sale()
   }
 
   ngOnInit(): void {

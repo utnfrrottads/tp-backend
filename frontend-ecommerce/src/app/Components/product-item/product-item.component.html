@@ -50,7 +50,7 @@
                 <div class="col-8">
                     <label for="branchSelect">Seleccione Sucursal</label>
                     <select #branchPicker class="form-control form-control-sm"  disabled id="branchSelect{{article._id}}">
-                        <option *ngFor="let branch of availableBranches" >{{branch.desc}}</option>
+                        <option *ngFor="let branch of availableBranches" value="{{branch._id}}">{{branch.desc}}</option>
                     </select>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <button type="submit" (click)="cancelAddProduct()" class="btn btn-secondary align-end" >Cancelar</button>
                 </div>
                 <div class="col-1">
-                    <button type="submit" id="selectBranch{{article._id}}" (click)="addProduct(branchPicker.value)" disabled class="btn btn-primary align-end">Añadir</button>
+                    <button type="submit" id="selectBranch{{article._id}}" (click)="addProduct(branchPicker.value, quantity.value)" [disabled]="availableBranches.length ==0" class="btn btn-primary align-end">Añadir</button>
                 </div>
             </div>
         </form>
