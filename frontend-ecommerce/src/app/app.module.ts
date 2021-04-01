@@ -52,7 +52,9 @@ BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    }), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

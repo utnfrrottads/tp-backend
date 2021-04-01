@@ -3,7 +3,7 @@ import { Article } from 'src/app/Models/article';
 import { Note } from 'src/app/Models/note';
 import { ArticleService } from 'src/app/Services/article.service';
 import { NoteService } from 'src/app/Services/note.service';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-market',
@@ -21,7 +21,9 @@ export class MarketComponent implements OnInit {
     notes: []
   };
 
-  constructor(public articleService: ArticleService, public noteService: NoteService) {
+  public message : string = ""
+
+  constructor(public articleService: ArticleService, public noteService: NoteService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -70,7 +72,6 @@ export class MarketComponent implements OnInit {
 
   getArticles(filters: object){
     this.articleService.getArticles(filters).subscribe(res => {
-      console.log(res)
       this.articleService.articles = res as Article[];
     });
   }
@@ -120,5 +121,10 @@ export class MarketComponent implements OnInit {
   }
 
   addArticle(e: any){
+    console.log(e)
+  }
+
+  onError(e: any){
+    this.toastr.error(e, 'Error')
   }
 }

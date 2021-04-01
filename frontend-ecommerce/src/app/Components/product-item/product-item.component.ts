@@ -20,14 +20,19 @@ export class ProductItemComponent implements OnInit {
 
   @Input() article = new Article()
   @Output() addArticle = new EventEmitter<Product>()
+  @Output() getError = new EventEmitter<string>()
+  
 
   public availableProducts: Array<Product>
   public availableBranches: Array<IMyBranches>
+  public message: string = ""
+ 
   
   constructor(private branchService: BranchService, private productService: ProductService) {
     this.availableProducts = []
     this.availableBranches = []
-   }
+ 
+  }
   
   
   ngOnInit(): void {
@@ -43,21 +48,35 @@ export class ProductItemComponent implements OnInit {
         next: res => {
           this.availableProducts = res as Array<Product>
           this.availableProducts.forEach( prod => {
-              this.branchService.getById(prod.branch).subscribe(res => {
-                var branch = res as Branch
-                this.availableBranches.push({desc: `${branch.street}, ${branch.number}`, _id: prod._id})
-              })
+            this.branchService.getById(prod.branch).subscribe(res => {
+              var branch = res as Branch
+              this.availableBranches.push({desc: `${branch.street}, ${branch.number}`, _id: prod._id})
+            })
           })
           document.getElementById(`branchSelect${this.article._id}`)?.removeAttribute('Disabled')
-        },
+      },
         error: err => {
-          console.log(err)
+          this.message = JSON.parse(JSON.stringify(err)).error.error
+          this.getError.emit(this.message);
         } 
     })
   }
 
   addProduct(id: string){
-      console.log(id)
+      this.productService.getProduct(id).subscribe( res=> {
+        this.addArticle.emit(res as Product);
+      }
+    );
+  }
+
+  selectBranchChanges(value: string){
+    console.log("change")
+    if(value.length < 0){
+      document.getElementById(`selectBranch${this.article._id}`)?.setAttribute('disable', 'disable')
+    } 
+    else {
+      document.getElementById(`selectBranch${this.article._id}`)?.removeAttribute('disable')
+    }  
   }
 
   cancelAddProduct(){
