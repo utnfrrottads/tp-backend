@@ -120,13 +120,13 @@ Luego de la defensa el resultado puede ser:
 [checklist]: ./checklist/README.md
 
 ___
-# Enunciado del TP
+## Enunciado del TP
 
 Realizar una aplicación web de selección de personal que centralice a los postulantes provenientes de distintas páginas web con el fin de facilitar la administración en la contratación de los mismos para cierto puesto de trabajo.
 
-# Miembros del trabajo
+## Miembros del equipo:
 
-44989 - Bertone Andres
-44987 - Cabanellas Ignacio
-45091 - Cordoba Lucas
-45090 - Nicola Francisco
+* 44989 - Bertone Andres
+* 44987 - Cabanellas Ignacio
+* 45091 - Cordoba Lucas
+* 45090 - Nicola Francisco
