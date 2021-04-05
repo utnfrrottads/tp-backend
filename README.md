@@ -118,3 +118,8 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+
+# Enunciado del TP
+
+
