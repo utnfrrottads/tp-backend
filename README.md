@@ -119,7 +119,6 @@ Luego de la defensa el resultado puede ser:
 
 [checklist]: ./checklist/README.md
 
-
+___
 # Enunciado del TP
 
-asd
