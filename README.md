@@ -122,3 +122,4 @@ Luego de la defensa el resultado puede ser:
 ___
 # Enunciado del TP
 
+Realizar una aplicación web de selección de personal que centralice a los postulantes provenientes de distintas páginas web con el fin de facilitar la administración en la contratación de los mismos para cierto puesto de trabajo.
