@@ -3,7 +3,11 @@ import { Article } from 'src/app/Models/article';
 import { Note } from 'src/app/Models/note';
 import { ArticleService } from 'src/app/Services/article.service';
 import { NoteService } from 'src/app/Services/note.service';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr'
+import { Sale } from 'src/app/Models/sale';
+import { CartItem } from 'src/app/Models/cart-item';
+import { User } from 'src/app/Models/user';
+import { SaleService } from 'src/app/Services/sale.service';
 
 @Component({
   selector: 'app-market',
@@ -21,35 +25,56 @@ export class MarketComponent implements OnInit {
     notes: []
   };
 
-  constructor(public articleService: ArticleService, public noteService: NoteService) {
+  public currentSale: Sale;
+
+  public message : string = ""
+
+  constructor(public saleService: SaleService,public articleService: ArticleService, public noteService: NoteService, private toastr: ToastrService) {
+    var user = localStorage.getItem("CurrentUser") || JSON.stringify(new User())
+    var currentUser = JSON.parse(user) 
+  
+    var transactionNumber = 0
+    this.saleService.getNextTransNumber().subscribe(res => {
+      transactionNumber = res as number
+    })
+
+    var param = 
+    {
+      'client': currentUser._id,
+      'transactionNumber': transactionNumber,
+      'cart':[]
+    }
+
+    this.currentSale = new Sale(param)
   }
 
   ngOnInit(): void {
 
     this.getArticles(this.filtersEmpty);
-    this.getFilters();
+    this.getFilters();    
   }
 
-
-  ngOnChanges(): void {
-    this.getArticles(this.articleService.filterValues);
+  ngOnChanges():void {
+    this.getArticles(this.articleService.filters)
   }
 
   getFilters(){
-    /* this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
+    this.articleService.getArticles(this.filtersEmpty).subscribe(res => {
         this.articleService.allArticles = res as Article[];
         this.articleService.allArticles.forEach(article => {
           article.notes.forEach(note => {
-            let noteValue = '';
-            this.noteService.getById(note).subscribe(res => {
-              noteValue = (res as Note).name;
-              this.asignName(noteValue);
-            });
+            var noteValue: string = ""
+            this.noteService.getById(note).subscribe(res =>{
+              noteValue = (res as Note).name
+              if(!this.articleService.filterValues.notes.includes(noteValue)){
+                this.asignName(noteValue)
+              }
+            })
           });
-          this.articleService.filterValues.presentation.push(article.presentation);
+          if(!this.articleService.filterValues.presentation.includes(article.presentation)){
+            this.articleService.filterValues.presentation.push(article.presentation)
+          }
         });
-        this.articleService.filterValues.notes = [...new Set(this.articleService.filterValues.notes)];
-        this.articleService.filterValues.presentation = [...new Set(this.articleService.filterValues.presentation)];
         this.articleService.filterValues.notes.forEach(note => {
               if (this.articleService.filters.notes.includes(note)){
                 (document.getElementById(`noteItem${note}`) as HTMLFormElement).checked = true;
@@ -60,7 +85,7 @@ export class MarketComponent implements OnInit {
               (document.getElementById(`presentationItem${presentation}`) as HTMLFormElement);
             }
         });
-      }); */
+      }); 
   }
 
   asignName(name: string){
@@ -70,9 +95,7 @@ export class MarketComponent implements OnInit {
   getArticles(filters: object){
     this.articleService.getArticles(filters).subscribe(res => {
       this.articleService.articles = res as Article[];
-      console.log(this.articleService.articles);
     });
-    console.log(this.articleService.filters);
   }
 
   onCBNote(e: any){
@@ -84,8 +107,7 @@ export class MarketComponent implements OnInit {
           this.articleService.filters.notes.splice(index, 1);
       }
     }
-    console.log(this.articleService.filters);
-    this.getArticles(this.articleService.filters);
+    this.getArticles(this.articleService.filters)
   }
 
   onCBPresentation(e: any){
@@ -113,8 +135,31 @@ export class MarketComponent implements OnInit {
   }
 
   onNameSearched(e: any){
-    this.articleService.filters.name = [];
-    this.articleService.filters.name.push(e);
-    this.getArticles(this.articleService.filters);
+    this.articleService.filters.name=[]
+    if(e !== ""){
+      this.articleService.filters.name.push(e)
+    }
+    this.getArticles(this.articleService.filters)
+  }
+
+  addArticle(e: any){
+    var newItem = new CartItem(e.prod, e.qty)
+    this.currentSale.cart.push(newItem)
+    if(this.currentSale.cart[0].product === ""){
+      this.currentSale.cart.splice(0, 1)
+    }
+    console.log(this.currentSale.cart)
+  }
+
+  onError(e: any){
+    this.toastr.error(e, 'Error')
+  }
+
+  updateQty(e:any) {
+
+  }
+
+  deleteItem(e: any){
+
   }
 }

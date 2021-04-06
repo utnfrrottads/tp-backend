@@ -1,5 +1,5 @@
 <!-- Componente Login -->
-<div *ngIf = "!currentUser">
+<div>
     <div class="container ">
         <div id="errorAlert" class="row m-3" style="visibility: hidden;">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -30,9 +30,4 @@
             </div>
         </div>
     </div>
-</div>
-<div *ngIf = "currentUser">
-    <button (click)="logoutUser()">
-        Logout
-    </button>
 </div>

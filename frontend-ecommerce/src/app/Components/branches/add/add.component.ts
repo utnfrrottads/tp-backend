@@ -24,6 +24,7 @@ export class AddBranchComponent implements OnInit{
     private route: ActivatedRoute
   ) {
     this.branchForm = this.fb.group({
+      id: [''],
       cuit: ['', Validators.required],
       street: ['', Validators.required],
       number: ['', Validators.required],
@@ -38,6 +39,7 @@ export class AddBranchComponent implements OnInit{
       this.branchService.getById(params.get('id')).subscribe(branch => {
         this.isEdit = true;
         this.branchForm.patchValue({
+          id: branch._id,
           cuit: branch.cuit,
           street: branch.street,
           number: branch.number,
@@ -55,6 +57,7 @@ export class AddBranchComponent implements OnInit{
     if (this.branchForm.valid) {
 
       const branch: any = {
+        _id: formModel.id,
         cuit: formModel.cuit,
         street: formModel.street,
         number: formModel.number,

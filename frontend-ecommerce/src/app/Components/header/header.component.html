@@ -1,5 +1,4 @@
 <!-- Header de la App -->
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -11,36 +10,45 @@
       </button>
       <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-          <li class="nav-item dropdown justify-content-right">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Nombre de Usuario
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
-              <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="#">Cerrar Sesión</a></li>
-            </ul>
+          <li *ngIf="currentUser.client" class="nav-item">
+            <a class="nav-link" aria-current="page" href="/market">Tienda</a>
           </li>
 
-        <li class="nav-item dropdown justify-content-right">
+        <li class="nav-item dropdown justify-content-right" *ngIf="currentUser.employee">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Acciones
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Articulos</a></li>
-            <li><a class="dropdown-item" href="#">Productos</a></li>
-            <li><a class="dropdown-item" href="/notes">Notas</a></li>
-            <li><a class="dropdown-item" href="/branches">Sucursales</a></li>
-            <li><a class="dropdown-item" href="/roles">Roles</a></li>
-            <li><a class="dropdown-item" href="/users">Usuarios</a></li>
+
+            <li><a *ngIf="permissions.indexOf('article') !== -1" class="dropdown-item" href="#">Articulos</a></li>
+            <li><a *ngIf="permissions.indexOf('product') !== -1" class="dropdown-item" href="#">Productos</a></li>
+            <li><a *ngIf="permissions.indexOf('note') !== -1" class="dropdown-item" href="/notes">Notas</a></li>
+            <li><a *ngIf="permissions.indexOf('branch') !== -1" class="dropdown-item" href="/branches">Sucursales</a></li>
+            <li><a *ngIf="permissions.indexOf('role') !== -1" class="dropdown-item" href="/roles">Roles</a></li>
+            <li><a *ngIf="permissions.indexOf('role') !== -1" class="dropdown-item" href="/users">Usuarios</a></li>
+
+          </ul>
+        </li>
+        <form class="d-flex" *ngIf="href.includes('market')">
+          <input #searchInput
+          (input)="onTxtBoxChanged(searchInput.value)"
+          class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
+          <button 
+          (click)="onSearch(searchInput.value)" 
+          class="btn btn-success" type="submit">Search</button>
+        </form>
+        <li class="nav-item dropdown justify-content-right" *ngIf="currentUser.username.length !== 0">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{currentUser.names}} {{currentUser.lastNames}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" (click)="logoutUser()" href="#">Cerrar Sesión</a></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input #searchInput class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required>
-        <button (click)="onSearch(searchInput.value)" class="btn btn-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

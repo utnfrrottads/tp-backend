@@ -5,13 +5,6 @@ const ApiError = require('../error/ApiError');
 const article = require('../models/article');
 const articlesCtrl = {};
 
-//Controla dependencias
-articlesCtrl.checkDependencies = async(id) => {
-    let query = await user.find({ roles: id });
-    if (query.length > 0) {
-        throw ApiError.badRequest('El rol que desea eliminar se encuentra vinculado a algún usuario, revise la dependencia');
-    }
-}
 
 //Valida que la nota exista
 articlesCtrl.checkNotes = async(notes) => {
@@ -96,11 +89,13 @@ articlesCtrl.getArticle = async(req, res, next) => {
         const { id } = req.params;
         const article = await Articles.findById(id);
         res.json(article);
+        
     } catch (err) {
         next(err)
     }
 
 }
+
 
 //Metodo editar un articulo
 articlesCtrl.editArticle = async(req, res, next) => {
@@ -133,17 +128,9 @@ articlesCtrl.editArticle = async(req, res, next) => {
 //Metodo borrar un articulo
 articlesCtrl.deleteArticle = async(req, res, next) => {
     try {
-        let validations = true;
-        const { id } = req.params;
-        await articlesCtrl.checkDependencies(id).catch((err) => {
-            next(err);
-            validations = false;
-        })
-        if (validations) {
-            await Articles.findByIdAndRemove(req.params.id);
-            res.json({ status: "Articulo borrado correctamente" });
+        await Articles.findByIdAndRemove(req.params.id);
+        res.json({ status: "Articulo borrado correctamente" });
 
-        }
     } catch (err) {
         next(err);
     }

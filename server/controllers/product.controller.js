@@ -133,5 +133,28 @@ ProductCtrl.deleteProduct = async (req, res, next) => {
     }
 }
 
+ProductCtrl.getProductWithStock = async (req, res, next) => {
+    try{
+        let articleID = req.body._id;
+        let stock = req.body.qty;
+        let avaiableProducts = []
+        let products = await Product.find({article: articleID, isActive: true})
+        if(products.length > 0){
+            products.forEach(product => {
+                if(product.stock >= stock){
+                    avaiableProducts.push(product)
+                }
+            })  
+        } 
+        if(avaiableProducts.length > 0) {
+            res.json(avaiableProducts) 
+        } else{
+            throw ApiError.badRequest('No Hay Stock en Ninguna Sucursal')
+        }
+    } catch (err){
+        next(err)
+    }
+}
+
 //Exporto el controlador para requerirlo en otro lado
 module.exports = ProductCtrl;
