@@ -1,0 +1,73 @@
+<div style="margin-left:20px; text-align: center;">
+    <h2 style="margin-top:10px">Artículos</h2>
+  
+    <button type="button" class="btn btn-info" (click)="addArticle()">Nuevo artículo</button>
+  </div>
+  <!-- Demo header-->
+  <section class="pb-5 header text-center">
+    <div class="container py-5 text-white">
+        <div class="row">
+            <div class="col-lg-7 mx-auto">
+                <div class="card border-0 shadow">
+                    <div class="card-body pb-5">
+  
+                        <!-- Responsive table -->
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Presentación</th>
+                                        <th scope="col">Notas</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Editar/Eliminar</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let article of items">
+                                      <td>
+                                        <span>{{article.name}}</span>
+                                      </td>
+                                
+                                      <td>
+                                        <span>{{article.description}}</span>
+                                      </td>
+                                      
+                                      <td>
+                                        <span>{{article.presentation}}</span>
+                                      </td>
+                                     
+                                      <td>
+                                        <span>{{article.notes}}</span>
+                                      </td>
+                                     
+                                      <td>
+                                        <span>{{article.prices[0].price}}</span>
+                                      </td>
+                                      <td>
+                                          <span>{{article.prices[0].date}}</span>
+                                      </td>
+                                      <td>
+                                          <!-- Call to action buttons -->
+                                          <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="editArticle(article)"><i class="fa fa-edit"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteArticles(article)"><i class="fa fa-trash"></i></button>
+                                            </li>
+                                          </ul>
+                                      </td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

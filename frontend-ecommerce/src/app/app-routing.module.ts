@@ -1,3 +1,5 @@
+import { AddArticleComponent } from './Components/articles/add/add.component';
+import { ArticlesComponent } from './Components/articles/list/list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 import { ListNoteComponent } from './Components/notes/components/list/list.component';
@@ -10,6 +12,7 @@ import { MarketComponent } from './Components/market/market.component';
 import { MainComponent } from './Components/main/main.component';
 
 
+
 const routes: Routes = [
   { path: 'notes', component: ListNoteComponent },
   { path: 'edit-note', component: AddNoteComponent },
@@ -20,6 +23,9 @@ const routes: Routes = [
   { path: 'roles', component: ListRoleComponent },
   { path: 'edit-role', component: AddRoleComponent },
   { path: 'edit-role/:id', component: AddRoleComponent },
+  { path: 'articles', component: ArticlesComponent },
+  { path: 'add-article', component: AddArticleComponent },
+  { path: 'edit-article/:id', component: AddArticleComponent },
   { path: 'market', component: MarketComponent},
   { path: '', component: MainComponent}
 

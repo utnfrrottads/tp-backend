@@ -9,7 +9,8 @@ import { LoginComponent } from './Components/login/login.component';
 import { UsersComponent } from './Components/users/users.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
-import { ArticlesComponent } from './Components/articles/articles.component';
+import { AddArticleComponent } from './Components/articles/add/add.component';
+import { ArticlesComponent } from './Components/articles/list/list.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { SalesComponent } from './Components/sales/sales.component';
 import { BranchesComponent } from './Components/branches/list/list.component';
@@ -33,6 +34,7 @@ import { AddRoleComponent } from './Components/roles/add/add.component';
     HeaderComponent,
     FooterComponent,
     ArticlesComponent,
+    AddArticleComponent,
     ProductsComponent,
     SalesComponent,
     BranchesComponent,
