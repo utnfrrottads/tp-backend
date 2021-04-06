@@ -6,7 +6,8 @@ import { BranchesComponent } from './Components/branches/list/list.component';
 import { AddBranchComponent} from './Components/branches/add/add.component';
 import { ListRoleComponent } from './Components/roles/list/list.component';
 import { AddRoleComponent } from './Components/roles/add/add.component';
-
+import { UsersComponent } from './Components/users/list/list.component';
+import { AddUserComponent } from './Components/users/add/add.component';
 
 const routes: Routes = [
   { path: 'notes', component: ListNoteComponent },
@@ -18,6 +19,9 @@ const routes: Routes = [
   { path: 'roles', component: ListRoleComponent },
   { path: 'edit-role', component: AddRoleComponent },
   { path: 'edit-role/:id', component: AddRoleComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'edit-user', component: AddUserComponent },
+  { path: 'edit-user/:id', component: AddUserComponent },
 
 ];
 

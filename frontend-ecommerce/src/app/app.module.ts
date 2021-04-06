@@ -6,7 +6,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
-import { UsersComponent } from './Components/users/users.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { ArticlesComponent } from './Components/articles/articles.component';
@@ -24,6 +23,9 @@ import { ProductItemComponent } from './Components/product-item/product-item.com
 import { MainComponent } from './Components/main/main.component';
 import { ListRoleComponent } from './Components/roles/list/list.component';
 import { AddRoleComponent } from './Components/roles/add/add.component';
+import { UsersComponent } from './Components/users/list/list.component';
+import { AddUserComponent } from './Components/users/add/add.component';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { AddRoleComponent } from './Components/roles/add/add.component';
     AddRoleComponent,
     MarketComponent,
     ProductItemComponent,
-    MainComponent
+    MainComponent,
+    AddUserComponent
   ],
   imports: [
 BrowserModule,

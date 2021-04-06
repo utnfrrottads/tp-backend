@@ -9,7 +9,35 @@ const UserCtrl = {};
 UserCtrl.getUsers = async(req, res, next) => {
     try {
         const users = await User.find();
-        res.json(users);
+
+        const roleIds = users.map(x => x.roles).flat(1);
+
+        const roles = await Role.find().where('_id').in(roleIds);
+
+        var result = [];
+
+        users.forEach(user => {
+
+            var userResult = user.toObject();
+
+            userResult.rolesInfo = [];
+
+            userResult.roles.forEach(rolId => {
+
+                const rol = roles.find(x => x._id.toString() == rolId);
+
+                userResult.rolesInfo.push({
+                    roleId: rolId,
+                    name: rol.name
+                });
+
+            });
+
+            result.push(userResult);
+
+        });
+
+        res.json(result);
     } catch (err) {
         next(err);
     }
@@ -38,7 +66,7 @@ UserCtrl.checkDNI = async(dni, id = ' ') => {
     let users = await User.find({ dni: dni }).select('_id');
     if (users.length > 0) {
         users.forEach((user) => {
-            if (user._id.toString() !== id) {
+            if (user._id != id) {
                 throw ApiError.badRequest('El DNI ingresado ya se encuentra registrado.');
             }
         });
@@ -50,7 +78,7 @@ UserCtrl.checkEmail = async(email, id = ' ') => {
     let users = await User.find({ email: email });
     if (users) {
         users.forEach(user => {
-            if (user._id !== id) {
+            if (user._id != id) {
                 throw ApiError.badRequest('El Email ingresado ya se encuentra registrado.');
             }
         });
@@ -61,7 +89,7 @@ UserCtrl.checkEmail = async(email, id = ' ') => {
 UserCtrl.checkUserName = async(username, id = ' ') => {
     let users = await User.find({ username: username })
     users.forEach(user => {
-        if (user._id !== id) {
+        if (user._id != id) {
             throw ApiError.badRequest('El nombre de usuario ya se encuentra registrado.');
         }
     });
@@ -164,6 +192,7 @@ UserCtrl.updateUser = async(req, res, next) => {
     try {
         let validations = true;
         const { id } = req.params;
+
         if (req.body.dni == null || req.body.names == null || req.body.lastNames == null || req.body.username == null ||
             req.body.password == null || req.body.email == null || req.body.pc == null || req.body.street == null ||
             req.body.number == null || req.body.phone == null) {
@@ -219,6 +248,7 @@ UserCtrl.updateUser = async(req, res, next) => {
 UserCtrl.deleteUser = async(req, res, next) => {
     try {
         const { id } = req.params;
+        
         let validations = true;
         await UserCtrl.checkDependencies(id).catch((err) => {
             if (req.params.reasign === "true") {

@@ -39,7 +39,7 @@ export class ArticleService {
   }
 
   getArticle(article: Article){
-      return this.http.get(this.URL_API + `${article._id}`);
+    return this.http.get(this.URL_API + `${article._id}`);
   }
 
   getArticles(filters: object){
@@ -57,7 +57,5 @@ export class ArticleService {
   deleteArticle(article: Article){
     return this.http.delete(this.URL_API + `${article._id}`);
   }
-
-
 
 }
