@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { User } from '../Models/user';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -34,19 +35,27 @@ export class UserService {
     return this.http.get(this.API_URL)
   }
 
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(this.API_URL);
+  }
+
   getUser(user: User){
     return this.http.get(this.API_URL+`${user._id}`)
   }
 
+  getById(id: any): Observable<any>{
+    return this.http.get<any[]>(this.API_URL + id);
+  }
+
   postUser(user: User){
-    this.http.post(this.API_URL, user)
+    return this.http.post(this.API_URL, user)
   }
 
   putUser(user: User){
-    this.http.put(this.API_URL+`${user._id}`, user)
+    return this.http.put(this.API_URL+`${user._id}`, user)
   }
 
   deleteUser(user: User, reasign: Boolean){
-    this.http.delete(this.API_URL+`?id=${user._id}&reasign=${reasign}`)
+    return this.http.delete(this.API_URL+`/${user._id}/${reasign}`)
   }
 }
