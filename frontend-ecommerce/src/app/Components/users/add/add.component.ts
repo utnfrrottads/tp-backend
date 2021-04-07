@@ -103,13 +103,13 @@ export class AddUserComponent implements OnInit{
         this.userService.putUser(user).subscribe((x: any) => {
           this.toastr.success('Usuario actualizado exitosamente!');
           this.goBack();
-        });
+        }, error => this.showError(error));
       }
       else {
           this.userService.postUser(user).subscribe((x: any) => {
             this.toastr.success('Usuario registrado exitosamente!');
             this.goBack();
-          });
+          }, error => this.showError(error));
         }
 
     }
@@ -126,6 +126,10 @@ export class AddUserComponent implements OnInit{
     this.rolesService.getAll().subscribe((roles: any) => {
       this.roles = roles;
     });
+  }
+
+  showError(err: any) {
+    this.toastr.error(err.error.error);
   }
 
 }
