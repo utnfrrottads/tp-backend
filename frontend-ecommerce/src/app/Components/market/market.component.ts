@@ -63,6 +63,8 @@ export class MarketComponent implements OnInit {
     }
     
     this.currentSale = new Sale(param)
+
+    localStorage.setItem("CurrentSale", JSON.stringify(currentUser))
     
     this.cartArticle = [] 
   }
@@ -162,6 +164,7 @@ export class MarketComponent implements OnInit {
   }
 
   addArticle(e: any){
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     var id = -1
     this.currentSale.cart.forEach((item, index) => {
       if(item.product._id == e.prod._id){
@@ -172,6 +175,7 @@ export class MarketComponent implements OnInit {
       var newItem = new CartItem({'product': (e.prod as Product), 'qty': e.qty})
       this.currentSale.cart.push(newItem)
       this.mapCartItems()
+      localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     } else{
       this.toastr.error("Ya posee este articulo en el carrito", "Error")
     }
@@ -182,6 +186,7 @@ export class MarketComponent implements OnInit {
   }
 
   updateQty(e:any) {
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach(item => {
       if(item.product._id == e.prod._id){
         item.quantity = e.qty
@@ -189,18 +194,20 @@ export class MarketComponent implements OnInit {
     })
     console.log(this.currentSale.cart)
     this.mapCartItems()
+    localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     this.ref.detectChanges()
   }
 
   deleteItem(e: any){
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach((item, index) => {
       if(item.product._id == e._id){
         this.currentSale.cart.splice(index, 1)
       }
     })
     this.mapCartItems()
+    localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     this.ref.detectChanges()
-    
   }
 
   mapCartItems(){

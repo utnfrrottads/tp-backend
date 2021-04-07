@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Role } from 'src/app/Models/role';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { RoleService } from '../../../Services/role.service';
@@ -17,7 +18,7 @@ export class AddUserComponent implements OnInit{
   sendFormData: any;
   permissions = [];
   isEdit = false;
-  roles = [];
+  roles =[new Role()];
   
   constructor(
     private router: Router,
@@ -46,10 +47,10 @@ export class AddUserComponent implements OnInit{
       roles: [null, [Validators.required]],
     });
   }
-
+  
   ngOnInit() {
-    
     this.getRoles();
+    
 
     this.route.paramMap.subscribe(params => {
       if (params.get('id') != null) {
@@ -126,6 +127,10 @@ export class AddUserComponent implements OnInit{
     this.rolesService.getAll().subscribe((roles: any) => {
       this.roles = roles;
     });
+    var index = this.roles.indexOf({_id: '', name: '', description: '', permissions: ['']})
+    if(index > -1){
+      this.roles.slice(index, 1)
+    }
   }
 
 }
