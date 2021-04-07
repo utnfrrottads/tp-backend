@@ -26,6 +26,7 @@ import { ListRoleComponent } from './Components/roles/list/list.component';
 import { AddRoleComponent } from './Components/roles/add/add.component';
 import { UsersComponent } from './Components/users/list/list.component';
 import { AddUserComponent } from './Components/users/add/add.component';
+import { CompleteSaleComponent } from './Components/complete-sale/complete-sale.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AddUserComponent } from './Components/users/add/add.component';
     MarketComponent,
     ProductItemComponent,
     MainComponent,
-    AddUserComponent
+    AddUserComponent,
+    CompleteSaleComponent
   ],
   imports: [
 BrowserModule,

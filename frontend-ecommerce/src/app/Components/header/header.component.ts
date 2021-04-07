@@ -2,8 +2,10 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/Models/role';
+import { Sale } from 'src/app/Models/sale';
 import { User } from 'src/app/Models/user';
 import { RoleService } from 'src/app/Services/role.service';
+import { SaleService } from 'src/app/Services/sale.service';
 import { UserService } from 'src/app/Services/user.service';
 
 
@@ -24,7 +26,7 @@ export class HeaderComponent implements OnInit {
   public permissions: Array<string> = [""]
 
 
-  constructor(private router: Router, private userService: UserService, private roleService: RoleService) { 
+  constructor(private router: Router, private userService: UserService, private roleService: RoleService, private saleService: SaleService) { 
     this.href= this.router.url;
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
@@ -64,6 +66,31 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']).then(()=>{
       window.location.reload()
     })
+  }
+
+  createSale(){
+    var sale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
+    if(sale.client == ""){
+      var user = localStorage.getItem("CurrentUser") || JSON.stringify(new User())
+      var currentUser = JSON.parse(user) 
+      
+      var transactionNumber = 0
+      this.saleService.getNextTransNumber().subscribe(res => {
+        transactionNumber = res as number
+      })
+      
+      var param = 
+      {
+        'client': currentUser._id,
+        'transactionNumber': transactionNumber,
+        'cart':[]
+      }
+      
+      var currentSale = new Sale(param)
+      localStorage.setItem("CurrentSale", JSON.stringify(currentSale))
+    }
+      
+    this.router.navigate(['/market'])
   }
 
 }
