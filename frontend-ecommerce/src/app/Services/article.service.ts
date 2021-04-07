@@ -39,8 +39,8 @@ export class ArticleService {
       };
   }
 
-  getArticle(article: Article){
-    return this.http.get(this.URL_API + `${article._id}`);
+  getArticle(article: string){
+      return this.http.get(this.URL_API + `${article}`);
   }
 
   getArticles(filters: object){

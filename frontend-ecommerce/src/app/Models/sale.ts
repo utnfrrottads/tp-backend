@@ -14,7 +14,7 @@ export class Sale {
         this.number = obj.number || '';
         this.client = obj.client || '';
         this.deletedClient = obj.deletedClient || new User();
-        this.cart = obj.cart || [new CartItem()];
+        this.cart = obj.cart || [new CartItem({})];
     }
 
     _id: string;
