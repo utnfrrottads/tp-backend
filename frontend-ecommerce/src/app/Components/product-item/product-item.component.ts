@@ -4,6 +4,8 @@ import { Article } from 'src/app/Models/article';
 import { Branch } from 'src/app/Models/branch';
 import { CartItem } from 'src/app/Models/cart-item';
 import { Product } from 'src/app/Models/product';
+import { Sale } from 'src/app/Models/sale';
+import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ProductService } from 'src/app/Services/product.service';
 
@@ -17,7 +19,6 @@ export interface IMyProduct {
   'qty': number;
 }
 
-
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
@@ -26,7 +27,7 @@ export interface IMyProduct {
 export class ProductItemComponent implements OnInit {
 
   @Input() article = new Article()
-  @Input() item = new CartItem()
+  @Input() item = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
   @Input() mode = "market"
   @Output() addArticle = new EventEmitter<IMyProduct>()
   @Output() getError = new EventEmitter<string>()
@@ -39,11 +40,9 @@ export class ProductItemComponent implements OnInit {
   public message: string = ""
   public branchDesc: string = ""
   
-  constructor(private branchService: BranchService, private productService: ProductService) {
+  constructor(private branchService: BranchService, private productService: ProductService, private articleService: ArticleService) {
     this.availableProducts = []
     this.availableBranches = []
-    console.log(this.item)
-
   }
   
   
@@ -51,12 +50,23 @@ export class ProductItemComponent implements OnInit {
   }
 
   showBranches(){
-    document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: block')
+    if(this.mode === "market"){
+      document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: block')
+    } else {
+      document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: block')
+    }
+      
   }
 
   checkQuantity(qty: string){
     this.availableBranches = []
-    this.productService.getWithStock(this.article, Number.parseInt(qty)).subscribe({
+    var elem: Article
+    if(this.mode === "market"){
+      elem = this.article
+    } else{
+      elem = this.item.article
+    }
+    this.productService.getWithStock(elem, Number.parseInt(qty)).subscribe({
         next: res => {
           this.availableProducts = res as Array<Product>
           this.availableProducts.forEach( prod => {
@@ -65,7 +75,11 @@ export class ProductItemComponent implements OnInit {
               this.availableBranches.push({desc: `${branch.street}, ${branch.number}`, _id: prod._id})
             })
           })
-          document.getElementById(`branchSelect${this.article._id}`)?.removeAttribute('Disabled')
+          if(this.mode === "market"){
+            document.getElementById(`branchSelect${this.article._id}`)?.removeAttribute('Disabled')
+          } else {
+            document.getElementById(`branchSelectCart${this.item.article._id}`)?.removeAttribute('Disabled')
+          }
       },
         error: err => {
           this.message = JSON.parse(JSON.stringify(err)).error.error
@@ -77,7 +91,7 @@ export class ProductItemComponent implements OnInit {
 
   addProduct(id: string, qty: string){
       this.productService.getProduct(id).subscribe( res=> {
-        var prod: IMyProduct = {'prod': (res as Product), 'qty': Number.parseInt(qty)}
+        var prod= {'prod': (res as Product), 'qty': Number.parseInt(qty)}
         this.addArticle.emit(prod);
       }
     );
@@ -85,9 +99,35 @@ export class ProductItemComponent implements OnInit {
     document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
   }
 
+  updateProduct(id: string, qty: string){
+    this.productService.getProduct(id).subscribe(res => {
+      var prod= {'prod': (res as Product), 'qty': Number.parseInt(qty)}
+      this.updateItem.emit(prod)
+    })
+    this.availableBranches = []
+    document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: none')
+  }
+
+
+
   cancelAddProduct() {
     this.availableBranches = [] 
-    document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
+    if(this.mode==="market"){
+      document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
+    } else {
+      document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: none')
+    }
+  }
+
+  removeProduct() {
+    this.productService.getProducts().subscribe(res => {
+      var products = res as Array<Product>
+      products.forEach((prod) => {
+        if(prod.article == this.item.article._id && prod.branch == this.item.branch._id){
+          this.deleteItem.emit(prod)
+        }
+      })
+    })
   }
 
 }
