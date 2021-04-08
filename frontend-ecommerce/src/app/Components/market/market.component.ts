@@ -42,6 +42,8 @@ export class MarketComponent implements OnInit {
 
   public cartArticle: Array<IMyCartItem>
 
+  public totalPrice = 0
+
   constructor(
     private router: Router,
     private ref: ChangeDetectorRef, 
@@ -196,11 +198,14 @@ export class MarketComponent implements OnInit {
   }
 
   mapCartItems(){
+    this.totalPrice = 0
+    this.cartArticle = []
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
     this.currentSale.cart.forEach(item => {
       var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
         this.articleService.getArticle(item.product.article).subscribe(res => {
           cartItem.article = res as Article
+          this.updatePrice(cartItem.article.prices[0].price, item.quantity)
         })
         this.branchService.getById(item.product.branch).subscribe(res => {
           cartItem.branch = res as Branch
@@ -208,6 +213,10 @@ export class MarketComponent implements OnInit {
         cartItem.qty = item.quantity
         this.cartArticle.push(cartItem)
     })
+  }
+
+  updatePrice(price: number, qty: number) {
+    this.totalPrice += price * qty
   }
 
   finishSale() {

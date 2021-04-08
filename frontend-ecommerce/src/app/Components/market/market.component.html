@@ -87,7 +87,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="col">
+          <div class="row">
+            <div class="col">
               <div *ngFor="let item of cartArticle" class="row">
                 <app-product-item 
                 (deleteItem)="deleteItem($event)"
@@ -95,6 +96,10 @@
                 (getError)="onError($event)"
                 [item]="item"
                 [mode]="'cart'"></app-product-item>
+              </div>
+            </div>
+              <div class="card-body">
+                <h4>Total: ${{totalPrice}}</h4>
               </div>
           </div>
         </div>
