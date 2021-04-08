@@ -6,12 +6,10 @@ import { NoteService } from 'src/app/Services/note.service';
 import { ToastrService } from 'ngx-toastr'
 import { Sale } from 'src/app/Models/sale';
 import { CartItem } from 'src/app/Models/cart-item';
-import { User } from 'src/app/Models/user';
-import { SaleService } from 'src/app/Services/sale.service';
 import { BranchService } from 'src/app/Services/branch.service';
-import { ProductService } from 'src/app/Services/product.service';
 import { Branch } from 'src/app/Models/branch';
 import { Product } from 'src/app/Models/product';
+import { Router } from '@angular/router';
 
 export interface IMyCartItem {
   'article': Article;
@@ -44,33 +42,23 @@ export class MarketComponent implements OnInit {
 
   public cartArticle: Array<IMyCartItem>
 
-  constructor(private ref: ChangeDetectorRef, public saleService: SaleService,public articleService: ArticleService, private branchService: BranchService, private productService: ProductService ,public noteService: NoteService, private toastr: ToastrService) {
-    var user = localStorage.getItem("CurrentUser") || JSON.stringify(new User())
-    var currentUser = JSON.parse(user) 
-
-    
-    
-    var transactionNumber = 0
-    this.saleService.getNextTransNumber().subscribe(res => {
-      transactionNumber = res as number
-    })
-    
-    var param = 
-    {
-      'client': currentUser._id,
-      'transactionNumber': transactionNumber,
-      'cart':[]
-    }
-    
-    this.currentSale = new Sale(param)
-    
-    this.cartArticle = [] 
+  constructor(
+    private router: Router,
+    private ref: ChangeDetectorRef, 
+    public articleService: ArticleService, 
+    private branchService: BranchService ,
+    public noteService: NoteService, 
+    private toastr: ToastrService) 
+  {
+      this.cartArticle = [] 
+      this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
   }
 
   ngOnInit(): void {
 
     this.getArticles(this.filtersEmpty);
     this.getFilters();    
+    this.mapCartItems();
   }
 
   ngOnChanges():void {
@@ -162,6 +150,7 @@ export class MarketComponent implements OnInit {
   }
 
   addArticle(e: any){
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
     var id = -1
     this.currentSale.cart.forEach((item, index) => {
       if(item.product._id == e.prod._id){
@@ -171,6 +160,7 @@ export class MarketComponent implements OnInit {
     if(id < 0){
       var newItem = new CartItem({'product': (e.prod as Product), 'qty': e.qty})
       this.currentSale.cart.push(newItem)
+      localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
       this.mapCartItems()
     } else{
       this.toastr.error("Ya posee este articulo en el carrito", "Error")
@@ -182,28 +172,31 @@ export class MarketComponent implements OnInit {
   }
 
   updateQty(e:any) {
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach(item => {
       if(item.product._id == e.prod._id){
         item.quantity = e.qty
       }
     })
-    console.log(this.currentSale.cart)
+    localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     this.mapCartItems()
     this.ref.detectChanges()
   }
 
   deleteItem(e: any){
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach((item, index) => {
       if(item.product._id == e._id){
         this.currentSale.cart.splice(index, 1)
       }
     })
+    localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     this.mapCartItems()
     this.ref.detectChanges()
-    
   }
 
   mapCartItems(){
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
     this.currentSale.cart.forEach(item => {
       var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
         this.articleService.getArticle(item.product.article).subscribe(res => {
@@ -215,5 +208,16 @@ export class MarketComponent implements OnInit {
         cartItem.qty = item.quantity
         this.cartArticle.push(cartItem)
     })
+  }
+
+  finishSale() {
+    this.currentSale = this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
+    
+    if(this.currentSale.cart.length < 1){
+      this.toastr.error("Debe agregar items al carrito", "Error")
+    } else {
+      this.router.navigate(['/finish-sale'])
+    }
+
   }
 }

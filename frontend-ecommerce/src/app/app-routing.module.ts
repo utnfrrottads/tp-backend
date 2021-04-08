@@ -12,6 +12,7 @@ import { ArticlesComponent } from './Components/articles/list/list.component';
 import { AddArticleComponent } from './Components/articles/add/add.component';
 import { MarketComponent } from './Components/market/market.component';
 import { MainComponent } from './Components/main/main.component';
+import { CompleteSaleComponent } from './Components/complete-sale/complete-sale.component'
 
 const routes: Routes = [
   { path: 'notes', component: ListNoteComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'add-article', component: AddArticleComponent },
   { path: 'edit-article/:id', component: AddArticleComponent },
   { path: 'market', component: MarketComponent},
-  { path: '', component: MainComponent}
+  { path: '', component: MainComponent},
+  { path: 'finish-sale', component: CompleteSaleComponent}
 
 ];
 
