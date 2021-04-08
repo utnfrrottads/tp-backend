@@ -15,7 +15,7 @@ export interface IMyBranches {
 }
 
 export interface IMyProduct {
-  'prod': Product;
+  'prod': string;
   'qty': number;
 }
 
@@ -90,22 +90,17 @@ export class ProductItemComponent implements OnInit {
   }
 
   addProduct(id: string, qty: string){
-      this.productService.getProduct(id).subscribe( res=> {
-        var prod= {'prod': (res as Product), 'qty': Number.parseInt(qty)}
-        this.addArticle.emit(prod);
-      }
-    );
     this.availableBranches = []
     document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
+    var prod= {'prod': id , 'qty': Number.parseInt(qty)}
+    this.addArticle.emit(prod);
   }
 
   updateProduct(id: string, qty: string){
-    this.productService.getProduct(id).subscribe(res => {
-      var prod= {'prod': (res as Product), 'qty': Number.parseInt(qty)}
-      this.updateItem.emit(prod)
-    })
     this.availableBranches = []
     document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: none')
+    var prod= {'prod': id, 'qty': Number.parseInt(qty)}
+    this.updateItem.emit(prod)
   }
 
 

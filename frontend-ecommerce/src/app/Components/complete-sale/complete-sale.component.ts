@@ -6,6 +6,8 @@ import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ToastrService } from 'ngx-toastr'
 import { SaleService } from 'src/app/Services/sale.service';
+import { ProductService } from 'src/app/Services/product.service';
+import { Product } from 'src/app/Models/product';
 
 export interface IMyCartItem {
   'article': Article;
@@ -30,7 +32,7 @@ export class CompleteSaleComponent implements OnInit {
   
   public currentSale: Sale
 
-  constructor(private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
+  constructor(private productService: ProductService,private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
     this.cartArticle = [] 
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
    }
@@ -44,16 +46,19 @@ export class CompleteSaleComponent implements OnInit {
     this.cartArticle = []
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
     this.currentSale.cart.forEach(item => {
-      var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
-        this.articleService.getArticle(item.product.article).subscribe(res => {
+      this.productService.getProduct(item.product).subscribe(res => { 
+        var prod = res as Product
+        var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
+        this.articleService.getArticle(prod.article).subscribe(res => {
           cartItem.article = res as Article
           this.updatePrice(cartItem.article.prices[0].price, item.quantity)
         })
-        this.branchService.getById(item.product.branch).subscribe(res => {
+        this.branchService.getById(prod.branch).subscribe(res => {
           cartItem.branch = res as Branch
         })
         cartItem.qty = item.quantity
         this.cartArticle.push(cartItem)
+      })
     })
   }
 
@@ -62,28 +67,33 @@ export class CompleteSaleComponent implements OnInit {
   }
 
   clickConfirmButton(pc: string, street: string, number: string){
-      if(confirm("¿Seguro que desea cofirmar?")) {
-        this.confirmSale(pc, street, number)
+    if(pc.length == 0 || street.length == 0 || number.length == 0){
+      this.toastr.error("Debe Completar Todos los Campos", "Error")
+    } else {
+        if(confirm("¿Seguro que desea cofirmar?")) {
+          this.confirmSale(pc, street, number)
+        }
       }
     }
 
   confirmSale(pc: string, street: string, number: string){
-    if(pc=== null || street===null || number === null){
-      this.toastr.error("Debe Completar Todos los Campos", "Error")
-    } else {
-      this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
-      this.currentSale.number = number
-      this.currentSale.street = street
-      this.currentSale.pc = pc
-      this.saleService.postSale(this.currentSale).subscribe({
-        next: res =>{
-          this.toastr.success((res as IMyResponse).status, "Carga Exitosa")
-        },
-        error: err => {
-          this.toastr.error(err.error.error, "Error")
-        }
-      })
-    }
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+    this.currentSale.number = number
+    this.currentSale.street = street
+    this.currentSale.pc = pc
+    console.log(this.currentSale)
+    this.saleService.postSale(this.currentSale).subscribe({
+      next: res =>{
+        console.log("Exito")
+        this.toastr.success((res as IMyResponse).status, "Carga Exitosa")
+        localStorage.removeItem("CurrentSale")
+
+      },
+      error: err => {
+        console.log(err)
+        this.toastr.error(err.error.error, "Error")
+      }
+    })
   }
 
 }
