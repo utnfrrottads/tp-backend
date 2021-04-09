@@ -6,7 +6,8 @@ const saleValidator = require('../validators/sale.validator');
 
 saleRouter.get('/', saleCtrl.getSales); //Si va con un metodo get es un GetAll
 saleRouter.get('/:id', saleCtrl.getSale); //Si va con un metodo get y un ObjectId es un GetOne
-saleRouter.get('/number', saleCtrl.getNextTransactionNumber);
+saleRouter.get('/number/', saleCtrl.getNextTransactionNumber);
+saleRouter.get('/byUser/:user', saleCtrl.getSalesByUser);
 saleRouter.post('/', saleValidator.validateSaleCreate, saleCtrl.createSale); //Si va con un post es un Create
 saleRouter.put('/:id', saleValidator.validateSaleUpdate, saleCtrl.updateSale); //Si va con un put es un Update al ObjectId especificado
 saleRouter.delete('/:id', saleCtrl.deleteSale); //Si va con un delete es un Delete al ObjectId especificado

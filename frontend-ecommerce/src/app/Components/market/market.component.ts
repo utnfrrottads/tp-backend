@@ -165,8 +165,9 @@ export class MarketComponent implements OnInit {
       this.currentSale.cart.push(newItem)
       localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
       this.mapCartItems()
+      this.toastr.success("Item Añadido Exitosamente")
     } else{
-      this.toastr.error("Ya posee este articulo en el carrito", "Error")
+      this.toastr.error("Ya Posee este Articulo en el Carrito", "Error")
     }
   }
 
@@ -184,6 +185,7 @@ export class MarketComponent implements OnInit {
     localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     this.mapCartItems()
     this.ref.detectChanges()
+    this.toastr.info("Item Actualizado Exitosamente")
   }
 
   deleteItem(e: any){
@@ -196,6 +198,7 @@ export class MarketComponent implements OnInit {
     localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
     this.mapCartItems()
     this.ref.detectChanges()
+    this.toastr.info("Item Eliminado Exitosamente.")
   }
 
   mapCartItems(){

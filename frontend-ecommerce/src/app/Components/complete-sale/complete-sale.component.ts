@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr'
 import { SaleService } from 'src/app/Services/sale.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from 'src/app/Models/product';
+import { Router } from '@angular/router';
 
 export interface IMyCartItem {
   'article': Article;
@@ -32,7 +33,7 @@ export class CompleteSaleComponent implements OnInit {
   
   public currentSale: Sale
 
-  constructor(private productService: ProductService,private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
+  constructor(private router: Router, private productService: ProductService,private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
     this.cartArticle = [] 
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
    }
@@ -84,10 +85,9 @@ export class CompleteSaleComponent implements OnInit {
     console.log(this.currentSale)
     this.saleService.postSale(this.currentSale).subscribe({
       next: res =>{
-        console.log("Exito")
         this.toastr.success((res as IMyResponse).status, "Carga Exitosa")
         localStorage.removeItem("CurrentSale")
-
+        this.router.navigate([''])
       },
       error: err => {
         console.log(err)

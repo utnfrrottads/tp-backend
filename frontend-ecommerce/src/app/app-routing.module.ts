@@ -13,6 +13,7 @@ import { AddArticleComponent } from './Components/articles/add/add.component';
 import { MarketComponent } from './Components/market/market.component';
 import { MainComponent } from './Components/main/main.component';
 import { CompleteSaleComponent } from './Components/complete-sale/complete-sale.component'
+import { MyBuysComponent } from './Components/my-buys/my-buys.component'
 
 const routes: Routes = [
   { path: 'notes', component: ListNoteComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'edit-article/:id', component: AddArticleComponent },
   { path: 'market', component: MarketComponent},
   { path: '', component: MainComponent},
-  { path: 'finish-sale', component: CompleteSaleComponent}
+  { path: 'finish-sale', component: CompleteSaleComponent},
+  { path: 'buys', component: MyBuysComponent}
 
 ];
 

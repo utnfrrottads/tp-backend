@@ -9,7 +9,7 @@ const saleCtrl = {};
 
 saleCtrl.updateStock = async(item, mode) => {
     try{
-        let product = Product.findById(item.product);
+        let product = await Product.findById(item.product);
         switch (mode) {
             case "new":
                 product.stock = product.stock - item.quantity;
@@ -18,7 +18,7 @@ saleCtrl.updateStock = async(item, mode) => {
                 product.stock = product.stock + item.quantity;
                 break;
             }
-                Product.findOneAndUpdate(product.id, {$set: product}).catch(err =>
+                await Product.findOneAndUpdate(product.id, {$set: product}).catch(err =>
                     next(err)
                 );
             
@@ -59,7 +59,7 @@ saleCtrl.checkClient = async(clientID) => {
 
 saleCtrl.getNextTransactionNumber = async(req, res, next) => {
     try{
-        console.log("lastSale")
+        console.log("Entra Aca")
         const lastSale = await Sale.find().sort({_id: -1}).limit(1)
         if(lastSale.length > 0){
             var transactionNumber = lastSale.transactionNumber + 1
@@ -82,11 +82,20 @@ saleCtrl.getSales = async (req, res, next) => {
     }
 }
 
+saleCtrl.getSalesByUser = async (req, res, next) => {
+    try {
+        var {user} = req.params
+        const sales = await Sale.find({client: user}).sort({date: 1});
+        res.json(sales);
+    } catch(err){
+        next(err);
+    }
+}
+
 //M�todo obtener una venta
 saleCtrl.getSale = async (req, res, next) => {
     try{
         const {id} = req.params; //Consigo el ID mando por parametro en el get
-    
         const sale = await Sale.findById(id);
         res.json(sale);
     } catch(err){
@@ -110,10 +119,6 @@ saleCtrl.createSale = async (req, res, next) => {
         })
         console.log(req.body)
         await saleCtrl.checkClient(sale.client).catch((err) => {
-            next(err);
-            validations = false;
-        })
-        await saleCrtl.checkClient(sale.client).catch((err) => {
             next(err);
             validations = false;
         })
