@@ -34,25 +34,14 @@ export class ArticlesComponent implements OnInit {
         "notes":"" 
     }
     this.articleService.getAllArticles(obj).subscribe(x => {
-      this.items = x as Article[];
-      console.log(this.articleService.filterValues.notes)
-
-      this.items.forEach((article: { notes: any[]; }) =>{
-        if(article.notes){
-          article.notes.forEach(note => {
-            var noteValue: string = ""
-            this.noteService.getById(note).subscribe(x =>{
-              noteValue = (x as Note).name
-              console.log(noteValue)
-              if(!this.articleService.filterValues.notes.includes(noteValue)){
-                this.articleService.filterValues.notes.push(noteValue)
-              }
-          })
-        });}
-        
-    });
+      this.items = x;
     });
   }
+
+  noteList(article: any){
+    return article.noteInfo.map((x: any) => x.name).join(',');
+  }
+
   addArticle() {
     this.router.navigate(['/add-article']);
   }

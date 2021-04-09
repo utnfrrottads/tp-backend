@@ -75,8 +75,23 @@ articlesCtrl.getArticles = async(req, res, next) => {
             articles2.length === 0 ? res.json({ status: "No se encontró ningun producto" }) : res.json(articles2)
         } else {
             res.json(articles)
+            const noteIds = articles.map(x=> x.notes).flat(1);
+            const notes = await (await Note.find().where('_id')).in(noteIds);
+            var result = [];
+            articles.forEach(art =>{
+                var articleResult = art.toObject();
+                articleResult.notesInfo = [];
+                articleResult.notes.forEach(noteID =>{
+                    const note = notes.find(x=> x._id.toString() == noteID);
+                    articleResult.notesInfo.push({
+                       notesID: noteID,
+                       name: note.name
+                    });
+                })
+                result.push(articleResult);
+            });
+            res.json(result);
         }
-
     } catch (err) {
         next(err)
     }
