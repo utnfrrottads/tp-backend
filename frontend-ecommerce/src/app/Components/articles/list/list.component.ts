@@ -68,4 +68,9 @@ export class ArticlesComponent implements OnInit {
     });
 
   }
+
+
+  noteList(article: any){
+    return article.notesInfo.map((x: any) => x.name).join(',');
+  }
 }

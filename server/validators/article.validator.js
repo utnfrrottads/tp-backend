@@ -23,7 +23,7 @@ exports.validateArticleUpdate = [
     check('name').isString(),
     check('description').isString(),
     check('presentation').isString(),
-    check('note').isArray(),
+    check('notes').isArray(),
     check('price.*.price').isNumeric(),
     check('price.*.date').isDate(),
 
