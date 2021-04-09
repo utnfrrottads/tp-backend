@@ -10,7 +10,7 @@
                         <p> x{{item.qty}} {{item.article.name}} - {{item.article.presentation}} </p>
                     </div>
                     <div class="col">
-                        <h5>${{item.article.prices[0].price}}</h5>
+                        <h5>${{item.article.prices[0].price * item.qty}}</h5>
                     </div>
                 </div>
             </div>

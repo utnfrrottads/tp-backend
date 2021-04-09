@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import {UserService} from '../../Services/user.service'
+import { ToastrService } from 'ngx-toastr'
 
 declare var $: any;
   
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   message = '';
   validations = true;
 
-  constructor(private userService: UserService, private router: Router) { 
+  constructor(private toastr: ToastrService, private userService: UserService, private router: Router) { 
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
     console.log(this.currentUser)
@@ -34,14 +35,11 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(username: string, password: string, form: NgForm){
-    document.getElementById('errorAlert')?.setAttribute("style", "visibility=hidden")
-
     this.validations = true
 
     if( username.length == 0 || password.length == 0 ) {
-      this.message= "Ingrese todos los datos necesarios."
+      this.toastr.error("Ingrese todos los datos necesarios.", "Error")
       this.validations = false
-      document.getElementById('errorAlert')?.setAttribute("style", "visibility=visible")  
     }
     
     if(this.validations){
@@ -54,7 +52,7 @@ export class LoginComponent implements OnInit {
           error: (err) => {
             if(JSON.stringify(err).includes("error")){
               form.reset();
-              this.message = JSON.parse(JSON.stringify(err)).error.error;
+              this.toastr.error(JSON.parse(JSON.stringify(err)).error.error, "Error");
             }
           }
       })
