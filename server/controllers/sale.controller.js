@@ -98,7 +98,17 @@ saleCtrl.getSale = async (req, res, next) => {
 saleCtrl.createSale = async (req, res, next) => {
     try{
         let validations = true;
-        const sale = new Sale(req.body);
+        const sale = new Sale({
+            transactionNumber: req.body.transactionNumber,
+            pc: req.body.pc,
+            date: req.body.date,
+            street: req.body.street,
+            number: req.body.number,
+            client: req.body.client,
+            deletedClient: req.body.deletedClient,
+            cart: req.body.cart
+        })
+        console.log(req.body)
         await saleCtrl.checkClient(sale.client).catch((err) => {
             next(err);
             validations = false;

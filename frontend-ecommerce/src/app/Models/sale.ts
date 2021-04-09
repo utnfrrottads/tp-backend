@@ -9,7 +9,7 @@ export class Sale {
         this._id = obj._id || '';
         this.transactionNumber = obj.transactionNumber || 0;
         this.pc = obj.pc || '';
-        this.date = obj.date || new Date();
+        this.date = obj.date || (new Date()).getDate()+"/"+(new Date()).getMonth()+"/"+(new Date()).getFullYear();
         this.street = obj.street || '';
         this.number = obj.number || '';
         this.client = obj.client || '';

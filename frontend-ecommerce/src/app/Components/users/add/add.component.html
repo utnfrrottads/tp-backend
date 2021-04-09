@@ -62,13 +62,8 @@
                     <input class="form-check-input" formControlName="client" type="checkbox" id="client">
                   </div>
 
-<!--                   <div class="form-group">
-                    <input type="text" class="form-control" formControlName="roles" placeholder="Ingrese los roles separados por coma">
-                  </div> -->
-
-
                   <select *ngIf="roles" multiple formControlName="roles" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Selecciona los roles de usuario</option>
+                    <option selected>Seleccione los roles de usuario</option>
                     <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
                   </select>
                   

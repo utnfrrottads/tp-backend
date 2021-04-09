@@ -52,13 +52,12 @@ export class AddRoleComponent implements OnInit{
     const formModel = this.roleForm.value;
 
     if (this.roleForm.valid) {
-      this.permissions = formModel.permissions.split(',');
 
       const role: any = {
         _id: formModel.id,
         name: formModel.name,
         description: formModel.description,
-        permissions: this.permissions
+        permissions: formModel.permissions
       };
 
       if (this.isEdit){

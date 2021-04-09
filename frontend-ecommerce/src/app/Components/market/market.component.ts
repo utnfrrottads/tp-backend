@@ -10,6 +10,7 @@ import { BranchService } from 'src/app/Services/branch.service';
 import { Branch } from 'src/app/Models/branch';
 import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
+import { ProductService } from 'src/app/Services/product.service';
 
 export interface IMyCartItem {
   'article': Article;
@@ -42,7 +43,10 @@ export class MarketComponent implements OnInit {
 
   public cartArticle: Array<IMyCartItem>
 
+  public totalPrice = 0
+
   constructor(
+    private productService: ProductService,
     private router: Router,
     private ref: ChangeDetectorRef, 
     public articleService: ArticleService, 
@@ -55,7 +59,6 @@ export class MarketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.getArticles(this.filtersEmpty);
     this.getFilters();    
     this.mapCartItems();
@@ -153,12 +156,12 @@ export class MarketComponent implements OnInit {
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
     var id = -1
     this.currentSale.cart.forEach((item, index) => {
-      if(item.product._id == e.prod._id){
+      if(e.prod == item.product){
         id = index
       }
     })
     if(id < 0){
-      var newItem = new CartItem({'product': (e.prod as Product), 'qty': e.qty})
+      var newItem = new CartItem({'product': e.prod, 'qty': e.qty})
       this.currentSale.cart.push(newItem)
       localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
       this.mapCartItems()
@@ -174,7 +177,7 @@ export class MarketComponent implements OnInit {
   updateQty(e:any) {
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach(item => {
-      if(item.product._id == e.prod._id){
+      if(item.product == e.prod._id){
         item.quantity = e.qty
       }
     })
@@ -186,7 +189,7 @@ export class MarketComponent implements OnInit {
   deleteItem(e: any){
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach((item, index) => {
-      if(item.product._id == e._id){
+      if(item.product == e._id){
         this.currentSale.cart.splice(index, 1)
       }
     })
@@ -196,18 +199,30 @@ export class MarketComponent implements OnInit {
   }
 
   mapCartItems(){
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
-    this.currentSale.cart.forEach(item => {
-      var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
-        this.articleService.getArticle(item.product.article).subscribe(res => {
-          cartItem.article = res as Article
+    this.totalPrice = 0
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({cart: []})))
+    this.cartArticle = []
+    if(this.currentSale.cart.length !== 0){
+      this.currentSale.cart.forEach(item => {
+        this.productService.getProduct(item.product).subscribe(res => {
+          var prod = res as Product
+          var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
+          this.articleService.getArticle(prod.article).subscribe(res => {
+            cartItem.article = res as Article
+            this.updatePrice(cartItem.article.prices[0].price, item.quantity)
+          })
+          this.branchService.getById(prod.branch).subscribe(res => {
+            cartItem.branch = res as Branch
+          })
+          cartItem.qty = item.quantity
+          this.cartArticle.push(cartItem)
         })
-        this.branchService.getById(item.product.branch).subscribe(res => {
-          cartItem.branch = res as Branch
-        })
-        cartItem.qty = item.quantity
-        this.cartArticle.push(cartItem)
-    })
+      })
+    } 
+  }
+
+  updatePrice(price: number, qty: number) {
+    this.totalPrice += price * qty
   }
 
   finishSale() {
