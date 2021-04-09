@@ -20,8 +20,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-            <li><a *ngIf="permissions.indexOf('article') !== -1" class="dropdown-item" href="#">Articulos</a></li>
-            <li><a *ngIf="permissions.indexOf('product') !== -1" class="dropdown-item" href="#">Productos</a></li>
+            <li><a *ngIf="permissions.indexOf('article') !== -1" class="dropdown-item" href="/articles">Articulos</a></li>
+            <li><a *ngIf="permissions.indexOf('product') !== -1" class="dropdown-item" href="/products">Productos</a></li>
             <li><a *ngIf="permissions.indexOf('note') !== -1" class="dropdown-item" href="/notes">Notas</a></li>
             <li><a *ngIf="permissions.indexOf('branch') !== -1" class="dropdown-item" href="/branches">Sucursales</a></li>
             <li><a *ngIf="permissions.indexOf('role') !== -1" class="dropdown-item" href="/roles">Roles</a></li>
