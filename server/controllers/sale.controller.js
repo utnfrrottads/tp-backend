@@ -115,7 +115,8 @@ saleCtrl.createSale = async (req, res, next) => {
             number: req.body.number,
             client: req.body.client,
             deletedClient: req.body.deletedClient,
-            cart: req.body.cart
+            cart: req.body.cart,
+            total: req.body.total
         })
         console.log(req.body)
         await saleCtrl.checkClient(sale.client).catch((err) => {
@@ -144,7 +145,6 @@ saleCtrl.createSale = async (req, res, next) => {
 saleCtrl.deleteSale = async (req, res, next) => {
     try{
         let sale = await Sale.findById(req.params.id);
-        console.log(sale._id)
         await Sale.findByIdAndRemove(sale._id);
 
         await saleCtrl.updateStock(sale.cart,"delete");
@@ -154,46 +154,5 @@ saleCtrl.deleteSale = async (req, res, next) => {
     }
 }
 
-//M�todo modificar venta
-saleCtrl.updateSale = async (req, res, next) => {
-    try{
-        let validations = true;
-    
-        const {id} = req.params;
-        const newSale = {
-            transactionNumber: req.body.transactionNumber,
-            pc: req.body.pc,
-            date: req.body.date,
-            street: req.body.street,
-            number: req.body.number,
-            client: req.body.client,
-            cart: req.body.cart
-        }
-        let oldSale = await Sale.findById(id);
-        await saleCtrl.checkClient(newSale.client).catch((err) => {
-            next(err);
-            validations = false;
-        })
-        await oldSale.cart.forEach(item => {
-            saleCtrl.updateStock(item, "delete")
-        }) 
-        await saleCtrl.checkProductAndStock(newSale.cart).catch((err) => {
-            next(err);
-            validations = false;
-            oldSale.cart.forEach( item =>{
-                saleCtrl.updateStock(item, "new")
-            })
-        })
-        if(validations){
-            await oldSale.cart.forEach(item => {
-                saleCtrl.updateStock(item, "new")
-            })
-            await Sale.findByIdAndUpdate(id, {$set: newSale});
-            res.json({ status: 'Venta actualizada' });
-        }
-    } catch(err) {
-        next(err);
-    }
-}
 
 module.exports = saleCtrl;

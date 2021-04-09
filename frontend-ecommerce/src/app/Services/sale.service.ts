@@ -18,6 +18,10 @@ export class SaleService {
     this.sales = []
    }
 
+   getSalesByUser(id: string){
+    return this.http.get(`${this.API_URL}byUser/${id}`)
+  }
+
    getSales(){
      return this.http.get(this.API_URL)
    }

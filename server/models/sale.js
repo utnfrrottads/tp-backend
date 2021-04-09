@@ -15,7 +15,8 @@ const SaleSchema =  new Schema({
             product: {type: Schema.Types.ObjectId, required: true},
             quantity: {type: Number, required: true}
         }
-    ]
+    ],
+    total: {type: Number, required: true}
 },
 {collection: 'sales'});
 

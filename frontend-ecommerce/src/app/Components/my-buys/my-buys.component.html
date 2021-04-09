@@ -1,3 +1,85 @@
 <app-header></app-header>
 
+<div class="container p-1">
+    <div class="row d-flex justify-content-center p-1">
+        <div class="col">
+            <div class="card text-dark bg-light">
+                <h3 class="p-2">Mis Compras</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center p-1" *ngFor="let buy of myBuys">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Nro de Pedido:</b> {{buy.transactionNumber}} </li>
+                        <li class="list-group-item"><b>Monto Pagado:</b> ${{buy.total}}</li>
+                        <li class="list-group-item"><b>Fecha:</b> {{(buy.date).toString().slice(0,10)}}</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary btn-sm" (click)="mapConsultedBuy(buy)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Ver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Venta Nro: {{consultedSale.transactionNumber}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row p-1">
+            <div class="card">
+                <h5 class="card-header">Articulos Comprados</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngFor="let item of cartArticle">
+                            <div class="row">
+                                <div class="col-10">
+                                    <span> x{{item.qty}} {{item.article.name}} - {{item.article.presentation}} </span>
+                                    <p><b>Sucursal:</b> {{item.branch.street}}, {{item.branch.number}}</p>
+                                </div>
+                                <div class="col">
+                                    <h5>${{item.article.prices[0].price * item.qty}}</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item" aria-current="true">
+                            <div class="col d-flex justify-content-end">
+                                <h5>
+                                    Total ${{consultedSale.total}}
+                                </h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row p-1">
+            <div class="card">
+                <h5 class="card-header">Datos de Envio</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Codigo Postal:</b> {{consultedSale.pc}} </li>
+                        <li class="list-group-item"><b>Calle:</b> ${{consultedSale.street}}</li>
+                        <li class="list-group-item"><b>Numero y Depto:</b> {{consultedSale.number}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 

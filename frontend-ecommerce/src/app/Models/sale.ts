@@ -15,6 +15,7 @@ export class Sale {
         this.client = obj.client || '';
         this.deletedClient = obj.deletedClient || new User();
         this.cart = obj.cart || [new CartItem({})];
+        this.total = obj.total || 0;
     }
 
     _id: string;
@@ -26,4 +27,5 @@ export class Sale {
     client: string;
     deletedClient: User;
     cart: Array<CartItem>;
+    total: Number;
 }

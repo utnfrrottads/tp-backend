@@ -82,7 +82,7 @@ export class CompleteSaleComponent implements OnInit {
     this.currentSale.number = number
     this.currentSale.street = street
     this.currentSale.pc = pc
-    console.log(this.currentSale)
+    this.currentSale.total = this.totalPrice
     this.saleService.postSale(this.currentSale).subscribe({
       next: res =>{
         this.toastr.success((res as IMyResponse).status, "Carga Exitosa")
@@ -90,7 +90,6 @@ export class CompleteSaleComponent implements OnInit {
         this.router.navigate([''])
       },
       error: err => {
-        console.log(err)
         this.toastr.error(err.error.error, "Error")
       }
     })
