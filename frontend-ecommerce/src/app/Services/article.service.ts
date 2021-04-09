@@ -60,7 +60,7 @@ export class ArticleService {
   }
 
   getAllArticles(filters: object): Observable<any[]> {
-    return this.http.post<any[]>(this.URL_API, filters);
+    return this.http.get<any[]>(this.URL_API, filters);
   }
 
   addArticles(article: any) {

@@ -3,6 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from '../../../Services/article.service';
 import { ToastrService } from 'ngx-toastr';
+import { Note } from 'src/app/Models/note';
+import { NoteService } from '../../../Services/note.service';
 
 @Component({
   selector: 'app-add-articles',
@@ -13,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddArticleComponent implements OnInit{
   articleForm: FormGroup;
   sendFormData: any;
+  notes =[new Note()];
 
   isEdit = false;
 
@@ -21,35 +24,42 @@ export class AddArticleComponent implements OnInit{
     private fb: FormBuilder,
     private articleService: ArticleService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notesService: NoteService
   ) {
     this.articleForm = this.fb.group({
       id: [''],
       name: ['', Validators.required],
       description: ['', Validators.required],
       presentation: ['', Validators.required],
-      note: ['',Validators.required],
+      notes: ['',Validators.required],
       price: ['', Validators.required],
       date: ['' , Validators.required]});
   }
 
   ngOnInit() {
 
+    this.getNotes();
+
     this.route.paramMap.subscribe(params => {
 
-      this.articleService.getByIdArticles(params.get('id')).subscribe(article => {
-        this.isEdit = true;
-        this.articleForm.patchValue({
-          id: article._id,
-          name: article.name,
-          description: article.description,
-          presentation: article.presentation,
-          note: article.notes,
-          price: article.prices[0].price,
-          date: article.prices[0].date
+      if (params.get('id')){
+        this.articleService.getByIdArticles(params.get('id')).subscribe(article => {
+          this.isEdit = true;
+          this.articleForm.patchValue({
+            id: article._id,
+            name: article.name,
+            description: article.description,
+            presentation: article.presentation,
+            notes: article.notes,
+            price: article.prices[0].price,
+            date: article.prices[0].date
+          });
         });
-      });
+      }
+
     });
+      
   }
 
   onSubmit() {
@@ -62,7 +72,7 @@ export class AddArticleComponent implements OnInit{
         name: formModel.name,
         description: formModel.description,
         presentation: formModel.presentation,
-        note:formModel.note,
+        notes:formModel.notes,
         prices: [{price: formModel.price, date: formModel.date}]
       };
 
@@ -82,6 +92,16 @@ export class AddArticleComponent implements OnInit{
     }
     else{
       this.toastr.error('Error al registrar el artículo!');
+    }
+  }
+
+  getNotes() {
+    this.notesService.getAll().subscribe((notes: any) => {
+      this.notes = notes;
+    });
+    var index = this.notes.indexOf({_id: '', name: ''})
+    if(index > -1){
+      this.notes.slice(index, 1)
     }
   }
 

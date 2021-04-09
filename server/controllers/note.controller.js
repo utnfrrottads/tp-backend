@@ -39,7 +39,7 @@ NoteCtrl.createNote = async(req, res, next) => {
         })
         if (validations) {
             await note.save(); //Guardo en la BD (y espero que finalice)
-            res.json({ status: 'Nota Guardada Correctamente' }) //Devuelvo resultado correcto
+            res.json({ status: 'Nota Guardada Correctamente', id: note._id }) //Devuelvo resultado correcto
         }
     } catch (err) {
         next(err);

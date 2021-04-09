@@ -36,6 +36,39 @@ articlesCtrl.getArticles = async(req, res, next) => {
     try {
         
         const articles = await Articles.find();
+
+        const noteIds = articles.map(x => x.notes).flat(1);
+
+        const notes = await Note.find().where('_id').in(noteIds);
+
+        var result = [];
+
+        articles.forEach(article => {
+
+            var articleResult = article.toObject();
+
+            articleResult.notesInfo = [];
+
+            if (articleResult.notes) {
+                articleResult.notes.forEach(noteId => {
+
+                    const note = notes.find(x => x._id.toString() == noteId);
+    
+                    articleResult.notesInfo.push({
+                        noteId: noteId,
+                        name: note.name
+                    });
+    
+                });
+    
+            }
+
+            result.push(articleResult);
+
+        });
+
+        res.json(result);
+/*
         console.log(req.body)
         if(req.body.notes.length > 0 || req.body.presentation.length >0 || req.body.name.length > 0) {
             let arrNotes = []
@@ -92,6 +125,9 @@ articlesCtrl.getArticles = async(req, res, next) => {
             });
             res.json(result);
         }
+
+        */
+
     } catch (err) {
         next(err)
     }
@@ -132,7 +168,7 @@ articlesCtrl.editArticle = async(req, res, next) => {
             validations = false;
         });
         if (validations) {
-            await Articles.findByIdAndUpdate(req.params.id, { $set: article }, { new: true });
+            await Articles.findByIdAndUpdate(id, { $set: article });
             res.json({ status: "Articulo actualizado correctamente" })
         }
     } catch (err) {
