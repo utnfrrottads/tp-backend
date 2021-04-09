@@ -38,10 +38,6 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
-  noteList(article: any){
-    return article.noteInfo.map((x: any) => x.name).join(',');
-  }
-
   addArticle() {
     this.router.navigate(['/add-article']);
   }
