@@ -95,7 +95,7 @@ export class MarketComponent implements OnInit {
               (document.getElementById(`presentationItem${presentation}`) as HTMLFormElement);
             }
         });
-      }); 
+      });
   }
 
   asignName(name: string){
