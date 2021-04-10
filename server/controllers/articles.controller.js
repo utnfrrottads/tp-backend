@@ -35,41 +35,43 @@ articlesCtrl.checkName = async(name, id = ' ') => {
 articlesCtrl.getArticles = async(req, res, next) => {
     try {
         
+        // const articles = await Articles.find();
+
+        // const noteIds = articles.map(x => x.notes).flat(1);
+
+        // const notes = await Note.find().where('_id').in(noteIds);
+
+        // var result = [];
+
+        // articles.forEach(article => {
+
+        //     var articleResult = article.toObject();
+
+        //     articleResult.notesInfo = [];
+
+        //     if (articleResult.notes) {
+        //         articleResult.notes.forEach(noteId => {
+
+        //             const note = notes.find(x => x._id.toString() == noteId);
+    
+        //             articleResult.notesInfo.push({
+        //                 noteId: noteId,
+        //                 name: note.name
+        //             });
+    
+        //         });
+    
+        //     }
+
+        //     result.push(articleResult);
+
+        // });
+
+        // res.json(result);
+
+        // console.log(req.body)
         const articles = await Articles.find();
-
-        const noteIds = articles.map(x => x.notes).flat(1);
-
-        const notes = await Note.find().where('_id').in(noteIds);
-
-        var result = [];
-
-        articles.forEach(article => {
-
-            var articleResult = article.toObject();
-
-            articleResult.notesInfo = [];
-
-            if (articleResult.notes) {
-                articleResult.notes.forEach(noteId => {
-
-                    const note = notes.find(x => x._id.toString() == noteId);
-    
-                    articleResult.notesInfo.push({
-                        noteId: noteId,
-                        name: note.name
-                    });
-    
-                });
-    
-            }
-
-            result.push(articleResult);
-
-        });
-
-        res.json(result);
-/*
-        console.log(req.body)
+        
         if(req.body.notes.length > 0 || req.body.presentation.length >0 || req.body.name.length > 0) {
             let arrNotes = []
             for(let i in req.body.notes){
@@ -107,26 +109,41 @@ articlesCtrl.getArticles = async(req, res, next) => {
             const articles2 = [...new Set(artOrigin)];
             articles2.length === 0 ? res.json({ status: "No se encontró ningun producto" }) : res.json(articles2)
         } else {
-            res.json(articles)
-            const noteIds = articles.map(x=> x.notes).flat(1);
-            const notes = await (await Note.find().where('_id')).in(noteIds);
+
+            const noteIds = articles.map(x => x.notes).flat(1);
+
+            const notes = await Note.find().where('_id').in(noteIds);
+
             var result = [];
-            articles.forEach(art =>{
-                var articleResult = art.toObject();
+
+            articles.forEach(article => {
+
+                var articleResult = article.toObject();
+
                 articleResult.notesInfo = [];
-                articleResult.notes.forEach(noteID =>{
-                    const note = notes.find(x=> x._id.toString() == noteID);
-                    articleResult.notesInfo.push({
-                       notesID: noteID,
-                       name: note.name
+
+                if (articleResult.notes) {
+                    articleResult.notes.forEach(noteId => {
+
+                        const note = notes.find(x => x._id.toString() == noteId);
+        
+                        articleResult.notesInfo.push({
+                            noteId: noteId,
+                            name: note.name
+                        });
+        
                     });
-                })
+        
+                }
+
                 result.push(articleResult);
+
             });
             res.json(result);
+
         }
 
-        */
+        
 
     } catch (err) {
         next(err)

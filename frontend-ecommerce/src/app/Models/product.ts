@@ -13,6 +13,5 @@ export class Product {
     article: string;
     stock: Number;
     isActive: boolean;
-
 }
 

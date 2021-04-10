@@ -44,23 +44,8 @@ export class ArticleService {
   }
 
   getArticles(filters: object){
-    return this.http.post(this.URL_API, filters);
-  }
-
-  postArticle(article: Article){
-    return this.http.post(this.URL_API, article);
-  }
-
-  putArticle(article: Article){
-    return this.http.put(this.URL_API + `${article._id}`, article);
-  }
-
-  deleteArticle(article: Article){
-    return this.http.delete(this.URL_API + `${article._id}`);
-  }
-
-  getAllArticles(filters: object): Observable<any[]> {
-    return this.http.get<any[]>(this.URL_API, filters);
+    console.log(filters)
+    return this.http.post(this.URL_API+ '/Get', filters);
   }
 
   addArticles(article: any) {

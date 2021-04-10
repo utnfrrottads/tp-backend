@@ -72,7 +72,7 @@ export class AddArticleComponent implements OnInit{
         name: formModel.name,
         description: formModel.description,
         presentation: formModel.presentation,
-        notes:formModel.notes,
+        note:formModel.notes,
         prices: [{price: formModel.price, date: formModel.date}]
       };
 
