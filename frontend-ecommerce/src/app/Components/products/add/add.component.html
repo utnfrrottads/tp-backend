@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+<section class="pb-5 header text-center">
+  <div class="container py-5 text-white">
+
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                  <div class="card-body p-5">
+
+                 <form novalidate [formGroup]="productForm" (ngSubmit)="onSubmit()" >
+                  
+                  <select *ngIf="branch" formControlName="branch" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione sucursal del producto</option>
+                    <option *ngFor="let br of branch" value="{{br._id}}">{{br.street + ' ' + br.number}}</option>
+                  </select>
+
+                  <select *ngIf="article" formControlName="article" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione artículo</option>
+                    <option *ngFor="let art of article" value="{{art._id}}">{{art.name}}</option>
+                  </select>
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="stock" placeholder="Ingrese stock del producto">
+                  </div>                  
+
+                  <br>
+                  <button type="submit" class="btn btn-primary">{{isEdit ? 'Actualizar' : 'Agregar'}}</button>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

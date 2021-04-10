@@ -10,7 +10,8 @@ import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { AddArticleComponent } from './Components/articles/add/add.component';
 import { ArticlesComponent } from './Components/articles/list/list.component';
-import { ProductsComponent } from './Components/products/products.component';
+import { AddProductComponent } from './Components/products/add/add.component';
+import { ListProductComponent } from './Components/products/list/list.component';
 import { SalesComponent } from './Components/sales/sales.component';
 import { BranchesComponent } from './Components/branches/list/list.component';
 import { AddBranchComponent} from './Components/branches/add/add.component';
@@ -39,7 +40,8 @@ import { MyBuysComponent } from './Components/my-buys/my-buys.component';
     FooterComponent,
     ArticlesComponent,
     AddArticleComponent,
-    ProductsComponent,
+    AddProductComponent,
+    ListProductComponent,
     SalesComponent,
     BranchesComponent,
     AddBranchComponent,

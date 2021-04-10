@@ -45,6 +45,50 @@ ProductCtrl.getProducts = async (req, res, next) => {
     }
 }
 
+ProductCtrl.getProducts = async (req, res, next) => {
+    try {
+        const product = await Product.find();
+        const product1 = await Product.find();
+
+        const branchIds = product.map(x => x.branch).flat(1);
+        const articleIds = product1.map(x => x.article).flat(1); 
+
+        const branch = await Branch.find().where('_id').in(branchIds);
+        const article = await Article.find().where('_id').in(articleIds);
+
+        var result = [];
+
+        product.forEach(prod => {
+
+            var productResult = prod.toObject();
+
+            productResult.branchInfo = [];
+            productResult.articleInfo = [];
+
+            const br = branch.find(x => x._id.toString() == productResult.branch);
+
+            productResult.branchInfo.push({
+                branchId : productResult.branch,
+                street: br.street + ' ' + br.number
+            });
+
+            const art = article.find(x => x._id.toString() == productResult.article);
+
+            productResult.articleInfo.push({
+                articleId : productResult.article,
+                name: art.name
+            });
+             
+            result.push(productResult);
+
+        });
+
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+}
+
 //Metodo Create
 ProductCtrl.createProduct = async (req, res, next) => {
     try{

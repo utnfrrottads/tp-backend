@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 import { ListNoteComponent } from './Components/notes/components/list/list.component';
 import { AddNoteComponent } from './Components/notes/components/add/add.component';
@@ -6,6 +6,8 @@ import { BranchesComponent } from './Components/branches/list/list.component';
 import { AddBranchComponent} from './Components/branches/add/add.component';
 import { ListRoleComponent } from './Components/roles/list/list.component';
 import { AddRoleComponent } from './Components/roles/add/add.component';
+import { ListProductComponent } from './Components/products/list/list.component';
+import { AddProductComponent } from './Components/products/add/add.component';
 import { UsersComponent } from './Components/users/list/list.component';
 import { AddUserComponent } from './Components/users/add/add.component';
 import { ArticlesComponent } from './Components/articles/list/list.component';
@@ -25,6 +27,9 @@ const routes: Routes = [
   { path: 'roles', component: ListRoleComponent },
   { path: 'edit-role', component: AddRoleComponent },
   { path: 'edit-role/:id', component: AddRoleComponent },
+  { path: 'product', component: ListProductComponent },
+  { path: 'edit-product', component: AddProductComponent },
+  { path: 'edit-product/:id', component: AddProductComponent },
   { path: 'users', component: UsersComponent },
   { path: 'edit-user', component: AddUserComponent },
   { path: 'edit-user/:id', component: AddUserComponent },
