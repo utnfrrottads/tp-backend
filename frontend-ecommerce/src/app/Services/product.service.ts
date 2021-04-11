@@ -27,14 +27,6 @@ export class ProductService {
      return this.http.get(this.API_URL+`${product}`)
    }
 
-   postProduct(product: Product){
-     return this.http.post(this.API_URL, product)
-   }
-
-   putProduct(product: Product){
-     return this.http.put(this.API_URL+`${product._id}`, product)
-   }
-
    getWithStock(article:Article, qty: number){
      return this.http.post(this.API_URL+`stock`, {_id: article._id, qty: qty})
    }
