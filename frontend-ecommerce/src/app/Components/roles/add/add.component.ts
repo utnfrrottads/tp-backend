@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../Services/role.service';
 
 @Component({
-  selector: 'app-add-notes',
+  selector: 'app-add-roles',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
