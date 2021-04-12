@@ -199,35 +199,42 @@ UserCtrl.updateUser = async(req, res, next) => {
             next(ApiError.badRequest('Campos incompletos'));
             validations = false;
         }
-        const newUser = {
-            dni: req.body.dni,
-            names: req.body.names,
-            lastNames: req.body.lastNames,
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            pc: req.body.pc,
-            street: req.body.street,
-            number: req.body.number,
-            flat: req.body.flat,
-            phone: req.body.phone,
-            employee: req.body.employee,
-            client: req.body.client,
-            roles: req.body.roles
+
+        var user = await User.findById(id);
+
+        if (user == null){
+            next(ApiError.badRequest('No se encuentra el usuario'));
+            return;
         }
-        await UserCtrl.checkValidDNI(newUser.dni).catch((err) => {
+
+        user.dni = req.body.dni;
+        user.names = req.body.names;
+        user.lastNames = req.body.lastNames;
+        user.username = req.body.username;
+        user.password = req.body.password;
+        user.email = req.body.email;
+        user.pc = req.body.pc;
+        user.street = req.body.street;
+        user.number = req.body.number;
+        user.flat = req.body.flat;
+        user.phone = req.body.phone;
+        user.employee = req.body.employee;
+        user.client = req.body.client;
+        user.roles = req.body.roles;
+
+        await UserCtrl.checkValidDNI(user.dni).catch((err) => {
             next(err);
             validations = false;
         });
-        await UserCtrl.checkDNI(newUser.dni, id).catch((err) => {
+        await UserCtrl.checkDNI(user.dni, id).catch((err) => {
             next(err);
             validations = false;
         });
-        await UserCtrl.checkEmail(newUser.email, id).catch((err) => {
+        await UserCtrl.checkEmail(user.email, id).catch((err) => {
             next(err);
             validations = false;
         });
-        await UserCtrl.checkUserName(newUser.username, id).catch((err) => {
+        await UserCtrl.checkUserName(user.username, id).catch((err) => {
             next(err);
             validations = false;
         });
@@ -235,10 +242,13 @@ UserCtrl.updateUser = async(req, res, next) => {
             next(err);
             validations = false;
         });
+
         if (validations) {
-            await User.findByIdAndUpdate(id, { $set: newUser });
-            res.json({ status: 'Usuario Actualizado Correctamente.' });
+            console.log(user);
+            await User.findByIdAndUpdate(id, { $set: user });
+            res.json({ status: 'Usuario Actualizado Correctamente.', user: user });
         }
+
     } catch (err) {
         next(err);
     }

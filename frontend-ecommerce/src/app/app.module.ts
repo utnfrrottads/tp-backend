@@ -28,6 +28,7 @@ import { UsersComponent } from './Components/users/list/list.component';
 import { AddUserComponent } from './Components/users/add/add.component';
 import { CompleteSaleComponent } from './Components/complete-sale/complete-sale.component';
 import { MyBuysComponent } from './Components/my-buys/my-buys.component';
+import { ProfileComponent } from './Components/profile/profile.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MyBuysComponent } from './Components/my-buys/my-buys.component';
     MainComponent,
     AddUserComponent,
     CompleteSaleComponent,
-    MyBuysComponent
+    MyBuysComponent,
+    ProfileComponent
   ],
   imports: [
 BrowserModule,

@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<section class="pb-5 header text-center">
+  <div class="container py-5 text-white">
+
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                  <div class="card-body p-5">
+
+                 <form novalidate [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="dni" placeholder="DNI">
+                  </div>                    
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="names" placeholder="Nombre">
+                  </div>                  
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="lastNames" placeholder="Apellido">
+                  </div>  
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="username" placeholder="Nombre de Usuario">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="password" class="form-control" formControlName="password" placeholder="Conraseña">
+                  </div>    
+                  
+                  <div class="form-group">
+                    <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                  </div>   
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="pc" placeholder="Código Postal">
+                  </div>  
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="street" placeholder="Calle">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="number" placeholder="Número">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="flat" placeholder="Piso">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="phone" placeholder="Teléfono">
+                  </div>
+
+                  <div class="form-check form-switch">
+                    <label class="form-check-label" for="employee">Es empleado?</label>
+                    <input class="form-check-input" formControlName="employee" type="checkbox" id="employee">
+                  </div>
+
+                  <div class="form-check form-switch">
+                    <label class="form-check-label" for="client">Es cliente?</label>
+                    <input class="form-check-input" formControlName="client" type="checkbox" id="client">
+                  </div>
+
+                  <select *ngIf="roles" multiple formControlName="roles" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione los roles de usuario</option>
+                    <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
+                  </select>
+                  
+                  <br>
+                  <button type="submit" class="btn btn-primary">Actualizar</button>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

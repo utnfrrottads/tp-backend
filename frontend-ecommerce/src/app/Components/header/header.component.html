@@ -42,7 +42,7 @@
             {{currentUser.names}} {{currentUser.lastNames}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="/profile">Perfil</a></li>
             <li><a class="dropdown-item" *ngIf = "currentUser.client" href="/buys">Mis Compras</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" (click)="logoutUser()" href="#">Cerrar Sesión</a></li>
