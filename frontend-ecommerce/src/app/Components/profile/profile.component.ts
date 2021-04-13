@@ -100,7 +100,7 @@ export class ProfileComponent implements OnInit {
       this.userService.putUser(profile).subscribe((x: any) => {
         this.toastr.success('Perfil actualizado exitosamente!');
         localStorage.setItem('CurrentUser', JSON.stringify(x.user));
-        //this.goBack();
+        this.goBack();
       }, error => this.showError(error));
     }
     else{
