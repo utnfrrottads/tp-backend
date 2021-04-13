@@ -6,9 +6,10 @@
 
 Desarrollar un backend utilizando una API REST o GraphQL y un frontend parcial con las siguientes caracterísitcas:
 
-  * El backend debe ser programado en JavaScript con NodeJS.
-  * Debe utilizar un framework/middleware. Se dará soporte sobre Express pero podrán utilizarse alternativas si así se prefiere.
+  * ~~El backend debe ser programado en JavaScript con NodeJS~~
+  * ~~Debe utilizar un framework/middleware. Se dará soporte sobre Express pero podrán utilizarse alternativas si así se prefiere.~~
   * La persistencia debe realizarse utilizando un ODM/ORM con una base de datos persistente acorde a la tecnología que se utilice.
+  * * Vamos a probar con un **ODM** sino vamos por un **ORM**
   * El frontend debe realizarse con un framework como Angular u otro seleccionado, html 5 y para CSS debe usarse un preprocessador o framework.
   * El tema y alcance del trabajo debe ser propuesto por los alumnos y aprobado por los docentes de la cátedra (o utilizar el del año 2017)
 
@@ -51,7 +52,7 @@ Ver [checklist]
 
   * El frontend al menos deberá permitir invocar a la API y mostrar los resultados de uno de los listados. Haciendo click en un elemento del listado (o parte de él) debe mostrar el detalle correspondiente a un elemento de dicho listado invocando a una API del listado creada para el backend.
 
-  * El resto de la funcionalidad puede utilizarse mediante una herramienta similar a postman, restclient, curl o wget.
+  * El resto de la funcionalidad puede utilizarse mediante una herramienta similar a [postman](https://www.google.com/search?client=firefox-b-d&q=postman), restclient, curl o wget.
 
   * No se considerará trabajo adicional en el frontend para sumar nota ya que hay un TP dedicado a ello.
 
