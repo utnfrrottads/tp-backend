@@ -27,9 +27,9 @@
 
 |Requerimiento técnico|Cumple|
 |:-|-|
-|Framework frontend|
-|Framework CSS o preprocesador CSS||
+|Framework frontend|¿Angular?|
+|Framework CSS o preprocesador CSS|¿Boostrap?|
 |Framework backend|Express|
-|Uso de API REST o GraphQL||
+|Uso de API REST o GraphQL|¿?|
 |ORM/ODM||
 |Base de datos persistente|¿Mongo? sino algo relacional|
