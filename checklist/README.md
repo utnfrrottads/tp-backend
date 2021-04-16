@@ -3,7 +3,7 @@
 ## Backend
 
 |Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
-
+|:-|-:|-:|:-|-|
 |ABMC simple|1 x integ|1 x integ|
 |ABMC dependiente|1|2|
 |Listado simple|1|1|
