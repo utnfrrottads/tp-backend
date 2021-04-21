@@ -2,7 +2,7 @@
 
 ## Backend
 
-|Requerimiento funcional|cantidad|Detalle/Listado de casos|Cumple|
+|Requerimiento funcional|Cantidad|Detalle/Listado de casos|Cumple|
 |:-|-:|-:|-|
 |ABMC simple|4|Evaluador <br> Candidato <br> Evaluación <br> Empresa|
 |ABMC dependiente|2|Entrevista <br> Vacante|
