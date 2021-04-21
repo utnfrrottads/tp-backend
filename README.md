@@ -132,4 +132,4 @@ Realizar una aplicación web de selección de personal que centralice a los cand
 * 45090 - Nicola Francisco
 
 ## Modelo del Dominio
-![Ver imagen](modelo-del-dominio/MD.jpg)
+[Ver imagen](modelo-del-dominio/MD.jpg)
