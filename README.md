@@ -136,4 +136,21 @@ Luego de la defensa el resultado puede ser:
   * Productos
   *  **faltaria uno mas**
  
+* Listados Simples
+  * Mostrar ventas
+
+* Listados complejos
+  * Productos
+  * Solicitudes
+
+* Detalles:
+  * Detalles de pedidos
+  * Detalles de Facturas
+
+#### 4.3 - Miembros del equipo
+* 41896 - Nardi Pablo
+*  - Facundo Torres
+*  - Gaston Palavecino
+
+#### 4.4 Modelo (DER)
 
