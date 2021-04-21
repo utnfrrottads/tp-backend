@@ -1,3 +1,9 @@
+# Sistema para contratación de diferentes servicios
+
+El sistema que desarrollaremos se encargará de ser un intermediario entre prestadores de servicios y consumidores.
+Los prestadores de servicios particulares (ej. de comida, de limpieza, de clases particulares, etc.) podrán cargar los servicios que desean ofrecer. Para ello deberá registrarse en la app cargando sus datos personales y luego los datos del servicio a prestar (categoría, descripción, habilidades, horarios disponibles, precio, etc.).
+Además, cualquier persona puede buscar distintos servicios para consumir, de acuerdo a las distintas categorías que existan. Si está interesado en algún servicio deberá registrarse en el sistema para contactar al prestador de dicho servicio.
+
 # Checklist
 
 ## Backend
