@@ -1,7 +1,7 @@
 # Descripción del trabajo
 
-### Enunciado
-Realizar una aplicación web de selección de personal que centralice a los candidatos a un puesto de trabajo con el fin de facilitar la administración en la contratación de los mismos para la vacante.
+### Enunciado general
+El trabajo consistirá en una aplicación web de selección de personal que centralice a los candidatos a un puesto de trabajo con el fin de facilitar la administración en la contratación de los mismos para la vacante.
 
 ### ABMC simples:
 * Evaluador: (id_evaluador, nombre, apellido, contacto, especialidad)
