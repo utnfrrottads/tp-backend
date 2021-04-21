@@ -119,3 +119,21 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+
+
+### 4 - Modelo de Negocio
+
+#### 4.1 - Descripcion
+
+#### 4.2 Funcionalidad
+* ABMC Simple:
+  * Clientes ()
+  * Proveedores
+  * Categorias
+
+* ABMC dependiente
+  * Productos
+  *  **faltaria uno mas**
+ 
+
