@@ -35,4 +35,5 @@ Listado de entrevistas filtradas por determinada fecha o semana.
 * 45090 - Nicola Francisco
 
 ## Modelo del Dominio
-[Ver imagen](modelo-del-dominio/MD.jpg)
+
+![alt text](https://github.com/andresbertone/tp-backend/blob/master/modelo-del-dominio/MD.jpg?raw=true)
