@@ -130,3 +130,6 @@ Realizar una aplicación web de selección de personal que centralice a los cand
 * 44987 - Cabanellas Ignacio
 * 45091 - Cordoba Lucas
 * 45090 - Nicola Francisco
+
+## Modelo del Dominio
+![Ver imagen]()
