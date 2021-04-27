@@ -8,7 +8,7 @@
 |Listado simple|1|1| - Listado de categorias
 | Listado complejo obligatorio | 1 | 2 | - Listado de servicios por categorias - Listado de prestadores por nivel
 | Listado adicional con filtro | 0 | 0 | (- Listado que permita filtrar los servicios segun la categoria) Para AD
-|Detalle básico|1(*)|2(*)|Detalle del prestador de servicio con su nivel, cantidad de contratos y su biografia/descripcion - Detalle del servico que contiene la descripcion, hora desde y hora hasta,
+|Detalle básico|1(*)|2(*)|Detalle del usuario que presta el servicio con su nivel, cantidad de contratos y su biografia/descripcion - Detalle del servico que contiene la descripcion, y cantidad de veces que fue realizado (cantidad de contratos sin fecha de cancelación).
 |Detalle parametrizable|0|0| -
 |Otros|0|0| -
 
