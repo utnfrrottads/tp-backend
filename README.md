@@ -1,4 +1,4 @@
-# TP Backend TTADS - Sistema para contratación de diferentes servicios
+# TP Backend TTADS - Sistema de contratación de diferentes servicios
 
 El sistema que desarrollaremos se encargará de ser un intermediario entre prestadores de servicios y consumidores.
 
