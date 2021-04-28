@@ -125,6 +125,18 @@ Luego de la defensa el resultado puede ser:
 ### 4 - Modelo de Negocio
 
 #### 4.1 - Descripcion
+El sistema consiste en la administración de las compras y ventas de un negocio. Contiene las siguientes entidades para esto:
+- Cliente: Clientes del negocio, los cuales serán asociados a ventas.
+- Proveedor: Proveedores de los distintos productos que tenemos a la venta.
+- Producto: Los ítems que vendemos y compramos.
+- Precio de Producto: Histórico de los precios de venta de cada producto.
+- Categoría de Producto: Categoría para agrupar productos según criterio.
+- Compra: Carga de las compras de productos a un proveedor.
+- Ítem de Compra: Cada uno de los productos comprados y su cantidad.
+- Venta: Carga de las ventas de productos a un cliente.
+- Ítem de Venta: Cada uno de los productos vendidos y su cantidad.
+- Proveedor de Producto: Relación de productos con los distintos proveedores que lo venden.
+
 
 #### 4.2 Funcionalidad
 * ABMC Simple:
@@ -154,3 +166,4 @@ Luego de la defensa el resultado puede ser:
 
 #### 4.4 Modelo (DER)
 
+- ![DER](https://user-images.githubusercontent.com/58578161/116467320-edc12500-a845-11eb-9e79-e32a92ffe8b9.png)
