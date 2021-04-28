@@ -11,7 +11,7 @@ El trabajo consistirá en una aplicación web de selección de personal que cent
 
 ### ABMC dependientes:
 * Entrevista: (id_entrevista, desc_entrevista, fecha_hora_entrev, estado_entrevista, comentario)
-* Vacante: (id_vacante, cargo, desc_vcante, estado_vacante, requerimientos)
+* Vacante: (id_vacante, cargo, desc_vacante, estado_vacante, requerimientos)
 
 ### Listado simple:
 Listado de la clase "Canditado"
