@@ -6,8 +6,8 @@
 
 Desarrollar un backend utilizando una API REST o GraphQL y un frontend parcial con las siguientes caracterísitcas:
 
-  * ~~El backend debe ser programado en JavaScript con NodeJS~~
-  * ~~Debe utilizar un framework/middleware. Se dará soporte sobre Express pero podrán utilizarse alternativas si así se prefiere.~~
+  * El backend debe ser programado en JavaScript con NodeJS
+  * Debe utilizar un framework/middleware. Se dará soporte sobre Express pero podrán utilizarse alternativas si así se prefiere.
   * La persistencia debe realizarse utilizando un ODM/ORM con una base de datos persistente acorde a la tecnología que se utilice.
   * * Vamos a probar con un **ODM** sino vamos por un **ORM**
   * El frontend debe realizarse con un framework como Angular u otro seleccionado, html 5 y para CSS debe usarse un preprocessador o framework.
@@ -146,18 +146,18 @@ El sistema consiste en la administración de las compras y ventas de un negocio.
 
 * ABMC dependiente
   * Productos
-  *  **faltaria uno mas**
+  * Compras --> no es un abmc en si pero realizar su carga suma al tp
  
 * Listados Simples
-  * Mostrar ventas
+  * Mostrar proveedores
 
 * Listados complejos
-  * Productos
-  * Solicitudes
+  * Productos con proveedores o Productos con categorias
+  * Compras (donde figure num, fecha, nomProd, importe, entre otros) despues se aprovecha en los **Detalles**
 
 * Detalles:
-  * Detalles de pedidos
-  * Detalles de Facturas
+  * Detalles de Compras, aprovechando el **listado complejo** de compras
+  * Producto con proveedor y ultimo precio (se puede aplicar el listado de productos)
 
 #### 4.3 - Miembros del equipo
 * 41896 - Nardi Pablo
