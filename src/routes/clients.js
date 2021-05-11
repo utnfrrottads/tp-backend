@@ -21,7 +21,7 @@ module.exports =  app => {
         });
 
 
-    app.route('/task/:id')
+    app.route('/clients/:id')
         .get((req,res) => {
             Clients.findOne({where: req.params})
                 .then(result=> res.json(result))
