@@ -21,6 +21,10 @@ const usuarioSchema = new Schema({
     },
     habilidades: {
         type: String
+    },
+    idNivel: {
+        type: String,
+        required: true
     }
 }, { timestamps: false });
 
