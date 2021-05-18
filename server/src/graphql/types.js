@@ -52,8 +52,8 @@ const TypeContrato = new GraphQLObjectType({
     description: "Type contrato",
     fields: () => ({
         _id: { type: GraphQLID },
-        fecha: { type: DateScalar },
-        fechaCancelacion: { type: DateScalar },
+        fecha: { type: TypeDateScalar },
+        fechaCancelacion: { type: TypeDateScalar },
         servicio: {
             type: TypeServicio,
             resolve(parent, args) {
@@ -75,7 +75,7 @@ const TypeServicio = new GraphQLObjectType({
     fields: () => ({
         _id: { type: GraphQLID },
         descripcion: { type: GraphQLString },
-        precio: { type: Precio },
+        precio: { type: TypePrecio },
         categoria: {
             type: TypeCategoria,
             resolve(parent, args) {
@@ -112,7 +112,7 @@ const TypeCategoria = new GraphQLObjectType({
     })
 })
 
-const DateScalar = new GraphQLScalarType({
+const TypeDateScalar = new GraphQLScalarType({
     name: 'Date',
     parseValue(value) {
         return new Date(value);
@@ -122,7 +122,7 @@ const DateScalar = new GraphQLScalarType({
     }
 })
 
-const Precio = new GraphQLObjectType({
+const TypePrecio = new GraphQLObjectType({
     name: 'Precio',
     fields: () => ({
         valor: { type: GraphQLFloat },
