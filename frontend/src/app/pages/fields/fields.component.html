@@ -1,0 +1,13 @@
+<h2>Canchas de fútbol </h2>
+<hr>
+<div *ngIf="!empty">
+    <span class="text-info">Mostrando: {{param}}</span>
+    <hr>
+    
+    <div class="card-columns">
+        <app-field-card [field]="field" [id]='field.id' *ngFor="let field of fields"></app-field-card>
+    </div>
+</div>
+<div *ngIf="empty" class="alert alert-dark" role="alert">
+    No se han encontrado canchas
+</div>

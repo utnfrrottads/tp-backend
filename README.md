@@ -117,4 +117,27 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo aprobado - Defensa a repetir: se considera el código adecuado y aprobado. Deberá repetirse la defensa en un plazo acordado con el docente.
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
+### Descripcion del trabajo práctico:
+Sistema de reserva de turnos de canchas para practicar deporte. Por ejemplo reservar una chancha de futbol 5.
+
+## ABMC simples:
+* Usuarios: (id_usuario,mail,contraseña,nombre,apellido,direccion,telefono)
+* Canchas: (id_cancha,desc_cancha,direccion,precio,cant_jugadores,superficie)
+## ABMC Complejos:
+* Turnos: (fecha,hora_inicio,hora_fin,estado,seña,id_usuario,id_cancha)
+## Listado simple:
+* Se listará la entidad "Canchas".
+## Listado complejo:
+* Se listará la entidad "Turnos" según la cancha y disponibilidad.
+## Detalles:
+* Detalle del listado "Turnos". Dicha entidad involucra a la entidad "Usuarios" y a la entidad "Canchas". Se mostrará por cada turno: fecha, hora_inicio, hora_fin,estado,seña,usuario,cancha)
+
+### Miembro del equipo:
+* 42733 Valentin Feraudo.
+
+### Modelo de dominio
+Ingresando en el siguiente link:
+https://drive.google.com/open?id=1INuV97G8Q4mupVyh32ifwx3MZIpp53nk
+Aclaracion: alcance del proyecto: solo el recuadro verde.
+
 [checklist]: ./checklist/README.md

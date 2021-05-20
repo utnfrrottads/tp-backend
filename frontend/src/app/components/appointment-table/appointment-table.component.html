@@ -1,0 +1,36 @@
+<div *ngIf="appointments.length===0" class="alert alert-dark" role="alert">
+    El usuario no tiene turnos {{text}}
+  </div>
+  <table *ngIf="appointments.length!==0" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" *ngIf="this.user.role.description==='CENTER-ADMIN'">A nombre de</th>
+          <th scope="col" *ngIf="this.user.role.description==='CENTER-ADMIN'">Teléfono</th>
+          <th scope="col">Cancha</th>
+          <th scope="col">Día</th>
+          <th scope="col">Horario</th>
+          <th scope="col">Estado</th>
+          <th scope="col" *ngIf="this.user.role.description==='CENTER-ADMIN' && appointments[0].state==='Reserved'">Cancelar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of appointments; let i=index"  
+            [ngClass]="{'bg-success':item.state==='Reserved','bg-danger':item.state==='Completed','bg-info':item.state==='InProgress','bg-warning':item.state==='AboutToStart'}">
+          <th scope="row">{{i+1}}</th>
+          <td  *ngIf="this.user.role.description==='CENTER-ADMIN'">{{item.owner.name}}</td>
+          <td  *ngIf="this.user.role.description==='CENTER-ADMIN'">{{item.owner.phone}}</td>
+          <td>{{item.field.name}}</td>
+          <td>{{item.date | date:'mediumDate':'+0'}}</td>
+          <td>{{item.date | date:'shortTime':'+0'}}</td>
+  
+          <td>{{item.state| translate}}</td>
+          <td *ngIf="this.user.role.description==='CENTER-ADMIN'&& item.state==='Reserved'">
+              <button (click)="deleteAppointment(item.id)" class="btn btn-block">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+          </td>
+          <td *ngIf="this.user.role.description==='CENTER-ADMIN'&& item.state!=='Reserved'"></td>
+        </tr>
+      </tbody>
+    </table>

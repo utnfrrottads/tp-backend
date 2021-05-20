@@ -1,0 +1,19 @@
+    <div class="card bg-dark mb-5">
+        <img [src]= "field.image | image:'field'"  class="card-img-top img-fluid"  alt="...">
+        <div class="card-block">
+          <h2 class="card-title text-light text-center text-uppercase text-monospace ">{{field.name}}</h2>
+          <hr style="background-color: white;">
+          <p class="card-text font-italic text-light">{{field.description}}</p>
+          <p class="card-text font-italic text-light">Hora apertura: {{field.openingHour | date:'shortTime':'+0' }}</p>
+          <p class="card-text font-italic text-light">Hora cierre: {{field.closingHour | date:'shortTime':'+0'}}</p>
+          <button class="btn btn-success btn-block mb-1" 
+                  (click)="navigateField(id)"><i class="fas fa-eye"></i> Visitar
+          </button>
+          <button class="btn btn-warning btn-block  mt-0 mb-1" *ngIf="this.user.role.description==='CENTER-ADMIN'"
+                  (click)="updateField(id)"><i class="far fa-edit"></i> Editar Cancha
+          </button>
+          <button class="btn btn-danger btn-block  mt-0 mb-0" *ngIf="this.user.role.description==='CENTER-ADMIN'"
+                  (click)="deleteField(id)"><i class="fas fa-trash-alt"></i> Eliminar Cancha
+          </button>
+        </div>
+      </div>

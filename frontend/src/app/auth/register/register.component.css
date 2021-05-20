@@ -1,0 +1,40 @@
+.pull-left{
+    float: left 
+}
+.pull-right{
+    float: right 
+}
+
+.main-section{
+    margin:0 auto;
+    margin-top: 15%;
+    padding: 0;
+}
+
+.modal-content{
+    background-color: gray;
+    border-width: 3px;
+    border-color: white;
+}
+.avatar{
+    margin-bottom: 10px;
+    margin-top: -50px;
+}
+
+
+.login-register {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    width: 100%;
+    padding: 10% 0;
+    position: fixed; }
+
+  .login-sidebar {
+    padding: 0px;
+    margin-top: 0px; }
+    .login-sidebar {
+      right: 0px;
+      position: absolute;
+      height: 100%; }
