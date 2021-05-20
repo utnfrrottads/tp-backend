@@ -30,13 +30,16 @@ Aqui se podra configurar todo la informacion relacionada con el comercio que sal
 |Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
 |:-|-:|-:|:-|-|
 |ABMC simple|1 x integ|1 x integ|Categoría, Usuario, Proveedor|
-|ABMC dependiente|1|2|Producto, Venta, Compra, Descuento, Pedido|
-|Listado simple|1|1|Todas las entidades|
-|Listado complejo obligatorio|1|2|Producto, Compra, Venta|
-|Listado adicional con filtro|0|0|Todas las entidades|
-|Detalle básico|1(*)|2(*)|Producto, Proveedor|
+|ABMC dependiente|1|2|Producto, Descuento|
+|Listado simple|1|1|Categoría|
+|Listado complejo obligatorio|1|2|Productos (Categorias), Descuentos (Productos)|
+|Listado adicional con filtro|0|0|Ninguno|
+|Detalle básico|1(*)|2(*)|Pedido, Proveedor|
 |Detalle parametrizable|0|0|-|
 |Otros|0|0||
+
+### Diagrama Entidad Relación
+<img src="https://i.ibb.co/nQZhgPV/TTADS-DER.jpg" alt="TTADS-DER" border="0" />
 
 ### 1.1 - Desarrollo
 
