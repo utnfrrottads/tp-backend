@@ -2,3 +2,5 @@ ejemplo-graphql-mongodb/backend/node_modules
 ejemplo-graphql-mongodb/frontend/node_modules
 server/node_modules
 server/.env
+frontend/node_modules
+server/config.js
