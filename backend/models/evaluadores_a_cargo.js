@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('evaluadores_a_cargo', {
     personas_id_evaluador: {
