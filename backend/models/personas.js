@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(64),
       allowNull: false
     },
+    // activo: {                      // Poner en el caso que hagamos una baja lógica
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false
+    // },
     direcciones_id_direccion: {
       type: DataTypes.INTEGER,
       allowNull: false,

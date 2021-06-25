@@ -7,10 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    codigo_postal: {
-      type: DataTypes.STRING(64),
-      allowNull: true
-    },
     ciudades_id_ciudad: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -19,8 +15,28 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_ciudad'
       }
     },
+    codigo_postal: {
+      type: DataTypes.STRING(64),
+      allowNull: true
+    },
     nombre: {
       type: DataTypes.STRING(128),
+      allowNull: true
+    },
+    calle: {
+      type: DataTypes.STRING(128),
+      allowNull: true
+    },
+    numero: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    departamento: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    piso: {
+      type: DataTypes.STRING(45),
       allowNull: true
     }
   }, {

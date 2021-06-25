@@ -23,10 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_persona'
       }
     },
-    referencias_id_referencia: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
     empresas_id_empresa: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -37,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     experiencias_id_experiencia: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'experiencias',
         key: 'id_experiencia'

@@ -1,8 +1,8 @@
 const express = require('express');
-const db = require('./database/db-connection');
 const routes = require('./routes/routes');
+require('./database/db-connection');
+require ('colors');
 
-const colors = require ('colors');
 const app = express();
 const port = 3000;
 
