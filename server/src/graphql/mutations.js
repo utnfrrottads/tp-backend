@@ -38,7 +38,7 @@ const signIn = {
         if (!usuario) {
             throw new Error('Nombre de usuario o clave incorrectos');
         } else {
-            const claveValida = await matchPassword(clave, usuario.clave || "");
+            const claveValida = await matchPassword(clave, usuario.clave || '');
             if (!claveValida) {
                 throw new Error('Nombre de usuario o clave incorrectos');
             } else {

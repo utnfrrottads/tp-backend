@@ -31,5 +31,5 @@ app.listen(app.get('port'), () => {
     //connect to db
     mongoose.connect(MONGO_ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => console.log('--> Atlas DB Connected ✅.'))
-        .catch(err => console.log(err));
+      .catch(err => console.log(err));
 });

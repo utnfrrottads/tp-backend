@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card text-center animate__animated animate__flipInY animate__fast">
+            <div class="card-header">
+                <h3><strong>Crear Nueva Cuenta</strong></h3>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario" placeholder="Nombre Usuario" class="form-control" autofocus>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" name="nombreApellido" [(ngModel)]="usuario.nombreApellido" placeholder="Nombre Apellido" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="email" name="email" [(ngModel)]="usuario.email" placeholder="Email" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <textarea name="habilidades" [(ngModel)]="usuario.habilidades" placeholder="Habilidades" class="form-control"></textarea>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block" (click)="signUp()">
+                            Crear Cuenta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

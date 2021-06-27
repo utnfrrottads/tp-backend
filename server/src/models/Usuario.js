@@ -24,7 +24,7 @@ const usuarioSchema = new Schema({
     },
     idNivel: {
         type: String,
-        required: true
+        //required: true
     }
 }, { timestamps: false });
 

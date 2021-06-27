@@ -1,0 +1,39 @@
+<ng-container *ngIf="error">
+    <div style="width: 100%; margin-bottom: 1%;">
+        <div class="alert alert-danger alert-dismissible fade show"
+            style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;" role="alert">
+            {{errorMessage}}
+            <button (click)="error = false" class="close btn btn-link" data-dismiss="alert"
+                style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</ng-container>
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card text-center animate__animated animate__flipInY animate__fast">
+            <div class="card-header">
+                <h3><strong>Inicio Sesión</strong></h3>
+            </div>
+            <div class="card-body">
+                <img [src]="'/assets/logo.png'" alt="Logo SignIn" class="card-img-top mx-auto m-2 rounded-circle w-25">
+                <form>
+                    <div class="form-group">
+                        <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario" placeholder="Nombre Usuario" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block" (click)="signIn()">
+                            Iniciar Sesión
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
