@@ -1,0 +1,38 @@
+.profile-container {
+  margin-bottom: auto;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  justify-content: center;
+}
+
+.data-box {
+  padding: 2rem 1rem;
+  align-self: center;
+  margin: 2rem;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-color: RGBA(12, 110, 253, 1);
+  border-radius: .5rem;
+  flex-wrap:wrap;
+}
+
+.profile-img {
+  height: 5rem;
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  font-weight: 600;
+  color: RGB(12, 110, 253);
+  font-size: 2rem;
+  text-transform: uppercase;
+  background-color:white;
+}
+
+.personal-info {
+  color: white;
+  padding-left: 1rem;
+}

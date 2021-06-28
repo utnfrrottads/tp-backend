@@ -13,7 +13,7 @@ const authenticate = async (req, res, next) => {
                 const payload = jwt.verify(token, process.env.TOKEN_SECRET || "tokentest");
                 const usuario = await Usuario.findById(payload._id);
                 if (usuario) {
-                    req.idUsuario = user._id;
+                    req.idUsuario = usuario._id;
                     req.usuarioVerificado = true;
                 } else {
                     req.usuarioVerificado = false;

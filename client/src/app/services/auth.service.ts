@@ -23,9 +23,7 @@ const SIGNIN = gql`
 const PERFIL = gql`
   {
     perfil {
-      _id
-      nombreUsuario
-      clave
+      nombreApellido
       email
       habilidades
     }
@@ -87,7 +85,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('nombreUsuario');
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/']);
   }
 
 }

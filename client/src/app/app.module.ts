@@ -11,7 +11,6 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { AuthGuard } from "./guards/auth.guard";
-import { SignGuard } from "./guards/sign.guard";
 
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthService } from "./services/auth.service";
@@ -41,7 +40,6 @@ import { PerfilComponent } from './components/perfil/perfil.component';
   providers: [
     AuthService,
     AuthGuard,
-    SignGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

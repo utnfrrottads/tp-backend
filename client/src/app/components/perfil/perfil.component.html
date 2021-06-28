@@ -1,1 +1,17 @@
-<p>perfil works!</p>
+<div class="d-flex justify-content-center animate__animated animate__pulse animate__fast">
+  <div class="col-lg-12 w-100 profile-container">
+    <div class="col-lg-3 data-box">
+      <div class="profile-img">
+        {{ usuario.nombreApellido![0] }}
+      </div>
+      <div class="personal-info mt-3">
+        <p>Nombre y apellido: {{ usuario.nombreApellido }}</p>
+        <p>Email: {{ usuario.email }}</p>
+        <p>Habilidades: {{ usuario.habilidades }}</p>
+      </div>
+      <button class="btn btn-light" id="btn-editar-usuario">
+        <i class="fas fa-edit"></i> Editar
+      </button>
+    </div>
+  </div>
+</div>

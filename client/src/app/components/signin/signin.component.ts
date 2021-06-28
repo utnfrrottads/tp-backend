@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import * as bootstrap from "bootstrap"
 
 import { AuthService } from "../../services/auth.service";
 
@@ -31,8 +32,14 @@ export class SigninComponent implements OnInit {
       (res: any) => {
         this.error = false;
         this.errorMessage = '';
+
         localStorage.setItem('token', res.data.signIn);
         localStorage.setItem('nombreUsuario', this.usuario.nombreUsuario || '');
+
+        $("#signInPopup").modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
         this.router.navigate(['/']);
       },
       (err: any) => {

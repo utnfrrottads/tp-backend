@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 w-100">
-    <a class="navbar-brand" routerLink="/">App</a>
+    <a class="navbar-brand" routerLink="/">Servicios Ya</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> {{localStorage.getItem("nombreUsuario")}}
+                        <i class="fas fa-user"></i> {{ localStorage.getItem("nombreUsuario") }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" routerLink="/perfil"><i class="fas fa-id-card"></i> Perfil</a>
@@ -22,11 +22,13 @@
             </ng-container>
             <ng-container *ngIf="!authService.loggedIn()">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/signup"><i class="fas fa-user-plus"></i> Crear Cuenta</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#signUpPopup" href="#"><i class="fas fa-user-plus" hre></i> Crear Cuenta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/signin"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#signInPopup" href="#"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                 </li>
+                <app-signup></app-signup>
+                <app-signin></app-signin>
             </ng-container>
         </ul>
     </div>
