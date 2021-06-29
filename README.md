@@ -1,5 +1,9 @@
 ## Datos importantes
 
+- Me falta hacer la ruta para proveedoresProductos
+
+
+## Antes que nada
 - hacer `npm install` para que descargue lo necesario en node_module
 
 
