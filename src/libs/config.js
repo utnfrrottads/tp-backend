@@ -1,14 +1,13 @@
 module.exports = {
-
-    database: 'ecommmerce',
+    database: 'ecommerce',
     username: '',
-    password: '',
-    params : {
-        dialect : 'sqlite',
-        storage : 'ecommerce-db.sqlite',
-        define: {
-            underscore : false
+    password:'',
+    params:{
+        dialect: 'sqlite',
+        storage: 'ecommerce-db.sqlite',
+        define:{
+            underscore: false
         },
+        operatorsAliases: false
     }
-
-};
+}
