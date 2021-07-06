@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}\\dist\\index.js"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "debug in Chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/public"
+        }
+        // ,
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Build Project",
+        //     "program": "${workspaceFolder}\\dist\\index.js",
+        //     "address": "localhost",
+        //     "preLaunchTask": "npm: dev",
+        //     "sourceMaps": true,
+        //     "smartStep": true,
+        //     "internalConsoleOptions": "openOnSessionStart",
+        //     "outFiles": [
+        //         "${workspaceFolder}/out/**/*.js"
+        //     ]
+        // }
+    ]
+}

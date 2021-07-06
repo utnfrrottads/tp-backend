@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var router = express_1.Router();
+var Calendario_controller_1 = require("../controller/Calendario.controller");
+router.get('/calendario', Calendario_controller_1.getCalendarios);
+router.get('/calendario/:IdCalendario', Calendario_controller_1.getCalendario);
+router.put('/calendario', Calendario_controller_1.updateCalendario);
+router.post('/calendario', Calendario_controller_1.createCalendario);
+router.delete('/calendario/:IdCalendario', Calendario_controller_1.deleteCalendario);
+exports.default = router;

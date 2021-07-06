@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var router = express_1.Router();
+var Parada_controller_1 = require("../controller/Parada.controller");
+router.get('/paradaColectivo', Parada_controller_1.getParadas);
+router.get('/paradaColectivo/:NroParada', Parada_controller_1.getParada);
+router.post('/paradaColectivo', Parada_controller_1.createParada);
+router.put('/paradaColectivo', Parada_controller_1.updateParada);
+router.delete('/paradaColectivo/:NroParada', Parada_controller_1.deleteParada);
+exports.default = router;

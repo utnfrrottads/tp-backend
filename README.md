@@ -118,3 +118,62 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+### TRABAJO PRACTICO
+
+### Relevamiento “Cuando Llega Inter-urbano”
+
+Integrantes:
+Giuliano, Truant.
+
+Email contacto: giulitruant.26@gmail.com
+
+### Proceso de negocio
+
+
+El proceso de negocio comienza cuando un viajero desea saber cuándo llegan los posibles colectivos para que lo lleven al destino.
+Todos los choferes de colectivos de la empresa deberán tener la aplicación instalada para poder rastrear el coche o colectivo que se encuentran manejando.
+Los viajeros al igual que los choferes también deberán tener la aplicación instalada en su celular.
+Para consultar y estimar la llegada del colectivo, el usuario va a tener que ingresar la empresa de colectivo con la que desea viajar y la estación o parada de colectivos para poder saber la distancia que se encuentra dicho vehículo.
+De ser que el vehículo o colectivo se haya roto a los usuarios que consulten sobre dicho colectivo, les notificara que se encuentra parado para que tomen medidas al respecto.
+
+### User Story’s
+
+### Registrar nueva empresa: (ABMC simple)
+Dar de alta a una empresa con todos los datos correspondientes
+
+### Listado de Empresas: (Listado simple)
+Dar de alta a una empresa con todos los datos correspondientes
+
+### ABM de choferes: (ABMC dependiente)
+Este menú se podra agregar, editar o eliminar, por linea de colectivo, por empresa.
+
+### Listado de choferes (Listado Complejo con Posible filtro)
+Se Listaran los choferes por linea de colectivo con filtro por empresa, ### Con posible filtro por linea de colectivo.
+Al seleccionar un chofer del listado se mostrará los detalles del chofer, en el detalle se va a mostrar Empresa, Linea de Colectivo, Cuil, email, Provincia, Localidad del correspondiente chofer. Los campos telefono y domicilio quedan excluidos por tema de privacidad hacia el chofer.
+
+### Pantalla principal: "TAREA FUERA DEL ALCANCE"
+Realizar módulo para consultar la estimación de los colectivos por empresa y así mostrar sugerencias de próximos colectivos.
+
+### Estimación de llegada de próximos colectivos: "TAREA FUERA DEL ALCANCE"
+Se le notificara al usuario que consulte la llegada del colectivo
+
+### Notificación al usuario por demora: "TAREA FUERA DEL ALCANCE"
+Se le notificara al usuario que consulte el estado o llegada del colectivo, la demora o detención del mismo y así mostrar otras sugerencias de próximos colectivos.
+
+### Ranking de colectivos con menos demora "mejor calificados": "TAREA FUERA DEL ALCANCE"
+Se emitirá un ranking de las empresa de colectivos con menos demora lo cual permitirá mostrar la eficiencia de las empresas de colectivos.
+
+## Entidades de modelo de dominio
+1- Empresa
+2- Linea de colectivo
+3- Recorridos
+4- Paradas de colectivo "Paradas"
+5- Horario o Calendario
+6- Chofer
+
+## A Definir
+Me parece que deberia tener que agregar las entidades PROVINCIA y LOCALIDAD, no se si se me va a hacer muy grande el alcance, pero quedo a la espera de una respuesta por correcciones para ver si conviene o no agregar las entidades.
+
+ ## Diagrama de Entidad
+https://github.com/giulitruant/tp-backend-2020/blob/master/der.PNG

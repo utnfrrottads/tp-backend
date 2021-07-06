@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var router = express_1.Router();
+var Recorrido_controller_1 = require("../controller/Recorrido.controller");
+router.get('/recorrido', Recorrido_controller_1.getRecorridos);
+router.get('/recorrido/:IdRecorrido', Recorrido_controller_1.getRecorrido);
+router.post('/recorrido', Recorrido_controller_1.createRecorrido);
+router.put('/recorrido', Recorrido_controller_1.updateRecorrido);
+router.delete('/recorrido/:IdRecorrido', Recorrido_controller_1.deleteRecorrido);
+exports.default = router;

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var router = express_1.Router();
+var LineaColectivo_controller_1 = require("../controller/LineaColectivo.controller");
+router.get('/lineaColectivo', LineaColectivo_controller_1.getLineaColectivos);
+router.get('/lineaColectivo/:id', LineaColectivo_controller_1.getLineaColectivo);
+router.post('/lineaColectivo', LineaColectivo_controller_1.createLineaColectivo);
+router.put('/lineaColectivo', LineaColectivo_controller_1.updateLineaColectivo);
+router.delete('/lineaColectivo/:id', LineaColectivo_controller_1.deleteLineaColectivo);
+exports.default = router;
