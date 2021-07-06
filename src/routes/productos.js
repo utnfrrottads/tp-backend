@@ -18,5 +18,28 @@ module.exports = app =>{
                 res.status(412).json({msg: error.message});
             });
         });
+    
+    app.route('/productos/:idProd')
+        .get((req,res)=>{
+            Productos.findOne({where: req.params})
+            .then(result=> res.json(result))
+            .catch(error =>{
+                res.status(412).json({msg:error.message})
+            })
+        })
+        .put((req,res)=>{
+            Productos.update(req.body, {where: req.params})
+            .then(result => res.sendStatus(204))
+            .catch(error =>{
+                res.status(412).json({msg:error.message});
+            })
+        })
+        .delete((req,res) => {
+            Productos.destroy({where: req.params})
+            .then(result=> res.sendStatus(204))
+            .catch(error => {
+                res.status(412).json({msg:error.message});
+            })
 
+        })
 }
