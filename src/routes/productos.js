@@ -22,7 +22,10 @@ module.exports = app =>{
     app.route('/productos/:idProd')
         .get((req,res)=>{
             Productos.findOne({where: req.params})
-            .then(result=> res.json(result))
+            .then((result)=> {
+                console.log(req.params.idProd);
+                res.json(result)
+            })
             .catch(error =>{
                 res.status(412).json({msg:error.message})
             })
