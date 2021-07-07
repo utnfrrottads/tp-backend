@@ -1,0 +1,38 @@
+<div class="row section container">
+  <h4 class="center-align titulo" style="margin-top: 10px">EDIT CLIENT</h4>
+    <form class="col s12" autocomplete="off">
+      <div class="row">
+        <div class="input-field col s5">
+            <input id="dni" type="text" class="validate" name="dni" [(ngModel)]="selectedClient.dni">
+            <label class="active" for="dni">Dni</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s5"> 
+          <input id="first_name" type="text" class="validate" name="nombre" [(ngModel)]="selectedClient.nombre">
+          <label class="active" for="first_name">First Name</label>
+        </div>
+
+        <div class="input-field col s5">
+          <input id="last_name" type="text" class="validate" name="apellido" [(ngModel)]="selectedClient.apellido">
+          <label class="active" for="last_name">Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s5">
+          <input id="address" type="text" class="validate" name="direccion" [(ngModel)]="selectedClient.direccion">
+          <label class="active" for="address">Address</label>
+        </div>
+        <div class="input-field col s5">
+          <input id="phone" type="text" class="validate" name="telefono" [(ngModel)]="selectedClient.telefono">
+          <label class="active" for="phone">Phone</label>
+        </div>
+      </div>
+    <button class="btn waves-effect waves-light" (click)= "validate()"> Submit
+        <i class="material-icons right">send</i>
+    </button>
+    <button class="btn waves-effect waves-light red" style="margin-left: 5px;" (click)= "cancel()"> Cancel </button>
+    </form>
+  </div>

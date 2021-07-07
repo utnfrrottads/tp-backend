@@ -1,0 +1,37 @@
+<div class="container">
+  <h4 class="center-align titulo" style="margin-top: 10px">ARTICLES</h4>
+    <a class="btn-floating btn-medium waves-effect waves-light red move-top-10" routerLink="/articles/addArticle">
+      <i class="material-icons">add</i>
+    </a>
+    <table class="striped">   
+          <thead>
+            <tr>
+                <th>Article ID</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Supplier/s</th>
+                <th>Action</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+            <tr *ngFor="let article of articles">
+              <td>{{ article.id_articulo }}</td>
+              <td>{{ article.descripcion }}</td>
+              <td>{{ article.precio | currency: '$' }}</td>
+              <td>{{ article.stock }}</td>
+              <td>
+                  <span *ngFor="let proveedor of article.proveedores">{{ proveedor.razon_social }}
+                      <span *ngIf="article.proveedores.length > 1"> - </span>
+                  </span>
+              </td>
+              <td>
+                <a style="cursor: pointer" [routerLink]="['/articles/articleData', article.id_articulo]"><i class="material-icons">assignment</i></a>
+                <a style="cursor: pointer" [routerLink]="['/articles/addArticle', article.id_articulo]"><i class="material-icons">edit</i></a>
+                <a style="cursor: pointer; color: red" (click)="deleteArticle(article.id_articulo)"><i class="material-icons">delete</i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>

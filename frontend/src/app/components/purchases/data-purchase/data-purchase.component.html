@@ -1,0 +1,35 @@
+    <div class="container">
+        <h4 class="center-align titulo" style="margin-top: 10px; line-height: 3rem;">PURCHASES TO "{{ supplier.supplier.razon_social }}"</h4>
+        <div mat-dialog-content>  
+        <table class="striped responsive-table">   
+                <thead>
+                  <tr>
+                      <th>Article ID</th>
+                      <th>Description</th>
+                      <th>Purchase price</th>
+                      <th>Purchased amount</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+            
+                <tbody>
+                  <tr *ngFor="let purchase of purchases">
+                    <td>{{ purchase.id_articulo }}</td>
+                    <td>{{ purchase.articulo.descripcion }}</td>
+                    <td>{{ purchase.precio_unitario | currency: '$' }}</td>
+                    <td>{{ purchase.cantidad }}</td>
+                    <td>{{ purchase.fecha_compra | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                      <a style="cursor: pointer; color: red" (click)="deletePurchase(purchase)"><i class="material-icons">delete</i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+</div>
+
+<div mat-dialog-actions>
+  <a class="waves-effect waves-light btn-small" (click)="close()">Close</a>
+</div>
+

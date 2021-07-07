@@ -1,0 +1,23 @@
+<div class="container">
+    <h4 class="center-align titulo" style="margin-top: 10px">PURCHASES</h4>
+      <a class="btn-floating btn-medium waves-effect waves-light red move-top-10" routerLink="/purchases/newPurchase">
+        <i class="material-icons">add</i>
+      </a>
+      <table class="striped">   
+            <thead>
+              <tr>
+                  <th>Business name</th>
+                  <th>Article/s</th>
+              </tr>
+            </thead>
+        
+           <tbody>
+              <tr *ngFor="let supplier of suppliers"> 
+                <td>{{ supplier.razon_social }}</td> 
+                <td>
+                    <a style="cursor: pointer" (click)="openDataPurchase(supplier)"><i class="material-icons">assignment</i></a>
+                </td>
+              </tr>
+            </tbody> 
+          </table>
+    </div>

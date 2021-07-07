@@ -1,0 +1,31 @@
+{
+  "name": "tp-backend-2020",
+  "version": "0.0.1",
+  "description": "Tp backend 2020",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon backend/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bertonefederico1/tp-backend-2020.git"
+  },
+  "keywords": [
+    "backend",
+    "express"
+  ],
+  "author": "@Alejo @Federico",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bertonefederico1/tp-backend-2020/issues"
+  },
+  "homepage": "https://github.com/bertonefederico1/tp-backend-2020#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.7"
+  }
+}

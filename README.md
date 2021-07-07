@@ -118,3 +118,31 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+## Descripción del Trabajo Práctico
+Nuestro programa es para un negocio que compra artículos a diferentes proveedores, y luego los vende a sus clientes
+#### ABMC Simples:
+  * Clientes: (id_cliente, dni, nombre, apellido, direccion, telefono)
+  * Proveedores: (id_proveedor, cuit, razon_social, ciudad, direccion, telefono)
+
+#### ABMC Complejos:
+  * Articulos: (id_proveedor, descripcion, precio, stock)
+
+#### Listado Simple:
+  * Listado de la entidad "Clientes"
+  
+#### Listado Complejo:
+  * Listado de la entidad "Artículos"
+  
+#### Detalles:
+  * Detalle del listado Artículos (involucra a la entidad Proveedores): Se mostrará por cada artículo: id, descripcion, precio, stock, proveedor
+ 
+
+## Miembros del Equipo:
+  * **45572** Alejo Cuello.
+  * **44985** Federico Bertone.
+ 
+## Modelo de Datos:
+[Ver Imagen](https://github.com/bertonefederico1/tp-backend-2020/blob/master/modelo-datos/DER.png "Ver Imagen")
