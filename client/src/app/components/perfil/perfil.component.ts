@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from "../../services/auth.service";
+import { UserService } from '../../services/user.service';
 
-import { Usuario } from "../../models/Usuario";
+import { Usuario } from '../../models/Usuario';
 
 @Component({
   selector: 'app-perfil',
@@ -10,26 +10,16 @@ import { Usuario } from "../../models/Usuario";
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-
-  usuario: Usuario = {
+  user: Usuario = {
+    nombreUsuario: '',
     nombreApellido: '',
     email: '',
-    habilidades: ''
+    habilidades: '',
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.getUser();
+    this.user = this.userService.getUser();
   }
-
-  getUser() {
-    this.authService.profile().subscribe(
-      (res: any) => {
-        this.usuario = res;
-      },
-      (err: any) => console.log(err)
-    );
-  }
-
 }

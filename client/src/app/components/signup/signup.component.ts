@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import * as bootstrap from "bootstrap"
+import { Router } from '@angular/router';
 
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from '../../services/auth.service';
 
-import { Usuario } from "../../models/Usuario";
+import { Usuario } from '../../models/Usuario';
 
 @Component({
   selector: 'app-signup',
@@ -27,13 +26,13 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signUp() {
+  signUp(): void {
     this.authService.signUp(this.usuario).subscribe(
       (res: any) => {
-        localStorage.setItem('token', res.data.signUp);
-        localStorage.setItem('nombreUsuario', this.usuario.nombreUsuario || '');
+        localStorage.setItem('user', JSON.stringify(res.data.signUp.token));
+        localStorage.setItem('token', res.data.signUp.token);
 
-        $("#signUpPopup").modal('hide');
+        $('#signUpPopup').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
 

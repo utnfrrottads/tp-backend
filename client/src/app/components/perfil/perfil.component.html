@@ -2,16 +2,28 @@
   <div class="col-lg-12 w-100 profile-container">
     <div class="col-lg-3 data-box">
       <div class="profile-img">
-        {{ usuario.nombreApellido![0] }}
+        {{ user.nombreApellido![0] }}
       </div>
+
       <div class="personal-info mt-3">
-        <p>Nombre y apellido: {{ usuario.nombreApellido }}</p>
-        <p>Email: {{ usuario.email }}</p>
-        <p>Habilidades: {{ usuario.habilidades }}</p>
+        <form>
+          <div class="form-group">
+            <label for="nombreUsuario">Nombre de usuario</label>
+            <input type="email" class="form-control" id="nombreUsuario" [value]="user.nombreUsuario" aria-describedby="emailHelp" placeholder="E-mail">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" [value]="user.clave" placeholder="Contraseña">
+          </div>
+          <div class="form-group">
+            <label for="skills">Habilidades</label>
+            <input type="text" class="form-control" id="skills" [value]="user.habilidades" placeholder="Habilidades">
+          </div>
+          <button type="submit" class="btn btn-light" id="btn-editar-user">
+            <i class="fas fa-edit"></i> Guardar
+          </button>
+        </form>
       </div>
-      <button class="btn btn-light" id="btn-editar-usuario">
-        <i class="fas fa-edit"></i> Editar
-      </button>
     </div>
   </div>
 </div>

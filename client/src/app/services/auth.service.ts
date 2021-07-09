@@ -1,34 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-import { Usuario } from "../models/Usuario";
+import { Usuario } from '../models/Usuario';
 import { map } from 'rxjs/operators';
 
 const SIGNUP = gql`
   mutation signUp($nombreUsuario: String!, $clave: String!, $nombreApellido: String!, $email: String!, $habilidades: String!) {
-    signUp(nombreUsuario: $nombreUsuario, clave: $clave, nombreApellido: $nombreApellido, email: $email, habilidades: $habilidades)
+    signUp(
+      nombreUsuario: $nombreUsuario,
+      clave: $clave,
+      nombreApellido: $nombreApellido,
+      email: $email,
+      habilidades: $habilidades
+    ){
+      user {
+        _id
+        nombreUsuario
+        nombreApellido email
+        habilidades
+      }
+      token
+    }
   }
 `;
 
 const SIGNIN = gql`
   mutation signIn($nombreUsuario: String!, $clave: String!) {
-    signIn(nombreUsuario: $nombreUsuario, clave: $clave)
-  }
-`;
-
-const PERFIL = gql`
-  {
-    perfil {
-      nombreApellido
-      email
-      habilidades
+    signIn(nombreUsuario: $nombreUsuario, clave: $clave){
+      user {
+        nombreUsuario
+        nombreApellido
+        email
+        habilidades
+      }
     }
   }
 `;
+
 
 @Injectable({
   providedIn: 'root'
@@ -60,16 +72,6 @@ export class AuthService {
     });
   }
 
-  profile(): any {
-    return this.apollo.watchQuery({
-      query: PERFIL
-    }).valueChanges.pipe(
-      map((res: any) => {
-        return res.data.perfil;
-      })
-    );
-  }
-
   loggedIn(): boolean {
     if (localStorage.getItem('token')) {
       return true;
@@ -78,14 +80,13 @@ export class AuthService {
     }
   }
 
-  getToken() {
+  getToken(): any {
     return localStorage.getItem('token');
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('nombreUsuario');
+    localStorage.removeItem('user');
     this.router.navigate(['/']);
   }
-
 }

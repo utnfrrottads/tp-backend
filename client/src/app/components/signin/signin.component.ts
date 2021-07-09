@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import * as bootstrap from "bootstrap"
+import { Router } from '@angular/router';
 
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from '../../services/auth.service';
 
-import { Usuario } from "../../models/Usuario";
+import { Usuario } from '../../models/Usuario';
+
+declare var $: any;
 
 @Component({
   selector: 'app-signin',
@@ -18,27 +19,26 @@ export class SigninComponent implements OnInit {
     nombreUsuario: '',
     clave: ''
   };
-
-  error: boolean = false;
-  errorMessage: string = '';
+  error = false;
+  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  signIn() {
+  signIn(): void {
     this.authService.signIn(this.usuario).subscribe(
       (res: any) => {
         this.error = false;
         this.errorMessage = '';
 
-        localStorage.setItem('token', res.data.signIn);
-        localStorage.setItem('nombreUsuario', this.usuario.nombreUsuario || '');
+        localStorage.setItem('user', JSON.stringify(res.data.signIn.user));
+        localStorage.setItem('token', res.data.signIn.token);
 
-        $("#signInPopup").modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
+        /* $('#signInPopup').modal('hide'); */
+        /* $('body').removeClass('modal-open'); */
+        /* $('.modal-backdrop').remove(); */
 
         this.router.navigate(['/']);
       },
@@ -48,5 +48,4 @@ export class SigninComponent implements OnInit {
       }
     );
   }
-
 }
