@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth.service';
 
 import { Usuario } from '../../models/Usuario';
 
+declare var $: any;
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -29,12 +31,15 @@ export class SignupComponent implements OnInit {
   signUp(): void {
     this.authService.signUp(this.usuario).subscribe(
       (res: any) => {
-        localStorage.setItem('user', JSON.stringify(res.data.signUp.token));
+        localStorage.setItem('usuario', JSON.stringify(res.data.signUp.usuario));
+        localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
 
         $('#signUpPopup').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
+        
+        $(".navbar-collapse").removeClass("show");
 
         this.router.navigate(['/']);
       },

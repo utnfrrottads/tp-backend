@@ -3,28 +3,20 @@ const { GraphQLObjectType, GraphQLScalarType, GraphQLID, GraphQLBoolean, GraphQL
 const { Usuario, Nivel, Contrato, Servicio, Categoria } = require('../models');
 
 const MutationResponse = new GraphQLInterfaceType({
-  name: 'MutationResponse',
-  fields: () => ({
-    code: { GraphQLString },
-    success: { GraphQLBoolean },
-    message: { GraphQLString }
-  })
+    name: 'MutationResponse',
+    fields: () => ({
+        code: { GraphQLString },
+        success: { GraphQLBoolean },
+        message: { GraphQLString }
+    })
 })
 
-// const SignInInput = new GraphQLInputObjectType({
-//   name: 'SignInInput',
-//   fields: () => ({
-//     email: { type: GraphQLString },
-//     password: { type: GraphQLString }
-//   })
-// })
-
-const SignUpOutput = new GraphQLObjectType({
-  name: 'SignUpOutput',
-  fields: () => ({
-    user: { type: TypeUsuario },
-    token: { type: GraphQLString }
-  })
+const LoginOutput = new GraphQLObjectType({
+    name: 'LoginOutput',
+    fields: () => ({
+        usuario: { type: TypeUsuario },
+        token: { type: GraphQLString }
+    })
 })
 
 const TypeUsuario = new GraphQLObjectType({
@@ -155,4 +147,4 @@ const TypePrecio = new GraphQLObjectType({
     })
 })
 
-module.exports = { TypeUsuario, TypeNivel, TypeContrato, TypeServicio, TypeCategoria, SignUpOutput }
+module.exports = { TypeUsuario, TypeNivel, TypeContrato, TypeServicio, TypeCategoria, LoginOutput }

@@ -10,12 +10,11 @@ import { UserService } from '../../services/user.service';
 })
 export class NavigationComponent implements OnInit {
 
-  userName = '';
+  localStorage: Storage = localStorage;
 
-  constructor(public authService: AuthService, public userService: UserService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.userName = this.userService.getUser().nombreUsuario || '';
   }
 
 }

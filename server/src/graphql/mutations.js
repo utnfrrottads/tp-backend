@@ -1,11 +1,12 @@
 const { GraphQLString, GraphQLInput, GraphQLInputObjectType, GraphQLObjectType, UserInputError } = require('graphql');
-const { SignUpOutput } = require('./types');
+const { LoginOutput } = require('./types');
 const { Usuario } = require('../models/index');
 const { createJwtToken } = require('../helpers/auth');
 const { encryptPassword, matchPassword } = require('../helpers/encryptPassword');
 
 const signUp = {
-  type: SignUpOutput,
+  type: LoginOutput,
+  description: 'SignUp',
   args: {
     nombreUsuario: { type: GraphQLString },
     clave: { type: GraphQLString },
@@ -14,43 +15,43 @@ const signUp = {
     habilidades: { type: GraphQLString }
   },
   async resolve(parent, args) {
-   const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
+    const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
     const claveEncriptada = await encryptPassword(clave);
     const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades });
-    const user = await usuario.save();
-    const token = createJwtToken(usuario);
+    const usuarioGuardado = await usuario.save();
+    const token = createJwtToken(usuarioGuardado);
     return {
-      user,
+      usuario: usuarioGuardado,
       token
     };
   }
 }
 
 const signIn = {
-    type: SignUpOutput,
-    description: 'SignIn',
-    args: {
-        nombreUsuario: { type: GraphQLString },
-        clave: { type: GraphQLString }
-    },
-    async resolve(parent, args) {
-        const { nombreUsuario, clave } = args;
-        const user = await Usuario.findOne({ nombreUsuario }).select('+clave');
-        if (!user) {
-            throw new Error('Nombre de usuario o clave incorrectos');
-        } else {
-            const claveValida = await matchPassword(clave, user.clave || '');
-            if (!claveValida) {
-                throw new Error('Nombre de usuario o clave incorrectos');
-            } else {
-                const token = createJwtToken(user);
-                return {
-                  user,
-                  token
-                }
-            }
+  type: LoginOutput,
+  description: 'SignIn',
+  args: {
+    nombreUsuario: { type: GraphQLString },
+    clave: { type: GraphQLString }
+  },
+  async resolve(parent, args) {
+    const { nombreUsuario, clave } = args;
+    const usuario = await Usuario.findOne({ nombreUsuario }).select('+clave');
+    if (!usuario) {
+      throw new Error('Nombre de usuario o clave incorrectos');
+    } else {
+      const claveValida = await matchPassword(clave, usuario.clave);
+      if (!claveValida) {
+        throw new Error('Nombre de usuario o clave incorrectos');
+      } else {
+        const token = createJwtToken(usuario);
+        return {
+          usuario,
+          token
         }
+      }
     }
+  }
 }
 
 module.exports = { signUp, signIn }

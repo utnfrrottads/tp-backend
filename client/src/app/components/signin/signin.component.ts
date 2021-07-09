@@ -33,12 +33,15 @@ export class SigninComponent implements OnInit {
         this.error = false;
         this.errorMessage = '';
 
-        localStorage.setItem('user', JSON.stringify(res.data.signIn.user));
+        localStorage.setItem('usuario', JSON.stringify(res.data.signIn.usuario));
+        localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signIn.token);
 
-        /* $('#signInPopup').modal('hide'); */
-        /* $('body').removeClass('modal-open'); */
-        /* $('.modal-backdrop').remove(); */
+        $('#signInPopup').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        
+        $(".navbar-collapse").removeClass("show");
 
         this.router.navigate(['/']);
       },

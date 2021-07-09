@@ -8,6 +8,8 @@ import gql from 'graphql-tag';
 import { Usuario } from '../models/Usuario';
 import { map } from 'rxjs/operators';
 
+declare var $: any;
+
 const SIGNUP = gql`
   mutation signUp($nombreUsuario: String!, $clave: String!, $nombreApellido: String!, $email: String!, $habilidades: String!) {
     signUp(
@@ -17,10 +19,11 @@ const SIGNUP = gql`
       email: $email,
       habilidades: $habilidades
     ){
-      user {
+      usuario {
         _id
         nombreUsuario
-        nombreApellido email
+        nombreApellido 
+        email
         habilidades
       }
       token
@@ -30,13 +33,15 @@ const SIGNUP = gql`
 
 const SIGNIN = gql`
   mutation signIn($nombreUsuario: String!, $clave: String!) {
-    signIn(nombreUsuario: $nombreUsuario, clave: $clave){
-      user {
+    signIn(nombreUsuario: $nombreUsuario, clave: $clave) {
+      usuario {
+        _id
         nombreUsuario
         nombreApellido
         email
         habilidades
       }
+      token
     }
   }
 `;
@@ -73,7 +78,7 @@ export class AuthService {
   }
 
   loggedIn(): boolean {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('usuario') && localStorage.getItem('nombreUsuario') && localStorage.getItem('token')) {
       return true;
     } else {
       return false;
@@ -85,8 +90,12 @@ export class AuthService {
   }
 
   logout(): void {
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('nombreUsuario');
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    
+    $(".navbar-collapse").removeClass("show");
+
     this.router.navigate(['/']);
   }
 }
