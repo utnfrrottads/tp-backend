@@ -34,7 +34,7 @@ export class SigninComponent implements OnInit {
         this.errorMessage = '';
 
         localStorage.setItem('usuario', JSON.stringify(res.data.signIn.usuario));
-        localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
+        localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signIn.token);
 
         $('#signInPopup').modal('hide');

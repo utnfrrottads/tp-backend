@@ -54,4 +54,33 @@ const signIn = {
   }
 }
 
-module.exports = { signUp, signIn }
+const updateUsuario = {
+  type: LoginOutput,
+  description: 'Update Usuario',
+  args: {
+    nombreUsuario: { type: GraphQLString },
+    nombreApellido: { type: GraphQLString },
+    email: { type: GraphQLString },
+    habilidades: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuarioVerificado, idUsuario }) {
+    if (!usuarioVerificado) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { nombreUsuario, nombreApellido, email, habilidades } = args;
+      const usuario = await Usuario.findById(idUsuario);
+      usuario.nombreUsuario = nombreUsuario;
+      usuario.nombreApellido = nombreApellido;
+      usuario.email = email;
+      usuario.habilidades = habilidades;
+      const usuarioGuardado = await usuario.save();
+      const token = createJwtToken(usuarioGuardado);
+      return {
+        usuario: usuarioGuardado,
+        token
+      };
+    }
+  }
+}
+
+module.exports = { signUp, signIn, updateUsuario }

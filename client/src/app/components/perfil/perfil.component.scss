@@ -1,38 +1,45 @@
 .profile-container {
   margin-bottom: auto;
-  display:flex;
-  align-items:center;
-  flex-direction:column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  color: black;
 }
 
 .data-box {
   padding: 2rem 1rem;
   align-self: center;
   margin: 2rem;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: RGBA(12, 110, 253, 1);
-  border-radius: .5rem;
-  flex-wrap:wrap;
+  background-color: rgb(91, 101, 110);
+  border-radius: 0.5rem;
+  flex-wrap: wrap;
+  border: 1px rgb(48, 47, 47) solid;
 }
 
 .profile-img {
-  height: 5rem;
-  width: 5rem;
+  height: 8rem;
+  width: 8rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 100%;
   font-weight: 600;
-  color: RGB(12, 110, 253);
-  font-size: 2rem;
+  font-size: 4rem;
   text-transform: uppercase;
-  background-color:white;
+  background-color: rgb(240, 240, 240);
 }
 
 .personal-info {
-  color: white;
   padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.buttons {
+  width: 100%;
+  padding-left: 8%;
+  padding-right: 8%;
 }

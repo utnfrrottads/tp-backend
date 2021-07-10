@@ -16,31 +16,31 @@
                             <div class="form-group">
                                 <label>Nombre Usuario</label>
                                 <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
-                                    placeholder="Nombre Usuario" class="form-control" autofocus>
+                                    placeholder="Nombre Usuario" class="form-control" required autofocus>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label>Clave</label>
                                 <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave"
-                                    class="form-control">
+                                    class="form-control" required>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label>Nombre y Apellido</label>
                                 <input type="text" name="nombreApellido" [(ngModel)]="usuario.nombreApellido"
-                                    placeholder="Nombre y Apellido" class="form-control">
+                                    placeholder="Nombre y Apellido" class="form-control" required>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" name="email" [(ngModel)]="usuario.email" placeholder="Email"
-                                    class="form-control">
+                                    class="form-control" required>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label>Habilidades</label>
                                 <textarea name="habilidades" [(ngModel)]="usuario.habilidades" placeholder="Habilidades"
-                                    class="form-control"></textarea>
+                                    class="form-control" required></textarea>
                             </div>
                             <br>
                             <div class="form-group">

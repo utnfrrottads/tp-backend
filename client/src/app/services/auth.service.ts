@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 import { Usuario } from '../models/Usuario';
-import { map } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -52,7 +50,7 @@ const SIGNIN = gql`
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private apollo: Apollo, private router: Router) { }
+  constructor(private apollo: Apollo, private router: Router) { }
 
   signUp(usuario: Usuario): any {
     return this.apollo.mutate({

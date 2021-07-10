@@ -10,7 +10,17 @@ import { Usuario } from '../../models/Usuario';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-  user: Usuario = {
+
+  editando: boolean = false;
+
+  usuario: Usuario = {
+    nombreUsuario: '',
+    nombreApellido: '',
+    email: '',
+    habilidades: '',
+  };
+
+  usuarioEditado: Usuario = {
     nombreUsuario: '',
     nombreApellido: '',
     email: '',
@@ -20,6 +30,24 @@ export class PerfilComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
+    this.usuario = this.userService.getUsuario();
+    this.usuarioEditado = this.userService.getUsuario();
   }
+
+  guardarUsuario() {
+    this.userService.update(this.usuarioEditado).subscribe(
+      (res: any) => {
+        localStorage.setItem('usuario', JSON.stringify(res.data.updateUsuario.usuario));
+        localStorage.setItem('nombreUsuario', res.data.updateUsuario.usuario.nombreUsuario);
+        localStorage.setItem('token', res.data.updateUsuario.token);
+
+        this.usuario = res.data.updateUsuario.usuario;
+        this.usuarioEditado = res.data.updateUsuario.usuario;
+
+        this.editando = false;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
 }
