@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
         
         $(".navbar-collapse").removeClass("show");
 
-        this.router.navigate(['/']);
+        this.router.navigate(['/perfil']);
       },
       (err: any) => console.log(err)
     );

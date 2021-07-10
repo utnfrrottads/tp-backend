@@ -17,4 +17,8 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  cerrarNavMobile() {
+    $(".navbar-collapse").removeClass("show");
+  }
+
 }

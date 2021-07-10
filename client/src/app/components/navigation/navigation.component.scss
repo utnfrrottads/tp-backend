@@ -6,21 +6,3 @@
 .cerrar-sesion {
   color: red;
 }
-
-.btn-desktop {
-  display: none;
-}
-
-.btn-mobile {
-  display: block;
-}
-
-@media (min-width: 992px) {
-  .btn-desktop {
-    display: block;
-  }
-  
-  .btn-mobile {
-    display: none;
-  }
-}

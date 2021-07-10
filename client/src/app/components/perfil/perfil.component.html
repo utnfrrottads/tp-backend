@@ -1,51 +1,65 @@
 <div class="d-flex justify-content-center animate__animated animate__pulse animate__fast">
   <div class="w-100 profile-container">
-    <div class="col-sm-8 col-md-6 col-lg-4 col-xl-3 data-box">
-      <div class="profile-img">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4 data-box">
+      <div class="profile-img" *ngIf="!editando">
         {{ usuario.nombreApellido![0] }}
       </div>
-      <div class="personal-info mt-3">
-        <h2 class="mb-3">
-          <span *ngIf="!editando">{{ usuario.nombreApellido }}</span>
-        </h2>
-        <div *ngIf="editando">
-          <p>
-            <strong>Nombre y Apellido:</strong>&nbsp;
-            <input type="text" [(ngModel)]="usuarioEditado.nombreApellido" placeholder="Nombre y apellido"
-              class="form-control" required autofocus>
-          </p>
-        </div>
+
+      <div class="profile-img" *ngIf="editando">
+        {{ usuarioEditado.nombreApellido![0] }}
+      </div>
+
+      <div class="personal-info mt-3" *ngIf="!editando">
+        <h2 class="mb-3">{{ usuario.nombreApellido }}</h2>
+        <p><strong>Nombre de usuario:</strong>&nbsp;{{ usuario.nombreUsuario }}</p>
+        <p><strong>Email:</strong>&nbsp;{{ usuario.email }}</p>
+        <p><strong>Habilidades:</strong>&nbsp;{{ usuario.habilidades }}</p>
+      </div>
+
+      <div class="mt-3 w-100 px-2" *ngIf="editando">
+        <p>
+          <strong>Nombre y Apellido:</strong>&nbsp;
+          <input type="text" [(ngModel)]="usuarioEditado.nombreApellido" placeholder="Nombre y apellido"
+            class="form-control" required autofocus>
+        </p>
         <p>
           <strong>Nombre de usuario:</strong>&nbsp;
-          <span *ngIf="!editando">{{ usuario.nombreUsuario }}</span>
-          <input *ngIf="editando" type="text" [(ngModel)]="usuarioEditado.nombreUsuario" placeholder="Nombre y Apellido"
+          <input type="text" [(ngModel)]="usuarioEditado.nombreUsuario" placeholder="Nombre y Apellido"
             class="form-control" required>
         </p>
         <p>
           <strong>Email:</strong>&nbsp;
-          <span *ngIf="!editando">{{ usuario.email }}</span>
-          <input *ngIf="editando" type="text" [(ngModel)]="usuarioEditado.email" placeholder="Nombre de usuario"
-            class="form-control w-100" required>
+          <input type="text" [(ngModel)]="usuarioEditado.email" placeholder="Nombre de usuario" class="form-control"
+            required>
         </p>
         <p>
           <strong>Habilidades:</strong>&nbsp;
-          <span *ngIf="!editando">{{ usuario.habilidades }}</span>
-          <textarea *ngIf="editando" [(ngModel)]="usuarioEditado.habilidades" placeholder="Habilidades"
-            class="form-control" required></textarea>
+          <textarea [(ngModel)]="usuarioEditado.habilidades" placeholder="Habilidades" class="form-control" rows="3"
+            required></textarea>
         </p>
       </div>
+
       <div class="buttons">
-        <button *ngIf="!editando" href="#" class="btn btn-light btn-block mt-3" (click)="editando=true">
-          <i class="fas fa-edit"></i> Editar
-        </button>
-        <div class="row">
+        <div class="row" *ngIf="!editando">
           <div class="col-6">
-            <button *ngIf="editando" href="#" class="btn btn-danger btn-block mt-3 mx-2" (click)="editando=false">
+            <button href="#" class="btn btn-light btn-block mt-3" (click)="editando=true">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="col-6">
+            <button href="#" class="btn btn-light btn-block mt-3" data-toggle="modal" data-target="#cambiarClavePopup">
+              <i class="fas fa-key"></i> Cambiar Clave
+            </button>
+          </div>
+        </div>
+        <div class="row" *ngIf="editando">
+          <div class="col-6">
+            <button href="#" class="btn btn-danger btn-block mt-3 mx-2" (click)="editando=false">
               <i class="fas fa-times-circle"></i> Cancelar
             </button>
           </div>
           <div class="col-6">
-            <button *ngIf="editando" href="#" class="btn btn-success btn-block mt-3 mx-2" (click)="guardarUsuario()">
+            <button href="#" class="btn btn-success btn-block mt-3 mx-2" (click)="guardarUsuario()">
               <i class="fas fa-save"></i> Guardar
             </button>
           </div>

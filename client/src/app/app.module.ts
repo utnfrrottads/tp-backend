@@ -21,6 +21,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { IndexComponent } from './components/index/index.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { CambiarClaveComponent } from './components/cambiar-clave/cambiar-clave.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     SigninComponent,
     SignupComponent,
     IndexComponent,
-    PerfilComponent
+    PerfilComponent,
+    CambiarClaveComponent
   ],
   imports: [
     BrowserModule,
