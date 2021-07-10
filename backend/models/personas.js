@@ -28,11 +28,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     tipo_persona: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.ENUM('candidato','evaluador'),
       allowNull: false
     },
     // activo: {                      // Poner en el caso que hagamos una baja lógica
     //   type: DataTypes.INTEGER,
+    //   defaultaaValue: 1,
     //   allowNull: false
     // },
     direcciones_id_direccion: {

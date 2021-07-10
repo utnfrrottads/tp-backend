@@ -11,10 +11,9 @@ router.get('/', (req, res) => {
 // Rutas del evaluador
 
 router.post('/addEvaluator', evaluatorPersonController.createEvaluator); // Crea un nuevo evaluador.
-
-router.get('/evaluators', evaluatorPersonController.getAllEvaluators);  // Muestra todos los evaluadores.
-
-
+router.put('/updateEvaluator/:id_persona', evaluatorPersonController.updateEvaluator); // Modifica los datos de un evaluador.
+router.delete('/deleteEvaluator/:id_persona', evaluatorPersonController.deleteEvaluator); // Elimina un evaluador.
+router.get('/allContacts/:id_persona', evaluatorPersonController.getAllContacts); // Elimina un evaluador.
 
 
 

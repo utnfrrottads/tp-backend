@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     valor: {
-      type: DataTypes.STRING(127),
+      type: DataTypes.STRING(128),
       allowNull: true
     },
     personas_id_persona: {

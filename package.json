@@ -14,9 +14,10 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.2",
-    "sequelize-auto": "^0.8.3"
+    "sequelize-auto": "^0.8.3",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.12"
   }
 }

@@ -19,16 +19,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(64),
       allowNull: true
     },
-    nombre: {
-      type: DataTypes.STRING(128),
-      allowNull: true
-    },
     calle: {
       type: DataTypes.STRING(128),
       allowNull: true
     },
     numero: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     departamento: {
@@ -36,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     piso: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
