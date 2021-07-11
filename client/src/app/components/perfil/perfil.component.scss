@@ -43,3 +43,23 @@
   padding-left: 8%;
   padding-right: 8%;
 }
+
+.col-btn {
+  margin: 2%;
+}
+
+.col-btn-editando {
+  margin: 2%;
+}
+
+@media (min-width: 768px) {
+  .col-btn {
+    margin: 0;
+  }
+}
+
+@media (min-width: 576px) {
+  .col-btn-editando {
+    margin: 0;
+  }
+}

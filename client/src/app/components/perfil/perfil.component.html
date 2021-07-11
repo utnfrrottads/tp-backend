@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center animate__animated animate__pulse animate__fast">
   <div class="w-100 profile-container">
-    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4 data-box">
+    <div class="col-sm-10 col-md-8 col-lg-7 col-xl-5 data-box">
       <div class="profile-img" *ngIf="!editando">
         {{ usuario.nombreApellido![0] }}
       </div>
@@ -39,27 +39,27 @@
         </p>
       </div>
 
-      <div class="buttons">
+      <div class="buttons mt-3">
         <div class="row" *ngIf="!editando">
-          <div class="col-6">
-            <button href="#" class="btn btn-light btn-block mt-3" (click)="editando=true">
+          <div class="col-md-6 col-btn">
+            <button href="#" class="btn btn-light btn-block" (click)="editando=true">
               <i class="fas fa-edit"></i> Editar
             </button>
           </div>
-          <div class="col-6">
-            <button href="#" class="btn btn-light btn-block mt-3" data-toggle="modal" data-target="#cambiarClavePopup">
+          <div class="col-md-6 col-btn">
+            <button href="#" class="btn btn-light btn-block" data-toggle="modal" data-target="#cambiarClavePopup">
               <i class="fas fa-key"></i> Cambiar Clave
             </button>
           </div>
         </div>
         <div class="row" *ngIf="editando">
-          <div class="col-6">
-            <button href="#" class="btn btn-danger btn-block mt-3 mx-2" (click)="editando=false">
+          <div class="col-sm-6 col-btn-editando">
+            <button href="#" class="btn btn-danger btn-block" (click)="editando=false">
               <i class="fas fa-times-circle"></i> Cancelar
             </button>
           </div>
-          <div class="col-6">
-            <button href="#" class="btn btn-success btn-block mt-3 mx-2" (click)="abrirModalClave()">
+          <div class="col-sm-6 col-btn-editando">
+            <button href="#" class="btn btn-success btn-block" (click)="abrirModalClave()">
               <i class="fas fa-save"></i> Guardar
             </button>
           </div>
