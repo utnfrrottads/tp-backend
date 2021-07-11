@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 import { UserService } from '../../services/user.service';
 
@@ -32,6 +33,14 @@ export class CambiarClaveComponent implements OnInit {
         localStorage.setItem('token', res.data.cambiarClave.token);
 
         $("#btnCloseCambiarClavePopup").click();
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Clave actualizada correctamente",
+          showConfirmButton: true,
+          timer: 4000
+        })
       },
       (err: any) => {
         this.errorMessage = err.message;
