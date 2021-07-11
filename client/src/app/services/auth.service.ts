@@ -62,7 +62,7 @@ export class AuthService {
         email: usuario.email,
         habilidades: usuario.habilidades
       }
-    });
+    })
   }
 
   signIn(usuario: Usuario): any {
@@ -72,7 +72,7 @@ export class AuthService {
         nombreUsuario: usuario.nombreUsuario,
         clave: usuario.clave
       }
-    });
+    })
   }
 
   loggedIn(): boolean {
@@ -91,9 +91,10 @@ export class AuthService {
     localStorage.removeItem('usuario');
     localStorage.removeItem('nombreUsuario');
     localStorage.removeItem('token');
-    
+
     $(".navbar-collapse").removeClass("show");
 
     this.router.navigate(['/']);
   }
+
 }

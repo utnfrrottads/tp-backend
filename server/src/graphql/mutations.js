@@ -67,20 +67,57 @@ const updateUsuario = {
     if (!usuarioVerificado) {
       throw new Error('Acceso no autorizado');
     } else {
-      const { nombreUsuario, nombreApellido, email, habilidades } = args;
       const usuario = await Usuario.findById(idUsuario);
-      usuario.nombreUsuario = nombreUsuario;
-      usuario.nombreApellido = nombreApellido;
-      usuario.email = email;
-      usuario.habilidades = habilidades;
-      const usuarioGuardado = await usuario.save();
-      const token = createJwtToken(usuarioGuardado);
-      return {
-        usuario: usuarioGuardado,
-        token
-      };
+      if (!usuario) {
+        throw new Error('Acceso no autorizado');
+      } else {
+        const { nombreUsuario, nombreApellido, email, habilidades } = args;
+        usuario.nombreUsuario = nombreUsuario;
+        usuario.nombreApellido = nombreApellido;
+        usuario.email = email;
+        usuario.habilidades = habilidades;
+        const usuarioGuardado = await usuario.save();
+        const token = createJwtToken(usuarioGuardado);
+        return {
+          usuario: usuarioGuardado,
+          token
+        };
+      }
     }
   }
 }
 
-module.exports = { signUp, signIn, updateUsuario }
+const cambiarClave = {
+  type: LoginOutput,
+  description: 'Cambiar Clave',
+  args: {
+    claveActual: { type: GraphQLString },
+    claveNueva: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuarioVerificado, idUsuario }) {
+    if (!usuarioVerificado) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const usuario = await Usuario.findById(idUsuario).select('+clave');
+      if (!usuario) {
+        throw new Error('Acceso no autorizado');
+      } else {
+        const { claveActual, claveNueva } = args;
+        const claveValida = await matchPassword(claveActual, usuario.clave);
+        if (!claveValida) {
+          throw new Error('Clave actual incorrecta');
+        } else {
+          usuario.clave = await encryptPassword(claveNueva);
+          const usuarioGuardado = await usuario.save();
+          const token = createJwtToken(usuarioGuardado);
+          return {
+            usuario: usuarioGuardado,
+            token
+          }
+        }
+      }
+    }
+  }
+}
+
+module.exports = { signUp, signIn, updateUsuario, cambiarClave }

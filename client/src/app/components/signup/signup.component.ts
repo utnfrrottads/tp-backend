@@ -35,10 +35,8 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
 
-        $('#signUpPopup').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-        
+        $("#btnCloseSignUpPopup").click();
+
         $(".navbar-collapse").removeClass("show");
 
         this.router.navigate(['/perfil']);

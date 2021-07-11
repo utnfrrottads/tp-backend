@@ -26,6 +26,24 @@ const UPDATE = gql`
   }
 `;
 
+const CAMBIARCLAVE = gql`
+  mutation cambiarClave($claveActual: String!, $claveNueva: String!) {
+    cambiarClave(
+      claveActual: $claveActual,
+      claveNueva: $claveNueva
+    ){
+      usuario {
+        _id
+        nombreUsuario
+        nombreApellido 
+        email
+        habilidades
+      }
+      token
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,7 +64,17 @@ export class UserService {
         email: usuario.email,
         habilidades: usuario.habilidades
       }
-    });
+    })
+  }
+
+  cambiarClave(claveActual: String, claveNueva: String): any {
+    return this.apollo.mutate({
+      mutation: CAMBIARCLAVE,
+      variables: {
+        claveActual,
+        claveNueva
+      }
+    })
   }
 
   /* delete(): void {} */
