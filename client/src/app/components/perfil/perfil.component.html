@@ -59,12 +59,59 @@
             </button>
           </div>
           <div class="col-6">
-            <button href="#" class="btn btn-success btn-block mt-3 mx-2" (click)="guardarUsuario()">
+            <button href="#" class="btn btn-success btn-block mt-3 mx-2" (click)="abrirModalClave()">
               <i class="fas fa-save"></i> Guardar
             </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade background-popup-fade" id="ingresarClavePopup" aria-labelledby="Inicio Sesión" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Ingresar Clave
+              </h5>
+              <button type="button" id="btnCloseIngresarClavePopup" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <ng-container *ngIf="errorMessageClave">
+                  <div style="width: 100%; margin-bottom: 1%;">
+                      <div class="alert alert-danger alert-dismissible fade show"
+                          style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;"
+                          role="alert">
+                          {{ errorMessageClave }}
+                          <button (click)="errorMessageClave = ''" class="close btn btn-link" data-dismiss="alert"
+                              style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                  </div>
+              </ng-container>
+              <div class="card text-center animate__animated animate__flipInY animate__fast">
+                  <div class="card-body">
+                      <form>
+                          <div class="form-group">
+                              <label>Ingrese su clave para confirmar los cambios</label>
+                              <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave"
+                                  class="form-control" required>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                              <button class="btn btn-success btn-block" (click)="guardarUsuario()">
+                                Confirmar
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>

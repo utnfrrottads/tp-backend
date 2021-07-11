@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLInput, GraphQLInputObjectType, GraphQLObjectType, UserInputError } = require('graphql');
+const { GraphQLString } = require('graphql');
 const { LoginOutput } = require('./types');
 const { Usuario } = require('../models/index');
 const { createJwtToken } = require('../helpers/auth');
@@ -23,7 +23,7 @@ const signUp = {
     return {
       usuario: usuarioGuardado,
       token
-    };
+    }
   }
 }
 
@@ -59,6 +59,7 @@ const updateUsuario = {
   description: 'Update Usuario',
   args: {
     nombreUsuario: { type: GraphQLString },
+    clave: { type: GraphQLString },
     nombreApellido: { type: GraphQLString },
     email: { type: GraphQLString },
     habilidades: { type: GraphQLString }
@@ -67,21 +68,26 @@ const updateUsuario = {
     if (!usuarioVerificado) {
       throw new Error('Acceso no autorizado');
     } else {
-      const usuario = await Usuario.findById(idUsuario);
+      const usuario = await Usuario.findById(idUsuario).select('+clave');
       if (!usuario) {
         throw new Error('Acceso no autorizado');
       } else {
-        const { nombreUsuario, nombreApellido, email, habilidades } = args;
-        usuario.nombreUsuario = nombreUsuario;
-        usuario.nombreApellido = nombreApellido;
-        usuario.email = email;
-        usuario.habilidades = habilidades;
-        const usuarioGuardado = await usuario.save();
-        const token = createJwtToken(usuarioGuardado);
-        return {
-          usuario: usuarioGuardado,
-          token
-        };
+        const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
+        const claveValida = await matchPassword(clave, usuario.clave);
+        if (!claveValida) {
+          throw new Error('Clave incorrecta');
+        } else {
+          usuario.nombreUsuario = nombreUsuario;
+          usuario.nombreApellido = nombreApellido;
+          usuario.email = email;
+          usuario.habilidades = habilidades;
+          const usuarioGuardado = await usuario.save();
+          const token = createJwtToken(usuarioGuardado);
+          return {
+            usuario: usuarioGuardado,
+            token
+          }
+        }
       }
     }
   }

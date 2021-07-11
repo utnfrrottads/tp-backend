@@ -6,10 +6,11 @@ import gql from 'graphql-tag';
 
 import { Usuario } from '../models/Usuario';
 
-const UPDATE = gql`
-  mutation updateUsuario($nombreUsuario: String!, $nombreApellido: String!, $email: String!, $habilidades: String!) {
+const UPDATEUSUARIO = gql`
+  mutation updateUsuario($nombreUsuario: String!, $clave: String!, $nombreApellido: String!, $email: String!, $habilidades: String!) {
     updateUsuario(
       nombreUsuario: $nombreUsuario,
+      clave: $clave,
       nombreApellido: $nombreApellido,
       email: $email,
       habilidades: $habilidades
@@ -17,7 +18,7 @@ const UPDATE = gql`
       usuario {
         _id
         nombreUsuario
-        nombreApellido 
+        nombreApellido
         email
         habilidades
       }
@@ -55,11 +56,12 @@ export class UserService {
     return JSON.parse(localStorage.getItem('usuario') || '{}');
   }
 
-  update(usuario: Usuario): any {
+  updateUsuario(usuario: Usuario, clave: String): any {
     return this.apollo.mutate({
-      mutation: UPDATE,
+      mutation: UPDATEUSUARIO,
       variables: {
         nombreUsuario: usuario.nombreUsuario,
+        clave: clave,
         nombreApellido: usuario.nombreApellido,
         email: usuario.email,
         habilidades: usuario.habilidades
