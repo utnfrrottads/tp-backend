@@ -61,7 +61,7 @@ export class PerfilComponent implements OnInit {
         this.usuarioEditado.nombreApellido = res.data.updateUsuario.usuario.nombreApellido;
         this.usuarioEditado.email = res.data.updateUsuario.usuario.email;
         this.usuarioEditado.habilidades = res.data.updateUsuario.usuario.habilidades;
-
+        
         this.editando = false;
 
         $("#ingresarClavePopup").modal("hide");

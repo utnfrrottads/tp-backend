@@ -21,6 +21,7 @@ const UPDATEUSUARIO = gql`
         nombreApellido
         email
         habilidades
+        isAdministrador
       }
       token
     }
@@ -39,6 +40,7 @@ const CAMBIARCLAVE = gql`
         nombreApellido 
         email
         habilidades
+        isAdministrador
       }
       token
     }

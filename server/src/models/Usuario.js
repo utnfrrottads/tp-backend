@@ -20,7 +20,12 @@ const usuarioSchema = new Schema({
         required: true
     },
     habilidades: {
-        type: String
+        type: String,
+        require: true
+    },
+    isAdministrador: {
+        type: Boolean,
+        require: true
     },
     idNivel: {
         type: String,

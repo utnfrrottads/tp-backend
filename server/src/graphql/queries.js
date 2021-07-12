@@ -3,8 +3,8 @@ const { TypeUsuario } = require('./types');
 const { Usuario } = require('../models/index');
 
 const perfil = {
-    type: TypeUsuario,
     description: 'Profile',
+    type: TypeUsuario,
     resolve(parent, args, { usuarioVerificado, idUsuario }) {
         if (!usuarioVerificado) {
             throw new Error('Acceso no autorizado');

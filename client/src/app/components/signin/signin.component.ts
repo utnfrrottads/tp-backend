@@ -17,7 +17,6 @@ export class SigninComponent implements OnInit {
   errorMessage = '';
 
   usuario: Usuario = {
-    idUsuario: '',
     nombreUsuario: '',
     clave: ''
   };

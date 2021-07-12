@@ -15,7 +15,6 @@ declare var $: any;
 export class SignupComponent implements OnInit {
 
   usuario: Usuario = {
-    idUsuario: '',
     nombreUsuario: '',
     clave: '',
     nombreApellido: '',

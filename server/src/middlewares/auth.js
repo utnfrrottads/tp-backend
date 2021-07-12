@@ -4,23 +4,22 @@ const { Usuario } = require('../models/index');
 
 const authenticate = async (req, res, next) => {
     if (!req.headers.authorization) {
-        req.usuarioVerificado = false;
+        req.usuario = null;
     } else {
         const token = req.headers.authorization.split(" ")[1];
         if (!token) {
-            req.usuarioVerificado = false;
+            req.usuario = null;
         } else {
             try {
                 const payload = jwt.verify(token, TOKEN_SECRET);
-                const usuario = await Usuario.findById(payload._id);
+                const usuario = await Usuario.findById(payload._id).select('+clave');
                 if (usuario) {
-                    req.idUsuario = usuario._id;
-                    req.usuarioVerificado = true;
+                    req.usuario = usuario;
                 } else {
-                    req.usuarioVerificado = false;
+                    req.usuario = null;
                 }
             } catch (e) {
-                req.usuarioVerificado = false;
+                req.usuario = null;
             }
         }
     };
