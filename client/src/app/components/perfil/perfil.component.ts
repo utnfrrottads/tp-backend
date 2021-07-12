@@ -64,7 +64,9 @@ export class PerfilComponent implements OnInit {
 
         this.editando = false;
 
-        $('#btnCloseIngresarClavePopup').click();
+        $("#ingresarClavePopup").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
       },
       (err: any) => {
         this.errorMessageClave = err.message;

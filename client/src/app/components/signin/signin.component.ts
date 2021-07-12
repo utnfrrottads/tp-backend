@@ -36,7 +36,9 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signIn.token);
 
-        $("#btnCloseSignInPopup").click();
+        $("#signInPopup").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
 
         $(".navbar-collapse").removeClass("show");
 

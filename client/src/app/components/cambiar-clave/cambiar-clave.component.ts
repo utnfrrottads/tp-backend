@@ -32,7 +32,9 @@ export class CambiarClaveComponent implements OnInit {
         localStorage.setItem('nombreUsuario', res.data.cambiarClave.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.cambiarClave.token);
 
-        $("#btnCloseCambiarClavePopup").click();
+        $("#cambiarClavePopup").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
 
         Swal.fire({
           position: "center",
