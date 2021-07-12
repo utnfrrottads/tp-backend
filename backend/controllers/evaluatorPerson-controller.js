@@ -35,20 +35,19 @@ evaluatorPersonController.createEvaluator = async ( req, res ) => {
             piso: req.body.address.floor
         }, { transaction: transaction });
 
-        let newEvaluator = {};
-        if ( validator.isDate(req.body.date_of_birth) ) { // Valida que la fecha sea del formato correcto
-            newEvaluator = await Person.create({
-                nombre: req.body.name,
-                apellido: req.body.surname,
-                fecha_nacimiento: req.body.date_of_birth,
-                sexo: req.body.gender,
-                documento: req.body.dni,
-                tipo_persona: req.body.kind_of_person,
-                direcciones_id_direccion: newAddress.id_direccion // Lo trae de la dirección previamente creado
-            }, { transaction: transaction });
-        } else {
+        if ( !validator.isDate(req.body.date_of_birth) ) { // Si la fecha no es del formato correcto
             throw new Error('check date_of_birth field');
         }
+
+        const newEvaluator = await Person.create({
+            nombre: req.body.name,
+            apellido: req.body.surname,
+            fecha_nacimiento: req.body.date_of_birth,
+            sexo: req.body.gender,
+            documento: req.body.dni,
+            tipo_persona: req.body.kind_of_person,
+            direcciones_id_direccion: newAddress.id_direccion // Lo trae de la dirección previamente creado
+        }, { transaction: transaction });
 
         // Esta funcion sirve para que cree todos los contactos y cuando termina haga el commit
         await asyncForEach( req.body.contacts, async (contact) => {
@@ -68,7 +67,7 @@ evaluatorPersonController.createEvaluator = async ( req, res ) => {
         });
 
         await transaction.commit();
-        res.status(200).json( 'Evaluator created successfully' );
+        res.status(200).json('Evaluator created successfully');
 
     } catch ( error ) {
         await transaction.rollback();
@@ -84,7 +83,7 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
 
     try {
         if ( !req.params.id_persona ) { // Si no existe el parámetro entonces lanza un error que lo toma el catch
-            throw new Error();
+            throw new Error('Param is missing');
         }
 
         const addressToDelete = await Person.findOne({
@@ -93,6 +92,10 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
                 id_persona: req.params.id_persona
             }
         });
+
+        if ( !addressToDelete ) { // Si la direccion a eliminar no existe
+            throw new Error('There is no evaluator with that id');
+        }
 
         await Person.destroy({
             where: {
@@ -113,11 +116,11 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
         }, { transaction: transaction });
 
         await transaction.commit();
-        res.status(200).json( 'Evaluator deleted successfully' );
+        res.status(200).json('Evaluator deleted successfully');
 
     } catch ( error ) {
         await transaction.rollback();
-        res.status(400).json( error );
+        res.status(400).json( error.message );
     };
 };
 
@@ -136,91 +139,71 @@ evaluatorPersonController.updateEvaluator = async ( req, res ) => {
         const evaluator = await Person.findByPk( req.params.id_persona );
 
         if ( !evaluator ) { // Si no existe un evaluador con ese id
-            res.send( 'Evaluator not found' );
-        } else {
-
-            if ( validator.isDate(req.body.date_of_birth) ) { // Valida que la fecha sea del formato correcto
-                await Person.update({
-                    nombre: req.body.name,
-                    apellido: req.body.surname,
-                    fecha_nacimiento: req.body.date_of_birth,
-                    sexo: req.body.gender,
-                    documento: req.body.dni,
-                    tipo_persona: req.body.kind_of_person,
-                },
-                {
-                    where: {
-                        id_persona: req.params.id_persona
-                    }
-                }, { transaction: transaction });
-            } else {
-                throw new Error('check date_of_birth field');
-            }
-    
-            await Address.update({
-                ciudades_id_ciudad: req.body.address.id_city,
-                codigo_postal: req.body.address.postal_code,
-                calle: req.body.address.street,
-                numero: req.body.address.street_number,
-                departamento: req.body.address.departament,
-                piso: req.body.address.floor
-            },
-            {
-                where: {
-                    id_direccion: evaluator.direcciones_id_direccion
-                }
-            }, { transaction: transaction });
-    
-            await Contact.destroy({
-                where: {
-                    personas_id_persona: req.params.id_persona 
-                }
-            }, { transaction: transaction });
-    
-            // Esta funcion sirve para que cree todos los contactos y cuando termina haga el commit
-            await asyncForEach( req.body.contacts, async (contact) => {
-                if ( (contact.contact_type === 'email' && validator.isEmail(contact.value)) ||
-                     (contact.contact_type === 'web' && validator.isURL(contact.value)) ||
-                     (contact.contact_type === 'telefono' && validator.isNumeric(contact.value)) ) {
-                        
-                        await Contact.create({
-                            tipoContacto: contact.contact_type,
-                            valor: contact.value,
-                            personas_id_persona: req.params.id_persona,
-                            descripcion: contact.contact_description
-                        }, { transaction: transaction });
-                } else {
-                    throw new Error('check contact_type or value field');
-                }
-            });
-            await transaction.commit();
-            res.status(200).json( 'Evaluator updated successfully' );
+            throw new Error ('Evaluator not found');
         }
+
+        if ( !validator.isDate(req.body.date_of_birth) ) { // Si la fecha no es del formato correcto
+            throw new Error('check date_of_birth field');
+        }
+
+        await Person.update({
+            nombre: req.body.name,
+            apellido: req.body.surname,
+            fecha_nacimiento: req.body.date_of_birth,
+            sexo: req.body.gender,
+            documento: req.body.dni,
+            tipo_persona: req.body.kind_of_person,
+        },
+        {
+            where: {
+                id_persona: req.params.id_persona
+            }
+        }, { transaction: transaction });
+    
+        await Address.update({
+            ciudades_id_ciudad: req.body.address.id_city,
+            codigo_postal: req.body.address.postal_code,
+            calle: req.body.address.street,
+            numero: req.body.address.street_number,
+            departamento: req.body.address.departament,
+            piso: req.body.address.floor
+        },
+        {
+            where: {
+                id_direccion: evaluator.direcciones_id_direccion
+            }
+        }, { transaction: transaction });
+
+        await Contact.destroy({
+            where: {
+                personas_id_persona: req.params.id_persona 
+            }
+        }, { transaction: transaction });
+
+        // Esta funcion sirve para que cree todos los contactos y cuando termina haga el commit
+        await asyncForEach( req.body.contacts, async (contact) => {
+            if ( (contact.contact_type === 'email' && validator.isEmail(contact.value)) ||
+                    (contact.contact_type === 'web' && validator.isURL(contact.value)) ||
+                    (contact.contact_type === 'telefono' && validator.isNumeric(contact.value)) ) {
+                    
+                    await Contact.create({
+                        tipoContacto: contact.contact_type,
+                        valor: contact.value,
+                        personas_id_persona: req.params.id_persona,
+                        descripcion: contact.contact_description
+                    }, { transaction: transaction });
+            } else {
+                throw new Error('check contact_type or value field');
+            }
+        });
+
+        await transaction.commit();
+        res.status(200).json('Evaluator updated successfully');
     
     } catch ( error ) {
         await transaction.rollback();
         res.status(400).json( error.message );
     }
 };
-
-
-evaluatorPersonController.getAllContacts = async (req,res) => {
-
-    try {
-        const personContacts = await Person.findAll({
-            include: {
-                all: true,
-                required: true
-            },
-            where: {
-                id_persona: req.params.id_persona
-            }
-        });
-        res.json(personContacts);
-    } catch (error) {
-        res.status(400).json( error );
-    }
-};
-
 
 module.exports = evaluatorPersonController;
