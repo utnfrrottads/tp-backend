@@ -2,8 +2,7 @@
 
 ## Pendiente
 
-- Hacer modelo de cliente, pedido ,ventas y (pedidoProductos).
-- Realizar asociaciones necesarias con GET, POST, etc.
+- Probar las asociaciones necesarias con GET, POST, etc. donde sea necesario
 
 
 ## Datos importantes
