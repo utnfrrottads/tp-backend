@@ -85,6 +85,18 @@ export class AuthService {
     }
   }
 
+  isAdmin(): boolean {
+    if (localStorage.getItem('usuario') && localStorage.getItem('nombreUsuario') && localStorage.getItem('token')) {
+      if (JSON.parse(localStorage.getItem('usuario') || '{}').isAdministrador) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   getToken(): any {
     return localStorage.getItem('token');
   }

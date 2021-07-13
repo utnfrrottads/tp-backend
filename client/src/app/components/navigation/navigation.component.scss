@@ -7,3 +7,11 @@
 .cerrar-sesion {
   color: red;
 }
+
+.active-link {
+  box-shadow: 0.1px 0.1px 4px rgb(43, 43, 43), -0.1px -0.1px 4px rgb(43, 43, 43);
+}
+
+.active-link a {
+  color: rgb(255, 255, 255);
+}
