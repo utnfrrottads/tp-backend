@@ -6,7 +6,10 @@ module.exports = app =>{
     app.route('/productos')
         .get((req,res)=>{
             Productos.findAll({})
-            .then(result => res.json(result))
+            .then(result => {
+                console.log(Productos);
+                res.json(result)
+            })
             .catch(error =>{
                 res.status(412).json({msg: error.message});
             });

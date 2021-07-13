@@ -37,7 +37,7 @@ module.exports = (sequelize, DataType)=>{
         Productos.belongsTo(models.Categorias);
     
         //ASOCIACION CON PROVEEDORES
-        Productos.belongsToMany(models.Proveedores, { through: 'proveedorProductos' });
+        Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos });
     };
 
     return Productos;
