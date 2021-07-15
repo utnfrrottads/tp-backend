@@ -45,7 +45,7 @@ export class PerfilComponent implements OnInit {
         this.usuario.nombreApellido = res.data.updateUsuario.usuario.nombreApellido;
         this.usuario.email = res.data.updateUsuario.usuario.email;
         this.usuario.habilidades = res.data.updateUsuario.usuario.habilidades;
-        
+
         this.usuarioEditado.nombreUsuario = res.data.updateUsuario.usuario.nombreUsuario;
         this.usuarioEditado.nombreApellido = res.data.updateUsuario.usuario.nombreApellido;
         this.usuarioEditado.email = res.data.updateUsuario.usuario.email;

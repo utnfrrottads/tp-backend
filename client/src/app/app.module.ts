@@ -22,6 +22,9 @@ import { SignupComponent } from './components/signup/signup.component';
 import { IndexComponent } from './components/index/index.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/cambiar-clave/cambiar-clave.component';
+import { ServicesPanelComponent } from './components/services-panel/services-panel.component';
+import { ServicesSidebarComponent } from './components/services-sidebar/services-sidebar.component';
+import { ServiceCardComponent } from './components/service-card/service-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { CambiarClaveComponent } from './components/cambiar-clave/cambiar-clave.
     SignupComponent,
     IndexComponent,
     PerfilComponent,
-    CambiarClaveComponent
+    CambiarClaveComponent,
+    ServicesPanelComponent,
+    ServicesSidebarComponent,
+    ServiceCardComponent
   ],
   imports: [
     BrowserModule,
