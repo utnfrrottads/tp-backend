@@ -63,7 +63,12 @@ export class AppModule {
   ) {
     apollo.create({
       link: httpLink.create({ uri: environment.API_URL }) as any,
-      cache: new InMemoryCache() as any
+      cache: new InMemoryCache() as any,
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: 'cache-and-network',
+        },
+      },
     });
   }
 }

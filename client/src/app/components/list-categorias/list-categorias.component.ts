@@ -28,7 +28,7 @@ export class ListCategoriasComponent implements OnInit {
   }
 
   getCategorias() {
-    this.categoriaService.categorias().subscribe(
+    return this.categoriaService.categorias().subscribe(
       (res: any) => {
         this.categorias = res;
       },
