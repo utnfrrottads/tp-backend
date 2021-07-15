@@ -8,11 +8,11 @@ import { Categoria } from '../../models/Categoria';
 declare var $: any;
 
 @Component({
-  selector: 'app-categorias',
-  templateUrl: './categorias.component.html',
-  styleUrls: ['./categorias.component.scss']
+  selector: 'app-list-categorias',
+  templateUrl: './list-categorias.component.html',
+  styleUrls: ['./list-categorias.component.scss']
 })
-export class CategoriasComponent implements OnInit {
+export class ListCategoriasComponent implements OnInit {
 
   categoria: Categoria = {
     _id: '',
@@ -36,6 +36,10 @@ export class CategoriasComponent implements OnInit {
     )
   }
 
+  abrirModalAgregarCategoria() {
+    $("#updateCategoriaPopup").modal("show");
+  }
+
   abrirModalEliminarCategoria(categoria: Categoria) {
     Swal.fire({
       title: "Eliminar categoría",
@@ -53,9 +57,13 @@ export class CategoriasComponent implements OnInit {
     })
   }
 
+  abrirModalEditarCategoria(categoria: Categoria) {
+    return;
+  }
+
   eliminarCategoria(_id: String) {
     this.categoriaService.deleteCategoria(_id).subscribe(
-      (res: any) => {
+      () => {
         this.getCategorias();
       },
       (err: any) => console.log(err)

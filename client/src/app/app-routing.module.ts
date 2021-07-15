@@ -6,7 +6,7 @@ import { AdminGuard } from "./guards/admin.guard";
 
 import { IndexComponent } from "./components/index/index.component";
 import { PerfilComponent } from "./components/perfil/perfil.component";
-import { CategoriasComponent } from "./components/categorias/categorias.component";
+import { ListCategoriasComponent } from "./components/list-categorias/list-categorias.component";
 
 const routes: Routes = [
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'categorias',
-    component: CategoriasComponent,
+    component: ListCategoriasComponent,
     canActivate: [AdminGuard]
   }
 ];

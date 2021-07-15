@@ -44,7 +44,7 @@ const DELETECATEGORIA = gql`
 
 const UPDATECATEGORIA = gql`
   mutation updateCategoria($_id: String!, $descripcion: String!) {
-    updateCategoria(_id: $_id, $descripcion: String!) {
+    updateCategoria(_id: $_id, descripcion: $descripcion) {
       _id
       descripcion
     }

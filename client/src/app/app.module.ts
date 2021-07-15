@@ -22,7 +22,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { IndexComponent } from './components/index/index.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/cambiar-clave/cambiar-clave.component';
-import { CategoriasComponent } from './components/categorias/categorias.component';
+import { ListCategoriasComponent } from './components/list-categorias/list-categorias.component';
+import { UpdateCategoriaComponent } from './components/update-categoria/update-categoria.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
     IndexComponent,
     PerfilComponent,
     CambiarClaveComponent,
-    CategoriasComponent
+    ListCategoriasComponent,
+    UpdateCategoriaComponent
   ],
   imports: [
     BrowserModule,
