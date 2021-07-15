@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class ListCategoriasComponent implements OnInit {
 
+  editMode: Boolean = false;
   categoria: Categoria = {
     _id: '',
     descripcion: ''
@@ -28,7 +29,7 @@ export class ListCategoriasComponent implements OnInit {
   }
 
   getCategorias() {
-    return this.categoriaService.categorias().subscribe(
+    this.categoriaService.categorias().subscribe(
       (res: any) => {
         this.categorias = res;
       },
@@ -37,6 +38,11 @@ export class ListCategoriasComponent implements OnInit {
   }
 
   abrirModalAgregarCategoria() {
+    this.editMode = false;
+    this.categoria = {
+      _id: '',
+      descripcion: ''
+    }
     $("#updateCategoriaPopup").modal("show");
   }
 
@@ -58,7 +64,9 @@ export class ListCategoriasComponent implements OnInit {
   }
 
   abrirModalEditarCategoria(categoria: Categoria) {
-    return;
+    this.editMode = true;
+    this.categoria = categoria;
+    $("#updateCategoriaPopup").modal("show");
   }
 
   eliminarCategoria(_id: String) {
