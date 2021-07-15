@@ -15,7 +15,7 @@ module.exports = (sequelize, DataType) =>{
 
     Pedidos.associate = (models)=>{
         //ASOCIACION CON CLIENTES
-        Pedidos.belongsTo(models.Clientes);
+        Pedidos.belongsTo(models.Clientes); //FK: ClienteDni
 
          //ASOCIACION CON PRODUCTOS
          Pedidos.belongsToMany(models.Productos, { through: models.Solicitudes });
