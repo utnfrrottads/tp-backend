@@ -80,6 +80,6 @@ export class UserService {
     })
   }
 
-  /* delete(): void {} */
+  /* deleteUsuario(): void {} */
 
 }
