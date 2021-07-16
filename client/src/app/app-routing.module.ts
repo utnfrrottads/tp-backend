@@ -6,6 +6,7 @@ import { AdminGuard } from "./guards/admin.guard";
 
 import { IndexComponent } from "./components/index/index.component";
 import { PerfilComponent } from "./components/usuario/perfil/perfil.component";
+import { ListNivelesComponent } from "./components/nivel/list-niveles/list-niveles.component";
 import { ListCategoriasComponent } from "./components/categoria/list-categorias/list-categorias.component";
 
 const routes: Routes = [
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'perfil',
     component: PerfilComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'niveles',
+    component: ListNivelesComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'categorias',

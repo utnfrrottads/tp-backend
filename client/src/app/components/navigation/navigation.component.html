@@ -12,6 +12,11 @@
             </li>
             <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
                 [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" href="#" routerLink="/niveles" (click)="cerrarNavMobile()"><i
+                        class="fas fa-list-ol mr-1"></i>Niveles</a>
+            </li>
+            <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" href="#" routerLink="/categorias" (click)="cerrarNavMobile()"><i
                         class="fas fa-clipboard-list mr-1"></i>Categorías</a>
             </li>

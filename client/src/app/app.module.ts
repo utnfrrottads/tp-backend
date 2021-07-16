@@ -24,6 +24,8 @@ import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambiar-clave.component';
 import { ListCategoriasComponent } from './components/categoria/list-categorias/list-categorias.component';
 import { UpdateCategoriaComponent } from './components/categoria/update-categoria/update-categoria.component';
+import { ListNivelesComponent } from './components/nivel/list-niveles/list-niveles.component';
+import { AddNivelComponent } from './components/nivel/add-nivel/add-nivel.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { UpdateCategoriaComponent } from './components/categoria/update-categori
     PerfilComponent,
     CambiarClaveComponent,
     ListCategoriasComponent,
-    UpdateCategoriaComponent
+    UpdateCategoriaComponent,
+    ListNivelesComponent,
+    AddNivelComponent
   ],
   imports: [
     BrowserModule,
