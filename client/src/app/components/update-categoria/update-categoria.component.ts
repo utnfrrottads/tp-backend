@@ -1,4 +1,4 @@
-import { Component, OnInit, Input  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
 
 import { CategoriaService } from '../../services/categoria.service';
 
@@ -12,6 +12,8 @@ declare var $: any;
   styleUrls: ['./update-categoria.component.scss']
 })
 export class UpdateCategoriaComponent implements OnInit {
+
+  @Output() getCategorias = new EventEmitter();
 
   @Input() editMode: Boolean = false;
   @Input() categoria: Categoria = {
@@ -37,6 +39,7 @@ export class UpdateCategoriaComponent implements OnInit {
   agregarCategoria(categoria: Categoria) {
     this.categoriaService.addCategoria(categoria).subscribe(
       () => {
+        this.getCategorias.emit();
         $("#updateCategoriaPopup").modal("hide");
       },
       (err: any) => console.log(err)
@@ -46,6 +49,7 @@ export class UpdateCategoriaComponent implements OnInit {
   editarCategoria(categoria: Categoria) {
     this.categoriaService.updateCategoria(categoria).subscribe(
       () => {
+        this.getCategorias.emit();
         $("#updateCategoriaPopup").modal("hide");
       },
       (err: any) => console.log(err)
