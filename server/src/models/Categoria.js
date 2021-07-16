@@ -4,7 +4,9 @@ const categoriaSchema = new Schema({
     descripcion: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
+        maxLength: 25
     }
 }, { timestamps: false });
 

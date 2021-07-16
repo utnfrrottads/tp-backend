@@ -7,7 +7,8 @@ const contratoSchema = new Schema({
         default: Date.now
     },
     fechaCancelacion: {
-        type: Date
+        type: Date,
+        default: null
     },
     idServicio: {
         type: String,

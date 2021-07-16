@@ -17,7 +17,7 @@ const signUp = {
   async resolve(parent, args) {
     const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
     const claveEncriptada = await encryptPassword(clave);
-    const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades, isAdministrador: false });
+    const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades });
     const usuarioGuardado = await usuario.save();
     const token = createJwtToken(usuarioGuardado);
     return {

@@ -4,7 +4,8 @@ const nivelSchema = new Schema({
     contratosMinimos: {
         type: Number,
         required: true,
-        unique: true
+        unique: true,
+        min: 0
     }
 }, { timestamps: false });
 

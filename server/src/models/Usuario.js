@@ -4,7 +4,9 @@ const usuarioSchema = new Schema({
     nombreUsuario: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        minLength: 6,
+        maxLength: 30
     },
     clave: {
         type: String,
@@ -13,19 +15,24 @@ const usuarioSchema = new Schema({
     },
     nombreApellido: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 50
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 50
     },
     habilidades: {
         type: String,
-        require: true
+        require: true,
+        trim: true,
+        maxLength: 300
     },
     isAdministrador: {
         type: Boolean,
-        require: true
+        require: true,
+        default: false
     },
     idNivel: {
         type: String,

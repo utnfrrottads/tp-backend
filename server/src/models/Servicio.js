@@ -4,16 +4,20 @@ const servicioSchema = new Schema({
     descripcion: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
+        maxLength: 300
     },
     precio: {
         valor: {
             type: Number,
-            required: true
+            required: true,
+            min: 0
         },
         moneda: {
             type: String,
-            required: true
+            required: true,
+            maxLength: 10
         }
     },
     idCategoria: {
