@@ -20,7 +20,8 @@ export class UpdateCategoriaComponent implements OnInit {
     _id: '',
     descripcion: ''
   };
-
+  @Input() categoriaEditando: String = '';
+  
   errorMessage = '';
 
   constructor(private categoriaService: CategoriaService) { }

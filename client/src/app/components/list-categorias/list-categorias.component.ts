@@ -19,6 +19,7 @@ export class ListCategoriasComponent implements OnInit {
     _id: '',
     descripcion: ''
   };
+  categoriaEditando: String = '';
 
   categorias: Categoria[] = [];
 
@@ -42,7 +43,8 @@ export class ListCategoriasComponent implements OnInit {
     this.categoria = {
       _id: '',
       descripcion: ''
-    }
+    };
+    this.categoriaEditando = '';
     $("#updateCategoriaPopup").modal("show");
   }
 
@@ -65,7 +67,11 @@ export class ListCategoriasComponent implements OnInit {
 
   abrirModalEditarCategoria(categoria: Categoria) {
     this.editMode = true;
-    this.categoria = categoria;
+    this.categoria = {
+      _id: categoria._id,
+      descripcion: categoria.descripcion
+    };
+    this.categoriaEditando = categoria.descripcion || '';
     $("#updateCategoriaPopup").modal("show");
   }
 
