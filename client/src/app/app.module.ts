@@ -17,13 +17,13 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { SigninComponent } from './components/login/signin/signin.component';
+import { SignupComponent } from './components/login/signup/signup.component';
 import { IndexComponent } from './components/index/index.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { CambiarClaveComponent } from './components/cambiar-clave/cambiar-clave.component';
-import { ListCategoriasComponent } from './components/list-categorias/list-categorias.component';
-import { UpdateCategoriaComponent } from './components/update-categoria/update-categoria.component';
+import { PerfilComponent } from './components/usuario/perfil/perfil.component';
+import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambiar-clave.component';
+import { ListCategoriasComponent } from './components/categoria/list-categorias/list-categorias.component';
+import { UpdateCategoriaComponent } from './components/categoria/update-categoria/update-categoria.component';
 
 @NgModule({
   declarations: [

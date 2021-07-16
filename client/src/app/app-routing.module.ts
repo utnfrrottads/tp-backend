@@ -5,8 +5,8 @@ import { AuthGuard } from "./guards/auth.guard";
 import { AdminGuard } from "./guards/admin.guard";
 
 import { IndexComponent } from "./components/index/index.component";
-import { PerfilComponent } from "./components/perfil/perfil.component";
-import { ListCategoriasComponent } from "./components/list-categorias/list-categorias.component";
+import { PerfilComponent } from "./components/usuario/perfil/perfil.component";
+import { ListCategoriasComponent } from "./components/categoria/list-categorias/list-categorias.component";
 
 const routes: Routes = [
   {

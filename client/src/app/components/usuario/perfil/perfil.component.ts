@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 
-import { Usuario } from '../../models/Usuario';
+import { Usuario } from '../../../models/Usuario';
 
 declare var $: any;
 

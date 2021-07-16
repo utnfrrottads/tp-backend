@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 
 declare var $: any;
 

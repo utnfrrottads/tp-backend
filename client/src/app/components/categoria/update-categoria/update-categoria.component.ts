@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
 
-import { CategoriaService } from '../../services/categoria.service';
+import { CategoriaService } from '../../../services/categoria.service';
 
-import { Categoria } from '../../models/Categoria';
+import { Categoria } from '../../../models/Categoria';
 
 declare var $: any;
 

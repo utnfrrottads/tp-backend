@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
-import { CategoriaService } from '../../services/categoria.service';
+import { CategoriaService } from '../../../services/categoria.service';
 
-import { Categoria } from '../../models/Categoria';
+import { Categoria } from '../../../models/Categoria';
 
 declare var $: any;
 
