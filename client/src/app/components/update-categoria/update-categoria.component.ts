@@ -40,20 +40,26 @@ export class UpdateCategoriaComponent implements OnInit {
   agregarCategoria(categoria: Categoria) {
     this.categoriaService.addCategoria(categoria).subscribe(
       () => {
+        this.errorMessage = '';
         this.getCategorias.emit();
         $("#updateCategoriaPopup").modal("hide");
       },
-      (err: any) => console.log(err)
+      (err: any) => {
+        this.errorMessage = err.message;
+      }
     )
   }
 
   editarCategoria(categoria: Categoria) {
     this.categoriaService.updateCategoria(categoria).subscribe(
       () => {
+        this.errorMessage = '';
         this.getCategorias.emit();
         $("#updateCategoriaPopup").modal("hide");
       },
-      (err: any) => console.log(err)
+      (err: any) => {
+        this.errorMessage = err.message;
+      }
     )
   }
 

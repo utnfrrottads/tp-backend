@@ -14,6 +14,8 @@ declare var $: any;
 })
 export class SignupComponent implements OnInit {
 
+  errorMessage = '';
+
   usuario: Usuario = {
     nombreUsuario: '',
     clave: '',
@@ -30,6 +32,8 @@ export class SignupComponent implements OnInit {
   signUp(): void {
     this.authService.signUp(this.usuario).subscribe(
       (res: any) => {
+        this.errorMessage = '';
+
         localStorage.setItem('usuario', JSON.stringify(res.data.signUp.usuario));
         localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
@@ -42,7 +46,9 @@ export class SignupComponent implements OnInit {
 
         this.router.navigate(['/perfil']);
       },
-      (err: any) => console.log(err)
+      (err: any) => {
+        this.errorMessage = err.message;
+      }
     );
   }
 
