@@ -16,13 +16,27 @@ const signUp = {
   },
   async resolve(parent, args) {
     const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
-    const claveEncriptada = await encryptPassword(clave);
-    const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades });
-    const usuarioGuardado = await usuario.save();
-    const token = createJwtToken(usuarioGuardado);
-    return {
-      usuario: usuarioGuardado,
-      token
+    if (
+      nombreUsuario && nombreUsuario.length >= 6 && nombreUsuario.length <= 25 &&
+      clave && clave.length >= 8 && clave.length <= 50 &&
+      nombreApellido && trim(nombreApellido).length <= 50 &&
+      email && email.length <= 50 && /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) &&
+      (!habilidades || (habilidades && trim(habilidades).length <= 300))
+    ) {
+      if (!await Usuario.findOne({ nombreUsuario })) {
+        const claveEncriptada = await encryptPassword(clave);
+        const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades });
+        const usuarioGuardado = await usuario.save();
+        const token = createJwtToken(usuarioGuardado);
+        return {
+          usuario: usuarioGuardado,
+          token
+        }
+      } else {
+        throw new Error('El nombre de usuario ya se encuentra registrado');
+      }
+    } else {
+      throw new Error('Ingrese todos los datos requeridos en el formato correcto');
     }
   }
 }
@@ -73,15 +87,29 @@ const updateUsuario = {
       if (!claveValida) {
         throw new Error('Clave incorrecta');
       } else {
-        usuario.nombreUsuario = nombreUsuario;
-        usuario.nombreApellido = nombreApellido;
-        usuario.email = email;
-        usuario.habilidades = habilidades;
-        const usuarioGuardado = await usuario.save();
-        const token = createJwtToken(usuarioGuardado);
-        return {
-          usuario: usuarioGuardado,
-          token
+        if (
+          nombreUsuario && nombreUsuario.length >= 6 && nombreUsuario.length <= 25 &&
+          clave && clave.length >= 8 && clave.length <= 50 &&
+          nombreApellido && trim(nombreApellido).length <= 50 &&
+          email && email.length <= 50 && /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) &&
+          (!habilidades || (habilidades && trim(habilidades).length <= 300))
+        ) {
+          if (usuario.nombreApellido === nombreUsuario || !await Usuario.findOne({ nombreUsuario })) {
+            usuario.nombreUsuario = nombreUsuario;
+            usuario.nombreApellido = nombreApellido;
+            usuario.email = email;
+            usuario.habilidades = habilidades;
+            const usuarioGuardado = await usuario.save();
+            const token = createJwtToken(usuarioGuardado);
+            return {
+              usuario: usuarioGuardado,
+              token
+            }
+          } else {
+            throw new Error('El nombre de usuario ya se encuentra registrado');
+          }
+        } else {
+          throw new Error('Ingrese todos los datos requeridos en el formato correcto');
         }
       }
     }
@@ -104,12 +132,16 @@ const cambiarClave = {
       if (!claveValida) {
         throw new Error('Clave actual incorrecta');
       } else {
-        usuario.clave = await encryptPassword(claveNueva);
-        const usuarioGuardado = await usuario.save();
-        const token = createJwtToken(usuarioGuardado);
-        return {
-          usuario: usuarioGuardado,
-          token
+        if (claveNueva && claveNueva.length >= 8 && claveNueva.length <= 50) {
+          usuario.clave = await encryptPassword(claveNueva);
+          const usuarioGuardado = await usuario.save();
+          const token = createJwtToken(usuarioGuardado);
+          return {
+            usuario: usuarioGuardado,
+            token
+          }
+        } else {
+          throw new Error('Ingrese una clave nueva en el formato correcto');
         }
       }
     }
@@ -127,8 +159,16 @@ const addCategoria = {
       throw new Error('Acceso no autorizado');
     } else {
       const { descripcion } = args;
-      const categoria = new Categoria({ descripcion });
-      return await categoria.save();
+      if (descripcion && trim(descripcion).length < 30) {
+        if (!await Categoria.findOne({ descripcion: { $regex: trim(descripcion), $options: 'i' } })) {
+          const categoria = new Categoria({ descripcion });
+          return await categoria.save();
+        } else {
+          throw new Error('La categoría ingresada ya se encuentra registrada');
+        }
+      } else {
+        throw new Error('Ingrese una categoría en el formato correcto');
+      }
     }
   }
 }
@@ -162,8 +202,20 @@ const updateCategoria = {
     } else {
       const { _id, descripcion } = args;
       const categoria = await Categoria.findById(_id);
-      categoria.descripcion = descripcion;
-      return categoria.save();
+      if (categoria) {
+        if (descripcion && trim(descripcion).length < 30) {
+          if (descripcion === categoria.descripcion || !await Categoria.findOne({ descripcion: { $regex: trim(descripcion), $options: 'i' } })) {
+            categoria.descripcion = descripcion;
+            return categoria.save();
+          } else {
+            throw new Error('La categoría ingresada ya se encuentra registrada');
+          }
+        } else {
+          throw new Error('Ingrese una categoría en el formato correcto');
+        }
+      } else {
+        throw new Error('La categoría que desea actualizar no existe');
+      }
     }
   }
 }

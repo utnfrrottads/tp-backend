@@ -18,6 +18,6 @@ const contratoSchema = new Schema({
         type: String,
         required: true
     }
-}, { timestamps: false });
+}, { collection: 'contratos', timestamps: false });
 
 module.exports = model('Contrato', contratoSchema);

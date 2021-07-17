@@ -28,6 +28,6 @@ const servicioSchema = new Schema({
         type: String,
         required: true
     }
-}, { timestamps: false });
+}, { collection: 'servicios', timestamps: false });
 
 module.exports = model('Servicio', servicioSchema);
