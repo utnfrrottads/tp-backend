@@ -35,15 +35,15 @@
                 </ng-container>
                 <div class="card text-center animate__animated animate__flipInY animate__fast">
                     <div class="card-body">
-                        <form>
+                        <form ngNoForm (submit)="guardar($event)">
                             <div class="form-group">
                                 <label>Categoría</label>
-                                <input type="text" name="descripcion" [(ngModel)]="categoria.descripcion" placeholder="Tecnología"
-                                    class="form-control" required autofocus>
+                                <input type="text" name="descripcion" [(ngModel)]="categoria.descripcion"
+                                    placeholder="Tecnología" class="form-control" maxlength="30" required autofocus>
                             </div>
                             <br>
                             <div class="form-group">
-                                <button class="btn btn-success btn-block" (click)="guardar()">
+                                <button type="submit" class="btn btn-success btn-block">
                                     <i class="fas fa-save"></i>&nbsp;Guardar
                                 </button>
                             </div>

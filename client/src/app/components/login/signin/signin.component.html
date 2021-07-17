@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <img [src]="'/assets/logo.png'" alt="Logo SignIn"
                             class="card-img-top mx-auto m-3 rounded-circle w-25">
-                        <form>
+                        <form ngNoForm (submit)="signIn($event)">
                             <div class="form-group">
                                 <label>Nombre Usuario</label>
                                 <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
@@ -41,7 +41,7 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <button class="btn btn-success btn-block" (click)="signIn()">
+                                <button type="submit" class="btn btn-success btn-block">
                                     Iniciar Sesión
                                 </button>
                             </div>

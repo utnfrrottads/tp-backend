@@ -38,11 +38,13 @@ export class PerfilComponent implements OnInit {
     this.usuarioEditado = this.userService.getUsuario();
   }
 
-  abrirModalClave() {
+  abrirModalClave(event: any) {
+    event.preventDefault();
     $('#ingresarClavePopup').modal('show');
   }
 
-  guardarUsuario() {
+  guardarUsuario(event: any) {
+    event.preventDefault();
     this.userService.updateUsuario(this.usuarioEditado, this.usuario.clave || '').subscribe(
       (res: any) => {
         this.errorMessageClave = '';

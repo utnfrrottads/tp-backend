@@ -29,7 +29,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signUp(): void {
+  signUp(event: any): void {
+    event.preventDefault();
     this.authService.signUp(this.usuario).subscribe(
       (res: any) => {
         this.errorMessage = '';

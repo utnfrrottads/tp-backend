@@ -26,22 +26,22 @@
                 </ng-container>
                 <div class="card text-center animate__animated animate__flipInY animate__fast">
                     <div class="card-body">
-                        <form>
+                        <form ngNoForm (submit)="cambiarClave($event)">
                             <div class="form-group">
                                 <label>Clave Nueva</label>
                                 <input type="password" name="claveNueva" [(ngModel)]="claveNueva"
-                                    placeholder="Mínimo de 8 caracteres" class="form-control" minlength="8" required
-                                    autofocus>
+                                    placeholder="Mínimo de 8 caracteres" class="form-control" minlength="8"
+                                    maxlength="50" required autofocus>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label>Clave Actual</label>
                                 <input type="password" name="claveActual" [(ngModel)]="claveActual"
-                                    placeholder="Clave Actual" class="form-control" minlength="8" required>
+                                    placeholder="Clave Actual" class="form-control">
                             </div>
                             <br>
                             <div class="form-group">
-                                <button class="btn btn-success btn-block" (click)="cambiarClave()">
+                                <button type="submit" class="btn btn-success btn-block">
                                     <i class="fas fa-save"></i>&nbsp;Guardar
                                 </button>
                             </div>

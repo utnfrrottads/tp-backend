@@ -29,7 +29,8 @@ export class UpdateCategoriaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  guardar() {
+  guardar(event: any) {
+    event.preventDefault();
     if (this.editMode) {
       this.editarCategoria(this.categoria);
     } else {

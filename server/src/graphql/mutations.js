@@ -19,9 +19,9 @@ const signUp = {
     if (
       nombreUsuario && nombreUsuario.length >= 6 && nombreUsuario.length <= 25 &&
       clave && clave.length >= 8 && clave.length <= 50 &&
-      nombreApellido && trim(nombreApellido).length <= 50 &&
+      nombreApellido && nombreApellido.trim().length <= 50 &&
       email && email.length <= 50 && /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) &&
-      (!habilidades || (habilidades && trim(habilidades).length <= 300))
+      (!habilidades || (habilidades && habilidades.trim().length <= 300))
     ) {
       if (!await Usuario.findOne({ nombreUsuario })) {
         const claveEncriptada = await encryptPassword(clave);
@@ -52,11 +52,11 @@ const signIn = {
     const { nombreUsuario, clave } = args;
     const usuario = await Usuario.findOne({ nombreUsuario }).select('+clave');
     if (!usuario) {
-      throw new Error('Nombre de usuario o clave incorrectos');
+      throw new Error('Nombre de usuario y/o clave incorrectos');
     } else {
       const claveValida = await matchPassword(clave, usuario.clave);
       if (!claveValida) {
-        throw new Error('Nombre de usuario o clave incorrectos');
+        throw new Error('Nombre de usuario y/o clave incorrectos');
       } else {
         const token = createJwtToken(usuario);
         return {
@@ -90,9 +90,9 @@ const updateUsuario = {
         if (
           nombreUsuario && nombreUsuario.length >= 6 && nombreUsuario.length <= 25 &&
           clave && clave.length >= 8 && clave.length <= 50 &&
-          nombreApellido && trim(nombreApellido).length <= 50 &&
+          nombreApellido && nombreApellido.trim().length <= 50 &&
           email && email.length <= 50 && /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) &&
-          (!habilidades || (habilidades && trim(habilidades).length <= 300))
+          (!habilidades || (habilidades && habilidades.trim().length <= 300))
         ) {
           if (usuario.nombreApellido === nombreUsuario || !await Usuario.findOne({ nombreUsuario })) {
             usuario.nombreUsuario = nombreUsuario;
@@ -159,8 +159,8 @@ const addCategoria = {
       throw new Error('Acceso no autorizado');
     } else {
       const { descripcion } = args;
-      if (descripcion && trim(descripcion).length < 30) {
-        if (!await Categoria.findOne({ descripcion: { $regex: trim(descripcion), $options: 'i' } })) {
+      if (descripcion && descripcion.trim().length < 30) {
+        if (!await Categoria.findOne({ descripcion: { $regex: descripcion.trim(), $options: 'i' } })) {
           const categoria = new Categoria({ descripcion });
           return await categoria.save();
         } else {
@@ -203,8 +203,8 @@ const updateCategoria = {
       const { _id, descripcion } = args;
       const categoria = await Categoria.findById(_id);
       if (categoria) {
-        if (descripcion && trim(descripcion).length < 30) {
-          if (descripcion === categoria.descripcion || !await Categoria.findOne({ descripcion: { $regex: trim(descripcion), $options: 'i' } })) {
+        if (descripcion && descripcion.trim().length < 30) {
+          if (descripcion === categoria.descripcion || !await Categoria.findOne({ descripcion: { $regex: descripcion.trim(), $options: 'i' } })) {
             categoria.descripcion = descripcion;
             return categoria.save();
           } else {

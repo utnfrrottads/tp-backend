@@ -26,7 +26,8 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signIn(): void {
+  signIn(event: any): void {
+    event.preventDefault();
     this.authService.signIn(this.usuario).subscribe(
       (res: any) => {
         this.errorMessage = '';

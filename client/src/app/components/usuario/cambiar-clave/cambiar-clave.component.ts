@@ -21,7 +21,8 @@ export class CambiarClaveComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cambiarClave(): void {
+  cambiarClave(event: any): void {
+    event.preventDefault();
     this.userService.cambiarClave(this.claveActual, this.claveNueva).subscribe(
       (res: any) => {
         this.errorMessage = '';
