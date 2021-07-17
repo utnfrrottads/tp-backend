@@ -3,12 +3,14 @@
 ## Pendiente
 
 - Ver porque la foranea del solicitudes no funciona como deberia (No me permite tener un pedido con varios producos ni viceversa)
+- Ver como implementarlo con postgress
 
 
 ## Datos importantes
 ### Antes de probarlo hacer
 
 - hacer `npm install` para que descargue lo necesario en node_module
+- para correr el servidor hay que escribir el comando: `npm run dev`
 
 
 ## Las herramientas que se usan son:
