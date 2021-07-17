@@ -2,7 +2,7 @@
 
 ## Pendiente
 
-- Probar las asociaciones necesarias con GET, POST, etc. donde sea necesario
+- Ver porque la foranea del solicitudes no funciona como deberia (No me permite tener un pedido con varios producos ni viceversa)
 
 
 ## Datos importantes

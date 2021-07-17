@@ -33,7 +33,7 @@ module.exports = (sequelize, DataType)=>{
     }
 
     Ventas.associate = (models)=>{
-        //ASOCIACION CON CATEGORIAS
+        //ASOCIACION CON SOLICITUDES
         Ventas.belongsTo(models.Solicitudes);
     
     };

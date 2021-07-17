@@ -3,7 +3,7 @@ module.exports = (sequelize, DataType)=>{
     const Solicitudes = sequelize.define('Solicitudes',{
         cantPedida:{
             type: DataType.INTEGER,
-            allowNull: false
+            allowNull: true
         }
     });
 
@@ -27,4 +27,4 @@ module.exports = (sequelize, DataType)=>{
 
 
     return Solicitudes;
-};
+}; 
