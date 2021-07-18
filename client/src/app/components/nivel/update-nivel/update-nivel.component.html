@@ -37,13 +37,25 @@
             <form ngNoForm (submit)="guardar($event)">
               <div class="form-group">
                 <label>Número Nivel</label>
-                <input type="number" name="nro" [(ngModel)]="nivel.nro" placeholder="Nro" class="form-control">
+                <input type="number" name="nro" [(ngModel)]="nivel.nro" placeholder="Nro" class="form-control" readonly>
               </div>
               <br>
               <div class="form-group">
                 <label>Contratos Mínimos</label>
                 <input type="number" name="contratosMinimos" [(ngModel)]="nivel.contratosMinimos"
-                  placeholder="Contratos Mínimos" class="form-control" required autofocus>
+                  placeholder="Contratos Mínimos" min="{{(nivelInferior.contratosMinimos || 0) + 1}}"
+                  class="form-control" required autofocus *ngIf="!editMode && editarContratosMinimos">
+                <input type="number" name="contratosMinimos" [(ngModel)]="nivel.contratosMinimos"
+                  placeholder="Contratos Mínimos" min="{{(nivelInferior.contratosMinimos || 0) + 1}}"
+                  max="{{(nivelSuperior.contratosMinimos || 0) + 1}}" class="form-control" required autofocus
+                  *ngIf="editMode && editarContratosMinimos">
+                <input type="number" name="contratosMinimos" [(ngModel)]="nivel.contratosMinimos"
+                  placeholder="Contratos Mínimos" min="{{(nivelInferior.contratosMinimos || 0) + 1}}"
+                  class="form-control" required autofocus readonly *ngIf="!editMode && !editarContratosMinimos">
+                <input type="number" name="contratosMinimos" [(ngModel)]="nivel.contratosMinimos"
+                  placeholder="Contratos Mínimos" min="{{(nivelInferior.contratosMinimos || 0) + 1}}"
+                  max="{{(nivelSuperior.contratosMinimos || 0) + 1}}" class="form-control" required autofocus readonly
+                  *ngIf="editMode && !editarContratosMinimos">
               </div>
               <br>
               <div class="form-group">

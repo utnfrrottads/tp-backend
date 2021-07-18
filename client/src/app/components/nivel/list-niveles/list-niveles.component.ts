@@ -15,12 +15,13 @@ declare var $: any;
 export class ListNivelesComponent implements OnInit {
 
   editMode: Boolean = false;
+  nivelEditando: Number = 0;
+  editarContratosMinimos: Boolean = true;
   nivel: Nivel = {
     _id: '',
     nro: 0,
     contratosMinimos: 0
   };
-  nivelEditando: Number = 0;
   nivelInferior: Nivel = {
     _id: '',
     nro: 0,
@@ -61,31 +62,46 @@ export class ListNivelesComponent implements OnInit {
     this.editMode = false;
     this.nivelEditando = 0;
 
-    let nroMax = 0;
-    let contratosMax = 0;
-    for (let i=0, len=this.niveles.length; i<len; i++) {
-      if (nroMax < (this.niveles[i].nro || 0)) {
-        nroMax = this.niveles[i].nro || 0;
-        contratosMax = this.niveles[i].contratosMinimos || 0;
+    if (this.niveles.length > 0) {
+      let nroMax = 0;
+      let contratosMax = 0;
+      for (let i = 0, len = this.niveles.length; i < len; i++) {
+        if (nroMax < (this.niveles[i].nro || 0)) {
+          nroMax = this.niveles[i].nro || 0;
+          contratosMax = this.niveles[i].contratosMinimos || 0;
+        }
+      }
+
+      this.editarContratosMinimos = true;
+      this.nivel = {
+        _id: '',
+        nro: nroMax + 1,
+        contratosMinimos: contratosMax + 1
+      };
+      this.nivelInferior = {
+        _id: '',
+        nro: nroMax,
+        contratosMinimos: contratosMax
+      };
+    } else {
+      this.editarContratosMinimos = false;
+      this.nivel = {
+        _id: '',
+        nro: 1,
+        contratosMinimos: 0
+      };
+      this.nivelInferior = {
+        _id: '',
+        nro: 0,
+        contratosMinimos: 0
       }
     }
-
-    this.nivel = {
-      _id: '',
-      nro: nroMax + 1,
-      contratosMinimos: contratosMax + 1
-    };
-    this.nivelInferior = {
-      _id: '',
-      nro: nroMax,
-      contratosMinimos: contratosMax
-    };
     this.nivelSuperior = {
       _id: '',
       nro: 0,
       contratosMinimos: 0
     };
-    $("#updateCategoriaPopup").modal("show");
+    $("#updateNivelPopup").modal("show");
   }
 
   abrirModalEliminarNivel(nivel: Nivel) {
@@ -108,6 +124,7 @@ export class ListNivelesComponent implements OnInit {
   abrirModalEditarNivel(nivel: Nivel) {
     this.editMode = true;
     this.nivelEditando = nivel.nro || 0;
+    this.editarContratosMinimos = true;
     this.nivel = {
       _id: nivel._id,
       nro: nivel.nro,
@@ -123,7 +140,7 @@ export class ListNivelesComponent implements OnInit {
       nro: (this.niveles[nivel.nro || 0]).nro,
       contratosMinimos: (this.niveles[nivel.nro || 0]).contratosMinimos
     };
-    $("#updateCategoriaPopup").modal("show");
+    $("#updateNivelPopup").modal("show");
   }
 
   eliminarNivel(_id: String) {

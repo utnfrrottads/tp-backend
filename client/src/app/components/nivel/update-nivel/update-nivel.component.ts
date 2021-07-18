@@ -17,6 +17,7 @@ export class UpdateNivelComponent implements OnInit {
 
   @Input() editMode: Boolean = false;
   @Input() nivelEditando: Number = 0;
+  @Input() editarContratosMinimos: Boolean = true;
   @Input() nivel: Nivel = {
     _id: '',
     nro: 0,
