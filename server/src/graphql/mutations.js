@@ -148,7 +148,7 @@ const cambiarClave = {
   }
 }
 
-const addNivel = {
+/*const addNivel = {
   description: 'Agregar Nivel',
   type: TypeNivel,
   args: {
@@ -172,7 +172,7 @@ const addNivel = {
       }
     }
   }
-}
+}*/
 
 const deleteNivel = {
   description: 'Eliminar Nivel',
@@ -190,7 +190,7 @@ const deleteNivel = {
   }
 }
 
-const updateNivel = {
+/*const updateNivel = {
   description: 'Actualizar Nivel',
   type: TypeNivel,
   args: {
@@ -220,7 +220,7 @@ const updateNivel = {
       }
     }
   }
-}
+}*/
 
 const addCategoria = {
   description: 'Agregar Categoria',

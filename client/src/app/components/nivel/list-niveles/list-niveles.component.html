@@ -1,33 +1,33 @@
 <div class="row mt-2 mb-3">
-  <button class="btn btn-success mx-auto" (click)="abrirModalAgregarCategoria()"><i
-      class="fas fa-plus-circle mr-1"></i>Agregar nueva categoría</button>
+  <button class="btn btn-success mx-auto" (click)="abrirModalAgregarNivel()"><i
+      class="fas fa-plus-circle mr-1"></i>Agregar nuevo nivel</button>
 </div>
-<div *ngIf="categorias.length > 0">
-  <h3 class="mb-3">Categorías</h3>
+<div *ngIf="niveles.length > 0">
+  <h3 class="mb-3">Niveles</h3>
   <table class="table table-responsive-lg table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">Nro</th>
-        <th scope="col">Categoría</th>
+        <th scope="col">Nro Nivel</th>
+        <th scope="col">Contratos Mínimos</th>
         <th scope="col">Acción</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let categoria of categorias; let indice=index">
-        <th scope="row">{{ indice+1 }}</th>
-        <td>{{ categoria.descripcion }}</td>
+      <tr *ngFor="let nivel of niveles; let indice=index">
+        <th scope="row">{{ nivel.nro }}</th>
+        <td>{{ nivel.contratosMinimos }}</td>
         <td class="d-flex">
-          <button class="btn btn-primary mx-1" (click)="abrirModalEditarCategoria(categoria)"><i
+          <button class="btn btn-primary mx-1" (click)="abrirModalEditarNivel(nivel)"><i
               class="fas fa-edit mr-1"></i>Editar</button>
-          <button class="btn btn-danger mx-1" (click)="abrirModalEliminarCategoria(categoria)"><i
+          <button class="btn btn-danger mx-1" (click)="abrirModalEliminarNivel(nivel)"><i
               class="fas fa-trash-alt mr-1"></i>Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-<div class="alert alert-info no-categorias" role="alert" *ngIf="categorias.length === 0">
+<div class="alert alert-info no-niveles" role="alert" *ngIf="niveles.length === 0">
   <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
-  <p class="mt-5 mb-5">No hay categorías registradas</p>
+  <p class="mt-5 mb-5">No hay niveles registrados</p>
 </div>
-<app-update-categoria [editMode]="editMode" [categoria]="categoria" [categoriaEditando]="categoriaEditando" (getCategorias)="getCategorias()"></app-update-categoria>
+<app-update-nivel [editMode]="editMode" [nivel]="nivel" [nivelEditando]="nivelEditando" (getNiveles)="getNiveles()"></app-update-nivel>

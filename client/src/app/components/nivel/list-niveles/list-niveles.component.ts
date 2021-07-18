@@ -20,7 +20,7 @@ export class ListNivelesComponent implements OnInit {
     nro: 0,
     contratosMinimos: 0
   };
-  nivelEditando: String = '';
+  nivelEditando: Number = 0;
 
   niveles: Nivel[] = [];
 
@@ -39,18 +39,18 @@ export class ListNivelesComponent implements OnInit {
     )
   }
 
-  abrirModalAgregarCategoria() {
+  abrirModalAgregarNivel() {
     this.editMode = false;
     this.nivel = {
       _id: '',
       nro: 0,
       contratosMinimos: 0
     };
-    this.nivelEditando = '';
+    this.nivelEditando = 0;
     $("#updateCategoriaPopup").modal("show");
   }
 
-  abrirModalEliminarCategoria(nivel: Nivel) {
+  abrirModalEliminarNivel(nivel: Nivel) {
     Swal.fire({
       title: "Eliminar nivel",
       text:
@@ -74,7 +74,7 @@ export class ListNivelesComponent implements OnInit {
       nro: nivel.nro,
       contratosMinimos: nivel.contratosMinimos
     };
-    this.nivelEditando = nivel.nro?.toString() || '';
+    this.nivelEditando = nivel.nro || 0;
     $("#updateCategoriaPopup").modal("show");
   }
 
