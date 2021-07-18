@@ -6,15 +6,6 @@ import gql from 'graphql-tag';
 
 import { Categoria } from '../models/Categoria';
 
-/*const CATEGORIA = gql`
-  {
-    categoria(_id: String) {
-      _id
-      descripcion
-    }
-  }
-`;*/
-
 const CATEGORIAS = gql`
   {
     categorias {
@@ -57,19 +48,6 @@ const UPDATECATEGORIA = gql`
 export class CategoriaService {
 
   constructor(private apollo: Apollo) { }
-
-  /*(categoria(_id: String): any {
-    return this.apollo.watchQuery({
-      query: CATEGORIA,
-      variables: {
-        _id
-      }
-    }).valueChanges.pipe(
-      map((res: any) => {
-        return res.data.categoria;
-      })
-    )
-  }*/
 
   categorias(): any {
     return this.apollo.watchQuery({
