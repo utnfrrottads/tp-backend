@@ -28,7 +28,7 @@ export class UpdateNivelComponent implements OnInit {
     nro: 0,
     contratosMinimos: 0
   };
-  @Input() nivelSuperior: Nivel = {
+  @Input() nivelSuperior?: Nivel = {
     _id: '',
     nro: 0,
     contratosMinimos: 0

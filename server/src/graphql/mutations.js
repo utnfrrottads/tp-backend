@@ -160,15 +160,19 @@ const addNivel = {
       throw new Error('Acceso no autorizado');
     } else {
       const { nro, contratosMinimos } = args;
-      if (descripcion && descripcion.trim().length < 30) {
-        if (!await Categoria.findOne({ descripcion: { $regex: descripcion.trim(), $options: 'i' } })) {
-          const categoria = new Categoria({ descripcion });
-          return await categoria.save();
+      if (nro > 0 && contratosMinimos >= 0) {
+        const nivelMayor = (await Nivel.find().sort({ nro: -1 }).limit(1))[0];
+        if (
+          (!nivelMayor && contratosMinimos === 0)
+          || (nivelMayor && nivelMayor.nro + 1 === nro && contratosMinimos > nivelMayor.contratosMinimos)
+        ) {
+          const nivel = new Nivel({ nro, contratosMinimos });
+          return await nivel.save();
         } else {
-          throw new Error('La categoría ingresada ya se encuentra registrada');
+          throw new Error('Número de nivel y/o número de contratos mínimos incorrectos');
         }
       } else {
-        throw new Error('Ingrese una categoría en el formato correcto');
+        throw new Error('Ingrese un nivel en el formato correcto');
       }
     }
   }
@@ -185,7 +189,12 @@ const deleteNivel = {
       throw new Error('Acceso no autorizado');
     } else {
       const { _id } = args;
-      return await Nivel.findByIdAndDelete(_id);
+      const nivelMayor = (await Nivel.find().sort({ nro: -1 }).limit(1))[0];
+      if (!nivelMayor || (nivelMayor && nivelMayor._id.toString() === _id)) {
+        return await Nivel.findByIdAndDelete(_id);
+      } else {
+        throw new Error('Solo se puede eliminar el mayor nivel');
+      }
     }
   }
 }
@@ -202,21 +211,26 @@ const updateNivel = {
     if (!usuario || !usuario.isAdministrador) {
       throw new Error('Acceso no autorizado');
     } else {
-      const { _id, descripcion } = args;
-      const categoria = await Categoria.findById(_id);
-      if (categoria) {
-        if (descripcion && descripcion.trim().length < 30) {
-          if (descripcion === categoria.descripcion || !await Categoria.findOne({ descripcion: { $regex: descripcion.trim(), $options: 'i' } })) {
-            categoria.descripcion = descripcion;
-            return categoria.save();
+      const { _id, nro, contratosMinimos } = args;
+      const nivel = await Nivel.findOne({ _id, nro });
+      if (nivel) {
+        if (nro > 0 && contratosMinimos >= 0) {
+          const nivelInferior = await Nivel.findOne({ nro: nivel.nro - 1 });
+          const nivelSuperior = await Nivel.findOne({ nro: nivel.nro + 1 });
+          if (
+            ((!nivelInferior && contratosMinimos === 0) || (nivelInferior && contratosMinimos > nivelInferior.contratosMinimos))
+            && (!nivelSuperior || (nivelSuperior && contratosMinimos < nivelSuperior.contratosMinimos))
+          ) {
+            nivel.contratosMinimos = contratosMinimos;
+            return nivel.save();
           } else {
-            throw new Error('La categoría ingresada ya se encuentra registrada');
+            throw new Error('El número de contratos mínimos debe estar entre el número del nivel inferior y superior del nivel que se está editando');
           }
         } else {
-          throw new Error('Ingrese una categoría en el formato correcto');
+          throw new Error('Ingrese un nivel en el formato correcto');
         }
       } else {
-        throw new Error('La categoría que desea actualizar no existe');
+        throw new Error('El nivel que desea actualizar no existe');
       }
     }
   }

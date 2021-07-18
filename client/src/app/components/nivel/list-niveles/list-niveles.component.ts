@@ -27,7 +27,7 @@ export class ListNivelesComponent implements OnInit {
     nro: 0,
     contratosMinimos: 0
   };
-  nivelSuperior: Nivel = {
+  nivelSuperior?: Nivel = {
     _id: '',
     nro: 0,
     contratosMinimos: 0
@@ -63,25 +63,16 @@ export class ListNivelesComponent implements OnInit {
     this.nivelEditando = 0;
 
     if (this.niveles.length > 0) {
-      let nroMax = 0;
-      let contratosMax = 0;
-      for (let i = 0, len = this.niveles.length; i < len; i++) {
-        if (nroMax < (this.niveles[i].nro || 0)) {
-          nroMax = this.niveles[i].nro || 0;
-          contratosMax = this.niveles[i].contratosMinimos || 0;
-        }
-      }
-
       this.editarContratosMinimos = true;
       this.nivel = {
         _id: '',
-        nro: nroMax + 1,
-        contratosMinimos: contratosMax + 1
+        nro: ((this.niveles[this.niveles.length - 1]).nro || 0) + 1,
+        contratosMinimos: ((this.niveles[this.niveles.length - 1]).contratosMinimos || 0) + 1
       };
       this.nivelInferior = {
         _id: '',
-        nro: nroMax,
-        contratosMinimos: contratosMax
+        nro: (this.niveles[this.niveles.length - 1]).nro,
+        contratosMinimos: (this.niveles[this.niveles.length - 1]).contratosMinimos
       };
     } else {
       this.editarContratosMinimos = false;
@@ -96,11 +87,7 @@ export class ListNivelesComponent implements OnInit {
         contratosMinimos: 0
       }
     }
-    this.nivelSuperior = {
-      _id: '',
-      nro: 0,
-      contratosMinimos: 0
-    };
+    this.nivelSuperior = undefined;
     $("#updateNivelPopup").modal("show");
   }
 
@@ -130,16 +117,28 @@ export class ListNivelesComponent implements OnInit {
       nro: nivel.nro,
       contratosMinimos: nivel.contratosMinimos
     };
-    this.nivelInferior = {
-      _id: '',
-      nro: (this.niveles[nivel.nro || 0 - 2]).nro,
-      contratosMinimos: (this.niveles[nivel.nro || 0 - 2]).contratosMinimos
-    };
-    this.nivelSuperior = {
-      _id: '',
-      nro: (this.niveles[nivel.nro || 0]).nro,
-      contratosMinimos: (this.niveles[nivel.nro || 0]).contratosMinimos
-    };
+    if ((nivel.nro || 0) > 1) {
+      this.nivelInferior = {
+        _id: '',
+        nro: (this.niveles[(nivel.nro || 0) - 2]).nro,
+        contratosMinimos: (this.niveles[(nivel.nro || 0) - 2]).contratosMinimos
+      };
+    } else {
+      this.nivelInferior = {
+        _id: '',
+        nro: 0,
+        contratosMinimos: 0
+      };
+    }
+    if (this.niveles[this.niveles.length - 1].nro === nivel.nro) {
+      this.nivelSuperior = undefined;
+    } else {
+      this.nivelSuperior = {
+        _id: '',
+        nro: (this.niveles[nivel.nro || 0]).nro,
+        contratosMinimos: (this.niveles[nivel.nro || 0]).contratosMinimos
+      };
+    }
     $("#updateNivelPopup").modal("show");
   }
 
