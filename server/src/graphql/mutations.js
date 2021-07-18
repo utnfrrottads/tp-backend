@@ -1,5 +1,5 @@
 const { GraphQLString, GraphQLID, GraphQLInt } = require('graphql');
-const { LoginOutput, TypeCategoria } = require('./types');
+const { LoginOutput, TypeNivel, TypeCategoria } = require('./types');
 const { Usuario, Categoria, Nivel, Contrato, Servicio } = require('../models/index');
 const { createJwtToken } = require('../helpers/auth');
 const { encryptPassword, matchPassword } = require('../helpers/encryptPassword');
@@ -148,7 +148,7 @@ const cambiarClave = {
   }
 }
 
-/*const addNivel = {
+const addNivel = {
   description: 'Agregar Nivel',
   type: TypeNivel,
   args: {
@@ -172,7 +172,7 @@ const cambiarClave = {
       }
     }
   }
-}*/
+}
 
 const deleteNivel = {
   description: 'Eliminar Nivel',
@@ -190,7 +190,7 @@ const deleteNivel = {
   }
 }
 
-/*const updateNivel = {
+const updateNivel = {
   description: 'Actualizar Nivel',
   type: TypeNivel,
   args: {
@@ -220,7 +220,7 @@ const deleteNivel = {
       }
     }
   }
-}*/
+}
 
 const addCategoria = {
   description: 'Agregar Categoria',

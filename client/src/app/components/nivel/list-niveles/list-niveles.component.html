@@ -13,13 +13,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let nivel of niveles; let indice=index">
+      <tr *ngFor="let nivel of niveles; let indice = index">
         <th scope="row">{{ nivel.nro }}</th>
         <td>{{ nivel.contratosMinimos }}</td>
         <td class="d-flex">
           <button class="btn btn-primary mx-1" (click)="abrirModalEditarNivel(nivel)"><i
               class="fas fa-edit mr-1"></i>Editar</button>
-          <button class="btn btn-danger mx-1" (click)="abrirModalEliminarNivel(nivel)"><i
+          <button class="btn btn-danger mx-1" (click)="abrirModalEliminarNivel(nivel)" *ngIf="niveles.length === indice + 1"><i
               class="fas fa-trash-alt mr-1"></i>Eliminar</button>
         </td>
       </tr>
@@ -30,4 +30,4 @@
   <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
   <p class="mt-5 mb-5">No hay niveles registrados</p>
 </div>
-<app-update-nivel [editMode]="editMode" [nivel]="nivel" [nivelEditando]="nivelEditando" (getNiveles)="getNiveles()"></app-update-nivel>
+<app-update-nivel [editMode]="editMode" [nivelEditando]="nivelEditando" [nivel]="nivel" [nivelInferior]="nivelInferior" [nivelSuperior]="nivelSuperior" (getNiveles)="getNiveles()"></app-update-nivel>

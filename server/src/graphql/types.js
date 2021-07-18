@@ -56,6 +56,7 @@ const TypeNivel = new GraphQLObjectType({
     description: "Type nivel",
     fields: () => ({
         _id: { type: GraphQLID },
+        nro: { type: GraphQLInt },
         contratosMinimos: { type: GraphQLInt },
         usuarios: {
             type: GraphQLList(TypeUsuario),

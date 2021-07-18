@@ -21,6 +21,16 @@ export class ListNivelesComponent implements OnInit {
     contratosMinimos: 0
   };
   nivelEditando: Number = 0;
+  nivelInferior: Nivel = {
+    _id: '',
+    nro: 0,
+    contratosMinimos: 0
+  };
+  nivelSuperior: Nivel = {
+    _id: '',
+    nro: 0,
+    contratosMinimos: 0
+  };
 
   niveles: Nivel[] = [];
 
@@ -33,7 +43,15 @@ export class ListNivelesComponent implements OnInit {
   getNiveles() {
     this.nivelService.niveles().subscribe(
       (res: any) => {
-        this.niveles = res;
+        this.niveles = res.sort(function (a: any, b: any) {
+          if (a.nro < b.nro) {
+            return -1;
+          }
+          if (a.nro > b.nro) {
+            return 1;
+          }
+          return 0;
+        });
       },
       (err: any) => console.log(err)
     )
@@ -41,12 +59,32 @@ export class ListNivelesComponent implements OnInit {
 
   abrirModalAgregarNivel() {
     this.editMode = false;
+    this.nivelEditando = 0;
+
+    let nroMax = 0;
+    let contratosMax = 0;
+    for (let i=0, len=this.niveles.length; i<len; i++) {
+      if (nroMax < (this.niveles[i].nro || 0)) {
+        nroMax = this.niveles[i].nro || 0;
+        contratosMax = this.niveles[i].contratosMinimos || 0;
+      }
+    }
+
     this.nivel = {
+      _id: '',
+      nro: nroMax + 1,
+      contratosMinimos: contratosMax + 1
+    };
+    this.nivelInferior = {
+      _id: '',
+      nro: nroMax,
+      contratosMinimos: contratosMax
+    };
+    this.nivelSuperior = {
       _id: '',
       nro: 0,
       contratosMinimos: 0
     };
-    this.nivelEditando = 0;
     $("#updateCategoriaPopup").modal("show");
   }
 
@@ -69,12 +107,22 @@ export class ListNivelesComponent implements OnInit {
 
   abrirModalEditarNivel(nivel: Nivel) {
     this.editMode = true;
+    this.nivelEditando = nivel.nro || 0;
     this.nivel = {
       _id: nivel._id,
       nro: nivel.nro,
       contratosMinimos: nivel.contratosMinimos
     };
-    this.nivelEditando = nivel.nro || 0;
+    this.nivelInferior = {
+      _id: '',
+      nro: (this.niveles[nivel.nro || 0 - 2]).nro,
+      contratosMinimos: (this.niveles[nivel.nro || 0 - 2]).contratosMinimos
+    };
+    this.nivelSuperior = {
+      _id: '',
+      nro: (this.niveles[nivel.nro || 0]).nro,
+      contratosMinimos: (this.niveles[nivel.nro || 0]).contratosMinimos
+    };
     $("#updateCategoriaPopup").modal("show");
   }
 
