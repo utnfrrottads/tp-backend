@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
-import { CategoriaService } from '../../../services/categoria.service';
+import { NivelService } from '../../../services/nivel.service';
 
-import { Categoria } from '../../../models/Categoria';
+import { Nivel } from '../../../models/Nivel';
 
 declare var $: any;
 
@@ -15,24 +15,25 @@ declare var $: any;
 export class ListNivelesComponent implements OnInit {
 
   editMode: Boolean = false;
-  categoria: Categoria = {
+  nivel: Nivel = {
     _id: '',
-    descripcion: ''
+    nro: 0,
+    contratosMinimos: 0
   };
-  categoriaEditando: String = '';
+  nivelEditando: String = '';
 
-  categorias: Categoria[] = [];
+  niveles: Nivel[] = [];
 
-  constructor(private categoriaService: CategoriaService) { }
+  constructor(private nivelService: NivelService) { }
 
   ngOnInit(): void {
-    this.getCategorias();
+    this.getNiveles();
   }
 
-  getCategorias() {
-    this.categoriaService.categorias().subscribe(
+  getNiveles() {
+    this.nivelService.niveles().subscribe(
       (res: any) => {
-        this.categorias = res;
+        this.niveles = res;
       },
       (err: any) => console.log(err)
     )
@@ -40,19 +41,20 @@ export class ListNivelesComponent implements OnInit {
 
   abrirModalAgregarCategoria() {
     this.editMode = false;
-    this.categoria = {
+    this.nivel = {
       _id: '',
-      descripcion: ''
+      nro: 0,
+      contratosMinimos: 0
     };
-    this.categoriaEditando = '';
+    this.nivelEditando = '';
     $("#updateCategoriaPopup").modal("show");
   }
 
-  abrirModalEliminarCategoria(categoria: Categoria) {
+  abrirModalEliminarCategoria(nivel: Nivel) {
     Swal.fire({
-      title: "Eliminar categoría",
+      title: "Eliminar nivel",
       text:
-        "¿Seguro desea eliminar la categoría: " + categoria.descripcion + "?",
+        "¿Seguro desea eliminar el nivel: " + nivel.nro?.toString() + "?",
       showDenyButton: true,
       denyButtonText: "Eliminar",
       showCancelButton: true,
@@ -60,25 +62,26 @@ export class ListNivelesComponent implements OnInit {
       showConfirmButton: false
     }).then(result => {
       if (result.isDenied) {
-        this.eliminarCategoria(categoria._id || '');
+        this.eliminarNivel(nivel._id || '');
       }
     })
   }
 
-  abrirModalEditarCategoria(categoria: Categoria) {
+  abrirModalEditarNivel(nivel: Nivel) {
     this.editMode = true;
-    this.categoria = {
-      _id: categoria._id,
-      descripcion: categoria.descripcion
+    this.nivel = {
+      _id: nivel._id,
+      nro: nivel.nro,
+      contratosMinimos: nivel.contratosMinimos
     };
-    this.categoriaEditando = categoria.descripcion || '';
+    this.nivelEditando = nivel.nro?.toString() || '';
     $("#updateCategoriaPopup").modal("show");
   }
 
-  eliminarCategoria(_id: String) {
-    this.categoriaService.deleteCategoria(_id).subscribe(
+  eliminarNivel(_id: String) {
+    this.nivelService.deleteNivel(_id).subscribe(
       () => {
-        this.getCategorias();
+        this.getNiveles();
       },
       (err: any) => console.log(err)
     )

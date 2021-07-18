@@ -1,6 +1,18 @@
-const { GraphQLString, GraphQLList } = require('graphql');
-const { TypeCategoria } = require('./types');
-const { Categoria } = require('../models/index');
+const { GraphQLList } = require('graphql');
+const { TypeNivel, TypeCategoria } = require('./types');
+const { Nivel, Categoria } = require('../models/index');
+
+const niveles = {
+    description: 'Niveles',
+    type: GraphQLList(TypeNivel),
+    async resolve(parent, args, { usuario }) {
+        if (!usuario || !usuario.isAdministrador) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            return await Nivel.find();
+        }
+    }
+}
 
 const categorias = {
     description: 'Categorias',
@@ -14,4 +26,4 @@ const categorias = {
     }
 }
 
-module.exports = { categorias }
+module.exports = { niveles, categorias }

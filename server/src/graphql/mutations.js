@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLID } = require('graphql');
+const { GraphQLString, GraphQLID, GraphQLInt } = require('graphql');
 const { LoginOutput, TypeCategoria } = require('./types');
 const { Usuario, Categoria, Nivel, Contrato, Servicio } = require('../models/index');
 const { createJwtToken } = require('../helpers/auth');
@@ -148,6 +148,80 @@ const cambiarClave = {
   }
 }
 
+const addNivel = {
+  description: 'Agregar Nivel',
+  type: TypeNivel,
+  args: {
+    nro: { type: GraphQLInt },
+    contratosMinimos: { type: GraphQLInt }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { nro, contratosMinimos } = args;
+      if (descripcion && descripcion.trim().length < 30) {
+        if (!await Categoria.findOne({ descripcion: { $regex: descripcion.trim(), $options: 'i' } })) {
+          const categoria = new Categoria({ descripcion });
+          return await categoria.save();
+        } else {
+          throw new Error('La categoría ingresada ya se encuentra registrada');
+        }
+      } else {
+        throw new Error('Ingrese una categoría en el formato correcto');
+      }
+    }
+  }
+}
+
+const deleteNivel = {
+  description: 'Eliminar Nivel',
+  type: TypeNivel,
+  args: {
+    _id: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { _id } = args;
+      return await Nivel.findByIdAndDelete(_id);
+    }
+  }
+}
+
+const updateNivel = {
+  description: 'Actualizar Nivel',
+  type: TypeNivel,
+  args: {
+    _id: { type: GraphQLString },
+    nro: { type: GraphQLInt },
+    contratosMinimos: { type: GraphQLInt }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { _id, descripcion } = args;
+      const categoria = await Categoria.findById(_id);
+      if (categoria) {
+        if (descripcion && descripcion.trim().length < 30) {
+          if (descripcion === categoria.descripcion || !await Categoria.findOne({ descripcion: { $regex: descripcion.trim(), $options: 'i' } })) {
+            categoria.descripcion = descripcion;
+            return categoria.save();
+          } else {
+            throw new Error('La categoría ingresada ya se encuentra registrada');
+          }
+        } else {
+          throw new Error('Ingrese una categoría en el formato correcto');
+        }
+      } else {
+        throw new Error('La categoría que desea actualizar no existe');
+      }
+    }
+  }
+}
+
 const addCategoria = {
   description: 'Agregar Categoria',
   type: TypeCategoria,
@@ -220,4 +294,4 @@ const updateCategoria = {
   }
 }
 
-module.exports = { signUp, signIn, updateUsuario, cambiarClave, addCategoria, deleteCategoria, updateCategoria }
+module.exports = { signUp, signIn, updateUsuario, cambiarClave, addNivel, deleteNivel, updateNivel, addCategoria, deleteCategoria, updateCategoria }
