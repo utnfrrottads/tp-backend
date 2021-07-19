@@ -1,9 +1,10 @@
 export interface Usuario {
-    idUsuario?: string;
+    _id?: string;
     nombreUsuario?: string;
     clave?: string;
     nombreApellido?: string;
     email?: string;
     habilidades?: string;
+    isAdministrador?: boolean;
     idNivel?: string;
 }

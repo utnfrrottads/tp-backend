@@ -1,12 +1,12 @@
-const { GraphQLString, GraphQLInput, GraphQLInputObjectType, GraphQLObjectType, UserInputError } = require('graphql');
-const { LoginOutput } = require('./types');
-const { Usuario } = require('../models/index');
+const { GraphQLString, GraphQLID, GraphQLFloat } = require('graphql');
+const { LoginOutput, TypeCategoria, TypeServicio } = require('./types');
+const { Usuario, Categoria, Nivel, Contrato, Servicio } = require('../models/index');
 const { createJwtToken } = require('../helpers/auth');
 const { encryptPassword, matchPassword } = require('../helpers/encryptPassword');
 
 const signUp = {
+  description: 'Crear Cuenta',
   type: LoginOutput,
-  description: 'SignUp',
   args: {
     nombreUsuario: { type: GraphQLString },
     clave: { type: GraphQLString },
@@ -17,19 +17,19 @@ const signUp = {
   async resolve(parent, args) {
     const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
     const claveEncriptada = await encryptPassword(clave);
-    const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades });
+    const usuario = new Usuario({ nombreUsuario, clave: claveEncriptada, nombreApellido, email, habilidades, isAdministrador: false });
     const usuarioGuardado = await usuario.save();
     const token = createJwtToken(usuarioGuardado);
     return {
       usuario: usuarioGuardado,
       token
-    };
+    }
   }
 }
 
 const signIn = {
+  description: 'Iniciar Sesión',
   type: LoginOutput,
-  description: 'SignIn',
   args: {
     nombreUsuario: { type: GraphQLString },
     clave: { type: GraphQLString }
@@ -55,32 +55,146 @@ const signIn = {
 }
 
 const updateUsuario = {
+  description: 'Actualizar Usuario',
   type: LoginOutput,
-  description: 'Update Usuario',
   args: {
     nombreUsuario: { type: GraphQLString },
+    clave: { type: GraphQLString },
     nombreApellido: { type: GraphQLString },
     email: { type: GraphQLString },
     habilidades: { type: GraphQLString }
   },
-  async resolve(parent, args, { usuarioVerificado, idUsuario }) {
-    if (!usuarioVerificado) {
+  async resolve(parent, args, { usuario }) {
+    if (!usuario) {
       throw new Error('Acceso no autorizado');
     } else {
-      const { nombreUsuario, nombreApellido, email, habilidades } = args;
-      const usuario = await Usuario.findById(idUsuario);
-      usuario.nombreUsuario = nombreUsuario;
-      usuario.nombreApellido = nombreApellido;
-      usuario.email = email;
-      usuario.habilidades = habilidades;
-      const usuarioGuardado = await usuario.save();
-      const token = createJwtToken(usuarioGuardado);
-      return {
-        usuario: usuarioGuardado,
-        token
-      };
+      const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
+      const claveValida = await matchPassword(clave, usuario.clave);
+      if (!claveValida) {
+        throw new Error('Clave incorrecta');
+      } else {
+        usuario.nombreUsuario = nombreUsuario;
+        usuario.nombreApellido = nombreApellido;
+        usuario.email = email;
+        usuario.habilidades = habilidades;
+        const usuarioGuardado = await usuario.save();
+        const token = createJwtToken(usuarioGuardado);
+        return {
+          usuario: usuarioGuardado,
+          token
+        }
+      }
     }
   }
 }
 
-module.exports = { signUp, signIn, updateUsuario }
+const cambiarClave = {
+  description: 'Cambiar Clave',
+  type: LoginOutput,
+  args: {
+    claveActual: { type: GraphQLString },
+    claveNueva: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { claveActual, claveNueva } = args;
+      const claveValida = await matchPassword(claveActual, usuario.clave);
+      if (!claveValida) {
+        throw new Error('Clave actual incorrecta');
+      } else {
+        usuario.clave = await encryptPassword(claveNueva);
+        const usuarioGuardado = await usuario.save();
+        const token = createJwtToken(usuarioGuardado);
+        return {
+          usuario: usuarioGuardado,
+          token
+        }
+      }
+    }
+  }
+}
+
+const addCategoria = {
+  description: 'Agregar Categoria',
+  type: TypeCategoria,
+  args: {
+    descripcion: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { descripcion } = args;
+      const categoria = new Categoria({ descripcion });
+      return await categoria.save();
+    }
+  }
+}
+
+const deleteCategoria = {
+  description: 'Eliminar Categoria',
+  type: TypeCategoria,
+  args: {
+    _id: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { _id } = args;
+      return await Categoria.findByIdAndDelete(_id);
+    }
+  }
+}
+
+const updateCategoria = {
+  description: 'Actualizar Categoria',
+  type: TypeCategoria,
+  args: {
+    _id: { type: GraphQLString },
+    descripcion: { type: GraphQLString }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { _id, descripcion } = args;
+      const categoria = await Categoria.findById(_id);
+      categoria.descripcion = descripcion;
+      return categoria.save();
+    }
+  }
+}
+
+const publishService = {
+  description: 'Publicar servicio',
+  type: TypeServicio,
+  args: {
+    titulo: { type: GraphQLString },
+    descripcion: { type: GraphQLString },
+    idCategoria: { type: GraphQLID },
+    precio: { type: GraphQLFloat }
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario || !usuario.isAdministrador) {
+      throw new Error('Acceso no autorizado');
+    } else {
+      const { titulo, descripcion, idCategoria, precio } = args;
+      const servicio = new Servicio({ titulo, descripcion, idCategoria, precio, idUsuario: usuario._id });
+      return await servicio.save();
+    }
+  }
+}
+
+module.exports = {
+  signUp,
+  signIn,
+  updateUsuario,
+  cambiarClave,
+  addCategoria,
+  deleteCategoria,
+  updateCategoria,
+  publishService
+}

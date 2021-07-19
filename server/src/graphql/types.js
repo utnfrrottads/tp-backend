@@ -28,6 +28,8 @@ const TypeUsuario = new GraphQLObjectType({
         nombreApellido: { type: GraphQLString },
         email: { type: GraphQLString },
         habilidades: { type: GraphQLString },
+        isAdministrador: { type: GraphQLBoolean },
+        idNivel: { type: GraphQLID },
         nivel: {
             type: TypeNivel,
             resolve(parent, args) {
@@ -91,8 +93,9 @@ const TypeServicio = new GraphQLObjectType({
     description: "Type servicio",
     fields: () => ({
         _id: { type: GraphQLID },
+        titulo: { type: GraphQLString },
         descripcion: { type: GraphQLString },
-        precio: { type: TypePrecio },
+        precio: { type: GraphQLFloat },
         categoria: {
             type: TypeCategoria,
             resolve(parent, args) {
@@ -139,12 +142,12 @@ const TypeDateScalar = new GraphQLScalarType({
     }
 })
 
-const TypePrecio = new GraphQLObjectType({
-    name: 'Precio',
-    fields: () => ({
-        valor: { type: GraphQLFloat },
-        moneda: { type: GraphQLString }
-    })
-})
+// const TypePrecio = new GraphQLObjectType({
+//     name: 'Precio',
+//     fields: () => ({
+//         valor: { type: GraphQLFloat },
+//         moneda: { type: GraphQLString }
+//     })
+// })
 
 module.exports = { TypeUsuario, TypeNivel, TypeContrato, TypeServicio, TypeCategoria, LoginOutput }

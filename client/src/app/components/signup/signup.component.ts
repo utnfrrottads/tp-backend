@@ -15,7 +15,6 @@ declare var $: any;
 export class SignupComponent implements OnInit {
 
   usuario: Usuario = {
-    idUsuario: '',
     nombreUsuario: '',
     clave: '',
     nombreApellido: '',
@@ -35,13 +34,13 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
 
-        $('#signUpPopup').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-        
+        $("#signUpPopup").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
+
         $(".navbar-collapse").removeClass("show");
 
-        this.router.navigate(['/perfil']);
+        this.router.navigate(['services-panel']);
       },
       (err: any) => console.log(err)
     );

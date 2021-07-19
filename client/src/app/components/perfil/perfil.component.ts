@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 
 import { Usuario } from '../../models/Usuario';
 
+declare var $: any;
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -11,10 +13,12 @@ import { Usuario } from '../../models/Usuario';
 })
 export class PerfilComponent implements OnInit {
 
+  errorMessageClave = '';
   editando: boolean = false;
 
   usuario: Usuario = {
     nombreUsuario: '',
+    clave: '',
     nombreApellido: '',
     email: '',
     habilidades: '',
@@ -34,14 +38,21 @@ export class PerfilComponent implements OnInit {
     this.usuarioEditado = this.userService.getUsuario();
   }
 
+  abrirModalClave() {
+    $('#ingresarClavePopup').modal('show');
+  }
+
   guardarUsuario() {
-    this.userService.update(this.usuarioEditado).subscribe(
+    this.userService.updateUsuario(this.usuarioEditado, this.usuario.clave || '').subscribe(
       (res: any) => {
+        this.errorMessageClave = '';
+
         localStorage.setItem('usuario', JSON.stringify(res.data.updateUsuario.usuario));
         localStorage.setItem('nombreUsuario', res.data.updateUsuario.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.updateUsuario.token);
 
         this.usuario.nombreUsuario = res.data.updateUsuario.usuario.nombreUsuario;
+        this.usuario.clave = '';
         this.usuario.nombreApellido = res.data.updateUsuario.usuario.nombreApellido;
         this.usuario.email = res.data.updateUsuario.usuario.email;
         this.usuario.habilidades = res.data.updateUsuario.usuario.habilidades;
@@ -50,10 +61,16 @@ export class PerfilComponent implements OnInit {
         this.usuarioEditado.nombreApellido = res.data.updateUsuario.usuario.nombreApellido;
         this.usuarioEditado.email = res.data.updateUsuario.usuario.email;
         this.usuarioEditado.habilidades = res.data.updateUsuario.usuario.habilidades;
-
+        
         this.editando = false;
+
+        $("#ingresarClavePopup").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
       },
-      (err: any) => console.log(err)
+      (err: any) => {
+        this.errorMessageClave = err.message;
+      }
     );
   }
 

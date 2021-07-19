@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-service-card',
   templateUrl: './service-card.component.html',
   styleUrls: ['./service-card.component.scss']
 })
-export class ServiceCardComponent implements OnInit {
+export class ServiceCardComponent {
 
-  constructor() { }
+  @Input() cardData = {
+    idServicio: '',
+    titulo: '',
+    nombreUsuario: '',
+    categoria: '',
+    descripcion: ''
+  };
 
-  ngOnInit(): void {
+  mostrarDetalle(idServicio: string): void {
+
   }
-
 }

@@ -1,5 +1,5 @@
 <app-navigation></app-navigation>
 
-<div class="p-3">
-    <router-outlet></router-outlet>
+<div class="container-fluid" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>

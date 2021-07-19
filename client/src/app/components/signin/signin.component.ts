@@ -14,13 +14,12 @@ declare var $: any;
 })
 export class SigninComponent implements OnInit {
 
+  errorMessage = '';
+
   usuario: Usuario = {
-    idUsuario: '',
     nombreUsuario: '',
     clave: ''
   };
-  error = false;
-  errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -30,25 +29,24 @@ export class SigninComponent implements OnInit {
   signIn(): void {
     this.authService.signIn(this.usuario).subscribe(
       (res: any) => {
-        this.error = false;
         this.errorMessage = '';
 
         localStorage.setItem('usuario', JSON.stringify(res.data.signIn.usuario));
         localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signIn.token);
 
-        $('#signInPopup').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-        
+        $("#signInPopup").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
+
         $(".navbar-collapse").removeClass("show");
 
-        this.router.navigate(['/perfil']);
+        this.router.navigate(['/services-panel']);
       },
       (err: any) => {
-        this.error = true;
         this.errorMessage = err.message;
       }
     );
   }
+
 }

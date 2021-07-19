@@ -1,16 +1,14 @@
 <div class="container-fluid p-0 mb-3">
   <div class="card">
-    <div class="card-header">
-      Clases de matemática
-    </div>
+    <div class="card-header">{{ cardData.titulo }}</div>
     <div class="card-body">
-      <i class="fas fa-user text-muted"></i><a class="ml-2" href="">Juan Perez</a>
+      <i class="fas fa-user text-muted"></i><a class="ml-2" href="">{{ cardData.nombreUsuario }}</a>
       <p>
-        Categoría:<a class="ml-2" href="">Clases personalizadas</a>
+      Categoría:<a class="ml-2" href="">{{ cardData.categoria }}</a>
       </p>
 
-      <p class="card-text"><small>Estudiante avanzado de ingeniería ofrece clases particulares de matemática nivel primario, secundario y universitario</small></p>
-      <a href="#" class="btn btn-success btn-block">
+      <p class="card-text"><small>{{ cardData.descripcion }}</small></p>
+      <a href="#" class="btn btn-success btn-block" (click)="mostrarDetalle(cardData.idServicio)">
         <i class="fas fa-search-plus"></i>  Ver más
       </a>
     </div>

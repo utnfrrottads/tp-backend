@@ -20,9 +20,10 @@ const SIGNUP = gql`
       usuario {
         _id
         nombreUsuario
-        nombreApellido 
+        nombreApellido
         email
         habilidades
+        isAdministrador
       }
       token
     }
@@ -38,6 +39,7 @@ const SIGNIN = gql`
         nombreApellido
         email
         habilidades
+        isAdministrador
       }
       token
     }
@@ -83,6 +85,18 @@ export class AuthService {
     }
   }
 
+  isAdmin(): boolean {
+    if (localStorage.getItem('usuario') && localStorage.getItem('nombreUsuario') && localStorage.getItem('token')) {
+      if (JSON.parse(localStorage.getItem('usuario') || '{}').isAdministrador) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   getToken(): any {
     return localStorage.getItem('token');
   }
@@ -91,9 +105,10 @@ export class AuthService {
     localStorage.removeItem('usuario');
     localStorage.removeItem('nombreUsuario');
     localStorage.removeItem('token');
-    
+
     $(".navbar-collapse").removeClass("show");
 
     this.router.navigate(['/']);
   }
+
 }

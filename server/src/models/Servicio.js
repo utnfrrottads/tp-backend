@@ -1,20 +1,18 @@
 const { Schema, model } = require('mongoose');
 
 const servicioSchema = new Schema({
-    descripcion: {
+    titulo: {
         type: String,
         required: true,
         unique: true
     },
+    descripcion: {
+        type: String,
+        required: true,
+    },
     precio: {
-        valor: {
-            type: Number,
-            required: true
-        },
-        moneda: {
-            type: String,
-            required: true
-        }
+        type: Number,
+        required: true
     },
     idCategoria: {
         type: String,

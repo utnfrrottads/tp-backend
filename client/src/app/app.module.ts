@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,13 @@ import { CambiarClaveComponent } from './components/cambiar-clave/cambiar-clave.
 import { ServicesPanelComponent } from './components/services-panel/services-panel.component';
 import { ServicesSidebarComponent } from './components/services-sidebar/services-sidebar.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { WhatWeDoComponent } from './components/what-we-do/what-we-do.component';
+import { WhatWeOfferComponent } from './components/what-we-offer/what-we-offer.component';
+import { CommunityComponent } from './components/community/community.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { PublicarServicioComponent } from './components/publicar-servicio/publicar-servicio.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +45,22 @@ import { ServiceCardComponent } from './components/service-card/service-card.com
     CambiarClaveComponent,
     ServicesPanelComponent,
     ServicesSidebarComponent,
-    ServiceCardComponent
+    ServiceCardComponent,
+    CategoriasComponent,
+    WhatWeDoComponent,
+    WhatWeOfferComponent,
+    CommunityComponent,
+    UserCardComponent,
+    LandingPageComponent,
+    PublicarServicioComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpLinkModule
   ],
   providers: [
