@@ -5,3 +5,22 @@
   justify-content: center;
   align-items: center;
 }
+
+button {
+  display: flex;
+  align-items: center;
+}
+
+.col-accion {
+  display: flex;
+}
+
+@media (min-width: 576px) {
+  .col-nro {
+    width: 15%;
+  }
+  
+  .col-cat {
+    width: 85%;
+  }
+}
