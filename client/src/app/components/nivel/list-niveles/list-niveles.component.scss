@@ -11,20 +11,20 @@ button {
   align-items: center;
 }
 
-.col-accion {
-  display: flex;
+.col-nro {
+  @media (min-width: 768px) {
+    width: 15%;
+  }
 }
 
 .col-cont-min {
   white-space: nowrap;
-}
 
-@media (min-width: 768px) {
-  .col-nro {
-    width: 15%;
-  }
-  
-  .col-cont-min {
+  @media (min-width: 768px) {
     width: 85%;
   }
+}
+
+.col-accion {
+  display: flex;
 }

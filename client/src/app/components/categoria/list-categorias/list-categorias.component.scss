@@ -11,16 +11,18 @@ button {
   align-items: center;
 }
 
-.col-accion {
-  display: flex;
-}
-
-@media (min-width: 576px) {
-  .col-nro {
+.col-nro {
+  @media (min-width: 576px) {
     width: 15%;
   }
-  
-  .col-cat {
+}
+
+.col-cat {
+  @media (min-width: 576px) {
     width: 85%;
   }
+}
+
+.col-accion {
+  display: flex;
 }
