@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Servicio } from 'src/app/models/Servicio';
 
 @Component({
   selector: 'app-service-card',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./service-card.component.scss'],
 })
 export class ServiceCardComponent {
-  @Input() cardData = {
+  @Input() cardData: Servicio = {
     _id: '',
     titulo: '',
     descripcion: '',
@@ -20,5 +21,5 @@ export class ServiceCardComponent {
     },
   };
 
-  mostrarDetalle(_id: string): void {}
+  mostrarDetalle(): void {}
 }

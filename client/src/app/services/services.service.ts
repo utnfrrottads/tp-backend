@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-import { Servicio } from '../models/Servicio';
-
 const SERVICES = gql`
   query {
     servicios {
+      _id
       titulo
       descripcion
       categoria {
@@ -15,8 +15,8 @@ const SERVICES = gql`
         descripcion
       }
       usuario {
+        _id
         nombreUsuario
-        nombreApellido
       }
     }
   }
@@ -66,26 +66,17 @@ const PUBLISH_SERVICE = gql`
 export class ServicesService {
   constructor(private apollo: Apollo) {}
 
-  get(): any {
-    return this.apollo.query({
-      query: SERVICES,
-    });
+  services(): any {
+    return this.apollo
+      .watchQuery({
+        query: SERVICES,
+      })
+      .valueChanges.pipe(
+        map((res: any) => {
+          return res.data.servicios;
+        })
+      );
   }
-
-  // getDetail(): any {
-  //   this.apollo.query({
-  //     query: SERVICE_DETAIL
-  //   })
-  // }
-
-  /* getDetail(service: Servicio): any { */
-  /*   this.apollo.query({ */
-  /*     query: SERVICE_DETAIL, */
-  /*     variables: { */
-  /*       serviceId: service.id */
-  /*     } */
-  /*   }); */
-  /* } */
 
   publish(service: any): any {
     return this.apollo.mutate({

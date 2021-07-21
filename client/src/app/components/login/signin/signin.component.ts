@@ -10,21 +10,19 @@ declare var $: any;
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-
   errorMessage = '';
 
   usuario: Usuario = {
     nombreUsuario: '',
-    clave: ''
+    clave: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   signIn(event: any): void {
     event.preventDefault();
@@ -32,10 +30,19 @@ export class SigninComponent implements OnInit {
       (res: any) => {
         this.errorMessage = '';
 
-        localStorage.setItem('usuario', JSON.stringify(res.data.signIn.usuario));
-        localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
+        localStorage.setItem(
+          'usuario',
+          JSON.stringify(res.data.signIn.usuario)
+        );
+        localStorage.setItem(
+          'nombreUsuario',
+          res.data.signIn.usuario.nombreUsuario
+        );
         localStorage.setItem('token', res.data.signIn.token);
-        localStorage.setItem('monedas', JSON.stringify(res.data.signIn.monedas));
+        localStorage.setItem(
+          'monedas',
+          JSON.stringify(res.data.signIn.monedas)
+        );
 
         $('#signInPopup').modal('hide');
         $('body').removeClass('modal-open');
@@ -50,5 +57,4 @@ export class SigninComponent implements OnInit {
       }
     );
   }
-
 }

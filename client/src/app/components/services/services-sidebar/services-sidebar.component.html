@@ -1,6 +1,19 @@
 <div class="container-fluid p-3">
+  <button
+    class="btn btn-primary btn-block mb-3"
+    href="#"
+    (click)="publicarServicio()"
+  >
+    <i class="fas fa-plus"></i>&nbsp;Publicar Servicio
+  </button>
   <div class="input-group input-group-sm mb-3">
-    <input type="text" class="form-control" placeholder="Buscar servicios..." aria-label="Buscar servicios" aria-describedby="basic-addon2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Buscar servicios..."
+      aria-label="Buscar servicios"
+      aria-describedby="basic-addon2"
+    />
     <div class="input-group-append">
       <button class="btn btn-outline-secondary" type="button">
         <i class="fas fa-search"></i> Buscar
@@ -12,8 +25,14 @@
   <ul class="nav flex-column">
     <li class="nav-item" *ngFor="let categoria of categorias">
       <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" [id]="categoria._id">
-        <label class="custom-control-label" [for]="categoria._id">{{ categoria.descripcion }}</label>
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          [id]="categoria._id"
+        />
+        <label class="custom-control-label" [for]="categoria._id">{{
+          categoria.descripcion
+        }}</label>
       </div>
     </li>
 

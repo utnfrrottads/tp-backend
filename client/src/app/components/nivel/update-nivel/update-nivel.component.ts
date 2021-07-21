@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { NivelService } from '../../../services/nivel.service';
 
@@ -9,10 +9,9 @@ declare var $: any;
 @Component({
   selector: 'app-update-nivel',
   templateUrl: './update-nivel.component.html',
-  styleUrls: ['./update-nivel.component.scss']
+  styleUrls: ['./update-nivel.component.scss'],
 })
 export class UpdateNivelComponent implements OnInit {
-
   @Output() getNiveles = new EventEmitter();
 
   @Input() editMode: Boolean = false;
@@ -21,25 +20,24 @@ export class UpdateNivelComponent implements OnInit {
   @Input() nivel: Nivel = {
     _id: '',
     nro: 0,
-    contratosMinimos: 0
+    contratosMinimos: 0,
   };
   @Input() nivelInferior: Nivel = {
     _id: '',
     nro: 0,
-    contratosMinimos: 0
+    contratosMinimos: 0,
   };
   @Input() nivelSuperior?: Nivel = {
     _id: '',
     nro: 0,
-    contratosMinimos: 0
+    contratosMinimos: 0,
   };
-  
+
   errorMessage = '';
 
-  constructor(private nivelService: NivelService) { }
+  constructor(private nivelService: NivelService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   guardar(event: any) {
     event.preventDefault();
@@ -55,12 +53,12 @@ export class UpdateNivelComponent implements OnInit {
       () => {
         this.errorMessage = '';
         this.getNiveles.emit();
-        $("#updateNivelPopup").modal("hide");
+        $('#updateNivelPopup').modal('hide');
       },
       (err: any) => {
         this.errorMessage = err.message;
       }
-    )
+    );
   }
 
   editarNivel(nivel: Nivel) {
@@ -68,12 +66,11 @@ export class UpdateNivelComponent implements OnInit {
       () => {
         this.errorMessage = '';
         this.getNiveles.emit();
-        $("#updateNivelPopup").modal("hide");
+        $('#updateNivelPopup').modal('hide');
       },
       (err: any) => {
         this.errorMessage = err.message;
       }
-    )
+    );
   }
-
 }

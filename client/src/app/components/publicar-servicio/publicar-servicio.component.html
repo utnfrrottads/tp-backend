@@ -1,57 +1,131 @@
-<div class="container p-3">
-  <div class="card">
-    <div class="card-header">
-      <h5>Publicar Servicio</h5>
-    </div>
-    <div class="card-body">
-
-      <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="form-group">
-              <label for="titulo">Título</label>
-              <input type="text" class="form-control" placeholder="Título del servicio" formControlName="titulo">
+<div
+  class="modal fade background-popup-fade"
+  id="publicarServicioPopup"
+  aria-labelledby="Publicar Servicio"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Publicar Servicio</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="errorMessage">
+          <div style="width: 100%; margin-bottom: 1%">
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              style="
+                width: fit-content;
+                margin-top: 2%;
+                margin-left: auto;
+                margin-right: auto;
+              "
+              role="alert"
+            >
+              {{ errorMessage }}
+              <button
+                (click)="errorMessage = ''"
+                class="close btn btn-link"
+                data-dismiss="alert"
+                style="color: black; text-decoration: none; font-size: 22px"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
           </div>
+        </ng-container>
+        <div class="card text-center">
+          <div class="card-body">
+            <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Título del servicio"
+                      formControlName="titulo"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <select class="form-control" formControlName="categoria">
+                      <option value="" selected disabled>
+                        Seleccione una categoría
+                      </option>
+                      <option
+                        *ngFor="let categoria of categorias"
+                        [value]="categoria._id"
+                      >
+                        {{ categoria.descripcion }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="categoria">Categoría</label>
-              <select class="form-control" formControlName="categoria">
-                <option value="" selected disabled>Seleccione una categoría</option>
-                <option *ngFor="let categoria of categorias" [value]="categoria._id">{{ categoria.descripcion }}</option>
-              </select>
-            </div>
+              <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea
+                  class="form-control"
+                  placeholder="Descripción del servicio"
+                  formControlName="descripcion"
+                ></textarea>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <label for="valor">Precio</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Precio"
+                      formControlName="valor"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="moneda">Moneda</label>
+                    <select class="form-control" formControlName="moneda">
+                      <option value="" selected disabled>Moneda</option>
+                      <option
+                        *ngFor="let moneda of monedas"
+                        [value]="moneda._id"
+                      >
+                        {{ moneda.tag }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-success btn-block"
+                [disabled]="!serviceForm.valid"
+              >
+                <i class="fas fa-plus"></i> Publicar
+              </button>
+            </form>
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="descripcion">Descripción</label>
-          <input type="text" class="form-control" placeholder="Descripción del servicio" formControlName="descripcion">
-        </div>
-
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="form-group">
-              <label for="valor">Precio</label>
-              <input type="number" class="form-control" placeholder="Precio" formControlName="valor">
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="moneda">Moneda</label>
-              <select class="form-control" formControlName="moneda">
-                <option value="" selected disabled>Moneda</option>
-                <option *ngFor="let moneda of monedas" [value]="moneda._id">{{ moneda.tag }}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-success btn-block" [disabled]="!serviceForm.valid"><i class="fas fa-plus"></i> Publicar</button>
-
-      </form>
-
+      </div>
     </div>
   </div>
 </div>

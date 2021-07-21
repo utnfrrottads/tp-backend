@@ -21,9 +21,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { SigninComponent } from './components/login/signin/signin.component';
 import { SignupComponent } from './components/login/signup/signup.component';
 import { IndexComponent } from './components/index/index.component';
-import { ServicesPanelComponent } from './components/services-panel/services-panel.component';
-import { ServicesSidebarComponent } from './components/services-sidebar/services-sidebar.component';
-import { ServiceCardComponent } from './components/service-card/service-card.component';
+import { ServicesPanelComponent } from './components/services/services-panel/services-panel.component';
+import { ServicesSidebarComponent } from './components/services/services-sidebar/services-sidebar.component';
+import { ServiceCardComponent } from './components/services/service-card/service-card.component';
 import { PublicarServicioComponent } from './components/publicar-servicio/publicar-servicio.component';
 import { ListCategoriasComponent } from './components/categoria/list-categorias/list-categorias.component';
 import { UpdateCategoriaComponent } from './components/categoria/update-categoria/update-categoria.component';
