@@ -4,19 +4,19 @@
 </div>
 <div *ngIf="niveles.length > 0">
   <h3 class="mb-3">Niveles</h3>
-  <table class="table table-responsive-lg table-striped table-hover">
+  <table class="table table-responsive-md table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">Nro Nivel</th>
-        <th scope="col">Contratos Mínimos</th>
-        <th scope="col">Acción</th>
+        <th scope="col" class="col-nro">Nivel</th>
+        <th scope="col" class="col-cont-min">Contratos Mínimos</th>
+        <th scope="col" class="col-accion">Acción</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let nivel of niveles; let indice = index">
-        <th scope="row">{{ nivel.nro }}</th>
-        <td>{{ nivel.contratosMinimos }}</td>
-        <td class="d-flex">
+        <th scope="row" class="col-nro">{{ nivel.nro }}</th>
+        <td class="col-cont-min">{{ nivel.contratosMinimos }}</td>
+        <td class="col-accion">
           <button class="btn btn-primary mx-1" (click)="abrirModalEditarNivel(nivel)" *ngIf="!(indice === 0)"><i
               class="fas fa-edit mr-1"></i>Editar</button>
           <button class="btn btn-danger mx-1" (click)="abrirModalEliminarNivel(nivel)" *ngIf="niveles.length === indice + 1"><i

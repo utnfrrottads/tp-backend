@@ -46,20 +46,16 @@
 
 .col-btn {
   margin: 2%;
-}
 
-.col-btn-editando {
-  margin: 2%;
-}
-
-@media (min-width: 768px) {
-  .col-btn {
+  @media (min-width: 768px) {
     margin: 0;
   }
 }
 
-@media (min-width: 576px) {
-  .col-btn-editando {
+.col-btn-editando {
+  margin: 2%;
+
+  @media (min-width: 576px) {
     margin: 0;
   }
 }

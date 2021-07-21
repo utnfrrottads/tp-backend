@@ -5,3 +5,26 @@
   justify-content: center;
   align-items: center;
 }
+
+button {
+  display: flex;
+  align-items: center;
+}
+
+.col-nro {
+  @media (min-width: 768px) {
+    width: 15%;
+  }
+}
+
+.col-cont-min {
+  white-space: nowrap;
+
+  @media (min-width: 768px) {
+    width: 85%;
+  }
+}
+
+.col-accion {
+  display: flex;
+}
