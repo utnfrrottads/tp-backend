@@ -1,9 +1,4 @@
-export class Categoria {
+export interface Categoria {
   _id: string;
   descripcion: string;
-
-  constructor(){
-    this._id = '';
-    this.descripcion = '';
-  }
 }

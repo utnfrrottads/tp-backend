@@ -31,33 +31,44 @@ const SERVICES = gql`
 /* `; */
 
 const PUBLISH_SERVICE = gql`
-  mutation publishService($titulo: String!, $descripcion: String!, $categoria: ID!, $precio: Float!){
-    publishService (
-      titulo: $titulo,
-      descripcion: $descripcion,
-      idCategoria: $categoria,
-      precio: $precio
+  mutation publishService(
+    $titulo: String!
+    $descripcion: String!
+    $idCategoria: ID!
+    $valor: Float!
+    $idMoneda: ID!
+  ) {
+    publishService(
+      titulo: $titulo
+      descripcion: $descripcion
+      idCategoria: $idCategoria
+      valor: $valor
+      idMoneda: $idMoneda
     ) {
       titulo
       descripcion
       categoria {
         descripcion
       }
-      precio
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
     }
   }
 `;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServicesService {
-
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {}
 
   get(): any {
     return this.apollo.query({
-      query: SERVICES
+      query: SERVICES,
     });
   }
 
@@ -76,15 +87,16 @@ export class ServicesService {
   /*   }); */
   /* } */
 
-  publish(service: Servicio): any {
+  publish(service: any): any {
     return this.apollo.mutate({
       mutation: PUBLISH_SERVICE,
       variables: {
         titulo: service.titulo,
         descripcion: service.descripcion,
-        categoria: service.categoria,
-        precio: service.precio
-      }
+        idCategoria: service.categoria,
+        valor: service.valor,
+        idMoneda: service.moneda,
+      },
     });
   }
 }

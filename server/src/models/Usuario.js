@@ -3,8 +3,10 @@ const { Schema, model } = require('mongoose');
 const usuarioSchema = new Schema({
     nombreUsuario: {
         type: String,
+        unique: true,
         required: true,
-        unique: true
+        minLength: 6,
+        maxLength: 25
     },
     clave: {
         type: String,
@@ -13,24 +15,29 @@ const usuarioSchema = new Schema({
     },
     nombreApellido: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxLength: 50
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 50
     },
     habilidades: {
         type: String,
-        require: true
+        trim: true,
+        maxLength: 300
     },
     isAdministrador: {
         type: Boolean,
-        require: true
+        require: true,
+        default: false
     },
     idNivel: {
         type: String,
         //required: true
     }
-}, { timestamps: false });
+}, { collection: 'usuarios', timestamps: false });
 
 module.exports = model('Usuario', usuarioSchema);

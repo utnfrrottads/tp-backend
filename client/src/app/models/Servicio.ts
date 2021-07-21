@@ -1,15 +1,12 @@
 import { Usuario } from './Usuario';
 import { Categoria } from './Categoria';
+import { Precio } from './Precio';
 
-export class Servicio {
-  id?: string;
+export interface Servicio {
+  _id?: string;
   titulo?: string;
   descripcion?: string;
   categoria?: Categoria;
   usuario?: Usuario;
-  precio?: number;
-
-  public constructor(init?: Partial<Servicio>) {
-      Object.assign(this, init);
-  }
+  precio?: Precio;
 }

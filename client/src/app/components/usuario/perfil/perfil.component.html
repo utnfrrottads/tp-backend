@@ -1,0 +1,121 @@
+<div class="d-flex justify-content-center animate__animated animate__pulse animate__fast">
+  <div class="w-100 profile-container">
+    <div class="col-sm-10 col-md-8 col-lg-7 col-xl-5 data-box">
+      <div class="profile-img" *ngIf="!editando">
+        {{ usuario.nombreApellido![0] }}
+      </div>
+
+      <div class="profile-img" *ngIf="editando">
+        {{ usuarioEditado.nombreApellido![0] }}
+      </div>
+
+      <div class="personal-info mt-3" *ngIf="!editando">
+        <h2 class="mb-3">{{ usuario.nombreApellido }}</h2>
+        <p><strong>Nombre de usuario:</strong>&nbsp;{{ usuario.nombreUsuario }}</p>
+        <p><strong>Email:</strong>&nbsp;{{ usuario.email }}</p>
+        <p><strong>Habilidades:</strong>&nbsp;{{ usuario.habilidades }}</p>
+      </div>
+
+      <div class="mt-3 w-100 px-2" *ngIf="editando">
+        <form ngNoForm (submit)="abrirModalClave($event)">
+          <div class="form-group">
+            <label><b>Nombre y Apellido:</b></label>
+            <input type="text" name="nombreApellido" [(ngModel)]="usuarioEditado.nombreApellido"
+              placeholder="Nombre y apellido" class="form-control" required autofocus>
+          </div>
+          <div class="form-group">
+            <label><b>Nombre de usuario:</b></label>
+            <input type="text" name="nombreUsuario" [(ngModel)]="usuarioEditado.nombreUsuario"
+              placeholder="Nombre de usuario" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label><b>Email:</b></label>
+            <input type="email" name="email" [(ngModel)]="usuarioEditado.email" placeholder="Email" class="form-control"
+              required>
+          </div>
+          <div class="form-group">
+            <label><b>Habilidades:</b></label>
+            <textarea name="habilidades" [(ngModel)]="usuarioEditado.habilidades" placeholder="Habilidades"
+              class="form-control" rows="3" required></textarea>
+          </div>
+          <div class="buttons mt-4">
+            <div class="row">
+              <div class="col-sm-6 col-btn-editando">
+                <button class="btn btn-danger btn-block" (click)="editando=false">
+                  <i class="fas fa-times-circle"></i> Cancelar
+                </button>
+              </div>
+              <div class="col-sm-6 col-btn-editando">
+                <button type="submit" class="btn btn-success btn-block">
+                  <i class="fas fa-save"></i> Guardar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="buttons mt-3">
+        <div class="row" *ngIf="!editando">
+          <div class="col-md-6 col-btn">
+            <button class="btn btn-light btn-block" (click)="editando=true">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="col-md-6 col-btn">
+            <button class="btn btn-light btn-block" data-toggle="modal" data-target="#cambiarClavePopup">
+              <i class="fas fa-key"></i> Cambiar Clave
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade background-popup-fade" id="ingresarClavePopup" aria-labelledby="Inicio Sesión"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Ingresar Clave
+        </h5>
+        <button type="button" id="btnCloseIngresarClavePopup" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="errorMessageClave">
+          <div style="width: 100%; margin-bottom: 1%;">
+            <div class="alert alert-danger alert-dismissible fade show"
+              style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;" role="alert">
+              {{ errorMessageClave }}
+              <button (click)="errorMessageClave = ''" class="close btn btn-link" data-dismiss="alert"
+                style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <div class="card text-center animate__animated animate__flipInY animate__fast">
+          <div class="card-body">
+            <form ngNoForm (submit)="guardarUsuario($event)">
+              <div class="form-group">
+                <label>Ingrese su clave para confirmar los cambios</label>
+                <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave"
+                  class="form-control">
+              </div>
+              <br>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">
+                  Confirmar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

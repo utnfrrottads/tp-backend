@@ -26,6 +26,10 @@ const SIGNUP = gql`
         isAdministrador
       }
       token
+      monedas {
+        _id
+        tag
+      }
     }
   }
 `;
@@ -42,6 +46,10 @@ const SIGNIN = gql`
         isAdministrador
       }
       token
+      monedas {
+        _id
+        tag
+      }
     }
   }
 `;

@@ -10,7 +10,7 @@
           <div class="col-md-8">
             <div class="form-group">
               <label for="titulo">Título</label>
-              <input type="text" class="form-control" placeholder="Título del Servicio" formControlName="titulo">
+              <input type="text" class="form-control" placeholder="Título del servicio" formControlName="titulo">
             </div>
           </div>
 
@@ -27,15 +27,29 @@
 
         <div class="form-group">
           <label for="descripcion">Descripción</label>
-          <input type="text" class="form-control" placeholder="Descripción" formControlName="descripcion">
+          <input type="text" class="form-control" placeholder="Descripción del servicio" formControlName="descripcion">
         </div>
 
-        <div class="form-group">
-          <label for="precio">Precio</label>
-          <input type="number" class="form-control" placeholder="Precio" formControlName="precio">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label for="valor">Precio</label>
+              <input type="number" class="form-control" placeholder="Precio" formControlName="valor">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="moneda">Moneda</label>
+              <select class="form-control" formControlName="moneda">
+                <option value="" selected disabled>Moneda</option>
+                <option *ngFor="let moneda of monedas" [value]="moneda._id">{{ moneda.tag }}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-success btn-block" [disabled]="!serviceForm.valid"><i class="fas fa-plus"></i> Publicar</button>
+
       </form>
 
     </div>

@@ -15,6 +15,33 @@ const CATEGORIAS = gql`
   }
 `;
 
+const ADDCATEGORIA = gql`
+  mutation addCategoria($descripcion: String!) {
+    addCategoria(descripcion: $descripcion) {
+      _id
+      descripcion
+    }
+  }
+`;
+
+const DELETECATEGORIA = gql`
+  mutation deleteCategoria($_id: String!) {
+    deleteCategoria(_id: $_id) {
+      _id
+      descripcion
+    }
+  }
+`;
+
+const UPDATECATEGORIA = gql`
+  mutation updateCategoria($_id: String!, $descripcion: String!) {
+    updateCategoria(_id: $_id, descripcion: $descripcion) {
+      _id
+      descripcion
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +49,7 @@ export class CategoriaService {
 
   constructor(private apollo: Apollo) { }
 
-  getAll(): any {
+  categorias(): any {
     return this.apollo.watchQuery({
       query: CATEGORIAS
     }).valueChanges.pipe(
@@ -30,5 +57,33 @@ export class CategoriaService {
         return res.data.categorias;
       })
     );
+  }
+
+  addCategoria(categoria: Categoria): any {
+    return this.apollo.mutate({
+      mutation: ADDCATEGORIA,
+      variables: {
+        descripcion: categoria.descripcion
+      }
+    });
+  }
+
+  deleteCategoria(_id: String): any {
+    return this.apollo.mutate({
+      mutation: DELETECATEGORIA,
+      variables: {
+        _id
+      }
+    });
+  }
+
+  updateCategoria(categoria: Categoria): any {
+    return this.apollo.mutate({
+      mutation: UPDATECATEGORIA,
+      variables: {
+        _id: categoria._id,
+        descripcion: categoria.descripcion
+      }
+    });
   }
 }

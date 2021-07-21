@@ -7,7 +7,8 @@ const contratoSchema = new Schema({
         default: Date.now
     },
     fechaCancelacion: {
-        type: Date
+        type: Date,
+        default: null
     },
     idServicio: {
         type: String,
@@ -17,6 +18,6 @@ const contratoSchema = new Schema({
         type: String,
         required: true
     }
-}, { timestamps: false });
+}, { collection: 'contratos', timestamps: false });
 
 module.exports = model('Contrato', contratoSchema);

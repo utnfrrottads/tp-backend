@@ -3,9 +3,11 @@ const { Schema, model } = require('mongoose');
 const categoriaSchema = new Schema({
     descripcion: {
         type: String,
+        unique: true,
         required: true,
-        unique: true
+        trim: true,
+        maxLength: 30
     }
-}, { timestamps: false });
+}, { collection: 'categorias', timestamps: false });
 
 module.exports = model('Categoria', categoriaSchema);

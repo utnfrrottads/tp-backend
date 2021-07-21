@@ -17,7 +17,7 @@ export class ServicesSidebarComponent implements OnInit {
   }
 
   getCategorias(): void {
-    this.categoriaService.getAll().subscribe(
+    this.categoriaService.categorias().subscribe(
       (res: any) => {
         this.categorias = res;
         console.log(this.categorias);
