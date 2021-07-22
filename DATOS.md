@@ -1,8 +1,11 @@
 # Datos
 
 ## Pendiente
-
-- Ver porque la foranea del solicitudes no funciona como deberia (No me permite tener un pedido con varios producos ni viceversa)
+ 
+- Problema con la fk de ventas, solo valida que no sea nulo, pero no valida que el dato exista previamente en la tabla solicitudes
+- Probar con:
+- - usar un id autogenerado como pk en solicitudes y ver si ahi hace la referencia(recordar poner unique: false en el modelo de solicitudes)
+- - Revisar Asociation o  advance M:N asociation
 - Ver como implementarlo con postgress
 
 

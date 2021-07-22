@@ -43,7 +43,8 @@ module.exports = (sequelize, DataType)=>{
 
     Proveedores.associate = (models)=>{
         
-        Proveedores.belongsToMany(models.Productos, { through: models.ProveedorProductos }); //'proveedorProductos'
+        //'proveedorProductos'
+        Proveedores.belongsToMany(models.Productos, { through: models.ProveedorProductos }); 
     };
 
     return Proveedores;

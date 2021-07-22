@@ -35,6 +35,8 @@ module.exports = (sequelize, DataType)=>{
     Ventas.associate = (models)=>{
         //ASOCIACION CON SOLICITUDES
         Ventas.belongsTo(models.Solicitudes);
+
+        Ventas.sync({ force: true })
     
     };
 
