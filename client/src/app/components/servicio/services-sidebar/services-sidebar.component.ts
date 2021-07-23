@@ -16,19 +16,10 @@ export class ServicesSidebarComponent implements OnInit {
   constructor(private categoriaService: CategoriaService) {}
 
   ngOnInit(): void {
-    this.getCategorias();
   }
 
   publicarServicio(): void {
     $('#publicarServicioPopup').modal('show');
   }
-
-  getCategorias(): void {
-    this.categoriaService.categorias().subscribe(
-      (res: any) => {
-        this.categorias = res;
-      },
-      (err: any) => console.log(err)
-    );
-  }
+  
 }

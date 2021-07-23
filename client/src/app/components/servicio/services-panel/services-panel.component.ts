@@ -31,7 +31,7 @@ export class ServicesPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.suscribeServices();
-    this.monedas = JSON.parse(localStorage.getItem('monedas') || '');
+    this.monedas = JSON.parse(localStorage.getItem('monedas') || '[]');
     this.suscribeCategorias();
   }
 
