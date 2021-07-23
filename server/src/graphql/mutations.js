@@ -317,11 +317,7 @@ const addCategoria = {
     } else {
       const { descripcion } = args;
       if (descripcion && descripcion.trim().length < 30) {
-        if (
-          !(await Categoria.findOne({
-            descripcion: { $regex: descripcion.trim(), $options: "i" },
-          }))
-        ) {
+        if (!(await Categoria.findOne({ descripcion: descripcion.trim() }))) {
           const categoria = new Categoria({ descripcion });
           return await categoria.save();
         } else {
@@ -366,17 +362,13 @@ const updateCategoria = {
       if (categoria) {
         if (descripcion && descripcion.trim().length < 30) {
           if (
-            descripcion === categoria.descripcion ||
-            !(await Categoria.findOne({
-              descripcion: { $regex: descripcion.trim(), $options: "i" },
-            }))
+            (descripcion === categoria.descripcion) ||
+            !(await Categoria.findOne({ descripcion: descripcion.trim() }))
           ) {
             categoria.descripcion = descripcion;
             return categoria.save();
           } else {
-            throw new Error(
-              "La categoría ingresada ya se encuentra registrada"
-            );
+            throw new Error("La categoría ingresada ya se encuentra registrada");
           }
         } else {
           throw new Error("Ingrese una categoría en el formato correcto");
