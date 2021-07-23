@@ -52,6 +52,7 @@ export class PublicarServicioComponent implements OnInit {
             this.serviceForm.value.titulo +
             ' se registró correctamente',
         });
+        
       },
       (err: any) => {
         this.errorMessage = err.message;

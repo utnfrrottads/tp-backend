@@ -11,22 +11,20 @@ import { CategoriaService } from 'src/app/services/categoria.service';
   styleUrls: ['./services-panel.component.scss'],
 })
 export class ServicesPanelComponent implements OnInit {
+
   servicios: Servicio[] = [];
   categorias: Categoria[] = [];
   monedas: Moneda[] = [];
+
   constructor(
     private servicesService: ServicesService,
     private categoriasService: CategoriaService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getServices();
     this.monedas = JSON.parse(localStorage.getItem('monedas') || '');
     this.getCategorias();
-  }
-
-  abrirModalPublicarServicio(): void {
-    // $('#publicarServicioPopup').modal('show');
   }
 
   getServices(): void {
