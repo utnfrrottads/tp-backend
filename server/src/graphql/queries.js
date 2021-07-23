@@ -18,16 +18,16 @@ const categorias = {
     description: 'Categorias',
     type: GraphQLList(TypeCategoria),
     async resolve(parent, args) {
-          return await Categoria.find();
+        return await Categoria.find();
     }
 }
 
 const servicios = {
-  description: 'Servicios',
-  type: GraphQLList(TypeServicio),
-  async resolve(parent, args) {
-    return await Servicio.find();
-  }
+    description: 'Servicios',
+    type: GraphQLList(TypeServicio),
+    async resolve(parent, args) {
+        return await Servicio.find();
+    }
 }
 
 module.exports = { niveles, categorias, servicios }

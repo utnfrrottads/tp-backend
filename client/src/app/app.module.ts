@@ -11,20 +11,15 @@ import { Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import { AuthGuard } from './guards/auth.guard';
-
 import { TokenInterceptorService } from './services/token-interceptor.service';
-import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SigninComponent } from './components/login/signin/signin.component';
 import { SignupComponent } from './components/login/signup/signup.component';
-import { IndexComponent } from './components/index/index.component';
-import { ServicesPanelComponent } from './components/services/services-panel/services-panel.component';
-import { ServicesSidebarComponent } from './components/services/services-sidebar/services-sidebar.component';
-import { ServiceCardComponent } from './components/services/service-card/service-card.component';
-import { PublicarServicioComponent } from './components/publicar-servicio/publicar-servicio.component';
+import { ServicesPanelComponent } from './components/servicio/services-panel/services-panel.component';
+import { ServicesSidebarComponent } from './components/servicio/services-sidebar/services-sidebar.component';
+import { ServiceCardComponent } from './components/servicio/service-card/service-card.component';
+import { PublicarServicioComponent } from './components/servicio/publicar-servicio/publicar-servicio.component';
 import { ListCategoriasComponent } from './components/categoria/list-categorias/list-categorias.component';
 import { UpdateCategoriaComponent } from './components/categoria/update-categoria/update-categoria.component';
 import { ListNivelesComponent } from './components/nivel/list-niveles/list-niveles.component';
@@ -38,7 +33,6 @@ import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambia
     NavigationComponent,
     SigninComponent,
     SignupComponent,
-    IndexComponent,
     PerfilComponent,
     CambiarClaveComponent,
     ServicesPanelComponent,
@@ -60,14 +54,11 @@ import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambia
     HttpLinkModule,
   ],
   providers: [
-    AuthService,
-    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
-    },
-    UserService,
+    }
   ],
   bootstrap: [AppComponent],
 })

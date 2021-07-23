@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListCategoriasComponent } from './components/categoria/list-categorias/list-categorias.component';
 import { ListNivelesComponent } from './components/nivel/list-niveles/list-niveles.component';
-import { PublicarServicioComponent } from './components/publicar-servicio/publicar-servicio.component';
-import { ServicesPanelComponent } from './components/services/services-panel/services-panel.component';
+import { ServicesPanelComponent } from './components/servicio/services-panel/services-panel.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
@@ -27,17 +26,7 @@ const routes: Routes = [
     path: 'categorias',
     component: ListCategoriasComponent,
     canActivate: [AdminGuard],
-  },
-  {
-    path: 'services-panel',
-    component: ServicesPanelComponent,
-    canActivate: [AdminGuard],
-  },
-  {
-    path: 'publicar-servicio',
-    component: PublicarServicioComponent,
-    canActivate: [AdminGuard],
-  },
+  }
 ];
 
 @NgModule({

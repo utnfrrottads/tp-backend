@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Moneda } from 'src/app/models/Moneda';
 import { ServicesService } from 'src/app/services/services.service';
-import { Categoria } from '../../models/Categoria';
+import { Categoria } from '../../../models/Categoria';
 import Swal from 'sweetalert2';
 
 declare var $: any;

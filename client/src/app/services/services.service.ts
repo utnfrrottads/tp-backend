@@ -64,7 +64,7 @@ const PUBLISH_SERVICE = gql`
   providedIn: 'root',
 })
 export class ServicesService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) { }
 
   services(): any {
     return this.apollo

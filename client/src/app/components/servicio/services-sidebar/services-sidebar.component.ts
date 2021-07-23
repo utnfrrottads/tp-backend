@@ -1,7 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/models/Categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
+
 declare var $: any;
 
 @Component({
@@ -10,7 +10,6 @@ declare var $: any;
   styleUrls: ['./services-sidebar.component.scss'],
 })
 export class ServicesSidebarComponent implements OnInit {
-  @Output() abrirModalPublicarServicio = new EventEmitter();
 
   categorias: Categoria[] = [];
 
@@ -21,7 +20,6 @@ export class ServicesSidebarComponent implements OnInit {
   }
 
   publicarServicio(): void {
-    // this.abrirModalPublicarServicio.emit();
     $('#publicarServicioPopup').modal('show');
   }
 
@@ -29,7 +27,6 @@ export class ServicesSidebarComponent implements OnInit {
     this.categoriaService.categorias().subscribe(
       (res: any) => {
         this.categorias = res;
-        console.log(this.categorias);
       },
       (err: any) => console.log(err)
     );
