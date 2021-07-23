@@ -7,6 +7,7 @@ import { Servicio } from 'src/app/models/Servicio';
   styleUrls: ['./service-card.component.scss'],
 })
 export class ServiceCardComponent {
+  
   @Input() cardData: Servicio = {
     _id: '',
     titulo: '',

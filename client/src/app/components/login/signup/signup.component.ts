@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('usuario', JSON.stringify(res.data.signUp.usuario));
         localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
-        localStorage.setItem('monedas', JSON.stringify(res.data.signIn.monedas));
+        localStorage.setItem('monedas', JSON.stringify(res.data.signUp.monedas));
 
         $('#signUpPopup').modal('hide');
         $('body').removeClass('modal-open');
@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit {
 
         $('.navbar-collapse').removeClass('show');
 
-        this.router.navigate(['services-panel']);
+        this.router.navigate(['']);
       },
       (err: any) => {
         this.errorMessage = err.message;

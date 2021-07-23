@@ -13,6 +13,7 @@ declare var $: any;
   styleUrls: ['./publicar-servicio.component.scss'],
 })
 export class PublicarServicioComponent implements OnInit {
+  
   @Input() categorias: Categoria[] = [];
   @Input() monedas: Moneda[] = [];
 
@@ -26,12 +27,11 @@ export class PublicarServicioComponent implements OnInit {
     categoria: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [
       Validators.required,
-      Validators.maxLength(80),
+      Validators.maxLength(300),
     ]),
     valor: new FormControl('', [
       Validators.required,
-      Validators.min(1),
-      Validators.max(500000),
+      Validators.min(0)
     ]),
     moneda: new FormControl('', [Validators.required]),
   });

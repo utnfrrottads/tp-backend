@@ -1,6 +1,6 @@
 import { Moneda } from './Moneda';
 
 export interface Precio {
-  valor: string;
+  valor: number;
   moneda: Moneda;
 }

@@ -53,29 +53,31 @@ const signUp = {
       (!habilidades || (habilidades && habilidades.trim().length <= 300))
     ) {
       if (!(await Usuario.findOne({ nombreUsuario }))) {
-        const claveEncriptada = await encryptPassword(clave);
-        const usuario = new Usuario({
-          nombreUsuario,
-          clave: claveEncriptada,
-          nombreApellido,
-          email,
-          habilidades,
-        });
-        const usuarioGuardado = await usuario.save();
-        const token = createJwtToken(usuarioGuardado);
-        const monedas = await Moneda.find();
-        return {
-          usuario: usuarioGuardado,
-          token,
-          monedas,
-        };
+        const nivelMinimo = await Nivel.findOne({ nro: 1, contratosMinimos: 0 })
+        if (nivelMinimo) {
+          const claveEncriptada = await encryptPassword(clave);
+          const usuario = new Usuario({
+            nombreUsuario,
+            clave: claveEncriptada,
+            nombreApellido,
+            email,
+            habilidades,
+            idNivel: nivelMinimo._id
+          });
+          const usuarioGuardado = await usuario.save();
+          const token = createJwtToken(usuarioGuardado);
+          return {
+            usuario: usuarioGuardado,
+            token
+          };
+        } else {
+          throw new Error("No se ha registrado el nivel mínimo de contratos");
+        }
       } else {
         throw new Error("El nombre de usuario ya se encuentra registrado");
       }
     } else {
-      throw new Error(
-        "Ingrese todos los datos requeridos en el formato correcto"
-      );
+      throw new Error("Ingrese todos los datos requeridos en el formato correcto");
     }
   },
 };
@@ -98,11 +100,9 @@ const signIn = {
         throw new Error("Nombre de usuario y/o clave incorrectos");
       } else {
         const token = createJwtToken(usuario);
-        const monedas = await Moneda.find();
         return {
           usuario,
-          token,
-          monedas,
+          token
         };
       }
     }
@@ -156,7 +156,7 @@ const updateUsuario = {
             const token = createJwtToken(usuarioGuardado);
             return {
               usuario: usuarioGuardado,
-              token,
+              token
             };
           } else {
             throw new Error("El nombre de usuario ya se encuentra registrado");
@@ -193,7 +193,7 @@ const cambiarClave = {
           const token = createJwtToken(usuarioGuardado);
           return {
             usuario: usuarioGuardado,
-            token,
+            token
           };
         } else {
           throw new Error("Ingrese una clave nueva en el formato correcto");
@@ -395,19 +395,27 @@ const publishService = {
     idMoneda: { type: GraphQLID },
   },
   async resolve(parent, args, { usuario }) {
-    if (!usuario || !usuario.isAdministrador) {
-      throw new Error("Acceso no autorizado");
-    } else {
-      const { titulo, descripcion, idCategoria, valor, idMoneda } = args;
-      const precio = new Precio({ valor, idMoneda });
+    const { titulo, descripcion, idCategoria, valor, idMoneda } = args;
+    if (
+      titulo
+      && titulo.trim().length <= 30
+      && descripcion
+      && descripcion.trim().length <= 300
+      && idCategoria
+      && valor
+      && valor >= 0
+      && idMoneda
+    ) {
       const servicio = new Servicio({
         titulo,
         descripcion,
+        precio: { valor, idMoneda },
         idCategoria,
-        precio,
         idUsuario: usuario._id,
       });
       return await servicio.save();
+    } else {
+      throw new Error("Ingrese todos los datos requeridos en el formato correcto");
     }
   },
 };

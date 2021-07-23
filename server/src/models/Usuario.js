@@ -37,7 +37,7 @@ const usuarioSchema = new Schema(
     },
     idNivel: {
       type: String,
-      //required: true
+      required: true
     },
   },
   { collection: "usuarios", timestamps: false }

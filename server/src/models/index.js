@@ -5,5 +5,4 @@ module.exports = {
   Servicio: require("./Servicio"),
   Categoria: require("./Categoria"),
   Moneda: require("./Moneda"),
-  Precio: require("./Precio"),
 };

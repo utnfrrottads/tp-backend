@@ -50,7 +50,7 @@ export class SigninComponent implements OnInit {
 
         $('.navbar-collapse').removeClass('show');
 
-        this.router.navigate(['/services-panel']);
+        this.router.navigate(['']);
       },
       (err: any) => {
         this.errorMessage = err.message;
