@@ -12,7 +12,8 @@ declare var $: any;
   styleUrls: ['./update-nivel.component.scss'],
 })
 export class UpdateNivelComponent implements OnInit {
-  @Output() getNiveles = new EventEmitter();
+
+  @Output() refreshNiveles = new EventEmitter();
 
   @Input() editMode: Boolean = false;
   @Input() nivelEditando: Number = 0;
@@ -52,7 +53,7 @@ export class UpdateNivelComponent implements OnInit {
     this.nivelService.addNivel(nivel).subscribe(
       () => {
         this.errorMessage = '';
-        this.getNiveles.emit();
+        this.refreshNiveles.emit();
         $('#updateNivelPopup').modal('hide');
       },
       (err: any) => {
@@ -65,7 +66,7 @@ export class UpdateNivelComponent implements OnInit {
     this.nivelService.updateNivel(nivel).subscribe(
       () => {
         this.errorMessage = '';
-        this.getNiveles.emit();
+        this.refreshNiveles.emit();
         $('#updateNivelPopup').modal('hide');
       },
       (err: any) => {

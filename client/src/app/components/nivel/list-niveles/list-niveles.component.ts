@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { NivelService } from '../../../services/nivel.service';
@@ -35,27 +36,39 @@ export class ListNivelesComponent implements OnInit {
 
   niveles: Nivel[] = [];
 
+  nivelesQuery: any;
+  nivelesSubscription: any;
+
   constructor(private nivelService: NivelService) { }
 
   ngOnInit(): void {
-    this.getNiveles();
+    this.suscribeNiveles();
   }
 
-  getNiveles() {
-    this.nivelService.niveles().subscribe(
+  ngOnDestroy(): void {
+    this.unsuscribeNiveles();
+  }
+
+  suscribeNiveles(): void {
+    this.nivelesQuery = this.nivelService.niveles();
+    this.nivelesSubscription = this.nivelesQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.niveles;
+      })
+    ).subscribe(
       (res: any) => {
-        this.niveles = res.sort(function (a: any, b: any) {
-          if (a.nro < b.nro) {
-            return -1;
-          }
-          if (a.nro > b.nro) {
-            return 1;
-          }
-          return 0;
-        });
+        this.niveles = res;
       },
       (err: any) => console.log(err)
-    )
+    );
+  }
+
+  refreshNiveles(): void {
+    this.nivelesQuery.refetch();
+  }
+
+  unsuscribeNiveles(): void {
+    this.nivelesSubscription.unsubscribe();
   }
 
   abrirModalAgregarNivel() {
@@ -145,7 +158,7 @@ export class ListNivelesComponent implements OnInit {
   eliminarNivel(_id: String) {
     this.nivelService.deleteNivel(_id).subscribe(
       () => {
-        this.getNiveles();
+        this.refreshNiveles();
       },
       (err: any) => console.log(err)
     )

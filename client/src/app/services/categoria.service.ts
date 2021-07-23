@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -52,11 +51,7 @@ export class CategoriaService {
   categorias(): any {
     return this.apollo.watchQuery({
       query: CATEGORIAS
-    }).valueChanges.pipe(
-      map((res: any) => {
-        return res.data.categorias;
-      })
-    );
+    })
   }
 
   addCategoria(categoria: Categoria): any {
@@ -65,7 +60,7 @@ export class CategoriaService {
       variables: {
         descripcion: categoria.descripcion
       }
-    });
+    })
   }
 
   deleteCategoria(_id: String): any {
@@ -74,7 +69,7 @@ export class CategoriaService {
       variables: {
         _id
       }
-    });
+    })
   }
 
   updateCategoria(categoria: Categoria): any {
@@ -84,6 +79,6 @@ export class CategoriaService {
         _id: categoria._id,
         descripcion: categoria.descripcion
       }
-    });
+    })
   }
 }

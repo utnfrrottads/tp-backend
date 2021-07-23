@@ -70,6 +70,7 @@ export class AppModule {
       defaultOptions: {
         watchQuery: {
           fetchPolicy: 'cache-and-network',
+          pollInterval: 30000,
         },
       },
     });

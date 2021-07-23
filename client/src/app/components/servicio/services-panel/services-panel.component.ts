@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+
 import { ServicesService } from 'src/app/services/services.service';
+
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
 import { Moneda } from 'src/app/models/Moneda';
@@ -16,19 +19,34 @@ export class ServicesPanelComponent implements OnInit {
   categorias: Categoria[] = [];
   monedas: Moneda[] = [];
 
+  servicesQuery: any;
+  servicesSubscription: any;
+  categoriasQuery: any;
+  categoriasSubscription: any;
+
   constructor(
     private servicesService: ServicesService,
     private categoriasService: CategoriaService
   ) { }
 
   ngOnInit(): void {
-    this.getServices();
+    this.suscribeServices();
     this.monedas = JSON.parse(localStorage.getItem('monedas') || '');
-    this.getCategorias();
+    this.suscribeCategorias();
   }
 
-  getServices(): void {
-    this.servicesService.services().subscribe(
+  ngOnDestroy(): void {
+    this.unsuscribeServices();
+    this.unsuscribeCategorias();
+  }
+
+  suscribeServices(): void {
+    this.servicesQuery = this.servicesService.services();
+    this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.servicios;
+      })
+    ).subscribe(
       (res: any) => {
         this.servicios = res;
       },
@@ -36,12 +54,30 @@ export class ServicesPanelComponent implements OnInit {
     );
   }
 
-  getCategorias(): void {
-    this.categoriasService.categorias().subscribe(
+  refreshServices(): void {
+    this.servicesQuery.refetch();
+  }
+
+  unsuscribeServices(): void {
+    this.servicesSubscription.unsubscribe();
+  }
+
+  suscribeCategorias(): void {
+    this.categoriasQuery = this.categoriasService.categorias();
+    this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.categorias;
+      })
+    ).subscribe(
       (res: any) => {
         this.categorias = res;
       },
       (err: any) => console.log(err)
     );
   }
+
+  unsuscribeCategorias(): void {
+    this.categoriasSubscription.unsubscribe();
+  }
+  
 }

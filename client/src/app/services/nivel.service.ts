@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -56,11 +55,7 @@ export class NivelService {
   niveles(): any {
     return this.apollo.watchQuery({
       query: NIVELES
-    }).valueChanges.pipe(
-      map((res: any) => {
-        return res.data.niveles;
-      })
-    )
+    })
   }
 
   addNivel(nivel: Nivel): any {

@@ -13,7 +13,7 @@ declare var $: any;
 })
 export class UpdateCategoriaComponent implements OnInit {
 
-  @Output() getCategorias = new EventEmitter();
+  @Output() refreshCategorias = new EventEmitter();
 
   @Input() editMode: Boolean = false;
   @Input() categoria: Categoria = {
@@ -42,7 +42,7 @@ export class UpdateCategoriaComponent implements OnInit {
     this.categoriaService.addCategoria(categoria).subscribe(
       () => {
         this.errorMessage = '';
-        this.getCategorias.emit();
+        this.refreshCategorias.emit();
         $("#updateCategoriaPopup").modal("hide");
       },
       (err: any) => {
@@ -55,7 +55,7 @@ export class UpdateCategoriaComponent implements OnInit {
     this.categoriaService.updateCategoria(categoria).subscribe(
       () => {
         this.errorMessage = '';
-        this.getCategorias.emit();
+        this.refreshCategorias.emit();
         $("#updateCategoriaPopup").modal("hide");
       },
       (err: any) => {

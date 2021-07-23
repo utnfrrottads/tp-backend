@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Moneda } from 'src/app/models/Moneda';
 import { ServicesService } from 'src/app/services/services.service';
@@ -13,6 +13,8 @@ declare var $: any;
   styleUrls: ['./publicar-servicio.component.scss'],
 })
 export class PublicarServicioComponent implements OnInit {
+
+  @Output() refreshServicios = new EventEmitter();
   
   @Input() categorias: Categoria[] = [];
   @Input() monedas: Moneda[] = [];
@@ -52,7 +54,7 @@ export class PublicarServicioComponent implements OnInit {
             this.serviceForm.value.titulo +
             ' se registró correctamente',
         });
-        
+        this.refreshServicios.emit();
       },
       (err: any) => {
         this.errorMessage = err.message;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Categoria } from 'src/app/models/Categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
@@ -11,7 +11,7 @@ declare var $: any;
 })
 export class ServicesSidebarComponent implements OnInit {
 
-  categorias: Categoria[] = [];
+  @Input() categorias: Categoria[] = [];
 
   constructor(private categoriaService: CategoriaService) {}
 

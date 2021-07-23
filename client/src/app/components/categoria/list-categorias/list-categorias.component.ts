@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { CategoriaService } from '../../../services/categoria.service';
@@ -22,19 +23,39 @@ export class ListCategoriasComponent implements OnInit {
 
   categorias: Categoria[] = [];
 
-  constructor(private categoriaService: CategoriaService) {}
+  categoriasQuery: any;
+  categoriasSubscription: any;
+
+  constructor(private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
-    this.getCategorias();
+    this.suscribeCategorias();
   }
 
-  getCategorias() {
-    this.categoriaService.categorias().subscribe(
+  ngOnDestroy(): void {
+    this.unsuscribeCategorias();
+  }
+
+  suscribeCategorias(): void {
+    this.categoriasQuery = this.categoriaService.categorias();
+    this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.categorias;
+      })
+    ).subscribe(
       (res: any) => {
         this.categorias = res;
       },
       (err: any) => console.log(err)
     );
+  }
+
+  refreshCategorias(): void {
+    this.categoriasQuery.refetch();
+  }
+
+  unsuscribeCategorias(): void {
+    this.categoriasSubscription.unsubscribe();
   }
 
   abrirModalAgregarCategoria() {
@@ -77,7 +98,7 @@ export class ListCategoriasComponent implements OnInit {
   eliminarCategoria(_id: String) {
     this.categoriaService.deleteCategoria(_id).subscribe(
       () => {
-        this.getCategorias();
+        this.refreshCategorias();
       },
       (err: any) => console.log(err)
     );

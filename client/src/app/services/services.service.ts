@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -67,15 +66,9 @@ export class ServicesService {
   constructor(private apollo: Apollo) { }
 
   services(): any {
-    return this.apollo
-      .watchQuery({
-        query: SERVICES,
-      })
-      .valueChanges.pipe(
-        map((res: any) => {
-          return res.data.servicios;
-        })
-      );
+    return this.apollo.watchQuery({
+      query: SERVICES,
+    })
   }
 
   publish(service: any): any {
@@ -88,6 +81,6 @@ export class ServicesService {
         valor: service.valor,
         idMoneda: service.moneda,
       },
-    });
+    })
   }
 }
