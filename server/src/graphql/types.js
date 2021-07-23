@@ -25,9 +25,6 @@ const LoginOutput = new GraphQLObjectType({
     token: { type: GraphQLString },
     monedas: {
       type: GraphQLList(TypeMoneda),
-      resolve(parent, args) {
-        return Moneda.find();
-      },
     },
   }),
 });
