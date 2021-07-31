@@ -1,7 +1,16 @@
 module.exports = app =>{
 
     const Ventas = app.db.models.Ventas;
+    const Solicitudes = app.db.models.Solicitudes;
 
+    app.route('/ventasol')
+    .get((req,res)=>{
+        Ventas.findAll({include: Solicitudes}) 
+        .then(result=> res.json(result))
+        .catch(error=>{
+            res.status(412).json({msg: error.message});
+        })
+    })
 
     app.route('/ventas')
         .get((req,res)=>{

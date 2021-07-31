@@ -8,22 +8,16 @@ module.exports = (sequelize, DataType)=>{
         },
         total:{
             type: DataType.REAL,
-            allowNull: false,
-            validate:{
-                notEmpty: true
-            }
+            defaultValue: 0
         },
         nomTarjeta:{
-            type: DataType.STRING,
-            allowNull: false
+            type: DataType.STRING
         },
         numTarjeta:{
-            type: DataType.STRING,
-            allowNull: false
+            type: DataType.STRING //,allowNull: false            
         },
-        cantCuotas:{
-            type: DataType.INTEGER,
-            allowNull: false
+        cantCuotas:{ 
+            type: DataType.INTEGER
         }
 
     });
@@ -34,10 +28,13 @@ module.exports = (sequelize, DataType)=>{
 
     Ventas.associate = (models)=>{
         //ASOCIACION CON SOLICITUDES
-        Ventas.belongsTo(models.Solicitudes);
+        //Ventas.belongsTo(models.Solicitudes);
 
-        Ventas.sync({ force: true })
+        Ventas.hasMany(models.Solicitudes);
+
+        //Ventas.sync({ force: true })
     
+
     };
 
     return Ventas;
