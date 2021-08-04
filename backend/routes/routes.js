@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const evaluatorPersonController = require('../controllers/evaluatorPerson-controller');
+const vacantController = require('../controllers/vacant-controller');
 
 
 router.get('/', (req, res) => {
@@ -15,5 +16,7 @@ router.put('/updateEvaluator/:id_persona', evaluatorPersonController.updateEvalu
 router.delete('/deleteEvaluator/:id_persona', evaluatorPersonController.deleteEvaluator); // Elimina un evaluador.
 
 
+// Rutas de la vacante
+router.post('/addVacant', vacantController.createVacant); // Crea una nueva vacante.
 
 module.exports = router;

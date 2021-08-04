@@ -31,7 +31,7 @@ evaluatorPersonController.createEvaluator = async ( req, res ) => {
             codigo_postal: req.body.address.postal_code,
             calle: req.body.address.street,
             numero: req.body.address.street_number,
-            departamento: req.body.address.departament,
+            departamento: req.body.address.department,
             piso: req.body.address.floor
         }, { transaction: transaction });
 
@@ -165,7 +165,7 @@ evaluatorPersonController.updateEvaluator = async ( req, res ) => {
             codigo_postal: req.body.address.postal_code,
             calle: req.body.address.street,
             numero: req.body.address.street_number,
-            departamento: req.body.address.departament,
+            departamento: req.body.address.department,
             piso: req.body.address.floor
         },
         {
