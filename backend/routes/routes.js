@@ -18,5 +18,6 @@ router.delete('/deleteEvaluator/:id_persona', evaluatorPersonController.deleteEv
 
 // Rutas de la vacante
 router.post('/addVacant', vacantController.createVacant); // Crea una nueva vacante.
+router.delete('/deleteVacant/:id_vacante', vacantController.deleteVacant) // Elimina una vacante.
 
 module.exports = router;

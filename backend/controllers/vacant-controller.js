@@ -47,7 +47,6 @@ vacantController.createVacant = async ( req, res ) => {
             id_empresa: req.body.id_company
         }, { transaction: transaction } );
 
-
         await asyncForEach( req.body.requirements , async (requirement) => {
 
             if( requirement.requirement_description === null || 
@@ -62,15 +61,42 @@ vacantController.createVacant = async ( req, res ) => {
 
         });
 
-
         await transaction.commit();
         res.status(200).json('Vacant created successfully');
 
     } catch ( error ) {
         await transaction.rollback();
         res.status(400).json( error.message );
-    }
-}
+    };
+};
+
+
+// Eliminar una vacante
+vacantController.deleteVacant = async ( req, res ) => {
+    const transaction = await sequelize.transaction();
+    try {
+        if( !req.params.id_vacante ){ // Si el parámetro no existe
+            throw new Error('Param is missing');
+        }
+
+        const vacantDeleted = await Vacant.destroy({
+            where: {
+                id_vacante: req.params.id_vacante
+            }
+        }, { transaction: transaction } );
+
+        if( vacantDeleted === 0 ) { // Si la cláusula where falla y no se puede eliminar la vacante
+            throw new Error('There is no a vacant with that ID');
+        }
+
+        await transaction.commit();
+        res.status(200).json('Vacant deleted successfully');
+
+    } catch (error) {
+        await transaction.rollback();
+        res.status(400).json( error.message );
+    };
+};
 
 
 module.exports = vacantController;

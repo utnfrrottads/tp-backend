@@ -1,7 +1,7 @@
 const asyncForEach = require('../sharedFunctions/asyncForEach');
 const validator = require('validator');
 
-const { DataTypes } = require('sequelize');
+const { DataTypes, Op } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Person = require('../models/personas')(sequelize, DataTypes);
 const Address = require('../models/direcciones')(sequelize, DataTypes);
@@ -94,14 +94,21 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
         });
 
         if ( !addressToDelete ) { // Si la direccion a eliminar no existe
-            throw new Error('There is no evaluator with that id');
+            throw new Error('There is no an evaluator with that ID');
         }
 
-        await Person.destroy({
+        const evaluatorDeleted = await Person.destroy({
             where: {
-                id_persona: req.params.id_persona
+                [Op.and]: [
+                    { id_persona: req.params.id_persona },
+                    { tipo_persona: 'evaluador' }
+                ]
             }
         }, { transaction: transaction });
+
+        if( evaluatorDeleted === 0 ) { // Si la cláusula where falla y no se elimina ningún evaluador
+            throw new Error('Can\'t delete evaluator');
+        }
 
         await Address.destroy({
             where: {
