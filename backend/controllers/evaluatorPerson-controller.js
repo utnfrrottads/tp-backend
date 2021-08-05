@@ -20,11 +20,8 @@ const evaluatorPersonController = { };
 
 // Dar de alta un evaluador
 evaluatorPersonController.createEvaluator = async ( req, res ) => {
-    
     const transaction = await sequelize.transaction();
-
     try {
-
         // Se crea la dirección primero para que se genere el id_dirección y luego poder asignarlo al evaluador
         const newAddress = await Address.create({
             ciudades_id_ciudad: req.body.address.id_city,
@@ -36,7 +33,7 @@ evaluatorPersonController.createEvaluator = async ( req, res ) => {
         }, { transaction: transaction });
 
         if ( !validator.isDate(req.body.date_of_birth) ) { // Si la fecha no es del formato correcto
-            throw new Error('check date_of_birth field');
+            throw new Error('Check date_of_birth field');
         }
 
         const newEvaluator = await Person.create({
@@ -62,7 +59,7 @@ evaluatorPersonController.createEvaluator = async ( req, res ) => {
                         descripcion: contact.contact_description
                     }, { transaction: transaction });
             } else {
-                throw new Error('check contact_type or value field');
+                throw new Error('Check contact_type or value field');
             }
         });
 
@@ -78,9 +75,7 @@ evaluatorPersonController.createEvaluator = async ( req, res ) => {
 
 // Dar de baja un evaluador.
 evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
-    
     const transaction = await sequelize.transaction();
-
     try {
         if ( !req.params.id_persona ) { // Si no existe el parámetro entonces lanza un error que lo toma el catch
             throw new Error('Param is missing');
@@ -134,11 +129,8 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
 
 // Modificar los datos de un evaluador
 evaluatorPersonController.updateEvaluator = async ( req, res ) => {
-    
-    const transaction = await sequelize.transaction();
-
+    let transaction = await sequelize.transaction();
     try {
-
         if ( !req.params.id_persona ) { // Si no existe el parámetro entonces lanza un error que lo toma el catch
             throw new Error('Param is missing');
         }
@@ -150,7 +142,7 @@ evaluatorPersonController.updateEvaluator = async ( req, res ) => {
         }
 
         if ( !validator.isDate(req.body.date_of_birth) ) { // Si la fecha no es del formato correcto
-            throw new Error('check date_of_birth field');
+            throw new Error('Check date_of_birth field');
         }
 
         await Person.update({
@@ -164,8 +156,8 @@ evaluatorPersonController.updateEvaluator = async ( req, res ) => {
         {
             where: {
                 id_persona: req.params.id_persona
-            }
-        }, { transaction: transaction });
+            },
+            transaction: transaction });
     
         await Address.update({
             ciudades_id_ciudad: req.body.address.id_city,
@@ -178,21 +170,20 @@ evaluatorPersonController.updateEvaluator = async ( req, res ) => {
         {
             where: {
                 id_direccion: evaluator.direcciones_id_direccion
-            }
-        }, { transaction: transaction });
+            },
+            transaction: transaction });
 
-        await Contact.destroy({
+        await Contact.destroy({ 
             where: {
-                personas_id_persona: req.params.id_persona 
-            }
-        }, { transaction: transaction });
+                personas_id_persona: req.params.id_persona
+            }, transaction: transaction });
 
         // Esta funcion sirve para que cree todos los contactos y cuando termina haga el commit
         await asyncForEach( req.body.contacts, async (contact) => {
             if ( (contact.contact_type === 'email' && validator.isEmail(contact.value)) ||
-                    (contact.contact_type === 'web' && validator.isURL(contact.value)) ||
-                    (contact.contact_type === 'telefono' && validator.isNumeric(contact.value)) ) {
-                    
+                 (contact.contact_type === 'web' && validator.isURL(contact.value)) ||
+                 (contact.contact_type === 'telefono' && validator.isNumeric(contact.value)) ) {
+        
                     await Contact.create({
                         tipoContacto: contact.contact_type,
                         valor: contact.value,
@@ -200,10 +191,10 @@ evaluatorPersonController.updateEvaluator = async ( req, res ) => {
                         descripcion: contact.contact_description
                     }, { transaction: transaction });
             } else {
-                throw new Error('check contact_type or value field');
+                throw new Error('Check contact_type or value field');
             }
         });
-
+    
         await transaction.commit();
         res.status(200).json('Evaluator updated successfully');
     
