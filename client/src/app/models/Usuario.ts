@@ -5,6 +5,8 @@ export interface Usuario {
     nombreApellido?: string;
     email?: string;
     habilidades?: string;
+    fotoPerfil?: string;
+    imagen?: any;
     isAdministrador?: boolean;
     idNivel?: string;
 }

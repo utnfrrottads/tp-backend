@@ -6,6 +6,7 @@ const {
 } = require("graphql");
 const {
   LoginOutput,
+  TypeUsuario,
   TypeNivel,
   TypeCategoria,
   TypeServicio,
@@ -16,7 +17,6 @@ const {
   Nivel,
   Servicio,
   Moneda,
-  Precio,
 } = require("../models/index");
 const { createJwtToken } = require("../helpers/auth");
 const {
@@ -34,8 +34,7 @@ const signUp = {
     email: { type: GraphQLString },
     habilidades: { type: GraphQLString },
   },
-  async resolve(parent, args) {
-    const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
+  async resolve(parent, { nombreUsuario, clave, nombreApellido, email, habilidades }) {
     if (
       nombreUsuario &&
       nombreUsuario.length >= 6 &&
@@ -91,8 +90,7 @@ const signIn = {
     nombreUsuario: { type: GraphQLString },
     clave: { type: GraphQLString },
   },
-  async resolve(parent, args) {
-    const { nombreUsuario, clave } = args;
+  async resolve(parent, { nombreUsuario, clave }) {
     const usuario = await Usuario.findOne({ nombreUsuario }).select("+clave");
     if (!usuario) {
       throw new Error("Nombre de usuario y/o clave incorrectos");
@@ -123,11 +121,10 @@ const updateUsuario = {
     email: { type: GraphQLString },
     habilidades: { type: GraphQLString },
   },
-  async resolve(parent, args, { usuario }) {
+  async resolve(parent, { nombreUsuario, clave, nombreApellido, email, habilidades }, { usuario }) {
     if (!usuario) {
       throw new Error("Acceso no autorizado");
     } else {
-      const { nombreUsuario, clave, nombreApellido, email, habilidades } = args;
       const claveValida = await matchPassword(clave, usuario.clave);
       if (!claveValida) {
         throw new Error("Clave incorrecta");
@@ -182,11 +179,10 @@ const cambiarClave = {
     claveActual: { type: GraphQLString },
     claveNueva: { type: GraphQLString },
   },
-  async resolve(parent, args, { usuario }) {
+  async resolve(parent, { claveActual, claveNueva }, { usuario }) {
     if (!usuario) {
       throw new Error("Acceso no autorizado");
     } else {
-      const { claveActual, claveNueva } = args;
       const claveValida = await matchPassword(claveActual, usuario.clave);
       if (!claveValida) {
         throw new Error("Clave actual incorrecta");
@@ -203,6 +199,35 @@ const cambiarClave = {
           throw new Error("Ingrese una clave nueva en el formato correcto");
         }
       }
+    }
+  },
+};
+
+const updateProfileImage = {
+  description: "Actualizar Foto Perfil",
+  type: TypeUsuario,
+  args: {
+    fotoPerfil: { type: GraphQLString },
+  },
+  async resolve(parent, { fotoPerfil }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      usuario.fotoPerfil = fotoPerfil;
+      return await usuario.save();
+    }
+  },
+};
+
+const deleteProfileImage = {
+  description: "Eliminar Foto Perfil",
+  type: TypeUsuario,
+  async resolve(parent, { }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      usuario.fotoPerfil = null;
+      return await usuario.save();
     }
   },
 };
@@ -421,6 +446,8 @@ module.exports = {
   signIn,
   updateUsuario,
   cambiarClave,
+  updateProfileImage,
+  deleteProfileImage,
   addNivel,
   deleteNivel,
   updateNivel,

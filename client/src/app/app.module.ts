@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { Apollo } from 'apollo-angular';
-import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { HttpLinkModule } from 'apollo-angular-link-http';
+import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-
-import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ApolloLink } from '@apollo/client/core';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SigninComponent } from './components/login/signin/signin.component';
@@ -26,6 +26,8 @@ import { ListNivelesComponent } from './components/nivel/list-niveles/list-nivel
 import { UpdateNivelComponent } from './components/nivel/update-nivel/update-nivel.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambiar-clave.component';
+
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -53,19 +55,22 @@ import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambia
     ReactiveFormsModule,
     HttpLinkModule,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true,
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(apollo: Apollo, httpLink: HttpLink) {
+  constructor(apollo: Apollo, httpLink: HttpLink, authService: AuthService) {
+    const middleware = new ApolloLink((operation, forward) => {
+      operation.setContext({
+        headers: new HttpHeaders().set('Authorization', `Bearer ${authService.getToken() || null}`),
+      });
+      return forward(operation);
+    });
+    const http = httpLink.create({ uri: environment.API_URL });
+    const link = middleware.concat(http);
+
     apollo.create({
-      link: httpLink.create({ uri: environment.API_URL }) as any,
+      link,
       cache: new InMemoryCache() as any,
       defaultOptions: {
         watchQuery: {

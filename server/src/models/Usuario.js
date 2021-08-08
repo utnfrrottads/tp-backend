@@ -30,6 +30,11 @@ const usuarioSchema = new Schema(
       trim: true,
       maxLength: 300,
     },
+    fotoPerfil: {
+      type: String,
+      unique: true,
+      default: null,
+    },
     isAdministrador: {
       type: Boolean,
       require: true,

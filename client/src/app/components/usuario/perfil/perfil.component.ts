@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from 'src/environments/environment';
+
 import { UserService } from '../../../services/user.service';
+import { CloudinaryService } from '../../../services/cloudinary.service';
 
 import { Usuario } from '../../../models/Usuario';
 
@@ -22,6 +25,8 @@ export class PerfilComponent implements OnInit {
     nombreApellido: '',
     email: '',
     habilidades: '',
+    fotoPerfil: '',
+    imagen: null,
   };
 
   usuarioEditado: Usuario = {
@@ -31,7 +36,10 @@ export class PerfilComponent implements OnInit {
     habilidades: '',
   };
 
-  constructor(private userService: UserService) { }
+  errorFormatoImagen: boolean = false;
+  cloudinary_url = environment.CLOUDINARY_URL;
+
+  constructor(private userService: UserService, private cloudinaryService: CloudinaryService) { }
 
   ngOnInit(): void {
     this.usuario = this.userService.getUsuario();
@@ -63,7 +71,7 @@ export class PerfilComponent implements OnInit {
         this.usuarioEditado.nombreApellido = res.data.updateUsuario.usuario.nombreApellido;
         this.usuarioEditado.email = res.data.updateUsuario.usuario.email;
         this.usuarioEditado.habilidades = res.data.updateUsuario.usuario.habilidades;
-        
+
         this.editando = false;
 
         $("#ingresarClavePopup").modal("hide");
@@ -72,6 +80,63 @@ export class PerfilComponent implements OnInit {
       },
       (err: any) => {
         this.errorMessageClave = err.message;
+      }
+    )
+  }
+
+  abrirModalImagen() {
+    $('#fotoPerfilPopup').modal('show');
+  }
+
+  obtenerImagen(event: any) {
+    if (
+      event.target.files[0].name.split(".").pop() === "jpg"
+      || event.target.files[0].name.split(".").pop() === "jpeg"
+      || event.target.files[0].name.split(".").pop() === "png"
+    ) {
+      this.errorFormatoImagen = false;
+      this.usuario.imagen = event.target.files[0];
+    } else {
+      this.errorFormatoImagen = true;
+    }
+  }
+
+  guardarImagen(event: any) {
+    event.preventDefault();
+    if (this.usuario.imagen && !this.errorFormatoImagen) {
+      const formImagen = new FormData();
+      formImagen.append("file", this.usuario.imagen);
+      formImagen.append("upload_preset", environment.UPLOAD_PRESET);
+
+      this.cloudinaryService.uploadImage(formImagen).subscribe(
+        (res: any) => {
+          this.usuario.fotoPerfil = res.public_id + '.' + res.format;
+          this.userService.updateProfileImage(this.usuario).subscribe(
+            (res: any) => {
+              localStorage.setItem('usuario', JSON.stringify(res.data.updateProfileImage.usuario));
+            },
+            (err: any) => {
+              console.log(err.message);
+            }
+          );
+
+          $('#fotoPerfilPopup').modal('hide');
+        },
+        (err: any) => {
+          console.log(err.message);
+        }
+      );
+    }
+  }
+
+  eliminarImagen() {
+    this.usuario.fotoPerfil = '';
+    this.userService.deleteProfileImage().subscribe(
+      (res: any) => {
+        localStorage.setItem('usuario', JSON.stringify(res.data.updateProfileImage.usuario));
+      },
+      (err: any) => {
+        console.log(err.message);
       }
     );
   }

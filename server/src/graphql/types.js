@@ -38,6 +38,7 @@ const TypeUsuario = new GraphQLObjectType({
     nombreApellido: { type: GraphQLString },
     email: { type: GraphQLString },
     habilidades: { type: GraphQLString },
+    fotoPerfil: { type: GraphQLString },
     isAdministrador: { type: GraphQLBoolean },
     idNivel: { type: GraphQLID },
     nivel: {

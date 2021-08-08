@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
-  API_URL: "http://localhost:4000/graphql"
+  API_URL: "http://localhost:4000/graphql",
+  CLOUD_NAME: 'dliuvibjk',
+  API_KEY: '438313976637266',
+  API_SECRET: 'zvFdQwzA88IBeWtb09h3w2o-I80',
+  UPLOAD_PRESET: 'kq3hf7ga',
+  CLOUDINARY_URL: 'https://res.cloudinary.com/dliuvibjk/image/upload/v1628391021/',
 };
 
 /*

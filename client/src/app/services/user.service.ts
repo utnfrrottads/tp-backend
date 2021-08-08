@@ -20,6 +20,7 @@ const UPDATEUSUARIO = gql`
         nombreApellido
         email
         habilidades
+        fotoPerfil
         isAdministrador
       }
       token
@@ -39,9 +40,40 @@ const CAMBIARCLAVE = gql`
         nombreApellido 
         email
         habilidades
+        fotoPerfil
         isAdministrador
       }
       token
+    }
+  }
+`;
+
+const UPDATEPROFILEIMAGE = gql`
+  mutation updateProfileImage($fotoPerfil: String!) {
+    updateProfileImage(
+      fotoPerfil: $fotoPerfil
+    ){
+      _id
+      nombreUsuario
+      nombreApellido 
+      email
+      habilidades
+      fotoPerfil
+      isAdministrador
+    }
+  }
+`;
+
+const DELETEPROFILEIMAGE = gql`
+  mutation deleteProfileImage {
+    deleteProfileImage {
+      _id
+      nombreUsuario
+      nombreApellido 
+      email
+      habilidades
+      fotoPerfil
+      isAdministrador
     }
   }
 `;
@@ -77,6 +109,21 @@ export class UserService {
         claveActual,
         claveNueva
       }
+    })
+  }
+
+  updateProfileImage(usuario: Usuario): any {
+    return this.apollo.mutate({
+      mutation: UPDATEPROFILEIMAGE,
+      variables: {
+        fotoPerfil: usuario.fotoPerfil
+      }
+    })
+  }
+
+  deleteProfileImage(): any {
+    return this.apollo.mutate({
+      mutation: DELETEPROFILEIMAGE
     })
   }
 

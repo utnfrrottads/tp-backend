@@ -23,6 +23,7 @@ const SIGNUP = gql`
         nombreApellido
         email
         habilidades
+        fotoPerfil
         isAdministrador
       }
       token
@@ -43,6 +44,7 @@ const SIGNIN = gql`
         nombreApellido
         email
         habilidades
+        fotoPerfil
         isAdministrador
       }
       token
