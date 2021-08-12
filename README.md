@@ -165,4 +165,5 @@ El sistema consiste en la administración de las compras y ventas de un negocio.
 
 #### 4.4 Modelo (DER)
 
-- ![DER](https://user-images.githubusercontent.com/58578161/116467320-edc12500-a845-11eb-9e79-e32a92ffe8b9.png)
+- ![DER-TP](https://user-images.githubusercontent.com/58578161/129282776-ffb0240b-8124-42ab-af04-c6331da59bec.png)
+
