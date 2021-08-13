@@ -29,7 +29,7 @@ module.exports = (sequelize, DataType)=>{
 
         //ESTE SYNC SE USÓ PORQUE HICE UN CAMBIO EN EL MODELO CUANDO LA TABLA
         //YA ESTABA CREADA
-        //Solicitudes.sync({ force: true }) //alter
+        Solicitudes.sync({ force: true }) //alter
     
     };
 

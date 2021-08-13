@@ -30,9 +30,9 @@ module.exports = (sequelize, DataType)=>{
         //ASOCIACION CON SOLICITUDES
         //Ventas.belongsTo(models.Solicitudes);
 
-        Ventas.hasMany(models.Solicitudes);
+        Ventas.hasOne(models.Solicitudes);
 
-        //Ventas.sync({ force: true })
+        Ventas.sync({ force: true })
     
 
     };
