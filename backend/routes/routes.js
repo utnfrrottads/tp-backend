@@ -17,6 +17,9 @@ router.delete('/deleteEvaluator/:id_persona', evaluatorPersonController.deleteEv
 
 
 // Rutas de la vacante
+
+router.get('/vacants', vacantController.getAllVacantsByCompany); // Trae todas las vacantes de una empresa.
+router.get('/vacant/:id_vacante', vacantController.getOneVacant); // Trae los datos de la vacante seleccionada.
 router.post('/addVacant', vacantController.createVacant); // Crea una nueva vacante.
 router.put('/updateVacant/:id_vacante', vacantController.updateVacant); // Modifica los datos de la vacante.
 router.delete('/deleteVacant/:id_vacante', vacantController.deleteVacant) // Elimina una vacante.

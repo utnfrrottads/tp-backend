@@ -98,8 +98,7 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
                     { id_persona: req.params.id_persona },
                     { tipo_persona: 'evaluador' }
                 ]
-            }
-        }, { transaction: transaction });
+            }, transaction: transaction });
 
         if( evaluatorDeleted === 0 ) { // Si la cláusula where falla y no se elimina ningún evaluador
             throw new Error('Can\'t delete evaluator');
@@ -108,14 +107,12 @@ evaluatorPersonController.deleteEvaluator = async ( req, res ) => {
         await Address.destroy({
             where: {
                 id_direccion: addressToDelete.direcciones_id_direccion
-            }
-        }, { transaction: transaction });
+            }, transaction: transaction });
 
         await Contact.destroy({
             where: {
                 personas_id_persona: req.params.id_persona
-            }
-        }, { transaction: transaction });
+            }, transaction: transaction });
 
         await transaction.commit();
         res.status(200).json('Evaluator deleted successfully');

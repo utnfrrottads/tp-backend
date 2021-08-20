@@ -79,8 +79,7 @@ vacantController.deleteVacant = async ( req, res ) => {
         const vacantDeleted = await Vacant.destroy({
             where: {
                 id_vacante: req.params.id_vacante
-            }
-        }, { transaction: transaction } );
+            }, transaction: transaction } );
 
         if( vacantDeleted === 0 ) { // Si la cláusula where falla y no se puede eliminar la vacante
             throw new Error('There is no a vacant with that ID');
@@ -158,6 +157,59 @@ vacantController.updateVacant = async ( req, res ) => {
 
     } catch (error) {
         await transaction.rollback();
+        res.status(400).json( error.message );
+    }
+};
+
+
+// Consultar todas las vacantes para una empresa
+vacantController.getAllVacantsByCompany = async ( req, res ) => {
+    try {
+        const vacants = await Company.findAll({
+            include: {
+                model: Vacant,
+                include: {
+                    model: Requirement
+                }
+            }
+        });
+
+        if ( vacants.length === 0 ) {
+            throw new Error('Vacants not found');
+        }
+
+        res.status(200).json( vacants );
+
+    } catch (error) {
+        res.status(400).json( error.message );
+    }
+};
+
+
+// Consultar una vacante dado su ID
+vacantController.getOneVacant = async ( req, res ) => {
+    try {
+        if( !req.params.id_vacante ) {
+            throw new Error('Param is missing');
+        }
+
+        const vacant = await Vacant.findOne({
+            include: [
+                Company,
+                Requirement
+            ],
+            where: {
+                id_vacante: req.params.id_vacante
+            }
+        });
+
+        if( !vacant ){
+            throw new Error('There is no vacant with that ID');
+        }
+
+        res.status(200).json( vacant );
+
+    } catch (error) {
         res.status(400).json( error.message );
     }
 };
