@@ -1,15 +1,18 @@
 const express = require('express');
-const db = require('./database/db-connection');
-
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+require('colors')
 
+// Importamos las rutas de las entidades.
+const router_empresas = require('./routes/empresas-route');
+
+// Middleware.
+app.use(express.json());
+
+// Agregamos los endpoints a la API.
+app.use('/empresas', router_empresas);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-    console.log(`Server on port ${port}`); 
+    console.log('Server running at ' + `http://localhost:${port}`.green);
 });
