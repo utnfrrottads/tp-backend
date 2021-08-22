@@ -3,9 +3,27 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-const SERVICES = gql`
+const SERVICIOS = gql`
   query {
     servicios {
+      _id
+      titulo
+      descripcion
+      categoria {
+        _id
+        descripcion
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
+const SERVICES_POR_BUSQUEDA = gql`
+  query serviciosPorBusqueda($busqueda: String!) {
+    serviciosPorBusqueda(busqueda: $busqueda) {
       _id
       titulo
       descripcion
@@ -67,7 +85,16 @@ export class ServicesService {
 
   services(): any {
     return this.apollo.watchQuery({
-      query: SERVICES,
+      query: SERVICIOS,
+    })
+  }
+
+  servicesBySearch(busqueda: String): any {
+    return this.apollo.watchQuery({
+      query: SERVICES_POR_BUSQUEDA,
+      variables: {
+        busqueda
+      }
     })
   }
 

@@ -5,9 +5,9 @@
 
   <div class="input-group input-group-sm mb-3">
     <input type="text" class="form-control" placeholder="Buscar servicios..." aria-label="Buscar servicios"
-      aria-describedby="basic-addon2" />
+      aria-describedby="basic-addon2" [(ngModel)]="busqueda" />
     <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button">
+      <button class="btn btn-outline-secondary" type="button" (click)="buscar()">
         <i class="fas fa-search mr-2"></i>Buscar
       </button>
     </div>

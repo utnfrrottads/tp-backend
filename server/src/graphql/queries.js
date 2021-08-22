@@ -1,4 +1,4 @@
-const { GraphQLList } = require('graphql');
+const { GraphQLString, GraphQLList } = require('graphql');
 const { TypeNivel, TypeCategoria, TypeServicio } = require('./types');
 const { Nivel, Categoria, Servicio } = require('../models/index');
 
@@ -30,4 +30,15 @@ const servicios = {
     }
 }
 
-module.exports = { niveles, categorias, servicios }
+const serviciosPorBusqueda = {
+    description: 'Servicios Por Búsqueda',
+    type: GraphQLList(TypeServicio),
+    args: {
+        busqueda: { type: GraphQLString },
+    },
+    async resolve(parent, { busqueda }) {
+        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" } });
+    }
+}
+
+module.exports = { niveles, categorias, servicios, serviciosPorBusqueda }

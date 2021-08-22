@@ -21,6 +21,8 @@ export class ServicesPanelComponent implements OnInit {
 
   servicesQuery: any;
   servicesSubscription: any;
+  servicesBySearchQuery: any;
+  servicesBySearchSubscription: any;
   categoriasQuery: any;
   categoriasSubscription: any;
 
@@ -37,6 +39,7 @@ export class ServicesPanelComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.unsuscribeServices();
+    this.unsuscribeServicesBySearch();
     this.unsuscribeCategorias();
   }
 
@@ -62,6 +65,28 @@ export class ServicesPanelComponent implements OnInit {
     this.servicesSubscription.unsubscribe();
   }
 
+  suscribeServicesBySearch(busqueda: String): void {
+    this.servicesBySearchQuery = this.servicesService.servicesBySearch(busqueda);
+    this.servicesBySearchSubscription = this.servicesBySearchQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.serviciosPorBusqueda;
+      })
+    ).subscribe(
+      (res: any) => {
+        this.servicios = res;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  refreshServicesBySearch(): void {
+    this.servicesBySearchQuery.refetch();
+  }
+
+  unsuscribeServicesBySearch(): void {
+    this.servicesBySearchSubscription.unsubscribe();
+  }
+
   suscribeCategorias(): void {
     this.categoriasQuery = this.categoriasService.categorias();
     this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
@@ -78,6 +103,10 @@ export class ServicesPanelComponent implements OnInit {
 
   unsuscribeCategorias(): void {
     this.categoriasSubscription.unsubscribe();
+  }
+
+  buscarServiciosPorBusqueda(busqueda: String) {
+    this.suscribeServicesBySearch(busqueda);
   }
   
 }

@@ -74,7 +74,7 @@ export class AppModule {
       cache: new InMemoryCache() as any,
       defaultOptions: {
         watchQuery: {
-          fetchPolicy: 'cache-and-network',
+          fetchPolicy: 'network-only',
           pollInterval: 30000,
         },
       },

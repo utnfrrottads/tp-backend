@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Categoria } from 'src/app/models/Categoria';
-import { CategoriaService } from 'src/app/services/categoria.service';
 
 declare var $: any;
 
@@ -11,15 +10,23 @@ declare var $: any;
 })
 export class ServicesSidebarComponent implements OnInit {
 
+  @Output() buscarServiciosPorBusqueda = new EventEmitter<String>();
+
   @Input() categorias: Categoria[] = [];
 
-  constructor(private categoriaService: CategoriaService) {}
+  busqueda: String = '';
+
+  constructor() {}
 
   ngOnInit(): void {
   }
 
   publicarServicio(): void {
     $('#publicarServicioPopup').modal('show');
+  }
+
+  buscar() {
+    if (this.busqueda) this.buscarServiciosPorBusqueda.emit(this.busqueda);
   }
   
 }
