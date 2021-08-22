@@ -2,6 +2,7 @@
 
 ## Pendiente
  
+- ¿hacer un ABMC-dependiente mas?
 - ¿ Ver como implementarlo con postgress ? 
 
 

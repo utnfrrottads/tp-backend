@@ -32,7 +32,7 @@ module.exports = (sequelize, DataType)=>{
 
         Ventas.hasOne(models.Solicitudes);
 
-        Ventas.sync({ force: true })
+        Ventas.sync() //{ force: true }
     
 
     };

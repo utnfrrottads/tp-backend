@@ -8,4 +8,11 @@ module.exports = app =>{
     //middlewares
     app.use(express.json());
 
+    // Esta linea se agrega para que angular pueda acceder sin problemas y obtener los datos
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*"); // YOUR-DOMAIN.TLD update to match the domain you will make the request from
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+      }); 
+
 };
