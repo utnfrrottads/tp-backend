@@ -20,9 +20,10 @@ export class ServicesSidebarComponent implements OnInit {
 
   busqueda: String = '';
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.changeSizeEvent();
   }
 
   publicarServicio(): void {
@@ -42,5 +43,24 @@ export class ServicesSidebarComponent implements OnInit {
     this.busqueda = '';
     this.buscarServiciosPorCategorias.emit();
   }
-  
+
+  abrirServicePanel() {
+    $('#btn-abrir-service-sidebar').css("display", "none");
+    $('#services-sidebar-content').css("display", "flex");
+  }
+
+  cerrarServicePanel() {
+    $('#services-sidebar-content').css("display", "none");
+    $('#btn-abrir-service-sidebar').css("display", "flex");
+  }
+
+  changeSizeEvent() {
+    $(window).resize(function () {
+      if ($(window).width() >= 768) {
+        $('#btn-abrir-service-sidebar').css("display", "none");
+        $('#services-sidebar-content').css("display", "flex");
+      }
+    });
+  }
+
 }

@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<app-services-sidebar id="services-sidebar" (buscarServiciosPorBusqueda)="buscarServiciosPorBusqueda($event)"
+<app-services-sidebar (buscarServiciosPorBusqueda)="buscarServiciosPorBusqueda($event)"
   (buscarServiciosPorCategorias)="buscarServiciosPorCategorias()" [categorias]="categorias"></app-services-sidebar>
 
 <app-publicar-servicio [categorias]="categorias" [monedas]="monedas" (refreshServicios)="refreshServices()">

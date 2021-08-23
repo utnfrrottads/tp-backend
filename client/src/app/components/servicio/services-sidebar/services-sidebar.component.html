@@ -1,31 +1,42 @@
-<div id="services-sidebar">
-  <button class="btn btn-primary btn-block mb-3" href="#" (click)="publicarServicio()" *ngIf="authService.loggedIn()">
-    <i class="fas fa-plus-circle mr-2"></i>Publicar Servicio
-  </button>
-
-  <div class="input-group input-group-sm mb-3">
-    <input type="text" class="form-control" placeholder="Buscar servicios..." aria-label="Buscar servicios"
-      aria-describedby="basic-addon2" [(ngModel)]="busqueda" />
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" (click)="buscar()">
-        <i class="fas fa-search mr-2"></i>Buscar
-      </button>
+<div id="services-sidebar-content">
+  <div id="services-sidebar">
+    <div id="btn-cerrar-service-sidebar">
+      <button class="btn btn-link" (click)="cerrarServicePanel()"><i class="fas fa-times fa-2x"></i></button>
     </div>
-  </div>
 
-  <p class="text-center font-weight-bold mb-1">Categorías</p>
-  <ul class="nav flex-column">
-    <li class="nav-item" *ngFor="let categoria of categorias">
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada" [id]="categoria._id" />
-        <label class="custom-control-label" [for]="categoria._id">
-          {{ categoria.descripcion }}
-        </label>
-      </div>
-    </li>
-
-    <button class="btn btn-secondary mt-3" (click)="filtrar()">
-      <i class="fas fa-filter mr-2"></i>Filtrar
+    <button class="btn btn-primary btn-block mb-3" href="#" (click)="publicarServicio()" *ngIf="authService.loggedIn()">
+      <i class="fas fa-plus-circle mr-2"></i>Publicar Servicio
     </button>
-  </ul>
+
+    <div class="input-group input-group-sm mb-3">
+      <input type="text" class="form-control" placeholder="Buscar servicios..." aria-label="Buscar servicios"
+        aria-describedby="basic-addon2" [(ngModel)]="busqueda" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="buscar()">
+          <i class="fas fa-search mr-2"></i>Buscar
+        </button>
+      </div>
+    </div>
+
+    <p class="text-center font-weight-bold mb-1">Categorías</p>
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let categoria of categorias">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada"
+            [id]="categoria._id" />
+          <label class="custom-control-label" [for]="categoria._id">
+            {{ categoria.descripcion }}
+          </label>
+        </div>
+      </li>
+
+      <button class="btn btn-secondary mt-3" (click)="filtrar()">
+        <i class="fas fa-filter mr-2"></i>Filtrar
+      </button>
+    </ul>
+  </div>
+</div>
+
+<div id="btn-abrir-service-sidebar">
+  <button class="btn btn-link" (click)="abrirServicePanel()"><i class="fas fa-angle-right fa-2x"></i></button>
 </div>

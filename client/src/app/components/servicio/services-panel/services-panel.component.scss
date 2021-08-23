@@ -1,13 +1,7 @@
-#services-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  z-index: 99;
-}
-
-
 #show-services {
   margin-top: 80px;
-  margin-left: 300px;
+
+  @media (min-width: 768px) {
+    margin-left: 320px;
+  }
 }
