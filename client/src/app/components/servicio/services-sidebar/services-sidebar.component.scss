@@ -32,6 +32,17 @@
   overflow-y: auto;
 }
 
+#services-sidebar::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+  background-color: rgb(175, 175, 175);
+}
+
+#services-sidebar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(51, 51, 51);
+}
+
 #btn-cerrar-service-sidebar {
   width: 100%;
   text-align: right;
