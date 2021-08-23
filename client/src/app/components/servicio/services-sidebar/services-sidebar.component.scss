@@ -25,7 +25,11 @@
   padding-right: 20px;
   height: auto;
   overflow-wrap: break-word;
-  overflow-y: hidden;
+  overflow-y: auto;
+
+  @media (min-width: 768px) {
+    overflow-y: hidden;
+  }
 }
 
 #services-sidebar:hover {

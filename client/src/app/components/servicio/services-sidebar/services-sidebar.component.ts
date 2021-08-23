@@ -24,6 +24,7 @@ export class ServicesSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.changeSizeEvent();
+    this.clickAfueraDelServicePanel();
   }
 
   publicarServicio(): void {
@@ -54,12 +55,34 @@ export class ServicesSidebarComponent implements OnInit {
     $('#btn-abrir-service-sidebar').css("display", "flex");
   }
 
+  clickAfueraDelServicePanel() {
+    $(document).on("click", function (e: any) {
+      const sidebar = $("#services-sidebar-content");
+      const btn = $("#btn-abrir-service-sidebar");
+
+      if (
+        $(window).width() < 768
+        && !sidebar.is(e.target) && sidebar.has(e.target).length === 0
+        && !btn.is(e.target) && btn.has(e.target).length === 0
+        ) {
+        $('#services-sidebar-content').css("display", "none");
+        $('#btn-abrir-service-sidebar').css("display", "flex");
+      }
+    });
+  }
+
   changeSizeEvent() {
+    var anchoAnterior = $(window).width();
     $(window).resize(function () {
-      if ($(window).width() >= 768) {
+      if ($(window).width() >= 768 && anchoAnterior < 768) {
         $('#btn-abrir-service-sidebar').css("display", "none");
         $('#services-sidebar-content').css("display", "flex");
+      } else if ($(window).width() < 768 && anchoAnterior >= 768) {
+        $('#services-sidebar-content').css("display", "none");
+        $('#btn-abrir-service-sidebar').css("display", "flex");
       }
+
+      anchoAnterior = $(window).width();
     });
   }
 
