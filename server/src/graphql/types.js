@@ -7,6 +7,7 @@ const {
   GraphQLList,
   GraphQLInt,
   GraphQLFloat,
+  GraphQLInputObjectType,
 } = require("graphql");
 
 const {
@@ -30,7 +31,7 @@ const LoginOutput = new GraphQLObjectType({
 });
 
 const TypeUsuario = new GraphQLObjectType({
-  name: "Usuario",
+  name: "TypeUsuario",
   description: "Type usuario",
   fields: () => ({
     _id: { type: GraphQLID },
@@ -63,7 +64,7 @@ const TypeUsuario = new GraphQLObjectType({
 });
 
 const TypeNivel = new GraphQLObjectType({
-  name: "Nivel",
+  name: "TypeNivel",
   description: "Type nivel",
   fields: () => ({
     _id: { type: GraphQLID },
@@ -79,7 +80,7 @@ const TypeNivel = new GraphQLObjectType({
 });
 
 const TypeContrato = new GraphQLObjectType({
-  name: "Contrato",
+  name: "TypeContrato",
   description: "Type contrato",
   fields: () => ({
     _id: { type: GraphQLID },
@@ -101,7 +102,7 @@ const TypeContrato = new GraphQLObjectType({
 });
 
 const TypeServicio = new GraphQLObjectType({
-  name: "Servicio",
+  name: "TypeServicio",
   description: "Type servicio",
   fields: () => ({
     _id: { type: GraphQLID },
@@ -130,7 +131,7 @@ const TypeServicio = new GraphQLObjectType({
 });
 
 const TypeCategoria = new GraphQLObjectType({
-  name: "Categoria",
+  name: "TypeCategoria",
   description: "Type categoria",
   fields: () => ({
     _id: { type: GraphQLID },
@@ -145,7 +146,7 @@ const TypeCategoria = new GraphQLObjectType({
 });
 
 const TypeDateScalar = new GraphQLScalarType({
-  name: "Date",
+  name: "TypeDateScalar",
   parseValue(value) {
     return new Date(value);
   },
@@ -155,7 +156,7 @@ const TypeDateScalar = new GraphQLScalarType({
 });
 
 const TypeMoneda = new GraphQLObjectType({
-  name: "Moneda",
+  name: "TypeMoneda",
   description: "Type Moneda",
   fields: () => ({
     _id: { type: GraphQLID },
@@ -164,7 +165,7 @@ const TypeMoneda = new GraphQLObjectType({
 });
 
 const TypePrecio = new GraphQLObjectType({
-  name: "Precio",
+  name: "TypePrecio",
   fields: () => ({
     valor: { type: GraphQLFloat },
     moneda: {
@@ -176,6 +177,13 @@ const TypePrecio = new GraphQLObjectType({
   }),
 });
 
+const InputIDCategoriasSeleccionadas = new GraphQLInputObjectType({
+  name: "InputIDCategoriasSeleccionadas",
+  fields: () => ({
+    categoriasIDs: { type: GraphQLList(GraphQLID) }
+  })
+});
+
 module.exports = {
   TypeUsuario,
   TypeNivel,
@@ -185,4 +193,5 @@ module.exports = {
   LoginOutput,
   TypePrecio,
   TypeMoneda,
+  InputIDCategoriasSeleccionadas,
 };

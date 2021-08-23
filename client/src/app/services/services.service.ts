@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+import { Categoria } from 'src/app/models/Categoria';
+
 const SERVICIOS = gql`
   query {
     servicios {
@@ -24,6 +26,24 @@ const SERVICIOS = gql`
 const SERVICES_POR_BUSQUEDA = gql`
   query serviciosPorBusqueda($busqueda: String!) {
     serviciosPorBusqueda(busqueda: $busqueda) {
+      _id
+      titulo
+      descripcion
+      categoria {
+        _id
+        descripcion
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
+const SERVICES_POR_CATEGORIAS = gql`
+  query serviciosPorCategorias($categorias: InputIDCategoriasSeleccionadas!) {
+    serviciosPorCategorias(categorias: $categorias) {
       _id
       titulo
       descripcion
@@ -94,6 +114,20 @@ export class ServicesService {
       query: SERVICES_POR_BUSQUEDA,
       variables: {
         busqueda
+      }
+    })
+  }
+
+  servicesByCategories(categorias: Categoria[]): any {
+    const IDsCategoriasSeleccionadas: String[] = [];
+    categorias.forEach(categoria => {
+      if (categoria.seleccionada) IDsCategoriasSeleccionadas.push(categoria._id || '');
+    });
+
+    return this.apollo.watchQuery({
+      query: SERVICES_POR_CATEGORIAS,
+      variables: {
+        categorias: { categoriasIDs: IDsCategoriasSeleccionadas }
       }
     })
   }

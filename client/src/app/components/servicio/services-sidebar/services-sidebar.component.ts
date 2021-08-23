@@ -1,4 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { AuthService } from '../../../services/auth.service';
+
 import { Categoria } from 'src/app/models/Categoria';
 
 declare var $: any;
@@ -11,12 +14,13 @@ declare var $: any;
 export class ServicesSidebarComponent implements OnInit {
 
   @Output() buscarServiciosPorBusqueda = new EventEmitter<String>();
+  @Output() buscarServiciosPorCategorias = new EventEmitter();
 
   @Input() categorias: Categoria[] = [];
 
   busqueda: String = '';
 
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
   }
@@ -27,6 +31,10 @@ export class ServicesSidebarComponent implements OnInit {
 
   buscar() {
     if (this.busqueda) this.buscarServiciosPorBusqueda.emit(this.busqueda);
+  }
+
+  filtrar() {
+    this.buscarServiciosPorCategorias.emit();
   }
   
 }

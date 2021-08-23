@@ -1,5 +1,5 @@
 const { GraphQLString, GraphQLList } = require('graphql');
-const { TypeNivel, TypeCategoria, TypeServicio } = require('./types');
+const { TypeNivel, TypeCategoria, TypeServicio, InputIDCategoriasSeleccionadas } = require('./types');
 const { Nivel, Categoria, Servicio } = require('../models/index');
 
 const niveles = {
@@ -41,4 +41,16 @@ const serviciosPorBusqueda = {
     }
 }
 
-module.exports = { niveles, categorias, servicios, serviciosPorBusqueda }
+const serviciosPorCategorias = {
+    description: 'Servicios Por Categorias',
+    type: GraphQLList(TypeServicio),
+    args: {
+        categorias: { type: InputIDCategoriasSeleccionadas },
+    },
+    async resolve(parent, { categorias }) {
+        console.log(categorias);
+        return await Servicio.find({ idCategoria: { $in: categorias.categoriasIDs } });
+    }
+}
+
+module.exports = { niveles, categorias, servicios, serviciosPorBusqueda, serviciosPorCategorias }

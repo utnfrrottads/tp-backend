@@ -1,5 +1,5 @@
 <div class="container-fluid p-3">
-  <button class="btn btn-primary btn-block mb-3" href="#" (click)="publicarServicio()">
+  <button class="btn btn-primary btn-block mb-3" href="#" (click)="publicarServicio()" *ngIf="authService.loggedIn()">
     <i class="fas fa-plus-circle mr-2"></i>Publicar Servicio
   </button>
 
@@ -17,14 +17,14 @@
   <ul class="nav flex-column">
     <li class="nav-item" *ngFor="let categoria of categorias">
       <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" [id]="categoria._id" />
+        <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada" [id]="categoria._id" />
         <label class="custom-control-label" [for]="categoria._id">
           {{ categoria.descripcion }}
         </label>
       </div>
     </li>
 
-    <button class="btn btn-secondary mt-3">
+    <button class="btn btn-secondary mt-3" (click)="filtrar()">
       <i class="fas fa-filter mr-2"></i>Filtrar
     </button>
   </ul>

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-5 col-lg-4 col-xl-3 pl-0 pr-2">
-      <app-services-sidebar (buscarServiciosPorBusqueda)="buscarServiciosPorBusqueda($event)" [categorias]="categorias"></app-services-sidebar>
+      <app-services-sidebar (buscarServiciosPorBusqueda)="buscarServiciosPorBusqueda($event)" (buscarServiciosPorCategorias)="buscarServiciosPorCategorias()" [categorias]="categorias"></app-services-sidebar>
     </div>
     <div class="col-md-7 col-lg-8 col-xl-9 pt-3">
       <div class="row">
