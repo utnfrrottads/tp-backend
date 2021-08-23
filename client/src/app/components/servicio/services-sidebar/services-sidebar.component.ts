@@ -30,10 +30,16 @@ export class ServicesSidebarComponent implements OnInit {
   }
 
   buscar() {
-    if (this.busqueda) this.buscarServiciosPorBusqueda.emit(this.busqueda);
+    if (this.busqueda) {
+      this.categorias.forEach(categoria => {
+        categoria.seleccionada = false;
+      });
+      this.buscarServiciosPorBusqueda.emit(this.busqueda);
+    }
   }
 
   filtrar() {
+    this.busqueda = '';
     this.buscarServiciosPorCategorias.emit();
   }
   

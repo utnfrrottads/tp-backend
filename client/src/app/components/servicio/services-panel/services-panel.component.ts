@@ -40,10 +40,10 @@ export class ServicesPanelComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.unsuscribeServices();
-    this.unsuscribeServicesBySearch();
-    this.unsuscribeServicesByCategories();
-    this.unsuscribeCategorias();
+    if (this.servicesSubscription) this.unsuscribeServices();
+    if (this.servicesBySearchSubscription) this.unsuscribeServicesBySearch();
+    if (this.servicesByCategoriesSubscription) this.unsuscribeServicesByCategories();
+    if (this.categoriasSubscription) this.unsuscribeCategorias();
   }
 
   suscribeServices(): void {
