@@ -1,9 +1,19 @@
 # Datos
 
+## YA ESTA FUNCIONANDO EN DB POSTGRES
+
 ## Pendiente
  
-- ¿hacer un ABMC-dependiente mas?
-- ¿ Ver como implementarlo con postgress ? 
+### Cambiar relacion prov y prod
+- poner el precio y una fecha en la relacion entre prov y prod para que tenga un historico de precios
+
+### Cambiar la solicitud
+- Sacar la solicitud
+- cambiar pedido por item (idItem, cant)
+- Agregar relacion entre venta e item 1 a n 
+
+### Agregar relacion entre venta e item
+- Agregar una relacion entre venta y cliente de 1 a 1
 
 
 ## Datos importantes

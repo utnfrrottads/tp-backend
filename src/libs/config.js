@@ -1,13 +1,9 @@
 module.exports = {
     database: 'ecommerce',
-    username: '',
-    password:'',
+    username: 'postgres',
+    password:'gn0s1da',
     params:{
-        dialect: 'sqlite',
-        storage: 'ecommerce-db.sqlite',
-        define:{
-            underscore: false
-        },
-        operatorsAliases: false
+        host: 'localhost',
+        dialect: 'postgres',
     }
 }
