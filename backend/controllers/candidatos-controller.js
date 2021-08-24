@@ -3,25 +3,27 @@ const sequelize = require('../database/db-connection');
 const models = initModels(sequelize);
 
 
-getEvaluadores = async () => {
+getCandidatos = async () => {
     try {
-        const evaluators = await models.personas.findAll({
+        const candidates = await models.personas.findAll({
             include:[
                 { model: models.direcciones },
-                { model: models.contactos }
+                { model: models.contactos },
+                { model: models.experiencias }
             ],
             where: {
-                tipo_persona: 'evaluador'
+                tipo_persona: 'candidato'
             }
         });    
 
-        return evaluators;
+        return candidates;
 
     } catch ( error ) {
         throw error;
     }
-}
+};
+
 
 module.exports = {
-    getEvaluadores
+    getCandidatos
 };
