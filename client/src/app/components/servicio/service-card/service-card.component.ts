@@ -12,6 +12,12 @@ export class ServiceCardComponent {
     _id: '',
     titulo: '',
     descripcion: '',
+    precio: {
+      valor: 0,
+      moneda: {
+        tag: ''
+      }
+    },
     categoria: {
       _id: '',
       descripcion: '',

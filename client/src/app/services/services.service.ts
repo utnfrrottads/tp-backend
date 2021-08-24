@@ -11,6 +11,12 @@ const SERVICIOS = gql`
       _id
       titulo
       descripcion
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
       categoria {
         _id
         descripcion
@@ -29,6 +35,12 @@ const SERVICES_POR_BUSQUEDA = gql`
       _id
       titulo
       descripcion
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
       categoria {
         _id
         descripcion
@@ -47,6 +59,12 @@ const SERVICES_POR_CATEGORIAS = gql`
       _id
       titulo
       descripcion
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
       categoria {
         _id
         descripcion
@@ -65,6 +83,12 @@ const MIS_SERVICIOS = gql`
       _id
       titulo
       descripcion
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
       categoria {
         _id
         descripcion
@@ -83,6 +107,12 @@ const MIS_SERVICES_POR_BUSQUEDA = gql`
       _id
       titulo
       descripcion
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
       categoria {
         _id
         descripcion
@@ -101,6 +131,12 @@ const MIS_SERVICES_POR_CATEGORIAS = gql`
       _id
       titulo
       descripcion
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
       categoria {
         _id
         descripcion

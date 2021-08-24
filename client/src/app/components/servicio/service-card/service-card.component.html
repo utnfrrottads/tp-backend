@@ -14,6 +14,11 @@
       <p class="card-text">
         <small>{{ cardData.descripcion }}</small>
       </p>
+
+      <p class="text-muted">
+        Precio: {{ cardData.precio?.moneda?.tag }}&nbsp;{{ cardData.precio?.valor }}
+      </p>
+
       <a href="#" class="btn btn-success btn-block" (click)="mostrarDetalle()">
         <i class="fas fa-search-plus mr-2"></i>Ver más
       </a>
