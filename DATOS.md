@@ -4,16 +4,8 @@
 
 ## Pendiente
  
-### Cambiar relacion prov y prod
-- poner el precio y una fecha en la relacion entre prov y prod para que tenga un historico de precios
-
-### Cambiar la solicitud
-- Sacar la solicitud
-- cambiar pedido por item (idItem, cant)
-- Agregar relacion entre venta e item 1 a n 
-
-### Agregar relacion entre venta e item
-- Agregar una relacion entre venta y cliente de 1 a 1
+- Revisar las constraints entre ["ventas" y "clientes"], ["ventas" y "items"], ["items" y "productos"]
+- Probar que pasa si ponemos las constraints desde la db en vez del ORM
 
 
 ## Datos importantes

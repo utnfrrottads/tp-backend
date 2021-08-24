@@ -13,10 +13,6 @@ module.exports = (sequelize, DataType)=>{
                 notEmpty: true
             }
         },
-        precio:{
-            type: DataType.REAL,
-            allowNull: false
-        },
         stock:{
             type: DataType.INTEGER,
             allowNull: false
@@ -39,8 +35,10 @@ module.exports = (sequelize, DataType)=>{
         //ASOCIACION CON PROVEEDORES
         Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos });
 
-        //ASOCIACION CON PEDIDOS
-        Productos.belongsToMany(models.Pedidos, { through: models.Solicitudes });
+        //ASOCIACION CON ITEMS
+        Productos.hasOne(models.Items);
+
+        Productos.sync({alter: true}); //alter { force: true }
     };
 
     return Productos;

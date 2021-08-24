@@ -27,12 +27,13 @@ module.exports = (sequelize, DataType)=>{
     }
 
     Ventas.associate = (models)=>{
-        //ASOCIACION CON SOLICITUDES
-        //Ventas.belongsTo(models.Solicitudes);
+        //ASOCIACION CON ITEMS
+        Ventas.hasMany(models.Items);
 
-        Ventas.hasOne(models.Solicitudes);
+        // Se utiliza belongsTO para que tenga la foranea del cliente
+        Ventas.belongsTo(models.Clientes);
 
-        Ventas.sync() //{ force: true }
+        Ventas.sync({alter: true}); //{ force: true }
     
 
     };
