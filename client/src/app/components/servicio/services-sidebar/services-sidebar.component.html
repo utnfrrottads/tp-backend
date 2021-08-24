@@ -30,32 +30,6 @@
         </div>
       </li>
 
-      <li class="nav-item" *ngFor="let categoria of categorias">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada"
-            [id]="categoria._id" />
-          <label class="custom-control-label" [for]="categoria._id">
-            {{ categoria.descripcion }}
-          </label>
-        </div>
-      </li><li class="nav-item" *ngFor="let categoria of categorias">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada"
-            [id]="categoria._id" />
-          <label class="custom-control-label" [for]="categoria._id">
-            {{ categoria.descripcion }}
-          </label>
-        </div>
-      </li><li class="nav-item" *ngFor="let categoria of categorias">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada"
-            [id]="categoria._id" />
-          <label class="custom-control-label" [for]="categoria._id">
-            {{ categoria.descripcion }}
-          </label>
-        </div>
-      </li>
-
       <button class="btn btn-secondary mt-3" (click)="filtrar()">
         <i class="fas fa-filter mr-2"></i>Filtrar
       </button>

@@ -1,0 +1,12 @@
+<div id="show-services" class="row">
+  <div class="col-12 mb-2" id="titulo"><p class="h2">Mis Servicios</p></div>
+  <div class="col-lg-6" *ngFor="let servicio of servicios">
+    <app-service-card [cardData]="servicio"></app-service-card>
+  </div>
+</div>
+
+<app-services-sidebar (buscarServiciosPorBusqueda)="buscarServiciosPorBusqueda($event)"
+  (buscarServiciosPorCategorias)="buscarServiciosPorCategorias()" [categorias]="categorias"></app-services-sidebar>
+
+<app-publicar-servicio [categorias]="categorias" [monedas]="monedas" (refreshServicios)="refreshServices()">
+</app-publicar-servicio>

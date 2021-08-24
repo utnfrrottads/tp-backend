@@ -59,6 +59,60 @@ const SERVICES_POR_CATEGORIAS = gql`
   }
 `;
 
+const MIS_SERVICIOS = gql`
+  query {
+    misServicios {
+      _id
+      titulo
+      descripcion
+      categoria {
+        _id
+        descripcion
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
+const MIS_SERVICES_POR_BUSQUEDA = gql`
+  query misServiciosPorBusqueda($busqueda: String!) {
+    misServiciosPorBusqueda(busqueda: $busqueda) {
+      _id
+      titulo
+      descripcion
+      categoria {
+        _id
+        descripcion
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
+const MIS_SERVICES_POR_CATEGORIAS = gql`
+  query misServiciosPorCategorias($categorias: InputIDCategoriasSeleccionadas!) {
+    misServiciosPorCategorias(categorias: $categorias) {
+      _id
+      titulo
+      descripcion
+      categoria {
+        _id
+        descripcion
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
 /* const SERVICE_DETAIL = gql` */
 /*   query { */
 /*     serviceDetail($serviceId: ID!){ */
@@ -126,6 +180,35 @@ export class ServicesService {
 
     return this.apollo.watchQuery({
       query: SERVICES_POR_CATEGORIAS,
+      variables: {
+        categorias: { categoriasIDs: IDsCategoriasSeleccionadas }
+      }
+    })
+  }
+
+  myServices(): any {
+    return this.apollo.watchQuery({
+      query: MIS_SERVICIOS,
+    })
+  }
+
+  myServicesBySearch(busqueda: String): any {
+    return this.apollo.watchQuery({
+      query: MIS_SERVICES_POR_BUSQUEDA,
+      variables: {
+        busqueda
+      }
+    })
+  }
+
+  myServicesByCategories(categorias: Categoria[]): any {
+    const IDsCategoriasSeleccionadas: String[] = [];
+    categorias.forEach(categoria => {
+      if (categoria.seleccionada) IDsCategoriasSeleccionadas.push(categoria._id || '');
+    });
+
+    return this.apollo.watchQuery({
+      query: MIS_SERVICES_POR_CATEGORIAS,
       variables: {
         categorias: { categoriasIDs: IDsCategoriasSeleccionadas }
       }

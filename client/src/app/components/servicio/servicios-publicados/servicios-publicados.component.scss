@@ -1,0 +1,12 @@
+#show-services {
+  margin-top: 80px;
+
+  @media (min-width: 768px) {
+    margin-left: 320px;
+  }
+}
+
+#titulo {
+  text-align: center;
+  text-decoration: underline;
+}

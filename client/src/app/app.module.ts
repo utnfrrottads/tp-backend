@@ -13,6 +13,8 @@ import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from '@apollo/client/core';
 
+import { AuthService } from './services/auth.service';
+
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SigninComponent } from './components/login/signin/signin.component';
 import { SignupComponent } from './components/login/signup/signup.component';
@@ -26,8 +28,7 @@ import { ListNivelesComponent } from './components/nivel/list-niveles/list-nivel
 import { UpdateNivelComponent } from './components/nivel/update-nivel/update-nivel.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambiar-clave.component';
-
-import { AuthService } from './services/auth.service';
+import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AuthService } from './services/auth.service';
     UpdateCategoriaComponent,
     ListNivelesComponent,
     UpdateNivelComponent,
+    ServiciosPublicadosComponent,
   ],
   imports: [
     BrowserModule,
