@@ -1,0 +1,32 @@
+<div class="modal fade background-popup-fade" [id]="servicio._id" aria-labelledby="Detalle del Servicio"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ servicio.titulo }}
+        </h5>
+        <button type="button" id="btnCloseSignInPopup" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card animate__animated animate__flipInY animate__fast">
+          <div class="card-body">
+            <p class="text-muted">
+              Contratante: {{ servicio.usuario?.nombreApellido }}
+            </p>
+
+            <p class="text-muted">
+              Email: {{ servicio.usuario?.email }}
+            </p>
+
+            <p class="text-muted">
+              Nivel: {{ servicio.usuario?.nivel?.nro }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

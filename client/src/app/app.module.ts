@@ -29,6 +29,7 @@ import { UpdateNivelComponent } from './components/nivel/update-nivel/update-niv
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambiar-clave.component';
 import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
+import { ServiceDetailComponent } from './components/servicio/service-card/service-detail/service-detail.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ServiciosPublicadosComponent } from './components/servicio/servicios-pu
     ListNivelesComponent,
     UpdateNivelComponent,
     ServiciosPublicadosComponent,
+    ServiceDetailComponent,
   ],
   imports: [
     BrowserModule,

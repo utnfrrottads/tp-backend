@@ -130,6 +130,28 @@ const TypeServicio = new GraphQLObjectType({
   }),
 });
 
+const TypePrecio = new GraphQLObjectType({
+  name: "TypePrecio",
+  fields: () => ({
+    valor: { type: GraphQLFloat },
+    moneda: {
+      type: TypeMoneda,
+      resolve(parent, args) {
+        return Moneda.findById(parent.idMoneda);
+      },
+    },
+  }),
+});
+
+const TypeMoneda = new GraphQLObjectType({
+  name: "TypeMoneda",
+  description: "Type Moneda",
+  fields: () => ({
+    _id: { type: GraphQLID },
+    tag: { type: GraphQLString },
+  }),
+});
+
 const TypeCategoria = new GraphQLObjectType({
   name: "TypeCategoria",
   description: "Type categoria",
@@ -153,28 +175,6 @@ const TypeDateScalar = new GraphQLScalarType({
   serialize(value) {
     return value.toISOString();
   },
-});
-
-const TypeMoneda = new GraphQLObjectType({
-  name: "TypeMoneda",
-  description: "Type Moneda",
-  fields: () => ({
-    _id: { type: GraphQLID },
-    tag: { type: GraphQLString },
-  }),
-});
-
-const TypePrecio = new GraphQLObjectType({
-  name: "TypePrecio",
-  fields: () => ({
-    valor: { type: GraphQLFloat },
-    moneda: {
-      type: TypeMoneda,
-      resolve(parent, args) {
-        return Moneda.find({ idMoneda: parent._id });
-      },
-    },
-  }),
 });
 
 const InputIDCategoriasSeleccionadas = new GraphQLInputObjectType({

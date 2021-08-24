@@ -18,11 +18,9 @@ const SERVICIOS = gql`
         }
       }
       categoria {
-        _id
         descripcion
       }
       usuario {
-        _id
         nombreUsuario
       }
     }
@@ -42,11 +40,9 @@ const SERVICES_POR_BUSQUEDA = gql`
         }
       }
       categoria {
-        _id
         descripcion
       }
       usuario {
-        _id
         nombreUsuario
       }
     }
@@ -66,11 +62,9 @@ const SERVICES_POR_CATEGORIAS = gql`
         }
       }
       categoria {
-        _id
         descripcion
       }
       usuario {
-        _id
         nombreUsuario
       }
     }
@@ -90,11 +84,9 @@ const MIS_SERVICIOS = gql`
         }
       }
       categoria {
-        _id
         descripcion
       }
       usuario {
-        _id
         nombreUsuario
       }
     }
@@ -114,11 +106,9 @@ const MIS_SERVICES_POR_BUSQUEDA = gql`
         }
       }
       categoria {
-        _id
         descripcion
       }
       usuario {
-        _id
         nombreUsuario
       }
     }
@@ -138,24 +128,28 @@ const MIS_SERVICES_POR_CATEGORIAS = gql`
         }
       }
       categoria {
-        _id
         descripcion
       }
       usuario {
-        _id
         nombreUsuario
       }
     }
   }
 `;
 
-/* const SERVICE_DETAIL = gql` */
-/*   query { */
-/*     serviceDetail($serviceId: ID!){ */
-
-/*     } */
-/*   } */
-/* `; */
+const SERVICE_DETAIL = gql`
+  query detalleServicio($_id: String!) {
+    detalleServicio(_id: $_id) {
+      usuario {
+        nombreApellido
+        email
+        nivel {
+          nro
+        }
+      }
+    }
+  }
+`;
 
 const PUBLISH_SERVICE = gql`
   mutation publishService(
@@ -247,6 +241,15 @@ export class ServicesService {
       query: MIS_SERVICES_POR_CATEGORIAS,
       variables: {
         categorias: { categoriasIDs: IDsCategoriasSeleccionadas }
+      }
+    })
+  }
+
+  serviceDetail(_id: String): any {
+    return this.apollo.watchQuery({
+      query: SERVICE_DETAIL,
+      variables: {
+        _id
       }
     })
   }

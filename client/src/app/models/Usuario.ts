@@ -1,3 +1,5 @@
+import { Nivel } from "./Nivel";
+
 export interface Usuario {
     _id?: string;
     nombreUsuario?: string;
@@ -8,5 +10,5 @@ export interface Usuario {
     fotoPerfil?: string;
     imagen?: any;
     isAdministrador?: boolean;
-    idNivel?: string;
+    nivel?: Nivel;
 }

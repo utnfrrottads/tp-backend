@@ -19,9 +19,11 @@
         Precio: {{ cardData.precio?.moneda?.tag }}&nbsp;{{ cardData.precio?.valor }}
       </p>
 
-      <a href="#" class="btn btn-success btn-block" (click)="mostrarDetalle()">
+      <a href="" class="btn btn-success btn-block" (click)="mostrarDetalle($event)">
         <i class="fas fa-search-plus mr-2"></i>Ver más
       </a>
     </div>
   </div>
 </div>
+
+<app-service-detail [servicio]="cardData"></app-service-detail>
