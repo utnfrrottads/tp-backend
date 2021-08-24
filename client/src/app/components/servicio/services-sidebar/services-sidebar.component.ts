@@ -17,8 +17,7 @@ export class ServicesSidebarComponent implements OnInit {
   @Output() buscarServiciosPorCategorias = new EventEmitter();
 
   @Input() categorias: Categoria[] = [];
-
-  busqueda: String = '';
+  @Input() busqueda: String = '';
 
   constructor(public authService: AuthService) { }
 

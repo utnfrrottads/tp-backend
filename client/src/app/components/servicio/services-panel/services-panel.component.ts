@@ -17,6 +17,7 @@ export class ServicesPanelComponent implements OnInit {
 
   servicios: Servicio[] = [];
   categorias: Categoria[] = [];
+  busqueda: String = '';
   monedas: Moneda[] = [];
 
   servicesQuery: any;
@@ -61,6 +62,11 @@ export class ServicesPanelComponent implements OnInit {
   }
 
   refreshServices(): void {
+    this.busqueda = '';
+    this.categorias.forEach(categoria => {
+      categoria.seleccionada = false;
+    });
+    
     this.servicesQuery.refetch();
   }
 
