@@ -18,6 +18,9 @@ module.exports = (sequelize, DataType)=>{
         },
         cantCuotas:{ 
             type: DataType.INTEGER
+        },
+        fechaVenta:{
+            type: DataType.DATE  
         }
 
     });
@@ -28,12 +31,16 @@ module.exports = (sequelize, DataType)=>{
 
     Ventas.associate = (models)=>{
         //ASOCIACION CON ITEMS
-        Ventas.hasMany(models.Items);
+        Ventas.hasMany(models.Items,{
+            foreignKey:{
+                allowNull:false
+            }
+        });
 
         // Se utiliza belongsTO para que tenga la foranea del cliente
         Ventas.belongsTo(models.Clientes);
 
-        Ventas.sync({alter: true}); //{ force: true }
+        //Ventas.sync({alter: true}); //{ force: true }
     
 
     };

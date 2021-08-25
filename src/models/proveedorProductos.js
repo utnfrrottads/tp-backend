@@ -16,7 +16,7 @@ module.exports = (sequelize, DataType)=>{
 
     ProveedorProductos.associate = (models) =>{
 
-        ProveedorProductos.sync({alter: true}) //alter { force: true }
+       // ProveedorProductos.sync({alter: true}) //alter { force: true }
 
     }
 

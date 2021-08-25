@@ -6,14 +6,7 @@ module.exports = (sequelize, DataType)=>{
             primaryKey: true,
             autoIncrement: true
         },
-        nombre:{
-            type: DataType.STRING,
-            allowNull: false,
-            validate:{
-                notEmpty: true
-            }
-        },
-        apellido:{
+        razonSocial:{
             type: DataType.STRING,
             allowNull: false,
             validate:{
@@ -45,7 +38,12 @@ module.exports = (sequelize, DataType)=>{
         
         //'proveedorProductos'
         Proveedores.belongsToMany(models.Productos, { through: models.ProveedorProductos }); 
+
+        //Proveedores.sync({alter: true}); //{ force: true }
+
     };
+
+   
 
     return Proveedores;
 

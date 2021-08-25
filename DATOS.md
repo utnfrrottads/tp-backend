@@ -4,8 +4,10 @@
 
 ## Pendiente
  
-- Revisar las constraints entre ["ventas" y "clientes"], ["ventas" y "items"], ["items" y "productos"]
-- Probar que pasa si ponemos las constraints desde la db en vez del ORM
+- Cambiar modificar routes/ventas.js para que traiga la venta con todos sus items
+- que traiga un proveedor con todos sus productos (si es necesario)
+- que taiga todas las ventas a un cliente ( si es necesario )
+- hacer los listados y detalles que estan en el readme
 
 
 ## Datos importantes

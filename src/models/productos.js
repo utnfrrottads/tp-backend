@@ -36,9 +36,13 @@ module.exports = (sequelize, DataType)=>{
         Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos });
 
         //ASOCIACION CON ITEMS
-        Productos.hasOne(models.Items);
+        Productos.hasOne(models.Items,{
+            foreignKey:{
+                allowNull:false
+            }
+        });
 
-        Productos.sync({alter: true}); //alter { force: true }
+        //Productos.sync({alter: true}); //alter { force: true }
     };
 
     return Productos;

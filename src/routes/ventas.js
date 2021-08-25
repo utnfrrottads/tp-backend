@@ -1,11 +1,11 @@
 module.exports = app =>{
 
     const Ventas = app.db.models.Ventas;
-    const Solicitudes = app.db.models.Solicitudes;
+    const Items = app.db.models.Items;
 
-    app.route('/ventasol')
+    app.route('/ventaitems')
     .get((req,res)=>{
-        Ventas.findAll({include: Solicitudes}) 
+        Ventas.findAll({include: Items}) 
         .then(result=> res.json(result))
         .catch(error=>{
             res.status(412).json({msg: error.message});
