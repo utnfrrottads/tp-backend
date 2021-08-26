@@ -30,7 +30,7 @@ const servicios = {
         categorias: { type: InputIDCategoriasSeleccionadas },
     },
     async resolve(parent, { busqueda, categorias }) {
-        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs } });
+        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs } }).sort({ fechaHoraPublicacion: -1 });
     }
 }
 
@@ -42,7 +42,7 @@ const misServicios = {
         categorias: { type: InputIDCategoriasSeleccionadas },
     },
     async resolve(parent, { busqueda, categorias }, { usuario }) {
-        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id });
+        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id }).sort({ fechaHoraPublicacion: -1 });
     }
 }
 
@@ -57,7 +57,7 @@ const detalleServicio = {
     }
 }
 
-module.exports = { 
+module.exports = {
     niveles,
     categorias,
     servicios,
