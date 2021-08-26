@@ -5,8 +5,7 @@
   </div>
 </div>
 
-<app-services-sidebar (buscarServiciosPorBusqueda)="buscarServiciosPorBusqueda($event)"
-  (buscarServiciosPorCategorias)="buscarServiciosPorCategorias()" [busqueda]="busqueda" [categorias]="categorias"></app-services-sidebar>
+<app-services-sidebar (actualizarServicios)="actualizarServicios($event)" [busqueda]="busqueda" [categorias]="categorias"></app-services-sidebar>
 
 <app-publicar-servicio [categorias]="categorias" [monedas]="monedas" (refreshServicios)="refreshServices()">
 </app-publicar-servicio>

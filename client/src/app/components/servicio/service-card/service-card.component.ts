@@ -24,6 +24,7 @@ export class ServiceCardComponent {
         tag: ''
       }
     },
+    fechaHoraPublicacion: undefined,
     categoria: {
       _id: '',
       descripcion: '',
@@ -63,9 +64,6 @@ export class ServiceCardComponent {
         this.cardData.usuario!.nombreApellido = res.usuario.nombreApellido;
         this.cardData.usuario!.email = res.usuario.email;
         this.cardData.usuario!.nivel = { nro: res.usuario.nivel.nro };
-
-        const id = "#" + this.cardData._id;
-        $(id).modal("show");
       },
       (err: any) => console.log(err)
     );
@@ -73,9 +71,6 @@ export class ServiceCardComponent {
 
   refreshServiceDetail(): void {
     this.serviceDetailQuery.refetch();
-
-    const id = "#" + this.cardData._id;
-    $(id).modal("show");
   }
 
   unsuscribeServiceDetail(): void {
@@ -84,10 +79,14 @@ export class ServiceCardComponent {
 
   mostrarDetalle(e: any) {
     e.preventDefault();
+
     if (this.serviceDetailSubscription) {
       this.refreshServiceDetail();
     } else {
       this.suscribeServiceDetail();
     }
+
+    const id = "#" + this.cardData._id;
+    $(id).modal("show");
   }
 }

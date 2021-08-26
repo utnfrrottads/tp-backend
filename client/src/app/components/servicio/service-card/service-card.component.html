@@ -19,6 +19,10 @@
         Precio: {{ cardData.precio?.moneda?.tag }}&nbsp;{{ cardData.precio?.valor }}
       </p>
 
+      <p class="text-muted">
+        Fecha y hora de publicación: <small>{{ cardData.fechaHoraPublicacion?.toLocaleString() }}&nbsp;Hora Local</small>
+      </p>
+
       <a href="" class="btn btn-success btn-block" (click)="mostrarDetalle($event)">
         <i class="fas fa-search-plus mr-2"></i>Ver más
       </a>

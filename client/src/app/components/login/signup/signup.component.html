@@ -23,39 +23,39 @@
                         </div>
                     </div>
                 </ng-container>
-                <div class="card text-center animate__animated animate__flipInY animate__fast">
+                <div class="card animate__animated animate__flipInY animate__fast">
                     <div class="card-body">
-                        <p class="campos-req mb-4"><b>*</b>&nbsp;Campos requeridos</p>
+                        <p class="campos-req mb-4">*&nbsp;Campos requeridos</p>
                         <form ngNoForm (submit)="signUp($event)">
                             <div class="form-group">
-                                <label><b>Nombre Usuario</b>&nbsp;*</label>
+                                <label>Nombre Usuario&nbsp;*</label>
                                 <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
                                     placeholder="User123" class="form-control" minlength="6" maxlength="25" required
                                     autofocus>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label><b>Clave</b>&nbsp;*</label>
+                                <label>Clave&nbsp;*</label>
                                 <input type="password" name="clave" [(ngModel)]="usuario.clave"
                                     placeholder="Mínimo de 8 caracteres" class="form-control" minlength="8"
                                     maxlength="50" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label><b>Nombre y Apellido</b>&nbsp;*</label>
+                                <label>Nombre y Apellido&nbsp;*</label>
                                 <input type="text" name="nombreApellido" [(ngModel)]="usuario.nombreApellido"
                                     placeholder="Nombre y Apellido" class="form-control" placeholder="Fulano Mengano"
                                     maxlength="50" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label><b>Email</b>&nbsp;*</label>
+                                <label>Email&nbsp;*</label>
                                 <input type="email" name="email" [(ngModel)]="usuario.email"
                                     placeholder="correo@email.com" class="form-control" maxlength="50" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label><b>Habilidades</b></label>
+                                <label>Habilidades</label>
                                 <textarea name="habilidades" [(ngModel)]="usuario.habilidades"
                                     placeholder="Descripción de sus habilidades" class="form-control" rows="3"
                                     maxlength="300"></textarea>

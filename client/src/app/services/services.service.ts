@@ -6,8 +6,8 @@ import gql from 'graphql-tag';
 import { Categoria } from 'src/app/models/Categoria';
 
 const SERVICIOS = gql`
-  query {
-    servicios {
+  query servicios($busqueda: String!, $categorias: InputIDCategoriasSeleccionadas!) {
+    servicios(busqueda: $busqueda, categorias: $categorias) {
       _id
       titulo
       descripcion
@@ -17,50 +17,7 @@ const SERVICIOS = gql`
           tag
         }
       }
-      categoria {
-        descripcion
-      }
-      usuario {
-        nombreUsuario
-      }
-    }
-  }
-`;
-
-const SERVICES_POR_BUSQUEDA = gql`
-  query serviciosPorBusqueda($busqueda: String!) {
-    serviciosPorBusqueda(busqueda: $busqueda) {
-      _id
-      titulo
-      descripcion
-      precio {
-        valor
-        moneda {
-          tag
-        }
-      }
-      categoria {
-        descripcion
-      }
-      usuario {
-        nombreUsuario
-      }
-    }
-  }
-`;
-
-const SERVICES_POR_CATEGORIAS = gql`
-  query serviciosPorCategorias($categorias: InputIDCategoriasSeleccionadas!) {
-    serviciosPorCategorias(categorias: $categorias) {
-      _id
-      titulo
-      descripcion
-      precio {
-        valor
-        moneda {
-          tag
-        }
-      }
+      fechaHoraPublicacion
       categoria {
         descripcion
       }
@@ -72,8 +29,8 @@ const SERVICES_POR_CATEGORIAS = gql`
 `;
 
 const MIS_SERVICIOS = gql`
-  query {
-    misServicios {
+  query misServicios($busqueda: String!, $categorias: InputIDCategoriasSeleccionadas!) {
+    misServicios(busqueda: $busqueda, categorias: $categorias) {
       _id
       titulo
       descripcion
@@ -83,50 +40,7 @@ const MIS_SERVICIOS = gql`
           tag
         }
       }
-      categoria {
-        descripcion
-      }
-      usuario {
-        nombreUsuario
-      }
-    }
-  }
-`;
-
-const MIS_SERVICES_POR_BUSQUEDA = gql`
-  query misServiciosPorBusqueda($busqueda: String!) {
-    misServiciosPorBusqueda(busqueda: $busqueda) {
-      _id
-      titulo
-      descripcion
-      precio {
-        valor
-        moneda {
-          tag
-        }
-      }
-      categoria {
-        descripcion
-      }
-      usuario {
-        nombreUsuario
-      }
-    }
-  }
-`;
-
-const MIS_SERVICES_POR_CATEGORIAS = gql`
-  query misServiciosPorCategorias($categorias: InputIDCategoriasSeleccionadas!) {
-    misServiciosPorCategorias(categorias: $categorias) {
-      _id
-      titulo
-      descripcion
-      precio {
-        valor
-        moneda {
-          tag
-        }
-      }
+      fechaHoraPublicacion
       categoria {
         descripcion
       }
@@ -166,17 +80,7 @@ const PUBLISH_SERVICE = gql`
       valor: $valor
       idMoneda: $idMoneda
     ) {
-      titulo
-      descripcion
-      categoria {
-        descripcion
-      }
-      precio {
-        valor
-        moneda {
-          tag
-        }
-      }
+      _id
     }
   }
 `;
@@ -187,59 +91,31 @@ const PUBLISH_SERVICE = gql`
 export class ServicesService {
   constructor(private apollo: Apollo) { }
 
-  services(): any {
-    return this.apollo.watchQuery({
-      query: SERVICIOS,
-    })
-  }
-
-  servicesBySearch(busqueda: String): any {
-    return this.apollo.watchQuery({
-      query: SERVICES_POR_BUSQUEDA,
-      variables: {
-        busqueda
-      }
-    })
-  }
-
-  servicesByCategories(categorias: Categoria[]): any {
+  services(busqueda: String, categorias: Categoria[]): any {
     const IDsCategoriasSeleccionadas: String[] = [];
     categorias.forEach(categoria => {
       if (categoria.seleccionada) IDsCategoriasSeleccionadas.push(categoria._id || '');
     });
 
     return this.apollo.watchQuery({
-      query: SERVICES_POR_CATEGORIAS,
+      query: SERVICIOS,
       variables: {
+        busqueda,
         categorias: { categoriasIDs: IDsCategoriasSeleccionadas }
       }
     })
   }
 
-  myServices(): any {
-    return this.apollo.watchQuery({
-      query: MIS_SERVICIOS,
-    })
-  }
-
-  myServicesBySearch(busqueda: String): any {
-    return this.apollo.watchQuery({
-      query: MIS_SERVICES_POR_BUSQUEDA,
-      variables: {
-        busqueda
-      }
-    })
-  }
-
-  myServicesByCategories(categorias: Categoria[]): any {
+  myServices(busqueda: String, categorias: Categoria[]): any {
     const IDsCategoriasSeleccionadas: String[] = [];
     categorias.forEach(categoria => {
       if (categoria.seleccionada) IDsCategoriasSeleccionadas.push(categoria._id || '');
     });
 
     return this.apollo.watchQuery({
-      query: MIS_SERVICES_POR_CATEGORIAS,
+      query: MIS_SERVICIOS,
       variables: {
+        busqueda,
         categorias: { categoriasIDs: IDsCategoriasSeleccionadas }
       }
     })
@@ -262,7 +138,7 @@ export class ServicesService {
         descripcion: service.descripcion,
         idCategoria: service.categoria,
         valor: service.valor,
-        idMoneda: service.moneda,
+        idMoneda: service.moneda
       },
     })
   }

@@ -13,8 +13,7 @@ declare var $: any;
 })
 export class ServicesSidebarComponent implements OnInit {
 
-  @Output() buscarServiciosPorBusqueda = new EventEmitter<String>();
-  @Output() buscarServiciosPorCategorias = new EventEmitter();
+  @Output() actualizarServicios = new EventEmitter<String>();
 
   @Input() categorias: Categoria[] = [];
   @Input() busqueda: String = '';
@@ -30,18 +29,8 @@ export class ServicesSidebarComponent implements OnInit {
     $('#publicarServicioPopup').modal('show');
   }
 
-  buscar() {
-    if (this.busqueda) {
-      this.categorias.forEach(categoria => {
-        categoria.seleccionada = false;
-      });
-      this.buscarServiciosPorBusqueda.emit(this.busqueda);
-    }
-  }
-
-  filtrar() {
-    this.busqueda = '';
-    this.buscarServiciosPorCategorias.emit();
+  actualizar() {
+    this.actualizarServicios.emit(this.busqueda);
   }
 
   abrirServicePanel() {

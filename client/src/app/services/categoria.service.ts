@@ -50,7 +50,8 @@ export class CategoriaService {
 
   categorias(): any {
     return this.apollo.watchQuery({
-      query: CATEGORIAS
+      query: CATEGORIAS,
+      fetchPolicy: 'no-cache'
     })
   }
 

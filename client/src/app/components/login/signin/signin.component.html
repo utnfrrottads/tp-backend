@@ -26,16 +26,14 @@
                 <div class="card text-center animate__animated animate__flipInY animate__fast">
                     <div class="card-body">
                         <img [src]="'/assets/logo.png'" alt="Logo SignIn"
-                            class="card-img-top mx-auto m-3 rounded-circle w-25">
+                            class="card-img-top mx-auto mb-4 rounded-circle w-25">
                         <form ngNoForm (submit)="signIn($event)">
                             <div class="form-group">
-                                <label>Nombre Usuario</label>
                                 <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
                                     placeholder="Nombre Usuario" class="form-control" autofocus>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label>Clave</label>
                                 <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave"
                                     class="form-control">
                             </div>

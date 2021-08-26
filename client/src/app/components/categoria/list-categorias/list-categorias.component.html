@@ -1,4 +1,4 @@
-<div class="row mt-2 mb-3">
+<div class="row pt-3 mb-3">
   <button class="btn btn-success mx-auto" (click)="abrirModalAgregarCategoria()"><i
       class="fas fa-plus-circle mr-1"></i>Agregar nueva categoría</button>
 </div>
@@ -30,4 +30,5 @@
   <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
   <p class="mt-5 mb-5">No hay categorías registradas</p>
 </div>
-<app-update-categoria [editMode]="editMode" [categoria]="categoria" [categoriaEditando]="categoriaEditando" (refreshCategorias)="refreshCategorias()"></app-update-categoria>
+<app-update-categoria [editMode]="editMode" [categoria]="categoria" [categoriaEditando]="categoriaEditando"
+  (refreshCategorias)="refreshCategorias()"></app-update-categoria>

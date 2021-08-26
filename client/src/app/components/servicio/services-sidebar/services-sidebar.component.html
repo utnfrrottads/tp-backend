@@ -12,7 +12,7 @@
       <input type="text" class="form-control" placeholder="Buscar servicios..." aria-label="Buscar servicios"
         aria-describedby="basic-addon2" [(ngModel)]="busqueda" />
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" (click)="buscar()">
+        <button class="btn btn-outline-secondary" type="button" (click)="actualizar()">
           <i class="fas fa-search mr-2"></i>Buscar
         </button>
       </div>
@@ -22,17 +22,13 @@
     <ul class="nav flex-column">
       <li class="nav-item" *ngFor="let categoria of categorias">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada"
-            [id]="categoria._id" />
+          <input type="checkbox" class="custom-control-input" [(ngModel)]="categoria.seleccionada" [id]="categoria._id"
+            (change)="actualizar()" />
           <label class="custom-control-label" [for]="categoria._id">
             {{ categoria.descripcion }}
           </label>
         </div>
       </li>
-
-      <button class="btn btn-secondary mt-3" (click)="filtrar()">
-        <i class="fas fa-filter mr-2"></i>Filtrar
-      </button>
     </ul>
   </div>
 </div>

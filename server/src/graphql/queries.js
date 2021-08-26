@@ -25,62 +25,24 @@ const categorias = {
 const servicios = {
     description: 'Servicios',
     type: GraphQLList(TypeServicio),
-    async resolve(parent, args) {
-        return await Servicio.find();
-    }
-}
-
-const serviciosPorBusqueda = {
-    description: 'Servicios Por Búsqueda',
-    type: GraphQLList(TypeServicio),
     args: {
         busqueda: { type: GraphQLString },
-    },
-    async resolve(parent, { busqueda }) {
-        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" } });
-    }
-}
-
-const serviciosPorCategorias = {
-    description: 'Servicios Por Categorias',
-    type: GraphQLList(TypeServicio),
-    args: {
         categorias: { type: InputIDCategoriasSeleccionadas },
     },
-    async resolve(parent, { categorias }) {
-        console.log(categorias);
-        return await Servicio.find({ idCategoria: { $in: categorias.categoriasIDs } });
+    async resolve(parent, { busqueda, categorias }) {
+        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs } });
     }
 }
 
 const misServicios = {
     description: 'Mis Servicios',
     type: GraphQLList(TypeServicio),
-    async resolve(parent, args, { usuario }) {
-        return await Servicio.find({ idUsuario: usuario._id });
-    }
-}
-
-const misServiciosPorBusqueda = {
-    description: 'Mis Servicios Por Búsqueda',
-    type: GraphQLList(TypeServicio),
     args: {
         busqueda: { type: GraphQLString },
-    },
-    async resolve(parent, { busqueda }, { usuario }) {
-        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idUsuario: usuario._id });
-    }
-}
-
-const misServiciosPorCategorias = {
-    description: 'Mis Servicios Por Categorias',
-    type: GraphQLList(TypeServicio),
-    args: {
         categorias: { type: InputIDCategoriasSeleccionadas },
     },
-    async resolve(parent, { categorias }, { usuario }) {
-        console.log(categorias);
-        return await Servicio.find({ idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id });
+    async resolve(parent, { busqueda, categorias }, { usuario }) {
+        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id });
     }
 }
 
@@ -99,10 +61,6 @@ module.exports = {
     niveles,
     categorias,
     servicios,
-    serviciosPorBusqueda,
-    serviciosPorCategorias,
     misServicios,
-    misServiciosPorBusqueda,
-    misServiciosPorCategorias,
     detalleServicio
 }

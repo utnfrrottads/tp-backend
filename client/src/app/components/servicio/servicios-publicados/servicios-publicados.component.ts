@@ -22,10 +22,6 @@ export class ServiciosPublicadosComponent implements OnInit {
 
   servicesQuery: any;
   servicesSubscription: any;
-  servicesBySearchQuery: any;
-  servicesBySearchSubscription: any;
-  servicesByCategoriesQuery: any;
-  servicesByCategoriesSubscription: any;
   categoriasQuery: any;
   categoriasSubscription: any;
 
@@ -35,87 +31,39 @@ export class ServiciosPublicadosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.suscribeServices();
     this.monedas = JSON.parse(localStorage.getItem('monedas') || '[]');
     this.suscribeCategorias();
   }
 
   ngOnDestroy(): void {
     if (this.servicesSubscription) this.unsuscribeServices();
-    if (this.servicesBySearchSubscription) this.unsuscribeServicesBySearch();
-    if (this.servicesByCategoriesSubscription) this.unsuscribeServicesByCategories();
     if (this.categoriasSubscription) this.unsuscribeCategorias();
   }
 
   suscribeServices(): void {
-    this.servicesQuery = this.servicesService.myServices();
+    this.servicesQuery = this.servicesService.myServices(this.busqueda, this.categorias);
     this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
       map((res: any) => {
         return res.data.misServicios;
       })
     ).subscribe(
       (res: any) => {
-        this.servicios = res;
+        this.servicios = [];
+        res.forEach((serv: Servicio) => {
+          serv.fechaHoraPublicacion = new Date(serv.fechaHoraPublicacion!);
+          this.servicios.push(serv);
+        });
       },
       (err: any) => console.log(err)
     );
   }
 
   refreshServices(): void {
-    this.busqueda = '';
-    this.categorias.forEach(categoria => {
-      categoria.seleccionada = false;
-    });
-
     this.servicesQuery.refetch();
   }
 
   unsuscribeServices(): void {
     this.servicesSubscription.unsubscribe();
-  }
-
-  suscribeServicesByCategories(): void {
-    this.servicesByCategoriesQuery = this.servicesService.myServicesByCategories(this.categorias);
-    this.servicesByCategoriesSubscription = this.servicesByCategoriesQuery.valueChanges.pipe(
-      map((res: any) => {
-        return res.data.misServiciosPorCategorias;
-      })
-    ).subscribe(
-      (res: any) => {
-        this.servicios = res;
-      },
-      (err: any) => console.log(err)
-    );
-  }
-
-  refreshServicesByCategories(): void {
-    this.servicesByCategoriesQuery.refetch();
-  }
-
-  unsuscribeServicesByCategories(): void {
-    this.servicesByCategoriesSubscription.unsubscribe();
-  }
-
-  suscribeServicesBySearch(busqueda: String): void {
-    this.servicesBySearchQuery = this.servicesService.myServicesBySearch(busqueda);
-    this.servicesBySearchSubscription = this.servicesBySearchQuery.valueChanges.pipe(
-      map((res: any) => {
-        return res.data.misServiciosPorBusqueda;
-      })
-    ).subscribe(
-      (res: any) => {
-        this.servicios = res;
-      },
-      (err: any) => console.log(err)
-    );
-  }
-
-  refreshServicesBySearch(): void {
-    this.servicesBySearchQuery.refetch();
-  }
-
-  unsuscribeServicesBySearch(): void {
-    this.servicesBySearchSubscription.unsubscribe();
   }
 
   suscribeCategorias(): void {
@@ -127,6 +75,11 @@ export class ServiciosPublicadosComponent implements OnInit {
     ).subscribe(
       (res: any) => {
         this.categorias = res;
+        this.categorias.forEach(categoria => {
+          categoria.seleccionada = true;
+        });
+
+        this.suscribeServices();
       },
       (err: any) => console.log(err)
     );
@@ -136,12 +89,10 @@ export class ServiciosPublicadosComponent implements OnInit {
     this.categoriasSubscription.unsubscribe();
   }
 
-  buscarServiciosPorBusqueda(busqueda: String) {
-    this.suscribeServicesBySearch(busqueda);
-  }
 
-  buscarServiciosPorCategorias() {
-    this.suscribeServicesByCategories();
+  actualizarServicios(busqueda: String) {
+    this.busqueda = busqueda;
+    this.suscribeServices();
   }
 
 }

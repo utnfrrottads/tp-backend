@@ -54,7 +54,8 @@ export class NivelService {
 
   niveles(): any {
     return this.apollo.watchQuery({
-      query: NIVELES
+      query: NIVELES,
+      fetchPolicy: 'no-cache'
     })
   }
 

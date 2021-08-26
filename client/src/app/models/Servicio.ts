@@ -9,4 +9,5 @@ export interface Servicio {
   categoria?: Categoria;
   usuario?: Usuario;
   precio?: Precio;
+  fechaHoraPublicacion?: Date,
 }
