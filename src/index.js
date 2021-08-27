@@ -1,7 +1,7 @@
-const express = require("express");
-const app = express();
-const consign = require('consign');
+import express from 'express'
+import consign from 'consign'
 
+const app = express();
 
 consign({
     cwd:__dirname
@@ -12,8 +12,6 @@ consign({
     .then('routes')
     .then('libs/boot.js')
     .into(app)
-
-
-
+ 
 
 
