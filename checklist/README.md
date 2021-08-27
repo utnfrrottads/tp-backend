@@ -7,9 +7,9 @@
 |ABMC simple|1 x integ|1 x integ|- ABMC Clientes - ABMC Proveedores - ABMC Categorias o|
 |ABMC dependiente|1|2|- ABMC Productos - *Falta uno*
 |Listado simple|1|1|- Listados de ventas
-|Listado complejo obligatorio|1|2|- Productos (tambien muestra la categoria) - Solicitudes(filtrado por fecha de venta)|Faltan los dos|
+|Listado complejo obligatorio|1|2|- Productos (tambien muestra la categoria) - Clientes(con sus ventas asociadas)|Faltan los dos|
 |Listado adicional con filtro|0|0|
-|Detalle básico|1(*)|2(*)|- Detalle de un producto (y sus pedidos) - Detalle de ventas (relacionado con solicitudes)|faltan los dos detalles|
+|Detalle básico|1(*)|2(*)|- Detalle de un producto (muestra los proveedores) - Detalle de ventas (muestra item con sus productos)|faltan los dos detalles|
 |Detalle parametrizable|0|0|
 |Otros|0|0|
 
