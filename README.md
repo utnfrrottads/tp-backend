@@ -1,3 +1,4 @@
+
 # TP Backend TTADS
 
 ## 1 - Enunciado
@@ -165,4 +166,4 @@ El sistema consiste en la administración de las compras y ventas de un negocio.
 
 #### 4.4 Modelo (DER)
 
-
+![DER-TP](https://user-images.githubusercontent.com/58578161/131164796-7e34506e-deff-44be-9692-2c773daddb36.png)
