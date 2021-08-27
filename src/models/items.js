@@ -23,7 +23,7 @@ module.exports = (sequelize, DataType)=>{
         //ASOCIACION CON PRODUCTOS
         Items.belongsTo(models.Productos);
 
-        Items.sync({alter: true}); //{ force: true }
+        //Items.sync({alter: true}); //{ force: true }
     
     };
 
