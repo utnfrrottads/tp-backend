@@ -1,1 +1,22 @@
-<p>ver-perfil works!</p>
+<div class="d-flex justify-content-center animate__animated animate__pulse animate__fast">
+  <div class="w-100 profile-container">
+    <div class="col-sm-10 col-md-8 col-lg-7 col-xl-5 data-box">
+      <div class="contenedor-img" *ngIf="usuario.fotoPerfil">
+        <img id="profileImage" src="{{ cloudinary_url + usuario.fotoPerfil }}">
+      </div>
+
+      <div class="contenedor-img" *ngIf="!usuario.fotoPerfil">
+        <div class="profile-img">
+          {{ usuario.nombreApellido![0] }}
+        </div>
+      </div>
+
+      <div class="personal-info mt-3">
+        <h2 class="mb-3">{{ usuario.nombreApellido }}</h2>
+        <p><strong>Nombre de usuario:</strong>&nbsp;{{ usuario.nombreUsuario }}</p>
+        <p><strong>Email:</strong>&nbsp;{{ usuario.email }}</p>
+        <p *ngIf="usuario.habilidades"><strong>Habilidades:</strong>&nbsp;{{ usuario.habilidades }}</p>
+      </div>
+    </div>
+  </div>
+</div>

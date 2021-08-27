@@ -3,7 +3,7 @@
     <div class="card-header">{{ cardData.titulo }}</div>
     <div class="card-body service-content">
       <p class="text-muted">
-        <b>Usuario oferente</b>: <a href="">{{ cardData.usuario?.nombreUsuario }}</a>
+        <b>Usuario oferente</b>: <a href="" [routerLink]="cardData.usuario?.nombreUsuario">{{ cardData.usuario?.nombreUsuario }}</a>
       </p>
 
       <p class="text-muted">

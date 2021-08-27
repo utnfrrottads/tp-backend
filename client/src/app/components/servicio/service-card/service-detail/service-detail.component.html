@@ -37,7 +37,7 @@
             <p id="title-oferente" class="h6"><b>Información del oferente</b></p>
 
             <p class="text-muted">
-              <b>Nombre de Usuario</b>: <a href="">{{ servicio.usuario?.nombreUsuario }}</a>
+              <b>Nombre de Usuario</b>: <a href="" [routerLink]="servicio.usuario?.nombreUsuario">{{ servicio.usuario?.nombreUsuario }}</a>
             </p>
 
             <p class="text-muted">

@@ -30,10 +30,7 @@ const UPDATEUSUARIO = gql`
 
 const CAMBIARCLAVE = gql`
   mutation cambiarClave($claveActual: String!, $claveNueva: String!) {
-    cambiarClave(
-      claveActual: $claveActual,
-      claveNueva: $claveNueva
-    ){
+    cambiarClave(claveActual: $claveActual, claveNueva: $claveNueva) {
       usuario {
         _id
         nombreUsuario
@@ -50,9 +47,7 @@ const CAMBIARCLAVE = gql`
 
 const UPDATEPROFILEIMAGE = gql`
   mutation updateProfileImage($fotoPerfil: String!) {
-    updateProfileImage(
-      fotoPerfil: $fotoPerfil
-    ){
+    updateProfileImage(fotoPerfil: $fotoPerfil) {
       _id
       nombreUsuario
       nombreApellido 
@@ -67,6 +62,20 @@ const UPDATEPROFILEIMAGE = gql`
 const DELETEPROFILEIMAGE = gql`
   mutation deleteProfileImage {
     deleteProfileImage {
+      _id
+      nombreUsuario
+      nombreApellido 
+      email
+      habilidades
+      fotoPerfil
+      isAdministrador
+    }
+  }
+`;
+
+const USUARIO = gql`
+  query usuario($nombreUsuario: String!) {
+    usuario(nombreUsuario: $nombreUsuario) {
       _id
       nombreUsuario
       nombreApellido 
@@ -127,6 +136,13 @@ export class UserService {
     })
   }
 
-  /* deleteUsuario(): void {} */
+  usuario(nombreUsuario: String): any {
+    return this.apollo.watchQuery({
+      query: USUARIO,
+      variables: {
+        nombreUsuario
+      }
+    })
+  }
 
 }

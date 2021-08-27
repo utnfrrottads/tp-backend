@@ -4,6 +4,7 @@ import { ListCategoriasComponent } from './components/categoria/list-categorias/
 import { ListNivelesComponent } from './components/nivel/list-niveles/list-niveles.component';
 import { ServicesPanelComponent } from './components/servicio/services-panel/services-panel.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
+import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.component';
 import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
@@ -17,6 +18,10 @@ const routes: Routes = [
     path: 'perfil',
     component: PerfilComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: ':usuario',
+    component: VerPerfilComponent,
   },
   {
     path: 'serviciosPublicados',

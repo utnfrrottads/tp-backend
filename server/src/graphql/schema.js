@@ -2,6 +2,7 @@ const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 
 // Import queries
 const {
+    usuario,
     niveles,
     categorias,
     servicios,
@@ -30,7 +31,7 @@ const {
 const QueryType = new GraphQLObjectType({
     name: "QueryType",
     description: "Queries",
-    fields: { niveles, categorias, servicios, misServicios, detalleServicio }
+    fields: { usuario, niveles, categorias, servicios, misServicios, detalleServicio }
 })
 
 // Define MutationType

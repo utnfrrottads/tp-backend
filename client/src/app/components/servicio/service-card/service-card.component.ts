@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { ServicesService } from 'src/app/services/services.service';
+import { ServicesService } from 'src/app/services/servicio.service';
 
 import { Servicio } from 'src/app/models/Servicio';
 
