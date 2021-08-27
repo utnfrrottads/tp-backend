@@ -109,6 +109,7 @@ const TypeServicio = new GraphQLObjectType({
     titulo: { type: GraphQLString },
     descripcion: { type: GraphQLString },
     precio: { type: TypePrecio },
+    ubicacion: { type: GraphQLString },
     fechaHoraPublicacion: { type: TypeDateTimeScalar },
     categoria: {
       type: TypeCategoria,

@@ -48,11 +48,7 @@ export class ServiciosPublicadosComponent implements OnInit {
       })
     ).subscribe(
       (res: any) => {
-        this.servicios = [];
-        res.forEach((serv: Servicio) => {
-          serv.fechaHoraPublicacion = new Date(serv.fechaHoraPublicacion!);
-          this.servicios.push(serv);
-        });
+        this.servicios = res;
       },
       (err: any) => console.log(err)
     );
@@ -92,6 +88,18 @@ export class ServiciosPublicadosComponent implements OnInit {
 
   actualizarServicios(busqueda: String) {
     this.busqueda = busqueda;
+    this.suscribeServices();
+  }
+
+  seleccionarCategoria(serv: Servicio) {
+    this.busqueda = '';
+    this.categorias.forEach((categoria: Categoria) => {
+      if (categoria._id === serv.categoria?._id) {
+        categoria.seleccionada = true;
+      } else {
+        categoria.seleccionada = false;
+      }
+    });
     this.suscribeServices();
   }
 

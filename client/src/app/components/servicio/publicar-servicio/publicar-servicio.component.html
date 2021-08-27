@@ -85,6 +85,16 @@
                 </div>
               </div>
 
+              <div class="row mb-2">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="ubicacion">Ubicación</label>
+                    <textarea class="form-control" placeholder="Lugar dónde se brindará el servicio"
+                      formControlName="ubicacion" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+
               <button type="submit" class="btn btn-success btn-block" [disabled]="!serviceForm.valid">
                 <i class="fas fa-plus-circle mr-2"></i>Publicar
               </button>

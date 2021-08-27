@@ -24,6 +24,12 @@ const servicioSchema = new Schema({
       required: true,
     },
   },
+  ubicacion: {
+    type: String,
+    required: true,
+    trim: true,
+    maxLength: 100,
+  },
   fechaHoraPublicacion: {
     type: Date,
     required: true,

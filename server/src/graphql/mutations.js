@@ -411,26 +411,30 @@ const publishService = {
   args: {
     titulo: { type: GraphQLString },
     descripcion: { type: GraphQLString },
-    idCategoria: { type: GraphQLID },
     valor: { type: GraphQLFloat },
     idMoneda: { type: GraphQLID },
+    ubicacion: { type: GraphQLString },
+    idCategoria: { type: GraphQLID },
   },
   async resolve(parent, args, { usuario }) {
-    const { titulo, descripcion, idCategoria, valor, idMoneda } = args;
+    const { titulo, descripcion, valor, idMoneda, ubicacion, idCategoria } = args;
     if (
       titulo
       && titulo.trim().length <= 30
       && descripcion
       && descripcion.trim().length <= 300
-      && idCategoria
       && valor
       && valor >= 0
       && idMoneda
+      && ubicacion
+      && ubicacion.trim().length <= 100
+      && idCategoria
     ) {
       const servicio = new Servicio({
         titulo,
         descripcion,
         precio: { valor, idMoneda },
+        ubicacion,
         idCategoria,
         idUsuario: usuario._id,
       });

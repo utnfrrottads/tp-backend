@@ -3,24 +3,19 @@
     <div class="card-header">{{ cardData.titulo }}</div>
     <div class="card-body service-content">
       <p class="text-muted">
-        Usuario: <a href="">{{ cardData.usuario?.nombreUsuario }}</a>
+        <b>Usuario oferente</b>: <a href="">{{ cardData.usuario?.nombreUsuario }}</a>
       </p>
 
       <p class="text-muted">
-        Categoría: <a href="">{{ cardData.categoria?.descripcion }}</a>
-      </p>
-
-      <p class="text-muted mb-1">Descripción:</p>
-      <p class="card-text">
-        <small>{{ cardData.descripcion }}</small>
+        <b>Categoría</b>: <a href="" (click)="selectCat($event)">{{ cardData.categoria?.descripcion }}</a>
       </p>
 
       <p class="text-muted">
-        Precio: {{ cardData.precio?.moneda?.tag }}&nbsp;{{ cardData.precio?.valor }}
+        <b>Precio</b>: {{ cardData.precio?.moneda?.tag }}&nbsp;{{ cardData.precio?.valor }}
       </p>
 
       <p class="text-muted">
-        Fecha y hora de publicación: <small>{{ cardData.fechaHoraPublicacion?.toLocaleString() }}&nbsp;Hora Local</small>
+        <b>Ubicación</b>: {{ cardData.ubicacion }}
       </p>
 
       <a href="" class="btn btn-success btn-block" (click)="mostrarDetalle($event)">

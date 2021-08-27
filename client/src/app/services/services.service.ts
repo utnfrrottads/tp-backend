@@ -10,15 +10,15 @@ const SERVICIOS = gql`
     servicios(busqueda: $busqueda, categorias: $categorias) {
       _id
       titulo
-      descripcion
       precio {
         valor
         moneda {
           tag
         }
       }
-      fechaHoraPublicacion
+      ubicacion
       categoria {
+        _id
         descripcion
       }
       usuario {
@@ -33,15 +33,15 @@ const MIS_SERVICIOS = gql`
     misServicios(busqueda: $busqueda, categorias: $categorias) {
       _id
       titulo
-      descripcion
       precio {
         valor
         moneda {
           tag
         }
       }
-      fechaHoraPublicacion
+      ubicacion
       categoria {
+        _id
         descripcion
       }
       usuario {
@@ -54,6 +54,8 @@ const MIS_SERVICIOS = gql`
 const SERVICE_DETAIL = gql`
   query detalleServicio($_id: String!) {
     detalleServicio(_id: $_id) {
+      descripcion
+      fechaHoraPublicacion
       usuario {
         nombreApellido
         email
@@ -69,16 +71,18 @@ const PUBLISH_SERVICE = gql`
   mutation publishService(
     $titulo: String!
     $descripcion: String!
-    $idCategoria: ID!
     $valor: Float!
     $idMoneda: ID!
+    $ubicacion: String!
+    $idCategoria: ID!
   ) {
     publishService(
       titulo: $titulo
       descripcion: $descripcion
-      idCategoria: $idCategoria
       valor: $valor
       idMoneda: $idMoneda
+      ubicacion: $ubicacion
+      idCategoria: $idCategoria
     ) {
       _id
     }
@@ -136,9 +140,10 @@ export class ServicesService {
       variables: {
         titulo: service.titulo,
         descripcion: service.descripcion,
-        idCategoria: service.categoria,
         valor: service.valor,
-        idMoneda: service.moneda
+        idMoneda: service.moneda,
+        ubicacion: service.ubicacion,
+        idCategoria: service.categoria,
       },
     })
   }

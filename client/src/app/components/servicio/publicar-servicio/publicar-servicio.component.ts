@@ -36,6 +36,10 @@ export class PublicarServicioComponent implements OnInit {
       Validators.min(0)
     ]),
     moneda: new FormControl('', [Validators.required]),
+    ubicacion: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(100),
+    ]),
   });
 
   constructor(private servicesService: ServicesService) {}

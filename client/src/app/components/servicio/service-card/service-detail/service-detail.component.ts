@@ -19,6 +19,8 @@ export class ServiceDetailComponent implements OnInit {
         tag: ''
       }
     },
+    ubicacion: '',
+    fechaHoraPublicacion: undefined,
     categoria: {
       _id: '',
       descripcion: '',

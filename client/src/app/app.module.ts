@@ -30,6 +30,7 @@ import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambiar-clave.component';
 import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
 import { ServiceDetailComponent } from './components/servicio/service-card/service-detail/service-detail.component';
+import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ServiceDetailComponent } from './components/servicio/service-card/servi
     UpdateNivelComponent,
     ServiciosPublicadosComponent,
     ServiceDetailComponent,
+    VerPerfilComponent,
   ],
   imports: [
     BrowserModule,

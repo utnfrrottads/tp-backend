@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { ServicesService } from 'src/app/services/services.service';
@@ -14,6 +14,8 @@ declare var $: any;
 })
 export class ServiceCardComponent {
 
+  @Output() seleccionarCategoria = new EventEmitter();
+
   @Input() cardData: Servicio = {
     _id: '',
     titulo: '',
@@ -24,6 +26,7 @@ export class ServiceCardComponent {
         tag: ''
       }
     },
+    ubicacion: '',
     fechaHoraPublicacion: undefined,
     categoria: {
       _id: '',
@@ -61,6 +64,8 @@ export class ServiceCardComponent {
       })
     ).subscribe(
       (res: any) => {
+        this.cardData.descripcion = res.descripcion;
+        this.cardData.fechaHoraPublicacion = new Date(res.fechaHoraPublicacion!);
         this.cardData.usuario!.nombreApellido = res.usuario.nombreApellido;
         this.cardData.usuario!.email = res.usuario.email;
         this.cardData.usuario!.nivel = { nro: res.usuario.nivel.nro };
@@ -88,5 +93,10 @@ export class ServiceCardComponent {
 
     const id = "#" + this.cardData._id;
     $(id).modal("show");
+  }
+
+  selectCat(e: any) {
+    e.preventDefault();
+    this.seleccionarCategoria.emit();
   }
 }
