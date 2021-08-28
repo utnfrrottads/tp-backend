@@ -60,17 +60,19 @@ export class ServicesSidebarComponent implements OnInit {
   }
 
   changeSizeEvent() {
-    var anchoAnterior = $(window).width();
+    var anchoAnterior = window.innerWidth;
+
     $(window).resize(function () {
-      if ($(window).width() >= 768 && anchoAnterior < 768) {
+      if (window.innerWidth >= 768 && anchoAnterior < 768) {
         $('#btn-abrir-service-sidebar').css("display", "none");
         $('#services-sidebar-content').css("display", "flex");
-      } else if ($(window).width() < 768 && anchoAnterior >= 768) {
+      }
+      if (window.innerWidth < 768 && anchoAnterior >= 768) {
         $('#services-sidebar-content').css("display", "none");
         $('#btn-abrir-service-sidebar').css("display", "flex");
       }
-
-      anchoAnterior = $(window).width();
+      
+      anchoAnterior = window.innerWidth;
     });
   }
 
