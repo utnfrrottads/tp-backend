@@ -1,7 +1,17 @@
 module.exports = app =>{
 
     const Clientes = app.db.models.Clientes;
+    const Ventas = app.db.models.Ventas;
 
+
+    app.route('/clientesventas')
+        .get((req,res)=>{
+            Clientes.findAll({include: Ventas})
+            .then(result => res.json(result))
+            .catch(error =>{
+                res.status(412).json({msg:error.message});
+            });
+        });
 
     app.route('/clientes')
         .get((req,res)=>{
