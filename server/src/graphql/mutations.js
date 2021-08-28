@@ -146,7 +146,7 @@ const updateUsuario = {
           (!habilidades || (habilidades && habilidades.trim().length <= 300))
         ) {
           if (
-            usuario.nombreApellido === nombreUsuario ||
+            usuario.nombreUsuario === nombreUsuario ||
             !(await Usuario.findOne({ nombreUsuario }))
           ) {
             usuario.nombreUsuario = nombreUsuario;
