@@ -40,14 +40,15 @@ module.exports = (sequelize, DataType) =>{
 
     
     Clientes.associate = (models)=>{
+
         //ASOCIACION CON VENTAS
-        Clientes.hasOne(models.Ventas,{
+        Clientes.hasMany(models.Ventas,{
             foreignKey:{
                 allowNull:false
             }
         });
 
-        //Clientes.sync({alter: true});
+        Clientes.sync({alter: true});
 
     };
 
