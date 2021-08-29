@@ -8,6 +8,8 @@ import { Categoria } from 'src/app/models/Categoria';
 import { Moneda } from 'src/app/models/Moneda';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-servicios-publicados',
   templateUrl: './servicios-publicados.component.html',
@@ -101,6 +103,10 @@ export class ServiciosPublicadosComponent implements OnInit {
       }
     });
     this.suscribeServices();
+  }
+
+  publicarServicio(): void {
+    $('#publicarServicioPopup').modal('show');
   }
 
 }

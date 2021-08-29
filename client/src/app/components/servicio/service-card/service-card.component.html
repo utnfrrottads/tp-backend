@@ -3,7 +3,8 @@
     <div class="card-header">{{ cardData.titulo }}</div>
     <div class="card-body service-content">
       <p class="text-muted">
-        <b>Usuario oferente</b>: <a href="" [routerLink]="cardData.usuario?.nombreUsuario">{{ cardData.usuario?.nombreUsuario }}</a>
+        <b>Usuario oferente</b>: <a href="" [routerLink]="'perfil/' + cardData.usuario?.nombreUsuario">{{
+          cardData.usuario?.nombreUsuario }}</a>
       </p>
 
       <p class="text-muted">
@@ -18,9 +19,19 @@
         <b>Ubicación</b>: {{ cardData.ubicacion }}
       </p>
 
-      <a href="" class="btn btn-success btn-block" (click)="mostrarDetalle($event)">
-        <i class="fas fa-search-plus mr-2"></i>Ver más
-      </a>
+      <div class="row">
+        <div class="col-6 mx-auto">
+          <a href="" class="btn btn-success btn-block" (click)="mostrarDetalle($event)">
+            <i class="fas fa-search-plus mr-2"></i>Ver más
+          </a>
+        </div>
+
+        <div class="col-6" *ngIf="authService.loggedIn() && userService.getUsuario()._id !== cardData.usuario?._id">
+          <a href="" class="btn btn-secondary btn-block" (click)="realizarContrato($event)">
+            <i class="fas fa-pen-alt mr-2"></i>Contratar
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

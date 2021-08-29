@@ -22,6 +22,7 @@ const SERVICIOS = gql`
         descripcion
       }
       usuario {
+        _id
         nombreUsuario
       }
     }
@@ -45,6 +46,7 @@ const MIS_SERVICIOS = gql`
         descripcion
       }
       usuario {
+        _id
         nombreUsuario
       }
     }

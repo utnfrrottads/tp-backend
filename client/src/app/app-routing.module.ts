@@ -20,7 +20,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: ':usuario',
+    path: 'perfil/:usuario',
     component: VerPerfilComponent,
   },
   {

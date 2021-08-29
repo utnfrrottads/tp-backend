@@ -1,7 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { map } from 'rxjs/operators';
 
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 import { ServicesService } from 'src/app/services/servicio.service';
+import { ContratoService } from 'src/app/services/contrato.service';
 
 import { Servicio } from 'src/app/models/Servicio';
 
@@ -47,7 +50,12 @@ export class ServiceCardComponent {
   serviceDetailQuery: any;
   serviceDetailSubscription: any;
 
-  constructor(private servicesService: ServicesService) { }
+  constructor(
+    public authService: AuthService,
+    public userService: UserService,
+    private servicesService: ServicesService,
+    private contratoService: ContratoService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -97,6 +105,21 @@ export class ServiceCardComponent {
 
   selectCat(e: any) {
     e.preventDefault();
+
     this.seleccionarCategoria.emit();
   }
+
+  realizarContrato(e: any) {
+    e.preventDefault();
+
+    this.contratoService.signContract(this.cardData._id!).subscribe(
+      (res: any) => {
+        console.log(res);
+      },
+      (err: any) => {
+        console.log(err.message);
+      }
+    );
+  }
+
 }

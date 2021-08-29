@@ -1,3 +1,5 @@
+const { createJwtToken } = require("../helpers/auth");
+const { encryptPassword, matchPassword } = require("../helpers/encryptPassword");
 const {
   GraphQLString,
   GraphQLID,
@@ -10,6 +12,7 @@ const {
   TypeNivel,
   TypeCategoria,
   TypeServicio,
+  TypeContrato,
 } = require("./types");
 const {
   Usuario,
@@ -17,12 +20,8 @@ const {
   Nivel,
   Servicio,
   Moneda,
+  Contrato
 } = require("../models/index");
-const { createJwtToken } = require("../helpers/auth");
-const {
-  encryptPassword,
-  matchPassword,
-} = require("../helpers/encryptPassword");
 
 const signUp = {
   description: "Crear Cuenta",
@@ -416,31 +415,61 @@ const publishService = {
     ubicacion: { type: GraphQLString },
     idCategoria: { type: GraphQLID },
   },
-  async resolve(parent, args, { usuario }) {
-    const { titulo, descripcion, valor, idMoneda, ubicacion, idCategoria } = args;
-    if (
-      titulo
-      && titulo.trim().length <= 30
-      && descripcion
-      && descripcion.trim().length <= 300
-      && valor
-      && valor >= 0
-      && idMoneda
-      && ubicacion
-      && ubicacion.trim().length <= 100
-      && idCategoria
-    ) {
-      const servicio = new Servicio({
-        titulo,
-        descripcion,
-        precio: { valor, idMoneda },
-        ubicacion,
-        idCategoria,
-        idUsuario: usuario._id,
-      });
-      return await servicio.save();
+  async resolve(parent, { titulo, descripcion, valor, idMoneda, ubicacion, idCategoria }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
     } else {
-      throw new Error("Ingrese todos los datos requeridos en el formato correcto");
+      if (
+        titulo
+        && titulo.trim().length <= 30
+        && descripcion
+        && descripcion.trim().length <= 300
+        && valor
+        && valor >= 0
+        && idMoneda
+        && ubicacion
+        && ubicacion.trim().length <= 100
+        && idCategoria
+      ) {
+        const servicio = new Servicio({
+          titulo,
+          descripcion,
+          precio: { valor, idMoneda },
+          ubicacion,
+          idCategoria,
+          idUsuario: usuario._id,
+        });
+        return await servicio.save();
+      } else {
+        throw new Error("Ingrese todos los datos requeridos en el formato correcto");
+      }
+    }
+  },
+};
+
+const signContract = {
+  description: "Firmar contrato",
+  type: TypeContrato,
+  args: {
+    idServicio: { type: GraphQLID },
+  },
+  async resolve(parent, { idServicio }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      if (idServicio) {
+        if ((await Servicio.findById(idServicio)).idUsuario != usuario._id) {
+          const contrato = new Contrato({
+            idServicio,
+            idUsuario: usuario._id,
+          });
+          return await contrato.save();
+        } else {
+          throw new Error("Un usuario no puede contratar su propio servicio");
+        }
+      } else {
+        throw new Error("Ingrese todos los datos requeridos en el formato correcto");
+      }
     }
   },
 };
@@ -459,4 +488,5 @@ module.exports = {
   deleteCategoria,
   updateCategoria,
   publishService,
+  signContract,
 };
