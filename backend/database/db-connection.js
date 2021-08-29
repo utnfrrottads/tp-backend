@@ -3,14 +3,16 @@ const config = require('../db-config.json');
 
 const sequelize = new Sequelize(config.DATABASE, config.USERNAME, config.PASSWORD, {
     host: config.HOST,
-    dialect: config.DIALECT
+    dialect: config.DIALECT,
 });
 
-try {
-    sequelize.authenticate();
-    console.log('Database connection successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-};
+sequelize.authenticate().then(
+    function (_value) {
+        console.log('Database connection successful.');
+    },
+    function (error) {
+        console.error('Unable to connect to the database. The following error was raised:\n'.red, error);
+    }
+);
 
-module.exports = sequelize
+module.exports = sequelize;
