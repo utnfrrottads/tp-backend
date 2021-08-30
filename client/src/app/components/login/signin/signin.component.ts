@@ -20,9 +20,12 @@ export class SigninComponent implements OnInit {
     clave: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   signIn(event: any): void {
     event.preventDefault();

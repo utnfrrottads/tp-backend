@@ -31,6 +31,8 @@ import { CambiarClaveComponent } from './components/usuario/cambiar-clave/cambia
 import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
 import { ServiceDetailComponent } from './components/servicio/service-card/service-detail/service-detail.component';
 import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.component';
+import { ServiciosContratadosComponent } from './components/contrato/servicios-contratados/servicios-contratados.component';
+import { ServiciosComponent } from './components/servicio/servicios/servicios.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.c
     ServiciosPublicadosComponent,
     ServiceDetailComponent,
     VerPerfilComponent,
+    ServiciosContratadosComponent,
+    ServiciosComponent,
   ],
   imports: [
     BrowserModule,

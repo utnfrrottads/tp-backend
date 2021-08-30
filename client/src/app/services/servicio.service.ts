@@ -97,7 +97,7 @@ const PUBLISH_SERVICE = gql`
 export class ServicesService {
   constructor(private apollo: Apollo) { }
 
-  services(busqueda: String, categorias: Categoria[]): any {
+  servicios(busqueda: String, categorias: Categoria[]): any {
     const IDsCategoriasSeleccionadas: String[] = [];
     categorias.forEach(categoria => {
       if (categoria.seleccionada) IDsCategoriasSeleccionadas.push(categoria._id || '');
@@ -112,7 +112,7 @@ export class ServicesService {
     })
   }
 
-  myServices(busqueda: String, categorias: Categoria[]): any {
+  misServicios(busqueda: String, categorias: Categoria[]): any {
     const IDsCategoriasSeleccionadas: String[] = [];
     categorias.forEach(categoria => {
       if (categoria.seleccionada) IDsCategoriasSeleccionadas.push(categoria._id || '');

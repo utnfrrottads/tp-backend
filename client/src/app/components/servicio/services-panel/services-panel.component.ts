@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-
-import { ServicesService } from 'src/app/services/servicio.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
 import { Moneda } from 'src/app/models/Moneda';
-import { CategoriaService } from 'src/app/services/categoria.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-services-panel',
@@ -15,91 +13,37 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 })
 export class ServicesPanelComponent implements OnInit {
 
-  servicios: Servicio[] = [];
-  categorias: Categoria[] = [];
-  busqueda: String = '';
-  monedas: Moneda[] = [];
+  @Output() updateServices = new EventEmitter<String>();
+  @Output() selectCategory = new EventEmitter<Servicio>();
+  @Output() refreshServices = new EventEmitter();
 
-  servicesQuery: any;
-  servicesSubscription: any;
-  categoriasQuery: any;
-  categoriasSubscription: any;
+  @Input() titulo: String = '';
+  @Input() noServicesInfo: String = '';
+  @Input() mostrarBtnPublicarServicio: boolean = false;
+  @Input() servicios: Servicio[] = [];
+  @Input() categorias: Categoria[] = [];
+  @Input() busqueda: String = '';
+  @Input() monedas: Moneda[] = [];
 
-  constructor(
-    private servicesService: ServicesService,
-    private categoriasService: CategoriaService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.monedas = JSON.parse(localStorage.getItem('monedas') || '[]');
-    this.suscribeCategorias();
   }
 
-  ngOnDestroy(): void {
-    if (this.servicesSubscription) this.unsuscribeServices();
-    if (this.categoriasSubscription) this.unsuscribeCategorias();
-  }
-
-  suscribeServices(): void {
-    this.servicesQuery = this.servicesService.services(this.busqueda, this.categorias);
-    this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
-      map((res: any) => {
-        return res.data.servicios;
-      })
-    ).subscribe(
-      (res: any) => {
-        this.servicios = res;
-      },
-      (err: any) => console.log(err)
-    );
-  }
-
-  refreshServices(): void {
-    this.servicesQuery.refetch();
-  }
-
-  unsuscribeServices(): void {
-    this.servicesSubscription.unsubscribe();
-  }
-
-  suscribeCategorias(): void {
-    this.categoriasQuery = this.categoriasService.categorias();
-    this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
-      map((res: any) => {
-        return res.data.categorias;
-      })
-    ).subscribe(
-      (res: any) => {
-        this.categorias = [];
-        res.forEach((categoria: Categoria) => {
-          this.categorias.push({ _id: categoria._id, descripcion: categoria.descripcion, seleccionada: true });
-        });
-
-        this.suscribeServices();
-      },
-      (err: any) => console.log(err)
-    );
-  }
-
-  unsuscribeCategorias(): void {
-    this.categoriasSubscription.unsubscribe();
+  publicarServicio(): void {
+    $('#publicarServicioPopup').modal('show');
   }
 
   actualizarServicios(busqueda: String) {
-    this.busqueda = busqueda;
-    this.suscribeServices();
+    this.updateServices.emit(busqueda);
   }
 
   seleccionarCategoria(serv: Servicio) {
-    this.busqueda = '';
-    this.categorias.forEach((categoria: Categoria) => {
-      if (categoria._id === serv.categoria?._id) {
-        categoria.seleccionada = true;
-      } else {
-        categoria.seleccionada = false;
-      }
-    });
-    this.suscribeServices();
+    this.selectCategory.emit(serv);
+  }
+
+  refrescarServicios() {
+    this.refreshServices.emit();
   }
 
 }

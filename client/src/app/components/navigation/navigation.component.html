@@ -1,133 +1,59 @@
 <nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark px-3 w-100">
-  <a class="navbar-brand title" routerLink="/" (click)="cerrarNavMobile()"
-    >Servicios Ya</a
-  >
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <a class="navbar-brand title" routerLink="/" (click)="cerrarNavMobile()">Servicios Ya</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
-      <li
-        class="nav-item"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a class="nav-link" href="#" routerLink="/" (click)="cerrarNavMobile()"
-          ><i class="fas fa-home mr-1"></i>Inicio</a
-        >
+      <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" href="#" routerLink="/" (click)="cerrarNavMobile()"><i
+            class="fas fa-home mr-1"></i>Inicio</a>
       </li>
-      <li
-        class="nav-item"
-        *ngIf="authService.isAdmin()"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a
-          class="nav-link"
-          href="#"
-          routerLink="/niveles"
-          (click)="cerrarNavMobile()"
-          ><i class="fas fa-list-ol mr-1"></i>Niveles</a
-        >
+      <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" href="#" routerLink="/niveles" (click)="cerrarNavMobile()"><i
+            class="fas fa-list-ol mr-1"></i>Niveles</a>
       </li>
-      <li
-        class="nav-item"
-        *ngIf="authService.isAdmin()"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a
-          class="nav-link"
-          href="#"
-          routerLink="/categorias"
-          (click)="cerrarNavMobile()"
-          ><i class="fas fa-clipboard-list mr-1"></i>Categorías</a
-        >
+      <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" href="#" routerLink="/categorias" (click)="cerrarNavMobile()"><i
+            class="fas fa-clipboard-list mr-1"></i>Categorías</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <ng-container *ngIf="authService.loggedIn()">
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <i class="fas fa-user mr-1"></i
-            >{{ localStorage.getItem("nombreUsuario") }}
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user mr-1"></i>{{ localStorage.getItem("nombreUsuario") }}
           </a>
-          <div
-            class="dropdown-menu dropdown-menu-lg-right"
-            aria-labelledby="navbarDropdown"
-          >
-            <a
-              class="dropdown-item"
-              href="#"
-              routerLink="/perfil"
-              routerLinkActive="active-link"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="cerrarNavMobile()"
-              ><i class="fas fa-id-card mr-1"></i>Perfil</a
-            >
-            <a
-              class="dropdown-item"
-              href="#"
-              data-toggle="modal"
-              data-target="#cambiarClavePopup"
-              (click)="cerrarNavMobile()"
-              ><i class="fas fa-key mr-1"></i>Cambiar Clave</a
-            >
-            <a
-              class="dropdown-item"
-              href="#"
-              routerLink="/serviciosPublicados"
-              routerLinkActive="active-link"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="cerrarNavMobile()"
-              ><i class="fas fa-clipboard-list mr-1"></i>Servicios Publicados</a
-            >
+          <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" routerLink="/perfil" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="cerrarNavMobile()"><i
+                class="fas fa-id-card mr-1"></i>Perfil</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClavePopup"
+              (click)="cerrarNavMobile()"><i class="fas fa-key mr-1"></i>Cambiar Clave</a>
+            <a class="dropdown-item" href="#" routerLink="/serviciosContratados" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="cerrarNavMobile()"><i
+                class="fas fa-file-signature mr-1"></i>Servicios Contratados</a>
+            <a class="dropdown-item" href="#" routerLink="/serviciosPublicados" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="cerrarNavMobile()"><i
+                class="fas fa-clipboard-list mr-1"></i>Servicios Publicados</a>
             <div class="dropdown-divider"></div>
-            <a
-              class="dropdown-item cerrar-sesion"
-              href="#"
-              (click)="authService.logout()"
-              (click)="cerrarNavMobile()"
-              ><i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión</a
-            >
+            <a class="dropdown-item cerrar-sesion" href="#" (click)="authService.logout()"
+              (click)="cerrarNavMobile()"><i class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión</a>
           </div>
         </li>
       </ng-container>
       <ng-container *ngIf="!authService.loggedIn()">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            href="#"
-            data-toggle="modal"
-            data-target="#signUpPopup"
-            (click)="cerrarNavMobile()"
-            ><i class="fas fa-user-plus mr-1"></i>Crear Cuenta</a
-          >
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#signUpPopup" (click)="cerrarNavMobile()"><i
+              class="fas fa-user-plus mr-1"></i>Crear Cuenta</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            href="#"
-            data-toggle="modal"
-            data-target="#signInPopup"
-            (click)="cerrarNavMobile()"
-            ><i class="fas fa-sign-in-alt mr-1"></i>Iniciar Sesión</a
-          >
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#signInPopup" (click)="cerrarNavMobile()"><i
+              class="fas fa-sign-in-alt mr-1"></i>Iniciar Sesión</a>
         </li>
       </ng-container>
     </ul>

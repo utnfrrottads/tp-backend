@@ -1,0 +1,27 @@
+<div class="pt-3">
+  <div *ngIf="contratos.length > 0">
+    <h3 class="mb-3">Servicios Contratados</h3>
+    <table class="table table-responsive-md table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="col-servicio">Servicio</th>
+          <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
+          <th scope="col" class="col-accion">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of contratos; let indice = index">
+          <th scope="row" class="col-servicio">{{ contrato.servicio!.titulo }}</th>
+          <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
+          <td class="col-accion">
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
+    <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
+    <p class="mt-5 mb-5">No ha contratado ningún servicio aún</p>
+  </div>
+</div>

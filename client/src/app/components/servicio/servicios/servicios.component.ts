@@ -9,11 +9,11 @@ import { Moneda } from 'src/app/models/Moneda';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
-  selector: 'app-servicios-publicados',
-  templateUrl: './servicios-publicados.component.html',
-  styleUrls: ['./servicios-publicados.component.scss']
+  selector: 'app-servicios',
+  templateUrl: './servicios.component.html',
+  styleUrls: ['./servicios.component.scss']
 })
-export class ServiciosPublicadosComponent implements OnInit {
+export class ServiciosComponent implements OnInit {
 
   servicios: Servicio[] = [];
   categorias: Categoria[] = [];
@@ -41,10 +41,10 @@ export class ServiciosPublicadosComponent implements OnInit {
   }
 
   suscribeServices(): void {
-    this.servicesQuery = this.servicesService.misServicios(this.busqueda, this.categorias);
+    this.servicesQuery = this.servicesService.servicios(this.busqueda, this.categorias);
     this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
       map((res: any) => {
-        return res.data.misServicios;
+        return res.data.servicios;
       })
     ).subscribe(
       (res: any) => {
@@ -70,9 +70,9 @@ export class ServiciosPublicadosComponent implements OnInit {
       })
     ).subscribe(
       (res: any) => {
-        this.categorias = res;
-        this.categorias.forEach(categoria => {
-          categoria.seleccionada = true;
+        this.categorias = [];
+        res.forEach((categoria: Categoria) => {
+          this.categorias.push({ _id: categoria._id, descripcion: categoria.descripcion, seleccionada: true });
         });
 
         this.suscribeServices();

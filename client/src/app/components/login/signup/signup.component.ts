@@ -24,7 +24,10 @@ export class SignupComponent implements OnInit {
     habilidades: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }

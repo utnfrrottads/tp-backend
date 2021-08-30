@@ -1,0 +1,36 @@
+.no-contratos {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  display: flex;
+  align-items: center;
+}
+
+table {
+  white-space: nowrap;
+}
+
+.col-servicio {
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.col-fecha-cont {
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.col-accion {
+  display: flex;
+}
+
+.alert {
+  border-radius: 10px;
+}
