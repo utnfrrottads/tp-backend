@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { ServicesService } from 'src/app/services/servicio.service';
+import { ServicioService } from 'src/app/services/servicio.service';
 import { ContratoService } from 'src/app/services/contrato.service';
 
 import { Servicio } from 'src/app/models/Servicio';
@@ -51,9 +52,10 @@ export class ServiceCardComponent {
   serviceDetailSubscription: any;
 
   constructor(
+    private router: Router,
     public authService: AuthService,
     public userService: UserService,
-    private servicesService: ServicesService,
+    private servicioService: ServicioService,
     private contratoService: ContratoService
   ) { }
 
@@ -65,7 +67,7 @@ export class ServiceCardComponent {
   }
 
   suscribeServiceDetail(): void {
-    this.serviceDetailQuery = this.servicesService.serviceDetail(this.cardData._id || '');
+    this.serviceDetailQuery = this.servicioService.serviceDetail(this.cardData._id || '');
     this.serviceDetailSubscription = this.serviceDetailQuery.valueChanges.pipe(
       map((res: any) => {
         return res.data.detalleServicio;
@@ -92,6 +94,7 @@ export class ServiceCardComponent {
 
   mostrarDetalle(e: any) {
     e.preventDefault();
+    e.stopPropagation();
 
     if (this.serviceDetailSubscription) {
       this.refreshServiceDetail();
@@ -105,12 +108,14 @@ export class ServiceCardComponent {
 
   selectCat(e: any) {
     e.preventDefault();
+    e.stopPropagation();
 
     this.seleccionarCategoria.emit();
   }
 
   realizarContrato(e: any) {
     e.preventDefault();
+    e.stopPropagation();
 
     this.contratoService.signContract(this.cardData._id!).subscribe(
       (res: any) => {
@@ -120,6 +125,10 @@ export class ServiceCardComponent {
         console.log(err.message);
       }
     );
+  }
+
+  irAlServicio(e: any) {
+    this.router.navigate(['servicio/' + this.cardData._id]);
   }
 
 }

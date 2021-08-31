@@ -33,6 +33,7 @@ import { ServiceDetailComponent } from './components/servicio/service-card/servi
 import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.component';
 import { ServiciosContratadosComponent } from './components/contrato/servicios-contratados/servicios-contratados.component';
 import { ServiciosComponent } from './components/servicio/servicios/servicios.component';
+import { ServicioComponent } from './components/servicio/servicio/servicio.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ServiciosComponent } from './components/servicio/servicios/servicios.co
     VerPerfilComponent,
     ServiciosContratadosComponent,
     ServiciosComponent,
+    ServicioComponent,
   ],
   imports: [
     BrowserModule,

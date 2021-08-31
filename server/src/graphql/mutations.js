@@ -436,6 +436,7 @@ const publishService = {
           descripcion,
           precio: { valor, idMoneda },
           ubicacion,
+          fechaHoraPublicacion: new Date(),
           idCategoria,
           idUsuario: usuario._id,
         });
@@ -460,6 +461,7 @@ const signContract = {
       if (idServicio) {
         if ((await Servicio.findById(idServicio)).idUsuario != usuario._id) {
           const contrato = new Contrato({
+            fecha: new Date(),
             idServicio,
             idUsuario: usuario._id,
           });

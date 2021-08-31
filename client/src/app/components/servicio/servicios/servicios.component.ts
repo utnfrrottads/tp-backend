@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { ServicesService } from 'src/app/services/servicio.service';
+import { ServicioService } from 'src/app/services/servicio.service';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
@@ -26,7 +26,7 @@ export class ServiciosComponent implements OnInit {
   categoriasSubscription: any;
 
   constructor(
-    private servicesService: ServicesService,
+    private servicioService: ServicioService,
     private categoriasService: CategoriaService
   ) { }
 
@@ -41,7 +41,7 @@ export class ServiciosComponent implements OnInit {
   }
 
   suscribeServices(): void {
-    this.servicesQuery = this.servicesService.servicios(this.busqueda, this.categorias);
+    this.servicesQuery = this.servicioService.servicios(this.busqueda, this.categorias);
     this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
       map((res: any) => {
         return res.data.servicios;
@@ -83,6 +83,14 @@ export class ServiciosComponent implements OnInit {
 
   unsuscribeCategorias(): void {
     this.categoriasSubscription.unsubscribe();
+  }
+
+  agregarNuevoServicio() {
+    this.busqueda = '';
+    this.categorias.forEach((categoria: Categoria) => {
+      categoria.seleccionada = true;
+    });
+    this.suscribeServices();
   }
 
   actualizarServicios(busqueda: String) {

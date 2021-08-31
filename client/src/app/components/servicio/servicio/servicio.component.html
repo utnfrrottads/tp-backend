@@ -1,0 +1,38 @@
+<p class="text-muted">
+  <b>Categoría</b>: {{ servicio.categoria?.descripcion }}
+</p>
+
+<p class="text-muted mb-1"><b>Descripción</b>:</p>
+<p class="card-text">
+  <small>{{ servicio.descripcion }}</small>
+</p>
+
+<p class="text-muted">
+  <b>Precio</b>: {{ servicio.precio?.moneda?.tag }}&nbsp;{{ servicio.precio?.valor }}
+</p>
+
+<p class="text-muted">
+  <b>Ubicación</b>: {{ servicio.ubicacion }}
+</p>
+
+<p class="text-muted">
+  <b>Fecha de publicación</b>: {{ servicio.fechaHoraPublicacion?.toLocaleDateString() }}
+</p>
+
+<p id="title-oferente" class="h6"><b>Información del oferente</b></p>
+
+<p class="text-muted">
+  <b>Nombre de Usuario</b>: <a href="">{{ servicio.usuario?.nombreUsuario }}</a>
+</p>
+
+<p class="text-muted">
+  <b>Nombre y apellido</b>: {{ servicio.usuario?.nombreApellido }}
+</p>
+
+<p class="text-muted">
+  <b>Correo electrónico</b>: {{ servicio.usuario?.email }}
+</p>
+
+<p class="text-muted">
+  <b>Nivel</b>: {{ servicio.usuario?.nivel?.nro }}
+</p>

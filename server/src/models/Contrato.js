@@ -4,19 +4,18 @@ const contratoSchema = new Schema({
     fecha: {
         type: Date,
         required: true,
-        default: new Date()
     },
     fechaCancelacion: {
         type: Date,
-        default: null
+        default: null,
     },
     idServicio: {
         type: String,
-        required: true
+        required: true,
     },
     idUsuario: {
         type: String,
-        required: true
+        required: true,
     }
 }, { collection: 'contratos', timestamps: false });
 

@@ -1,5 +1,6 @@
 .service {
   height: 100%;
+  padding: 1.5%;
 
   .card {
     height: 100%;
@@ -10,5 +11,20 @@
       flex-direction: column;
       justify-content: space-between;
     }
+  }
+}
+
+.service:hover {
+  padding: 0.2%;
+  box-shadow: 0 0 15px black;
+  cursor: pointer;
+}
+
+.btns {
+  a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

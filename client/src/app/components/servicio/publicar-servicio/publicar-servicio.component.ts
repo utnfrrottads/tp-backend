@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Moneda } from 'src/app/models/Moneda';
-import { ServicesService } from 'src/app/services/servicio.service';
+import { ServicioService } from 'src/app/services/servicio.service';
 import { Categoria } from '../../../models/Categoria';
 import Swal from 'sweetalert2';
 
@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class PublicarServicioComponent implements OnInit {
 
-  @Output() refreshServicios = new EventEmitter();
+  @Output() nuevoServicio = new EventEmitter();
   
   @Input() categorias: Categoria[] = [];
   @Input() monedas: Moneda[] = [];
@@ -42,12 +42,12 @@ export class PublicarServicioComponent implements OnInit {
     ]),
   });
 
-  constructor(private servicesService: ServicesService) {}
+  constructor(private servicioService: ServicioService) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
-    this.servicesService.publish(this.serviceForm.value).subscribe(
+    this.servicioService.publish(this.serviceForm.value).subscribe(
       (res: any) => {
         this.errorMessage = '';
         $('#publicarServicioPopup').modal('hide');
@@ -58,11 +58,12 @@ export class PublicarServicioComponent implements OnInit {
             this.serviceForm.value.titulo +
             ' se registró correctamente',
         });
-        this.refreshServicios.emit();
+        this.nuevoServicio.emit();
       },
       (err: any) => {
         this.errorMessage = err.message;
       }
     );
   }
+  
 }

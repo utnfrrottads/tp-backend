@@ -15,7 +15,7 @@ export class ServicesPanelComponent implements OnInit {
 
   @Output() updateServices = new EventEmitter<String>();
   @Output() selectCategory = new EventEmitter<Servicio>();
-  @Output() refreshServices = new EventEmitter();
+  @Output() addNewService = new EventEmitter();
 
   @Input() titulo: String = '';
   @Input() noServicesInfo: String = '';
@@ -42,8 +42,8 @@ export class ServicesPanelComponent implements OnInit {
     this.selectCategory.emit(serv);
   }
 
-  refrescarServicios() {
-    this.refreshServices.emit();
+  nuevoServicio() {
+    this.addNewService.emit();
   }
 
 }

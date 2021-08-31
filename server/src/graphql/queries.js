@@ -1,6 +1,6 @@
-const { GraphQLString, GraphQLList } = require('graphql');
-const { TypeUsuario, TypeNivel, TypeCategoria, TypeServicio, InputIDCategoriasSeleccionadas } = require('./types');
-const { Usuario, Nivel, Categoria, Servicio } = require('../models/index');
+const { GraphQLString, GraphQLList, ObjectId } = require('graphql');
+const { TypeUsuario, TypeNivel, TypeCategoria, TypeServicio, TypeContrato, InputIDCategoriasSeleccionadas } = require('./types');
+const { Usuario, Nivel, Categoria, Servicio, Contrato } = require('../models/index');
 
 const usuario = {
     description: 'Usuario',
@@ -33,6 +33,17 @@ const categorias = {
     }
 }
 
+const servicio = {
+    description: 'Servicio',
+    type: TypeServicio,
+    args: {
+        idServicio: { type: GraphQLString },
+    },
+    async resolve(parent, { idServicio }) {
+        return await Servicio.findById(idServicio);
+    }
+}
+
 const servicios = {
     description: 'Servicios',
     type: GraphQLList(TypeServicio),
@@ -53,7 +64,11 @@ const misServicios = {
         categorias: { type: InputIDCategoriasSeleccionadas },
     },
     async resolve(parent, { busqueda, categorias }, { usuario }) {
-        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id }).sort({ fechaHoraPublicacion: -1 });
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id }).sort({ fechaHoraPublicacion: -1 });
+        }
     }
 }
 
@@ -68,11 +83,25 @@ const detalleServicio = {
     }
 }
 
+const serviciosContratados = {
+    description: 'Servicios Contratados',
+    type: GraphQLList(TypeContrato),
+    async resolve(parent, args, { usuario }) {
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            return await Contrato.find({ idUsuario: usuario._id }).sort({ fecha: -1 });
+        }
+    }
+}
+
 module.exports = {
     usuario,
     niveles,
     categorias,
+    servicio,
     servicios,
     misServicios,
-    detalleServicio
+    detalleServicio,
+    serviciosContratados
 }

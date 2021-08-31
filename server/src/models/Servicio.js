@@ -33,7 +33,6 @@ const servicioSchema = new Schema({
   fechaHoraPublicacion: {
     type: Date,
     required: true,
-    default: new Date(),
   },
   idCategoria: {
     type: String,

@@ -1,4 +1,4 @@
-<div class="service p-2">
+<div class="service" (click)="irAlServicio($event)">
   <div class="card">
     <div class="card-header">{{ cardData.titulo }}</div>
     <div class="card-body service-content">
@@ -8,7 +8,7 @@
       </p>
 
       <p class="text-muted">
-        <b>Categoría</b>: <a href="" (click)="selectCat($event)">{{ cardData.categoria?.descripcion }}</a>
+        <b>Categoría</b>: <a href="" class="preventServiceAction" (click)="selectCat($event)">{{ cardData.categoria?.descripcion }}</a>
       </p>
 
       <p class="text-muted">
@@ -20,15 +20,15 @@
       </p>
 
       <div class="row">
-        <div class="col-6 mx-auto">
-          <a href="" class="btn btn-success btn-block" (click)="mostrarDetalle($event)">
-            <i class="fas fa-search-plus mr-2"></i>Ver más
+        <div class="col-6 mx-auto btns">
+          <a href="" class="btn btn-success btn-block preventServiceAction" (click)="mostrarDetalle($event)">
+            <span><i class="fas fa-search-plus mr-2"></i>Ver más</span>
           </a>
         </div>
 
         <div class="col-6" *ngIf="authService.loggedIn() && userService.getUsuario()._id !== cardData.usuario?._id">
-          <a href="" class="btn btn-secondary btn-block" (click)="realizarContrato($event)">
-            <i class="fas fa-pen-alt mr-2"></i>Contratar
+          <a href="" class="btn btn-secondary btn-block preventServiceAction" (click)="realizarContrato($event)">
+            <span><i class="fas fa-pen-alt mr-2"></i>Contratar</span>
           </a>
         </div>
       </div>

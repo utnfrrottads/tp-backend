@@ -5,6 +5,30 @@ import gql from 'graphql-tag';
 
 import { Categoria } from 'src/app/models/Categoria';
 
+const SERVICIO = gql`
+  query servicio($idServicio: String!) {
+    servicio(idServicio: $idServicio) {
+      _id
+      titulo
+      precio {
+        valor
+        moneda {
+          tag
+        }
+      }
+      ubicacion
+      categoria {
+        _id
+        descripcion
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
 const SERVICIOS = gql`
   query servicios($busqueda: String!, $categorias: InputIDCategoriasSeleccionadas!) {
     servicios(busqueda: $busqueda, categorias: $categorias) {
@@ -94,8 +118,17 @@ const PUBLISH_SERVICE = gql`
 @Injectable({
   providedIn: 'root',
 })
-export class ServicesService {
+export class ServicioService {
   constructor(private apollo: Apollo) { }
+
+  servicio(idServicio: String): any {
+    return this.apollo.watchQuery({
+      query: SERVICIO,
+      variables: {
+        idServicio
+      }
+    })
+  }
 
   servicios(busqueda: String, categorias: Categoria[]): any {
     const IDsCategoriasSeleccionadas: String[] = [];

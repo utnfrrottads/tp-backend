@@ -5,6 +5,7 @@ import { ListNivelesComponent } from './components/nivel/list-niveles/list-nivel
 import { ServiciosComponent } from './components/servicio/servicios/servicios.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.component';
+import { ServicioComponent } from './components/servicio/servicio/servicio.component';
 import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
 import { ServiciosContratadosComponent } from './components/contrato/servicios-contratados/servicios-contratados.component';
 import { AdminGuard } from './guards/admin.guard';
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'perfil/:usuario',
     component: VerPerfilComponent,
+  },
+  {
+    path: 'servicio/:idServicio',
+    component: ServicioComponent,
   },
   {
     path: 'serviciosContratados',

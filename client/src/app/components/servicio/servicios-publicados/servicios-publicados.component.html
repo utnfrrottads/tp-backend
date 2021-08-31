@@ -1,4 +1,4 @@
 <app-services-panel [servicios]="servicios" [categorias]="categorias" [busqueda]="busqueda" [monedas]="monedas"
   titulo="Mis Servicios" noServicesInfo="No ha publicado ningún servicio aún" [mostrarBtnPublicarServicio]="true"
   (selectCategory)="seleccionarCategoria($event)" (updateServices)="actualizarServicios($event)"
-  (refreshServices)="refreshServices()"></app-services-panel>
+  (addNewService)="agregarNuevoServicio()"></app-services-panel>
