@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs/operators';
 
+import { environment } from 'src/environments/environment';
+
 import { ServicioService } from 'src/app/services/servicio.service';
 
 import { Servicio } from 'src/app/models/Servicio';
@@ -34,12 +36,15 @@ export class ServicioComponent implements OnInit {
       nombreUsuario: '',
       nombreApellido: '',
       email: '',
+      fotoPerfil: '',
       nivel: {
         _id: '',
         nro: 0,
       }
     },
   };
+
+  cloudinary_url = environment.CLOUDINARY_URL;
 
   servicioQuery: any;
   servicioSubscription: any;
@@ -65,6 +70,7 @@ export class ServicioComponent implements OnInit {
       })
     ).subscribe(
       (res: any) => {
+        res.fechaHoraPublicacion = new Date(res.fechaHoraPublicacion);
         this.servicio = res;
       },
       (err: any) => console.log(err)

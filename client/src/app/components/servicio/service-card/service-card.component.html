@@ -1,6 +1,6 @@
 <div class="service" (click)="irAlServicio($event)">
   <div class="card">
-    <div class="card-header">{{ cardData.titulo }}</div>
+    <div class="card-header"><b>{{ cardData.titulo }}</b></div>
     <div class="card-body service-content">
       <p class="text-muted">
         <b>Usuario oferente</b>: <a href="" [routerLink]="'perfil/' + cardData.usuario?.nombreUsuario">{{

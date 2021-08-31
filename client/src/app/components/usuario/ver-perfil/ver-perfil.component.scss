@@ -20,19 +20,6 @@
   border: 1px rgb(48, 47, 47) solid;
 }
 
-.profile-img {
-  height: 8rem;
-  width: 8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
-  font-weight: 600;
-  font-size: 4rem;
-  text-transform: uppercase;
-  background-color: rgb(240, 240, 240);
-}
-
 .personal-info {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -51,4 +38,17 @@
   width: 200px;
   height: 200px;
   border-radius: 180px;
+}
+
+.profile-img {
+  height: 8rem;
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  font-weight: 600;
+  font-size: 4rem;
+  text-transform: uppercase;
+  background-color: rgb(240, 240, 240);
 }

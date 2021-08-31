@@ -10,6 +10,7 @@ const SERVICIO = gql`
     servicio(idServicio: $idServicio) {
       _id
       titulo
+      descripcion
       precio {
         valor
         moneda {
@@ -17,6 +18,7 @@ const SERVICIO = gql`
         }
       }
       ubicacion
+      fechaHoraPublicacion
       categoria {
         _id
         descripcion
@@ -24,6 +26,12 @@ const SERVICIO = gql`
       usuario {
         _id
         nombreUsuario
+        nombreApellido
+        email
+        fotoPerfil
+        nivel {
+          nro
+        }
       }
     }
   }
