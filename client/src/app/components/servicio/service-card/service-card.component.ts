@@ -118,8 +118,8 @@ export class ServiceCardComponent {
     e.stopPropagation();
 
     this.contratoService.signContract(this.cardData._id!).subscribe(
-      (res: any) => {
-        console.log(res);
+      () => {
+        this.router.navigate(['serviciosContratados'])
       },
       (err: any) => {
         console.log(err.message);
