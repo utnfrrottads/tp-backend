@@ -1,58 +1,118 @@
-<div class="card mt-2">
-  <div class="card-header"><b>{{ servicio.titulo }}</b></div>
-  <div class="card-body service-content">
-    <p class="text-muted">
-      <b>Categoría</b>: {{ servicio.categoria?.descripcion }}
-    </p>
+<div class="mt-3 pb-3">
+  <div class="card">
+    <div class="card-header"><b>{{ servicio.titulo }}</b></div>
+    <div class="card-body service-content">
+      <p class="text-muted">
+        <b>Categoría</b>: {{ servicio.categoria?.descripcion }}
+      </p>
 
-    <p class="text-muted mb-1"><b>Descripción</b>:</p>
-    <p class="card-text">
-      <small>{{ servicio.descripcion }}</small>
-    </p>
+      <p class="text-muted mb-1"><b>Descripción</b>:</p>
+      <p class="card-text">
+        <small>{{ servicio.descripcion }}</small>
+      </p>
 
-    <p class="text-muted">
-      <b>Precio</b>: {{ servicio.precio?.moneda?.tag }}&nbsp;{{ servicio.precio?.valor }}
-    </p>
+      <p class="text-muted">
+        <b>Precio</b>: {{ servicio.precio?.moneda?.tag }}&nbsp;{{ servicio.precio?.valor }}
+      </p>
 
-    <p class="text-muted">
-      <b>Ubicación</b>: {{ servicio.ubicacion }}
-    </p>
+      <p class="text-muted">
+        <b>Ubicación</b>: {{ servicio.ubicacion }}
+      </p>
 
-    <p class="text-muted">
-      <b>Fecha de publicación</b>: {{ servicio.fechaHoraPublicacion?.toLocaleDateString() }}
-    </p>
+      <p class="text-muted">
+        <b>Fecha de publicación</b>: {{ servicio.fechaHoraPublicacion?.toLocaleDateString() }}
+      </p>
 
-    <p id="title-oferente" class="h6"><b>Información del oferente</b></p>
+      <p id="title-oferente" class="h6"><b>Información del oferente</b></p>
 
-    <div id="perfil-usuario" class="row">
-      <div id="imagenes-perfil" class="mx-auto">
-        <div class="contenedor-img" *ngIf="servicio.usuario!.fotoPerfil">
-          <img id="profileImage" src="{{ cloudinary_url + servicio.usuario!.fotoPerfil }}">
-        </div>
+      <div id="perfil-usuario" class="row">
+        <div id="imagenes-perfil" class="m-auto">
+          <div class="contenedor-img" *ngIf="servicio.usuario!.fotoPerfil">
+            <img id="profileImage" src="{{ cloudinary_url + servicio.usuario!.fotoPerfil }}">
+          </div>
 
-        <div class="contenedor-img" *ngIf="!servicio.usuario!.fotoPerfil">
-          <div class="profile-img">
-            {{ servicio.usuario!.nombreApellido![0] }}
+          <div class="contenedor-img" *ngIf="!servicio.usuario!.fotoPerfil">
+            <div class="profile-img">
+              {{ servicio.usuario!.nombreApellido![0] }}
+            </div>
           </div>
         </div>
+
+        <div id="info-perfil" class="p-2">
+          <p class="text-muted">
+            <b>Nombre de Usuario</b>: {{ servicio.usuario?.nombreUsuario }}
+          </p>
+
+          <p class="text-muted">
+            <b>Nombre y apellido</b>: {{ servicio.usuario?.nombreApellido }}
+          </p>
+
+          <p class="text-muted">
+            <b>Correo electrónico</b>: {{ servicio.usuario?.email }}
+          </p>
+
+          <p class="text-muted">
+            <b>Nivel</b>: {{ servicio.usuario?.nivel?.nro }}
+          </p>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div id="info-perfil" class="p-2">
-        <p class="text-muted">
-          <b>Nombre de Usuario</b>: {{ servicio.usuario?.nombreUsuario }}
-        </p>
+  <div id="contratos-realizados" class="mt-4"
+    *ngIf="authService.loggedIn() && userService.getUsuario()._id !== servicio.usuario!._id">
+    <div class="mt-3">
+      <h3 class="mb-3 titulo-contratos">Contratos Realizados</h3>
+      <div *ngIf="contratos.length > 0">
+        <table class="table table-responsive-md table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
+              <th scope="col" class="col-accion">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contrato of contratos; let indice = index">
+              <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
+              <td class="col-accion">
 
-        <p class="text-muted">
-          <b>Nombre y apellido</b>: {{ servicio.usuario?.nombreApellido }}
-        </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
+        <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
+        <p class="mt-5 mb-5">No ha realizado ningún contrato con dicho servicio aún</p>
+      </div>
+    </div>
+  </div>
 
-        <p class="text-muted">
-          <b>Correo electrónico</b>: {{ servicio.usuario?.email }}
-        </p>
+  <div id="contratos-recibidos" class="mt-4"
+    *ngIf="authService.loggedIn() && userService.getUsuario()._id === servicio.usuario!._id">
+    <div class="mt-3">
+      <h3 class="mb-3 titulo-contratos">Contratos Recibidos</h3>
+      <div *ngIf="contratos.length > 0">
+        <table class="table table-responsive-md table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
+              <th scope="col" class="col-accion">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contrato of contratos; let indice = index">
+              <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
+              <td class="col-accion">
 
-        <p class="text-muted">
-          <b>Nivel</b>: {{ servicio.usuario?.nivel?.nro }}
-        </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
+        <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
+        <p class="mt-5 mb-5">No ha recibido ningún contrato por dicho servicio aún</p>
       </div>
     </div>
   </div>

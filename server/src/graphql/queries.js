@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLList, ObjectId } = require('graphql');
+const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
 const { TypeUsuario, TypeNivel, TypeCategoria, TypeServicio, TypeContrato, InputIDCategoriasSeleccionadas } = require('./types');
 const { Usuario, Nivel, Categoria, Servicio, Contrato } = require('../models/index');
 
@@ -95,6 +95,41 @@ const serviciosContratados = {
     }
 }
 
+const contratosRealizados = {
+    description: 'Contratos Realizados',
+    type: GraphQLList(TypeContrato),
+    args: {
+        idServicio: { type: GraphQLID },
+    },
+    async resolve(parent, { idServicio }, { usuario }) {
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            return await Contrato.find({ idServicio, idUsuario: usuario._id }).sort({ fecha: -1 });
+        }
+    }
+}
+
+const contratosRecibidos = {
+    description: 'Contratos Recibidos',
+    type: GraphQLList(TypeContrato),
+    args: {
+        idServicio: { type: GraphQLID },
+    },
+    async resolve(parent, { idServicio }, { usuario }) {
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            const servicio = await Servicio.findOne({ _id: idServicio, idUsuario: usuario._id });
+            if (servicio) {
+                return await Contrato.find({ idServicio: servicio._id }).sort({ fecha: -1 });
+            } else {
+                throw new Error('El servicio no fue publicado por el usuario');
+            }
+        }
+    }
+}
+
 module.exports = {
     usuario,
     niveles,
@@ -103,5 +138,7 @@ module.exports = {
     servicios,
     misServicios,
     detalleServicio,
-    serviciosContratados
+    serviciosContratados,
+    contratosRealizados,
+    contratosRecibidos,
 }

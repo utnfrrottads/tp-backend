@@ -25,3 +25,40 @@
   text-transform: uppercase;
   background-color: rgb(240, 240, 240);
 }
+
+.no-contratos {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5% 0 5%;
+}
+
+table {
+  white-space: nowrap;
+
+  button {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.col-fecha-cont {
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.col-accion {
+  display: flex;
+}
+
+.alert {
+  border-radius: 10px;
+}
+
+.titulo-contratos {
+  text-align: center;
+  text-decoration: underline;
+}

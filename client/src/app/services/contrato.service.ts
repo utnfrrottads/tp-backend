@@ -21,6 +21,26 @@ const SERVICIOS_CONTRATADOS = gql`
   }
 `;
 
+const CONTRATOS_REALIZADOS = gql`
+  query contratosRealizados($idServicio: ID!) {
+    contratosRealizados(idServicio: $idServicio) {
+      _id
+      fecha
+      fechaCancelacion
+    }
+  }
+`;
+
+const CONTRATOS_RECIBIDOS = gql`
+  query contratosRecibidos($idServicio: ID!) {
+    contratosRecibidos(idServicio: $idServicio) {
+      _id
+      fecha
+      fechaCancelacion
+    }
+  }
+`;
+
 const SIGN_CONTRACT = gql`
   mutation signContract($idServicio: ID!) {
     signContract(idServicio: $idServicio) {
@@ -39,6 +59,24 @@ export class ContratoService {
   serviciosContratados(): any {
     return this.apollo.watchQuery({
       query: SERVICIOS_CONTRATADOS
+    })
+  }
+
+  contratosRealizados(idServicio: String): any {
+    return this.apollo.watchQuery({
+      query: CONTRATOS_REALIZADOS,
+      variables: {
+        idServicio
+      }
+    })
+  }
+
+  contratosRecibidos(idServicio: String): any {
+    return this.apollo.watchQuery({
+      query: CONTRATOS_RECIBIDOS,
+      variables: {
+        idServicio
+      }
     })
   }
 
