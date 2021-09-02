@@ -8,10 +8,15 @@ const SERVICIOS_CONTRATADOS = gql`
     serviciosContratados {
       _id
       fecha
+      contratoCanceladoPorOferente
       fechaCancelacion
       servicio {
         _id
         titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
       }
       usuario {
         _id
@@ -26,7 +31,20 @@ const CONTRATOS_REALIZADOS = gql`
     contratosRealizados(idServicio: $idServicio) {
       _id
       fecha
+      contratoCanceladoPorOferente
       fechaCancelacion
+      servicio {
+        _id
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
     }
   }
 `;
@@ -36,7 +54,20 @@ const CONTRATOS_RECIBIDOS = gql`
     contratosRecibidos(idServicio: $idServicio) {
       _id
       fecha
+      contratoCanceladoPorOferente
       fechaCancelacion
+      servicio {
+        _id
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
     }
   }
 `;
@@ -45,6 +76,29 @@ const SIGN_CONTRACT = gql`
   mutation signContract($idServicio: ID!) {
     signContract(idServicio: $idServicio) {
       _id
+    }
+  }
+`;
+
+const CANCEL_CONTRACT = gql`
+  mutation cancelContract($idContrato: ID!) {
+    cancelContract(idContrato: $idContrato) {
+      _id
+      fecha
+      contratoCanceladoPorOferente
+      fechaCancelacion
+      servicio {
+        _id
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
     }
   }
 `;
@@ -85,6 +139,15 @@ export class ContratoService {
       mutation: SIGN_CONTRACT,
       variables: {
         idServicio
+      }
+    })
+  }
+
+  cancelContract(idContrato: String): any {
+    return this.apollo.mutate({
+      mutation: CANCEL_CONTRACT,
+      variables: {
+        idContrato
       }
     })
   }

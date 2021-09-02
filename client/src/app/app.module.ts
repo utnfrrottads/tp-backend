@@ -34,6 +34,7 @@ import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.c
 import { ServiciosContratadosComponent } from './components/contrato/servicios-contratados/servicios-contratados.component';
 import { ServiciosComponent } from './components/servicio/servicios/servicios.component';
 import { ServicioComponent } from './components/servicio/servicio/servicio.component';
+import { TableContratosComponent } from './components/contrato/table-contratos/table-contratos.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ServicioComponent } from './components/servicio/servicio/servicio.compo
     ServiciosContratadosComponent,
     ServiciosComponent,
     ServicioComponent,
+    TableContratosComponent,
   ],
   imports: [
     BrowserModule,

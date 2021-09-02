@@ -85,6 +85,7 @@ const TypeContrato = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     fecha: { type: TypeDateTimeScalar },
+    contratoCanceladoPorOferente: { type: GraphQLBoolean },
     fechaCancelacion: { type: TypeDateTimeScalar },
     servicio: {
       type: TypeServicio,

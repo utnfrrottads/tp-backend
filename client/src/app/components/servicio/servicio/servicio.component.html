@@ -1,5 +1,5 @@
 <div class="mt-3 pb-3">
-  <div class="card">
+  <div class="card mb-4">
     <div class="card-header"><b>{{ servicio.titulo }}</b></div>
     <div class="card-body service-content">
       <p class="text-muted">
@@ -59,61 +59,13 @@
     </div>
   </div>
 
-  <div id="contratos-realizados" class="mt-4"
-    *ngIf="authService.loggedIn() && userService.getUsuario()._id !== servicio.usuario!._id">
-    <div class="mt-3">
-      <h3 class="mb-3 titulo-contratos">Contratos Realizados</h3>
-      <div *ngIf="contratos.length > 0">
-        <table class="table table-responsive-md table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
-              <th scope="col" class="col-accion">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let contrato of contratos; let indice = index">
-              <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
-              <td class="col-accion">
+  <app-table-contratos *ngIf="authService.loggedIn() && userService.getUsuario()._id !== servicio.usuario!._id"
+    [contratos]="contratos" title="Contratos Realizados"
+    msgNoContratos="No ha realizado ningún contrato con dicho servicio aún">
+  </app-table-contratos>
 
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
-        <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
-        <p class="mt-5 mb-5">No ha realizado ningún contrato con dicho servicio aún</p>
-      </div>
-    </div>
-  </div>
-
-  <div id="contratos-recibidos" class="mt-4"
-    *ngIf="authService.loggedIn() && userService.getUsuario()._id === servicio.usuario!._id">
-    <div class="mt-3">
-      <h3 class="mb-3 titulo-contratos">Contratos Recibidos</h3>
-      <div *ngIf="contratos.length > 0">
-        <table class="table table-responsive-md table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
-              <th scope="col" class="col-accion">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let contrato of contratos; let indice = index">
-              <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
-              <td class="col-accion">
-
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
-        <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
-        <p class="mt-5 mb-5">No ha recibido ningún contrato por dicho servicio aún</p>
-      </div>
-    </div>
-  </div>
+  <app-table-contratos *ngIf="authService.loggedIn() && userService.getUsuario()._id === servicio.usuario!._id"
+    [contratos]="contratos" title="Contratos Recibidos"
+    msgNoContratos="No ha recibido ningún contrato por dicho servicio aún">
+  </app-table-contratos>
 </div>

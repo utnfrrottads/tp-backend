@@ -38,20 +38,26 @@
 table {
   white-space: nowrap;
 
+  .col-fecha-cont {
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
+  .col-fecha-canc {
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+  
+  .col-accion {
+    display: flex;
+  }
+
   button {
     display: flex;
     align-items: center;
   }
-}
-
-.col-fecha-cont {
-  @media (min-width: 768px) {
-    width: 50%;
-  }
-}
-
-.col-accion {
-  display: flex;
 }
 
 .alert {

@@ -1,0 +1,42 @@
+<div id="contratos">
+  <h3 class="mb-3 titulo-contratos" *ngIf="title">{{ title }}</h3>
+  <div *ngIf="contratos.length > 0">
+    <table class="table table-responsive-md table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
+          <th scope="col" class="col-fecha-canc">Contrato Cancelado</th>
+          <th scope="col" class="col-accion">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of contratos; let indice = index">
+          <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
+
+          <td class="col-fecha-canc">
+            <span *ngIf="contrato.fechaCancelacion">
+              Contrato cancelado por
+              <span *ngIf="contrato.contratoCanceladoPorOferente">{{ contrato.servicio!.usuario!.nombreUsuario
+                }}</span>
+              <span *ngIf="!contrato.contratoCanceladoPorOferente">{{ contrato.usuario!.nombreUsuario }}</span> el
+              {{ contrato.fechaCancelacion!.toLocaleString() }} - Hora Local
+            </span>
+            <span *ngIf="!contrato.fechaCancelacion">-</span>
+          </td>
+
+          <td class="col-accion">
+            <span *ngIf="!contrato.fechaCancelacion">
+              <a href="" (click)="cancelarContrato($event, contrato)">Cancelar Contrato</a>&nbsp;-&nbsp;
+              <a href="" (click)="mensajes($event)">Mensajes</a>
+            </span>
+            <span *ngIf="contrato.fechaCancelacion">-</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
+    <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
+    <p class="mt-5 mb-5">{{ msgNoContratos }}</p>
+  </div>
+</div>

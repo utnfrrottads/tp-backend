@@ -5,6 +5,10 @@ const contratoSchema = new Schema({
         type: Date,
         required: true,
     },
+    contratoCanceladoPorOferente: {
+        type: Boolean,
+        default: null,
+    },
     fechaCancelacion: {
         type: Date,
         default: null,

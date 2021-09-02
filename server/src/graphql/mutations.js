@@ -476,6 +476,36 @@ const signContract = {
   },
 };
 
+const cancelContract = {
+  description: "Cancelar contrato",
+  type: TypeContrato,
+  args: {
+    idContrato: { type: GraphQLID },
+  },
+  async resolve(parent, { idContrato }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      const contratoACancelar = await Contrato.findById(idContrato);
+      contratoACancelar.servicio = await Servicio.findById(contratoACancelar.idServicio);
+
+      if (contratoACancelar.idUsuario == usuario._id) {
+        contratoACancelar.contratoCanceladoPorOferente = false;
+        contratoACancelar.fechaCancelacion = new Date();
+        
+        return await contratoACancelar.save();
+      } else if (contratoACancelar.servicio.idUsuario == usuario._id) {
+        contratoACancelar.contratoCanceladoPorOferente = true;
+        contratoACancelar.fechaCancelacion = new Date();
+        
+        return await contratoACancelar.save();
+      } else {
+        throw new Error("El usuario no puede cancelar el contrato");
+      }
+    }
+  },
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -491,4 +521,5 @@ module.exports = {
   updateCategoria,
   publishService,
   signContract,
+  cancelContract,
 };
