@@ -1,0 +1,31 @@
+.titulo-contratos {
+  text-align: center;
+  text-decoration: underline;
+}
+
+table {
+  text-align: center;
+  white-space: nowrap;
+  
+  .col-accion {
+    display: flex;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.alert {
+  border-radius: 10px;
+}
+
+.no-contratos {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5% 0 5%;
+}

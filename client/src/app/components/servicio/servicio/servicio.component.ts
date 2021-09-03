@@ -113,6 +113,7 @@ export class ServicioComponent implements OnInit {
       (res: Contrato[]) => {
         res.forEach(cont => {
           cont.fecha = new Date(cont.fecha!);
+          if (cont.fechaCancelacion) cont.fechaCancelacion = new Date(cont.fechaCancelacion!);
         });
         this.contratos = res;
       },
@@ -138,6 +139,7 @@ export class ServicioComponent implements OnInit {
       (res: Contrato[]) => {
         res.forEach(cont => {
           cont.fecha = new Date(cont.fecha!);
+          if (cont.fechaCancelacion) cont.fechaCancelacion = new Date(cont.fechaCancelacion!);
         });
         this.contratos = res;
       },

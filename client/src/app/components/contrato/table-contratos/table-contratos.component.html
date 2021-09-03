@@ -4,29 +4,35 @@
     <table class="table table-responsive-md table-striped table-hover">
       <thead>
         <tr>
+          <th scope="col" class="col-servicio">Servicio</th>
+          <th scope="col" class="col-user">Usuario Oferente</th>
           <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
-          <th scope="col" class="col-fecha-canc">Contrato Cancelado</th>
-          <th scope="col" class="col-accion">Acción</th>
+          <th scope="col" class="col-fecha-canc">Fecha de Cancelación</th>
+          <th scope="col" class="col-accion">Acciones Rápidas</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let contrato of contratos; let indice = index">
-          <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleString() }} - Hora Local</td>
+          <td class="col-servicio"><a href="" [routerLink]="'/servicio/' + contrato.servicio!._id">{{
+              contrato.servicio!.titulo }}</a></td>
+          <td class="col-user"><a href="" [routerLink]="'/perfil/' + contrato.servicio!.usuario!.nombreUsuario">{{
+              contrato.servicio!.usuario!.nombreUsuario }}</a></td>
+          <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleDateString() }}</td>
 
           <td class="col-fecha-canc">
             <span *ngIf="contrato.fechaCancelacion">
-              Contrato cancelado por
+              {{ contrato.fechaCancelacion!.toLocaleDateString() }} por
               <span *ngIf="contrato.contratoCanceladoPorOferente">{{ contrato.servicio!.usuario!.nombreUsuario
                 }}</span>
-              <span *ngIf="!contrato.contratoCanceladoPorOferente">{{ contrato.usuario!.nombreUsuario }}</span> el
-              {{ contrato.fechaCancelacion!.toLocaleString() }} - Hora Local
+              <span *ngIf="!contrato.contratoCanceladoPorOferente">{{ contrato.usuario!.nombreUsuario }}</span>
             </span>
             <span *ngIf="!contrato.fechaCancelacion">-</span>
           </td>
 
           <td class="col-accion">
             <span *ngIf="!contrato.fechaCancelacion">
-              <a href="" (click)="cancelarContrato($event, contrato)">Cancelar Contrato</a>&nbsp;-&nbsp;
+              <a href="" (click)="cancelarContrato($event, contrato)">Cancelar Contrato</a>
+              <br>
               <a href="" (click)="mensajes($event)">Mensajes</a>
             </span>
             <span *ngIf="contrato.fechaCancelacion">-</span>
