@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from '../../../Services/article.service';
@@ -13,6 +14,7 @@ import { NoteService } from '../../../Services/note.service';
 })
 
 export class AddArticleComponent implements OnInit{
+  @Output() getError = new EventEmitter<string>()
   articleForm: FormGroup;
   sendFormData: any;
   notes =[new Note()];
@@ -72,7 +74,7 @@ export class AddArticleComponent implements OnInit{
         name: formModel.name,
         description: formModel.description,
         presentation: formModel.presentation,
-        note:formModel.notes,
+        notes:[formModel.notes],
         prices: [{price: formModel.price, date: formModel.date}]
       };
 

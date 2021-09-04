@@ -44,7 +44,6 @@ export class ArticleService {
   }
 
   getArticles(filters: object){
-    console.log(filters)
     return this.http.post(this.URL_API+ '/Get', filters);
   }
 
