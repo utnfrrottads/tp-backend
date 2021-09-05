@@ -246,7 +246,7 @@ UserCtrl.updateUser = async(req, res, next) => {
         if (validations) {
             console.log(user);
             await User.findByIdAndUpdate(id, { $set: user });
-            res.json({ status: 'Usuario Actualizado Correctamente.', user: user });
+            res.json({ status: 'Usuario Actualizado Correctamente.'});
         }
 
     } catch (err) {

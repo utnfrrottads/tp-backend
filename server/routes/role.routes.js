@@ -9,5 +9,6 @@ roleRouter.get('/:id', roleCtrl.getRole); //Si va con un metodo get y un ObjectI
 roleRouter.post('/', roleValidator.validateRoleCreate, roleCtrl.createRole); //Si va con un post es un Create
 roleRouter.put('/:id', roleValidator.validateRoleUpdate, roleCtrl.updateRole); //Si va con un put es un Update al ObjectId especificado
 roleRouter.delete('/:id', roleCtrl.deleteRole); //Si va con un delete es un Delete al ObjectId especificado
+roleRouter.get('/getRoleID/:role', roleCtrl.getRoleID)
 
 module.exports = roleRouter; //Exporto para requerirlo en otro lado

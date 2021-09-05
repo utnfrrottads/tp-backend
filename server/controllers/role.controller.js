@@ -14,6 +14,12 @@ RoleCtrl.checkDependencies = async(id) => {
     }
 }
 
+RoleCtrl.getRoleID = async(req, res, next) => {
+    const { role } = req.params
+    let roleID = await Role.findOne({name: role}).select('_id')
+    res.json(roleID._id)
+}
+
 //Controla nombre repetido
 RoleCtrl.checkName = async(name, id = ' ') => {
     let roles = await Role.find({ name: name }).select('_id');

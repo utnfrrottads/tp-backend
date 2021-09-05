@@ -1,13 +1,46 @@
 <app-header></app-header>
 
-<section class="pb-5 header text-center">
-  <div class="container py-5 text-white">
+<section *ngIf="isEdit==false">
+  <div class="container py-5">
+    <div class="card">
+      <div class="card-header">
+        Profile
+        <a class="btn btn-success btn-sm"  style="float: right;"
+        (click)="changeMode('editMode')"><i class="fa fa-edit"></i></a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{currentUser.names}} {{currentUser.lastNames}}</h5>
+        <p class="card-text"><strong>DNI:</strong> {{currentUser.dni}}.</p>
+        <p class="card-text"><strong>UserName:</strong> {{currentUser.username}}.</p>
+        <p class="card-text"><strong>Email:</strong> {{currentUser.email}}.</p>
+        <p class="card-text"><strong>PostalCode:</strong> {{currentUser.pc}}.</p>
+        <p class="card-text"><strong>Adress:</strong> {{currentUser.street}} {{currentUser.number}} {{currentUser.flat}}.</p>
+        <p class="card-text"><strong>Phone:</strong> {{currentUser.phone}}.</p>
+        <p *ngIf="isAdmin" class="card-text"><strong>Es Empleado:</strong> {{currentUser.employee==true ? "Si" : "No"}}.</p>
+        <p *ngIf="isAdmin" class="card-text"><strong>Es Cliente:</strong> {{currentUser.client==true ? "Si" : "No"}}.</p>
+        <p *ngIf="isAdmin" class="card-text"><strong>Roles</strong></p>
+        <div *ngIf="isAdmin" class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let role of currentRoles" class="list-group-item">{{role}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="isEdit==true" class="pb-5 header text-center">
+  <div class="container py-5">
 
       <div class="row">
           <div class="col-lg-7 mx-auto">
               <div class="card border-0 shadow">
+                <div class="card-header">
+                  Edit Profile
+                  <a class="btn btn-danger"  style="float: right;"
+                  (click)="changeMode('viewMode')"><i class="fa fa-times"></i></a>
+                </div>
                   <div class="card-body p-5">
-
                  <form novalidate [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
                   
                   <div class="form-group">
@@ -54,17 +87,17 @@
                     <input type="number" class="form-control" formControlName="phone" placeholder="Teléfono">
                   </div>
 
-                  <div class="form-check form-switch">
+                  <div *ngIf="isAdmin" class="form-check form-switch">
                     <label class="form-check-label" for="employee">Es empleado?</label>
                     <input class="form-check-input" formControlName="employee" type="checkbox" id="employee">
                   </div>
 
-                  <div class="form-check form-switch">
+                  <div *ngIf="isAdmin" class="form-check form-switch">
                     <label class="form-check-label" for="client">Es cliente?</label>
                     <input class="form-check-input" formControlName="client" type="checkbox" id="client">
                   </div>
 
-                  <select *ngIf="roles" multiple formControlName="roles" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                  <select *ngIf="roles && isAdmin" multiple formControlName="roles" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option selected>Seleccione los roles de usuario</option>
                     <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
                   </select>

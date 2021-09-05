@@ -31,4 +31,8 @@ export class RoleService {
   deleteRole(id: any) {
     return this.http.delete(this.baseUrl + 'role/' + id);
   }
+
+  getRoleID(role: string){
+    return this.http.get(this.baseUrl + 'role/getRoleID/'+ role)
+  }
 }

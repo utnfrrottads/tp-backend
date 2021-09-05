@@ -7,19 +7,28 @@ import { User } from 'src/app/Models/user';
 import { RoleService } from 'src/app/Services/role.service';
 import { UserService } from 'src/app/Services/user.service';
 
+
+export interface IMyResponse{
+  'status': string
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
+
+
 export class ProfileComponent implements OnInit {
 
-  currentUser: any;
+  currentUser: User;
   profileForm: FormGroup;
   sendFormData: any;
   permissions = [];
-  isEdit = false;
+  isEdit= false;
   roles =[new Role()];
+  isAdmin= false;
+  currentRoles: Array<string> = []
 
   constructor(
     private router: Router,
@@ -27,7 +36,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private rolesService: RoleService
+    private rolesService: RoleService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.profileForm = this.fb.group({
       id: [''],
@@ -46,14 +56,25 @@ export class ProfileComponent implements OnInit {
       client: [false, Validators.required],  
       roles: [null, [Validators.required]],
     });
-   }
 
+    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
+    this.currentUser = JSON.parse(string)
+
+    if(this.currentUser.employee){
+      this.currentUser.roles.forEach(role => {
+        this.rolesService.getById(role).subscribe(res =>{
+          this.currentRoles.push(res.name)
+        })
+      });
+   }
+}
+
+
+
+   
   ngOnInit(): void {
-    const currentUser = localStorage.getItem('CurrentUser');
-    this.currentUser = currentUser !== null ? JSON.parse(currentUser) : new User();
 
     this.getRoles();
-    console.log(this.currentUser);
 
 
     this.profileForm.patchValue({
@@ -73,6 +94,26 @@ export class ProfileComponent implements OnInit {
       client: this.currentUser.client,
       roles: this.currentUser.roles
     });
+
+    this.rolesService.getRoleID("Administrador").subscribe(res => {
+        var adminID = res as string
+        if(this.currentUser.roles.includes(adminID)){
+          this.isAdmin=true
+        } else{
+          this.isAdmin=false
+        }
+    })
+    
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      let mode = params['mode'];
+      if(mode=="editMode"){
+        this.isEdit=true
+      } else{
+        this.isEdit=false
+      }
+    });
+
   }
 
   onSubmit() {
@@ -97,14 +138,17 @@ export class ProfileComponent implements OnInit {
         client: formModel.client,
         roles: formModel.roles,
       };
-      this.userService.putUser(profile).subscribe((x: any) => {
-        this.toastr.success('Perfil actualizado exitosamente!');
-        localStorage.setItem('CurrentUser', JSON.stringify(x.user));
-        this.goBack();
-      }, error => this.showError(error));
-    }
-    else{
-      this.toastr.error('Error al editar el perfil de usuario!');
+      this.userService.putUser(profile).subscribe({
+        next: res => {
+          this.toastr.success((res as IMyResponse).status);
+          this.userService.getUser(this.currentUser).subscribe(res => {
+            localStorage.setItem('CurrentUser', JSON.stringify(res));
+          })
+        },
+        error: err => {
+          this.showError(err);
+        }
+      });
     }
   }
 
@@ -119,6 +163,14 @@ export class ProfileComponent implements OnInit {
     var index = this.roles.indexOf({_id: '', name: '', description: '', permissions: ['']})
     if(index > -1){
       this.roles.slice(index, 1)
+    }
+  }
+
+  changeMode(mode: string){
+    if(mode=="editMode"){
+      this.router.navigate([ '/profile' ], { queryParams: {'mode': 'editMode'} })
+    } else{
+      this.router.navigate([ '/profile' ], { queryParams: {'mode': 'viewMode'} })
     }
   }
 
