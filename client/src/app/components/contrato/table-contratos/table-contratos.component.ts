@@ -36,8 +36,4 @@ export class TableContratosComponent implements OnInit {
     );
   }
 
-  mensajes(e: any) {
-    e.preventDefault();
-  }
-
 }

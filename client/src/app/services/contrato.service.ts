@@ -3,6 +3,26 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+const CONTRATO = gql`
+  query contrato($idContrato: ID!) {
+    contrato(idContrato: $idContrato) {
+      fecha
+      fechaCancelacion
+      servicio {
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+    }
+  }
+`;
+
 const SERVICIOS_CONTRATADOS = gql`
   {
     serviciosContratados {
@@ -109,6 +129,15 @@ const CANCEL_CONTRACT = gql`
 export class ContratoService {
 
   constructor(private apollo: Apollo) { }
+
+  contrato(idContrato: String): any {
+    return this.apollo.watchQuery({
+      query: CONTRATO,
+      variables: {
+        idContrato
+      }
+    })
+  }
 
   serviciosContratados(): any {
     return this.apollo.watchQuery({

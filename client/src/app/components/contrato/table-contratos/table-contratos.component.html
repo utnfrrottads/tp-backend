@@ -33,7 +33,7 @@
             <span *ngIf="!contrato.fechaCancelacion">
               <a href="" (click)="cancelarContrato($event, contrato)">Cancelar Contrato</a>
               <br>
-              <a href="" (click)="mensajes($event)">Mensajes</a>
+              <a href="" [routerLink]="'/contrato/mensajes/' + contrato._id">Mensajes</a>
             </span>
             <span *ngIf="contrato.fechaCancelacion">-</span>
           </td>

@@ -119,7 +119,7 @@ export class ServiceCardComponent {
 
     this.contratoService.signContract(this.cardData._id!).subscribe(
       () => {
-        this.router.navigate(['serviciosContratados'])
+        this.router.navigate(['/serviciosContratados'])
       },
       (err: any) => {
         console.log(err.message);
@@ -128,7 +128,7 @@ export class ServiceCardComponent {
   }
 
   irAlServicio(e: any) {
-    this.router.navigate(['servicio/' + this.cardData._id]);
+    this.router.navigate(['/servicio/' + this.cardData._id]);
   }
 
 }

@@ -8,6 +8,7 @@ import { VerPerfilComponent } from './components/usuario/ver-perfil/ver-perfil.c
 import { ServicioComponent } from './components/servicio/servicio/servicio.component';
 import { ServiciosPublicadosComponent } from './components/servicio/servicios-publicados/servicios-publicados.component';
 import { ServiciosContratadosComponent } from './components/contrato/servicios-contratados/servicios-contratados.component';
+import { ChatComponent } from './components/contrato/chat/chat.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -26,20 +27,6 @@ const routes: Routes = [
     component: VerPerfilComponent,
   },
   {
-    path: 'servicio/:idServicio',
-    component: ServicioComponent,
-  },
-  {
-    path: 'serviciosContratados',
-    component: ServiciosContratadosComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'serviciosPublicados',
-    component: ServiciosPublicadosComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'niveles',
     component: ListNivelesComponent,
     canActivate: [AdminGuard],
@@ -48,6 +35,25 @@ const routes: Routes = [
     path: 'categorias',
     component: ListCategoriasComponent,
     canActivate: [AdminGuard],
+  },
+  {
+    path: 'servicio/:idServicio',
+    component: ServicioComponent,
+  },
+  {
+    path: 'serviciosPublicados',
+    component: ServiciosPublicadosComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'serviciosContratados',
+    component: ServiciosContratadosComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contrato/mensajes/:idContrato',
+    component: ChatComponent,
+    canActivate: [AuthGuard],
   }
 ];
 

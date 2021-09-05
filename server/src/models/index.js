@@ -5,4 +5,5 @@ module.exports = {
   Servicio: require("./Servicio"),
   Categoria: require("./Categoria"),
   Moneda: require("./Moneda"),
+  Mensaje: require("./Mensaje"),
 };

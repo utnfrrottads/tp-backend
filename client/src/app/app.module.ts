@@ -35,6 +35,7 @@ import { ServiciosContratadosComponent } from './components/contrato/servicios-c
 import { ServiciosComponent } from './components/servicio/servicios/servicios.component';
 import { ServicioComponent } from './components/servicio/servicio/servicio.component';
 import { TableContratosComponent } from './components/contrato/table-contratos/table-contratos.component';
+import { ChatComponent } from './components/contrato/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { TableContratosComponent } from './components/contrato/table-contratos/t
     ServiciosComponent,
     ServicioComponent,
     TableContratosComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

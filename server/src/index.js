@@ -20,6 +20,9 @@ app.use('/graphql', authenticate, graphqlHTTP({
     graphiql: true
 }));
 
+//socket
+require('./socket');
+
 //starting the server
 app.listen(PORT, () => {
     console.log('Server on port: ' + PORT);

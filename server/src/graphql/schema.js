@@ -9,9 +9,11 @@ const {
     servicios,
     misServicios,
     detalleServicio,
+    contrato,
     serviciosContratados,
     contratosRealizados,
     contratosRecibidos,
+    mensajesDelContrato,
 } = require('./queries');
 
 // Import mutations
@@ -37,7 +39,7 @@ const {
 const QueryType = new GraphQLObjectType({
     name: "QueryType",
     description: "Queries",
-    fields: { usuario, niveles, categorias, servicio, servicios, misServicios, detalleServicio, serviciosContratados, contratosRealizados, contratosRecibidos }
+    fields: { usuario, niveles, categorias, servicio, servicios, misServicios, detalleServicio, contrato, serviciosContratados, contratosRealizados, contratosRecibidos, mensajesDelContrato }
 })
 
 // Define MutationType

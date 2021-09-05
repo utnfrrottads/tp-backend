@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import { Categoria } from 'src/app/models/Categoria';
 
 const SERVICIO = gql`
-  query servicio($idServicio: String!) {
+  query servicio($idServicio: ID!) {
     servicio(idServicio: $idServicio) {
       _id
       titulo

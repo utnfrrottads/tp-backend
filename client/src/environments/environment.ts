@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_URL: "http://localhost:4000/graphql",
+  SOCKET_URL: "http://localhost:4001",
   CLOUD_NAME: 'dliuvibjk',
   API_KEY: '438313976637266',
   API_SECRET: 'zvFdQwzA88IBeWtb09h3w2o-I80',

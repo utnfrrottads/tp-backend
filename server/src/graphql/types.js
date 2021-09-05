@@ -102,6 +102,23 @@ const TypeContrato = new GraphQLObjectType({
   }),
 });
 
+const TypeMensaje = new GraphQLObjectType({
+  name: "TypeMensaje",
+  description: "Type mensaje",
+  fields: () => ({
+    _id: { type: GraphQLID },
+    mensaje: { type: GraphQLString },
+    mensajeEnviadoPorOferente: { type: GraphQLBoolean },
+    fechaHoraEnvio: { type: TypeDateTimeScalar },
+    contrato: {
+      type: TypeContrato,
+      resolve(parent, args) {
+        return Contrato.findById(parent.idContrato);
+      },
+    },
+  }),
+});
+
 const TypeServicio = new GraphQLObjectType({
   name: "TypeServicio",
   description: "Type servicio",
@@ -196,5 +213,6 @@ module.exports = {
   LoginOutput,
   TypePrecio,
   TypeMoneda,
+  TypeMensaje,
   InputIDCategoriasSeleccionadas,
 };

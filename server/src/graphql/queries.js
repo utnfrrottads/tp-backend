@@ -1,6 +1,6 @@
 const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
-const { TypeUsuario, TypeNivel, TypeCategoria, TypeServicio, TypeContrato, InputIDCategoriasSeleccionadas } = require('./types');
-const { Usuario, Nivel, Categoria, Servicio, Contrato } = require('../models/index');
+const { TypeUsuario, TypeNivel, TypeCategoria, TypeServicio, TypeContrato, TypeMensaje, InputIDCategoriasSeleccionadas } = require('./types');
+const { Usuario, Nivel, Categoria, Servicio, Contrato, Mensaje } = require('../models/index');
 
 const usuario = {
     description: 'Usuario',
@@ -37,7 +37,7 @@ const servicio = {
     description: 'Servicio',
     type: TypeServicio,
     args: {
-        idServicio: { type: GraphQLString },
+        idServicio: { type: GraphQLID },
     },
     async resolve(parent, { idServicio }) {
         return await Servicio.findById(idServicio);
@@ -80,6 +80,17 @@ const detalleServicio = {
     },
     async resolve(parent, { _id }) {
         return await Servicio.findById(_id);
+    }
+}
+
+const contrato = {
+    description: 'Contrato',
+    type: TypeContrato,
+    args: {
+        idContrato: { type: GraphQLID },
+    },
+    async resolve(parent, { idContrato }) {
+        return await Contrato.findById(idContrato);
     }
 }
 
@@ -130,6 +141,27 @@ const contratosRecibidos = {
     }
 }
 
+const mensajesDelContrato = {
+    description: 'Mensajes Del Contrato',
+    type: GraphQLList(TypeMensaje),
+    args: {
+        idContrato: { type: GraphQLID },
+    },
+    async resolve(parent, { idContrato }, { usuario }) {
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            const contrato = await Contrato.findById(idContrato);
+            contrato.servicio = await Servicio.findById(contrato.idServicio);
+            if (contrato && (usuario._id == contrato.servicio.idUsuario || usuario._id == contrato.idUsuario)) {
+                return await Mensaje.find({ idContrato: contrato._id.toString() });
+            } else {
+                throw new Error('Acceso no autorizado');
+            }
+        }
+    }
+}
+
 module.exports = {
     usuario,
     niveles,
@@ -138,7 +170,9 @@ module.exports = {
     servicios,
     misServicios,
     detalleServicio,
+    contrato,
     serviciosContratados,
     contratosRealizados,
     contratosRecibidos,
+    mensajesDelContrato,
 }
