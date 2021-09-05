@@ -74,20 +74,19 @@ export class HeaderComponent implements OnInit {
       var user = localStorage.getItem("CurrentUser") || JSON.stringify(new User())
       var currentUser = JSON.parse(user) 
       
-      var transactionNumber = 0
-      this.saleService.getNextTransNumber().subscribe(res => {
-        transactionNumber = res as number
-      })
-      
       var param = 
       {
         'client': currentUser._id,
-        'transactionNumber': transactionNumber,
-        'cart':[]
+        'cart':[],
+        'transactionNumber': 0
       }
       
-      var currentSale = new Sale(param)
-      localStorage.setItem("CurrentSale", JSON.stringify(currentSale))
+      this.saleService.getNextTransNumber().subscribe(res => {
+        param.transactionNumber = res as number
+        console.log(param)
+        var currentSale = new Sale(param)
+        localStorage.setItem("CurrentSale", JSON.stringify(currentSale))
+      })
     }
       
     this.router.navigate(['/market'])

@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Product = require('../models/product');
 const Article = require('../models/article');
 const ApiError = require('../error/ApiError');
+const sale = require('../models/sale');
 
 const saleCtrl = {};
 
@@ -57,16 +58,14 @@ saleCtrl.checkClient = async(clientID) => {
     }
 }
 
-saleCtrl.getNextTransactionNumber = async(req, res, next) => {
+saleCtrl.getNextTransactionNumber = (req, res, next) => {
     try{
-        console.log("Entra Aca")
-        const lastSale = await Sale.find().sort({_id: -1}).limit(1)
-        if(lastSale.length > 0){
-            var transactionNumber = lastSale.transactionNumber + 1
-            res.json({'number': transactionNumber})
-        } else {
-            res.json({'number': 1})
-        }
+        Sale.findOne({},'transactionNumber',{ sort: { 'transactionNumber' : -1 } }, function(err, post){
+            if(err){
+                res.json(1)
+            }
+            res.json(post.transactionNumber+1)
+        })
     } catch(err){
         next(err)
     }

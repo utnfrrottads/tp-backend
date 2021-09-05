@@ -43,7 +43,7 @@ export class SaleService {
    }
 
    getNextTransNumber(){
-    return this.http.get(`${this.API_URL}nextNumber/`)
+    return this.http.get(`${this.API_URL}Number/GetNumber`)
    }
 
 }
