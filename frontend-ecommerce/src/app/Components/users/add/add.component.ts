@@ -40,7 +40,7 @@ export class AddUserComponent implements OnInit{
       pc: ['', Validators.required],  
       street: ['', Validators.required],  
       number: ['', Validators.required],  
-      flat: ['', Validators.required],  
+      flat: [''],  
       phone: ['', Validators.required],  
       employee: [false, Validators.required],  
       client: [false, Validators.required],  
