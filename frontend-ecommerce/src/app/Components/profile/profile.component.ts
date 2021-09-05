@@ -50,23 +50,15 @@ export class ProfileComponent implements OnInit {
       pc: ['', Validators.required],  
       street: ['', Validators.required],  
       number: ['', Validators.required],  
-      flat: ['', Validators.required],  
+      flat: [''],  
       phone: ['', Validators.required],  
       employee: [false, Validators.required],  
       client: [false, Validators.required],  
-      roles: [null, [Validators.required]],
+      roles: [null],
     });
 
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
-
-    if(this.currentUser.employee){
-      this.currentUser.roles.forEach(role => {
-        this.rolesService.getById(role).subscribe(res =>{
-          this.currentRoles.push(res.name)
-        })
-      });
-   }
 }
 
 
@@ -114,6 +106,15 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+
+    if(this.currentUser.employee){
+      this.currentUser.roles.forEach(role => {
+        this.rolesService.getById(role).subscribe(res =>{
+          this.currentRoles.push(res.name)
+        })
+      });
+   }
+
   }
 
   onSubmit() {
@@ -142,14 +143,16 @@ export class ProfileComponent implements OnInit {
         next: res => {
           this.toastr.success((res as IMyResponse).status);
           this.userService.getUser(this.currentUser).subscribe(res => {
-            localStorage.setItem('CurrentUser', JSON.stringify(res));
+            this.currentUser = res as User
+            localStorage.setItem('CurrentUser', JSON.stringify(res as User));
           })
+          this.changeMode("viewMode")
         },
         error: err => {
           this.showError(err);
         }
       });
-    }
+    }else{console.log("aca")}
   }
 
   goBack() {
