@@ -18,9 +18,12 @@
 
                   <select multiple formControlName="permissions" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option selected>Seleccione los permisos de usuario</option>
-                    <option value="crea">Crea</option>
-                    <option value="edita">Edita</option>
-                    <option value="elimina">Elimina</option>
+                    <option value="article">Articulos</option>
+                    <option value="product">Producto</option>
+                    <option value="branch">Sucursales</option>
+                    <option value="note">Notas</option>
+                    <option value="role">Roles</option>
+                    <option value="user">Usuarios</option>
                   </select>
                   <br>
                   <button type="submit" class="btn btn-primary">{{isEdit ? 'Actualizar' : 'Agregar'}}</button>
