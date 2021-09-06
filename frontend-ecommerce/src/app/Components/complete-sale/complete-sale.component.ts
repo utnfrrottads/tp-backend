@@ -9,6 +9,7 @@ import { SaleService } from 'src/app/Services/sale.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
+import { User } from 'src/app/Models/user';
 
 export interface IMyCartItem {
   'article': Article;
@@ -33,9 +34,13 @@ export class CompleteSaleComponent implements OnInit {
   
   public currentSale: Sale
 
+  public currentUser: User
+
   constructor(private router: Router, private productService: ProductService,private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
     this.cartArticle = [] 
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
+    this.currentUser = JSON.parse(string)
    }
 
   ngOnInit(): void {

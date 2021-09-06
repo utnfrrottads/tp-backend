@@ -29,15 +29,15 @@
                 <div class="row d-flex justify content center">
                     <div class="mb-3">
                         <label for="pcInput" class="form-label">Codigo Postal</label>
-                        <input #pc type="string" class="form-control form-control-sm" id="pcInput">
+                        <input #pc type="string" class="form-control form-control-sm" id="pcInput" value="{{currentUser.pc}}">
                     </div>
                     <div class="mb-3">
                         <label for="streetInput" class="form-label">Calle</label>
-                        <input #street type="string" class="form-control form-control-sm" id="streetInput">
+                        <input #street type="string" class="form-control form-control-sm" id="streetInput" value="{{currentUser.street}}">
                     </div>
                     <div class="mb-3">
                         <label for="numberInput" class="form-label">Numero y Depto</label>
-                        <input #number type="string" class="form-control form-control-sm" id="numberInput">
+                        <input #number type="string" class="form-control form-control-sm" id="numberInput" value="{{currentUser.number}} {{currentUser.flat}}">
                     </div>
                 </div>
             </div>
