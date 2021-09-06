@@ -93,7 +93,6 @@ branchCtrl.createBranch = async(req, res, next) => {
             validations = false;
         })
         if (validations) {
-            const branch = new Branch(req.body);
             await branch.save();
             res.json({ status: 'Sucursal creada correctamente' });
         }

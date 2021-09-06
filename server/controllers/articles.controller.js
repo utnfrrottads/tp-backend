@@ -216,10 +216,6 @@ articlesCtrl.createArticle = async(req, res, next) => {
             notes: req.body.note,
             prices: req.body.prices
         })
-
-
-        //console.log(Articles.notes)
-
         await articlesCtrl.checkNotes(article.notes).catch((err) => {
             next(err);
             validations = false;
