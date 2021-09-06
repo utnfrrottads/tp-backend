@@ -179,7 +179,7 @@ export class MarketComponent implements OnInit {
   updateQty(e:any) {
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach(item => {
-      if(item.product == e.prod._id){
+      if(item.product == e.prod){
         item.quantity = e.qty
       }
     })
