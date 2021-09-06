@@ -230,12 +230,15 @@ export class MarketComponent implements OnInit {
   }
 
   finishSale() {
-    this.currentSale = this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
+    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
     
     if(this.currentSale.cart.length < 1){
       this.toastr.error("Debe agregar items al carrito", "Error")
     } else {
       this.router.navigate(['/finish-sale'])
+      .then(() => {
+        window.location.reload();
+      });
     }
 
   }

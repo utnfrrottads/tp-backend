@@ -37,9 +37,9 @@ const routes: Routes = [
   { path: 'articles', component: ArticlesComponent },
   { path: 'add-article', component: AddArticleComponent },
   { path: 'edit-article/:id', component: AddArticleComponent },
+  { path: 'finish-sale', component: CompleteSaleComponent},
   { path: 'market', component: MarketComponent},
   { path: '', component: MainComponent},
-  { path: 'finish-sale', component: CompleteSaleComponent},
   { path: 'buys', component: MyBuysComponent},
   { path: 'profile', component: ProfileComponent},
   
