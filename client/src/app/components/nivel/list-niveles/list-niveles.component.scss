@@ -20,6 +20,10 @@ button {
 .col-cont-min {
   white-space: nowrap;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   @media (min-width: 768px) {
     width: 85%;
   }

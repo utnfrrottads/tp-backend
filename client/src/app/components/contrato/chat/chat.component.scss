@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
-  background-color: rgb(36, 124, 211);
+  background-color: rgb(31, 85, 139);
 }
 
 .header {
@@ -27,7 +27,7 @@
 .body {
   flex: 1;
   color: white;
-  background-color: dodgerblue;
+  background-color: rgb(31, 134, 236);
   padding: 20px 30px;
   min-width: 100%;
   display: flex;
@@ -37,7 +37,7 @@
   .local {
     padding: 20px;
     border-radius: 20px;
-    background-color: darkcyan;
+    background-color: rgb(3, 126, 126);
     max-width: 80%;
     color: white;
     font-size: 17px;
@@ -47,7 +47,7 @@
   .remoto {
     padding: 20px;
     border-radius: 20px;
-    background-color: darkkhaki;
+    background-color: rgb(180, 175, 102);
     max-width: 80%;
     color: white;
     font-size: 17px;
@@ -73,13 +73,13 @@
       font-size: 18px;
       border: none;
       outline: none;
-      background-color: dodgerblue;
+      background-color: rgb(38, 115, 192);
       color: white;
       cursor: pointer;
     }
 
     button:hover {
-      background-color: blue;
+      background-color: rgb(31, 85, 139);
       transition: 0.2s ease;
     }
   }
