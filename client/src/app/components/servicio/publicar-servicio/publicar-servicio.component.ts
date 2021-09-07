@@ -1,7 +1,9 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Moneda } from 'src/app/models/Moneda';
 import { ServicioService } from 'src/app/services/servicio.service';
+import { MonedaService } from 'src/app/services/moneda.service';
 import { Categoria } from '../../../models/Categoria';
 import Swal from 'sweetalert2';
 
@@ -15,9 +17,13 @@ declare var $: any;
 export class PublicarServicioComponent implements OnInit {
 
   @Output() nuevoServicio = new EventEmitter();
-  
+
   @Input() categorias: Categoria[] = [];
-  @Input() monedas: Moneda[] = [];
+
+  monedas: Moneda[] = [];
+
+  monedasQuery: any;
+  monedasSubscription: any;
 
   errorMessage = '';
 
@@ -42,9 +48,40 @@ export class PublicarServicioComponent implements OnInit {
     ]),
   });
 
-  constructor(private servicioService: ServicioService) {}
+  constructor(
+    private servicioService: ServicioService,
+    private monedaService: MonedaService
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.suscribeMonedas();
+  }
+
+  ngOnDestroy(): void {
+    if (this.monedasSubscription) this.unsuscribeMonedas();
+  }
+
+  suscribeMonedas(): void {
+    this.monedasQuery = this.monedaService.monedas();
+    this.monedasSubscription = this.monedasQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.monedas;
+      })
+    ).subscribe(
+      (res: Moneda[]) => {
+        this.monedas = res;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  refreshMonedas(): void {
+    this.monedasQuery.refetch();
+  }
+
+  unsuscribeMonedas(): void {
+    this.monedasSubscription.unsubscribe();
+  }
 
   onSubmit(): void {
     this.servicioService.publish(this.serviceForm.value).subscribe(
@@ -65,5 +102,5 @@ export class PublicarServicioComponent implements OnInit {
       }
     );
   }
-  
+
 }

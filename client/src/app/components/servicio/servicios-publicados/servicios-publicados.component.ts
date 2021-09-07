@@ -5,7 +5,6 @@ import { ServicioService } from 'src/app/services/servicio.service';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
-import { Moneda } from 'src/app/models/Moneda';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class ServiciosPublicadosComponent implements OnInit {
   servicios: Servicio[] = [];
   categorias: Categoria[] = [];
   busqueda: String = '';
-  monedas: Moneda[] = [];
 
   servicesQuery: any;
   servicesSubscription: any;
@@ -31,7 +29,6 @@ export class ServiciosPublicadosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.monedas = JSON.parse(localStorage.getItem('monedas') || '[]');
     this.suscribeCategorias();
   }
 

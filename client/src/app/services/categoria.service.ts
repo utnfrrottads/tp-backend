@@ -51,7 +51,7 @@ export class CategoriaService {
   categorias(): any {
     return this.apollo.watchQuery({
       query: CATEGORIAS,
-      fetchPolicy: 'no-cache'
+      pollInterval: 30000,
     })
   }
 

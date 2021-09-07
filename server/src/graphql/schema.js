@@ -5,6 +5,7 @@ const {
     usuario,
     niveles,
     categorias,
+    monedas,
     servicio,
     servicios,
     misServicios,
@@ -39,7 +40,7 @@ const {
 const QueryType = new GraphQLObjectType({
     name: "QueryType",
     description: "Queries",
-    fields: { usuario, niveles, categorias, servicio, servicios, misServicios, detalleServicio, contrato, serviciosContratados, contratosRealizados, contratosRecibidos, mensajesDelContrato }
+    fields: { usuario, niveles, categorias, monedas, servicio, servicios, misServicios, detalleServicio, contrato, serviciosContratados, contratosRealizados, contratosRecibidos, mensajesDelContrato }
 })
 
 // Define MutationType

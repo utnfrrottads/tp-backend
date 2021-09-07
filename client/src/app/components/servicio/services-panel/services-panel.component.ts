@@ -23,7 +23,6 @@ export class ServicesPanelComponent implements OnInit {
   @Input() servicios: Servicio[] = [];
   @Input() categorias: Categoria[] = [];
   @Input() busqueda: String = '';
-  @Input() monedas: Moneda[] = [];
 
   constructor() { }
 

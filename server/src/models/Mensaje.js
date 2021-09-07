@@ -4,7 +4,6 @@ const mensajeSchema = new Schema({
     mensaje: {
         type: String,
         required: true,
-        maxLength: 400,
     },
     mensajeEnviadoPorOferente: {
         type: Boolean,

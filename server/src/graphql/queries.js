@@ -1,6 +1,6 @@
 const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
-const { TypeUsuario, TypeNivel, TypeCategoria, TypeServicio, TypeContrato, TypeMensaje, InputIDCategoriasSeleccionadas } = require('./types');
-const { Usuario, Nivel, Categoria, Servicio, Contrato, Mensaje } = require('../models/index');
+const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, InputIDCategoriasSeleccionadas } = require('./types');
+const { Usuario, Nivel, Categoria, Moneda, Servicio, Contrato, Mensaje } = require('../models/index');
 
 const usuario = {
     description: 'Usuario',
@@ -30,6 +30,14 @@ const categorias = {
     type: GraphQLList(TypeCategoria),
     async resolve(parent, args) {
         return await Categoria.find();
+    }
+}
+
+const monedas = {
+    description: 'Monedas',
+    type: GraphQLList(TypeMoneda),
+    async resolve(parent, args) {
+        return await Moneda.find();
     }
 }
 
@@ -166,6 +174,7 @@ module.exports = {
     usuario,
     niveles,
     categorias,
+    monedas,
     servicio,
     servicios,
     misServicios,

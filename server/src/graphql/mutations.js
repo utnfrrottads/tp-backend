@@ -64,11 +64,9 @@ const signUp = {
           });
           const usuarioGuardado = await usuario.save();
           const token = createJwtToken(usuarioGuardado);
-          const monedas = await Moneda.find();
           return {
             usuario: usuarioGuardado,
-            token,
-            monedas
+            token
           };
         } else {
           throw new Error("No se ha registrado el nivel mínimo de contratos");
@@ -99,11 +97,9 @@ const signIn = {
         throw new Error("Nombre de usuario y/o clave incorrectos");
       } else {
         const token = createJwtToken(usuario);
-        const monedas = await Moneda.find();
         return {
           usuario,
-          token,
-          monedas
+          token
         };
       }
     }
