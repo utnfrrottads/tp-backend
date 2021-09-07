@@ -3,7 +3,7 @@ module.exports = (sequelize, DataType) =>{
 
     const Clientes = sequelize.define('Clientes',{
         dni:{
-            type: DataType.INTEGER,
+            type: DataType.STRING,
             primaryKey: true
         },
         nombre:{
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataType) =>{
         },
         tipoCliente:{
             type:DataType.STRING,
-            allowNull: false
+            allowNull: true
         }
     })
 
@@ -48,7 +48,7 @@ module.exports = (sequelize, DataType) =>{
             }
         });
 
-        //Clientes.sync({alter: true});
+       // Clientes.sync({alter: true});
 
     };
 

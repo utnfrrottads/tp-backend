@@ -3,10 +3,20 @@ module.exports = app =>{
     const Clientes = app.db.models.Clientes;
     const Ventas = app.db.models.Ventas;
 
-
+    //TRAE TODOS LOS CLIENTES CON SUS VENTAS
     app.route('/clientesventas')
         .get((req,res)=>{
             Clientes.findAll({include: Ventas})
+            .then(result => res.json(result))
+            .catch(error =>{
+                res.status(412).json({msg:error.message});
+            });
+        });
+        
+    //TRAE UN CLIENTE EN ESPECICO CON SUS VENTAS
+    app.route('/clientesventas/:dni')
+        .get((req,res)=>{
+            Clientes.findOne({ where:  req.params, include: Ventas})
             .then(result => res.json(result))
             .catch(error =>{
                 res.status(412).json({msg:error.message});

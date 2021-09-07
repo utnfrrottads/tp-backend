@@ -33,12 +33,12 @@ module.exports = (sequelize, DataType)=>{
         Productos.belongsTo(models.Categorias);
     
         //ASOCIACION CON PROVEEDORES
-        Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos });
+        Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos});
 
         //ASOCIACION CON ITEMS
         Productos.hasOne(models.Items,{
             foreignKey:{
-                allowNull:false
+                allowNull:false 
             }
         });
 

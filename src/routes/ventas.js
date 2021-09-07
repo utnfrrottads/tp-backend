@@ -6,7 +6,7 @@ module.exports = app =>{
     const Productos = app.db.models.Productos;
 
 
-    // TRAE EL CLI DE LA VENTA
+    // TRAE LAS VENTAS CON SU CLIENTE
         app.route('/ventascli')
         .get((req,res)=>{
             Ventas.findAll({include: Clientes}) 
@@ -15,6 +15,7 @@ module.exports = app =>{
                 res.status(412).json({msg: error.message});
             })
         })
+
     // TRAE TODOS LOS ITEMS DE LAS VENTAS
     app.route('/ventaitems')
         .get((req,res)=>{
@@ -25,9 +26,10 @@ module.exports = app =>{
             })
         })
 
+    //MUESTRA DETALLE DE UNA VENTA EN ESPECIFICO
     app.route('/ventadetalle/:idVenta')
         .get((req,res)=>{
-            Ventas.findAll(
+            Ventas.findOne(
                 {
                     where:  req.params 
                     ,

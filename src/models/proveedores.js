@@ -25,7 +25,7 @@ module.exports = (sequelize, DataType)=>{
             allowNull: false,
             validate:{
                 notEmpty: true
-            }
+            } 
         }
 
     });
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataType)=>{
         //'proveedorProductos'
         Proveedores.belongsToMany(models.Productos, { through: models.ProveedorProductos }); 
 
-        //Proveedores.sync({alter: true}); //{ force: true }
+        //Proveedores.sync({alter:true}); //{ force: true }
 
     };
 

@@ -4,12 +4,12 @@
 
 |Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
 |:-|-:|-:|:-|-|
-|ABMC simple|1 x integ|1 x integ|- ABMC Clientes - ABMC Proveedores - ABMC Categorias o|
-|ABMC dependiente|1|2|- ABMC Productos - *Falta uno*
-|Listado simple|1|1|- Listados de ventas
-|Listado complejo obligatorio|1|2|- Productos (tambien muestra la categoria) - Clientes(con sus ventas asociadas)|Faltan los dos|
+|ABMC simple|1 x integ|1 x integ|- ABMC Clientes - ABMC Proveedores - ABMC Categorias |HECHO|
+|ABMC dependiente|1|2|- ABMC Productos - *Falta uno*|ABMC Productos (HECHO) - |
+|Listado simple|1|1|- Listados de ventas|HECHO|
+|Listado complejo obligatorio|1|2|- Productos (tambien muestra la categoria) - Clientes(con sus ventas asociadas)|Listado clientes (HECHO)|
 |Listado adicional con filtro|0|0|
-|Detalle básico|1(*)|2(*)|- Detalle de un producto (muestra los proveedores) - Detalle de ventas (muestra item con sus productos)|faltan los dos detalles|
+|Detalle básico|1(*)|2(*)|- Detalle de un producto (muestra los proveedores) - Detalle de ventas (muestra item con sus productos)|Detalles Ventas (HECHO)|
 |Detalle parametrizable|0|0|
 |Otros|0|0|
 

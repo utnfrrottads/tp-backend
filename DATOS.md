@@ -4,10 +4,7 @@
 
 ## Pendiente
  
-- Cambiar modificar routes/ventas.js para que traiga la venta con todos sus items
-- que traiga un proveedor con todos sus productos (si es necesario)
-- que taiga todas las ventas a un cliente ( si es necesario )
-- hacer los listados y detalles que estan en el readme
+
 
 
 ## Datos importantes
