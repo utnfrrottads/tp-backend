@@ -71,7 +71,6 @@ export class ChatComponent implements OnInit {
           }
 
           this.suscribeMensajesDelContrato();
-
           this.contratoCargado = true;
         } else {
           this.router.navigate(['/']);
@@ -100,6 +99,7 @@ export class ChatComponent implements OnInit {
     ).subscribe(
       (res: any) => {
         this.mensajes = res;
+        this.mensajesCargados = true;
       },
       (err: any) => console.log(err)
     );
@@ -113,16 +113,33 @@ export class ChatComponent implements OnInit {
     this.mensajesDelContratoSubscription.unsubscribe();
   }
 
-  recibirMensaje() {
-    this.socket.io.on('receiveMessage', (mensaje: Mensaje) => {
-      this.mensajes.push(mensaje);
-    })
-  }
-
   enviarMensaje() {
     if (this.contratoCargado && !this.contratoCancelado) {
       this.socket.io.emit('sendMessage', this.mensaje);
       this.mensaje = '';
+    }
+  }
+
+  recibirMensaje() {
+    this.socket.io.on('receiveMessage', (mensaje: Mensaje) => {
+      if (
+        (mensaje.mensajeEnviadoPorOferente && mensaje.contrato!.servicio!.usuario!._id == this.userService.getUsuario()._id)
+        || (!mensaje.mensajeEnviadoPorOferente && mensaje.contrato!.usuario!._id == this.userService.getUsuario()._id)
+      ) this.desplazarChat = true;
+
+      this.mensajes.push(mensaje);
+    })
+  }
+
+  desplazarChat: boolean = true;
+  mensajesCargados: boolean = false;
+  altoScrollAnterior: number = $('.body').prop('scrollHeight');
+  ngAfterViewChecked(): void {
+    if (this.desplazarChat && this.mensajesCargados && this.altoScrollAnterior !== $('.body').prop('scrollHeight')) {
+      $('.body').scrollTop($('.body').prop('scrollHeight'));
+
+      this.desplazarChat = false;
+      this.altoScrollAnterior = $('.body').prop('scrollHeight');
     }
   }
 
