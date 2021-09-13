@@ -7,7 +7,7 @@ module.exports = app =>{
             });         
         })
         .catch(error =>{
-            console.log('ERROR',error);
+            console.log('ERROR AL INICIAR EL SERVIDOR',error);
         });
    
 };
