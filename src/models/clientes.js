@@ -48,7 +48,7 @@ module.exports = (sequelize, DataType) =>{
             }
         });
 
-        Clientes.sync({alter: true});
+       // Clientes.sync({alter: true});
 
     };
 

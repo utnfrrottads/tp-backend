@@ -23,7 +23,7 @@ module.exports = (sequelize, DataType) => {
         },
         activo: {
             type: DataType.BOOLEAN,
-            allowNull: false
+           allowNull: false
         }
     });
 
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataType) => {
             }
         });
 
-        //Productos.sync({alter: true}); //alter { force: true }
+        //Productos.sync({force: true}); //alter { force: true }
     };
 
     return Productos;

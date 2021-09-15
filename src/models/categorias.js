@@ -25,6 +25,8 @@ module.exports = (sequelize, DataType) => {
                 allowNull: false
             }
         });
+
+        //Categorias.sync({force: true});
     };
 
     return Categorias;
