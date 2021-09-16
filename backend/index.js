@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8080;
 
-require('colors')
+require('colors');
 
 // Importamos las rutas de las entidades.
 const router_evaluaciones = require('./routes/evaluaciones-route');
