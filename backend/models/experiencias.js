@@ -35,10 +35,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TINYINT,
       allowNull: true
     },
-    candidatos_id_persona: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     personas_id_persona: {
       type: DataTypes.INTEGER,
       allowNull: false,
