@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('direcciones', {
     id_direccion: {
@@ -8,10 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
-    },
-    codigo_postal: {
-      type: DataTypes.STRING(64),
-      allowNull: true
     },
     ciudades_id_ciudad: {
       type: DataTypes.INTEGER,
@@ -21,8 +15,24 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_ciudad'
       }
     },
-    nombre: {
+    codigo_postal: {
+      type: DataTypes.STRING(64),
+      allowNull: true
+    },
+    calle: {
       type: DataTypes.STRING(128),
+      allowNull: true
+    },
+    numero: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    departamento: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    piso: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
