@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('especialidades', {
     id_especialidad: {
@@ -16,6 +14,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'sector',
         key: 'id_sector'
       }
+    },
+    descripcion: {
+      type: DataTypes.STRING(64),
+      allowNull: true
     }
   }, {
     sequelize,

@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('contactos', {
     id_contacto: {
@@ -14,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     valor: {
-      type: DataTypes.STRING(127),
+      type: DataTypes.STRING(128),
       allowNull: true
     },
     personas_id_persona: {
@@ -24,10 +22,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'personas',
         key: 'id_persona'
       }
-    },
-    referencias_id_referencia: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     },
     empresas_id_empresa: {
       type: DataTypes.INTEGER,
@@ -39,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     experiencias_id_experiencia: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'experiencias',
         key: 'id_experiencia'
