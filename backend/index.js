@@ -10,6 +10,7 @@ const evaluadoresRoute = require('./routes/evaluadores-route');
 const candidatosRoute = require('./routes/candidatos-route');
 const vacantesRoute = require('./routes/vacantes-route');
 const evaluacionesRoute = require('./routes/evaluaciones-route');
+const entrevistasRoute = require('./routes/entrevistas-route');
 
 // Middleware.
 app.use(express.json());
@@ -24,6 +25,8 @@ app.use('/candidatos', candidatosRoute);
 app.use('/vacantes', vacantesRoute); 
 
 app.use('/evaluaciones', evaluacionesRoute);
+
+app.use('/entrevistas', entrevistasRoute);
 
 
 app.listen(port, () => {
