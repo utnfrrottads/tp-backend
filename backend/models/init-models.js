@@ -76,7 +76,7 @@ function initModels(sequelize) {
   operaciones.hasMany(permisos, { foreignKey: "operaciones_id_operaciones"});
   provincias.belongsTo(paises, { foreignKey: "paises_id_pais"});
   paises.hasMany(provincias, { foreignKey: "paises_id_pais"});
-  contactos.belongsTo(personas, {foreignKey: "personas_id_persona"});
+  contactos.belongsTo(personas, { foreignKey: "personas_id_persona"});
   personas.hasMany(contactos, { foreignKey: "personas_id_persona"});
   entrevistas.belongsTo(personas, { foreignKey: "personas_id_candidato"});
   personas.hasMany(entrevistas, { foreignKey: "personas_id_candidato"});

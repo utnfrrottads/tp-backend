@@ -1,0 +1,7 @@
+{
+    "DATABASE": "seleccion_de_personal_ttads",
+    "USERNAME": "root",
+    "PASSWORD": "root",
+    "HOST": "localhost",
+    "DIALECT": "mysql"
+}
