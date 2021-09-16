@@ -36,4 +36,4 @@ Listado de entrevistas filtradas por determinada fecha o semana.
 
 ## Modelo del Dominio
 
-![alt text](https://github.com/andresbertone/tp-backend/blob/master/modelo-del-dominio/MD.jpg?raw=true)
+![alt text](https://github.com/andresbertone/tp-backend-2021/blob/master/docs/MD.jpg)
