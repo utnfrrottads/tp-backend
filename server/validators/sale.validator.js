@@ -14,7 +14,7 @@ exports.validateSaleCreate = [
     (req, res, next) => {
       const errors = validationResult(req);
       if (!errors.isEmpty())
-        return res.status(412).json({errors: errors.array()});
+        throw ApiError.badVariableType('El valor '+errors.array({onlyFirstError: true })[0].value+' es Invalido');
       next();
     },
 ];
@@ -33,7 +33,7 @@ exports.validateSaleUpdate = [
     (req, res, next) => {
       const errors = validationResult(req);
       if (!errors.isEmpty())
-        return res.status(412).json({errors: errors.array()});
+        throw ApiError.badVariableType('El valor '+errors.array({onlyFirstError: true })[0].value+' es Invalido');
       next();
     },
 ];

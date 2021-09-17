@@ -35,41 +35,6 @@ articlesCtrl.checkName = async(name, id = ' ') => {
 articlesCtrl.getArticles = async(req, res, next) => {
     try {
         
-        // const articles = await Articles.find();
-
-        // const noteIds = articles.map(x => x.notes).flat(1);
-
-        // const notes = await Note.find().where('_id').in(noteIds);
-
-        // var result = [];
-
-        // articles.forEach(article => {
-
-        //     var articleResult = article.toObject();
-
-        //     articleResult.notesInfo = [];
-
-        //     if (articleResult.notes) {
-        //         articleResult.notes.forEach(noteId => {
-
-        //             const note = notes.find(x => x._id.toString() == noteId);
-    
-        //             articleResult.notesInfo.push({
-        //                 noteId: noteId,
-        //                 name: note.name
-        //             });
-    
-        //         });
-    
-        //     }
-
-        //     result.push(articleResult);
-
-        // });
-
-        // res.json(result);
-
-        // console.log(req.body)
         const articles = await Articles.find();
         
         if(req.body.notes.length > 0 || req.body.presentation.length >0 || req.body.name.length > 0) {

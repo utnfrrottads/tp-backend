@@ -1,34 +1,44 @@
 <app-header></app-header>
 
-<div class="container py-5 text-white">
+<div class="container py-5 ">
+
+  <div class="d-flex flex-row-reverse">
+      <button class="btn btn-outline-primary" routerLink="/articles"> <i class="fa fa-arrow-left"></i> Volver</button>
+  </div>
   
-    <div class="row">
+  <div class="row">
         <div class="col-lg-7 mx-auto">
             <div class="card border-0 shadow">
+              <h5 class="card-header text-center">Articulos</h5>
                 <div class="card-body p-5">
 
                <form articlevalidate [formGroup]="articleForm" (ngSubmit)="onSubmit()" >
                 <div class="form-group">
+                  <label for="name">Nombre</label>
                   <input type="text" class="form-control" formControlName="name" placeholder="Ingrese el nombre del artículo">
                 </div>
                 <div class="form-group">
+                  <label for="description">Descripcion</label>
                   <input type="text" class="form-control" formControlName="description" placeholder="Ingrese la descripción del artículo">
                 </div>
                 <div class="form-group">
+                  <label for="presentation">Presentacion</label>
                   <input type="text" class="form-control" formControlName="presentation" placeholder="Ingrese presentación del artículo">
                 </div>
                 
-
+                <label for="notes">Notas</label>
                 <select *ngIf="notes" multiple formControlName="notes" class="form-select form-select-sm" aria-label=".form-select-sm example">
                   <option selected>Seleccione las notas de la fragancia</option>
                   <option *ngFor="let note of notes" value="{{note._id}}">{{note.name}}</option>
                 </select>
 
                 <div class="form-group">
+                  <label for="price">Precio</label>
                   <input type="text" class="form-control" formControlName="price" placeholder="Ingrese precio del artículo">
                 </div>
                 <div class="form-group">
-                  <input type="datetime" class="form-control" formControlName="date" placeholder="Ingrese última fecha de cambio de precio - 1970-02-01T00:00:00.000Z">
+                  <label for="date">Fecha del Precio</label>
+                  <input type="date" class="form-control" formControlName="date" placeholder="Ingrese última fecha de cambio de precio">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">{{isEdit ? 'Actualizar' : 'Agregar'}}</button>

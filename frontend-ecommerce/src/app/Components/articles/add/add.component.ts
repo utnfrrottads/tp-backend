@@ -57,7 +57,7 @@ export class AddArticleComponent implements OnInit{
             price: article.prices[0].price,
             date: article.prices[0].date
           });
-        });
+        }); 
       }
 
     });
@@ -75,25 +75,37 @@ export class AddArticleComponent implements OnInit{
         description: formModel.description,
         presentation: formModel.presentation,
         notes:[formModel.notes],
-        prices: [{price: formModel.price, date: formModel.date}]
+        prices: [{price: formModel.price, date: new Date(formModel.date)  }]
       };
-
       if (this.isEdit){
-        this.articleService.updateArticles(article).subscribe(x => {
-          this.toastr.success('Artículo actualizado exitosamente!');
-          this.goBack();
-        });
+        this.articleService.updateArticles(article).subscribe( {
+
+          next: x => {
+            this.toastr.success('Artículo actualizado exitosamente!');
+            this.goBack();
+          },
+          error: e=>{
+            this.toastr.error(e.error.error);
+          }
+        });   
       }
       else {
-        this.articleService.addArticles(article).subscribe(x => {
-          this.toastr.success('Artículo registrado exitosamente!');
-          this.goBack();
-          });
+        
+        this.articleService.addArticles(article).subscribe({
+
+          next: x => {
+            this.toastr.success('Artículo actualizado exitosamente!');
+            this.goBack();
+          },
+          error: e=>{
+            this.toastr.error(e.error.error);
+          }
+        });
         }
 
     }
     else{
-      this.toastr.error('Error al registrar el artículo!');
+      this.toastr.error('Debe completar todos los datos!');
     }
   }
 

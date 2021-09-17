@@ -15,6 +15,10 @@ class ApiError{
     static internal(msg){
         return new ApiError(500, msg);
     }
+
+    static badVariableType(msg){
+        return new ApiError(402, msg);
+    }
 }
 
 module.exports = ApiError;
