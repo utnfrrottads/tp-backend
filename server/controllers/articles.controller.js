@@ -172,7 +172,6 @@ articlesCtrl.deleteArticle = async(req, res, next) => {
 //Metodo crear nuevo articulo
 articlesCtrl.createArticle = async(req, res, next) => {
     try {
-        console.log("pase")
         let validations = true;
         const article = new Articles({
             name: req.body.name,

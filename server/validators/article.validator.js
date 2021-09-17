@@ -17,7 +17,6 @@ exports.validateArticleCreate = [
       var errors = validationResult(req);
       if (!errors.isEmpty())
       {
-        console.log(errors.array({onlyFirstError: true }))
         throw ApiError.badVariableType('El valor '+errors.array({onlyFirstError: true })[0].value+' es Invalido');
       }
       next();
