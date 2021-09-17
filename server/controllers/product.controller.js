@@ -7,7 +7,7 @@ const ProductCtrl = {}; //Creo el objeto controlador
 
 //Controla repetido
 ProductCtrl.checkDuplicate = async(articleID, branchID, productID = '  ') => {
-    let product = Product.find({article: articleID, branch: branchID}).select('_id');
+    let product = Product.find({article: articleID, branch: branchID, isActive: true}).select('_id');
     if( product.length>0){
         if(product._id = productID){
             throw ApiError.badRequest('El articulo ya se encuentra cargado para esa sucursal.');
@@ -47,8 +47,8 @@ ProductCtrl.getProducts = async (req, res, next) => {
 
 ProductCtrl.getProducts = async (req, res, next) => {
     try {
-        const product = await Product.find();
-        const product1 = await Product.find();
+        const product = await Product.find({"isActive": true});
+        const product1 = await Product.find({"isActive": true});
 
         const branchIds = product.map(x => x.branch).flat(1);
         const articleIds = product1.map(x => x.article).flat(1); 

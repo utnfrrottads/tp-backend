@@ -21,7 +21,7 @@ articlesCtrl.checkNotes = async(notes) => {
 
 //Controla nombre repetido
 articlesCtrl.checkName = async(name, id = ' ') => {
-    let articles = await Articles.find({ name: name }).select('_id');
+    let articles = await Articles.find({ name: name, isActive: true }).select('_id');
     if ((await articles).length > 0) {
         (await articles).forEach(article => {
             if (article._id.toString() !== id) {
@@ -35,7 +35,7 @@ articlesCtrl.checkName = async(name, id = ' ') => {
 articlesCtrl.getArticles = async(req, res, next) => {
     try {
         
-        const articles = await Articles.find();
+        const articles = await Articles.find({isActive: true});
         
         if(req.body.notes.length > 0 || req.body.presentation.length >0 || req.body.name.length > 0) {
             let arrNotes = []
@@ -142,6 +142,7 @@ articlesCtrl.editArticle = async(req, res, next) => {
             name: req.body.name,
             description: req.body.description,
             presentation: req.body.presentation,
+            isActive: true,
             notes: req.body.notes,
             prices: req.body.prices
         }
@@ -161,9 +162,11 @@ articlesCtrl.editArticle = async(req, res, next) => {
 //Metodo borrar un articulo
 articlesCtrl.deleteArticle = async(req, res, next) => {
     try {
-        await Articles.findByIdAndRemove(req.params.id);
-        res.json({ status: "Articulo borrado correctamente" });
-
+        const {id} = req.params;
+        let article = await Articles.findById(id);
+        article.isActive = false;
+        await Articles.findByIdAndUpdate(id, article);
+        res.json({status: 'Producto Articulo Correctamente'});
     } catch (err) {
         next(err);
     }
@@ -177,7 +180,8 @@ articlesCtrl.createArticle = async(req, res, next) => {
             name: req.body.name,
             description: req.body.description,
             presentation: req.body.presentation,
-            notes: req.body.note,
+            isActive: true,
+            notes: req.body.notes,
             prices: req.body.prices
         })
         await articlesCtrl.checkNotes(article.notes).catch((err) => {
@@ -187,7 +191,7 @@ articlesCtrl.createArticle = async(req, res, next) => {
         await articlesCtrl.checkName(article.name).catch((err) => {
             next(err);
             validations = false;
-        })
+        })      
         if (validations) {
             await article.save();
             res.json({ status: "Articulo guardado correctamente" })
