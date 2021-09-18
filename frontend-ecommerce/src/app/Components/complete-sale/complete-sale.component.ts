@@ -84,7 +84,6 @@ export class CompleteSaleComponent implements OnInit {
 
   confirmSale(pc: string, street: string, number: string){
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
-    console.log(this.currentSale)
     this.currentSale.number = number
     this.currentSale.street = street
     this.currentSale.pc = pc

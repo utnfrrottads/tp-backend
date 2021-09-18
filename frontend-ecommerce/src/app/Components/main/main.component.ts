@@ -14,7 +14,6 @@ export class MainComponent implements OnInit {
   constructor() {
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
-    console.log(this.currentUser)
   }
 
   ngOnInit(): void {

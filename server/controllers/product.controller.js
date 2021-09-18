@@ -65,7 +65,6 @@ ProductCtrl.getProducts = async (req, res, next) => {
         var result = [];
 
         product.forEach(prod => {
-            console.log(prod._id)
 
             var productResult = prod.toObject();
 

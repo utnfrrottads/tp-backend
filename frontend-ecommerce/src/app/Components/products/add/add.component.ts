@@ -72,7 +72,6 @@ export class AddProductComponent implements OnInit{
         stock: formModel.stock,
         isActive: true
       };
-      console.log(product)
 
       if (this.isEdit){
         this.productService.updateProduct(product).subscribe({

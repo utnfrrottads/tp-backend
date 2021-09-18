@@ -129,8 +129,6 @@ UserCtrl.createUser = async(req, res, next) => {
             roles: req.body.roles,
             isActive: true
         });
-        console.log(req.body.roles)
-        console.log(newUser.roles)
         await UserCtrl.checkValidDNI(newUser.dni).catch((err) => {
             next(err);
             validations = false;

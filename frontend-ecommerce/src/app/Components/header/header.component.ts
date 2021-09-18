@@ -83,7 +83,6 @@ export class HeaderComponent implements OnInit {
       
       this.saleService.getNextTransNumber().subscribe(res => {
         param.transactionNumber = res as number
-        console.log(param)
         var currentSale = new Sale(param)
         localStorage.setItem("CurrentSale", JSON.stringify(currentSale))
       })

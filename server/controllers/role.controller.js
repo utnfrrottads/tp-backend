@@ -16,7 +16,6 @@ RoleCtrl.checkName = async(name, id = ' ') => {
     let roles = await Role.find({ name: name, isActive: true }).select('_id');
     if ((await roles).length > 0) {
         (await roles).forEach(role => {
-            console.log(role._id,id);
             if (role._id.toString() !== id) {
                 throw ApiError.badRequest('El nombre del rol se encuentra repetido.');
             }

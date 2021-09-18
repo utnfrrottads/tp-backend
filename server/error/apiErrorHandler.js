@@ -13,7 +13,6 @@ function apiErrorHandler(err, req, res, next){
         res.status(404).json({error:'Objeto no encontrado.'});
         return;
     }
-    console.log(err);
     res.status(500).json({error: 'Algo salió mal.'});
     return;
 }

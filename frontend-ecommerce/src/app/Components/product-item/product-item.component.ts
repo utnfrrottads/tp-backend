@@ -56,7 +56,6 @@ export class ProductItemComponent implements OnInit {
         this.stockAvailable=false
       }
   })
-    console.log(this.stockAvailable)
   }
 
   showBranches(){

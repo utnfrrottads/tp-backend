@@ -152,7 +152,7 @@ export class ProfileComponent implements OnInit {
           this.showError(err);
         }
       });
-    }else{console.log("aca")}
+    }
   }
 
   goBack() {

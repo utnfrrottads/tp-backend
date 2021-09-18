@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   constructor(private toastr: ToastrService, private userService: UserService, private router: Router) { 
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
-    console.log(this.currentUser)
   }
   
   ngOnInit(): void {
