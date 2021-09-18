@@ -117,7 +117,6 @@ saleCtrl.createSale = async (req, res, next) => {
             cart: req.body.cart,
             total: req.body.total
         })
-        console.log(req.body)
         await saleCtrl.checkClient(sale.client).catch((err) => {
             next(err);
             validations = false;
