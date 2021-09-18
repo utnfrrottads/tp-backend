@@ -15,6 +15,12 @@ ProductCtrl.checkDuplicate = async(articleID, branchID, productID = '  ') => {
     }
 }
 
+ProductCtrl.checkStock = async(stock) => {
+    if(stock<=0){
+        throw ApiError.badRequest('El Stock debe ser mayor que cero.')
+    }
+}
+
 //Valida que el articulo exista
 ProductCtrl.checkArticle = async(articleID) => {
     let article = await Article.findById(articleID);
@@ -59,6 +65,7 @@ ProductCtrl.getProducts = async (req, res, next) => {
         var result = [];
 
         product.forEach(prod => {
+            console.log(prod._id)
 
             var productResult = prod.toObject();
 
@@ -85,7 +92,7 @@ ProductCtrl.getProducts = async (req, res, next) => {
 
         res.json(result);
     } catch (err) {
-        next(err);
+            next(err);
     }
 }
 
@@ -99,6 +106,10 @@ ProductCtrl.createProduct = async (req, res, next) => {
             stock: req.body.stock,
             isActive: true
         });  
+        await ProductCtrl.checkStock(product.stock).catch((err)=>{
+            next(err);
+            validations = false;
+        })
         await ProductCtrl.checkArticle(product.article).catch((err) => {
             next(err);
             validations = false;
@@ -142,6 +153,10 @@ ProductCtrl.updateProduct = async (req, res, next) => {
             stock: req.body.stock,
             isActive: true
         }
+        await ProductCtrl.checkStock(newProduct.stock).catch((err)=>{
+            next(err);
+            validations = false;
+        })
         await ProductCtrl.checkArticle(newProduct.article).catch((err) => {
             next(err);
             validations = false;

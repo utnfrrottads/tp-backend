@@ -1,28 +1,32 @@
 <app-header></app-header>
 
-<div style="margin-left:20px; text-align: center;">
-  <h2 style="margin-top:10px">Productos</h2>
-
-  <button type="button" class="btn btn-info" (click)="addProduct()">Nuevo producto</button>
-</div>
 <!-- Demo header-->
 <section class="pb-5 header text-center">
-  <div class="container py-5 text-white">
+  <div class="container py-5">
 
       <div class="row">
-          <div class="col-lg-7 mx-auto">
+          <div class="col-lg-8 mx-auto">
               <div class="card border-0 shadow">
+                <div class="card-header">
+                    <div class="row">
+                      <div class="col-9">
+                        <h2 class="text-center">Productos</h2>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-outline-success" (click)="addProduct()"><i class="fa fa-plus" aria-hidden="true"></i> Crear</button>
+                      </div>
+                    </div>
+                  </div>
                   <div class="card-body p-5">
 
                       <!-- Responsive table -->
                       <div class="table-responsive">
-                          <table class="table m-0">
+                          <table class="table m-0"> 
                               <thead>
                                   <tr>
                                       <th scope="col">Sucursal</th>
                                       <th scope="col">Artículo</th>
-                                      <th scope="col">Stock</th>
-                                      <th scope="col">Activo</th>
+                                      <th scope="col">Stock</th> 
                                       <th scope="col">Editar/Eliminar</th>
                                       <th scope="col"></th>
                                   </tr>
@@ -37,9 +41,6 @@
                                     </td>
                                     <td>
                                         <span>{{product.stock}}</span>
-                                    </td>
-                                    <td>
-                                        <span>{{product.isActive}}</span>
                                     </td>
                                     <td>
                                         <!-- Call to action buttons -->

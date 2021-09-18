@@ -75,21 +75,31 @@ export class AddProductComponent implements OnInit{
       console.log(product)
 
       if (this.isEdit){
-        this.productService.updateProduct(product).subscribe(x => {
-          this.toastr.success('Producto actualizado exitosamente!');
-          this.goBack();
+        this.productService.updateProduct(product).subscribe({
+          next: x => {
+            this.toastr.success('Producto actualizado exitosamente!');
+            this.goBack();
+          },
+          error: e => {
+            this.toastr.error(e.error.error);      
+          }
         });
       }
       else {
-        this.productService.addProduct(product).subscribe(x => {
-          this.toastr.success('Producto registrado exitosamente!');
-          this.goBack();
+        this.productService.addProduct(product).subscribe({
+          next:x => {
+            this.toastr.success('Producto registrado exitosamente!');
+            this.goBack();
+          },
+          error: e=>{
+            this.toastr.error(e.error.error);      
+          }
         });
       }
 
     }
     else{
-      this.toastr.error('Error al registrar el producto!');
+      this.toastr.error('Debe ingresar todos los campos!');
     }
   }
 
