@@ -66,21 +66,31 @@ export class AddBranchComponent implements OnInit{
       };
 
       if (this.isEdit){
-        this.branchService.updateBranch(branch).subscribe(x => {
+        this.branchService.updateBranch(branch).subscribe({
+        next: x => {
           this.toastr.success('Sucursal actualizada exitosamente!');
           this.goBack();
-        });
+        },
+        error: e => {
+          this.toastr.error(e.error.error);
+        }
+      });
       }
       else {
-        this.branchService.addBranch(branch).subscribe(x => {
+        this.branchService.addBranch(branch).subscribe({
+        next: x => {
           this.toastr.success('Sucursal registrada exitosamente!');
           this.goBack();
-          });
+          },
+        error: e => {
+          this.toastr.error(e.error.error);
+        }
+        });
         }
 
     }
     else{
-      this.toastr.error('Error al registrar la sucursal!');
+      this.toastr.error('Debe ingresar todos los campos.');
     }
   }
 

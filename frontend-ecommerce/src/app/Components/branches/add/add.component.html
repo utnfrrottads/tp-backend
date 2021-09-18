@@ -1,27 +1,35 @@
 <app-header></app-header>
 
-<section class="pb-5 header text-center">
-    <div class="container py-5 text-white">
-  
+<section class="pb-5 header ">
+    <div class="container py-5">
+      <div class="d-flex flex-row-reverse">
+        <button class="btn btn-outline-primary" routerLink="/branches"> <i class="fa fa-arrow-left"></i> Volver</button>
+      </div>
         <div class="row">
             <div class="col-lg-7 mx-auto">
+              <h5 class="card-header text-center"><span *ngIf=isEdit>Editar</span><span *ngIf=!isEdit>Crear</span> Sucursal</h5>
                 <div class="card border-0 shadow">
-                    <div class="card-body p-5">
+                    <div class="card-body p-3">
   
                    <form branchvalidate [formGroup]="branchForm" (ngSubmit)="onSubmit()" >
                     <div class="form-group">
-                      <input type="text" class="form-control" formControlName="cuit" placeholder="Ingrese el cuit de la sucursal">
+                      <label for="cuit">CUIT</label>
+                      <input type="number" class="form-control" formControlName="cuit" placeholder="Ingrese el cuit de la sucursal">
                     </div>
                     <div class="form-group">
+                      <label for="street">Calle</label>
                       <input type="text" class="form-control" formControlName="street" placeholder="Ingrese nombre del domicilio de la sucursal">
                     </div>
                     <div class="form-group">
+                      <label for="number">Numero</label>
                       <input type="text" class="form-control" formControlName="number" placeholder="Ingrese el número del domicilio de la sucursal">
                     </div>
                     <div class="form-group">
+                      <label for="pc">Codigo Postal</label>
                       <input type="text" class="form-control" formControlName="pc" placeholder="Ingrese el código postal">
                     </div>
                     <div class="form-group">
+                      <label for="phone">Telefono</label>
                       <input type="number" class="form-control" formControlName="phone" placeholder="Ingrese número de teléfono">
                     </div>
                     <br>

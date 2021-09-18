@@ -1,4 +1,5 @@
 const {check, validationResult} = require('express-validator');
+const ApiError = require('../error/ApiError');
 
 exports.validateSaleCreate = [
 

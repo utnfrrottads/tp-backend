@@ -1,9 +1,9 @@
 const {check, validationResult} = require('express-validator');
-
+const ApiError = require('../error/ApiError');
 
 exports.validateBranchCreate = [
 
-    check('cuit').isString(),
+    check('cuit').isNumeric(),
     check('street').isString(),
     check('number').isString(),
     check('pc').isString(),
@@ -20,7 +20,7 @@ exports.validateBranchCreate = [
 
 exports.validateBranchUpdate = [
 
-    check('cuit').isString(),
+    check('cuit').isNumeric(),
     check('street').isString(),
     check('number').isString(),
     check('pc').isString(),

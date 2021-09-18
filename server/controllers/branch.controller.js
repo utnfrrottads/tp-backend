@@ -1,13 +1,12 @@
 //Metodos a la BD aqui
 const Branch = require('../models/branch');
 const ApiError = require('../error/ApiError');
-const articlesCtrl = require('./articles.controller');
 const branchCtrl = {};
 
 
 //Controla cuit repetido
 branchCtrl.checkCuit = async(cuit, id = ' ') => {
-    let branches = await Branch.find({ cuit: cuit }).select('_id');
+    let branches = await Branch.find({ cuit: cuit, isActive: true }).select('_id');
     if ((await branches).length > 0) {
         (await branches).forEach(branch => {
             if (branch._id.toString() !== id) {
@@ -20,7 +19,7 @@ branchCtrl.checkCuit = async(cuit, id = ' ') => {
 //Método obtener todas las sucursales
 branchCtrl.getBranches = async(req, res, next) => {
     try {
-        const branches = await Branch.find();
+        const branches = await Branch.find({isActive: true});
         res.json(branches);
     } catch (err) {
         next(err)
@@ -42,15 +41,13 @@ branchCtrl.editBranch = async(req, res, next) => {
     try {
         let validations = true;
         const { id } = req.params;
-        if (req.body.cuit == "" || req.body.street == "" || req.body.number == "" || req.body.pc == "" || req.body.number == "") {
-            next(ApiError.badRequest('Campos incompletos'))
-        }
         const branch = {
             cuit: req.body.cuit,
             street: req.body.street,
             number: req.body.number,
             pc: req.body.pc,
-            phone: req.body.phone
+            phone: req.body.phone,
+            isActive: true
         };
         await branchCtrl.checkCuit(branch.cuit, id).catch((err) => {
             next(err);
@@ -69,8 +66,11 @@ branchCtrl.editBranch = async(req, res, next) => {
 //Método borrar sucursal
 branchCtrl.deleteBranch = async(req, res, next) => {
     try {
-        await Branch.findByIdAndRemove(req.params.id);
-        res.json({ status: 'Sucursal borrada correctamente' });
+        const {id} = req.params;
+        let branch = await Branch.findById(id);
+        branch.isActive = false;
+        await Branch.findByIdAndUpdate(id, branch);
+        res.json({status: 'Sucursal Eliminada Correctamente'});
     } catch (err) {
         next(err)
     }
@@ -86,7 +86,8 @@ branchCtrl.createBranch = async(req, res, next) => {
             street: req.body.street,
             number: req.body.number,
             pc: req.body.pc,
-            phone: req.body.phone
+            phone: req.body.phone,
+            isActive: true
         })
         await branchCtrl.checkCuit(branch.cuit).catch((err) => {
             next(err);
