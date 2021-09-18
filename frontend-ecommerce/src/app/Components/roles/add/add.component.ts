@@ -61,21 +61,31 @@ export class AddRoleComponent implements OnInit{
       };
 
       if (this.isEdit){
-        this.roleService.updateRole(role).subscribe(x => {
-          this.toastr.success('Rol actualizado exitosamente!');
-          this.goBack();
-        });
+        this.roleService.updateRole(role).subscribe({
+        next: x => {
+            this.toastr.success('Rol actualizado exitosamente!');
+            this.goBack();
+          },
+        error: e => {
+            this.toastr.error(e.error.error);        
+        }
+      });
       }
       else {
-          this.roleService.addRole(role).subscribe(x => {
-            this.toastr.success('Rol registrado exitosamente!');
-            this.goBack();
-          });
+          this.roleService.addRole(role).subscribe({
+            next: x => {
+              this.toastr.success('Rol registrado exitosamente!');
+              this.goBack();
+            },
+            error: e => {
+              this.toastr.error(e.error.error);        
+            }
+        });
         }
 
     }
     else{
-      this.toastr.error('Error al registrar el rol!');
+      this.toastr.error('Debe completar todos los campos.');
     }
   }
 

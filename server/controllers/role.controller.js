@@ -1,18 +1,9 @@
 const Role = require('../models/role'); //Requiero modelo 
-const User = require('../models/user');
 const ApiError = require('../error/ApiError');
-const user = require('../models/user');
-const role = require('../models/role');
+
 
 const RoleCtrl = {}; //Creo el objeto controlador
 
-//Controla dependencias
-RoleCtrl.checkDependencies = async(id) => {
-    let query = await user.find({ roles: id });
-    if (query.length > 0) {
-        throw ApiError.badRequest('El rol que desea eliminar se encuentra vinculado a algún usuario, revise la dependencia');
-    }
-}
 
 RoleCtrl.getRoleID = async(req, res, next) => {
     const { role } = req.params
@@ -22,7 +13,7 @@ RoleCtrl.getRoleID = async(req, res, next) => {
 
 //Controla nombre repetido
 RoleCtrl.checkName = async(name, id = ' ') => {
-    let roles = await Role.find({ name: name }).select('_id');
+    let roles = await Role.find({ name: name, isActive: true }).select('_id');
     if ((await roles).length > 0) {
         (await roles).forEach(role => {
             console.log(role._id,id);
@@ -37,7 +28,7 @@ RoleCtrl.checkName = async(name, id = ' ') => {
 //Metodo GetAll (res= response y req= request)
 RoleCtrl.getRoles = async(req, res, next) => {
     try {
-        const roles = await Role.find(); //Busca todos los documentos
+        const roles = await Role.find({isActive: true}); //Busca todos los documentos
         res.json(roles); //Los envio en formato JSON
     } catch (err) {
         next(err)
@@ -51,7 +42,8 @@ RoleCtrl.createRole = async(req, res, next) => {
         const role = new Role({ //Creo el nuevo rol con los parametros enviados en el request (sin ID porque lo da la BD)
             name: req.body.name,
             description: req.body.description,
-            permissions: req.body.permissions
+            permissions: req.body.permissions,
+            isActive: true
         });
         await RoleCtrl.checkName(role.name).catch((err) => {
             next(err);
@@ -82,13 +74,11 @@ RoleCtrl.updateRole = async(req, res, next) => {
     try {
         let validations = true;
         const { id } = req.params;
-        if (req.body.name == "" || req.body.description == "" || req.body.permissions == "") {
-            next(ApiError.badRequest('Campos incompletos'))
-        }
         const newRole = {
             name: req.body.name,
             description: req.body.description,
-            permissions: req.body.permissions
+            permissions: req.body.permissions,
+            isActive: true
         }
         await RoleCtrl.checkName(newRole.name, id).catch((err) => {
             next(err);
@@ -106,16 +96,11 @@ RoleCtrl.updateRole = async(req, res, next) => {
 //Metodo Delete
 RoleCtrl.deleteRole = async(req, res, next) => {
     try {
-        let validations = true;
-        const { id } = req.params;
-        await RoleCtrl.checkDependencies(id).catch((err) => {
-            next(err);
-            validations = false;
-        })
-        if (validations) {
-            await Role.findByIdAndRemove(id);
-            res.json({ status: 'Rol Eliminado Correctamente' });
-        }
+        const {id} = req.params;
+        let role = await Role.findById(id);
+        role.isActive = false;
+        await Role.findByIdAndUpdate(id, role);
+        res.json({status: 'Rol Eliminado Correctamente'});
     } catch (err) {
         next(err);
     }

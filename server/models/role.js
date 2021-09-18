@@ -5,7 +5,8 @@ const {Schema} = mongoose; //Importo los esquemas de Mongo
 const RoleSchema = new Schema({
     name: {type: String, required: true},
     description: {type: String, required: true},
-    permissions: [{type: String, required: true}]     
+    permissions: [{type: String, required: true}],
+    isActive: {type: Boolean, required: true}     
 },
 { collection : 'roles' });
 
