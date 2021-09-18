@@ -59,7 +59,7 @@ export class ArticleService {
     return this.http.get<any[]>(this.URL_API + id);
   }
 
-  deleteArticles(id: any) {
+  deleteArticle(id: any) {
     return this.http.delete(this.URL_API + id);
   }
 

@@ -46,8 +46,8 @@ export class ArticlesComponent implements OnInit {
     this.router.navigate(['/edit-article', item._id ]);
   }
 
-  deleteArticles(item: any) {
-    this.articleService.deleteArticles(item._id).subscribe(x => {
+  deleteArticle(item: any) {
+    this.articleService.deleteArticle(item._id).subscribe(x => {
       this.toastr.success('Artículo eliminado');
       this.updateList();
     });
