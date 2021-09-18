@@ -37,6 +37,7 @@ export class ProductItemComponent implements OnInit {
 
   public availableProducts: Array<Product>
   public availableBranches: Array<IMyBranches>
+  public stockAvailable = true
   public message: string = ""
   public branchDesc: string = ""
   
@@ -47,6 +48,15 @@ export class ProductItemComponent implements OnInit {
   
   
   ngOnInit(): void {
+    this.productService.getWithStock(this.article, 1).subscribe({
+      next: x=>{
+        this.stockAvailable=true
+      },
+      error: e => {
+        this.stockAvailable=false
+      }
+  })
+    console.log(this.stockAvailable)
   }
 
   showBranches(){
