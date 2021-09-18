@@ -4,7 +4,8 @@ const {Schema} = mongoose; //Importo los esquemas de Mongo
 
 //Creo el esquema que va a tener el documento de la coleccion
 const NoteSchema = new Schema ({
-    name: {type: String, required: true}
+    name: {type: String, required: true},
+    isActive: {type: Boolean, required: true}
 },
 {collection: 'notes'});
 

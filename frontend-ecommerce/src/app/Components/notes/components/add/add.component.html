@@ -1,11 +1,15 @@
 <app-header></app-header>
 
 <section class="pb-5 header text-center">
-  <div class="container py-5 text-white">
-
+  <div class="container py-5  ">
+    <div class="d-flex flex-row-reverse">
+      <button class="btn btn-outline-primary" routerLink="/notes"> <i class="fa fa-arrow-left"></i> Volver</button>
+    </div>
+  
       <div class="row">
           <div class="col-lg-7 mx-auto">
               <div class="card border-0 shadow">
+                  <h5 class="card-header text-center"><span *ngIf=isEdit>Editar</span><span *ngIf=!isEdit>Crear</span> Nota</h5>
                   <div class="card-body p-5">
 
                  <form novalidate [formGroup]="noteForm" (ngSubmit)="onSubmit()" >
@@ -20,4 +24,4 @@
       </div>
     </div>
   </div>
-</section>
+</section>  

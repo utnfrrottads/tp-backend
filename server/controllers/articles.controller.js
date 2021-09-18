@@ -166,7 +166,7 @@ articlesCtrl.deleteArticle = async(req, res, next) => {
         let article = await Articles.findById(id);
         article.isActive = false;
         await Articles.findByIdAndUpdate(id, article);
-        res.json({status: 'Producto Articulo Correctamente'});
+        res.json({status: 'Articulo Eliminado Correctamente'});
     } catch (err) {
         next(err);
     }

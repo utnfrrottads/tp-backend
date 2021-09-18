@@ -54,21 +54,31 @@ export class AddNoteComponent implements OnInit{
       };
 
       if (this.isEdit){
-        this.noteService.updateNote(note).subscribe(x => {
-          this.toastr.success('Nota actualizada exitosamente!');
-          this.goBack();
-        });
+        this.noteService.updateNote(note).subscribe({
+          next: x => {
+            this.toastr.success('Nota actualizada exitosamente!');
+            this.goBack();
+          },
+          error: e => {
+            this.toastr.error(e.error.error);
+          }
+      });
       }
       else {
-          this.noteService.addNote(note).subscribe(x => {
-            this.toastr.success('Nota registrada exitosamente!');
-            this.goBack();
-          });
+          this.noteService.addNote(note).subscribe({
+            next: x => {
+              this.toastr.success('Nota registrada exitosamente!');
+              this.goBack();
+            },
+            error: e => {
+              this.toastr.error(e.error.error);
+            }
+        });
         }
 
     }
     else{
-      this.toastr.error('Error al registrar la nota!');
+      this.toastr.error('Debe completar todos los campos!');
     }
   }
 

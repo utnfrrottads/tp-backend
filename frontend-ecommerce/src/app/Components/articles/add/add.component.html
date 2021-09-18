@@ -9,7 +9,7 @@
   <div class="row">
         <div class="col-lg-7 mx-auto">
             <div class="card border-0 shadow">
-              <h5 class="card-header text-center">Articulos</h5>
+              <h5 class="card-header text-center"><span *ngIf=isEdit>Editar</span><span *ngIf=!isEdit>Crear</span> Articulo</h5>
                 <div class="card-body p-5">
 
                <form articlevalidate [formGroup]="articleForm" (ngSubmit)="onSubmit()" >
