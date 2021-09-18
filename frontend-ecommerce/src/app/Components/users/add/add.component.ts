@@ -1,3 +1,4 @@
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -80,6 +81,7 @@ export class AddUserComponent implements OnInit{
 
   onSubmit() {
     const formModel = this.userForm.value;
+    
 
     if (this.userForm.valid) {
 
@@ -115,7 +117,7 @@ export class AddUserComponent implements OnInit{
 
     }
     else{
-      this.toastr.error('Error al registrar el rol!');
+      this.toastr.error('Debe ingresar todos los campos obligatorios');
     }
   }
 
@@ -136,5 +138,6 @@ export class AddUserComponent implements OnInit{
   showError(err: any) {
     this.toastr.error(err.error.error);
   }
+
 
 }

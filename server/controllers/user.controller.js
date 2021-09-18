@@ -1,14 +1,12 @@
 const User = require('../models/user');
 const Role = require('../models/role');
-const Sale = require('../models/sale');
 const ApiError = require('../error/ApiError');
-const { Mongoose, Schema } = require('mongoose');
 const UserCtrl = {};
 
 //Metodo GetAll
 UserCtrl.getUsers = async(req, res, next) => {
     try {
-        const users = await User.find();
+        const users = await User.find({isActive: true   });
 
         const roleIds = users.map(x => x.roles).flat(1);
 
@@ -63,7 +61,7 @@ UserCtrl.checkValidDNI = async(dni) => {
 
 //Controla DNI repetido
 UserCtrl.checkDNI = async(dni, id = ' ') => {
-    let users = await User.find({ dni: dni }).select('_id');
+    let users = await User.find({ dni: dni, isActive: true }).select('_id');
     if (users.length > 0) {
         users.forEach((user) => {
             if (user._id != id) {
@@ -75,7 +73,7 @@ UserCtrl.checkDNI = async(dni, id = ' ') => {
 
 //Controla Email repetido
 UserCtrl.checkEmail = async(email, id = ' ') => {
-    let users = await User.find({ email: email });
+    let users = await User.find({ email: email, isActive: true });
     if (users) {
         users.forEach(user => {
             if (user._id != id) {
@@ -87,7 +85,7 @@ UserCtrl.checkEmail = async(email, id = ' ') => {
 
 //Controla Nombre de usuario repetido
 UserCtrl.checkUserName = async(username, id = ' ') => {
-    let users = await User.find({ username: username })
+    let users = await User.find({ username: username, isActive:true })
     users.forEach(user => {
         if (user._id != id) {
             throw ApiError.badRequest('El nombre de usuario ya se encuentra registrado.');
@@ -108,33 +106,7 @@ UserCtrl.checkRoles = async(roles) => {
     }
 }
 
-//Controla dependencias en otros documentos
-UserCtrl.checkDependencies = async(id) => {
-    let query = Sale.find({ client: id });
-    if ((await query).length > 0) {
-        throw ApiError.badRequest('El usuario que desea eliminar esta asignado a una venta, eliminela o reasignelo para continuar.');
-    }
-}
 
-
-UserCtrl.reasignUser = async(id) => {
-    const cli = await User.findById(id).lean();
-    await Sale.find({ client: id }).lean().then(
-        sales => {
-            sales.forEach(sale => {
-                sale.client = null;
-                sale.deletedClient = {
-                    dni: cli.dni,
-                    email: cli.email,
-                    phone: cli.phone
-                }
-                Sale.findByIdAndUpdate(sale._id, { $set: sale }).catch(err => {
-                    next(err);
-                });
-            })
-        }
-    )
-}
 
 //Metodo Create
 UserCtrl.createUser = async(req, res, next) => {
@@ -154,7 +126,8 @@ UserCtrl.createUser = async(req, res, next) => {
             phone: req.body.phone,
             employee: (req.body.employee) ? req.body.employee : false,
             client: (req.body.client) ? req.body.client : false,
-            roles: req.body.roles
+            roles: req.body.roles,
+            isActive: true
         });
         console.log(req.body.roles)
         console.log(newUser.roles)
@@ -193,13 +166,6 @@ UserCtrl.updateUser = async(req, res, next) => {
         let validations = true;
         const { id } = req.params;
 
-        if (req.body.dni == null || req.body.names == null || req.body.lastNames == null || req.body.username == null ||
-            req.body.password == null || req.body.email == null || req.body.pc == null || req.body.street == null ||
-            req.body.number == null || req.body.phone == null) {
-            next(ApiError.badRequest('Campos incompletos'));
-            validations = false;
-        }
-
         var user = await User.findById(id);
 
         if (user == null){
@@ -221,6 +187,7 @@ UserCtrl.updateUser = async(req, res, next) => {
         user.employee = req.body.employee;
         user.client = req.body.client;
         user.roles = req.body.roles;
+        user.isActive = true;
 
         await UserCtrl.checkValidDNI(user.dni).catch((err) => {
             next(err);
@@ -244,7 +211,6 @@ UserCtrl.updateUser = async(req, res, next) => {
         });
 
         if (validations) {
-            console.log(user);
             await User.findByIdAndUpdate(id, { $set: user });
             res.json({ status: 'Usuario Actualizado Correctamente.'});
         }
@@ -257,21 +223,11 @@ UserCtrl.updateUser = async(req, res, next) => {
 //Metodo Delete (Tiene un parametro para reasignar o no el usuario en caso de que haya que eliminarlo).
 UserCtrl.deleteUser = async(req, res, next) => {
     try {
-        const { id } = req.params;
-        
-        let validations = true;
-        await UserCtrl.checkDependencies(id).catch((err) => {
-            if (req.params.reasign === "true") {
-                UserCtrl.reasignUser(id);
-            } else {
-                next(err);
-                validations = false;
-            }
-        });
-        if (validations) {
-            await User.findByIdAndRemove(id);
-            res.json({ status: 'Usuario Eliminado Correctamente.' });
-        }
+        const {id} = req.params;
+        let user = await User.findById(id);
+        user.isActive = false;
+        await User.findByIdAndUpdate(id, user);
+        res.json({status: 'Rol Eliminado Correctamente'});
     } catch (err) {
         next(err);
     }
@@ -284,13 +240,14 @@ UserCtrl.checkLogin = async(req, res, next) => {
     try {
         const login = {
             username: req.body.username,
-            password: req.body.password
+            password: req.body.password,
+            isActive: true
         }
         const user = await User.findOne(login);
         if (user) {
             res.json(user);
         } else {
-            next(ApiError.loginFailed('Usuario o Contraseña Incorrectos.'));
+            next(ApiError.loginFailed('Usuario y Contraseña Incorrectos o Usuario Inactivo.'));
         }
     } catch (err) {
         next(err);

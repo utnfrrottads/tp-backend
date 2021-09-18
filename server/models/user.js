@@ -16,7 +16,8 @@ const UserSchema = new Schema({
     phone: { type: String, required: true },
     employee: { type: Boolean, required: true },
     client: { type: Boolean, required: true },
-    roles: [{ type: Schema.Types.ObjectId, required: true }]
+    roles: [{ type: Schema.Types.ObjectId, required: true }],
+    isActive: {type: Boolean, required: true}
 }, { collection: 'users' });
 
 //Exporto el Esquema cuando lo requiera en otro lado

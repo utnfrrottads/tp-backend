@@ -1,18 +1,23 @@
 <app-header></app-header>
 
-<div style="margin-left:20px; text-align: center;">
-  <h2 style="margin-top:10px">Usuarios</h2>
-
-  <button type="button" class="btn btn-info" (click)="addUser()">Nuevo usuario</button>
-</div>
 <!-- Demo header-->
 <section class="pb-5 header text-center">
-  <div class="container py-5 text-white">
+  <div class="container py-5 ">
 
       <div class="row">
           <div class="col-lg-7 mx-auto">
               <div class="card border-0 shadow">
-                  <div class="card-body p-5">
+                <div class="card-header">
+                    <div class="row">
+                      <div class="col-11">
+                        <h2 class="text-center">Usuarios</h2>
+                      </div>
+                      <div class="col-1">
+                        <button type="button" class="btn btn-outline-success" (click)="addUser()"><i class="fa fa-plus" aria-hidden="true"></i> Crear</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body p-3">
 
                       <!-- Responsive table -->
                       <div class="table-responsive">
@@ -22,7 +27,7 @@
                                       <th scope="col">DNI</th>
                                       <th scope="col">Nombre</th>
                                       <th scope="col">Apellido</th>
-                                      <th scope="col">Nombre de usuario</th>
+                                      <th scope="col">Usuario</th>
                                       <th scope="col">Contraseña</th>
                                       <th scope="col">Email</th>
                                       <th scope="col">Código Postal</th>
