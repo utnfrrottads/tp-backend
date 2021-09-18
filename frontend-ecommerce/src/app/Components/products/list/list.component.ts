@@ -22,10 +22,10 @@ export class ListProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateList();
+    this.updateProductsList();
   }
 
-  updateList() {
+  updateProductsList() {
     this.productService.getAllProducts().subscribe(x => {
       this.items = x;
     });
@@ -50,7 +50,7 @@ export class ListProductComponent implements OnInit {
   deleteProduct(item: any) {
     this.productService.deleteProduct(item._id).subscribe(x => {
       this.toastr.success('Producto eliminado');
-      this.updateList();
+      this.updateProductsList();
     }, bad_request => {
       this.toastr.error(bad_request.error.error);
     })

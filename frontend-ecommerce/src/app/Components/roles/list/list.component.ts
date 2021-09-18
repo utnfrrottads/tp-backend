@@ -22,10 +22,10 @@ export class ListRoleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateList();
+    this.updateRolesList();
   }
 
-  updateList() {
+  updateRolesList() {
     this.roleService.getAll().subscribe(x => {
       this.items = x;
     });
@@ -42,7 +42,7 @@ export class ListRoleComponent implements OnInit {
   deleteRole(item: any) {
     this.roleService.deleteRole(item._id).subscribe(x => {
       this.toastr.success('Rol eliminado');
-      this.updateList();
+      this.updateRolesList();
     }, bad_request => {
       this.toastr.error(bad_request.error.error);
     })

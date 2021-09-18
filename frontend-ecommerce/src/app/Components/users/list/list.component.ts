@@ -22,10 +22,10 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateList();
+    this.updateUsersList();
   }
 
-  updateList() {
+  updateUsersList() {
     this.userService.getAll().subscribe((x: any) => {
       this.items = x;
     })
@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
   deleteUser(item: any) {
     this.userService.deleteUser(item, true).subscribe((x: any) => {
       this.toastr.success('Usuario eliminado');
-      this.updateList();
+      this.updateUsersList();
     }, (bad_request: any) => {
       this.toastr.error(bad_request.error.error);
     })

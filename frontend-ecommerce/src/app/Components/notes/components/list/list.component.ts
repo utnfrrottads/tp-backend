@@ -21,10 +21,10 @@ export class ListNoteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateList();
+    this.updateNotesList();
   }
 
-  updateList() {
+  updateNotesList() {
     this.noteService.getAll().subscribe(x => {
       this.items = x;
     });
@@ -40,7 +40,7 @@ export class ListNoteComponent implements OnInit {
   deleteNote(item: any) {
     this.noteService.deleteNote(item._id).subscribe(x => {
       this.toastr.success('Nota eliminada');
-      this.updateList();
+      this.updateNotesList();
     });
 
   }

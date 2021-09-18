@@ -21,10 +21,10 @@ export class BranchesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateList();
+    this.updateBranchesList();
   }
 
-  updateList() {
+  updateBranchesList() {
     this.branchService.getAll().subscribe(x => {
       this.items = x;
     });
@@ -40,7 +40,7 @@ export class BranchesComponent implements OnInit {
   deleteBranch(item: any) {
     this.branchService.deleteBranch(item._id).subscribe(x => {
       this.toastr.success('Sucursal eliminada');
-      this.updateList();
+      this.updateBranchesList();
     });
 
   }

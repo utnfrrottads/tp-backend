@@ -24,10 +24,10 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateList();
+    this.updateFilterList();
   }
 
-  updateList() {
+  updateFilterList() {
     let obj= {
         "name":[],
         "presentation":[],
@@ -49,13 +49,13 @@ export class ArticlesComponent implements OnInit {
   deleteArticle(item: any) {
     this.articleService.deleteArticle(item._id).subscribe(x => {
       this.toastr.success('Artículo eliminado');
-      this.updateList();
+      this.updateFilterList();
     });
 
   }
 
 
-  noteList(article: any){
+  notes(article: any){
     return article.notesInfo.map((x: any) => x.name).join(',');
   }
 }
