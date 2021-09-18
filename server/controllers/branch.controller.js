@@ -45,7 +45,7 @@ branchCtrl.editBranch = async(req, res, next) => {
             cuit: req.body.cuit,
             street: req.body.street,
             number: req.body.number,
-            pc: req.body.pc,
+            postalCode: req.body.postalCode,
             phone: req.body.phone,
             isActive: true
         };
@@ -85,7 +85,7 @@ branchCtrl.createBranch = async(req, res, next) => {
             cuit: req.body.cuit,
             street: req.body.street,
             number: req.body.number,
-            pc: req.body.pc,
+            postalCode: req.body.postalCode,
             phone: req.body.phone,
             isActive: true
         })

@@ -108,7 +108,7 @@ saleCtrl.createSale = async (req, res, next) => {
         let validations = true;
         const sale = new Sale({
             transactionNumber: req.body.transactionNumber,
-            pc: req.body.pc,
+            postalCode: req.body.postalCode,
             date: req.body.date,
             street: req.body.street,
             number: req.body.number,

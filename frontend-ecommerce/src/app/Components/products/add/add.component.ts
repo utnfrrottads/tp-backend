@@ -106,7 +106,7 @@ export class AddProductComponent implements OnInit{
     this.branchService.getAll().subscribe((branch: any) => {
       this.branch = branch;
     });
-    var index = this.branch.indexOf({_id: '', cuit: '', street: '', number: '', pc:'', phone:0})
+    var index = this.branch.indexOf({_id: '', cuit: '', street: '', number: '', postalCode:'', phone:0})
     if(index > -1){
       this.branch.slice(index, 1)
     }

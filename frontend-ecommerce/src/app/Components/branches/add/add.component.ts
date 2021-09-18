@@ -28,7 +28,7 @@ export class AddBranchComponent implements OnInit{
       cuit: ['', Validators.required],
       street: ['', Validators.required],
       number: ['', Validators.required],
-      pc: ['', Validators.required],
+      postalCode: ['', Validators.required],
       phone: ['' , Validators.required]});
   }
 
@@ -43,7 +43,7 @@ export class AddBranchComponent implements OnInit{
           cuit: branch.cuit,
           street: branch.street,
           number: branch.number,
-          pc: branch.pc,
+          postalCode: branch.postalCode,
           phone: branch.phone
 
         });
@@ -61,7 +61,7 @@ export class AddBranchComponent implements OnInit{
         cuit: formModel.cuit,
         street: formModel.street,
         number: formModel.number,
-        pc: formModel.pc,
+        postalCode: formModel.postalCode,
         phone: formModel.phone
       };
 

@@ -119,7 +119,7 @@ UserCtrl.createUser = async(req, res, next) => {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            pc: req.body.pc,
+            postalCode: req.body.postalCode,
             street: req.body.street,
             number: req.body.number,
             flat: (req.body.flat) ? req.body.flat : '',
@@ -177,7 +177,7 @@ UserCtrl.updateUser = async(req, res, next) => {
         user.username = req.body.username;
         user.password = req.body.password;
         user.email = req.body.email;
-        user.pc = req.body.pc;
+        user.postalCode = req.body.postalCode;
         user.street = req.body.street;
         user.number = req.body.number;
         user.flat = req.body.flat;

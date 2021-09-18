@@ -13,7 +13,7 @@
         <p class="card-text"><strong>DNI:</strong> {{currentUser.dni}}.</p>
         <p class="card-text"><strong>UserName:</strong> {{currentUser.username}}.</p>
         <p class="card-text"><strong>Email:</strong> {{currentUser.email}}.</p>
-        <p class="card-text"><strong>PostalCode:</strong> {{currentUser.pc}}.</p>
+        <p class="card-text"><strong>PostalCode:</strong> {{currentUser.postalCode}}.</p>
         <p class="card-text"><strong>Adress:</strong> {{currentUser.street}} {{currentUser.number}} {{currentUser.flat}}.</p>
         <p class="card-text"><strong>Phone:</strong> {{currentUser.phone}}.</p>
         <p *ngIf="isAdmin" class="card-text"><strong>Es Empleado:</strong> {{currentUser.employee==true ? "Si" : "No"}}.</p>
@@ -68,7 +68,7 @@
                   </div>   
                   
                   <div class="form-group">
-                    <input type="number" class="form-control" formControlName="pc" placeholder="Código Postal">
+                    <input type="number" class="form-control" formControlName="postalCode" placeholder="Código Postal">
                   </div>  
                   
                   <div class="form-group">

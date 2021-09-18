@@ -4,7 +4,7 @@ const {Schema} = mongoose; //Importo los esquemas de Mongo
 //Creo el esquema que va a tener el documento de la coleccion
 const SaleSchema =  new Schema({
     transactionNumber: {type: Number, required: true },
-    pc: {type: String, required: true},
+    postalCode: {type: String, required: true},
     date: {type: Date, required: true},
     street: {type: String, required: true},
     number: {type: String, required: true},

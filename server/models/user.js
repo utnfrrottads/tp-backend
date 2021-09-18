@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
-    pc: { type: String, required: true },
+    postalCode: { type: String, required: true },
     street: { type: String, required: true },
     number: { type: String, required: true },
     flat: { type: String },

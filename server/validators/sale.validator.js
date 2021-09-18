@@ -4,7 +4,7 @@ const ApiError = require('../error/ApiError');
 exports.validateSaleCreate = [
 
     check('transactionNumber').isNumeric(),
-    check('pc').isString(),
+    check('postalCode').isString(),
     check('date').isDate(),
     check('street').isString(),
     check('number').isString(),
@@ -23,7 +23,7 @@ exports.validateSaleCreate = [
 exports.validateSaleUpdate = [
 
     check('transactionNumber').isNumeric(),
-    check('pc').isString(),
+    check('postalCode').isString(),
     check('date').isDate(),
     check('street').isString(),
     check('number').isString(),

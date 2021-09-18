@@ -6,7 +6,7 @@ exports.validateBranchCreate = [
     check('cuit').isNumeric(),
     check('street').isString(),
     check('number').isString(),
-    check('pc').isString(),
+    check('postalCode').isString(),
     check('phone').isNumeric(),
 
 
@@ -23,7 +23,7 @@ exports.validateBranchUpdate = [
     check('cuit').isNumeric(),
     check('street').isString(),
     check('number').isString(),
-    check('pc').isString(),
+    check('postalCode').isString(),
     check('phone').isNumeric(),
 
 

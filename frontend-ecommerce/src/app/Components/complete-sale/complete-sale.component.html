@@ -29,7 +29,7 @@
                 <div class="row d-flex justify content center">
                     <div class="mb-3">
                         <label for="pcInput" class="form-label">Codigo Postal</label>
-                        <input #pc type="string" class="form-control form-control-sm" id="pcInput" value="{{currentUser.pc}}">
+                        <input #postalCode type="string" class="form-control form-control-sm" id="pcInput" value="{{currentUser.postalCode}}">
                     </div>
                     <div class="mb-3">
                         <label for="streetInput" class="form-label">Calle</label>
@@ -43,7 +43,7 @@
             </div>
             <div class="card-footer">
                 <div class="row d-flex-justify-content-end">
-                    <button class = "btn btn-primary" (click)= "clickConfirmButton(pc.value, street.value, number.value)"> Confirmar Compra</button>
+                    <button class = "btn btn-primary" (click)= "clickConfirmButton(postalCode.value, street.value, number.value)"> Confirmar Compra</button>
                 </div>
             </div>
         </div>

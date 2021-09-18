@@ -72,21 +72,21 @@ export class CompleteSaleComponent implements OnInit {
     this.totalPrice += price * qty
   }
 
-  clickConfirmButton(pc: string, street: string, number: string){
-    if(pc.length == 0 || street.length == 0 || number.length == 0){
+  clickConfirmButton(postalCode: string, street: string, number: string){
+    if(postalCode.length == 0 || street.length == 0 || number.length == 0){
       this.toastr.error("Debe Completar Todos los Campos", "Error")
     } else {
         if(confirm("¿Seguro que desea cofirmar?")) {
-          this.confirmSale(pc, street, number)
+          this.confirmSale(postalCode, street, number)
         }
       }
     }
 
-  confirmSale(pc: string, street: string, number: string){
+  confirmSale(postalCode: string, street: string, number: string){
     this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
     this.currentSale.number = number
     this.currentSale.street = street
-    this.currentSale.pc = pc
+    this.currentSale.postalCode = postalCode
     this.currentSale.total = this.totalPrice
     this.saleService.postSale(this.currentSale).subscribe({
       next: res =>{
