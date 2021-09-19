@@ -45,6 +45,7 @@ export class MyBuysComponent implements OnInit {
     var CurrentUser = JSON.parse(localStorage.getItem('CurrentUser') || JSON.stringify(new User()));
     this.saleService.getSalesByUser(CurrentUser._id).subscribe(res => {
       this.myBuys = res as Array<Sale>
+      console.log(this.myBuys)
     })
   }
 
