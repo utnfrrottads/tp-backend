@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { User } from '../Models/user';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class UserService {
 
   selectedUser: User;
   users: User[]
-  readonly API_URL = 'http://localhost:3000/api/user/'
+  readonly API_URL = environment.baseUrl+'user/'
 
   constructor( private http:HttpClient) { 
     this.selectedUser = new User();

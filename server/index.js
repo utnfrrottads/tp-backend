@@ -9,7 +9,7 @@ const apiErrorHandler = require('./error/apiErrorHandler'); //Error Handler
 const ApiError = require('./error/ApiError');
 
 //Settings
-app.set('port', process.env.PORT || 3000); //Defino el puerto
+app.set('port', process.env.PORT || 8000); //Defino el puerto
 
 //Middlewares
 app.use(morgan('dev')); //Inicio el Middleware de control de logs

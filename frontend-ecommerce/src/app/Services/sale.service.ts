@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Sale } from '../Models/sale';
+import { environment } from '../../environments/environment.prod';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class SaleService {
   selectedSale: Sale
   sales: Sale[]
 
-  readonly API_URL = 'http://localhost:3000/api/sale/'
+  readonly API_URL = environment.baseUrl+'sale/'
 
   constructor(private http:HttpClient) {
     this.selectedSale= new Sale({})
