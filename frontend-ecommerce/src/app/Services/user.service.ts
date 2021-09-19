@@ -20,7 +20,7 @@ export class UserService {
 
   loginUser(username: string, password: string){
     
-    var login = `{'username': '${username}', 'password':'${password}'}`;
+    var login =`{"username": "${username}", "password":"${password}"}`;
 
     var url = this.API_URL + 'login';
 
