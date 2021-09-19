@@ -8,7 +8,7 @@ import { RoleService } from 'src/app/Services/role.service';
 import { UserService } from 'src/app/Services/user.service';
 
 
-export interface IMyResponse{
+export interface MyResponse{
   'status': string
 }
 
@@ -141,7 +141,7 @@ export class ProfileComponent implements OnInit {
       };
       this.userService.putUser(profile).subscribe({
         next: res => {
-          this.toastr.success((res as IMyResponse).status);
+          this.toastr.success((res as MyResponse).status);
           this.userService.getUser(this.currentUser).subscribe(res => {
             this.currentUser = res as User
             localStorage.setItem('CurrentUser', JSON.stringify(res as User));

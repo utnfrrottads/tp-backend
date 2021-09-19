@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 
 
-export interface IMyCartItem {
+export interface MyCartItem {
   'article': Article;
   'qty': number;
   'branch': Branch
@@ -42,7 +42,7 @@ export class MarketComponent implements OnInit {
 
   public message : string = ""
 
-  public cartArticle: Array<IMyCartItem>
+  public cartArticle: Array<MyCartItem>
 
   public totalPrice = 0
 

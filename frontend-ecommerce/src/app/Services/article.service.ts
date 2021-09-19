@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Article } from '../Models/article';
 import { Observable } from 'rxjs';
 
-export interface IMyFilter {
+export interface MyFilter {
   'name': Array<string>;
   'presentation': Array<string>;
   'notes': Array<string>;
@@ -18,8 +18,8 @@ export class ArticleService {
   selectedArticle: Article;
   articles: Article[];
   allArticles: Article[];
-  filters: IMyFilter;
-  filterValues: IMyFilter;
+  filters: MyFilter;
+  filterValues: MyFilter;
 
   constructor(private http: HttpClient) {
       this.selectedArticle = new Article();

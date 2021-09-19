@@ -11,13 +11,13 @@ import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 
-export interface IMyCartItem {
+export interface MyCartItem {
   'article': Article;
   'qty': number;
   'branch': Branch
 }
 
-export interface IMyResponse{
+export interface MyResponse{
   'status': string
 }
 
@@ -28,7 +28,7 @@ export interface IMyResponse{
 })
 export class CompleteSaleComponent implements OnInit {
 
-  public cartArticle: Array<IMyCartItem>
+  public cartArticle: Array<MyCartItem>
 
   public totalPrice = 0
   
@@ -90,7 +90,7 @@ export class CompleteSaleComponent implements OnInit {
     this.currentSale.total = this.totalPrice
     this.saleService.postSale(this.currentSale).subscribe({
       next: res =>{
-        this.toastr.success((res as IMyResponse).status, "Carga Exitosa")
+        this.toastr.success((res as MyResponse).status, "Carga Exitosa")
         localStorage.removeItem("CurrentSale")
         this.router.navigate([''])
       },

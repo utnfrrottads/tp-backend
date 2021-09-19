@@ -9,12 +9,12 @@ import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ProductService } from 'src/app/Services/product.service';
 
-export interface IMyBranches {
+export interface MyBranches {
   'desc': string;
   '_id': string;
 }
 
-export interface IMyProduct {
+export interface MyProduct {
   'prod': string;
   'qty': number;
 }
@@ -29,14 +29,14 @@ export class ProductItemComponent implements OnInit {
   @Input() article = new Article()
   @Input() item = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
   @Input() mode = "market"
-  @Output() addArticle = new EventEmitter<IMyProduct>()
+  @Output() addArticle = new EventEmitter<MyProduct>()
   @Output() getError = new EventEmitter<string>()
   @Output() deleteItem = new EventEmitter<Product>()
-  @Output() updateItem = new EventEmitter<IMyProduct>()
+  @Output() updateItem = new EventEmitter<MyProduct>()
   
 
   public availableProducts: Array<Product>
-  public availableBranches: Array<IMyBranches>
+  public availableBranches: Array<MyBranches>
   public stockAvailable = true
   public message: string = ""
   public branchDesc: string = ""

@@ -9,7 +9,7 @@ import { ProductService } from 'src/app/Services/product.service';
 import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 
-export interface IMyCartItem {
+export interface MyCartItem {
   'article': Article;
   'qty': number;
   'branch': Branch
@@ -24,7 +24,7 @@ export class MyBuysComponent implements OnInit {
 
   public myBuys: Array<Sale>
   public consultedSale: Sale
-  public cartArticle: Array<IMyCartItem>
+  public cartArticle: Array<MyCartItem>
 
   constructor(
     private productService: ProductService,
