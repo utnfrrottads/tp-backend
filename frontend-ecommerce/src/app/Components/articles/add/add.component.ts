@@ -6,6 +6,7 @@ import { ArticleService } from '../../../Services/article.service';
 import { ToastrService } from 'ngx-toastr';
 import { Note } from 'src/app/Models/note';
 import { NoteService } from '../../../Services/note.service';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
   selector: 'app-add-articles',
@@ -48,6 +49,7 @@ export class AddArticleComponent implements OnInit{
       if (params.get('id')){
         this.articleService.getByIdArticles(params.get('id')).subscribe(article => {
           this.isEdit = true;
+          let date =   new Date(article.prices[0].date).toISOString().split('T')[0]
           this.articleForm.patchValue({
             id: article._id,
             name: article.name,
@@ -55,7 +57,7 @@ export class AddArticleComponent implements OnInit{
             presentation: article.presentation,
             notes: article.notes,
             price: article.prices[0].price,
-            date: article.prices[0].date
+            date: date
           });
         }); 
       }
@@ -68,14 +70,17 @@ export class AddArticleComponent implements OnInit{
     const formModel = this.articleForm.value;
 
     if (this.articleForm.valid) {
-
+      let date = new Date( 
+        new Date(formModel.date).getUTCFullYear(),
+        new Date(formModel.date).getUTCMonth(),
+        new Date(formModel.date).getUTCDate())
       const article: any = {
         _id: formModel.id,
         name: formModel.name,
         description: formModel.description,
         presentation: formModel.presentation,
         notes:[formModel.notes],
-        prices: [{price: formModel.price, date: new Date(formModel.date)  }]
+        prices: [{price: formModel.price, date: date}]
       };
       if (this.isEdit){
         this.articleService.updateArticles(article).subscribe( {
