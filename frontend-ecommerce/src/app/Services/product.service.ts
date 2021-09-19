@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Article } from '../Models/article';
 import { Product } from '../Models/product';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ProductService {
   selectedProduct: Product
   products: Product[]
 
-  readonly API_URL = 'http://localhost:3000/api/product/'
+  readonly API_URL = environment.baseUrl+'product/'
 
   constructor(private http:HttpClient) {
     this.selectedProduct= new Product()

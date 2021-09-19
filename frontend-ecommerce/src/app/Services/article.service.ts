@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Article } from '../Models/article';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 export interface MyFilter {
   'name': Array<string>;
@@ -14,7 +15,7 @@ export interface MyFilter {
 })
 export class ArticleService {
 
-  readonly URL_API = 'http://localhost:3000/api/article/';
+  readonly URL_API = environment.baseUrl+'article/';
   selectedArticle: Article;
   articles: Article[];
   allArticles: Article[];
