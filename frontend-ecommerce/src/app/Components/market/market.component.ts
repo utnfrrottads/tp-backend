@@ -40,7 +40,7 @@ export class MarketComponent implements OnInit {
 
   public currentSale: Sale;
 
-  public message : string = ""
+  public message : string = ''
 
   public cartArticle: Array<MyCartItem>
 
@@ -56,7 +56,7 @@ export class MarketComponent implements OnInit {
     private toastr: ToastrService) 
   {
       this.cartArticle = [] 
-      this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+      this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
   }
 
   ngOnInit(): void {
@@ -74,7 +74,7 @@ export class MarketComponent implements OnInit {
         this.articleService.allArticles = res as Article[];
         this.articleService.allArticles.forEach(article => {
           article.notes.forEach(note => {
-            var noteValue: string = ""
+            var noteValue: string = ''
             this.noteService.getById(note).subscribe(res =>{
               noteValue = (res as Note).name
               if(!this.articleService.filterValues.notes.includes(noteValue)){
@@ -147,14 +147,14 @@ export class MarketComponent implements OnInit {
 
   onNameSearched(e: any){
     this.articleService.filters.name=[]
-    if(e !== ""){
+    if(e !== ''){
       this.articleService.filters.name.push(e)
     }
     this.getArticles(this.articleService.filters)
   }
 
   addArticle(e: any){
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     var id = -1
     this.currentSale.cart.forEach((item, index) => {
       if(e.prod == item.product){
@@ -164,11 +164,11 @@ export class MarketComponent implements OnInit {
     if(id < 0){
       var newItem = new CartItem({'product': e.prod, 'qty': e.qty})
       this.currentSale.cart.push(newItem)
-      localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
+      localStorage.setItem('CurrentSale', JSON.stringify(this.currentSale))
       this.mapCartItems()
-      this.toastr.success("Item Añadido Exitosamente")
+      this.toastr.success('Item Añadido Exitosamente')
     } else{
-      this.toastr.error("Ya Posee este Articulo en el Carrito", "Error")
+      this.toastr.error('Ya Posee este Articulo en el Carrito', 'Error')
     }
   }
 
@@ -177,34 +177,34 @@ export class MarketComponent implements OnInit {
   }
 
   updateQty(e:any) {
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach(item => {
       if(item.product == e.prod){
         item.quantity = e.qty
       }
     })
-    localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
+    localStorage.setItem('CurrentSale', JSON.stringify(this.currentSale))
     this.mapCartItems()
     this.ref.detectChanges()
-    this.toastr.info("Item Actualizado Exitosamente")
+    this.toastr.info('Item Actualizado Exitosamente')
   }
 
   deleteItem(e: any){
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
     this.currentSale.cart.forEach((item, index) => {
       if(item.product == e._id){
         this.currentSale.cart.splice(index, 1)
       }
     })
-    localStorage.setItem("CurrentSale", JSON.stringify(this.currentSale))
+    localStorage.setItem('CurrentSale', JSON.stringify(this.currentSale))
     this.mapCartItems()
     this.ref.detectChanges()
-    this.toastr.info("Item Eliminado Exitosamente.")
+    this.toastr.info('Item Eliminado Exitosamente.')
   }
 
   mapCartItems(){
     this.totalPrice = 0
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({cart: []})))
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({cart: []})))
     this.cartArticle = []
     if(this.currentSale.cart.length !== 0){
       this.currentSale.cart.forEach(item => {
@@ -230,10 +230,10 @@ export class MarketComponent implements OnInit {
   }
 
   finishSale() {
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
     
     if(this.currentSale.cart.length < 1){
-      this.toastr.error("Debe agregar items al carrito", "Error")
+      this.toastr.error('Debe agregar items al carrito', 'Error')
     } else {
       this.router.navigate(['/finish-sale'])
       .then(() => {

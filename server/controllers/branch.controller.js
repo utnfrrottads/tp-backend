@@ -55,7 +55,7 @@ branchCtrl.editBranch = async(req, res, next) => {
         });
         if (validations) {
             await Branch.findByIdAndUpdate(req.params.id, { $set: branch }, { new: true });
-            res.json({ status: "Sucursal actualizada correctamente" })
+            res.json({ status: 'Sucursal actualizada correctamente' })
         }
 
     } catch (err) {

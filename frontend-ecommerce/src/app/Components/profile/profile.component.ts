@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
       roles: this.currentUser.roles
     });
 
-    this.rolesService.getRoleID("Administrador").subscribe(res => {
+    this.rolesService.getRoleID('Administrador').subscribe(res => {
         var adminID = res as string
         if(this.currentUser.roles.includes(adminID)){
           this.isAdmin=true
@@ -99,7 +99,7 @@ export class ProfileComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       let mode = params['mode'];
-      if(mode=="editMode"){
+      if(mode=='editMode'){
         this.isEdit=true
       } else{
         this.isEdit=false
@@ -146,7 +146,7 @@ export class ProfileComponent implements OnInit {
             this.currentUser = res as User
             localStorage.setItem('CurrentUser', JSON.stringify(res as User));
           })
-          this.changeMode("viewMode")
+          this.changeMode('viewMode')
         },
         error: err => {
           this.showError(err);
@@ -170,7 +170,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changeMode(mode: string){
-    if(mode=="editMode"){
+    if(mode=='editMode'){
       this.router.navigate([ '/profile' ], { queryParams: {'mode': 'editMode'} })
     } else{
       this.router.navigate([ '/profile' ], { queryParams: {'mode': 'viewMode'} })

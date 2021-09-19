@@ -72,7 +72,7 @@ articlesCtrl.getArticles = async(req, res, next) => {
 
 
             const articles2 = [...new Set(artOrigin)];
-            articles2.length === 0 ? res.json({ status: "No se encontró ningun producto" }) : res.json(articles2)
+            articles2.length === 0 ? res.json({ status: 'No se encontró ningun producto' }) : res.json(articles2)
         } else {
 
             const noteIds = articles.map(x => x.notes).flat(1);
@@ -135,7 +135,7 @@ articlesCtrl.editArticle = async(req, res, next) => {
     try {
         let validations = true;
         const { id } = req.params;
-        if (req.body.name == "" || req.body.description == "" || req.body.presentation == "" || req.body.notes == "" || req.body.prices == "") {
+        if (req.body.name == '' || req.body.description == '' || req.body.presentation == '' || req.body.notes == '' || req.body.prices == '') {
             next(ApiError.badRequest('Campos incompletos'))
         }
         const article = {
@@ -152,7 +152,7 @@ articlesCtrl.editArticle = async(req, res, next) => {
         });
         if (validations) {
             await Articles.findByIdAndUpdate(id, { $set: article });
-            res.json({ status: "Articulo actualizado correctamente" })
+            res.json({ status: 'Articulo actualizado correctamente' })
         }
     } catch (err) {
         next(err);
@@ -194,7 +194,7 @@ articlesCtrl.createArticle = async(req, res, next) => {
         })      
         if (validations) {
             await article.save();
-            res.json({ status: "Articulo guardado correctamente" })
+            res.json({ status: 'Articulo guardado correctamente' })
         }
     } catch (err) {
         next(err);

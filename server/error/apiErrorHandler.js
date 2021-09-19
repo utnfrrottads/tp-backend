@@ -1,4 +1,4 @@
-const ApiError = require("./ApiError");
+const ApiError = require('./ApiError');
 
 function apiErrorHandler(err, req, res, next){
     if(err instanceof ApiError){

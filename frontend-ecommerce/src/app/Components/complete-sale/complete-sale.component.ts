@@ -38,7 +38,7 @@ export class CompleteSaleComponent implements OnInit {
 
   constructor(private router: Router, private productService: ProductService,private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
     this.cartArticle = [] 
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
    }
@@ -50,7 +50,7 @@ export class CompleteSaleComponent implements OnInit {
   mapCartItem(){
     this.totalPrice = 0
     this.cartArticle = []
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     this.currentSale.cart.forEach(item => {
       this.productService.getProduct(item.product).subscribe(res => { 
         var prod = res as Product
@@ -74,28 +74,28 @@ export class CompleteSaleComponent implements OnInit {
 
   clickConfirmButton(postalCode: string, street: string, number: string){
     if(postalCode.length == 0 || street.length == 0 || number.length == 0){
-      this.toastr.error("Debe Completar Todos los Campos", "Error")
+      this.toastr.error('Debe Completar Todos los Campos', 'Error')
     } else {
-        if(confirm("¿Seguro que desea cofirmar?")) {
+        if(confirm('¿Seguro que desea cofirmar?')) {
           this.confirmSale(postalCode, street, number)
         }
       }
     }
 
   confirmSale(postalCode: string, street: string, number: string){
-    this.currentSale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({})))
+    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     this.currentSale.number = number
     this.currentSale.street = street
     this.currentSale.postalCode = postalCode
     this.currentSale.total = this.totalPrice
     this.saleService.postSale(this.currentSale).subscribe({
       next: res =>{
-        this.toastr.success((res as MyResponse).status, "Carga Exitosa")
-        localStorage.removeItem("CurrentSale")
+        this.toastr.success((res as MyResponse).status, 'Carga Exitosa')
+        localStorage.removeItem('CurrentSale')
         this.router.navigate([''])
       },
       error: err => {
-        this.toastr.error(err.error.error, "Error")
+        this.toastr.error(err.error.error, 'Error')
       }
     })
   }

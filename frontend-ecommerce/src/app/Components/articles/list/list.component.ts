@@ -29,9 +29,9 @@ export class ArticlesComponent implements OnInit {
 
   updateFilterList() {
     let obj= {
-        "name":[],
-        "presentation":[],
-        "notes":[] 
+        'name':[],
+        'presentation':[],
+        'notes':[] 
     }
     this.articleService.getArticles(obj).subscribe(x => {
       this.items = x;

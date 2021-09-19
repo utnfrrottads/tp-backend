@@ -12,10 +12,10 @@ saleCtrl.updateStock = async(item, mode) => {
     try{
         let product = await Product.findById(item.product);
         switch (mode) {
-            case "new":
+            case 'new':
                 product.stock = product.stock - item.quantity;
                 break;
-            case "delete":
+            case 'delete':
                 product.stock = product.stock + item.quantity;
                 break;
             }
@@ -37,11 +37,11 @@ saleCtrl.checkProductAndStock = async(cart) => {
 
             if(p.stock < product.quantity){
                 let article = Article.findById(p.article);
-                msg = "El producto "+article.name+" no tiene stock suficiente";
+                msg = 'El producto '+article.name+' no tiene stock suficiente';
             }
         } else {
             let article = Article.findById(p.article);
-            msg = "No se encontro el producto "+article.name;
+            msg = 'No se encontro el producto '+article.name;
         }
     });
     if(msg != null){
@@ -128,7 +128,7 @@ saleCtrl.createSale = async (req, res, next) => {
         if(validations){
             await sale.save();
             await sale.cart.forEach( item => {
-                    saleCtrl.updateStock(item, "new")
+                    saleCtrl.updateStock(item, 'new')
                 }
             )
 
@@ -145,7 +145,7 @@ saleCtrl.deleteSale = async (req, res, next) => {
         let sale = await Sale.findById(req.params.id);
         await Sale.findByIdAndRemove(sale._id);
 
-        await saleCtrl.updateStock(sale.cart,"delete");
+        await saleCtrl.updateStock(sale.cart,'delete');
         res.json({ status: 'Venta eliminada'});
     } catch(err){
         next(err);

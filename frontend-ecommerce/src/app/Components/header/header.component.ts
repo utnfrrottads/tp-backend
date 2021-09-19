@@ -20,10 +20,10 @@ export class HeaderComponent implements OnInit {
   @Input() searchBar = false
   @Output() searchActive = new EventEmitter<string>()
 
-  public href: string= ""
+  public href: string= ''
   public currentUser: User 
   public currentUserRole: Array<Role> = [new Role()]
-  public permissions: Array<string> = [""]
+  public permissions: Array<string> = ['']
 
 
   constructor(private router: Router, private userService: UserService, private roleService: RoleService, private saleService: SaleService) { 
@@ -69,9 +69,9 @@ export class HeaderComponent implements OnInit {
   }
 
   createSale(){
-    var sale = JSON.parse(localStorage.getItem("CurrentSale") || JSON.stringify(new Sale({}))) 
-    if(sale.client == ""){
-      var user = localStorage.getItem("CurrentUser") || JSON.stringify(new User())
+    var sale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
+    if(sale.client == ''){
+      var user = localStorage.getItem('CurrentUser') || JSON.stringify(new User())
       var currentUser = JSON.parse(user) 
       
       var param = 
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit {
       this.saleService.getNextTransNumber().subscribe(res => {
         param.transactionNumber = res as number
         var currentSale = new Sale(param)
-        localStorage.setItem("CurrentSale", JSON.stringify(currentSale))
+        localStorage.setItem('CurrentSale', JSON.stringify(currentSale))
       })
     }
       

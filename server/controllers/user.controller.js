@@ -232,7 +232,7 @@ UserCtrl.deleteUser = async(req, res, next) => {
 }
 
 //Metodo Login
-/* Parametros -> Los datos se envian en el body de la req, con un metodo post bajo el nombre "username" y "password"
+/* Parametros -> Los datos se envian en el body de la req, con un metodo post bajo el nombre 'username' y 'password'
 Retorna -> Usuario de ser correcto y de lo contrario el status incorrecto */
 UserCtrl.checkLogin = async(req, res, next) => {
     try {

@@ -53,8 +53,8 @@ ProductCtrl.getProducts = async (req, res, next) => {
 
 ProductCtrl.getProducts = async (req, res, next) => {
     try {
-        const product = await Product.find({"isActive": true});
-        const product1 = await Product.find({"isActive": true});
+        const product = await Product.find({'isActive': true});
+        const product1 = await Product.find({'isActive': true});
 
         const branchIds = product.map(x => x.branch).flat(1);
         const articleIds = product1.map(x => x.article).flat(1); 

@@ -11,7 +11,7 @@ export class UserService {
 
   selectedUser: User;
   users: User[]
-  readonly API_URL = "http://localhost:3000/api/user/"
+  readonly API_URL = 'http://localhost:3000/api/user/'
 
   constructor( private http:HttpClient) { 
     this.selectedUser = new User();
@@ -20,9 +20,9 @@ export class UserService {
 
   loginUser(username: string, password: string){
     
-    var login = `{"username": "${username}", "password":"${password}"}`;
+    var login = `{'username': '${username}', 'password':'${password}'}`;
 
-    var url = this.API_URL + "login";
+    var url = this.API_URL + 'login';
 
     return this.http.post(url, JSON.parse(login));
   }

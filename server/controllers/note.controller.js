@@ -63,7 +63,7 @@ NoteCtrl.updateNote = async(req, res, next) => {
     try {
         let validations = true;
         const { id } = req.params;
-        if (req.body.name == "") {
+        if (req.body.name == '') {
             next(ApiError.badRequest('Campos incompletos'))
         }
         const newNote = {

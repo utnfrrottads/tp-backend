@@ -11,7 +11,7 @@ export class SaleService {
   selectedSale: Sale
   sales: Sale[]
 
-  readonly API_URL = "http://localhost:3000/api/sale/"
+  readonly API_URL = 'http://localhost:3000/api/sale/'
 
   constructor(private http:HttpClient) {
     this.selectedSale= new Sale({})

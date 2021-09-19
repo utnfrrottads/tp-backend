@@ -28,7 +28,7 @@ export class ProductItemComponent implements OnInit {
 
   @Input() article = new Article()
   @Input() item = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
-  @Input() mode = "market"
+  @Input() mode = 'market'
   @Output() addArticle = new EventEmitter<MyProduct>()
   @Output() getError = new EventEmitter<string>()
   @Output() deleteItem = new EventEmitter<Product>()
@@ -38,8 +38,8 @@ export class ProductItemComponent implements OnInit {
   public availableProducts: Array<Product>
   public availableBranches: Array<MyBranches>
   public stockAvailable = true
-  public message: string = ""
-  public branchDesc: string = ""
+  public message: string = ''
+  public branchDesc: string = ''
   
   constructor(private branchService: BranchService, private productService: ProductService, private articleService: ArticleService) {
     this.availableProducts = []
@@ -59,7 +59,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   showBranches(){
-    if(this.mode === "market"){
+    if(this.mode === 'market'){
       document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: block')
     } else {
       document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: block')
@@ -70,7 +70,7 @@ export class ProductItemComponent implements OnInit {
   checkQuantity(qty: string){
     this.availableBranches = []
     var elem: Article
-    if(this.mode === "market"){
+    if(this.mode === 'market'){
       elem = this.article
     } else{
       elem = this.item.article
@@ -84,7 +84,7 @@ export class ProductItemComponent implements OnInit {
               this.availableBranches.push({desc: `${branch.street}, ${branch.number}`, _id: prod._id})
             })
           })
-          if(this.mode === "market"){
+          if(this.mode === 'market'){
             document.getElementById(`branchSelect${this.article._id}`)?.removeAttribute('Disabled')
           } else {
             document.getElementById(`branchSelectCart${this.item.article._id}`)?.removeAttribute('Disabled')
@@ -116,7 +116,7 @@ export class ProductItemComponent implements OnInit {
 
   cancelAddProduct() {
     this.availableBranches = [] 
-    if(this.mode==="market"){
+    if(this.mode==='market'){
       document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
     } else {
       document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: none')
