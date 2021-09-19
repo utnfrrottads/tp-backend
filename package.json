@@ -4,7 +4,8 @@
     "description": "El sistema por desarrollar consiste en el e-commerce de una perfumería que se dedica a la venta de perfumes originales importados a través de distintas sucursales en el país. Las sucursales se identifican según el CUIT de esta y su ubicación está dada por el código postal de la ciudad en la que se encuentra, su calle y numero. Además de estos datos, también se tiene un usuario de contacto de esta y el teléfono del local.",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon server//index.js"
+        "dev": "nodemon server//index.js",
+        "start": "server//index.js"
     },
     "repository": {
         "type": "git",
