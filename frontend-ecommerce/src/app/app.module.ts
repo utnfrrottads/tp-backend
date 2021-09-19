@@ -7,7 +7,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
 import { HeaderComponent } from './Components/header/header.component';
-import { FooterComponent } from './Components/footer/footer.component';
 import { AddArticleComponent } from './Components/articles/add/add.component';
 import { ArticlesComponent } from './Components/articles/list/list.component';
 import { AddProductComponent } from './Components/products/add/add.component';
@@ -38,7 +37,6 @@ import { ProfileComponent } from './Components/profile/profile.component';
     LoginComponent,
     UsersComponent,
     HeaderComponent,
-    FooterComponent,
     ArticlesComponent,
     AddArticleComponent,
     AddProductComponent,
