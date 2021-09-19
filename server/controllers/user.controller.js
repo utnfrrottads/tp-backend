@@ -126,7 +126,7 @@ UserCtrl.createUser = async(req, res, next) => {
             phone: req.body.phone,
             employee: (req.body.employee) ? req.body.employee : false,
             client: (req.body.client) ? req.body.client : false,
-            roles: req.body.roles,
+            roles: (req.body.roles),
             isActive: true
         });
         await UserCtrl.checkValidDNI(newUser.dni).catch((err) => {
@@ -145,10 +145,15 @@ UserCtrl.createUser = async(req, res, next) => {
             next(err);
             validations = false;
         });
-        await UserCtrl.checkRoles(req.body.roles).catch((err) => {
-            next(err);
-            validations = false;
-        });
+        if (req.body.employee) {
+            await UserCtrl.checkRoles(req.body.roles).catch((err) => {
+                next(err);
+                validations = false;
+            });
+        }else{
+            user.roles=[];
+        }
+        
         if (validations) {
             await newUser.save()
             res.json({ status: 'Usuario guardado correctamente.'});
@@ -203,10 +208,15 @@ UserCtrl.updateUser = async(req, res, next) => {
             next(err);
             validations = false;
         });
-        await UserCtrl.checkRoles(req.body.roles).catch((err) => {
-            next(err);
-            validations = false;
-        });
+        
+        if (req.body.employee) {
+            await UserCtrl.checkRoles(req.body.roles).catch((err) => {
+                next(err);
+                validations = false;
+            });
+        }else{
+            user.roles=[];
+        }
 
         if (validations) {
             await User.findByIdAndUpdate(id, { $set: user });
