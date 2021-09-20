@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Article } from '../Models/article';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 export interface MyFilter {
   'name': Array<string>;

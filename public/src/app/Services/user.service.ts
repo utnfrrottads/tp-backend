@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { User } from '../Models/user';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   loginUser(username: string, password: string){
-    
+    console.log(this.API_URL)
     var login =`{"username": "${username}", "password":"${password}"}`;
 
     var url = this.API_URL + 'login';

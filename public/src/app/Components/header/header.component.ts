@@ -26,7 +26,11 @@ export class HeaderComponent implements OnInit {
   public permissions: Array<string> = ['']
 
 
-  constructor(private router: Router, private userService: UserService, private roleService: RoleService, private saleService: SaleService) { 
+  constructor(
+    private router: Router, 
+    private userService: UserService, 
+    private roleService: RoleService, 
+    private saleService: SaleService) { 
     this.href= this.router.url;
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
@@ -89,6 +93,10 @@ export class HeaderComponent implements OnInit {
     }
       
     this.router.navigate(['/market'])
+  }
+
+  navigate(url: string){
+    this.router.navigate([`${url}`])
   }
 
 }

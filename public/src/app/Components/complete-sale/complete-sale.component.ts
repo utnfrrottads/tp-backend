@@ -41,10 +41,10 @@ export class CompleteSaleComponent implements OnInit {
     this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
+    this.mapCartItem()
    }
 
   ngOnInit(): void {
-    this.mapCartItem()
   }
 
   mapCartItem(){
