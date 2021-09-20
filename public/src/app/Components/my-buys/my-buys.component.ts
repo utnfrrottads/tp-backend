@@ -10,9 +10,9 @@ import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 
 export interface MyCartItem {
-  'article': Article;
-  'qty': number;
-  'branch': Branch
+  article: Article;
+  qty: number;
+  branch: Branch
 }
 
 @Component({

@@ -80,9 +80,9 @@ export class HeaderComponent implements OnInit {
       
       var param = 
       {
-        'client': currentUser._id,
-        'cart':[],
-        'transactionNumber': 0
+        client: currentUser._id,
+        cart:[],
+        transactionNumber: 0
       }
       
       this.saleService.getNextTransNumber().subscribe(res => {

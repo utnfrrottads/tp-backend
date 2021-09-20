@@ -2,21 +2,19 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Article } from 'src/app/Models/article';
 import { Branch } from 'src/app/Models/branch';
-import { CartItem } from 'src/app/Models/cart-item';
 import { Product } from 'src/app/Models/product';
-import { Sale } from 'src/app/Models/sale';
 import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ProductService } from 'src/app/Services/product.service';
 
 export interface MyBranches {
-  'desc': string;
-  '_id': string;
+  desc: string;
+  _id: string;
 }
 
 export interface MyProduct {
-  'prod': string;
-  'qty': number;
+  prod: string;
+  qty: number;
 }
 
 @Component({

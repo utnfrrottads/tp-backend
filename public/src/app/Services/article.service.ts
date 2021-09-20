@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface MyFilter {
-  'name': Array<string>;
-  'presentation': Array<string>;
-  'notes': Array<string>;
+  name: Array<string>;
+  presentation: Array<string>;
+  notes: Array<string>;
 }
 
 @Injectable({

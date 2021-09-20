@@ -14,9 +14,9 @@ import { ProductService } from 'src/app/Services/product.service';
 
 
 export interface MyCartItem {
-  'article': Article;
-  'qty': number;
-  'branch': Branch
+  article: Article;
+  qty: number;
+  branch: Branch
 }
 
 @Component({

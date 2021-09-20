@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 
 export interface MyCartItem {
-  'article': Article;
-  'qty': number;
-  'branch': Branch
+  article: Article;
+  qty: number;
+  branch: Branch
 }
 
 export interface MyResponse{
-  'status': string
+  status: string
 }
 
 @Component({
