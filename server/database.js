@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'); //Requiero el modulo de BD
 
-const URI = process.env.MONGODB_URI; //Defino donde esta la BD (Si no existe la crea)
+const URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/eCommerce'; //Defino donde esta la BD (Si no existe la crea)
 
 //Conecta a la BD
 mongoose.connect(URI,  {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
