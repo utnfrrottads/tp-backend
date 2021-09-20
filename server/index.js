@@ -28,18 +28,6 @@ app.use('/api/sale',require('./routes/sale.routes'));
 app.use('/api/user', require('./routes/user.routes'));
 
 
-// Set Application Static Layout
-app.use(express.static('./public/dist/frontend-ecommerce'));
-app.get('*', function(req, res) {
-    res.sendFile('./public/dist/frontend-ecommerce/index.html')
-});
-
-
-app.use(function(res,req,next){
-    next(new ApiError(404, 'El recurso al que intenta acceder no se encuentra. Comuníquese con un Administrador.'));
-    return;
-});
-
 //Error Handling
 app.use(apiErrorHandler);
 

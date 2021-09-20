@@ -235,7 +235,10 @@ export class MarketComponent implements OnInit {
     if(this.currentSale.cart.length < 1){
       this.toastr.error('Debe agregar items al carrito', 'Error')
     } else {
-      this.router.navigate(['/finish-sale']);
+      this.router.navigate(['/finish-sale'])
+      .then(() => {
+        window.location.reload();
+      });
     }
 
   }
