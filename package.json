@@ -5,8 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon server//index.js",
-        "start": "node server//index.js",
-        "heroku-postbuild": "ng build --prod"
+        "start": "node server//index.js"
     },
     "engines": {
         "node": "12.18.3",
