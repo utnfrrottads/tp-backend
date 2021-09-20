@@ -20,7 +20,10 @@ export class LoginComponent implements OnInit {
   message = '';
   validations = true;
 
-  constructor(private toastr: ToastrService, private userService: UserService, private router: Router) { 
+  constructor(
+    private toastr: ToastrService, 
+    private userService: UserService, 
+    private router: Router) { 
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
   }

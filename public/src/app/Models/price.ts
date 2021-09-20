@@ -1,5 +1,7 @@
 export class Price {
-    constructor(price= 0, date= new Date('')){
+    constructor(
+        price= 0, 
+        date= new Date('')){
         this.price = price;
         this.date = date;
     }

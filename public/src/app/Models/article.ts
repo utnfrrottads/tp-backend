@@ -2,7 +2,13 @@ import { Price } from './price';
 
 export class Article {
 
-    constructor(_id= '', name= '', description= '', presentation= '', notes= [''], prices= [new Price()]){
+    constructor(
+            _id= '', 
+            name= '', 
+            description= '', 
+            presentation= '', 
+            notes= [''], 
+            prices= [new Price()]){
         this._id = _id;
         this.name = name;
         this.description = description;

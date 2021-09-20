@@ -1,6 +1,12 @@
 export class Branch {
 
-    constructor(_id= '', cuit= '', street= '', number = '', postalCode= '', phone= 0){
+    constructor(
+            _id= '', 
+            cuit= '', 
+            street= '', 
+            number = '', 
+            postalCode= '', 
+            phone= 0){
         this._id = _id;
         this.cuit = cuit;
         this.street = street;

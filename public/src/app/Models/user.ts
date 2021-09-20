@@ -1,6 +1,21 @@
 export class User {
     // tslint:disable-next-line:max-line-length
-    constructor(_id= '', dni= '', names= '', lasNames= '', username= '', password= '', email= '', postalCode= '', street= '', number= '', flat= '', phone= '', employee= false, client= false, roles= ['']){
+    constructor(
+        _id= '', 
+        dni= '', 
+        names= '', 
+        lasNames= '', 
+        username= '', 
+        password= '', 
+        email= '', 
+        postalCode= '', 
+        street= '', 
+        number= '', 
+        flat= '', 
+        phone= '', 
+        employee= false, 
+        client= false, 
+        roles= ['']){
         this._id = _id;
         this.dni = dni;
         this.names = names;

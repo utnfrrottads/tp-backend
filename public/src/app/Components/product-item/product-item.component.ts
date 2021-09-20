@@ -41,7 +41,10 @@ export class ProductItemComponent implements OnInit {
   public message: string = ''
   public branchDesc: string = ''
   
-  constructor(private branchService: BranchService, private productService: ProductService, private articleService: ArticleService) {
+  constructor(
+    private branchService: BranchService, 
+    private productService: ProductService,
+    private articleService: ArticleService) {
     this.availableProducts = []
     this.availableBranches = []
   }

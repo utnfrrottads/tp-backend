@@ -36,7 +36,13 @@ export class CompleteSaleComponent implements OnInit {
 
   public currentUser: User
 
-  constructor(private router: Router, private productService: ProductService,private saleService: SaleService,private toastr: ToastrService,private articleService: ArticleService, private branchService: BranchService) {
+  constructor(
+    private router: Router, 
+    private productService: ProductService,
+    private saleService: SaleService,
+    private toastr: ToastrService,
+    private articleService: ArticleService, 
+    private branchService: BranchService) {
     this.cartArticle = [] 
     this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());

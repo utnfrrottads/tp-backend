@@ -1,6 +1,11 @@
 export class Product {
 
-    constructor(_id= '', branch= '', article= '', stock= 0, isActive= false){
+    constructor(
+        _id= '', 
+        branch= '', 
+        article= '', 
+        stock= 0, 
+        isActive= false){
         this._id = _id;
         this.branch = branch;
         this.article = article;
