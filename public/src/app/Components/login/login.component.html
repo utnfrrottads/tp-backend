@@ -8,12 +8,12 @@
                 </div>
                 <div class="card-content">
                     
-                    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="loginUser(username.value, password.value, loginForm)" ngNativeValidate>                 
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">                 
                         <div class="row m-1">
-                            <input  class="form-control col s5 "  #username type="text" name="username" placeholder="Enter your Username" required /> 
+                            <input class="form-control col s5" type="text" formControlName="username" placeholder="Enter your Username" /> 
                         </div>    
                         <div class="row m-1">
-                            <input class="form-control col s5" type="password" #password name="password"  placeholder="Enter your Password" required />
+                            <input class="form-control col s5" type="password" formControlName="password" placeholder="Enter your Password" />
                         </div>
                         <div class="row">
                             <div class="card-action m-1 d-flex justify-content-center">

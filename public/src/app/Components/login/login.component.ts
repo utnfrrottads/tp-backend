@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import {UserService} from '../../Services/user.service'
@@ -18,7 +18,11 @@ export class LoginComponent {
   
   currentUser: any;
   message = '';
-  validations = true;
+  
+  loginForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
   constructor(
     private toastr: ToastrService, 
@@ -33,9 +37,16 @@ export class LoginComponent {
     this.userService.logoutUser()
   }
 
-  loginUser(username: string, password: string, form: NgForm){
+  onSubmit(){
 
-    this.userService.loginUser(username, password).subscribe({
+    if (!this.loginForm.valid){
+      this.toastr.error('Ingrese todos los datos necesarios.', 'Error')
+      return;
+    }
+
+    const formValue = this.loginForm.value;
+
+    this.userService.loginUser(formValue.username, formValue.password).subscribe({
         next: (res) => {
           this.currentUser = res as User
           localStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
@@ -43,7 +54,7 @@ export class LoginComponent {
         },
         error: (err) => {
           if(JSON.stringify(err).includes('error')){
-            form.reset();
+            this.loginForm.reset();
             this.toastr.error(JSON.parse(JSON.stringify(err)).error.error, 'Error');
           }
         }
