@@ -25,10 +25,6 @@ app.use('/api/role', require('./routes/role.routes'));
 app.use('/api/sale',require('./routes/sale.routes'));
 app.use('/api/user', require('./routes/user.routes'));
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public/src/index.html')); // Set index.html as layout
-});
-
 app.use(function(res,req,next){
     next(new ApiError(404, 'El recurso al que intenta acceder no se encuentra. Comuníquese con un Administrador.'));
     return;
@@ -38,6 +34,10 @@ app.use(function(res,req,next){
 app.use(apiErrorHandler);
 
 // Set Application Static Layout
+app.use(express.static(`${__dirname}/public/src/`));
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public/src/index.html')); // Set index.html as layout
+});
 
 
 //Start Server
