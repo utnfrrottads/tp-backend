@@ -38,7 +38,7 @@ module.exports = app => {
         })
         .put((req, res) => {
             Categorias.update(req.body, { where: {id: req.body.id} })
-                .then(result => res.sendStatus(204))
+                .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
                 })
@@ -54,7 +54,7 @@ module.exports = app => {
         })
         .delete((req, res) => {
             Categorias.destroy({ where: req.params })
-                .then(result => res.sendStatus(204))
+                .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
                 })
