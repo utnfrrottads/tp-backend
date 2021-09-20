@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Note } from 'src/app/Models/note';
 import { NoteService } from '../../../Services/note.service';
 import { getLocaleDateTimeFormat } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-articles',
@@ -82,31 +83,8 @@ export class AddArticleComponent implements OnInit{
         notes:[formModel.notes],
         prices: [{price: formModel.price, date: date}]
       };
-      if (this.isEdit){
-        this.articleService.updateArticles(article).subscribe( {
 
-          next: x => {
-            this.toastr.success('Artículo actualizado exitosamente!');
-            this.goBack();
-          },
-          error: e=>{
-            this.toastr.error(e.error.error);
-          }
-        });   
-      }
-      else {
-        
-        this.articleService.addArticles(article).subscribe({
-
-          next: x => {
-            this.toastr.success('Artículo actualizado exitosamente!');
-            this.goBack();
-          },
-          error: e=>{
-            this.toastr.error(e.error.error);
-          }
-        });
-        }
+      this.addOrUpdate(article);
 
     }
     else{
@@ -126,6 +104,20 @@ export class AddArticleComponent implements OnInit{
 
   goBack() {
     this.router.navigate(['/articles']);
+  }
+
+  addOrUpdate(article: any){
+
+    const apiCall = this.isEdit ? 
+        this.articleService.updateArticles(article) : 
+        this.articleService.addArticles(article);
+
+        apiCall.subscribe(resp => {
+            this.toastr.success(`Artículo ${this.isEdit ? 'actualizado' : 'agregado'} exitosamente!`);
+            this.goBack();
+          }, e =>{
+            this.toastr.error(e.error.error);
+        });
   }
 
 }
