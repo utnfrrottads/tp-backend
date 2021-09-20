@@ -37,27 +37,19 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(username: string, password: string, form: NgForm){
-    this.validations = true
 
-    if( username.length == 0 || password.length == 0 ) {
-      this.toastr.error('Ingrese todos los datos necesarios.', 'Error')
-      this.validations = false
-    }
-    
-    if(this.validations){
-      this.userService.loginUser(username, password).subscribe({
-          next: (res) => {
-            this.currentUser = res as User
-            localStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
-            window.location.reload()  
-          },
-          error: (err) => {
-            if(JSON.stringify(err).includes('error')){
-              form.reset();
-              this.toastr.error(JSON.parse(JSON.stringify(err)).error.error, 'Error');
-            }
+    this.userService.loginUser(username, password).subscribe({
+        next: (res) => {
+          this.currentUser = res as User
+          localStorage.setItem('CurrentUser', JSON.stringify(this.currentUser))
+          window.location.reload()  
+        },
+        error: (err) => {
+          if(JSON.stringify(err).includes('error')){
+            form.reset();
+            this.toastr.error(JSON.parse(JSON.stringify(err)).error.error, 'Error');
           }
-      })
-    }
+        }
+    });
   }
 }

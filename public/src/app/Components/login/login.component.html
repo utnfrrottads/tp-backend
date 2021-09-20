@@ -8,7 +8,7 @@
                 </div>
                 <div class="card-content">
                     
-                    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="loginUser(username.value, password.value, loginForm)">                 
+                    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="loginUser(username.value, password.value, loginForm)" ngNativeValidate>                 
                         <div class="row m-1">
                             <input  class="form-control col s5 "  #username type="text" name="username" placeholder="Enter your Username" required /> 
                         </div>    
