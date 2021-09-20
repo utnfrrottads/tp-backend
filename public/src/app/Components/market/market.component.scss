@@ -40,6 +40,14 @@
     font-size: 36px;
     margin-left: 50px;
   }
+
+  #mySidenav.sidenav-open {
+    width: 250px;
+  }
+
+  #main.sidenav-open {
+    margin-left: 250px;
+  }
   
   /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
   #main {

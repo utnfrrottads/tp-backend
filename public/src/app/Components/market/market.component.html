@@ -3,7 +3,7 @@
 [searchBar]="searchBar"></app-header>
 
 <!-- Sidebar -->
-<div id="mySidenav" class="sidenav">
+<div id="mySidenav" class="sidenav" [class.sidenav-open]="navOpen">
     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
     
     <div class="h2 text-white">
@@ -34,7 +34,7 @@
 </div>
     
     <!-- Page Content -->
-<div id="main">
+<div id="main" [class.sidenav-open]="navOpen">
     <div class="row">
         <div class="col">
             <button (click)="openNav()" class="btn btn-outline-info">

@@ -31,6 +31,7 @@ export interface MyCartItem {
 export class MarketComponent implements OnInit {
 
   searchBar = true;
+  navOpen = false;
 
   filtersEmpty = {
     name: [],
@@ -135,14 +136,12 @@ export class MarketComponent implements OnInit {
   /* Set the width of the side navigation to 250px */
   /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
   openNav() {
-    (document.getElementById('mySidenav') as HTMLFormElement).style.width = '250px';
-    (document.getElementById('main') as HTMLFormElement).style.marginLeft = '250px';
+    this.navOpen = true;
   }
 
   /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
   closeNav() {
-    (document.getElementById('mySidenav') as HTMLFormElement).style.width = '0';
-    (document.getElementById('main') as HTMLFormElement).style.marginLeft = '0';
+    this.navOpen = false;
   }
 
   onNameSearched(e: any){
