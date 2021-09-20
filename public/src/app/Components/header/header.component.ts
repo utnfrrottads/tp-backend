@@ -15,7 +15,7 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./header.component.scss'],
   providers: [UserService]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() searchBar = false
   @Output() searchActive = new EventEmitter<string>()
@@ -48,9 +48,6 @@ export class HeaderComponent implements OnInit {
        
       }); 
     }
-  }
-
-  ngOnInit(): void {
   }
 
   onSearch(text: string){

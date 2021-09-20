@@ -13,7 +13,7 @@ declare var $: any;
   styleUrls: ['./login.component.scss'],
   providers: [UserService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   
   currentUser: any;
@@ -26,9 +26,6 @@ export class LoginComponent implements OnInit {
     private router: Router) { 
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
-  }
-  
-  ngOnInit(): void {
   }
 
   logoutUser() {

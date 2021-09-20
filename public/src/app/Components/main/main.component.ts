@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { User } from 'src/app/Models/user';
 
 @Component({
@@ -7,7 +6,7 @@ import { User } from 'src/app/Models/user';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
 
   public currentUser: User
 
@@ -15,8 +14,4 @@ export class MainComponent implements OnInit {
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
   }
-
-  ngOnInit(): void {
-  }
-
 }

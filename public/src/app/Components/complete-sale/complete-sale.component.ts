@@ -26,7 +26,7 @@ export interface MyResponse{
   templateUrl: './complete-sale.component.html',
   styleUrls: ['./complete-sale.component.scss']
 })
-export class CompleteSaleComponent implements OnInit {
+export class CompleteSaleComponent {
 
   public cartArticle: Array<MyCartItem>
 
@@ -49,9 +49,6 @@ export class CompleteSaleComponent implements OnInit {
     this.currentUser = JSON.parse(string)
     this.mapCartItem()
    }
-
-  ngOnInit(): void {
-  }
 
   mapCartItem(){
     this.totalPrice = 0

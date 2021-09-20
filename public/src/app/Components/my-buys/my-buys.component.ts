@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Article } from 'src/app/Models/article';
 import { Branch } from 'src/app/Models/branch';
 import { Sale } from 'src/app/Models/sale';
@@ -20,7 +20,7 @@ export interface MyCartItem {
   templateUrl: './my-buys.component.html',
   styleUrls: ['./my-buys.component.scss']
 })
-export class MyBuysComponent implements OnInit {
+export class MyBuysComponent{
 
   public myBuys: Array<Sale>
   public consultedSale: Sale
@@ -37,9 +37,6 @@ export class MyBuysComponent implements OnInit {
     this.consultedSale = new Sale({})
     this.cartArticle = []
    }
-
-  ngOnInit(): void {
-  }
 
   getSales(){
     var CurrentUser = JSON.parse(localStorage.getItem('CurrentUser') || JSON.stringify(new User()));
