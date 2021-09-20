@@ -32,6 +32,12 @@ app.use(function(res,req,next){
 
 //Error Handling
 app.use(apiErrorHandler);
+
+// Set Application Static Layout
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/src/index.html')); // Set index.html as layout
+});
+
 //Start Server
 app.listen(app.get('port'), () => {
     console.log(`Server on Port ${app.get('port')}`);
