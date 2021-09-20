@@ -32,13 +32,18 @@ export class ProductItemComponent implements OnInit {
   @Output() deleteItem = new EventEmitter<Product>()
   @Output() updateItem = new EventEmitter<MyProduct>()
   
-
   public availableProducts: Array<Product>
   public availableBranches: Array<MyBranches>
   public stockAvailable = true
   public message: string = ''
   public branchDesc: string = ''
+
+  branchSelectDisabled = true;
+  branchSelectCartDisabled = true;
   
+  branchPickerVisible = false;
+  branchPickerCartVisible = false;
+
   constructor(
     private branchService: BranchService, 
     private productService: ProductService,
@@ -60,10 +65,11 @@ export class ProductItemComponent implements OnInit {
   }
 
   showBranches(){
+    console.log('ad');
     if(this.mode === 'market'){
-      document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: block')
+      this.branchPickerVisible = true;
     } else {
-      document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: block')
+      this.branchPickerCartVisible = true;
     }
       
   }
@@ -86,9 +92,9 @@ export class ProductItemComponent implements OnInit {
             })
           })
           if(this.mode === 'market'){
-            document.getElementById(`branchSelect${this.article._id}`)?.removeAttribute('Disabled')
+            this.branchSelectDisabled = false;
           } else {
-            document.getElementById(`branchSelectCart${this.item.article._id}`)?.removeAttribute('Disabled')
+            this.branchSelectCartDisabled = false;
           }
       },
         error: err => {
@@ -101,14 +107,14 @@ export class ProductItemComponent implements OnInit {
 
   addProduct(id: string, qty: string){
     this.availableBranches = []
-    document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
+    this.branchPickerVisible = false;
     var prod= {'prod': id , 'qty': Number.parseInt(qty)}
     this.addArticle.emit(prod);
   }
 
   updateProduct(id: string, qty: string){
     this.availableBranches = []
-    document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: none')
+    this.branchPickerCartVisible = false;
     var prod= {'prod': id, 'qty': Number.parseInt(qty)}
     this.updateItem.emit(prod)
   }
@@ -118,9 +124,9 @@ export class ProductItemComponent implements OnInit {
   cancelAddProduct() {
     this.availableBranches = [] 
     if(this.mode==='market'){
-      document.getElementById(`branchPicker${this.article._id}`)?.setAttribute('style', 'display: none')
+      this.branchPickerVisible = false;
     } else {
-      document.getElementById(`branchPickerCart${this.item.article._id}`)?.setAttribute('style', 'display: none')
+      this.branchPickerCartVisible = false;
     }
   }
 

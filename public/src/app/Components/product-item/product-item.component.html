@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="card-footer" id="branchPicker{{article._id}}" style="display:none;">
+    <div class="card-footer" id="branchPicker" *ngIf="branchPickerVisible">
         <form>
             <div class="d-flex flex-row align-items-start p-1">
                 <div class="col-1 pl-1">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-8">
                     <label for="branchSelect">Seleccione Sucursal</label>
-                    <select #branchPicker class="form-control form-control-sm"  disabled id="branchSelect{{article._id}}">
+                    <select #branchPicker class="form-control form-control-sm" [disabled]="branchSelectDisabled" id="branchSelect">
                         <option *ngFor="let branch of availableBranches" value="{{branch._id}}">{{branch.desc}}</option>
                     </select>
                 </div>
@@ -58,7 +58,7 @@
                     <button type="submit" (click)="cancelAddProduct()" class="btn btn-secondary align-end" >Cancelar</button>
                 </div>
                 <div class="col-1">
-                    <button type="submit" id="selectBranch{{article._id}}" (click)="addProduct(branchPicker.value, quantity.value)" [disabled]="availableBranches.length ==0" class="btn btn-primary align-end">Añadir</button>
+                    <button type="submit" id="selectBranch" (click)="addProduct(branchPicker.value, quantity.value)" [disabled]="availableBranches.length ==0" class="btn btn-primary align-end">Añadir</button>
                 </div>
             </div>
         </form>
@@ -101,7 +101,7 @@
             </div>
         </div>
     </div>
-    <div class="card-footer" id="branchPickerCart{{item.article._id}}" style="display:none;">
+    <div class="card-footer" id="branchPickerCart" *ngIf="branchPickerCartVisible">
         <form>
             <div class="d-flex flex-row align-items-start p-1">
                 <div class="col-1 pl-1">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="col-6">
                     <label for="branchSelectCart">Seleccione Sucursal</label>
-                    <select #branchPicker class="form-control form-control-sm"  disabled id="branchSelectCart{{article._id}}">
+                    <select #branchPicker class="form-control form-control-sm"  [disabled]="branchSelectCartDisabled" id="branchSelectCart">
                         <option *ngFor="let branch of availableBranches" value="{{branch._id}}">{{branch.desc}}</option>
                     </select>
                 </div>
