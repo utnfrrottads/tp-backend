@@ -68,6 +68,18 @@ RoleCtrl.getRole = async(req, res, next) => {
     }
 }
 
+//Metodo GetMany
+RoleCtrl.getRolesByIds = async(req, res, next) => {
+    try {
+        const { ids } = req.params; //Consigo el ID mando por parametro en el get
+        const roleIds = ids.split(',');
+        const role = await Role.find().where('_id').in(roleIds); //Busco por IDs
+        res.json(role); //Lo envío
+    } catch (err) {
+        next(err);
+    }
+}
+
 //Metodo Update
 RoleCtrl.updateRole = async(req, res, next) => {
     try {

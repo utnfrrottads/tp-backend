@@ -35,10 +35,17 @@ export class HeaderComponent implements OnInit {
     var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     this.currentUser = JSON.parse(string)
     if(this.currentUser.employee){
+
+      let roleIds = this.currentUser.roles;
+
+      this.roleService.getByIds(roleIds).subscribe(res => {
+        res.forEach(role => {
+          this.mapRoles(role);
+        });
+      })
+
       this.currentUser.roles.forEach(role => {
-        this.roleService.getById(role).subscribe(res =>{
-          this.mapRoles(res as Role)
-        })
+       
       }); 
     }
   }

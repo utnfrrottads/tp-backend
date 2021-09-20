@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Role } from 'src/app/Models/role';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,11 @@ export class RoleService {
 
   getById(id: any): Observable<any>{
     return this.http.get<any[]>(this.baseUrl + 'role/' + id);
+  }
+
+  getByIds(roleIds: any[]): Observable<Role[]>{
+    const ids: string = roleIds.join(',');
+    return this.http.get<any[]>(this.baseUrl + 'role/byIds/' + ids);
   }
 
   deleteRole(id: any) {
