@@ -3,7 +3,7 @@ module.exports = (sequelize, DataType) =>{
 
     const Clientes = sequelize.define('Clientes',{
         dni:{
-            type: DataType.INTEGER,
+            type: DataType.STRING,
             primaryKey: true
         },
         nombre:{
@@ -30,11 +30,15 @@ module.exports = (sequelize, DataType) =>{
         },
         tipoCliente:{
             type:DataType.STRING,
+<<<<<<< HEAD
             allowNull: false
         },
         activo: {
             type: DataType.BOOLEAN,
            allowNull: false
+=======
+            allowNull: true
+>>>>>>> 607dcfb7955ad130e9857e8e845b88af28fbb8b0
         }
     })
 

@@ -14,6 +14,7 @@ module.exports = app => {
             config.username,
             config.password,
             config.params
+
         );
 
         db = {
