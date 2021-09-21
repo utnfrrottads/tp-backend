@@ -1,11 +1,5 @@
 # Datos
 
-## YA ESTA FUNCIONANDO EN DB POSTGRES
-
-## Pendiente
- 
-
-
 
 ## Datos importantes
 ### Antes de probarlo hacer

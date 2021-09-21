@@ -1,28 +1,33 @@
-module.exports = (sequelize, DataType) =>{
-    const Categorias = sequelize.define('Categorias',{
-        idCategoria:{
+module.exports = (sequelize, DataType) => {
+    const Categorias = sequelize.define('Categorias', {
+        id: {
             type: DataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        descripcion:{
+        descripcion: {
             type: DataType.STRING,
+            allowNull: false
+        },
+        activa: {
+            type: DataType.BOOLEAN,
             allowNull: false
         }
     });
 
-    Categorias.hasAsociation = ()=>{
+    Categorias.hasAsociation = () => {
         return true;
     }
 
-    Categorias.associate = (models)=>{
-        Categorias.hasMany(models.Productos,{
-            foreignKey:{
-                allowNull:false
+    Categorias.associate = (models) => {
+        Categorias.hasMany(models.Productos, {
+            foreignKey: {
+                allowNull: false
             }
         });
+
+        //Categorias.sync({force: true});
     };
 
     return Categorias;
-
-};   
+};

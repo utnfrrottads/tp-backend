@@ -1,48 +1,53 @@
-module.exports = (sequelize, DataType)=>{
+module.exports = (sequelize, DataType) => {
 
-    const Productos = sequelize.define('Productos',{
-        idProd:{
+    const Productos = sequelize.define('Productos', {
+        id: {
             type: DataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        descripcion:{
+        descripcion: {
             type: DataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        stock:{
+        stock: {
             type: DataType.INTEGER,
             allowNull: false
         },
-        cantMinima:{
+        cantidadMinima: {
             type: DataType.INTEGER,
             allowNull: false
+        },
+        activo: {
+            type: DataType.BOOLEAN,
+           allowNull: false
         }
-
     });
 
-    Productos.hasAsociation = ()=>{
+    Productos.hasAsociation = () => {
         return true;
     }
 
-    Productos.associate = (models)=>{
+    Productos.associate = (models) => {
         //ASOCIACION CON CATEGORIAS
         Productos.belongsTo(models.Categorias);
-    
+
         //ASOCIACION CON PROVEEDORES
         Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos});
 
         //ASOCIACION CON ITEMS
-        Productos.hasOne(models.Items,{
-            foreignKey:{
-                allowNull:false 
+
+        Productos.hasOne(models.Items, {
+            foreignKey: {
+                allowNull: false
+
             }
         });
 
-        //Productos.sync({alter: true}); //alter { force: true }
+        //Productos.sync({force: true}); //alter { force: true }
     };
 
     return Productos;
