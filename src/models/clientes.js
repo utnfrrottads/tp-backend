@@ -31,6 +31,10 @@ module.exports = (sequelize, DataType) =>{
         tipoCliente:{
             type:DataType.STRING,
             allowNull: false
+        },
+        activo: {
+            type: DataType.BOOLEAN,
+           allowNull: false
         }
     })
 
@@ -38,7 +42,7 @@ module.exports = (sequelize, DataType) =>{
         return true;
     }
 
-    
+
     Clientes.associate = (models)=>{
 
         //ASOCIACION CON VENTAS
