@@ -12,7 +12,7 @@ module.exports = app =>{
                 res.status(412).json({msg:error.message});
             });
         });
-        
+          
     //TRAE UN CLIENTE EN ESPECICO CON SUS VENTAS
     app.route('/clientesventas/:dni')
         .get((req,res)=>{
@@ -40,7 +40,7 @@ module.exports = app =>{
                 res.status(412).json({msg: error.message});
             });
         });
-    
+
     app.route('/clientes/:dni')
         .get((req,res)=>{
             Clientes.findOne({where: req.params})
