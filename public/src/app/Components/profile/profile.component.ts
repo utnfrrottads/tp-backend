@@ -106,15 +106,21 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+    this.updateRoleList();
 
-    if(this.currentUser.employee){
-      this.currentUser.roles.forEach(role => {
-        this.rolesService.getById(role).subscribe(res =>{
-          this.currentRoles.push(res.name)
-        })
-      });
+  }
+
+  updateRoleList() {
+    if(this.currentUser.employee) {
+
+      let roleIds = this.currentUser.roles;
+
+      this.rolesService.getByIds(roleIds).subscribe(res => {
+        res.forEach(role => {
+          this.currentRoles.push(role.name)
+        });
+      })
    }
-
   }
 
   onSubmit() {
@@ -145,6 +151,8 @@ export class ProfileComponent implements OnInit {
           this.userService.getUser(this.currentUser).subscribe(res => {
             this.currentUser = res as User
             localStorage.setItem('CurrentUser', JSON.stringify(res as User));
+            this.currentRoles = [];
+            this.updateRoleList();
           })
           this.changeMode('viewMode')
         },

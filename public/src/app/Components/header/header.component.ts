@@ -43,10 +43,6 @@ export class HeaderComponent {
           this.mapRoles(role);
         });
       })
-
-      this.currentUser.roles.forEach(role => {
-       
-      }); 
     }
   }
 
