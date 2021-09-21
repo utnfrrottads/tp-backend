@@ -1,33 +1,24 @@
-module.exports = (sequelize, DataType) => {
+
+module.exports = (sequelize, dataType) => {
     const Categorias = sequelize.define('Categorias', {
         id: {
-            type: DataType.INTEGER,
+            type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         descripcion: {
-            type: DataType.STRING,
+            type: dataType.STRING,
             allowNull: false
         },
         activa: {
-            type: DataType.BOOLEAN,
+            type: dataType.BOOLEAN,
             allowNull: false
         }
     });
 
     Categorias.hasAsociation = () => {
-        return true;
+        return false;
     }
-
-    Categorias.associate = (models) => {
-        Categorias.hasMany(models.Productos, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-
-        //Categorias.sync({force: true});
-    };
 
     return Categorias;
 };

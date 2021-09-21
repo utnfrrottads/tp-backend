@@ -1,29 +1,32 @@
-module.exports = (sequelize, DataType) => {
-
+module.exports = (sequelize, dataType) => {
     const Productos = sequelize.define('Productos', {
         id: {
-            type: DataType.INTEGER,
+            type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         descripcion: {
-            type: DataType.STRING,
+            type: dataType.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
             }
         },
         stock: {
-            type: DataType.INTEGER,
+            type: dataType.INTEGER,
             allowNull: false
         },
         cantidadMinima: {
-            type: DataType.INTEGER,
+            type: dataType.INTEGER,
+            allowNull: false
+        },
+        precioVenta: {
+            type: dataType.DECIMAL,
             allowNull: false
         },
         activo: {
-            type: DataType.BOOLEAN,
-           allowNull: false
+            type: dataType.BOOLEAN,
+            allowNull: false
         }
     });
 
@@ -33,19 +36,17 @@ module.exports = (sequelize, DataType) => {
 
     Productos.associate = (models) => {
         //ASOCIACION CON CATEGORIAS
-        Productos.belongsTo(models.Categorias);
+        Productos.belongsTo(models.Categorias, { as: 'categoria' });
 
-        //ASOCIACION CON PROVEEDORES
-        Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos });
+        // //ASOCIACION CON PROVEEDORES
+        // Productos.belongsToMany(models.Proveedores, { through: models.ProveedorProductos });
 
-        //ASOCIACION CON ITEMS
-        Productos.hasOne(models.Items, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-
-        //Productos.sync({force: true}); //alter { force: true }
+        // //ASOCIACION CON ITEMS
+        // Productos.hasOne(models.Items, {
+        //     foreignKey: {
+        //         allowNull: false
+        //     }
+        // });
     };
 
     return Productos;
