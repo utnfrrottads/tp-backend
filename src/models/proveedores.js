@@ -1,50 +1,45 @@
-module.exports = (sequelize, DataType)=>{
-
-    const Proveedores = sequelize.define('Proveedores',{
-        idProv:{
-            type: DataType.INTEGER,
+module.exports = (sequelize, dataType) => {
+    const Proveedores = sequelize.define('Proveedores', {
+        id: {
+            type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        razonSocial:{
-            type: DataType.STRING,
+        cuitDni: {
+            type: dataType.STRING,
+            allowNull: false
+        },
+        razonSocial: {
+            type: dataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        telefono:{
-            type: DataType.STRING,
+        telefono: {
+            type: dataType.STRING,
+            allowNull: true
+        },
+        email: {
+            type: dataType.STRING,
+            allowNull: true
+        },
+        direccion: {
+            type: dataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        direccion:{
-            type: DataType.STRING,
-            allowNull: false,
-            validate:{
-                notEmpty: true
-            } 
+        activo: {
+            type: dataType.BOOLEAN,
+            allowNull: false
         }
-
     });
 
-    Proveedores.hasAsociation = ()=>{
-        return true;
+    Proveedores.hasAsociation = () => {
+        return false;
     }
 
-    Proveedores.associate = (models)=>{
-        
-        //'proveedorProductos'
-        Proveedores.belongsToMany(models.Productos, { through: models.ProveedorProductos }); 
-
-        //Proveedores.sync({alter:true}); //{ force: true }
-
-    };
-
-   
-
     return Proveedores;
-
 };

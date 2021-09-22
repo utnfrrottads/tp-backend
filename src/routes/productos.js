@@ -15,7 +15,7 @@ module.exports = app => {
             }
             if (req.query.categoriaId) {
                 Object.assign(whereCondition, {
-                    CategoriaId: req.query.categoriaId
+                    categoriaId: req.query.categoriaId
                 });
             }
             if (req.query.requiereStock) {
@@ -25,26 +25,21 @@ module.exports = app => {
                     }
                 });
             }
-            // TODO: proveedores ???
             if (req.query.activo) {
                 Object.assign(whereCondition, {
                     activo: req.query.activo
                 });
             }
             let order = req.query.order ? req.query.order.split(",", 2) : [];
-            if (order && order[0] === 'Categoria.descripcion') {
-                order = [Sequelize.literal('"Categoria"."descripcion"'), order[1]];
+            if (order && order[0] === 'categoria.descripcion') {
+                order = [Sequelize.literal('"categoria"."descripcion"'), order[1]];
             }
             Productos.findAndCountAll({
                 where: whereCondition,
                 limit: req.query.limit,
                 offset: req.query.offset * req.query.limit,
                 order: [order],
-                include: [
-                    {
-                        model: Categorias,
-                    }
-                ]
+                include: [{ model: Categorias, as: 'categoria' }]
             })
                 .then(result => res.json(result))
                 .catch(error => {
@@ -53,14 +48,14 @@ module.exports = app => {
         })
         .post((req, res) => {
             req.body.activo = true;
-            Productos.create({ ...req.body, CategoriaId: req.body.categoriaId })
+            Productos.create({ ...req.body, categoriaId: req.body.categoriaId })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
                 });
         })
         .put((req, res) => {
-            Productos.update({ ...req.body, CategoriaId: req.body.categoriaId }, { where: { id: req.body.id } })
+            Productos.update({ ...req.body, categoriaId: req.body.categoriaId }, { where: { id: req.body.id } })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
@@ -71,9 +66,7 @@ module.exports = app => {
         .get((req, res) => {
             Productos.findOne({
                 where: req.params,
-                include: [
-                    { model: Categorias }
-                ]
+                include: [{ model: Categorias, as: 'categoria' }]
             })
                 .then(result => res.json(result))
                 .catch(error => {
