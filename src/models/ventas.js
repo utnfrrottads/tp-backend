@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataType)=>{
 
     const Ventas = sequelize.define('Ventas',{
-        idVenta:{
+        id:{
             type: DataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -11,18 +11,29 @@ module.exports = (sequelize, DataType)=>{
             defaultValue: 0
         },
         nomTarjeta:{
-            type: DataType.STRING
+            type: DataType.STRING,
+            allowNull: false
         },
         numTarjeta:{
-            type: DataType.STRING //,allowNull: false            
+            type: DataType.STRING,
+            allowNull: false
         },
-        cantCuotas:{ 
-            type: DataType.INTEGER
+        cantCuotas:{
+            type: DataType.INTEGER,
+            allowNull: false
         },
         fechaVenta:{
-            type: DataType.DATE  
+            type: DataType.DATE,
+            allowNull: false
+        },
+        activo: {
+            type: DataType.BOOLEAN,
+           allowNull: false
         }
 
+    },
+    {
+        timestamps: false
     });
 
     Ventas.hasAsociation = ()=>{
@@ -40,8 +51,8 @@ module.exports = (sequelize, DataType)=>{
         // Se utiliza belongsTO para que tenga la foranea del cliente
         Ventas.belongsTo(models.Clientes);
 
-        //Ventas.sync({alter: true}); //{ force: true }
-    
+        Ventas.sync();
+
 
     };
 

@@ -26,21 +26,20 @@ module.exports = (sequelize, DataType) =>{
         },
         direccion:{
             type:DataType.STRING,
-            allowNull: true
+            allowNull: false
         },
         tipoCliente:{
             type:DataType.STRING,
-<<<<<<< HEAD
             allowNull: false
         },
         activo: {
             type: DataType.BOOLEAN,
            allowNull: false
-=======
-            allowNull: true
->>>>>>> 607dcfb7955ad130e9857e8e845b88af28fbb8b0
         }
-    })
+    },
+    {
+        timestamps: false
+    });
 
     Clientes.hasAsociation = ()=>{
         return true;
@@ -56,7 +55,7 @@ module.exports = (sequelize, DataType) =>{
             }
         });
 
-       // Clientes.sync({alter: true});
+      //  Clientes.sync();
 
     };
 

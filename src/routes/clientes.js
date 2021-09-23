@@ -3,25 +3,6 @@ module.exports = app =>{
     const Clientes = app.db.models.Clientes;
     const Ventas = app.db.models.Ventas;
 
-    //TRAE TODOS LOS CLIENTES CON SUS VENTAS
-    app.route('/clientesventas')
-        .get((req,res)=>{
-            Clientes.findAll({include: Ventas})
-            .then(result => res.json(result))
-            .catch(error =>{
-                res.status(412).json({msg:error.message});
-            });
-        });
-          
-    //TRAE UN CLIENTE EN ESPECICO CON SUS VENTAS
-    app.route('/clientesventas/:dni')
-        .get((req,res)=>{
-            Clientes.findOne({ where:  req.params, include: Ventas})
-            .then(result => res.json(result))
-            .catch(error =>{
-                res.status(412).json({msg:error.message});
-            });
-        });
 
     app.route('/api/clientes')
 
@@ -37,9 +18,16 @@ module.exports = app =>{
               apellido: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('apellido')), 'LIKE', '%'+ req.query.apellido +'%')
             });
           }
-
-
-
+          if(req.query.direccion){
+            Object.assign(whereCondition, {
+              direccion: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('direccion')), 'LIKE', '%'+ req.query.direccion +'%')
+            });
+          }
+          if(req.query.tipoCliente){
+            Object.assign(whereCondition, {
+              tipoCliente: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('tipoCliente')), 'LIKE', '%'+ req.query.tipoCliente +'%')
+            });
+          }
           if (req.query.activo) {
               Object.assign(whereCondition, {
                   activo: req.query.activo
@@ -76,12 +64,9 @@ module.exports = app =>{
           })
         });
 
-<<<<<<< HEAD
+
 
     app.route('/api/clientes/:dni')
-=======
-    app.route('/clientes/:dni')
->>>>>>> 607dcfb7955ad130e9857e8e845b88af28fbb8b0
         .get((req,res)=>{
             Clientes.findOne({where: req.params})
             .then((result)=> {
@@ -100,4 +85,24 @@ module.exports = app =>{
             })
 
         })
+
+        //TRAE TODOS LOS CLIENTES CON SUS VENTAS
+        app.route('/clientesventas')
+            .get((req,res)=>{
+                Clientes.findAll({include: Ventas})
+                .then(result => res.json(result))
+                .catch(error =>{
+                    res.status(412).json({msg:error.message});
+                });
+            });
+
+        //TRAE UN CLIENTE EN ESPECICO CON SUS VENTAS
+        app.route('/clientesventas/:dni')
+            .get((req,res)=>{
+                Clientes.findOne({ where:  req.params, include: Ventas})
+                .then(result => res.json(result))
+                .catch(error =>{
+                    res.status(412).json({msg:error.message});
+                });
+            });
 }
