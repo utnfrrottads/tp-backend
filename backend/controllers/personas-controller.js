@@ -1,5 +1,5 @@
 const validator = require('validator');
-const asyncForEach = require('../sharedFunctions/asyncForEach');
+const asyncForEach = require('../utils/async-for-each');
 
 const { Op } = require("sequelize");
 const sequelize = require('../database/db-connection');
