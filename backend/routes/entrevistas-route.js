@@ -1,53 +1,48 @@
 const router = require('express').Router();
 const entrevistasController = require('../controllers/entrevistas-controller');
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     try {
-        await entrevistasController.createEntrevista(req.body);
-        res.status(200).json('Entrevista created successfully');
+        let entrevistas = await entrevistasController.createEntrevista(req.body);
+        res.status(201).json(entrevistas);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-
-
-router.put('/:id_entrevista', async (req, res) => {
+router.put('/:id_entrevista', async (req, res, next) => {
     try {
-        await entrevistasController.updateEntrevista(req.params.id_entrevista, req.body);
-        res.status(200).json('Entrevista updated successfully');
+        let entrevista = await entrevistasController.updateEntrevista(req.params.id_entrevista, req.body);
+        res.status(200).json(entrevista);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-
-
-router.delete('/:id_entrevista', async (req, res) => {
+router.delete('/:id_entrevista', async (req, res, next) => {
     try {
         await entrevistasController.deleteEntrevista(req.params.id_entrevista);
-        res.status(200).json('Entrevista deleted successfully');
+        res.status(204).send();
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-// Devuelve todas las entrevistas
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
     try {
-        const entrevistas = await entrevistasController.getEntrevistas();
-        res.status(200).json( entrevistas );
+        let entrevistas = await entrevistasController.getEntrevistas();
+        res.status(200).json(entrevistas);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-router.get('/:id_entrevista', async (req, res) => {
+router.get('/:id_entrevista', async (req, res, next) => {
     try {
-        const entrevista = await entrevistasController.getEntrevista(req.params.id_entrevista);
-        res.status(200).json( entrevista );
+        let entrevista = await entrevistasController.getEntrevista(req.params.id_entrevista);
+        res.status(200).json(entrevista);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
