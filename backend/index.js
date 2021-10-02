@@ -1,4 +1,5 @@
 const express = require('express');
+const errorHandler = require('./middleware/error-handler');
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -12,6 +13,8 @@ app.use(express.json());
 
 // Agregamos los endpoints a la API.
 app.use('/empresas', router_empresas);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log('Server running at ' + `http://localhost:${port}`.green);
