@@ -1,4 +1,5 @@
 const sequelize = require('../database/db-connection');
+const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
 const models = initModels(sequelize);
 
@@ -65,7 +66,21 @@ deleteEntrevista = async (id_entrevista) => {
     };
 };
 
-getEntrevistas = async () => {
+getEntrevistas = async (filtros) => {
+
+    const where = {};
+    if (filtros.descripcion) where.descripcion = { [Op.like]: '%' + filtros.descripcion + '%' };
+    if (filtros.fechaInicio && filtros.fechaFin) {
+    
+        // The date string should be in ISO format (YYYY-MM-DD or MM/DD/YYYY or YYYY-MM-DDTHH:MM:SSZ).
+        const fechaInicio = new Date(filtros.fechaInicio);
+        const fechaFin = new Date(filtros.fechaFin);
+        if (isNaN(fechaInicio.getTime()) || isNaN(fechaFin.getTime())) {
+            throw new Error("Formato de fecha inválido.");
+        }
+        where.fecha_hora = { [Op.between]: [fechaInicio, fechaFin] };
+    }
+
     const entrevistas = await models.entrevistas.findAll({
         include: [
             {
@@ -92,8 +107,8 @@ getEntrevistas = async () => {
                     model: models.empresas
                 }
             },
-
-        ]
+        ],
+        where: where
     });
 
     return entrevistas;

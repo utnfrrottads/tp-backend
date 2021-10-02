@@ -30,7 +30,7 @@ router.delete('/:id_entrevista', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     try {
-        let entrevistas = await entrevistasController.getEntrevistas();
+        let entrevistas = await entrevistasController.getEntrevistas(req.query);
         res.status(200).json(entrevistas);
     } catch (error) {
         next(error);
