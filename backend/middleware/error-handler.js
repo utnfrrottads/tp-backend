@@ -1,4 +1,4 @@
-const { ApiError, NotFoundError, AttributeMissingError, InvalidAttributeError } = require('../utils/api-error');
+const { ApiError, NotFoundError, AttributeMissingError, InvalidAttributeError, InvalidQueryError } = require('../utils/api-error');
 
 function errorHandler(err, req, res, next) {
     // Si el error recibido es desconocido, loggear y retornar temprano con un error 500.
@@ -12,7 +12,9 @@ function errorHandler(err, req, res, next) {
     console.error(err);
     if (err instanceof NotFoundError) {
         res.status(404).json(err);
-    } else if (err instanceof AttributeMissingError || err instanceof InvalidAttributeError) {
+    } else if (err instanceof AttributeMissingError
+        || err instanceof InvalidAttributeError
+        || err instanceof InvalidQueryError) {
         res.status(400).json(err);
     }
 }

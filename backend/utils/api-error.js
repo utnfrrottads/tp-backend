@@ -57,9 +57,26 @@ class InvalidAttributeError extends ApiError {
      * @param {string} validations[].attribute El atributo que tiene un valor incorrecto.
      * @param {string} validations[].detail La descripción del error que ocurrió.
      */
-    constructor(validations) {
+    constructor() {
         super('INVALID_ATTRIBUTE', 'Se ingresaron atributos con valores inválidos.');
-        this.validations = validations;
+        this.validations = [...arguments];
+    }
+}
+
+/**
+ * Error lanzado cuando la query de la petición tiene parámetros incorrectos.
+ */
+class InvalidQueryError extends ApiError {
+    /**
+     * @param {string} message El mensaje de validación.
+     * @param {string|string[]} params El o los parámetros de la query incorrectos.
+     */
+    constructor(message, params) {
+        if (typeof params === 'string') {
+            params = [params];
+        }
+        super('INVALID_QUERY', message);
+        this.params = params;
     }
 }
 
@@ -68,4 +85,5 @@ module.exports = {
     NotFoundError,
     AttributeMissingError,
     InvalidAttributeError,
+    InvalidQueryError,
 }
