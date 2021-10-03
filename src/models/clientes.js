@@ -28,8 +28,8 @@ module.exports = (sequelize, DataType) =>{
             type:DataType.STRING,
             allowNull: false
         },
-        tipoCliente:{
-            type:DataType.STRING,
+        esMayorista:{
+            type:DataType.BOOLEAN,
             allowNull: false
         },
         activo: {
@@ -55,7 +55,7 @@ module.exports = (sequelize, DataType) =>{
             }
         });
 
-      //  Clientes.sync();
+        // Clientes.sync({alter:true});
 
     };
 

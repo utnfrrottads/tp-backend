@@ -51,7 +51,7 @@ module.exports = (sequelize, DataType)=>{
         // Se utiliza belongsTO para que tenga la foranea del cliente
         Ventas.belongsTo(models.Clientes);
 
-        Ventas.sync();
+        //Ventas.sync();
 
 
     };

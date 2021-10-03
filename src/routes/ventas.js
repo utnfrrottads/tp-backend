@@ -83,29 +83,29 @@ module.exports = app =>{
 
         })
 
-            //MUESTRA DETALLE DE UNA VENTA EN ESPECIFICO
-            app.route('/api/detalle_ventas/:id')
-            .get((req,res)=>{
-                Ventas.findOne(
+      //MUESTRA DETALLE DE UNA VENTA EN ESPECIFICO
+    app.route('/api/detalle_ventas/:id')
+        .get((req,res)=>{
+            Ventas.findOne(
+                {
+                    where:  req.params,
+                    include: [
                     {
-                        where:  req.params,
-                        include: [
-                        {
-                            model: Items,
-                            include:{
-                                model: Productos
-                            }
-                        },
-                        {
-                            model: Clientes
+                        model: Items,
+                        include:{
+                            model: Productos
                         }
-                        ]
-                    })
-                .then(result=> res.json(result))
-                .catch(error=>{
-                    res.status(412).json({msg: error.message});
+                    },
+                    {
+                        model: Clientes
+                    }
+                    ]
                 })
+            .then(result=> res.json(result))
+            .catch(error=>{
+                res.status(412).json({msg: error.message});
             })
+        })
 
 
 }

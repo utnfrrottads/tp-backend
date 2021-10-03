@@ -48,7 +48,7 @@ module.exports = app => {
         })
         .post((req, res) => {
             req.body.activo = true;
-            Productos.create({ ...req.body, categoriaId: req.body.categoriaId })
+            Productos.create({...req.body, categoriaId: req.body.categoriaId })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });

@@ -8,6 +8,11 @@ module.exports = app =>{
 
         .get((req,res)=>{
           const whereCondition = {};
+          if(req.query.dni){
+            Object.assign(whereCondition, {
+              dni: Sequelize.where(Sequelize.col('dni'), 'LIKE', '%'+ req.query.dni +'%')
+            });
+          }
           if(req.query.nombre){
             Object.assign(whereCondition, {
               nombre: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nombre')), 'LIKE', '%'+ req.query.nombre +'%')
@@ -31,6 +36,11 @@ module.exports = app =>{
           if (req.query.activo) {
               Object.assign(whereCondition, {
                   activo: req.query.activo
+              });
+          }
+          if (req.query.esMayorista){
+              Object.assign(whereCondition,{
+                  esMayorista: req.query.esMayorista
               });
           }
 
@@ -85,24 +95,4 @@ module.exports = app =>{
             })
 
         })
-
-        //TRAE TODOS LOS CLIENTES CON SUS VENTAS
-        app.route('/clientesventas')
-            .get((req,res)=>{
-                Clientes.findAll({include: Ventas})
-                .then(result => res.json(result))
-                .catch(error =>{
-                    res.status(412).json({msg:error.message});
-                });
-            });
-
-        //TRAE UN CLIENTE EN ESPECICO CON SUS VENTAS
-        app.route('/clientesventas/:dni')
-            .get((req,res)=>{
-                Clientes.findOne({ where:  req.params, include: Ventas})
-                .then(result => res.json(result))
-                .catch(error =>{
-                    res.status(412).json({msg:error.message});
-                });
-            });
 }
