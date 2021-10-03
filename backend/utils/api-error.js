@@ -53,13 +53,15 @@ class AttributeMissingError extends ApiError {
  */
 class InvalidAttributeError extends ApiError {
     /**
-     * @param {object[]} validations Las validaciones que fallaron.
-     * @param {string} validations[].attribute El atributo que tiene un valor incorrecto.
-     * @param {string} validations[].detail La descripción del error que ocurrió.
+     * @param {string} message El mensaje de validación.
+     * @param {string|string[]} attr El o los atributos del incorrectos.
      */
-    constructor() {
-        super('INVALID_ATTRIBUTE', 'Se ingresaron atributos con valores inválidos.');
-        this.validations = [...arguments];
+    constructor(message, attr) {
+        if (typeof attr === 'string') {
+            attr = [attr];
+        }
+        super('INVALID_ATTRIBUTE', message);
+        this.attr = attr;
     }
 }
 
