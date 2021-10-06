@@ -16,14 +16,7 @@
         <p class="card-text"><strong>PostalCode:</strong> {{currentUser.postalCode}}.</p>
         <p class="card-text"><strong>Adress:</strong> {{currentUser.street}} {{currentUser.number}} {{currentUser.flat}}.</p>
         <p class="card-text"><strong>Phone:</strong> {{currentUser.phone}}.</p>
-        <p *ngIf="isAdmin" class="card-text"><strong>Es Empleado:</strong> {{currentUser.employee==true ? "Si" : "No"}}.</p>
-        <p *ngIf="isAdmin" class="card-text"><strong>Es Cliente:</strong> {{currentUser.client==true ? "Si" : "No"}}.</p>
-        <p *ngIf="isAdmin" class="card-text"><strong>Roles</strong></p>
-        <div *ngIf="isAdmin" class="card" style="width: 18rem;">
-          <ul class="list-group list-group-flush">
-            <li *ngFor="let role of currentRoles" class="list-group-item">{{role}}</li>
-          </ul>
-        </div>
+
       </div>
     </div>
   </div>
@@ -86,21 +79,6 @@
                   <div class="form-group">
                     <input type="number" class="form-control" formControlName="phone" placeholder="Teléfono">
                   </div>
-
-                  <div *ngIf="isAdmin" class="form-check form-switch">
-                    <label class="form-check-label" for="employee">Es empleado?</label>
-                    <input class="form-check-input" formControlName="employee" type="checkbox" id="employee">
-                  </div>
-
-                  <div *ngIf="isAdmin" class="form-check form-switch">
-                    <label class="form-check-label" for="client">Es cliente?</label>
-                    <input class="form-check-input" formControlName="client" type="checkbox" id="client">
-                  </div>
-
-                  <select *ngIf="roles && isAdmin" multiple formControlName="roles" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Seleccione los roles de usuario</option>
-                    <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
-                  </select>
                   
                   <br>
                   <button type="submit" (click)="onSubmit()" class="btn btn-primary">Actualizar</button>

@@ -65,7 +65,6 @@ export class ProductItemComponent implements OnInit {
   }
 
   showBranches(){
-    console.log('ad');
     if(this.mode === 'market'){
       this.branchPickerVisible = true;
     } else {
