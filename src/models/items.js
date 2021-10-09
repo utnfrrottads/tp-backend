@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataType)=>{
 
     const Items = sequelize.define('Items',{
-        idItem:{
+        id:{
             type: DataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -10,6 +10,9 @@ module.exports = (sequelize, DataType)=>{
             type: DataType.INTEGER,
             allowNull: true
         }
+    },
+    {
+        timestamps: false
     });
 
     Items.hasAsociation = ()=>{
@@ -23,7 +26,7 @@ module.exports = (sequelize, DataType)=>{
         //ASOCIACION CON PRODUCTOS
         Items.belongsTo(models.Productos);
 
-        //Items.sync({alter: true}); //{ force: true }
+        //Items.sync({force: true}); //{ force: true }
     
     };
 
