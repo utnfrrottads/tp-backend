@@ -24,9 +24,9 @@ module.exports = app =>{
                 dni: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('ClienteDni')), 'LIKE', '%'+req.query.dni+'%')
               });
             }
-            if (req.query.activo) {
+            if (req.query.activa) {
                 Object.assign(whereCondition, {
-                    activo: req.query.activo
+                    activa: req.query.activa
                 });
             }
             const order = req.query.order ? req.query.order.split(",",2) : [];
@@ -45,7 +45,7 @@ module.exports = app =>{
             });
         })
         .post((req,res)=>{
-            req.body.activo = true;
+            req.body.activa = true;
             Ventas.create(req.body)
             .then(result => res.json(result))
             .catch(error => {

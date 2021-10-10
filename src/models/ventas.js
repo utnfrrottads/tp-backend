@@ -26,7 +26,7 @@ module.exports = (sequelize, DataType)=>{
             type: DataType.DATE,
             allowNull: false
         },
-        activo: {
+        activa: {
             type: DataType.BOOLEAN,
            allowNull: false
         }
