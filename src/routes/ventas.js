@@ -60,7 +60,7 @@ module.exports = app =>{
             })
         })
 
-    app.route('/api/ventas/:id')
+    /*app.route('/api/ventas/:id')
         .get((req,res)=>{
             Ventas.findOne({
               where: req.params,
@@ -74,17 +74,10 @@ module.exports = app =>{
                 res.status(412).json({msg:error.message})
             })
         })
-        .delete((req,res) => {
-            Ventas.destroy({where: req.params})
-            .then(result=> res.sendStatus(204))
-            .catch(error => {
-                res.status(412).json({msg:error.message});
-            })
-
-        })
+        */
 
       //MUESTRA DETALLE DE UNA VENTA EN ESPECIFICO
-    app.route('/api/detalle_ventas/:id')
+    app.route('/api/ventas/:id')
         .get((req,res)=>{
             Ventas.findOne(
                 {
@@ -105,6 +98,14 @@ module.exports = app =>{
             .catch(error=>{
                 res.status(412).json({msg: error.message});
             })
+        })
+        .delete((req,res) => {
+            Ventas.destroy({where: req.params})
+                .then(result=> res.sendStatus(204))
+                .catch(error => {
+                    res.status(412).json({msg:error.message});
+                })
+
         })
 
 

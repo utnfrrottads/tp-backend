@@ -20,20 +20,20 @@ INSERT INTO public."Productos" (descripcion, stock, "cantidadMinima", activo, "c
 
 
 
-INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "tipoCliente", activo) VALUES (37830335, 'juan', 'perez', '4987648', 'Tucuma 002', 'minorista', true);
-INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "tipoCliente", activo) VALUES (40830336, 'juan', 'perez', '4982255', 'San Juan 222', 'minorista', true);
-INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "tipoCliente", activo) VALUES (40830333, 'Pedro', 'Rabo', '4982255', 'San Juan 222', 'minorista', false);
-INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "tipoCliente", activo) VALUES (40830993, 'Pepe', 'Ricardo', '4982255', 'San Juan 222', 'minorista', false);
+INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "esMayorista", activo) VALUES (37830335, 'juan', 'perez', '4987648', 'Tucuma 002', true, true);
+INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "esMayorista", activo) VALUES (40830336, 'juan', 'perez', '4982255', 'San Juan 222', false, true);
+INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "esMayorista", activo) VALUES (40830333, 'Pedro', 'Rabo', '4982255', 'San Juan 222', true, false);
+INSERT INTO public."Clientes" (dni, nombre, apellido, telefono, direccion, "esMayorista", activo) VALUES (40830993, 'Pepe', 'Ricardo', '4982255', 'San Juan 222', false, false);
 
 
 
 
-INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activo) VALUES (100, 'VISA', '1234', 6, 37830335, '2021-08-22 21:00:00-03', true);
-INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activo) VALUES (100, 'MASTERCARD', '1234', 6, 37830335, '2021-08-22 21:00:00-03', false);
-INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activo) VALUES (500, 'NARANJA', '8888', 6, 37830335, '2021-08-31 21:00:00-03', true);
-INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activo) VALUES (500, 'VISA', '8888', 18, 40830993, '2021-08-31 21:00:00-03', false);
-INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activo) VALUES (0, 'MASTERCARD', '8888', 6, 40830993, '2021-08-31 21:00:00-03', true);
-INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activo) VALUES (0, 'MASTERCARD', '7777', 1, 40830993, '2021-08-31 21:00:00-03', false);
+INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activa) VALUES (100, 'VISA', '1234', 6, 37830335, '2021-08-22 21:00:00-03', true);
+INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activa) VALUES (100, 'MASTERCARD', '1234', 6, 37830335, '2021-08-22 21:00:00-03', false);
+INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activa) VALUES (500, 'NARANJA', '8888', 6, 37830335, '2021-08-31 21:00:00-03', true);
+INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activa) VALUES (500, 'VISA', '8888', 18, 40830993, '2021-08-31 21:00:00-03', false);
+INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activa) VALUES (0, 'MASTERCARD', '8888', 6, 40830993, '2021-08-31 21:00:00-03', true);
+INSERT INTO public."Ventas" (total, "nomTarjeta", "numTarjeta", "cantCuotas", "ClienteDni", "fechaVenta", activa) VALUES (0, 'MASTERCARD', '7777', 1, 40830993, '2021-08-31 21:00:00-03', false);
 
 
 
