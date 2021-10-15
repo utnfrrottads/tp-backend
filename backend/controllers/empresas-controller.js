@@ -1,3 +1,5 @@
+const validator = require('validator');
+const asyncForEach = require("../utils/async-for-each");
 const { Op } = require("sequelize");
 const sequelize = require('../database/db-connection');
 const initModels = require('../models/init-models');
@@ -25,13 +27,24 @@ createEmpresa = async (data) => {
 };
 
 updateEmpresa = async (id, data) => {
+    checkMissingAttributes(
+        { data: data, attrs: ['cuit', 'razon_social'] },
+        { list: data.contactos, attrs: ['valor', 'tipoContacto'], prefix: 'contactos[]' }
+    );
     const transaction = await sequelize.transaction();
     try {
         let empresa = await models.empresas.update(data, {
             where: { id_empresa: id },
-            include: [{ model: models.contactos }],
-            transaction: transaction,
+            transaction: transaction
         });
+
+        await models.contactos.destroy({ 
+            where: {
+                empresas_id_empresa: id
+            }, transaction: transaction});
+
+        await addContact( data.contactos, id, transaction );
+
         transaction.commit();
         return empresa;
     } catch (error) {
@@ -75,6 +88,30 @@ getEmpresa = async (id) => {
         throw new NotFoundError(id, 'empresa');
     }
     return empresa;
+};
+
+/**
+ * Esta funcion crea los contactos de una empresa cuando esta última es modificada
+ */
+ const addContact = async ( contactos, id_empresa, transaction ) => {
+    try {
+        await asyncForEach( contactos, async (contacto) => {
+            if ( (contacto.tipoContacto === 'email' && validator.isEmail(contacto.valor)) ||
+                 (contacto.tipoContacto === 'web' && validator.isURL(contacto.valor)) ||
+                 (contacto.tipoContacto === 'telefono' && validator.isNumeric(contacto.valor)) ) {
+        
+                    await models.contactos.create({
+                        tipoContacto: contacto.tipoContacto,
+                        valor: contacto.valor,
+                        empresas_id_empresa: id_empresa,
+                        descripcion: contacto.descripcion }, { transaction: transaction });
+            } else {
+                throw new Error('Check contact_type or value field');
+            }
+        });
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = {

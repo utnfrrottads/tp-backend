@@ -1,6 +1,8 @@
+const asyncForEach = require("../utils/async-for-each");
 const sequelize = require('../database/db-connection');
 const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
+const checkMissingAttributes = require('../utils/check-missing-attrs');
 const { NotFoundError, InvalidQueryError } = require('../utils/api-error');
 const models = initModels(sequelize);
 
@@ -12,9 +14,8 @@ createEntrevista = async (body) => {
                 'descripcion',
                 'fecha_hora', 
                 'estado', 
-                'evaluadores_a_cargo_personas_id_evaluador', 
-                'evaluadores_a_cargo_especialidades_id_especialidad', 
                 'personas_id_candidato',
+                'personas_id_evaluador',
                 'vacantes_id_vacante'
             ]
         },
@@ -23,6 +24,15 @@ createEntrevista = async (body) => {
     const transaction = await sequelize.transaction();
     try {
         const entrevista = await models.entrevistas.create(body, { transaction: transaction });
+
+        await addEvaluation( body.ids_evaluaciones, entrevista.id_entrevista, transaction );
+
+        await models.vacantes.update({
+            estado: "evaluador asignado"
+        }, { where: {
+            id_vacante: body.vacantes_id_vacante
+        }, transaction: transaction });
+
         await transaction.commit();
         return entrevista;
     } catch (error) {
@@ -32,38 +42,55 @@ createEntrevista = async (body) => {
 };
 
 updateEntrevista = async (id_entrevista, body) => {
+    checkMissingAttributes(
+        { 
+            data: body, 
+            attrs: [
+                'descripcion',
+                'fecha_hora', 
+                'estado', 
+                'personas_id_candidato',
+                'personas_id_evaluador',
+                'vacantes_id_vacante'
+            ]
+        },
+    );
     const transaction = await sequelize.transaction();
     try {
         if (body.personas_id_candidato) {
-            const persona = await models.personas.findByPk(body.personas_id_candidato);
-            if (!persona) {
-                throw new NotFoundError(body.personas_id_candidato, 'persona');
+            const existe_persona_candidato = await models.personas.findByPk(body.personas_id_candidato);
+            if (!existe_persona_candidato) {
+                throw new NotFoundError(body.personas_id_candidato, 'persona_candidato');
             }
         }
         
+        if (body.personas_id_evaluador) {
+            const existe_persona_evaluador = await models.personas.findByPk(body.personas_id_evaluador);
+            if (!existe_persona_evaluador) {
+                throw new NotFoundError(body.personas_id_evaluador, 'persona_evaluador');
+            }
+        }
+
         if (body.vacantes_id_vacante) {
-            const vacante = await models.vacantes.findByPk(body.vacantes_id_vacante);
-            if (!vacante) {
+            const existe_vacante = await models.vacantes.findByPk(body.vacantes_id_vacante);
+            if (!existe_vacante) {
                 throw new NotFoundError(body.vacantes_id_vacante, 'vacante');
             }
         }
 
-        // TODO: Corregir clave primaria de evaluadores_a_cargo.
-        // if (body.evaluadores_a_cargo_personas_id_evaluador,body.evaluadores_a_cargo_especialidades_id_especialidad){
-        //     const evaluadores_a_cargo = await models.vacantes.findByPk(body.evaluadores_a_cargo_personas_id_evaluador,body.evaluadores_a_cargo_especialidades_id_especialidad);
-        //     if (!evaluadores_a_cargo) {
-        //         throw new NotFoundError(body.vacantes_id_vacante, 'evaluadores a cargo');
-        //     }
-        // }
+        if (id_entrevista) {
+            const existe_entrevista = await models.entrevistas.findByPk(id_entrevista);
+            if (!existe_entrevista) {
+                throw new NotFoundError(id_entrevista, 'entrevista');
+            }
+        }
 
         const entrevista = await models.entrevistas.update(body, {
             where: { id_entrevista: id_entrevista },
             transaction: transaction
         });
 
-        if (!entrevista) {
-            throw new NotFoundError(id_entrevista, 'entrevista');
-        }
+        await updateResults( body.resultados, id_entrevista, transaction );
 
         await transaction.commit();
         return entrevista;
@@ -77,7 +104,9 @@ updateEntrevista = async (id_entrevista, body) => {
 deleteEntrevista = async (id_entrevista) => {
     const transaction = await sequelize.transaction();
     try {
-        const entrevistaDeleted = await models.vacantes.destroy({
+        const entrevista = await models.entrevistas.findByPk(id_entrevista);
+
+        const entrevistaDeleted = await models.entrevistas.destroy({
             where: { id_entrevista: id_entrevista },
             transaction: transaction
         });
@@ -85,6 +114,12 @@ deleteEntrevista = async (id_entrevista) => {
         if (entrevistaDeleted === 0) {
             throw new NotFoundError(id_entrevista, 'entrevista');
         }
+
+        await models.vacantes.update({
+            estado: "pendiente de evaluador"
+        }, { where: {
+            id_vacante: entrevista.vacantes_id_vacante
+        }, transaction: transaction });
 
         await transaction.commit();
     } catch (error) {
@@ -94,7 +129,6 @@ deleteEntrevista = async (id_entrevista) => {
 };
 
 getEntrevistas = async (filtros) => {
-
     const where = {};
     if (filtros.descripcion) where.descripcion = { [Op.like]: '%' + filtros.descripcion + '%' };
     if (filtros.fechaInicio && filtros.fechaFin) {
@@ -109,11 +143,22 @@ getEntrevistas = async (filtros) => {
     const entrevistas = await models.entrevistas.findAll({
         include: [
             {
-                model: models.evaluadores_a_cargo,
-                
+                model: models.personas, as: 'persona_candidato',
+                include: {
+                    model: models.direcciones,
+                    include: {
+                        model: models.ciudades,
+                        include: {
+                            model: models.provincias,
+                            include: {
+                                model: models.paises
+                            }
+                        }
+                    }
+                }
             },
             {
-                model: models.personas,
+                model: models.personas, as: 'persona_evaluador',
                 include: {
                     model: models.direcciones,
                     include: {
@@ -133,6 +178,9 @@ getEntrevistas = async (filtros) => {
                     model: models.empresas
                 }
             },
+            {
+                model: models.evaluaciones,
+            }
         ],
         where: where
     });
@@ -141,18 +189,26 @@ getEntrevistas = async (filtros) => {
 };
 
 getEntrevista = async (id_entrevista) => {
-
     const entrevista = await models.entrevistas.findOne({
         where: { id_entrevista: id_entrevista },
         include: [
             {
-                model: models.evaluadores_a_cargo,
+                model: models.personas, as: 'persona_candidato',
                 include: {
-                    model: models.especialidades
+                    model: models.direcciones,
+                    include: {
+                        model: models.ciudades,
+                        include: {
+                            model: models.provincias,
+                            include: {
+                                model: models.paises
+                            }
+                        }
+                    }
                 }
             },
             {
-                model: models.personas,
+                model: models.personas, as: 'persona_evaluador',
                 include: {
                     model: models.direcciones,
                     include: {
@@ -172,6 +228,9 @@ getEntrevista = async (id_entrevista) => {
                     model: models.empresas
                 }
             },
+            {
+                model: models.evaluaciones,
+            }
         ]
     });
 
@@ -181,6 +240,43 @@ getEntrevista = async (id_entrevista) => {
 
     return entrevista;
 };
+
+const addEvaluation = async (ids_evaluaciones, id_entrevista, transaction) => {
+    try {
+        await asyncForEach( ids_evaluaciones, async (id_evaluacion) => {
+                await models.resultados.create({
+                    entrevistas_id_entrevista: id_entrevista,
+                    evaluaciones_id_evaluacion: id_evaluacion
+                }, { transaction: transaction });
+        });
+    } catch (error) {
+        throw error;
+    }
+};
+
+const updateResults = async (resultados, id_entrevista, transaction) => {
+    try {
+        await asyncForEach( resultados, async (resultado) => {
+            await models.resultados.upsert({
+                entrevistas_id_entrevista: id_entrevista,
+                evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion,
+                resultado_evaluacion: resultado.resultado_evaluacion,
+                comentario: resultado.comentario
+            }, { where: {
+                    [Op.and]: [
+                        { entrevistas_id_entrevista: id_entrevista },
+                        { evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion }
+                    ]
+                }, transaction: transaction });
+            });
+
+       
+
+    } catch (error) {
+        throw error;
+    }
+};
+
 
 module.exports = {
     getEntrevistas,

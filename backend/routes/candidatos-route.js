@@ -46,4 +46,15 @@ router.get('/', async (req, res) => {
 });
 
 
+// Devuelve un candidato y las entrevistas en la cuales participó
+router.get('/:id_candidato', async (req, res) => {
+    try {
+        const candidato = await candidatosController.getCandidato(req.params.id_candidato);
+        res.status(200).json(candidato);
+    } catch (error) {
+        res.status(400).json( error.message );
+    }
+});
+
+
 module.exports = router;

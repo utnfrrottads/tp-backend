@@ -23,23 +23,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(1023),
       allowNull: true
     },
-    evaluadores_a_cargo_personas_id_evaluador: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'evaluadores_a_cargo',
-        key: 'personas_id_evaluador'
-      }
-    },
-    evaluadores_a_cargo_especialidades_id_especialidad: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'evaluadores_a_cargo',
-        key: 'especialidades_id_especialidad'
-      }
-    },
     personas_id_candidato: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'personas',
+        key: 'id_persona'
+      }
+    },
+    personas_id_evaluador: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -69,14 +61,6 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_entrevistas_evaluadores_a_cargo1_idx",
-        using: "BTREE",
-        fields: [
-          { name: "evaluadores_a_cargo_personas_id_evaluador" },
-          { name: "evaluadores_a_cargo_especialidades_id_especialidad" },
-        ]
-      },
-      {
         name: "fk_entrevistas_personas1_idx",
         using: "BTREE",
         fields: [
@@ -88,6 +72,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "vacantes_id_vacante" },
+        ]
+      },
+      {
+        name: "fk_entrevistas_personas_idx",
+        using: "BTREE",
+        fields: [
+          { name: "personas_id_evaluador" },
         ]
       },
     ]
