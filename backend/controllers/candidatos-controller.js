@@ -1,68 +1,58 @@
-const {Op} = require("sequelize");
+const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
 const sequelize = require('../database/db-connection');
+const { NotFoundError } = require("../utils/api-error");
 const models = initModels(sequelize);
 
 
 getCandidatos = async () => {
-    try {
-        const candidatos = await models.personas.findAll({
-            include:[
-                { 
-                    model: models.direcciones,
+    return await models.personas.findAll({
+        include:[
+            { 
+                model: models.direcciones,
+                include: {
+                    model: models.ciudades,
                     include: {
-                        model: models.ciudades,
+                        model: models.provincias,
                         include: {
-                            model: models.provincias,
-                            include: {
-                                model: models.paises
-                            }
+                            model: models.paises
                         }
                     }
-                },
-                { model: models.contactos },
-                { model: models.experiencias }
-            ],
-            where: {
-                tipo_persona: 'candidato'
-            }
-        });    
-
-        return candidatos;
-
-    } catch ( error ) {
-        throw error;
-    }
+                }
+            },
+            { model: models.contactos },
+            { model: models.experiencias }
+        ],
+        where: {
+            tipo_persona: 'candidato'
+        }
+    });    
 };
 
 getCandidato = async (id_candidato) => {
-    try {
-        const candidato = await models.personas.findOne({
-            include:[
-                { model: models.contactos },
-                { model: models.experiencias },
-                { 
-                    model: models.entrevistas, as: 'entrevistas_candidato',
-                    include: {
-                        model: models.evaluaciones
-                    }
-                }
-            ],
-            where: {
-                [Op.and]: {
-                    id_persona: id_candidato,
-                    tipo_persona: 'candidato'
-                }
+    const candidato = await models.personas.findOne({
+        include: [
+            { model: models.contactos },
+            { model: models.experiencias },
+            { 
+                model: models.entrevistas, as: 'entrevistas_candidato',
+                include: { model: models.evaluaciones }
             }
-        });    
+        ],
+        where: {
+            [Op.and]: {
+                id_persona: id_candidato,
+                tipo_persona: 'candidato'
+            }
+        }
+    });    
 
-        return candidato;
-
-    } catch ( error ) {
-        throw error;
+    if (candidato === null) {
+        throw new NotFoundError(id_candidato, 'candidato');
     }
-};
 
+    return candidato;
+};
 
 module.exports = {
     getCandidatos,

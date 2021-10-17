@@ -16,7 +16,7 @@ createEntrevista = async (body) => {
                 'estado', 
                 'personas_id_candidato',
                 'personas_id_evaluador',
-                'vacantes_id_vacante'
+                'vacantes_id_vacante',
             ]
         },
     );
@@ -28,10 +28,11 @@ createEntrevista = async (body) => {
         await addEvaluation( body.ids_evaluaciones, entrevista.id_entrevista, transaction );
 
         await models.vacantes.update({
-            estado: "evaluador asignado"
-        }, { where: {
-            id_vacante: body.vacantes_id_vacante
-        }, transaction: transaction });
+            estado: 'evaluador asignado',
+        }, {
+            where: { id_vacante: body.vacantes_id_vacante },
+            transaction: transaction,
+        });
 
         await transaction.commit();
         return entrevista;
@@ -51,7 +52,7 @@ updateEntrevista = async (id_entrevista, body) => {
                 'estado', 
                 'personas_id_candidato',
                 'personas_id_evaluador',
-                'vacantes_id_vacante'
+                'vacantes_id_vacante',
             ]
         },
     );
@@ -106,20 +107,21 @@ deleteEntrevista = async (id_entrevista) => {
     try {
         const entrevista = await models.entrevistas.findByPk(id_entrevista);
 
-        const entrevistaDeleted = await models.entrevistas.destroy({
-            where: { id_entrevista: id_entrevista },
-            transaction: transaction
-        });
-
-        if (entrevistaDeleted === 0) {
+        if (entrevista <= 0) {
             throw new NotFoundError(id_entrevista, 'entrevista');
         }
 
         await models.vacantes.update({
-            estado: "pendiente de evaluador"
-        }, { where: {
-            id_vacante: entrevista.vacantes_id_vacante
-        }, transaction: transaction });
+            estado: 'pendiente de evaluador',
+        }, {
+            where: { id_vacante: entrevista.vacantes_id_vacante },
+            transaction: transaction,
+        });
+
+        await models.entrevistas.destroy({
+            where: { id_entrevista: id_entrevista },
+            transaction: transaction
+        });
 
         await transaction.commit();
     } catch (error) {
@@ -242,41 +244,30 @@ getEntrevista = async (id_entrevista) => {
 };
 
 const addEvaluation = async (ids_evaluaciones, id_entrevista, transaction) => {
-    try {
-        await asyncForEach( ids_evaluaciones, async (id_evaluacion) => {
-                await models.resultados.create({
-                    entrevistas_id_entrevista: id_entrevista,
-                    evaluaciones_id_evaluacion: id_evaluacion
-                }, { transaction: transaction });
-        });
-    } catch (error) {
-        throw error;
-    }
+    await asyncForEach( ids_evaluaciones, async (id_evaluacion) => {
+            await models.resultados.create({
+                entrevistas_id_entrevista: id_entrevista,
+                evaluaciones_id_evaluacion: id_evaluacion
+            }, { transaction: transaction });
+    });
 };
 
 const updateResults = async (resultados, id_entrevista, transaction) => {
-    try {
-        await asyncForEach( resultados, async (resultado) => {
-            await models.resultados.upsert({
-                entrevistas_id_entrevista: id_entrevista,
-                evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion,
-                resultado_evaluacion: resultado.resultado_evaluacion,
-                comentario: resultado.comentario
-            }, { where: {
-                    [Op.and]: [
-                        { entrevistas_id_entrevista: id_entrevista },
-                        { evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion }
-                    ]
-                }, transaction: transaction });
-            });
-
-       
-
-    } catch (error) {
-        throw error;
-    }
+    await asyncForEach(resultados, async (resultado) => {
+        await models.resultados.upsert({
+            entrevistas_id_entrevista: id_entrevista,
+            evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion,
+            resultado_evaluacion: resultado.resultado_evaluacion,
+            comentario: resultado.comentario
+        }, { where: {
+                [Op.and]: [
+                    { entrevistas_id_entrevista: id_entrevista },
+                    { evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion }
+                ]
+            }, transaction: transaction
+        });
+    });
 };
-
 
 module.exports = {
     getEntrevistas,
