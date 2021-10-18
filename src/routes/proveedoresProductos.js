@@ -5,9 +5,18 @@ module.exports = app =>{
 
 
 
-    app.route('/propros')
+    app.route('/api/provedoresproductos')
     .get((req,res)=>{
-        ProveedorProductos.findAll({}) 
+        ProveedorProductos.findAll({
+            include: [
+                {
+                    model: Productos
+                },
+                {
+                    model: Proveedores, as: 'Proveedor'
+                }
+            ]
+        })
         .then(result=> res.json(result))
         .catch(error=>{
             res.status(412).json({msg: error.message});

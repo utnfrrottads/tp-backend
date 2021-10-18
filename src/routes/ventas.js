@@ -1,18 +1,19 @@
+const {Sequelize} = require("sequelize");
 module.exports = app =>{
 
     const Ventas = app.db.models.Ventas;
     const Items = app.db.models.Items;
     const Clientes = app.db.models.Clientes;
     const Productos = app.db.models.Productos;
-    const Sequelize = require("sequelize");
-
+    const {Sequelize, Op} = require("sequelize");
+    let col = null;
+    let valor = null;
     app.route('/api/ventas')
         .get((req,res)=>{
             const whereCondition = {};
             if(req.query.nom_tarjeta){
-              Object.assign(whereCondition,{
-                nom_tarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')), 'LIKE', '%'+req.query.nom_tarjeta+'%')
-              });
+                col = Sequelize.col('nomTarjeta');
+                valor = req.query.nom_tarjeta;
             }
             if(req.query.num_tarjeta){
               Object.assign(whereCondition,{
@@ -32,7 +33,8 @@ module.exports = app =>{
             const order = req.query.order ? req.query.order.split(",",2) : [];
 
             Ventas.findAndCountAll({
-              where: whereCondition,
+              where: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')),Op.like,`%${valor}%`)
+              ,
               limit: req.query.limit,
               offset: req.query.offset * req.query.limit,
               order: [order],

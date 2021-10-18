@@ -23,13 +23,19 @@ module.exports = (sequelize, DataType)=>{
     );
 
     ProveedorProductos.hasAsociation = ()=>{
-        return false;
+        return true;
     }
 
     ProveedorProductos.associate = (models) =>{
 
-        //ProveedorProductos.sync({alter: true}) //alter { force: true }
- 
+
+
+        ProveedorProductos.belongsTo(models.Productos);
+
+        ProveedorProductos.belongsTo(models.Proveedores, { as: 'Proveedor' });
+
+        //ProveedorProductos.sync({force: true}) //alter { force: true }
+
     }
 
     return ProveedorProductos;
