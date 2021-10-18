@@ -18,7 +18,7 @@ module.exports = app => {
                     categoriaId: req.query.categoriaId
                 });
             }
-            if (req.query.requiereStock) {
+            if (req.query.stock) {
                 Object.assign(whereCondition, {
                     stock: {
                         [Op.lt]: Sequelize.col('cantidadMinima')

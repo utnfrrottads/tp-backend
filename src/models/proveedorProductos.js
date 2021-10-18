@@ -15,7 +15,10 @@ module.exports = (sequelize, DataType)=>{
         precio:{
             type: DataType.REAL,
             allowNull: false
-        } 
+        },
+        activo:{
+            type: DataType.BOOLEAN
+        }
     },
     {
         timestamps: false

@@ -5,9 +5,16 @@ module.exports = app =>{
 
 
 
+
     app.route('/api/provedoresproductos')
     .get((req,res)=>{
-        ProveedorProductos.findAll({
+
+        const order = req.query.order ? req.query.order.split(",",2) : [];
+
+        ProveedorProductos.findAndCountAll({
+            limit: req.query.limit,
+            offset: req.query.offset * req.query.limit,
+            order: [order],
             include: [
                 {
                     model: Productos
@@ -23,47 +30,49 @@ module.exports = app =>{
         });
     })
     .post((req,res)=>{
+        req.body.activo = true;
         ProveedorProductos.create(req.body)
             .then(result => res.json(result))
             .catch(error => {
                 res.status(412).json({msg: error});
             });
     })
+    .put((req,res)=>{
+        ProveedorProductos.update(req.body, {where: {id:req.body.id}})
+             .then(result => res.sendStatus(204))
+             .catch(error =>{
+                 res.status(412).json({msg:error.message});
+            })
+    })
     ;
 
-    app.route('/propro/:idProd')
-        .post((req,res)=>{
-            Productos.findOne({where: req.params})
-            .then((producto)=>{
-                console.log(`Parametro de prod: ${req.params.idProd} parametro de prov: ${req.body.idProv}`);
-                //res.json(result);
-                Proveedores.findOne({where: req.body.idProv})
-                .then((proveedor)=>{
-                   producto.addProveedores(proveedor);
-                   res.send(`Producto: ${producto} y Proveedor: ${proveedor} agregados`)
-                })
-                .catch(error =>{
-                    res.status(412).json({msg:error.message})
-                })
+    app.route('/api/provedoresproductos/:id')
+        .get((req, res)=>{
+            ProveedorProductos.findOne({
+                    where: req.params,
+                    include: [
+                        {
+                            model: Productos
+                        },
+                        {
+                            model: Proveedores, as: 'Proveedor'
+                        }
+                    ]
             })
-            .catch(error =>{
-                res.status(412).json({msg:error.message})
-            })
-            
+                .then(result => res.json(result))
+                .catch(err =>{
+                    res.status(412).json({msg: err.message});
+                })
         })
-//ESTA QUERY NO ES NECESARIA PERO PODRIA SERVIR PARA OTRA OCASION
-        app.route('/propro')
-        .get((req,res)=>{
-            Productos.findAll({
-                include:{
-                    model: Proveedores,
-                    required: true
-                }
-            })
-            .then(result=> res.json(result))
-            .catch(error=>{
-                res.status(412).json({msg: error.message});
-            });
-        });
+        .delete((req,res) => {
+            ProveedorProductos.destroy({where: req.params})
+                .then(result=> res.sendStatus(204))
+                .catch(error => {
+                    res.status(412).json({msg:error.message});
+                })
+
+        })
+
+
 
 }
