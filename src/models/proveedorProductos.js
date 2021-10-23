@@ -15,7 +15,10 @@ module.exports = (sequelize, DataType)=>{
         precio:{
             type: DataType.REAL,
             allowNull: false
-        } 
+        },
+        activo:{
+            type: DataType.BOOLEAN
+        }
     },
     {
         timestamps: false
@@ -23,13 +26,19 @@ module.exports = (sequelize, DataType)=>{
     );
 
     ProveedorProductos.hasAsociation = ()=>{
-        return false;
+        return true;
     }
 
     ProveedorProductos.associate = (models) =>{
 
-        //ProveedorProductos.sync({alter: true}) //alter { force: true }
- 
+
+        // SE USA belongTo para que agregue la foranea en este modelo
+        ProveedorProductos.belongsTo(models.Productos);
+
+        ProveedorProductos.belongsTo(models.Proveedores, { as: 'Proveedor' });
+
+        //ProveedorProductos.sync({force: true}) //alter { force: true }
+
     }
 
     return ProveedorProductos;
