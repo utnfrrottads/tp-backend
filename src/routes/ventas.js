@@ -12,8 +12,9 @@ module.exports = app =>{
         .get((req,res)=>{
             const whereCondition = {};
             if(req.query.nom_tarjeta){
-                col = Sequelize.col('nomTarjeta');
-                valor = req.query.nom_tarjeta;
+                Object.assign(whereCondition,{
+                    nom_tarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')), 'LIKE', '%'+req.query.nom_tarjeta+'%')
+                });
             }
             if(req.query.num_tarjeta){
               Object.assign(whereCondition,{
@@ -33,12 +34,11 @@ module.exports = app =>{
             const order = req.query.order ? req.query.order.split(",",2) : [];
 
             Ventas.findAndCountAll({
-              where: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')),Op.like,`%${valor}%`)
-              ,
-              limit: req.query.limit,
-              offset: req.query.offset * req.query.limit,
-              order: [order],
-              include: Clientes
+                where: whereCondition,
+                limit: req.query.limit,
+                offset: req.query.offset * req.query.limit,
+                order: [order],
+                include: Clientes
             })
 
             .then(result => {res.json(result)})

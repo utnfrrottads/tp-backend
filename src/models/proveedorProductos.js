@@ -32,7 +32,7 @@ module.exports = (sequelize, DataType)=>{
     ProveedorProductos.associate = (models) =>{
 
 
-
+        // SE USA belongTo para que agregue la foranea en este modelo
         ProveedorProductos.belongsTo(models.Productos);
 
         ProveedorProductos.belongsTo(models.Proveedores, { as: 'Proveedor' });
