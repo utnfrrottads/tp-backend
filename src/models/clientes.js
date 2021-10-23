@@ -34,7 +34,7 @@ module.exports = (sequelize, DataType) =>{
         },
         activo: {
             type: DataType.BOOLEAN,
-           allowNull: false
+            allowNull: false
         }
     },
     {
