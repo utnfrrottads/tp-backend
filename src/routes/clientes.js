@@ -4,7 +4,7 @@ module.exports = app =>{
     const Ventas = app.db.models.Ventas;
 
 
-    app.route('/api/clientes')
+    app.route('/api/cliente')
 
         .get((req,res)=>{
           const whereCondition = {};

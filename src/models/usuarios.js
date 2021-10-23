@@ -10,7 +10,8 @@ module.exports = (sequelize, DataType) =>{
             allowNull: false,
             validate:{
                 notEmpty: true
-            }
+            },
+            unique: true
         },
         password:{
             type: DataType.STRING,
@@ -20,11 +21,7 @@ module.exports = (sequelize, DataType) =>{
             }
         },
         rol:{
-            type: DataType.STRING,
-            allowNull: false,
-            validate:{
-                notEmpty: true
-            }
+            type: DataType.STRING
         },
         activo:{
             type: DataType.BOOLEAN,
@@ -36,6 +33,10 @@ module.exports = (sequelize, DataType) =>{
 
     Usuarios.hasAsociation = ()=>{
         return false;
+    }
+
+    Usuarios.associate = (models)=>{
+        //Usuarios.sync({force:true});
     }
 
     return Usuarios;
