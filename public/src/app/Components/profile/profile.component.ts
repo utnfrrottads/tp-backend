@@ -57,8 +57,7 @@ export class ProfileComponent implements OnInit {
       roles: [null],
     });
 
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+    this.currentUser = userService.getCurrentUser();
 }
 
 

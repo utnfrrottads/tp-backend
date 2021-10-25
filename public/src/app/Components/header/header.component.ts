@@ -32,8 +32,7 @@ export class HeaderComponent {
     private roleService: RoleService, 
     private saleService: SaleService) { 
     this.href= this.router.url;
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+    this.currentUser = userService.getCurrentUser();
     if(this.currentUser.employee){
 
       let roleIds = this.currentUser.roles;
@@ -75,8 +74,7 @@ export class HeaderComponent {
   createSale(){
     var sale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
     if(sale.client == ''){
-      var user = localStorage.getItem('CurrentUser') || JSON.stringify(new User())
-      var currentUser = JSON.parse(user) 
+      var currentUser = this.userService.getCurrentUser(); 
       
       var param = 
       {

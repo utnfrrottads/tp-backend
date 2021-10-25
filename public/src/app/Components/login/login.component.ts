@@ -28,8 +28,7 @@ export class LoginComponent {
     private toastr: ToastrService, 
     private userService: UserService, 
     private router: Router) { 
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+    this.currentUser = userService.getCurrentUser();
   }
 
   logoutUser() {

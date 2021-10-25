@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/Models/user';
+import { UserService } from 'src/app/Services/user.service'
 
 @Component({
   selector: 'app-main',
@@ -10,8 +11,9 @@ export class MainComponent {
 
   public currentUser: User
 
-  constructor() {
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+  constructor(
+    private userService : UserService
+  ) {
+    this.currentUser = userService.getCurrentUser();
   }
 }

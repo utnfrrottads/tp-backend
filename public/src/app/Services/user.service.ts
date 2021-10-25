@@ -28,6 +28,13 @@ export class UserService {
     return this.http.post(url, JSON.parse(login));
   }
 
+  getCurrentUser(){
+    let currentUser: User;
+    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
+    currentUser = JSON.parse(string)
+    return currentUser;
+  }
+
   logoutUser() {
     localStorage.removeItem('CurrentUser')
   }

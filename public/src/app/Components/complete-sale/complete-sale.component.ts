@@ -6,6 +6,7 @@ import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ToastrService } from 'ngx-toastr'
 import { SaleService } from 'src/app/Services/sale.service';
+import { UserService } from 'src/app/Services/user.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
@@ -42,11 +43,11 @@ export class CompleteSaleComponent {
     private saleService: SaleService,
     private toastr: ToastrService,
     private articleService: ArticleService, 
-    private branchService: BranchService) {
+    private branchService: BranchService,
+    private userService: UserService) {
     this.cartArticle = [] 
     this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+    this.currentUser = userService.getCurrentUser()
     this.mapCartItem()
    }
 
