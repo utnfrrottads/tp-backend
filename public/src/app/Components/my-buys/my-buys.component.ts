@@ -41,7 +41,7 @@ export class MyBuysComponent{
    }
 
   getSales(){
-    var CurrentUser = this.userService.getCurrentUser();
+    let CurrentUser = this.userService.getCurrentUser();
     this.saleService.getSalesByUser(CurrentUser._id).subscribe(res => {
       this.myBuys = res as Array<Sale>
     })
@@ -52,8 +52,8 @@ export class MyBuysComponent{
     this.cartArticle = []
     this.consultedSale.cart.forEach(item => {
       this.productService.getProduct(item.product).subscribe(res => { 
-        var prod = res as Product
-        var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
+        let prod = res as Product
+        let cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
         this.articleService.getArticle(prod.article).subscribe(res => {
           cartItem.article = res as Article
         })

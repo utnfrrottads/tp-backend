@@ -72,11 +72,11 @@ export class HeaderComponent {
   }
 
   createSale(){
-    var sale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
+    let sale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
     if(sale.client == ''){
-      var currentUser = this.userService.getCurrentUser(); 
+      let currentUser = this.userService.getCurrentUser(); 
       
-      var param = 
+      let param = 
       {
         client: currentUser._id,
         cart:[],
@@ -85,7 +85,7 @@ export class HeaderComponent {
       
       this.saleService.getNextTransNumber().subscribe(res => {
         param.transactionNumber = res as number
-        var currentSale = new Sale(param)
+        let currentSale = new Sale(param)
         localStorage.setItem('CurrentSale', JSON.stringify(currentSale))
       })
     }

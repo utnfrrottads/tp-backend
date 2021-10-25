@@ -96,7 +96,7 @@ export class AddArticleComponent implements OnInit{
     this.notesService.getAll().subscribe((notes: any) => {
       this.notes = notes;
     });
-    var index = this.notes.indexOf({_id: '', name: ''})
+    let index = this.notes.indexOf({_id: '', name: ''})
     if(index > -1){
       this.notes.slice(index, 1)
     }

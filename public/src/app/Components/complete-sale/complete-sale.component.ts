@@ -57,8 +57,8 @@ export class CompleteSaleComponent {
     this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
     this.currentSale.cart.forEach(item => {
       this.productService.getProduct(item.product).subscribe(res => { 
-        var prod = res as Product
-        var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
+        let prod = res as Product
+        let cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
         this.articleService.getArticle(prod.article).subscribe(res => {
           cartItem.article = res as Article
           this.updatePrice(cartItem.article.prices[0].price, item.quantity)

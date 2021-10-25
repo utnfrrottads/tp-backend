@@ -21,16 +21,16 @@ export class UserService {
 
   loginUser(username: string, password: string){
     console.log(this.API_URL)
-    var login =`{"username": "${username}", "password":"${password}"}`;
+    let login =`{"username": "${username}", "password":"${password}"}`;
 
-    var url = this.API_URL + 'login';
+    let url = this.API_URL + 'login';
 
     return this.http.post(url, JSON.parse(login));
   }
 
   getCurrentUser(){
     let currentUser: User;
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
+    let string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
     currentUser = JSON.parse(string)
     return currentUser;
   }
