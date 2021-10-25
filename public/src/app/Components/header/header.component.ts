@@ -72,7 +72,7 @@ export class HeaderComponent {
   }
 
   createSale(){
-    let sale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
+    let sale = this.saleService.getCurrentSale();
     if(sale.client == ''){
       let currentUser = this.userService.getCurrentUser(); 
       

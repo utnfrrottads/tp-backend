@@ -46,7 +46,7 @@ export class CompleteSaleComponent {
     private branchService: BranchService,
     private userService: UserService) {
     this.cartArticle = [] 
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+    this.currentSale = saleService.getCurrentSale()
     this.currentUser = userService.getCurrentUser()
     this.mapCartItem()
    }
@@ -54,7 +54,7 @@ export class CompleteSaleComponent {
   mapCartItem(){
     this.totalPrice = 0
     this.cartArticle = []
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+    this.currentSale = this.saleService.getCurrentSale();
     this.currentSale.cart.forEach(item => {
       this.productService.getProduct(item.product).subscribe(res => { 
         let prod = res as Product
@@ -87,7 +87,7 @@ export class CompleteSaleComponent {
     }
 
   confirmSale(postalCode: string, street: string, number: string){
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+    this.currentSale = this.saleService.getCurrentSale();
     this.currentSale.number = number
     this.currentSale.street = street
     this.currentSale.postalCode = postalCode

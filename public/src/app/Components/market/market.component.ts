@@ -7,10 +7,12 @@ import { ToastrService } from 'ngx-toastr'
 import { Sale } from 'src/app/Models/sale';
 import { CartItem } from 'src/app/Models/cart-item';
 import { BranchService } from 'src/app/Services/branch.service';
+import { SaleService } from 'src/app/Services/sale.service';
 import { Branch } from 'src/app/Models/branch';
 import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
+
 
 
 export interface MyCartItem {
@@ -54,10 +56,11 @@ export class MarketComponent implements OnInit {
     public articleService: ArticleService, 
     private branchService: BranchService ,
     public noteService: NoteService, 
-    private toastr: ToastrService) 
+    private toastr: ToastrService,
+    private saleService: SaleService) 
   {
       this.cartArticle = [] 
-      this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+      this.currentSale = saleService.getCurrentSale();
   }
 
   ngOnInit(): void {
@@ -153,7 +156,7 @@ export class MarketComponent implements OnInit {
   }
 
   addArticle(e: any){
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+    this.currentSale = this.saleService.getCurrentSale();
     let id = -1
     this.currentSale.cart.forEach((item, index) => {
       if(e.prod == item.product){
@@ -176,7 +179,7 @@ export class MarketComponent implements OnInit {
   }
 
   updateQty(e:any) {
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
+    this.currentSale = this.saleService.getCurrentSale();
     this.currentSale.cart.forEach(item => {
       if(item.product == e.prod){
         item.quantity = e.qty
@@ -189,7 +192,7 @@ export class MarketComponent implements OnInit {
   }
 
   deleteItem(e: any){
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
+    this.currentSale = this.saleService.getCurrentSale();
     this.currentSale.cart.forEach((item, index) => {
       if(item.product == e._id){
         this.currentSale.cart.splice(index, 1)
@@ -203,7 +206,7 @@ export class MarketComponent implements OnInit {
 
   mapCartItems(){
     this.totalPrice = 0
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({cart: []})))
+    this.currentSale = this.saleService.getCurrentSale();
     this.cartArticle = []
     if(this.currentSale.cart.length !== 0){
       this.currentSale.cart.forEach(item => {
@@ -229,7 +232,7 @@ export class MarketComponent implements OnInit {
   }
 
   finishSale() {
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({}))) 
+    this.currentSale = this.saleService.getCurrentSale();
     
     if(this.currentSale.cart.length < 1){
       this.toastr.error('Debe agregar items al carrito', 'Error')

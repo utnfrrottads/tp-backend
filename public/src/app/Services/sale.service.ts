@@ -47,4 +47,10 @@ export class SaleService {
     return this.http.get(`${this.API_URL}Number/GetNumber`)
    }
 
+   getCurrentSale(){
+    let sale: Sale;
+    sale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})));
+    return sale
+   }
+
 }
