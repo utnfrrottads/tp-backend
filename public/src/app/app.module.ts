@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
@@ -29,6 +29,7 @@ import { AddUserComponent } from './Components/users/add/add.component';
 import { CompleteSaleComponent } from './Components/complete-sale/complete-sale.component';
 import { MyBuysComponent } from './Components/my-buys/my-buys.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 @NgModule({
@@ -67,7 +68,13 @@ BrowserModule,
       preventDuplicates: true
     }), // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

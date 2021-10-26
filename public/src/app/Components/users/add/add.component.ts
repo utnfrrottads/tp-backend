@@ -45,7 +45,7 @@ export class AddUserComponent implements OnInit{
       phone: ['', Validators.required],  
       employee: [false, Validators.required],  
       client: [false, Validators.required],  
-      roles: [null, [Validators.required]],
+      roles: [null],
     });
   }
   
