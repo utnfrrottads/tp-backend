@@ -8,6 +8,7 @@ import { SaleService } from 'src/app/Services/sale.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
+import { UserService } from 'src/app/Services/user.service'
 
 export interface MyCartItem {
   article: Article;
@@ -30,7 +31,8 @@ export class MyBuysComponent{
     private productService: ProductService,
     private articleService: ArticleService,
     private branchService: BranchService,
-    private saleService: SaleService) 
+    private saleService: SaleService,
+    private userService: UserService) 
   {
     this.getSales()
     this.myBuys = []
@@ -39,7 +41,7 @@ export class MyBuysComponent{
    }
 
   getSales(){
-    var CurrentUser = JSON.parse(localStorage.getItem('CurrentUser') || JSON.stringify(new User()));
+    let CurrentUser = this.userService.getCurrentUser();
     this.saleService.getSalesByUser(CurrentUser._id).subscribe(res => {
       this.myBuys = res as Array<Sale>
     })
@@ -50,8 +52,8 @@ export class MyBuysComponent{
     this.cartArticle = []
     this.consultedSale.cart.forEach(item => {
       this.productService.getProduct(item.product).subscribe(res => { 
-        var prod = res as Product
-        var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
+        let prod = res as Product
+        let cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
         this.articleService.getArticle(prod.article).subscribe(res => {
           cartItem.article = res as Article
         })

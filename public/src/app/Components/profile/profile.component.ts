@@ -57,8 +57,7 @@ export class ProfileComponent implements OnInit {
       roles: [null],
     });
 
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+    this.currentUser = userService.getCurrentUser();
 }
 
 
@@ -88,7 +87,7 @@ export class ProfileComponent implements OnInit {
     });
 
     this.rolesService.getRoleID('Administrador').subscribe(res => {
-        var adminID = res as string
+        let adminID = res as string
         if(this.currentUser.roles.includes(adminID)){
           this.isAdmin=true
         } else{
@@ -171,7 +170,7 @@ export class ProfileComponent implements OnInit {
     this.rolesService.getAll().subscribe((roles: any) => {
       this.roles = roles;
     });
-    var index = this.roles.indexOf({_id: '', name: '', description: '', permissions: ['']})
+    let index = this.roles.indexOf({_id: '', name: '', description: '', permissions: ['']})
     if(index > -1){
       this.roles.slice(index, 1)
     }

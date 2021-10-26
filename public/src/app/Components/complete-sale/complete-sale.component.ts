@@ -6,6 +6,7 @@ import { ArticleService } from 'src/app/Services/article.service';
 import { BranchService } from 'src/app/Services/branch.service';
 import { ToastrService } from 'ngx-toastr'
 import { SaleService } from 'src/app/Services/sale.service';
+import { UserService } from 'src/app/Services/user.service';
 import { ProductService } from 'src/app/Services/product.service';
 import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
@@ -42,22 +43,22 @@ export class CompleteSaleComponent {
     private saleService: SaleService,
     private toastr: ToastrService,
     private articleService: ArticleService, 
-    private branchService: BranchService) {
+    private branchService: BranchService,
+    private userService: UserService) {
     this.cartArticle = [] 
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
-    var string = localStorage.getItem('CurrentUser') || JSON.stringify(new User());
-    this.currentUser = JSON.parse(string)
+    this.currentSale = saleService.getCurrentSale()
+    this.currentUser = userService.getCurrentUser()
     this.mapCartItem()
    }
 
   mapCartItem(){
     this.totalPrice = 0
     this.cartArticle = []
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+    this.currentSale = this.saleService.getCurrentSale();
     this.currentSale.cart.forEach(item => {
       this.productService.getProduct(item.product).subscribe(res => { 
-        var prod = res as Product
-        var cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
+        let prod = res as Product
+        let cartItem = {'article':new Article(), 'qty': 0, 'branch': new Branch()}
         this.articleService.getArticle(prod.article).subscribe(res => {
           cartItem.article = res as Article
           this.updatePrice(cartItem.article.prices[0].price, item.quantity)
@@ -86,7 +87,7 @@ export class CompleteSaleComponent {
     }
 
   confirmSale(postalCode: string, street: string, number: string){
-    this.currentSale = JSON.parse(localStorage.getItem('CurrentSale') || JSON.stringify(new Sale({})))
+    this.currentSale = this.saleService.getCurrentSale();
     this.currentSale.number = number
     this.currentSale.street = street
     this.currentSale.postalCode = postalCode

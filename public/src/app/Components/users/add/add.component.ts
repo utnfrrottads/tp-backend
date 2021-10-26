@@ -129,7 +129,7 @@ export class AddUserComponent implements OnInit{
     this.rolesService.getAll().subscribe((roles: any) => {
       this.roles = roles;
     });
-    var index = this.roles.indexOf({_id: '', name: '', description: '', permissions: ['']})
+    let index = this.roles.indexOf({_id: '', name: '', description: '', permissions: ['']})
     if(index > -1){
       this.roles.slice(index, 1)
     }

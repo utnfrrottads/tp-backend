@@ -65,7 +65,6 @@ export class ProductItemComponent implements OnInit {
   }
 
   showBranches(){
-    console.log('ad');
     if(this.mode === 'market'){
       this.branchPickerVisible = true;
     } else {
@@ -76,7 +75,7 @@ export class ProductItemComponent implements OnInit {
 
   checkQuantity(qty: string){
     this.availableBranches = []
-    var elem: Article
+    let elem: Article
     if(this.mode === 'market'){
       elem = this.article
     } else{
@@ -87,7 +86,7 @@ export class ProductItemComponent implements OnInit {
           this.availableProducts = res as Array<Product>
           this.availableProducts.forEach( prod => {
             this.branchService.getById(prod.branch).subscribe(res => {
-              var branch = res as Branch
+              let branch = res as Branch
               this.availableBranches.push({desc: `${branch.street}, ${branch.number}`, _id: prod._id})
             })
           })
@@ -108,14 +107,14 @@ export class ProductItemComponent implements OnInit {
   addProduct(id: string, qty: string){
     this.availableBranches = []
     this.branchPickerVisible = false;
-    var prod= {'prod': id , 'qty': Number.parseInt(qty)}
+    let prod= {'prod': id , 'qty': Number.parseInt(qty)}
     this.addArticle.emit(prod);
   }
 
   updateProduct(id: string, qty: string){
     this.availableBranches = []
     this.branchPickerCartVisible = false;
-    var prod= {'prod': id, 'qty': Number.parseInt(qty)}
+    let prod= {'prod': id, 'qty': Number.parseInt(qty)}
     this.updateItem.emit(prod)
   }
 
@@ -132,7 +131,7 @@ export class ProductItemComponent implements OnInit {
 
   removeProduct() {
     this.productService.getProducts().subscribe(res => {
-      var products = res as Array<Product>
+      let products = res as Array<Product>
       products.forEach((prod) => {
         if(prod.article == this.item.article._id && prod.branch == this.item.branch._id){
           this.deleteItem.emit(prod)

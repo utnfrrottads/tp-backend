@@ -195,6 +195,9 @@ ProductCtrl.getProductWithStock = async (req, res, next) => {
     try{
         let articleID = req.body._id;
         let stock = req.body.qty;
+        if(req.body.qty <= 0){
+            throw ApiError.badRequest('Debe ingresar una cantidad mayor que cero')
+        }
         let avaiableProducts = []
         let products = await Product.find({article: articleID, isActive: true})
         if(products.length > 0){

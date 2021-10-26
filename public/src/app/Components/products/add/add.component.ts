@@ -117,7 +117,7 @@ export class AddProductComponent implements OnInit{
     this.articleService.getArticles(obj).subscribe((article: any) => {
       this.article = article;
     });
-    var index = this.article.indexOf({_id: '', name: '', description: '', presentation :'', notes:[''], prices : [new Price()]})
+    let index = this.article.indexOf({_id: '', name: '', description: '', presentation :'', notes:[''], prices : [new Price()]})
     if(index > -1){
       this.article.slice(index, 1)
     }
