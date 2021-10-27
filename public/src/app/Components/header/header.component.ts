@@ -17,7 +17,6 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class HeaderComponent {
 
-  @Input() searchBar = false
   @Output() searchActive = new EventEmitter<string>()
 
   public href: string= ''

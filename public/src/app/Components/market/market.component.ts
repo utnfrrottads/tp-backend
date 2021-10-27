@@ -13,8 +13,6 @@ import { Product } from 'src/app/Models/product';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 
-
-
 export interface MyCartItem {
   article: Article;
   qty: number;
@@ -27,8 +25,6 @@ export interface MyCartItem {
   styleUrls: ['./market.component.scss'],
   providers: [ArticleService]
 })
-
-
 
 export class MarketComponent implements OnInit {
 
