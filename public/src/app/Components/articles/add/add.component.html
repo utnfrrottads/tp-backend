@@ -26,7 +26,7 @@
                   <input type="text" class="form-control" formControlName="presentation" placeholder="Ingrese presentación del artículo">
                 </div>
                 
-                <label for="notes">Notas</label>
+                <label for="notes">Nota</label>
                 <select *ngIf="notes" multiple formControlName="notes" class="form-select form-select-sm" aria-label=".form-select-sm example">
                   <option selected>Seleccione las notas de la fragancia</option>
                   <option *ngFor="let note of notes" value="{{note._id}}">{{note.name}}</option>
