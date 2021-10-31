@@ -21,11 +21,11 @@ module.exports = app =>{
                     rol: Sequelize.where(Sequelize.col('rol'), 'LIKE', '%'+ req.query.rol +'%')
                 });
             }
-            if(req.query.activo){
+            /*if(req.query.activo){
                 Object.assign(whereCondition, {
                     activo: req.query.activo
                 });
-            }
+            }*/
 
             const order = req.query.order ? req.query.order.split(",",2) : [];
 
@@ -113,22 +113,13 @@ module.exports = app =>{
                     res.status(412).json({msg:error.message})
                 })
         })
-    /*
-    * REVISAR ESTE PUT DE CAMBIO DE PASS
-    * PORQUE PARECE QUE NO ME DEJA HACER UN CAMBIO PARCIAL
-    * Y CON PATCH NO ME FUNCIONO TAMPOCO
-    * */
 
     app.route('/api/changepassword')
         .patch((req,res)=>{
-            console.log('paso el put');
                 bcrypt.hash(req.body.password, BCRYPT_SALT_ROUNDS)
                     .then(hashedPassword => {
-                        console.log('encripto');
-                        console.log('pass sin encriptar: ',req.body.password );
                         req.body.password = hashedPassword;
-                        console.log('pass encriptada: ',req.body.password );
-                        Usuario.update(req.body.password,{where: {id: req.body.id}})
+                        Usuario.update(req.body,{where: {id: req.body.id}})
                             .then(result => res.json(result))
                             .catch(error => {
                                 res.status(412).json({msg: error.message});

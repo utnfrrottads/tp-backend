@@ -76,7 +76,7 @@ module.exports = app =>{
 
 
 
-    app.route('/api/clientes/:dni')
+    app.route('/api/cliente/:dni')
         .get((req,res)=>{
             Clientes.findOne({where: req.params})
             .then((result)=> {
