@@ -114,7 +114,7 @@ module.exports = app =>{
                 })
         })
 
-    app.route('/api/changepassword')
+    app.route('/api/cambiarclave')
         .patch((req,res)=>{
                 bcrypt.hash(req.body.password, BCRYPT_SALT_ROUNDS)
                     .then(hashedPassword => {
