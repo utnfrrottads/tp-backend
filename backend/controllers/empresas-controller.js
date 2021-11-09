@@ -14,7 +14,7 @@ createEmpresa = async (data) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        let empresa = await models.empresas.create(data, { 
+        const empresa = await models.empresas.create(data, { 
             include: [{ model: models.contactos }],
             transaction: transaction,
         });
@@ -33,22 +33,22 @@ updateEmpresa = async (id, data) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        let empresa = await models.empresas.update(data, {
+        const empresa = await models.empresas.update(data, {
             where: { id_empresa: id },
             transaction: transaction
         });
-
+        if (empresa === null) {
+            throw new NotFoundError(id, 'empresa');
+        }
         await models.contactos.destroy({ 
-            where: {
-                empresas_id_empresa: id
-            }, transaction: transaction});
-
-        await addContact( data.contactos, id, transaction );
-
-        transaction.commit();
+            where: { empresas_id_empresa: id },
+            transaction: transaction
+        });
+        await addContact(data.contactos, id, transaction);
+        await transaction.commit();
         return empresa;
     } catch (error) {
-        transaction.rollback();
+        await transaction.rollback();
         throw error;
     }
 };
@@ -56,14 +56,14 @@ updateEmpresa = async (id, data) => {
 deleteEmpresa = async (id) => {
     const transaction = await sequelize.transaction();
     try {
-        let result = await models.empresas.destroy({
+        const result = await models.empresas.destroy({
             where: { id_empresa: id },
             transaction: transaction,
         });
         if (result <= 0) throw new NotFoundError(id, 'empresa');
-        transaction.commit();
+        await transaction.commit();
     } catch (error) {
-        transaction.rollback();
+        await transaction.rollback();
         throw error;
     }
 };
@@ -83,7 +83,7 @@ getEmpresas = async (filtros) => {
 };
 
 getEmpresa = async (id) => {
-    let empresa = await models.empresas.findByPk(id, { include: [{ model: models.contactos }] });
+    const empresa = await models.empresas.findByPk(id, { include: [{ model: models.contactos }] });
     if (empresa === null) {
         throw new NotFoundError(id, 'empresa');
     }
@@ -91,27 +91,26 @@ getEmpresa = async (id) => {
 };
 
 /**
- * Esta funcion crea los contactos de una empresa cuando esta última es modificada
+ * Crea los contactos de una empresa cuando esta última es modificada.
  */
- const addContact = async ( contactos, id_empresa, transaction ) => {
-    try {
-        await asyncForEach( contactos, async (contacto) => {
-            if ( (contacto.tipoContacto === 'email' && validator.isEmail(contacto.valor)) ||
-                 (contacto.tipoContacto === 'web' && validator.isURL(contacto.valor)) ||
-                 (contacto.tipoContacto === 'telefono' && validator.isNumeric(contacto.valor)) ) {
-        
-                    await models.contactos.create({
-                        tipoContacto: contacto.tipoContacto,
-                        valor: contacto.valor,
-                        empresas_id_empresa: id_empresa,
-                        descripcion: contacto.descripcion }, { transaction: transaction });
-            } else {
-                throw new Error('Check contact_type or value field');
-            }
-        });
-    } catch (error) {
-        throw error;
-    }
+const addContact = async (contactos, id_empresa, transaction) => {
+    await asyncForEach(contactos, async (contacto) => {
+        if ((contacto.tipoContacto === 'email' && validator.isEmail(contacto.valor)) ||
+                (contacto.tipoContacto === 'web' && validator.isURL(contacto.valor)) ||
+                (contacto.tipoContacto === 'telefono' && validator.isNumeric(contacto.valor))) {
+            
+            await models.contactos.create({
+                tipoContacto: contacto.tipoContacto,
+                valor: contacto.valor,
+                empresas_id_empresa: id_empresa,
+                descripcion: contacto.descripcion 
+            }, {
+                transaction: transaction
+            });
+        } else {
+            throw new Error('Check contact_type or value field');
+        }
+    });
 };
 
 module.exports = {
