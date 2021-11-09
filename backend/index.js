@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const errorHandler = require('./middleware/error-handler');
 const app = express();
 const port = process.env.PORT || 8080;
@@ -15,6 +16,9 @@ const empresasRoute = require('./routes/empresas-route');
 
 // Middleware.
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 // Agregamos los endpoints a la API.
 app.use('/evaluadores', evaluadoresRoute);
