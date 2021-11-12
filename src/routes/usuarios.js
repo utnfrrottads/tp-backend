@@ -34,7 +34,7 @@ module.exports = app =>{
                 limit: req.query.limit,
                 offset: req.query.offset * req.query.limit,
                 order: [order],
-                attributes: { exclude: ['password'] }
+                attributes: { exclude: ['clave'] }
             })
                 .then(result => res.json(result))
                 .catch(error =>{
@@ -44,9 +44,9 @@ module.exports = app =>{
 
         .post((req,res)=>{
             req.body.activo = true;
-            bcrypt.hash(req.body.password, BCRYPT_SALT_ROUNDS)
+            bcrypt.hash(req.body.clave, BCRYPT_SALT_ROUNDS)
                 .then(hashedPassword =>{
-                    req.body.password = hashedPassword;
+                    req.body.clave = hashedPassword;
                     Usuario.create(req.body)
                         .then(result => {
                             res.json(result);
@@ -78,7 +78,7 @@ module.exports = app =>{
         .get((req,res)=>{
             Usuario.findOne({
                 where: req.params,
-                attributes: { exclude: ['password'] }
+                attributes: { exclude: ['clave'] }
                 })
                 .then((result)=> {
                     res.json(result)
@@ -96,16 +96,16 @@ module.exports = app =>{
                 })
 
         })
-    app.route('/api/login')
-        .get((req,res)=>{
+    app.route('/api/usuario/login')
+        .post((req,res)=>{
 
             Usuario.findOne({where: {usuario: req.body.usuario}})
                 .then(user =>{
-                    return bcrypt.compare(req.body.password, user.password);
+                    return bcrypt.compare(req.body.clave, user.clave);
                 })
                 .then(result=>{
                     if(!result){
-                        res.status(403).json({msg:'Pass incorrecta'})
+                        res.status(403).json({msg:'contraseña incorrecta'})
                     }
                     res.send(result);
                 })
@@ -116,19 +116,42 @@ module.exports = app =>{
 
     app.route('/api/cambiarclave')
         .patch((req,res)=>{
-                bcrypt.hash(req.body.password, BCRYPT_SALT_ROUNDS)
-                    .then(hashedPassword => {
-                        req.body.password = hashedPassword;
-                        Usuario.update(req.body,{where: {id: req.body.id}})
-                            .then(result => res.json(result))
-                            .catch(error => {
-                                res.status(412).json({msg: error.message});
-                            });
+
+            Usuario.findOne({where: {id: req.body.id}})
+                .then(user =>{
+                    //console.log('usuario encontrado', user);
+                     bcrypt.compare(req.body.claveVieja, user.clave)
+                     .then(result => {
+                        if(!result){
+                            res.status(403).json({msg:`El campo "Contraseña anterior" no coincide con la contraseña actual del usuario: ${user.usuario}`});
+                        }else{
+                            if(req.body.claveVieja === req.body.claveNueva){
+                                res.status(403).json({msg:'La "Contraseña anterior" no debe coincidir con la "Contraseña nueva"'});
+                            }else{
+                                bcrypt.hash(req.body.claveNueva, BCRYPT_SALT_ROUNDS)
+                                    .then(hashedPassword => {
+                                       const usuario = {id: req.body.id,clave: hashedPassword};
+                                        Usuario.update(usuario,{where: {id: usuario.id}})
+                                            .then(result => res.json({msg:`La clave se guardo correctamente ${result}`}))
+                                            .catch(error => {
+                                                res.status(412).json({msg: `Error, algo paso: ${error.message}`});
+                                            });
+                                    })
+                                    .catch(error => {
+                                        res.status(412).json({msg:error.message});
+                                        console.log('Error en la encriptacion ', error);
+                                    });
+                            }
+
+                        }
                     })
-                    .catch(error => {
-                        res.status(412).json({msg:error.message});
-                        console.log('Error en la encriptacion ', error);
-                    });
+                })
+
+                .catch(error => {
+                    res.status(412).json({msg: error.message})
+                })
+
+
 
         })
 

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataType) =>{
             },
             unique: true
         },
-        password:{
+        clave:{
             type: DataType.STRING,
             allowNull: false,
             validate:{
@@ -41,3 +41,4 @@ module.exports = (sequelize, DataType) =>{
 
     return Usuarios;
 }
+
