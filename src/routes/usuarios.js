@@ -96,27 +96,9 @@ module.exports = app =>{
                 })
 
         })
-    app.route('/api/usuario/login')
-        .post((req,res)=>{
 
-            Usuario.findOne({where: {usuario: req.body.usuario}})
-                .then(user =>{
-                    return bcrypt.compare(req.body.clave, user.clave);
-                })
-                .then(result=>{
-                    if(!result){
-                        res.status(403).json({msg:'contraseña incorrecta'})
-                    }
-                    res.send(result);
-                })
-                .catch(error =>{
-                    res.status(412).json({msg:error.message})
-                })
-        })
-
-    app.route('/api/cambiarclave')
+    app.route('/api/cuenta/cambiarclave')
         .patch((req,res)=>{
-
             Usuario.findOne({where: {id: req.body.id}})
                 .then(user =>{
                     //console.log('usuario encontrado', user);
@@ -146,13 +128,8 @@ module.exports = app =>{
                         }
                     })
                 })
-
                 .catch(error => {
                     res.status(412).json({msg: error.message})
                 })
-
-
-
         })
-
 }
