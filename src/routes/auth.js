@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 module.exports = app =>{
     const bodyParser    = require('body-parser');
     const cors          = require('cors');
@@ -6,26 +7,45 @@ module.exports = app =>{
     let secret = 'some_secret'; // a secret key is set here
     const Usuario = app.db.models.Usuarios;
     const bcrypt = require('bcrypt');
+    let actualUser = {
+        id: '',
+        usuario:'',
+        rol:'',
+        activo:''
+    };
 
     app.use(cors());
     app.options('*', cors());
     app.use(bodyParser.json({limit: '10mb', extended: true}));
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-   /* app.use(expressJWT({secret: secret, algorithms:['HS256']})
+    app.use(expressJWT({secret: secret, algorithms:['HS256']})
         .unless({
             path:[
-                '/api/token/sign'
+                '/api/login'
             ]}
-        ));*/
+        ));
 
     app.route('/api/login')
         .post((req,res)=>{
             Usuario.findOne({where: {usuario: req.body.usuario}})
                 .then(user =>{
+//                    actualUser = user;
+                    actualUser.id = user.id;
+                    actualUser.usuario = user.usuario;
+                    actualUser.rol = user.rol;
+                    actualUser.activo = user.activo;
                     return bcrypt.compare(req.body.clave, user.clave);
                 })
                 .then(result=>{
-                    if(!result){
+                    if(result){
+                        let token = jwt.sign(actualUser, secret, { expiresIn: '60s'});
+                        let loginUser = {
+                            user: actualUser,
+                            token: token
+                        }
+                        res.status(200).json(loginUser)
+                    }
+                    else{
                         res.status(403).json({msg:'contraseña incorrecta'})
                     }
                     res.send(result);
