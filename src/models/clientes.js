@@ -1,64 +1,54 @@
-module.exports = (sequelize, DataType) =>{
+module.exports = (sequelize, DataType) => {
 
-
-    const Clientes = sequelize.define('Clientes',{
-        dni:{
+    const Clientes = sequelize.define('Clientes', {
+        dni: {
             type: DataType.STRING,
             primaryKey: true
         },
-        nombre:{
+        nombre: {
             type: DataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        apellido:{
+        apellido: {
             type: DataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        telefono:{
+        telefono: {
             type: DataType.STRING,
             allowNull: true
         },
-        direccion:{
-            type:DataType.STRING,
+        direccion: {
+            type: DataType.STRING,
             allowNull: false
         },
-        esMayorista:{
-            type:DataType.BOOLEAN,
+        esMayorista: {
+            type: DataType.BOOLEAN,
             allowNull: false
         },
         activo: {
             type: DataType.BOOLEAN,
             allowNull: false
         }
-    },
-    {
-        timestamps: false
     });
 
-    Clientes.hasAsociation = ()=>{
+    Clientes.hasAsociation = () => {
         return true;
     }
 
-
-    Clientes.associate = (models)=>{
-
+    Clientes.associate = (models) => {
         //ASOCIACION CON VENTAS
-        Clientes.hasMany(models.Ventas,{
-            foreignKey:{
-                allowNull:false
+        Clientes.hasMany(models.Ventas, {
+            foreignKey: {
+                allowNull: false
             }
         });
-
-        // Clientes.sync({alter:true});
-
     };
 
     return Clientes;
-
 }

@@ -35,10 +35,7 @@ module.exports = (sequelize, dataType) => {
             type: dataType.BOOLEAN,
             allowNull: false
         }
-    },
-        {
-            timestamps: false
-        });
+    });
 
     Proveedores.hasAsociation = () => {
         return false;

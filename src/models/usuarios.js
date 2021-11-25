@@ -27,8 +27,6 @@ module.exports = (sequelize, DataType) =>{
             type: DataType.BOOLEAN,
             allowNull: false
         }
-    },{
-        timestamps: false
     });
 
     Usuarios.hasAsociation = ()=>{
