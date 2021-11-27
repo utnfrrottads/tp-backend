@@ -38,7 +38,7 @@ module.exports = app =>{
                 })
                 .then(result=>{
                     if(result){
-                        let token = jwt.sign(actualUser, secret, { expiresIn: '600s'});
+                        let token = jwt.sign(actualUser, secret, { expiresIn: '3600s'});
                         let loginUser = {
                             user: actualUser,
                             token: token

@@ -5,7 +5,6 @@ module.exports = app =>{
 
 
     app.route('/api/cliente')
-
         .get((req,res)=>{
           const whereCondition = {};
           if(req.query.dni){
