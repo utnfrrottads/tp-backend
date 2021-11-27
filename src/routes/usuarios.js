@@ -89,37 +89,4 @@ module.exports = app =>{
                     res.status(412).json({msg:error.message});
                 })
         })
-    app.route('/api/cuenta/cambiarclave')
-        .patch((req,res)=>{
-            Usuario.findOne({where: {id: req.body.id}})
-                .then(user =>{
-                     bcrypt.compare(req.body.claveVieja, user.clave)
-                     .then(result => {
-                        if(!result){
-                            res.status(403).json({msg:`El campo "Contraseña anterior" no coincide con la contraseña actual del usuario: ${user.usuario}`});
-                        }else{
-                            if(req.body.claveVieja === req.body.claveNueva){
-                                res.status(403).json({msg:'La "Contraseña anterior" no debe coincidir con la "Contraseña nueva"'});
-                            }else{
-                                bcrypt.hash(req.body.claveNueva, BCRYPT_SALT_ROUNDS)
-                                    .then(hashedPassword => {
-                                       const usuario = {id: req.body.id,clave: hashedPassword};
-                                        Usuario.update(usuario,{where: {id: usuario.id}})
-                                            .then(result => res.json({msg:`La clave se guardo correctamente ${result}`}))
-                                            .catch(error => {
-                                                res.status(412).json({msg: `Error, algo paso: ${error.message}`});
-                                            });
-                                    })
-                                    .catch(error => {
-                                        res.status(412).json({msg:error.message});
-                                        console.log('Error en la encriptacion ', error);
-                                    });
-                            }
-                        }
-                    })
-                })
-                .catch(error => {
-                    res.status(412).json({msg: error.message})
-                })
-        })
 }

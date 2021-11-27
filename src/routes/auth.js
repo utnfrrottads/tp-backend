@@ -27,9 +27,8 @@ module.exports = app =>{
 
     app.route('/api/login')
         .post((req,res)=>{
-            Usuario.findOne({where: {usuario: req.body.usuario}})
+            Usuario.findOne({where: {usuario: req.body.usuario, activo: true} })
                 .then(user =>{
-//                    actualUser = user;
                     actualUser.id = user.id;
                     actualUser.usuario = user.usuario;
                     actualUser.rol = user.rol;
@@ -46,12 +45,12 @@ module.exports = app =>{
                         res.status(200).json(loginUser)
                     }
                     else{
-                        res.status(403).json({msg:'contraseña incorrecta'})
+                        res.status(403).json({msg:'Usuario o Contraseña incorrectos'});
                     }
                     res.send(result);
                 })
                 .catch(error =>{
-                    res.status(412).json({msg:error.message})
+                    res.status(412).json(error);
                 })
         })
 

@@ -1,4 +1,3 @@
-const {Sequelize} = require("sequelize");
 module.exports = app =>{
 
     const Ventas = app.db.models.Ventas;
@@ -6,19 +5,18 @@ module.exports = app =>{
     const Clientes = app.db.models.Clientes;
     const Productos = app.db.models.Productos;
     const {Sequelize, Op} = require("sequelize");
-    let col = null;
-    let valor = null;
+
     app.route('/api/ventas')
         .get((req,res)=>{
             const whereCondition = {};
-            if(req.query.nom_tarjeta){
+            if(req.query.nomTarjeta){
                 Object.assign(whereCondition,{
-                    nom_tarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')), 'LIKE', '%'+req.query.nom_tarjeta+'%')
+                    nomTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')), 'LIKE', '%'+req.query.nomTarjeta+'%')
                 });
             }
-            if(req.query.num_tarjeta){
+            if(req.query.numTarjeta){
               Object.assign(whereCondition,{
-                num_tarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('numTarjeta')), 'LIKE', '%'+req.query.num_tarjeta+'%')
+                  numTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('numTarjeta')), 'LIKE', '%'+req.query.numTarjeta+'%')
               });
             }
             if(req.query.dni){
@@ -32,7 +30,6 @@ module.exports = app =>{
                 });
             }
             const order = req.query.order ? req.query.order.split(",",2) : [];
-
             Ventas.findAndCountAll({
                 where: whereCondition,
                 limit: req.query.limit,
@@ -40,7 +37,6 @@ module.exports = app =>{
                 order: [order],
                 include: Clientes
             })
-
             .then(result => {res.json(result)})
             .catch(error =>{
                 res.status(412).json({msg: error.message});
@@ -61,24 +57,6 @@ module.exports = app =>{
                 res.status(412).json({msg:error.message});
             })
         })
-
-    /*app.route('/api/ventas/:id')
-        .get((req,res)=>{
-            Ventas.findOne({
-              where: req.params,
-              include: Clientes
-            })
-            .then((result)=> {
-                console.log(req.params.idVenta);
-                res.json(result)
-            })
-            .catch(error =>{
-                res.status(412).json({msg:error.message})
-            })
-        })
-        */
-
-      //MUESTRA DETALLE DE UNA VENTA EN ESPECIFICO
     app.route('/api/ventas/:id')
         .get((req,res)=>{
             Ventas.findOne(
@@ -107,8 +85,5 @@ module.exports = app =>{
                 .catch(error => {
                     res.status(412).json({msg:error.message});
                 })
-
         })
-
-
 }
