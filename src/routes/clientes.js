@@ -1,8 +1,8 @@
 module.exports = app =>{
+
     const Sequelize = require("sequelize");
     const Clientes = app.db.models.Clientes;
     const Ventas = app.db.models.Ventas;
-
 
     app.route('/api/cliente')
         .get((req,res)=>{
@@ -42,9 +42,7 @@ module.exports = app =>{
                   esMayorista: req.query.esMayorista
               });
           }
-
           const order = req.query.order ? req.query.order.split(",",2) : [];
-
           Clientes.findAndCountAll({
             where: whereCondition,
             limit: req.query.limit,
@@ -56,7 +54,6 @@ module.exports = app =>{
             res.status(412).json({msg: error.message});
           });
         })
-
         .post((req,res)=>{
             req.body.activo = true;
             Clientes.create(req.body)
@@ -73,8 +70,6 @@ module.exports = app =>{
           })
         });
 
-
-
     app.route('/api/cliente/:dni')
         .get((req,res)=>{
             Clientes.findOne({where: req.params})
@@ -85,13 +80,11 @@ module.exports = app =>{
                 res.status(412).json({msg:error.message})
             })
         })
-
         .delete((req,res) => {
             Clientes.destroy({where: req.params})
             .then(result=> res.sendStatus(204))
             .catch(error => {
                 res.status(412).json({msg:error.message});
             })
-
         })
 }
