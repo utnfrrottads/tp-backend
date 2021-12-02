@@ -48,7 +48,7 @@ router.get('/:id_vacante', async (req, res) => {
 // Devuelve todas las vacantes de una empresa.
 router.get('/', async (req, res) => {
     try {
-        const vacants = await vacantesController.getAllVacantsByCompany();
+        const vacants = await vacantesController.getAllVacants(req.query);
         res.status(200).json( vacants );
     } catch (error) {
         res.status(400).json( error.message );

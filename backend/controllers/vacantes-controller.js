@@ -123,12 +123,15 @@ getOneVacant = async (id_vacante) => {
     return vacant;
 };
 
-getAllVacantsByCompany = async () => {
+getAllVacants = async (filtros) => {
+    const where = {};
+    if (filtros.id_empresa) where.id_empresa = filtros.id_empresa;
     return await models.vacantes.findAll({
         include: [
             models.empresas,
             models.requerimientos,
         ],
+        where: where,
     });
 };
 
@@ -137,5 +140,5 @@ module.exports = {
     updateVacant,
     deleteVacant,
     getOneVacant,
-    getAllVacantsByCompany,
+    getAllVacants,
 };
