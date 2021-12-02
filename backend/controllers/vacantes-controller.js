@@ -11,7 +11,7 @@ validateVacant = (body) => {
         { list: body.requirements, attrs: ['requirement_description'] },
     );
     if (['pendiente de evaluador', 'evaluador asignado', 'cerrada'].includes(body.status)) {
-        throw new InvalidAttributeError(`\'${body.status}\' no estado un estado de vacante correcto.`, 'status');
+        throw new InvalidAttributeError(`\'${body.status}\' no es un estado de vacante correcto.`, 'status');
     }
 }
 
@@ -124,13 +124,11 @@ getOneVacant = async (id_vacante) => {
 };
 
 getAllVacantsByCompany = async () => {
-    return await models.empresas.findAll({
-        include: {
-            model: models.vacantes,
-            include: {
-                model: models.requerimientos
-            }
-        }
+    return await models.vacantes.findAll({
+        include: [
+            models.empresas,
+            models.requerimientos,
+        ],
     });
 };
 
