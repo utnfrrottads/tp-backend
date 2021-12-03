@@ -16,8 +16,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     estado: {
-      type: DataTypes.ENUM('pendiente de evaluador','evaluador asignado','cerrada'),
-      allowNull: false
+      type: DataTypes.ENUM("pendiente de evaluador","evaluador asignado","cerrada"),
+      allowNull: false,
+      defaultValue: "pendiente de evaluador"
     },
     id_empresa: {
       type: DataTypes.INTEGER,

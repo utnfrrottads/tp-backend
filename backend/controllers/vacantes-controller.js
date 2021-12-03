@@ -10,21 +10,18 @@ validateVacant = (body) => {
         { data: body, attrs: ['work_position', 'id_company', 'status'] },
         { list: body.requirements, attrs: ['requirement_description'] },
     );
-    if (['pendiente de evaluador', 'evaluador asignado', 'cerrada'].includes(body.status)) {
+    if (!["pendiente de evaluador", "evaluador asignado", "cerrada"].includes( body.status ) ) {
         throw new InvalidAttributeError(`\'${body.status}\' no es un estado de vacante correcto.`, 'status');
     }
 }
 
 createVacant = async (body) => {
 
-    validateVacant(body);
-
     const transaction = await sequelize.transaction();
     try {
         const newVacant = await models.vacantes.create({
             cargo: body.work_position,
             descripcion: body.vacant_description,
-            estado: body.status,
             id_empresa: body.id_company
         }, { transaction: transaction });
 
@@ -45,7 +42,7 @@ createVacant = async (body) => {
 
 updateVacant = async (id_vacante, body) => {
 
-    validateVacant(body)
+    validateVacant(body);
 
     const transaction = await sequelize.transaction();
     try {
