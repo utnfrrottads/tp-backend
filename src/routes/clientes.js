@@ -37,11 +37,6 @@ module.exports = app =>{
                   activo: req.query.activo
               });
           }
-          if (req.query.esMayorista){
-              Object.assign(whereCondition,{
-                  esMayorista: req.query.esMayorista
-              });
-          }
           const order = req.query.order ? req.query.order.split(",",2) : [];
           Clientes.findAndCountAll({
             where: whereCondition,
@@ -56,6 +51,7 @@ module.exports = app =>{
         })
         .post((req,res)=>{
             req.body.activo = true;
+            req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
             Clientes.create(req.body)
             .then(result => res.json(result))
             .catch(error => {
@@ -63,11 +59,12 @@ module.exports = app =>{
             });
         })
         .put((req,res)=>{
-          Clientes.update(req.body,{where: {dni: req.body.dni}})
-          .then(result => res.json(result))
-          .catch(error =>{
-            res.status(412).json({msg: error.message});
-          })
+            req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
+            Clientes.update(req.body,{where: {dni: req.body.dni}})
+            .then(result => res.json(result))
+            .catch(error =>{
+                res.status(412).json({msg: error.message});
+            })
         });
 
     app.route('/api/cliente/:dni')
