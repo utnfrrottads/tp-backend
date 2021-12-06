@@ -25,12 +25,14 @@ createVacant = async (body) => {
             id_empresa: body.id_company
         }, { transaction: transaction });
 
-        await asyncForEach(body.requirements , async (requirement) => {
-            await models.requerimientos.create({
-                id_vacante: newVacant.id_vacante,
-                descripcion: requirement.requirement_description
-            }, { transaction: transaction });
-        });
+        if ( body.requirements.length > 0 ) {
+            await asyncForEach(body.requirements , async (requirement) => {
+                await models.requerimientos.create({
+                    id_vacante: newVacant.id_vacante,
+                    descripcion: requirement.requirement_description
+                }, { transaction: transaction });
+            });
+        };
 
         await transaction.commit();
         

@@ -165,7 +165,7 @@ CREATE TABLE `entrevistas` (
 
 LOCK TABLES `entrevistas` WRITE;
 /*!40000 ALTER TABLE `entrevistas` DISABLE KEYS */;
-INSERT INTO `entrevistas` VALUES (12,'Entrevista tecnica','2021-11-15 00:00:00','pendiente',NULL,92,53,29),(13,'Entrevista psicofisica','2021-11-12 00:00:00','reprogramada',NULL,93,55,29),(14,'Entrevista para demostrar aptitud','2021-11-12 00:00:00','pendiente',NULL,65,55,32),(15,'Primer entrevista','2021-11-01 00:00:00','finalizada',NULL,65,53,32),(16,'Entrevista para desarrollo frontend','2021-10-29 00:00:00','finalizada',NULL,93,55,31);
+INSERT INTO `entrevistas` VALUES (14,'Entrevista para demostrar aptitud','2021-11-12 00:00:00','pendiente',NULL,65,55,32),(15,'Primer entrevista','2021-11-01 00:00:00','finalizada',NULL,65,53,32),(16,'Entrevista para desarrollo frontend','2021-10-29 00:00:00','finalizada',NULL,93,55,31);
 /*!40000 ALTER TABLE `entrevistas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,7 +399,7 @@ CREATE TABLE `requerimientos` (
   PRIMARY KEY (`id_requerimiento`),
   KEY `fk_requerimientos_vacantes1_idx` (`id_vacante`),
   CONSTRAINT `fk_requerimientos_vacantes` FOREIGN KEY (`id_vacante`) REFERENCES `vacantes` (`id_vacante`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,7 +408,7 @@ CREATE TABLE `requerimientos` (
 
 LOCK TABLES `requerimientos` WRITE;
 /*!40000 ALTER TABLE `requerimientos` DISABLE KEYS */;
-INSERT INTO `requerimientos` VALUES (36,29,'Conocimientos en BD relacionales'),(37,29,'Conocimientos en lenguaje Java'),(38,30,'Experiencia comprobable en el uso de Selenium'),(39,31,'Conocimientos en Angular'),(40,32,'Atención al cliente'),(41,32,'Cobranza y secretaria'),(42,28,'Liquidacion de IVA e impuestos');
+INSERT INTO `requerimientos` VALUES (38,30,'Experiencia comprobable en el uso de Selenium'),(39,31,'Conocimientos en Angular'),(40,32,'Atención al cliente'),(41,32,'Cobranza y secretaria');
 /*!40000 ALTER TABLE `requerimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -505,12 +505,12 @@ CREATE TABLE `vacantes` (
   `id_vacante` int NOT NULL AUTO_INCREMENT,
   `cargo` varchar(64) NOT NULL,
   `descripcion` varchar(1024) DEFAULT NULL,
-  `estado` enum('pendiente de evaluador','evaluador asignado','cerrada') NOT NULL,
+  `estado` enum('pendiente de evaluador','evaluador asignado','cerrada') NOT NULL DEFAULT 'pendiente de evaluador',
   `id_empresa` int NOT NULL,
   PRIMARY KEY (`id_vacante`),
   KEY `fk_vacantes_empresas1_idx` (`id_empresa`),
   CONSTRAINT `fk_vacantes_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -519,7 +519,7 @@ CREATE TABLE `vacantes` (
 
 LOCK TABLES `vacantes` WRITE;
 /*!40000 ALTER TABLE `vacantes` DISABLE KEYS */;
-INSERT INTO `vacantes` VALUES (28,'Analista contable','2 años o mas de experiencia en puestos similares','pendiente de evaluador',2),(29,'Desarrollador backend','Ocupar el puesto de desarrollador backend junto a otras 10 personas que conforman el grupo','evaluador asignado',3),(30,'Tester','No hace falta poseer experiencia previa','pendiente de evaluador',4),(31,'Desarrollador frontend','Desarrollador Senior','cerrada',4),(32,'Atencion al cliente','Disponibilidad para trabajar presencial en atencion al cliente','evaluador asignado',5);
+INSERT INTO `vacantes` VALUES (30,'Tester','No hace falta poseer experiencia previa','pendiente de evaluador',4),(31,'Desarrollador frontend','Desarrollador Senior','cerrada',4),(32,'Atencion al cliente','Disponibilidad para trabajar presencial en atencion al cliente','evaluador asignado',5);
 /*!40000 ALTER TABLE `vacantes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -532,4 +532,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-09  9:33:57
+-- Dump completed on 2021-12-06  9:31:20
