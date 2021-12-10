@@ -1,57 +1,49 @@
 const router = require('express').Router();
 const vacantesController = require('../controllers/vacantes-controller');
 
-// Crea una nueva vacante.
-router.post('/', async (req, res) => {
+
+router.post('/', async (req, res, next) => {
     try {
-        await vacantesController.createVacant(req.body);
-        res.status(200).json('Vacant created successfully');
+        const vacante = await vacantesController.createVacant(req.body);
+        res.status(201).json(vacante);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-
-// Modifica los datos de la vacante.
-router.put('/:id_vacante', async (req, res) => {
+router.put('/:id_vacante', async (req, res, next) => {
     try {
-        await vacantesController.updateVacant(req.params.id_vacante, req.body);
-        res.status(200).json('Vacant updated successfully');
+        const vacante = await vacantesController.updateVacant(req.params.id_vacante, req.body);
+        res.status(200).json(vacante);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-
-// Elimina una vacante.
-router.delete('/:id_vacante', async (req, res) => {
+router.delete('/:id_vacante', async (req, res, next) => {
     try {
         await vacantesController.deleteVacant(req.params.id_vacante);
-        res.status(200).json('Vacant deleted successfully');
+        res.status(204).send();
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-
-// Devuelve los datos de la vacante seleccionada.
-router.get('/:id_vacante', async (req, res) => {
+router.get('/:id_vacante', async (req, res, next) => {
     try {
         const vacant = await vacantesController.getOneVacant(req.params.id_vacante);
-        res.status(200).json( vacant );
+        res.status(200).json(vacant);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 
-
-// Devuelve todas las vacantes de una empresa.
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
     try {
         const vacants = await vacantesController.getAllVacants(req.query);
-        res.status(200).json( vacants );
+        res.status(200).json(vacants);
     } catch (error) {
-        res.status(400).json( error.message );
+        next(error);
     }
 });
 

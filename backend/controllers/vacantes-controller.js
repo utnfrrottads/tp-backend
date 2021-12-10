@@ -8,14 +8,16 @@ const models = initModels(sequelize);
 validateVacant = (body) => {
     checkMissingAttributes(
         { data: body, attrs: ['work_position', 'id_company', 'status'] },
-        { list: body.requirements, attrs: ['requirement_description'] },
+        { list: body.requirements, attrs: ['requirement_description'], prefix: 'requirements[]' },
     );
-    if (!["pendiente de evaluador", "evaluador asignado", "cerrada"].includes( body.status ) ) {
+    if (!['pendiente de evaluador', 'evaluador asignado', 'cerrada'].includes(body.status)) {
         throw new InvalidAttributeError(`\'${body.status}\' no es un estado de vacante correcto.`, 'status');
     }
 }
 
 createVacant = async (body) => {
+
+    validateVacant(body);
 
     const transaction = await sequelize.transaction();
     try {
@@ -35,7 +37,7 @@ createVacant = async (body) => {
         };
 
         await transaction.commit();
-        
+        return newVacant;
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -77,7 +79,7 @@ updateVacant = async (id_vacante, body) => {
         });
 
         await transaction.commit();
-        
+        return vacantToUpdate;
     } catch (error) {
         await transaction.rollback();
         throw error;
