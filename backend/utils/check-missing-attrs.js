@@ -28,14 +28,12 @@ function checkMissingAttributes() {
         if (!validation.hasOwnProperty('attrs')) {
             throw new TypeError('Argument must have `attrs` attribute defined.');
         }
-        if (validation.hasOwnProperty('data')) {
+        if (validation.data != null) {
             _checkMissing(validation.data, validation.attrs, validation.prefix).forEach(attr => missing_attrs.add(attr));
-        } else if (validation.hasOwnProperty('list')) {
+        } else if (validation.list != null) {
             validation.list.forEach(data => {
                 _checkMissing(data, validation.attrs, validation.prefix).forEach(attr => missing_attrs.add(attr));
             });
-        } else {
-            throw new TypeError('Argument must have either `data` or `list` attribute defined.');
         }
     }
     if (missing_attrs.size > 0) {
