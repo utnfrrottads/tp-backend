@@ -22,6 +22,7 @@ const {
   Moneda,
   Contrato
 } = require("../models/index");
+const client = require('../elasticsearch');
 
 const signUp = {
   description: "Crear Cuenta",
@@ -420,14 +421,13 @@ const publishService = {
         && titulo.trim().length <= 30
         && descripcion
         && descripcion.trim().length <= 300
-        && valor
-        && valor >= 0
+        && ((valor && valor >= 0) || (!valor && valor ==0))
         && idMoneda
         && ubicacion
         && ubicacion.trim().length <= 100
         && idCategoria
       ) {
-        const servicio = new Servicio({
+        let servicio = new Servicio({
           titulo,
           descripcion,
           precio: { valor, idMoneda },
@@ -436,7 +436,27 @@ const publishService = {
           idCategoria,
           idUsuario: usuario._id,
         });
-        return await servicio.save();
+
+        servicio = await servicio.save();
+
+        client.index({
+          index: 'servicios',
+          id: servicio._id.toString(),
+          body: {
+            titulo: servicio.titulo,
+            descripcion: servicio.descripcion,
+            precio: {
+              valor: servicio.precio.valor,
+              idMoneda: servicio.precio.idMoneda,
+            },
+            ubicacion: servicio.ubicacion,
+            fechaHoraPublicacion: servicio.fechaHoraPublicacion,
+            idCategoria: servicio.idCategoria,
+            idUsuario: servicio.idUsuario,
+          },
+        });
+
+        return servicio;
       } else {
         throw new Error("Ingrese todos los datos requeridos en el formato correcto");
       }

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
-import { Moneda } from 'src/app/models/Moneda';
 
 declare var $: any;
 
@@ -15,7 +14,6 @@ export class ServicesPanelComponent implements OnInit {
 
   @Output() updateServices = new EventEmitter<String>();
   @Output() selectCategory = new EventEmitter<Servicio>();
-  @Output() addNewService = new EventEmitter();
 
   @Input() titulo: String = '';
   @Input() noServicesInfo: String = '';
@@ -39,10 +37,6 @@ export class ServicesPanelComponent implements OnInit {
 
   seleccionarCategoria(serv: Servicio) {
     this.selectCategory.emit(serv);
-  }
-
-  nuevoServicio() {
-    this.addNewService.emit();
   }
 
 }

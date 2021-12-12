@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -11,6 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Contrato } from 'src/app/models/Contrato';
+
+import Swal from 'sweetalert2';
+
+declare var $: any;
 
 @Component({
   selector: 'app-servicio',
@@ -69,6 +73,14 @@ export class ServicioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    /*if (this.rutaActiva.snapshot.queryParams.registrado) {
+      Swal.fire({
+        title: '¡Servicio publicado!',
+        text:
+          'El servicio se registró correctamente',
+      });
+    }*/
+
     this.suscribeServicio();
   }
 

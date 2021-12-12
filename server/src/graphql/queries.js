@@ -1,6 +1,7 @@
 const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
 const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, InputIDCategoriasSeleccionadas } = require('./types');
 const { Usuario, Nivel, Categoria, Moneda, Servicio, Contrato, Mensaje } = require('../models/index');
+const client = require('../elasticsearch');
 
 const usuario = {
     description: 'Usuario',
@@ -60,7 +61,52 @@ const servicios = {
         categorias: { type: InputIDCategoriasSeleccionadas },
     },
     async resolve(parent, { busqueda, categorias }) {
-        return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs } }).sort({ fechaHoraPublicacion: -1 });
+        let result = null;
+
+        if (busqueda) {
+            result = await client.search({
+                index: 'servicios',
+                body: {
+                    query: {
+                        bool: {
+                            must: {
+                                multi_match: {
+                                    query: busqueda,
+                                    fields: ['titulo^2', 'descripcion'],
+                                    fuzziness: 'AUTO',
+                                }
+                            },
+                            filter: { terms: { idCategoria: categorias.categoriasIDs } }
+                        }
+                    },
+                    min_score: 0.5,
+                }
+            });
+        } else {
+            result = await client.search({
+                index: 'servicios',
+                body: {
+                    query: {
+                        bool: {
+                            filter: { terms: { idCategoria: categorias.categoriasIDs } }
+                        }
+                    },
+                    sort: [
+                        { fechaHoraPublicacion: 'desc' }
+                    ]
+                }
+            });
+        }
+
+        const servicios = [];
+        result.hits.hits.forEach(element => {
+            let servicio = element._source;
+            servicio._id = element._id;
+
+            servicios.push(servicio);
+        });
+
+        return servicios;
     }
 }
 
@@ -75,7 +121,58 @@ const misServicios = {
         if (!usuario) {
             throw new Error('Acceso no autorizado');
         } else {
-            return await Servicio.find({ titulo: { $regex: ".*" + busqueda, $options: "i" }, idCategoria: { $in: categorias.categoriasIDs }, idUsuario: usuario._id }).sort({ fechaHoraPublicacion: -1 });
+            let result = null;
+
+            if (busqueda) {
+                result = await client.search({
+                    index: 'servicios',
+                    body: {
+                        query: {
+                            bool: {
+                                must: {
+                                    multi_match: {
+                                        query: busqueda,
+                                        fields: ['titulo^2', 'descripcion'],
+                                        fuzziness: 'AUTO',
+                                    }
+                                },
+                                filter: [
+                                    { terms: { idCategoria: categorias.categoriasIDs } },
+                                    { term: { idUsuario: usuario._id, } }
+                                ]
+                            }
+                        },
+                        min_score: 0.5,
+                    }
+                });
+            } else {
+                result = await client.search({
+                    index: 'servicios',
+                    body: {
+                        query: {
+                            bool: {
+                                filter: [
+                                    { terms: { idCategoria: categorias.categoriasIDs } },
+                                    { term: { idUsuario: usuario._id, } }
+                                ]
+                            }
+                        },
+                        sort: [
+                            { fechaHoraPublicacion: 'desc' }
+                        ]
+                    }
+                });
+            }
+
+            const servicios = [];
+            result.hits.hits.forEach(element => {
+                let servicio = element._source;
+                servicio._id = element._id;
+
+                servicios.push(servicio);
+            });
+
+            return servicios;
         }
     }
 }

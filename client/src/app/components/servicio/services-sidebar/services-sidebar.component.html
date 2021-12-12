@@ -10,7 +10,7 @@
 
     <div class="input-group input-group-sm mb-3">
       <input type="text" class="form-control" placeholder="Buscar servicios..." aria-label="Buscar servicios"
-        aria-describedby="basic-addon2" [(ngModel)]="busqueda" />
+        aria-describedby="basic-addon2" (keyup.enter)="actualizar()" [(ngModel)]="busqueda" />
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" (click)="actualizar()">
           <i class="fas fa-search mr-2"></i>Buscar

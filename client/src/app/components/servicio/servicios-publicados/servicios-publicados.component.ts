@@ -82,14 +82,6 @@ export class ServiciosPublicadosComponent implements OnInit {
     this.categoriasSubscription.unsubscribe();
   }
 
-  agregarNuevoServicio() {
-    this.busqueda = '';
-    this.categorias.forEach((categoria: Categoria) => {
-      categoria.seleccionada = true;
-    });
-    this.suscribeServices();
-  }
-
   actualizarServicios(busqueda: String) {
     this.busqueda = busqueda;
     this.suscribeServices();

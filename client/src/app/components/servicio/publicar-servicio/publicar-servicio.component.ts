@@ -1,11 +1,11 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Moneda } from 'src/app/models/Moneda';
 import { ServicioService } from 'src/app/services/servicio.service';
 import { MonedaService } from 'src/app/services/moneda.service';
 import { Categoria } from '../../../models/Categoria';
-import Swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -15,8 +15,6 @@ declare var $: any;
   styleUrls: ['./publicar-servicio.component.scss'],
 })
 export class PublicarServicioComponent implements OnInit {
-
-  @Output() nuevoServicio = new EventEmitter();
 
   @Input() categorias: Categoria[] = [];
 
@@ -49,6 +47,7 @@ export class PublicarServicioComponent implements OnInit {
   });
 
   constructor(
+    private router: Router,
     private servicioService: ServicioService,
     private monedaService: MonedaService
   ) { }
@@ -88,14 +87,8 @@ export class PublicarServicioComponent implements OnInit {
       (res: any) => {
         this.errorMessage = '';
         $('#publicarServicioPopup').modal('hide');
-        Swal.fire({
-          title: '¡Servicio publicado!',
-          text:
-            'El servicio ' +
-            this.serviceForm.value.titulo +
-            ' se registró correctamente',
-        });
-        this.nuevoServicio.emit();
+
+        this.router.navigate(['/servicio/' + res.data.publishService._id]);  
       },
       (err: any) => {
         this.errorMessage = err.message;

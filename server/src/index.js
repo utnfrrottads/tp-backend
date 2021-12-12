@@ -29,6 +29,12 @@ app.listen(PORT, () => {
 
     //connect to db
     mongoose.connect(MONGO_ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-        .then(() => console.log('--> Atlas DB Connected ✅.'))
+        .then(() => {
+            console.log('--> Atlas DB Connected ✅.');
+
+            //connect to elasticsearch
+            require('./elasticsearch');
+            //require('../configElasticsearch');
+        })
         .catch(err => console.log(err));
 });
