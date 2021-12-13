@@ -7,7 +7,7 @@ const models = initModels(sequelize);
 
 createEvaluacion = async (body) => {
     checkMissingAttributes(
-        { data: body, attrs: ['evaluation_description'] },
+        { data: body, attrs: ['descripcion'] },
     );
     const transaction = await sequelize.transaction();
     try {
@@ -22,7 +22,7 @@ createEvaluacion = async (body) => {
 
 updateEvaluacion = async (id_evaluacion, body) => {
     checkMissingAttributes(
-        { data: body, attrs: ['evaluation_description'] },
+        { data: body, attrs: ['descripcion'] },
     );
     const transaction = await sequelize.transaction();
     try {

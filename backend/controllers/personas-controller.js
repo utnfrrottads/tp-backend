@@ -14,33 +14,26 @@ createPerson = async (body, tipoPersona) => {
     const transaction = await sequelize.transaction();
     try {
         // Se crea la dirección primero para que se genere el id_dirección y luego poder asignarlo a la persona.
-        const newAddress = await models.direcciones.create({
-            ciudades_id_ciudad: body.address.id_city,
-            codigo_postal: body.address.postal_code,
-            calle: body.address.street,
-            numero: body.address.street_number,
-            departamento: body.address.department,
-            piso: body.address.floor
-        }, { transaction: transaction });
+        const newAddress = await models.direcciones.create(body.direccion, { transaction: transaction });
 
-        if (!validator.isDate(body.date_of_birth)) {
-            throw new InvalidAttributeError('Formato de fecha incorrecto.', 'date_of_birth');
+        if (!validator.isDate(body.fecha_nacimiento)) {
+            throw new InvalidAttributeError('Formato de fecha incorrecto.', 'fecha_nacimiento');
         }
 
         const newPerson = await models.personas.create({
-            nombre: body.name,
-            apellido: body.surname,
-            fecha_nacimiento: body.date_of_birth,
-            sexo: body.gender,
-            documento: body.dni,
+            nombre: body.nombre,
+            apellido: body.apellido,
+            fecha_nacimiento: body.fecha_nacimiento,
+            sexo: body.sexo,
+            documento: body.documento,
             tipo_persona: tipoPersona,
             direcciones_id_direccion: newAddress.id_direccion
         }, { transaction: transaction });
 
-        await addContact(body.contacts, newPerson.id_persona, transaction);
+        await addContact(body.contactos, newPerson.id_persona, transaction);
 
         if (tipoPersona === 'candidato') {
-            await experienciasController.createWorkExperience(body.experiences, newPerson, transaction);
+            await experienciasController.createWorkExperience(body.experiencias, newPerson, transaction);
         }
         await transaction.commit();
     } catch (error) {
@@ -65,30 +58,16 @@ updatePerson = async (id_persona, body, tipoPersona) => {
             throw new NotFoundError('id_persona', tipoPersona);
         }
 
-        if (!validator.isDate(body.date_of_birth)) {
-            throw new InvalidAttributeError('Formato de fecha incorrecto.', 'date_of_birth');
+        if (!validator.isDate(body.fecha_nacimiento)) {
+            throw new InvalidAttributeError('Formato de fecha incorrecto.', 'fecha_nacimiento');
         }
 
-        await models.personas.update({
-            nombre: body.name,
-            apellido: body.surname,
-            fecha_nacimiento: body.date_of_birth,
-            sexo: body.gender,
-            documento: body.dni,
-            tipo_persona: body.kind_of_person,
-        }, {
+        await models.personas.update(body, {
             where: { id_persona: id_persona },
             transaction: transaction
         });
 
-        await models.direcciones.update({
-            ciudades_id_ciudad: body.address.id_city,
-            codigo_postal: body.address.postal_code,
-            calle: body.address.street,
-            numero: body.address.street_number,
-            departamento: body.address.department,
-            piso: body.address.floor
-        }, {
+        await models.direcciones.update(body.direccion, {
             where: { id_direccion: person.direcciones_id_direccion },
             transaction: transaction
         });
@@ -98,10 +77,10 @@ updatePerson = async (id_persona, body, tipoPersona) => {
             transaction: transaction
         });
 
-        await addContact(body.contacts, id_persona, transaction);
+        await addContact(body.contactos, id_persona, transaction);
 
         if (tipoPersona === 'candidato') {
-            await experienciasController.updateWorkExperience(body.experiences, id_persona, transaction);
+            await experienciasController.updateWorkExperience(body.experiencias, id_persona, transaction);
         }
 
         await transaction.commit();
@@ -161,18 +140,18 @@ deletePerson = async (id_persona, tipoPersona) => {
  */
 const addContact = async (contacts, id_persona, transaction) => {
     await asyncForEach(contacts, async (contact) => {
-        if ((contact.contact_type === 'email' && validator.isEmail(contact.value)) ||
-                (contact.contact_type === 'web' && validator.isURL(contact.value)) ||
-                (contact.contact_type === 'telefono' && validator.isNumeric(contact.value))) {
+        if ((contact.tipoContacto === 'email' && validator.isEmail(contact.valor)) ||
+                (contact.tipoContacto === 'web' && validator.isURL(contact.valor)) ||
+                (contact.tipoContacto === 'telefono' && validator.isNumeric(contact.valor))) {
     
             await models.contactos.create({
-                tipoContacto: contact.contact_type,
-                valor: contact.value,
+                tipoContacto: contact.tipoContacto,
+                valor: contact.valor,
                 personas_id_persona: id_persona,
-                descripcion: contact.contact_description
+                descripcion: contact.descripcion
             }, { transaction: transaction });
         } else {
-            throw new Error('Check contact_type or value field');
+            throw new Error('Check \'tipoContacto\' or \'valor\' field');
         }
     });
 };

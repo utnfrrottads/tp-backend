@@ -42,7 +42,7 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
     try {
         await controller.deleteEmpresa(req.params.id);
-        res.status(204).send();
+        res.status(200).json('Company deleted successfully');
     } catch (error) {
         next(error);
     }

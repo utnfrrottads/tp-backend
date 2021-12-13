@@ -22,46 +22,46 @@ updateWorkExperience = async (experiences, id_persona, transaction) => {
  */
 const addWorkExperience = async (experiences, id_persona, transaction) => {
     await asyncForEach(experiences , async (experience) => {
-        if (experience.type_of_experience !== 'academica'
-                && experience.type_of_experience !== 'laboral') {
-            throw new Error('Check type_of_experience field');
+        if (experience.tipo_experiencia !== 'academica'
+                && experience.tipo_experiencia !== 'laboral') {
+            throw new Error('Check tipo_experiencia field');
         }
 
-        if (experience.start_date !== null) {
-            if (!validator.isDate(experience.start_date)) {
-                throw new Error('Check start_date field');
+        if (experience.fecha_inicio !== null) {
+            if (!validator.isDate(experience.fecha_inicio)) {
+                throw new Error('Check fecha_inicio field');
             }
         }
 
-        if (experience.end_date !== null) {
-            if (!validator.isDate(experience.end_date)) {
-                throw new Error('Check end_date field');
+        if (experience.fecha_fin !== null) {
+            if (!validator.isDate(experience.fecha_fin)) {
+                throw new Error('Check fecha_fin field');
             }
         }
 
         const newExperience = await models.experiencias.create({
-            institucion: experience.institution,
-            descripcion: experience.experience_description,
-            fecha_inicio: experience.start_date,
-            fecha_fin: experience.end_date,
-            competencias: experience.skills,
-            tipo_experiencia: experience.type_of_experience,
-            finalizada: experience.finished,
+            institucion: experience.institucion,
+            descripcion: experience.descripcion,
+            fecha_inicio: experience.fecha_inicio,
+            fecha_fin: experience.fecha_fin,
+            competencias: experience.competencias,
+            tipo_experiencia: experience.tipo_experiencia,
+            finalizada: experience.finalizada,
             personas_id_persona: id_persona
         }, { transaction: transaction });
 
-        await asyncForEach(experience.contacts, async (contact) => {
-            if ((contact.contact_type === 'email' && validator.isEmail(contact.value)) ||
-                    (contact.contact_type === 'web' && validator.isURL(contact.value)) ||
-                    (contact.contact_type === 'telefono' && validator.isNumeric(contact.value))) {
+        await asyncForEach(experience.contactos, async (contact) => {
+            if ((contact.tipoContacto === 'email' && validator.isEmail(contact.valor)) ||
+                    (contact.tipoContacto === 'web' && validator.isURL(contact.valor)) ||
+                    (contact.tipoContacto === 'telefono' && validator.isNumeric(contact.valor))) {
                 await models.contactos.create({
-                    tipoContacto: contact.contact_type,
-                    valor: contact.value,
+                    tipoContacto: contact.tipoContacto,
+                    valor: contact.valor,
                     experiencias_id_experiencia: newExperience.id_experiencia, // Lo trae de la experiencia previamente creado
-                    descripcion: contact.contact_description
+                    descripcion: contact.descripcion
                 }, { transaction: transaction });
             } else {
-                throw new Error('Check contact_type or value field');
+                throw new Error('Check \'tipoContacto\' or \'valor\' field');
             }
         });
     });
