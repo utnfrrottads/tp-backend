@@ -1,5 +1,6 @@
 const asyncForEach = require('../utils/async-for-each');
 const sequelize = require('../database/db-connection');
+const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
 const { NotFoundError, InvalidAttributeError } = require('../utils/api-error');
 const checkMissingAttributes = require('../utils/check-missing-attrs');
@@ -125,13 +126,15 @@ getOneVacant = async (id_vacante) => {
 
 getAllVacants = async (filtros) => {
     const where = {};
-    if (filtros.id_empresa) where.id_empresa = filtros.id_empresa;
+    if ( filtros.companyName ) where.razon_social = { [Op.like]: '%' + filtros.companyName + '%' };
     return await models.vacantes.findAll({
         include: [
-            models.empresas,
+            { 
+                model: models.empresas,
+                where: where
+            },
             models.requerimientos,
-        ],
-        where: where,
+        ]
     });
 };
 
