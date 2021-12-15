@@ -49,23 +49,23 @@ module.exports = app =>{
                         });
                 })
                 .catch(error => {
-                    res.status(412).json({msg:error.message});
+                    res.status(410).json({msg:error.message});
                 });
         })
         .patch((req,res)=>{
-            Usuario.findOne(
-            {where: {id: req.body.id}}
-            )
-                .then((user)=> {
-                   req.body.clave = user.clave;
-                    Usuario.update(req.body,{where: {id: req.body.id}})
+            Usuario.update({
+                rol: req.body.rol,
+                activo: req.body.activo
+                },
+                {
+                    where: {id: req.body.id}
+                        })
                         .then(result => res.json(result))
                         .catch(error =>{
                             res.status(412).json({msg: error.message});
                         })
-                })
                 .catch(error =>{
-                    res.status(412).json({msg:error.message})
+                    res.status(410).json({msg:error.message})
                 })
         });
 

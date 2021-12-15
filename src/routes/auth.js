@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 module.exports = app =>{
     const bodyParser    = require('body-parser');
     const cors          = require('cors');
@@ -33,43 +34,32 @@ module.exports = app =>{
                     actualUser.usuario = user.usuario;
                     actualUser.rol = user.rol;
                     actualUser.activo = user.activo;
-                    return bcrypt.compare(req.body.clave, user.clave);
-                })
-                .then(result=>{
-                    if(result){
-                        let token = jwt.sign(actualUser, secret, { expiresIn: '3600s'});
-                        let loginUser = {
-                            user: actualUser,
-                            token: token
-                        }
-                        res.status(200).json(loginUser)
-                    }
-                    else{
-                        res.status(403).json({msg:'Usuario o Contraseña incorrectos'});
-                    }
-                    res.send(result);
+                    bcrypt.compare(req.body.clave, user.clave)
+                        .then(result =>{
+                            if(result){
+                                    let token = jwt.sign(actualUser, secret, { expiresIn: '7200s'});
+                                    let loginUser = {
+                                        user: actualUser,
+                                        token: token
+                                    }
+                                    res.send(loginUser);
+                            }else{
+                                res.status(401).json({status: 401, mensaje: 'usuario y/o contraseña incorectos'});
+                            }
+                        })
+                        .catch(err =>{
+                            res.status(500).json({status: 500, mensaje: 'error al validar la contraseña'});
+                        });
                 })
                 .catch(error =>{
-                    res.status(412).json(error);
+                    console.log('valor de usuario',actualUser.activo )
+                    if(actualUser.activo){
+                        res.status(403).json({status: 403, mensaje: 'usuario inactivo'});
+                    }else{
+                        res.status(403).json({status: 403, mensaje: 'usuario y/o contraseña incorectos'});
+                    }
+
                 })
+
         })
-
-    app.route('/api/token/sign')
-        .get((req,res)=>{
-            var userData = {
-                "name": "My Name",
-                "id": "1234"
-            }
-            let token = jwt.sign(userData, secret, { expiresIn: '60s'})
-            res.status(200).json({"token": token});
-        });
-
-    app.route('/api/token/path1')
-        .get((req, res) => {
-            res.status(200)
-                .json({
-                    "succes": true,
-                    "msg":"Secret access granted"
-                });
-        });
 }

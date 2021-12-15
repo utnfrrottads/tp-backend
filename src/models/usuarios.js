@@ -21,7 +21,10 @@ module.exports = (sequelize, DataType) =>{
             }
         },
         rol:{
-            type: DataType.STRING
+            type: DataType.STRING,
+            validate: {
+                isIn:[['administrador','compras', 'ventas', 'supervisor']]
+            }
         },
         activo:{
             type: DataType.BOOLEAN,
@@ -36,7 +39,7 @@ module.exports = (sequelize, DataType) =>{
     }
 
     Usuarios.associate = (models)=>{
-        //Usuarios.sync({force:true});
+        //Usuarios.sync({alter:true});
     }
 
     return Usuarios;
