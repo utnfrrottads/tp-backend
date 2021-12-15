@@ -1,5 +1,4 @@
 module.exports = app =>{
-
     app.db.sequelize.sync()
         .then(()=>{
             app.listen(app.get('port'),()=>{
@@ -9,5 +8,4 @@ module.exports = app =>{
         .catch(error =>{
             console.log('ERROR AL INICIAR EL SERVIDOR',error);
         });
-
 };

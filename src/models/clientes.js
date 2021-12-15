@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataType) =>{
 
-
     const Clientes = sequelize.define('Clientes',{
         dni:{
             type: DataType.STRING,
@@ -28,9 +27,12 @@ module.exports = (sequelize, DataType) =>{
             type:DataType.STRING,
             allowNull: false
         },
-        esMayorista:{
-            type:DataType.BOOLEAN,
-            allowNull: false
+        tipoCliente:{
+           type:DataType.STRING,
+            validate: {
+               isIn:[['MAYORISTA','MINORISTA']],
+                isUppercase: true
+            }
         },
         activo: {
             type: DataType.BOOLEAN,
@@ -45,20 +47,16 @@ module.exports = (sequelize, DataType) =>{
         return true;
     }
 
-
     Clientes.associate = (models)=>{
 
-        //ASOCIACION CON VENTAS
+     //Clientes.sync({force:true});
+
         Clientes.hasMany(models.Ventas,{
             foreignKey:{
                 allowNull:false
             }
         });
-
-        // Clientes.sync({alter:true});
-
     };
 
     return Clientes;
-
 }
