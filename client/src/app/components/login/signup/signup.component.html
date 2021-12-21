@@ -1,75 +1,67 @@
-<div class="modal fade background-popup-fade" id="signUpPopup" aria-labelledby="Crear Nueva Cuenta" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Crear Nueva Cuenta
-                </h5>
-                <button type="button" id="btnCloseSignUpPopup" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Crear Cuenta</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="errorMessage">
+        <div style="width: 100%; margin-bottom: 1%;">
+            <div class="alert alert-danger alert-dismissible fade show"
+                style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;"
+                role="alert">
+                {{ errorMessage }}
+                <button (click)="errorMessage = ''" class="close btn btn-link" data-dismiss="alert"
+                    style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <ng-container *ngIf="errorMessage">
-                    <div style="width: 100%; margin-bottom: 1%;">
-                        <div class="alert alert-danger alert-dismissible fade show"
-                            style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;"
-                            role="alert">
-                            {{ errorMessage }}
-                            <button (click)="errorMessage = ''" class="close btn btn-link" data-dismiss="alert"
-                                style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                </ng-container>
-                <div class="card animate__animated animate__flipInY animate__fast">
-                    <div class="card-body">
-                        <p class="campos-req mb-4">*&nbsp;Campos requeridos</p>
-                        <form ngNoForm (submit)="signUp($event)">
-                            <div class="form-group">
-                                <label>Nombre Usuario&nbsp;*</label>
-                                <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
-                                    placeholder="User123" class="form-control" minlength="6" maxlength="25" required
-                                    autofocus>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label>Clave&nbsp;*</label>
-                                <input type="password" name="clave" [(ngModel)]="usuario.clave"
-                                    placeholder="Mínimo de 8 caracteres" class="form-control" minlength="8"
-                                    maxlength="50" required>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label>Nombre y Apellido&nbsp;*</label>
-                                <input type="text" name="nombreApellido" [(ngModel)]="usuario.nombreApellido"
-                                    placeholder="Nombre y Apellido" class="form-control" placeholder="Fulano Mengano"
-                                    maxlength="50" required>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label>Email&nbsp;*</label>
-                                <input type="email" name="email" [(ngModel)]="usuario.email"
-                                    placeholder="correo@email.com" class="form-control" maxlength="50" required>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label>Habilidades</label>
-                                <textarea name="habilidades" [(ngModel)]="usuario.habilidades"
-                                    placeholder="Descripción de sus habilidades" class="form-control" rows="3"
-                                    maxlength="300"></textarea>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-block">
-                                    Crear Cuenta
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+        </div>
+    </ng-container>
+    <div class="card animate__animated animate__flipInY animate__fast">
+        <div class="card-body">
+            <p class="campos-req mb-4">*&nbsp;Campos requeridos</p>
+            <form ngNoForm (submit)="signUp($event)">
+                <div class="form-group">
+                    <label>Nombre Usuario&nbsp;*</label>
+                    <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
+                        placeholder="User123" class="form-control" minlength="6" maxlength="25" required
+                        autofocus>
                 </div>
-            </div>
+                <br>
+                <div class="form-group">
+                    <label>Clave&nbsp;*</label>
+                    <input type="password" name="clave" [(ngModel)]="usuario.clave"
+                        placeholder="Mínimo de 8 caracteres" class="form-control" minlength="8"
+                        maxlength="50" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Nombre y Apellido&nbsp;*</label>
+                    <input type="text" name="nombreApellido" [(ngModel)]="usuario.nombreApellido"
+                        placeholder="Nombre y Apellido" class="form-control" placeholder="Fulano Mengano"
+                        maxlength="50" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Email&nbsp;*</label>
+                    <input type="email" name="email" [(ngModel)]="usuario.email"
+                        placeholder="correo@email.com" class="form-control" maxlength="50" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Habilidades</label>
+                    <textarea name="habilidades" [(ngModel)]="usuario.habilidades"
+                        placeholder="Descripción de sus habilidades" class="form-control" rows="3"
+                        maxlength="300"></textarea>
+                </div>
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block">
+                        Crear Cuenta
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

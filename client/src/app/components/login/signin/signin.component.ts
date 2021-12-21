@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
 import { AuthService } from '../../../services/auth.service';
 
 import { Usuario } from '../../../models/Usuario';
-
-declare var $: any;
 
 @Component({
   selector: 'app-signin',
@@ -21,6 +20,7 @@ export class SigninComponent implements OnInit {
   };
 
   constructor(
+    public bsModalRef: BsModalRef,
     private router: Router,
     private authService: AuthService
   ) { }
@@ -36,12 +36,6 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('usuario', JSON.stringify(res.data.signIn.usuario));
         localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signIn.token);
-
-        $('#signInPopup').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-
-        $('.navbar-collapse').removeClass('show');
 
         this.router.navigate(['']);
       },

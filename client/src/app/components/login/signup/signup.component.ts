@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
 import { AuthService } from '../../../services/auth.service';
 
 import { Usuario } from '../../../models/Usuario';
-
-declare var $: any;
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
   errorMessage = '';
+  title?: string;
+  closeBtnName?: string;
+  list: any[] = [];
 
   usuario: Usuario = {
     nombreUsuario: '',
@@ -25,12 +27,10 @@ export class SignupComponent implements OnInit {
   };
 
   constructor(
+    public bsModalRef: BsModalRef,
     private router: Router,
     private authService: AuthService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   signUp(event: any): void {
     event.preventDefault();
@@ -42,12 +42,6 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
 
-        $('#signUpPopup').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-
-        $('.navbar-collapse').removeClass('show');
-
         this.router.navigate(['']);
       },
       (err: any) => {
@@ -55,5 +49,4 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-
 }
