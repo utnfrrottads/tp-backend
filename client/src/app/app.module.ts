@@ -36,6 +36,7 @@ import { ServiciosComponent } from './components/servicio/servicios/servicios.co
 import { ServicioComponent } from './components/servicio/servicio/servicio.component';
 import { TableContratosComponent } from './components/contrato/table-contratos/table-contratos.component';
 import { ChatComponent } from './components/contrato/chat/chat.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ChatComponent } from './components/contrato/chat/chat.component';
     FormsModule,
     ReactiveFormsModule,
     HttpLinkModule,
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
