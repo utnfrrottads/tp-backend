@@ -37,6 +37,8 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signIn.token);
 
+        this.bsModalRef.hide();
+
         this.router.navigate(['']);
       },
       (err: any) => {

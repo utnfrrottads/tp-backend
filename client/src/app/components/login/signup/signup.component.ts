@@ -42,6 +42,8 @@ export class SignupComponent {
         localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
         localStorage.setItem('token', res.data.signUp.token);
 
+        this.bsModalRef.hide();
+
         this.router.navigate(['']);
       },
       (err: any) => {
