@@ -34,7 +34,7 @@ app.listen(PORT, () => {
 
             //connect to elasticsearch
             require('./elasticsearch');
-            //require('../configElasticsearch');
+            require('../configElasticsearch');
         })
         .catch(err => console.log(err));
 });

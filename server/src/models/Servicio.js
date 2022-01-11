@@ -1,6 +1,7 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
+const Float = require('mongoose-float').loadType(mongoose);
 
-const servicioSchema = new Schema({
+const servicioSchema = new mongoose.Schema({
   titulo: {
     type: String,
     required: true,
@@ -15,7 +16,7 @@ const servicioSchema = new Schema({
   },
   precio: {
     valor: {
-      type: Number,
+      type: Float,
       required: true,
       min: 0,
     },
@@ -44,4 +45,4 @@ const servicioSchema = new Schema({
   },
 }, { collection: "servicios", timestamps: false });
 
-module.exports = model("Servicio", servicioSchema);
+module.exports = mongoose.model("Servicio", servicioSchema);

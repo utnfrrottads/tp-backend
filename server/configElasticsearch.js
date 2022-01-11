@@ -48,7 +48,7 @@ const onCreateServicios = async () => {
               type: 'text',
               analyzer: 'my_analyzer',
               search_analyzer: 'my_analyzer'
-            }
+            },
           }
         }
       }
@@ -63,7 +63,7 @@ const onCreateServicios = async () => {
           titulo: servicio.titulo,
           descripcion: servicio.descripcion,
           precio: {
-            valor: servicio.precio.valor,
+            valor: Number.isInteger(servicio.precio.valor) ? servicio.precio.valor + ".0" : servicio.precio.valor.toString(),
             idMoneda: servicio.precio.idMoneda,
           },
           ubicacion: servicio.ubicacion,
