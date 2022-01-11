@@ -31,22 +31,23 @@
           <div class="form-group">
             <label><b>Nombre y Apellido:</b></label>
             <input type="text" name="nombreApellido" [(ngModel)]="usuarioEditado.nombreApellido"
-              placeholder="Nombre y apellido" class="form-control" required autofocus>
+              placeholder="Nombre y Apellido" class="form-control" placeholder="Fulano Mengano" maxlength="100" required
+              autofocus>
           </div>
           <div class="form-group">
             <label><b>Nombre de usuario:</b></label>
-            <input type="text" name="nombreUsuario" [(ngModel)]="usuarioEditado.nombreUsuario"
-              placeholder="Nombre de usuario" class="form-control" required>
+            <input type="text" name="nombreUsuario" [(ngModel)]="usuarioEditado.nombreUsuario" placeholder="User123"
+              class="form-control" minlength="6" maxlength="25" required>
           </div>
           <div class="form-group">
             <label><b>Email:</b></label>
-            <input type="email" name="email" [(ngModel)]="usuarioEditado.email" placeholder="Email" class="form-control"
-              required>
+            <input type="email" name="email" [(ngModel)]="usuarioEditado.email" placeholder="correo@email.com"
+              class="form-control" maxlength="320" required>
           </div>
           <div class="form-group">
             <label><b>Habilidades:</b></label>
-            <textarea name="habilidades" [(ngModel)]="usuarioEditado.habilidades" placeholder="Habilidades"
-              class="form-control" rows="3" required></textarea>
+            <textarea name="habilidades" [(ngModel)]="usuarioEditado.habilidades"
+              placeholder="Descripción de sus habilidades" class="form-control" rows="3" maxlength="350"></textarea>
           </div>
           <div class="buttons mt-4">
             <div class="row">

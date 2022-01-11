@@ -1,5 +1,6 @@
 const { createJwtToken } = require("../helpers/auth");
 const { encryptPassword, matchPassword } = require("../helpers/encryptPassword");
+const validator = require('validator');
 const {
   GraphQLString,
   GraphQLID,
@@ -43,13 +44,11 @@ const signUp = {
       clave.length >= 8 &&
       clave.length <= 50 &&
       nombreApellido &&
-      nombreApellido.trim().length <= 50 &&
+      nombreApellido.trim().length <= 100 &&
       email &&
-      email.length <= 50 &&
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
-      ) &&
-      (!habilidades || (habilidades && habilidades.trim().length <= 300))
+      email.length <= 320 &&
+      validator.isEmail(email) &&
+      (!habilidades || (habilidades && habilidades.trim().length <= 350))
     ) {
       if (!(await Usuario.findOne({ nombreUsuario }))) {
         const nivelMinimo = await Nivel.findOne({ nro: 1, contratosMinimos: 0 })
@@ -133,13 +132,11 @@ const updateUsuario = {
           clave.length >= 8 &&
           clave.length <= 50 &&
           nombreApellido &&
-          nombreApellido.trim().length <= 50 &&
+          nombreApellido.trim().length <= 100 &&
           email &&
-          email.length <= 50 &&
-          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-            email
-          ) &&
-          (!habilidades || (habilidades && habilidades.trim().length <= 300))
+          email.length <= 320 &&
+          validator.isEmail(email) &&
+          (!habilidades || (habilidades && habilidades.trim().length <= 350))
         ) {
           if (
             usuario.nombreUsuario === nombreUsuario ||
@@ -421,7 +418,7 @@ const publishService = {
         && titulo.trim().length <= 30
         && descripcion
         && descripcion.trim().length <= 300
-        && ((valor && valor >= 0) || (!valor && valor ==0))
+        && ((valor && valor >= 0) || (!valor && valor == 0))
         && idMoneda
         && ubicacion
         && ubicacion.trim().length <= 100
@@ -508,12 +505,12 @@ const cancelContract = {
       if (contratoACancelar.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = false;
         contratoACancelar.fechaCancelacion = new Date();
-        
+
         return await contratoACancelar.save();
       } else if (contratoACancelar.servicio.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = true;
         contratoACancelar.fechaCancelacion = new Date();
-        
+
         return await contratoACancelar.save();
       } else {
         throw new Error("El usuario no puede cancelar el contrato");

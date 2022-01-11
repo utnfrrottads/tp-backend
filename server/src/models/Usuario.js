@@ -18,17 +18,17 @@ const usuarioSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      maxLength: 50,
+      maxLength: 100,
     },
     email: {
       type: String,
       required: true,
-      maxLength: 50,
+      maxLength: 320,
     },
     habilidades: {
       type: String,
       trim: true,
-      maxLength: 300,
+      maxLength: 350,
     },
     fotoPerfil: {
       type: String,
