@@ -193,6 +193,7 @@ const TypeNotificacion = new GraphQLObjectType({
     link: { type: GraphQLString },
     fechaHora: { type: TypeDateTimeScalar },
     leida: { type: GraphQLBoolean },
+    icono: { type: GraphQLString },
     usuario: {
       type: TypeUsuario,
       resolve(parent, args) {

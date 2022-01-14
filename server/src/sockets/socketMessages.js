@@ -45,6 +45,7 @@ function onSendMessage(socket) {
             link: '/contrato/mensajes/' + socket.contrato._id,
             fechaHora: new Date(),
             leida: false,
+            icono: "mensaje",
             idUsuario: socket.contrato.idUsuario
           });
         } else if (socket.usuario._id == socket.contrato.idUsuario) {
@@ -60,6 +61,7 @@ function onSendMessage(socket) {
             link: '/contrato/mensajes/' + socket.contrato._id,
             fechaHora: new Date(),
             leida: false,
+            icono: "mensaje",
             idUsuario: socket.contrato.servicio.idUsuario
           });
         }

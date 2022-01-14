@@ -20,6 +20,10 @@ const notificacionSchema = new Schema({
       default: false,
       required: true,
     },
+    icono: {
+      type: String,
+      required: true,
+    },
     idUsuario: {
       type: String,
       required: true,

@@ -489,6 +489,7 @@ const signContract = {
             link: '/servicio/' + servicio._id,
             fechaHora: new Date(),
             leida: false,
+            icono: "contrato",
             idUsuario: servicio.idUsuario
           });
           await notificacion.save();
@@ -527,6 +528,7 @@ const cancelContract = {
           link: '/servicio/' + contratoACancelar.servicio._id,
           fechaHora: new Date(),
           leida: false,
+          icono: "contrato",
           idUsuario: contratoACancelar.servicio.idUsuario
         });
         await notificacion.save();
@@ -542,6 +544,7 @@ const cancelContract = {
           link: '/servicio/' + contratoACancelar.servicio._id,
           fechaHora: new Date(),
           leida: false,
+          icono: "contrato",
           idUsuario: contratoACancelar.idUsuario
         });
         await notificacion.save();

@@ -11,6 +11,7 @@ const MIS_NOTIFICACIONES = gql`
       link
       fechaHora
       leida
+      icono
     }
   }
 `;

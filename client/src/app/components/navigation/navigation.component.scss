@@ -53,6 +53,22 @@
     margin-bottom: 3px;
     border-radius: 2px;
 
+    .icono-descripcion {
+      display: inline-flex;
+      margin-bottom: 10px;
+
+      .icono {
+        float: left;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 10px;
+      }
+
+      .descripcion {
+        float: right;
+      }
+    }
+    
     .tiempo {
       font-size: small;
     }

@@ -6,5 +6,6 @@ export interface Notificacion {
   link?: string,
   fechaHora?: Date;
   leida?: boolean;
+  icono?: string;
   usuario?: Usuario;
 }

@@ -31,7 +31,11 @@
             <div class="notificacion p-2" [ngClass]="{'leida': notificacion.leida, 'noLeida': !notificacion.leida}"
               *ngFor="let notificacion of notificaciones; let indice=index"
               (click)="irALaNotificacion(notificacion.link || '')">
-              <p>{{ notificacion.descripcion }}</p>
+              <div class="icono-descripcion">
+                <i class="fas fa-file-signature fa-2x icono" *ngIf="notificacion.icono == 'contrato'"></i>
+                <i class="fas fa-comments fa-2x icono" *ngIf="notificacion.icono == 'mensaje'"></i>
+                <span class="descripcion">{{ notificacion.descripcion }}</span>
+              </div>
               <p class="tiempo">{{ notificacion.fechaHora?.toLocaleDateString() }}&nbsp;{{
                 notificacion.fechaHora?.toLocaleTimeString() }}</p>
             </div>
