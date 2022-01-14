@@ -14,6 +14,7 @@ const {
   TypeCategoria,
   TypeServicio,
   TypeContrato,
+  TypeNotificacion,
 } = require("./types");
 const {
   Usuario,
@@ -21,9 +22,11 @@ const {
   Nivel,
   Servicio,
   Moneda,
-  Contrato
+  Contrato,
+  Notificacion
 } = require("../models/index");
-const client = require('../elasticsearch');
+const client = require('../elasticsearch/elasticsearch');
+const io = require('../sockets/socket');
 
 const signUp = {
   description: "Crear Cuenta",
@@ -472,13 +475,25 @@ const signContract = {
       throw new Error("Acceso no autorizado");
     } else {
       if (idServicio) {
-        if ((await Servicio.findById(idServicio)).idUsuario != usuario._id) {
+        const servicio = await Servicio.findById(idServicio);
+        if (servicio.idUsuario != usuario._id) {
           const contrato = new Contrato({
             fecha: new Date(),
             idServicio,
             idUsuario: usuario._id,
           });
-          return await contrato.save();
+          await contrato.save();
+
+          const notificacion = new Notificacion({
+            descripcion: 'El usuario ' + usuario.nombreUsuario + ' firmó contrato por su servicio: ' + servicio.titulo,
+            link: '/servicio/' + servicio._id,
+            fechaHora: new Date(),
+            leida: false,
+            idUsuario: servicio.idUsuario
+          });
+          await notificacion.save();
+
+          return contrato;
         } else {
           throw new Error("Un usuario no puede contratar su propio servicio");
         }
@@ -505,16 +520,48 @@ const cancelContract = {
       if (contratoACancelar.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = false;
         contratoACancelar.fechaCancelacion = new Date();
+        const contratoCancelado = await contratoACancelar.save();
 
-        return await contratoACancelar.save();
+        const notificacion = new Notificacion({
+          descripcion: 'El ususario ' + usuario.nombreUsuario + ' finalizó el contrato por el servicio: ' + contratoACancelar.servicio.titulo,
+          link: '/servicio/' + contratoACancelar.servicio._id,
+          fechaHora: new Date(),
+          leida: false,
+          idUsuario: contratoACancelar.servicio.idUsuario
+        });
+        await notificacion.save();
+
+        return contratoCancelado;
       } else if (contratoACancelar.servicio.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = true;
         contratoACancelar.fechaCancelacion = new Date();
+        const contratoCancelado = await contratoACancelar.save();
 
-        return await contratoACancelar.save();
+        const notificacion = new Notificacion({
+          descripcion: 'El ususario ' + usuario.nombreUsuario + ' finalizó el contrato por el servicio: ' + contratoACancelar.servicio.titulo,
+          link: '/servicio/' + contratoACancelar.servicio._id,
+          fechaHora: new Date(),
+          leida: false,
+          idUsuario: contratoACancelar.idUsuario
+        });
+        await notificacion.save();
+
+        return contratoCancelado;
       } else {
         throw new Error("El usuario no puede cancelar el contrato");
       }
+    }
+  },
+};
+
+const readNotifications = {
+  description: "Leer notificaciones",
+  type: TypeNotificacion,
+  async resolve(parent, args, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      return Notificacion.updateMany({ idUsuario: usuario._id, leida: false }, { $set: { leida: true } });
     }
   },
 };
@@ -535,4 +582,5 @@ module.exports = {
   publishService,
   signContract,
   cancelContract,
+  readNotifications,
 };

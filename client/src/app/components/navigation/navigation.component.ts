@@ -1,8 +1,12 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { AuthService } from '../../services/auth.service';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 import { SignupComponent } from '../login/signup/signup.component';
 import { SigninComponent } from '../login/signin/signin.component';
+import { Notificacion } from 'src/app/models/Notificacion';
 
 @Component({
   selector: 'app-navigation',
@@ -11,15 +15,65 @@ import { SigninComponent } from '../login/signin/signin.component';
 })
 export class NavigationComponent implements OnInit {
 
+  numeroNotificacionesNoLeidas: number = 0;
+  notificaciones: Notificacion[] = [];
   localStorage: Storage = localStorage;
   bsModalRef?: BsModalRef;
 
+  misNotificacionesQuery: any;
+  misNotificacionesSubscription: any;
+
   constructor(
+    private router: Router,
     public authService: AuthService,
+    private notificacionService: NotificacionService,
     private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
+    if (this.authService.loggedIn()) {
+      this.suscribeMisNotificaciones();
+    }
+    this.authService.setSearchNotifications(this.suscribeMisNotificaciones.bind(this));
+  }
+
+  suscribeMisNotificaciones(): void {
+    this.misNotificacionesQuery = this.notificacionService.misNotificaciones();
+    this.misNotificacionesSubscription = this.misNotificacionesQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.misNotificaciones;
+      })
+    ).subscribe(
+      (res: any) => {
+        this.notificaciones = [];
+        this.numeroNotificacionesNoLeidas = 0;
+
+        res.forEach((notificacion: any) => {
+          notificacion.fechaHora = new Date(notificacion.fechaHora);
+          this.notificaciones.push(notificacion);
+
+          if (!notificacion.leida) {
+            this.numeroNotificacionesNoLeidas++;
+          }
+        });
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  refreshMisNotificaciones(): void {
+    this.misNotificacionesQuery.refetch();
+  }
+
+  unsuscribeMisNotificaciones(): void {
+    this.misNotificacionesSubscription.unsubscribe();
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.numeroNotificacionesNoLeidas = 0;
+    this.notificaciones = [];
+    this.unsuscribeMisNotificaciones();
   }
 
   openSigninModal(): void {
@@ -31,4 +85,21 @@ export class NavigationComponent implements OnInit {
     this.bsModalRef = this.modalService.show(SignupComponent);
     this.bsModalRef.content.closeBtnName = 'Close';
   }
+
+  leerNotificaciones(): void {
+    this.numeroNotificacionesNoLeidas = 0;
+    this.notificaciones.forEach(notificacion => {
+      notificacion.leida = true;
+    });
+
+    this.notificacionService.leerNotificaciones().subscribe(
+      (res: any) => { },
+      (err: any) => { }
+    );
+  }
+
+  irALaNotificacion(link: string): void {
+    this.router.navigate(['/' + link]);
+  }
+
 }

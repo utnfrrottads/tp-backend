@@ -20,21 +20,20 @@ app.use('/graphql', authenticate, graphqlHTTP({
     graphiql: true
 }));
 
-//socket
-require('./socket');
-
 //starting the server
 app.listen(PORT, () => {
     console.log('Server on port: ' + PORT);
+
+    //sockets
+    require('./sockets/socketMessages');
 
     //connect to db
     mongoose.connect(MONGO_ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => {
             console.log('--> Atlas DB Connected ✅.');
 
-            //connect to elasticsearch
-            require('./elasticsearch');
-            require('../configElasticsearch');
+            //elasticsearch
+            require('./elasticsearch/configElasticsearch');
         })
         .catch(err => console.log(err));
 });

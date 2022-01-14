@@ -184,6 +184,24 @@ const TypeCategoria = new GraphQLObjectType({
   }),
 });
 
+const TypeNotificacion = new GraphQLObjectType({
+  name: "TypeNotificacion",
+  description: "Type notificacion",
+  fields: () => ({
+    _id: { type: GraphQLID },
+    descripcion: { type: GraphQLString },
+    link: { type: GraphQLString },
+    fechaHora: { type: TypeDateTimeScalar },
+    leida: { type: GraphQLBoolean },
+    usuario: {
+      type: TypeUsuario,
+      resolve(parent, args) {
+        return Usuario.findById(parent.idUsuario);
+      },
+    },
+  }),
+});
+
 const TypeDateTimeScalar = new GraphQLScalarType({
   name: "TypeDateTimeScalar",
   parseValue(value) {
@@ -211,5 +229,6 @@ module.exports = {
   TypePrecio,
   TypeMoneda,
   TypeMensaje,
+  TypeNotificacion,
   InputIDCategoriasSeleccionadas,
 };

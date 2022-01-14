@@ -1,22 +1,15 @@
+const io = require('./socket');
 const jwt = require('jsonwebtoken');
-const { SOCKET_PORT, TOKEN_SECRET } = require('../config');
-const { Usuario, Mensaje, Contrato, Servicio } = require('./models/index');
-
-const io = require('socket.io')(SOCKET_PORT, {
-  cors: {
-    origin: true,
-    credentials: true,
-    methods: ['GET', 'POST'],
-  }
-});
+const { TOKEN_SECRET } = require('../../config');
+const { Usuario, Mensaje, Contrato, Servicio, Notificacion } = require('../models/index');
 
 io.on('connection', (socket) => {
-  onJoin(socket);
+  onJoinChat(socket);
   onSendMessage(socket);
 });
 
-function onJoin(socket) {
-  socket.on('join', async (token, idContrato) => {
+function onJoinChat(socket) {
+  socket.on('joinChat', async (token, idContrato) => {
     const payload = jwt.verify(token, TOKEN_SECRET);
     const usuario = await Usuario.findById(payload._id);
     if (usuario) {
@@ -37,12 +30,22 @@ function onSendMessage(socket) {
       const contrato = await Contrato.findById(socket.contrato._id);
       if (!contrato.fechaCancelacion) {
         let mensaje = null;
+        let notificacion = null;
+
         if (socket.usuario._id == socket.contrato.servicio.idUsuario) {
           mensaje = new Mensaje({
             mensaje: msj,
             mensajeEnviadoPorOferente: true,
             fechaHoraEnvio: new Date(),
             idContrato: socket.contrato._id.toString(),
+          });
+
+          notificacion = new Notificacion({
+            descripcion: 'El ususario ' + socket.usuario.nombreUsuario + ' le envió un mensaje por el servicio: ' + socket.contrato.servicio.titulo,
+            link: '/contrato/mensajes/' + socket.contrato._id,
+            fechaHora: new Date(),
+            leida: false,
+            idUsuario: socket.contrato.idUsuario
           });
         } else if (socket.usuario._id == socket.contrato.idUsuario) {
           mensaje = new Mensaje({
@@ -51,9 +54,18 @@ function onSendMessage(socket) {
             fechaHoraEnvio: new Date(),
             idContrato: socket.contrato._id.toString(),
           });
+
+          notificacion = new Notificacion({
+            descripcion: 'El ususario ' + socket.usuario.nombreUsuario + ' le envió un mensaje por el servicio: ' + socket.contrato.servicio.titulo,
+            link: '/contrato/mensajes/' + socket.contrato._id,
+            fechaHora: new Date(),
+            leida: false,
+            idUsuario: socket.contrato.servicio.idUsuario
+          });
         }
-        if (mensaje) {
-          mensaje.save();
+        if (mensaje && notificacion) {
+          await mensaje.save();
+          notificacion.save();
 
           io.in(socket.contrato._id.toString()).emit('receiveMessage', {
             mensaje: mensaje.mensaje,

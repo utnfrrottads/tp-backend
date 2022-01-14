@@ -21,7 +21,6 @@ export class SigninComponent implements OnInit {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private router: Router,
     private authService: AuthService
   ) { }
 
@@ -32,14 +31,8 @@ export class SigninComponent implements OnInit {
     this.authService.signIn(this.usuario).subscribe(
       (res: any) => {
         this.errorMessage = '';
-
-        localStorage.setItem('usuario', JSON.stringify(res.data.signIn.usuario));
-        localStorage.setItem('nombreUsuario', res.data.signIn.usuario.nombreUsuario);
-        localStorage.setItem('token', res.data.signIn.token);
-
+        this.authService.login(res.data.signIn.usuario, res.data.signIn.token);
         this.bsModalRef.hide();
-
-        this.router.navigate(['']);
       },
       (err: any) => {
         this.errorMessage = err.message;

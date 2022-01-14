@@ -6,7 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ContratoService } from 'src/app/services/contrato.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
-import { SocketService } from 'src/app/services/socket.service';
+import { SocketChatService } from 'src/app/services/socket-chat.service';
 
 import { Contrato } from 'src/app/models/Contrato';
 import { Mensaje } from 'src/app/models/Mensaje';
@@ -32,7 +32,7 @@ export class ChatComponent implements OnInit {
   constructor(
     private router: Router,
     private rutaActiva: ActivatedRoute,
-    private socket: SocketService,
+    private socketChat: SocketChatService,
     public userService: UserService,
     private contratoService: ContratoService,
     private mensajeService: MensajeService,
@@ -59,7 +59,7 @@ export class ChatComponent implements OnInit {
             this.contratoCancelado = false;
 
             this.recibirMensaje();
-            this.socket.connectToChat(this.rutaActiva.snapshot.params.idContrato);
+            this.socketChat.connectToChat(this.rutaActiva.snapshot.params.idContrato);
           } else {
             this.contratoCancelado = true;
           }
@@ -115,20 +115,20 @@ export class ChatComponent implements OnInit {
 
   enviarMensaje() {
     if (this.contratoCargado && !this.contratoCancelado) {
-      this.socket.io.emit('sendMessage', this.mensaje);
+      this.socketChat.io.emit('sendMessage', this.mensaje);
       this.mensaje = '';
     }
   }
 
   recibirMensaje() {
-    this.socket.io.on('receiveMessage', (mensaje: Mensaje) => {
+    this.socketChat.io.on('receiveMessage', (mensaje: Mensaje) => {
       if (
         (mensaje.mensajeEnviadoPorOferente && mensaje.contrato!.servicio!.usuario!._id == this.userService.getUsuario()._id)
         || (!mensaje.mensajeEnviadoPorOferente && mensaje.contrato!.usuario!._id == this.userService.getUsuario()._id)
       ) this.desplazarChat = true;
 
       this.mensajes.push(mensaje);
-    })
+    });
   }
 
   desplazarChat: boolean = true;

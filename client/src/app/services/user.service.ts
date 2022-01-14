@@ -13,7 +13,7 @@ const UPDATEUSUARIO = gql`
       nombreApellido: $nombreApellido,
       email: $email,
       habilidades: $habilidades
-    ){
+    ) {
       usuario {
         _id
         nombreUsuario

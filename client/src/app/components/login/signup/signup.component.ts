@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
@@ -28,23 +28,18 @@ export class SignupComponent {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private router: Router,
     private authService: AuthService
   ) { }
+
+  ngOnInit(): void { }
 
   signUp(event: any): void {
     event.preventDefault();
     this.authService.signUp(this.usuario).subscribe(
       (res: any) => {
         this.errorMessage = '';
-
-        localStorage.setItem('usuario', JSON.stringify(res.data.signUp.usuario));
-        localStorage.setItem('nombreUsuario', res.data.signUp.usuario.nombreUsuario);
-        localStorage.setItem('token', res.data.signUp.token);
-
+        this.authService.login(res.data.signUp.usuario, res.data.signUp.token);
         this.bsModalRef.hide();
-
-        this.router.navigate(['']);
       },
       (err: any) => {
         this.errorMessage = err.message;

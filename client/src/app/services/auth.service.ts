@@ -16,7 +16,7 @@ const SIGNUP = gql`
       nombreApellido: $nombreApellido,
       email: $email,
       habilidades: $habilidades
-    ){
+    ) {
       usuario {
         _id
         nombreUsuario
@@ -79,6 +79,16 @@ export class AuthService {
     });
   }
 
+  login(usuario: Usuario, token: string): void {
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('nombreUsuario', usuario.nombreUsuario || '');
+    localStorage.setItem('token', token);
+
+    this.searchNotifications();
+
+    this.router.navigate(['/']);
+  }
+
   loggedIn(): boolean {
     if (localStorage.getItem('usuario') && localStorage.getItem('nombreUsuario') && localStorage.getItem('token')) {
       return true;
@@ -111,6 +121,12 @@ export class AuthService {
     $(".navbar-collapse").removeClass("show");
 
     this.router.navigate(['/']);
+  }
+
+  private searchNotifications: () => void = function () { };
+
+  setSearchNotifications(fn: () => void): void {
+    this.searchNotifications = fn;
   }
 
 }

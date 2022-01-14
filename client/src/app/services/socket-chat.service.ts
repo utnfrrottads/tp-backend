@@ -6,7 +6,7 @@ import { AuthService } from "./auth.service";
 @Injectable({
   providedIn: 'root'
 })
-export class SocketService {
+export class SocketChatService {
 
   io = io(environment.SOCKET_URL, {
     withCredentials: true,
@@ -18,7 +18,7 @@ export class SocketService {
   connectToChat(idContrato: String) {
     if (this.authService.loggedIn()) {
       this.io.connect();
-      this.io.emit('join', this.authService.getToken(), idContrato);
+      this.io.emit('joinChat', this.authService.getToken(), idContrato);
     }
   }
   

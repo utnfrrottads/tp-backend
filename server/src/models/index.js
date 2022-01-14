@@ -6,4 +6,5 @@ module.exports = {
   Categoria: require("./Categoria"),
   Moneda: require("./Moneda"),
   Mensaje: require("./Mensaje"),
+  Notificacion: require("./Notificacion"),
 };

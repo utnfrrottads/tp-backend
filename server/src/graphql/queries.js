@@ -1,7 +1,7 @@
 const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
-const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, InputIDCategoriasSeleccionadas } = require('./types');
-const { Usuario, Nivel, Categoria, Moneda, Servicio, Contrato, Mensaje } = require('../models/index');
-const client = require('../elasticsearch');
+const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, TypeNotificacion, InputIDCategoriasSeleccionadas } = require('./types');
+const { Usuario, Nivel, Categoria, Moneda, Servicio, Contrato, Mensaje, Notificacion } = require('../models/index');
+const client = require('../elasticsearch/elasticsearch');
 
 const usuario = {
     description: 'Usuario',
@@ -267,6 +267,18 @@ const mensajesDelContrato = {
     }
 }
 
+const misNotificaciones = {
+    description: 'Mis Notificaciones',
+    type: GraphQLList(TypeNotificacion),
+    async resolve(parent, args, { usuario }) {
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            return await Notificacion.find({ idUsuario: usuario._id }).sort({ fechaHora: -1 });
+        }
+    }
+}
+
 module.exports = {
     usuario,
     niveles,
@@ -281,4 +293,5 @@ module.exports = {
     contratosRealizados,
     contratosRecibidos,
     mensajesDelContrato,
+    misNotificaciones,
 }

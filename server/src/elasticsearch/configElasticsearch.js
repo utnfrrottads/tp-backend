@@ -1,5 +1,5 @@
-const client = require('./src/elasticsearch');
-const { Servicio } = require('./src/models/index');
+const client = require('./elasticsearch');
+const { Servicio } = require('../models/index');
 
 const onCreateServicios = async () => {
   try {
