@@ -37,6 +37,10 @@ export class NavigationComponent implements OnInit {
     this.authService.setSearchNotifications(this.suscribeMisNotificaciones.bind(this));
   }
 
+  ngOnDestroy(): void {
+    if (this.misNotificacionesSubscription) this.unsuscribeMisNotificaciones();
+  }
+
   suscribeMisNotificaciones(): void {
     this.misNotificacionesQuery = this.notificacionService.misNotificaciones();
     this.misNotificacionesSubscription = this.misNotificacionesQuery.valueChanges.pipe(
@@ -99,7 +103,9 @@ export class NavigationComponent implements OnInit {
   }
 
   irALaNotificacion(link: string): void {
-    this.router.navigate(['/' + link]);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/' + link]);
+    });
   }
 
 }
