@@ -13,10 +13,10 @@ module.exports = app => {
                     bcrypt.compare(req.body.claveVieja, user.clave)
                         .then(result => {
                             if(!result){
-                                res.status(403).json({msg:`El campo "Contraseña anterior" no coincide con la contraseña actual del usuario: ${user.usuario}`});
+                                res.status(418).json({msg:`El campo "Contraseña anterior" no coincide con la contraseña actual del usuario: ${user.usuario}`});
                             }else{
                                 if(req.body.claveVieja === req.body.claveNueva){
-                                    res.status(403).json({msg:'La "Contraseña anterior" no debe coincidir con la "Contraseña nueva"'});
+                                    res.status(418).json({msg:'La "Contraseña anterior" no debe coincidir con la "Contraseña nueva"'});
                                 }else{
                                     bcrypt.hash(req.body.claveNueva, BCRYPT_SALT_ROUNDS)
                                         .then(hashedPassword => {
