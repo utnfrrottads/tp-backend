@@ -11,10 +11,15 @@ import { ServiciosContratadosComponent } from './components/contrato/servicios-c
 import { ChatComponent } from './components/contrato/chat/chat.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'servicios',
     component: ServiciosComponent,
   },
   {
