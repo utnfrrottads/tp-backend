@@ -39,7 +39,7 @@ module.exports = app =>{
                         bcrypt.compare(req.body.clave, user.clave)
                             .then(result =>{
                                 if(result){
-                                    let token = jwt.sign(actualUser, secret, { expiresIn: '7200s'});
+                                    let token = jwt.sign(actualUser, secret, { expiresIn: '100h'});
                                     let loginUser = {
                                         user: actualUser,
                                         token: token
