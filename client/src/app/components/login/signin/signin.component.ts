@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AuthService } from '../../../services/auth.service';
-
+import { SignupComponent } from '../signup/signup.component';
 import { Usuario } from '../../../models/Usuario';
 
 @Component({
@@ -21,10 +21,17 @@ export class SigninComponent implements OnInit {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void { }
+
+  openSignupModal(): void {
+    this.bsModalRef.hide();
+    this.bsModalRef = this.modalService.show(SignupComponent);
+    this.bsModalRef.content.closeBtnName = 'Close';
+  }
 
   signIn(event: any): void {
     event.preventDefault();
