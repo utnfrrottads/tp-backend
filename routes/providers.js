@@ -3,17 +3,17 @@ const router = express.Router()
 const model = require('../models/Provider')
 
 router.get('/', (req,res)=>{
-    model.find({}, (err, provider)=>{
+    model.find({}, (err, providers)=>{
         if (err) throw err
-        res.send(provider)
+        res.send(providers)
     })
 })
 
 
-router.post('/product/add', (req,res)=>{
+router.post('/provider/add', (req,res)=>{
     let body = req.body
     console.log(body)
-    model.create(body, (err, provider)=>{
+    model.create(body, (err, providers)=>{
         if (err) throw err
         res.send(body)
     })
