@@ -1,43 +1,51 @@
-describe('sign in', () => {
+describe('log in, sign in and account deletion', () => {
+  // test data
+  const username = 'CypressUser';
+  const name = 'Cypress User';
+  const password = 'cypressuser123';
+  const email = 'user@cypress.com';
+  const skills = 'just being a robot';
+
   it('should register a new user', () => {
-    cy.visit('http://localhost:4200')
-    cy.get('.ml-auto > :nth-child(1) > .nav-link').click()
-    cy.get('input[name="nombreUsuario"]').type("CypressUser")
-    cy.get('input[name="clave"]').type("cypressuser123")
-    cy.get('input[name="nombreApellido"]').type("Cypress User")
-    cy.get('input[name="email"]').type("cypress@user.com")
-    cy.get('textarea[name="habilidades"]').type("Just being a robot")
-    cy.get(':nth-child(11) > .btn').click()
+    cy.visit('http://localhost:4200');
+    cy.get(':nth-child(1) > .btn').click();
+    cy.get('input[name="nombreUsuario"]').type(username);
+    cy.get('input[name="clave"]').type(password);
+    cy.get('input[name="nombreApellido"]').type(name);
+    cy.get('input[name="email"]').type(email);
+    cy.get('textarea[name="habilidades"]').type(skills);
+    cy.get('.btn-success').click();
 
-    cy.get(':nth-child(2) > #navbarDropdown').click()
-    cy.get('[href="/perfil"]').click()
-    cy.get('.mb-3').should('have.text', 'Cypress User')
-  })
-})
+    cy.get(':nth-child(2) > #navbarDropdown').click();
+    cy.get('[href="/perfil"]').click();
+    cy.get('.mb-3').should('have.text', name);
+  });
 
+  it('should log out', () => {
+    cy.get(':nth-child(2) > #navbarDropdown').click();
+    cy.get('.cerrar-sesion').click();
+    cy.contains('Registrarse');
+  });
 
+  it('should log in and delete the user', () => {
+    cy.get('.ml-auto > :nth-child(2) > .btn').click();
+    cy.get('input[name="nombreUsuario"]').type(username);
+    cy.get('input[name="clave"]').type(password);
+    cy.contains('Iniciar Sesión').click();
 
-// cy.get('.new-todo', {timeout: 6000}).type("Clean room{enter}")
+    cy.get(':nth-child(2) > #navbarDropdown').click();
+    cy.get('[href="/perfil"]').click();
+    cy.get('.mb-3').should('have.text', name);
+    cy.get('#deleteAccountButton').click();
+    cy.get('#confirmDeleteAccountButton').click();
+  });
 
-// cy.get('.toggle').click()
-
-// it('should be able to add a new todo to the list'), () => {
-
-// })
-
-// cy.get('label').should('have.text', 'Clean room')
-
-// cy.get('.toggle').should('not.be.checked')
-
-// cy.get('label').should('have.css', 'text-decoration-line', 'line-through')
-
-// cy.get('.todo-list').should('not.have.descendants', 'li')
-
-// cy.get(selector).should('not.have.descendants', 'li')
-
-// describe('todo list actions')
-// describe('filtering')
-
-// visit is only needed on the first test that runs
-
-// cy.get('.todo-list li').should('have.length', 3)
+  it('should fail when trying to log in with the deleted user', () => {
+    cy.visit('http://localhost:4200');
+    cy.get('.ml-auto > :nth-child(2) > .btn').click();
+    cy.get('input[name="nombreUsuario"]').type(username);
+    cy.get('input[name="clave"]').type(password);
+    cy.get('.btn-success').click();
+    cy.contains('Nombre de usuario y/o clave incorrectos');
+  });
+});
