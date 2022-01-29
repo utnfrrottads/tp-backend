@@ -66,7 +66,7 @@
         </form>
       </div>
 
-      <div class="buttons mt-3">
+      <div class="buttons m-3">
         <div class="row" *ngIf="!editando">
           <div class="col-md-6 col-btn">
             <button class="btn btn-light btn-block" (click)="editando=true">
@@ -76,6 +76,13 @@
           <div class="col-md-6 col-btn">
             <button class="btn btn-light btn-block" data-toggle="modal" data-target="#cambiarClavePopup">
               <i class="fas fa-key"></i> Cambiar Clave
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf='!editando'>
+          <div class="col col-btn">
+            <button id="deleteAccountButton" class="btn btn-danger btn-block" (click)="openDeleteAccountModal()">
+              <i class="fas fa-trash"></i> Eliminar Cuenta
             </button>
           </div>
         </div>
@@ -159,6 +166,37 @@
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account Child Modal -->
+<div bsModal #deleteAccountModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Eliminar cuenta</h4>
+        <button type="button" class="close pull-right btn-close" aria-label="Close" (click)="closeDeleteAccountModal()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>¿Está seguro de que quiere eliminar su cuenta?</h2>
+        <p>No será posible recuperar la cuenta tras la eliminación.</p>
+        <div class="row m-3">
+          <div class="col-6">
+            <button class="btn btn-danger btn-block" id="confirmDeleteAccountButton" (click)="confirmDeleteAccount()">
+              <i class="fas fa-trash"></i> Si, eliminar mi cuenta
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-secondary btn-block" id="cancelDeleteAccountButton" (click)="closeDeleteAccountModal()">
+              No, mantener
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

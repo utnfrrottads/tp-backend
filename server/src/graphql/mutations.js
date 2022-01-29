@@ -367,6 +367,21 @@ const deleteCategoria = {
   },
 };
 
+const deleteAccount = {
+  description: "Eliminar cuenta",
+  type: TypeUsuario,
+  args: {
+    _id: { type: GraphQLString },
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      return await Usuario.findByIdAndDelete(usuario._id);
+    }
+  },
+};
+
 const updateCategoria = {
   description: "Actualizar Categoria",
   type: TypeCategoria,
@@ -586,4 +601,5 @@ module.exports = {
   signContract,
   cancelContract,
   readNotifications,
+  deleteAccount
 };

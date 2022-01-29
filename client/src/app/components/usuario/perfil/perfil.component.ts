@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalService, BsModalRef, ModalOptions, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { environment } from 'src/environments/environment';
 
 import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 import { CloudinaryService } from '../../../services/cloudinary.service';
 
 import { Usuario } from '../../../models/Usuario';
@@ -15,9 +17,11 @@ declare var $: any;
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
+  @ViewChild('deleteAccountModal', { static: false }) deleteAccountModal?: ModalDirective;
 
   errorMessageClave = '';
   editando: boolean = false;
+  bsModalRef?: BsModalRef;
 
   usuario: Usuario = {
     nombreUsuario: '',
@@ -39,7 +43,12 @@ export class PerfilComponent implements OnInit {
   errorFormatoImagen: boolean = false;
   cloudinary_url = environment.CLOUDINARY_URL;
 
-  constructor(private userService: UserService, private cloudinaryService: CloudinaryService) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private cloudinaryService: CloudinaryService,
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit(): void {
     this.usuario = this.userService.getUsuario();
@@ -101,7 +110,7 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  guardarImagen(event: any) {
+  guardarImagen(event: any): void {
     event.preventDefault();
     if (this.usuario.imagen && !this.errorFormatoImagen) {
       const formImagen = new FormData();
@@ -129,7 +138,7 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  eliminarImagen() {
+  eliminarImagen(): void {
     this.usuario.fotoPerfil = '';
     this.userService.deleteProfileImage().subscribe(
       (res: any) => {
@@ -141,4 +150,24 @@ export class PerfilComponent implements OnInit {
     );
   }
 
+  openDeleteAccountModal(): void {
+    this.deleteAccountModal?.show();
+  }
+
+  closeDeleteAccountModal(): void {
+    this.deleteAccountModal?.hide();
+  }
+
+  confirmDeleteAccount(): void {
+    this.userService.deleteAccount(this.usuario).subscribe(
+      (res: any) => {
+        this.deleteAccountModal?.hide();
+        this.authService.logout();
+      },
+      (err: any) => {
+        console.log(err);
+        alert(err);
+      }
+    );
+  }
 }

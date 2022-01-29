@@ -36,6 +36,7 @@ const {
     signContract,
     cancelContract,
     readNotifications,
+    deleteAccount,
 } = require('./mutations');
 
 // Define QueryType
@@ -49,7 +50,7 @@ const QueryType = new GraphQLObjectType({
 const MutationType = new GraphQLObjectType({
     name: "MutationType",
     description: "Mutations",
-    fields: { signUp, signIn, updateUsuario, cambiarClave, updateProfileImage, deleteProfileImage, addNivel, deleteNivel, updateNivel, addCategoria, deleteCategoria, updateCategoria, publishService, signContract, cancelContract, readNotifications }
+    fields: { signUp, signIn, updateUsuario, cambiarClave, updateProfileImage, deleteProfileImage, addNivel, deleteNivel, updateNivel, addCategoria, deleteCategoria, updateCategoria, publishService, signContract, cancelContract, readNotifications, deleteAccount }
 })
 
 module.exports = new GraphQLSchema({

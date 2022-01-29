@@ -34,7 +34,7 @@ const CAMBIARCLAVE = gql`
       usuario {
         _id
         nombreUsuario
-        nombreApellido 
+        nombreApellido
         email
         habilidades
         fotoPerfil
@@ -50,7 +50,7 @@ const UPDATEPROFILEIMAGE = gql`
     updateProfileImage(fotoPerfil: $fotoPerfil) {
       _id
       nombreUsuario
-      nombreApellido 
+      nombreApellido
       email
       habilidades
       fotoPerfil
@@ -64,11 +64,19 @@ const DELETEPROFILEIMAGE = gql`
     deleteProfileImage {
       _id
       nombreUsuario
-      nombreApellido 
+      nombreApellido
       email
       habilidades
       fotoPerfil
       isAdministrador
+    }
+  }
+`;
+
+const DELETEACCOUNT = gql`
+  mutation deleteAccount($_id: String!) {
+    deleteAccount(_id: $_id) {
+      _id
     }
   }
 `;
@@ -78,7 +86,7 @@ const USUARIO = gql`
     usuario(nombreUsuario: $nombreUsuario) {
       _id
       nombreUsuario
-      nombreApellido 
+      nombreApellido
       email
       habilidades
       fotoPerfil
@@ -145,4 +153,12 @@ export class UserService {
     })
   }
 
+  deleteAccount(usuario: Usuario): any {
+    return this.apollo.mutate({
+      mutation: DELETEACCOUNT,
+      variables: {
+        _id: usuario._id
+      }
+    })
+  }
 }
