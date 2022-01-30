@@ -1,0 +1,35 @@
+<div class="container category shadow p-3 mb-5 rounded" style="background-color:whitesmoke;">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="leftH3">{{categoria.descripcion}}</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-10 text-center">
+            <h5>
+                Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat.
+            </h5>
+        </div>
+
+    </div>
+    <div class="row justify-content-around" >
+        <ng-container *ngFor="let servicio of servicios; let i = index">
+            <div class="col-sm-4" *ngIf="i < 4">
+                <app-service-preview-card [cardData]="servicio"></app-service-preview-card>
+            </div>
+        </ng-container>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-sm-5 text-center">
+            <button class="btn btn-outline-primary">Ver todos</button>
+        </div>
+    </div>
+    <hr>
+</div>
