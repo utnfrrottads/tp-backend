@@ -9,71 +9,35 @@ module.exports = app => {
     app.route('/api/categorias-productos')
         .get((req, res) => {
             const order = req.query.order ? req.query.order.split(",", 2) : [];
-            console.log('activa',req.query.activa);
-           if (!req.query.descripcion){
-               if(!req.query.activa){
-                   req.query.activa = false;
-               }
-               Categorias.findAndCountAll({
-                   where:{
-                       activa: req.query.activa
-                   },
-                   limit: req.query.limit,
-                   offset: req.query.offset * req.query.limit,
-                   order: [order],
-               })
-                   .then(result => res.json(result))
-                   .catch(error => {
-                       res.status(412).json({msg: error.message});
-                   });
-           }else{
-               if (req.query.activa) {
-                   Categorias.findAndCountAll({
-                       where: {
-                           descripcion: {
-                               [Op.iLike]: '%' + req.query.descripcion + '%'
-                           },
-                           activa: {
-                               [Op.is]: true
-                           }
-                       },
-                       limit: req.query.limit,
-                       offset: req.query.offset * req.query.limit,
-                       order: [order],
-                   })
-                       .then(result => res.json(result))
-                       .catch(error => {
-                           res.status(412).json({msg: error.message});
-                       });
-               }else{
-                   Categorias.findAndCountAll({
-                       where: {
-                           descripcion: {
-                               [Op.iLike]: '%' + req.query.descripcion + '%'
-                           }
-                       },
-                       limit: req.query.limit,
-                       offset: req.query.offset * req.query.limit,
-                       order: [order],
-                   })
-                       .then(result => res.json(result))
-                       .catch(error => {
-                           res.status(412).json({msg: error.message});
-                       });
-               }
-           }
-
-            /*sequelize.query(
-                'SELECT * FROM "Categorias"',
+            let colum = '';
+            let sql = `SELECT * FROM "Categorias"` ;
+            let extra = `order by ${order} limit ? offset ?`
+            let query = sql + extra;
+            let replacements = [req.query.limit,req.query.offset * req.query.limit];
+            if(req.query.descripcion){
+                 colum = 'descripcion ilike ?';
+                 query = `${sql} where ${colum} ${extra}`;
+                 replacements.unshift('%'+req.query.descripcion+'%');
+                //replacements = ['%'+req.query.descripcion+'%',req.query.limit,req.query.offset * req.query.limit];
+            }
+            if(req.query.activa){
+                colum = 'activa = true and '+ colum;
+                query = `${sql} where ${colum} ${extra}`;
+            }
+            sequelize.query(
+                query,
                 {
-                    type: QueryTypes.SELECT
+                    replacements: replacements
                 }
             )
-                .then(result => res.json(result))
-                .catch(error => {
-                    res.status(412).json({ msg: error.message });
-                });*/
+             .then(result => {
+                 res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
+             })
+             .catch(error => {
+                res.status(412).json({msg: error.message})
+             })
         })
+
         .post((req, res) => {
             req.body.activa = true;
             Categorias.create(req.body)
