@@ -8,7 +8,8 @@ module.exports = app =>{
     app.route('/api/cliente')
         .get((req,res)=>{
 
-          const order = req.query.order ? req.query.order.split(",",2) : [];
+          //const order = req.query.order ? req.query.order.split(",",2) : [];
+          const order = req.query.order ? req.query.order.replace(',',' ') : [];
 
             let colum = '';
             let sql = `SELECT * FROM "Clientes" ` ;

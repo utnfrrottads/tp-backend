@@ -1,4 +1,4 @@
-const {Op} = require("sequelize");
+const {Op, col} = require("sequelize");
 module.exports = app => {
 
     const {Sequelize, Op} = require("sequelize");
@@ -8,20 +8,20 @@ module.exports = app => {
 
     app.route('/api/categorias-productos')
         .get((req, res) => {
-            const order = req.query.order ? req.query.order.split(",", 2) : [];
+            const order = req.query.order ? req.query.order.replace(',', ' ') : [];
             let colum = '';
             let sql = `SELECT * FROM "Categorias"` ;
-            let extra = `order by ${order} limit ? offset ?`
+            let extra = ` order by ${order} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
             if(req.query.descripcion){
-                 colum = 'descripcion ilike ?';
+                colum = colum ? `descripcion ilike ? and ${colum}` : `descripcion ilike ?`;
                  query = `${sql} where ${colum} ${extra}`;
                  replacements.unshift('%'+req.query.descripcion+'%');
                 //replacements = ['%'+req.query.descripcion+'%',req.query.limit,req.query.offset * req.query.limit];
             }
             if(req.query.activa){
-                colum = 'activa = true and '+ colum;
+                colum = colum ? `activa = true and ${colum}` : `activa = true`;
                 query = `${sql} where ${colum} ${extra}`;
             }
             sequelize.query(
