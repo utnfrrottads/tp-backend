@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
 import { ServicioService } from 'src/app/services/servicio.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-categoria-template',
@@ -21,7 +23,9 @@ export class CategoriaTemplateComponent implements OnInit {
   };
 
   constructor(
-    private servicioService: ServicioService
+    private router: Router,
+    private servicioService: ServicioService,
+    private authService: AuthService
     ) { }
 
     ngOnInit(): void {
@@ -54,4 +58,14 @@ export class CategoriaTemplateComponent implements OnInit {
       this.servicesSubscription.unsubscribe();
     }
 
+    goToServicios(categoria: Categoria) {
+      if (this.authService.loggedIn()) {
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+              idCategoria: categoria._id
+          }
+      }
+        this.router.navigate(['/servicios/'], navigationExtras)
+      }
+    }
 }

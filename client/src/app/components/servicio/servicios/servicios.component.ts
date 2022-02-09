@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 import { ServicioService } from 'src/app/services/servicio.service';
 
@@ -22,19 +23,36 @@ export class ServiciosComponent implements OnInit {
   servicesSubscription: any;
   categoriasQuery: any;
   categoriasSubscription: any;
+  categoryQuery: any;
+  categorySubscription: any;
 
   constructor(
     private servicioService: ServicioService,
-    private categoriasService: CategoriaService
+    public categoriasService: CategoriaService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.suscribeCategorias();
+    this.suscribeCategorias(this.subscribeCategoryCallback, true);
   }
 
   ngOnDestroy(): void {
     if (this.servicesSubscription) this.unsuscribeServices();
     if (this.categoriasSubscription) this.unsuscribeCategorias();
+  }
+
+  subscribeCategory(idCategoria: String): void {
+    this.categoryQuery = this.categoriasService.getCategoriaById(idCategoria);
+    this.categorySubscription = this.categoryQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.getCategoriaById;
+      })
+    ).subscribe(
+      (category: Categoria) => {
+        this.seleccionar(category);
+      },
+      (err: any) => console.log(err)
+    );
   }
 
   suscribeServices(): void {
@@ -59,7 +77,7 @@ export class ServiciosComponent implements OnInit {
     this.servicesSubscription.unsubscribe();
   }
 
-  suscribeCategorias(): void {
+  suscribeCategorias(callback?: (() => void), bindThis: Boolean = false): void {
     this.categoriasQuery = this.categoriasService.categorias();
     this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
       map((res: any) => {
@@ -73,6 +91,12 @@ export class ServiciosComponent implements OnInit {
         });
 
         this.suscribeServices();
+        if (callback) {
+          if (bindThis) {
+            callback = callback.bind(this);
+          }
+          callback();
+        }
       },
       (err: any) => console.log(err)
     );
@@ -99,4 +123,28 @@ export class ServiciosComponent implements OnInit {
     this.suscribeServices();
   }
 
+  seleccionar(categoria: Categoria) {
+    this.busqueda = '';
+    this.categorias.forEach((item: Categoria) => {
+      console.log(categoria.descripcion)
+      if (item._id === categoria._id) {
+        item.seleccionada = true;
+      } else {
+        item.seleccionada = false;
+      }
+    });
+    this.suscribeServices();
+  }
+
+  subscribeCategoryCallback(): void {
+    this.route.queryParams.subscribe({
+      next: (queryParams: any) => {
+        let idCategoria = queryParams["idCategoria"];
+        this.subscribeCategory(idCategoria);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
 }
