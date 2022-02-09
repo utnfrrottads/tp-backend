@@ -7,10 +7,14 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" href="#" routerLink="/">Inicio</a>
+        <a class="nav-link" href="#" routerLink="/"><i class="fas fa-home mr-1"></i>Inicio</a>
       </li>
       <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/servicios-por-categoria">Servicios por categoría</a>
+        <a class="nav-link" routerLink="/servicios"><i class="fa-solid fa-list mr-1"></i>Todos los servicios</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/serviciosPorCategorias"><i class="fa-solid fa-file-lines mr-1"></i>Servicios
+          por categoría</a>
       </li>
       <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
         [routerLinkActiveOptions]="{ exact: true }">

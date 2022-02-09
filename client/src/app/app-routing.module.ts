@@ -43,7 +43,7 @@ const routes: Routes = [
     canActivate: [AdminGuard],
   },
   {
-    path: 'servicios-por-categoria',
+    path: 'serviciosPorCategorias',
     component: ServiciosPorCategoriaComponent
   },
   {
