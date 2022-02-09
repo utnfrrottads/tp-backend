@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SigninComponent} from 'src/app/components/login/signin/signin.component'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -39,7 +39,12 @@ export class HomeComponent implements OnInit {
   publicarServicio() {
     if (this.authService.loggedIn()) {
       //Show publish service pop-up
-      this.router.navigate(['/servicios/']);
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+            showPublicarServicio: true
+        }
+    }
+      this.router.navigate(['/servicios/'], navigationExtras);
     } else {
       this.openSigninModal();
     }

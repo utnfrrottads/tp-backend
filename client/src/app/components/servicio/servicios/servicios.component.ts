@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { ServicioService } from 'src/app/services/servicio.service';
 import { Servicio } from 'src/app/models/Servicio';
 import { Categoria } from 'src/app/models/Categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { ServicesPanelComponent } from '../services-panel/services-panel.component';
 
 @Component({
   selector: 'app-servicios',
@@ -14,6 +15,9 @@ import { CategoriaService } from 'src/app/services/categoria.service';
   styleUrls: ['./servicios.component.scss']
 })
 export class ServiciosComponent implements OnInit {
+
+  @ViewChild(ServicesPanelComponent)
+  servicesPanel = new ServicesPanelComponent;
 
   servicios: Servicio[] = [];
   categorias: Categoria[] = [];
@@ -33,7 +37,7 @@ export class ServiciosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.suscribeCategorias(this.subscribeCategoryCallback, true);
+    this.suscribeCategorias(this.queryParamsHandler, true);
   }
 
   ngOnDestroy(): void {
@@ -136,11 +140,17 @@ export class ServiciosComponent implements OnInit {
     this.suscribeServices();
   }
 
-  subscribeCategoryCallback(): void {
+  queryParamsHandler(): void {
     this.route.queryParams.subscribe({
       next: (queryParams: any) => {
         let idCategoria = queryParams["idCategoria"];
-        this.subscribeCategory(idCategoria);
+        if (idCategoria) {
+          this.subscribeCategory(idCategoria);
+        }
+
+        if (queryParams["showPublicarServicio"]) {
+          this.servicesPanel.publicarServicio();
+        }
       },
       error: (error: any) => {
         console.log(error);
