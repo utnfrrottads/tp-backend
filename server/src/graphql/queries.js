@@ -34,6 +34,17 @@ const categorias = {
     }
 }
 
+const getCategoriaById = {
+    description: 'getCategoriaById',
+    type: TypeCategoria,
+    args: {
+        idCategoria: { type: GraphQLID },
+    },
+    async resolve(parent, { idCategoria }) {
+        return await Categoria.findById(idCategoria);
+    }
+}
+
 const monedas = {
     description: 'Monedas',
     type: GraphQLList(TypeMoneda),
@@ -283,6 +294,7 @@ module.exports = {
     usuario,
     niveles,
     categorias,
+    getCategoriaById,
     monedas,
     servicio,
     servicios,

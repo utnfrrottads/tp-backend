@@ -14,6 +14,15 @@ const CATEGORIAS = gql`
   }
 `;
 
+const GETCATEGORIABYID = gql`
+  query getCategoriaById($idCategoria: ID!) {
+    getCategoriaById(idCategoria: $idCategoria) {
+      _id
+      descripcion
+    }
+  }
+`;
+
 const ADDCATEGORIA = gql`
   mutation addCategoria($descripcion: String!) {
     addCategoria(descripcion: $descripcion) {
@@ -55,6 +64,15 @@ export class CategoriaService {
     })
   }
 
+  getCategoriaById(idCategoria: String): any {
+    return this.apollo.watchQuery({
+      query: GETCATEGORIABYID,
+      variables: {
+        idCategoria
+      }
+    })
+  }
+  
   addCategoria(categoria: Categoria): any {
     return this.apollo.mutate({
       mutation: ADDCATEGORIA,
