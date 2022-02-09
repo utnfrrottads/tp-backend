@@ -47,4 +47,11 @@ export class ServicePreviewCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  irAlServicio(e: any) {
+    if (this.authService.loggedIn()) {
+      this.router.navigate(['/servicio/' + this.cardData._id]);
+    } else {
+      // Show Alert
+    }
+  }
 }

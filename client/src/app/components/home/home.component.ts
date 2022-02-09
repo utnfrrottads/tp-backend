@@ -44,4 +44,8 @@ export class HomeComponent implements OnInit {
       this.openSigninModal();
     }
   }
+
+  goToServiciosPorCategoria() {
+    this.router.navigate(['/servicios-por-categoria/'])
+  }
 }
