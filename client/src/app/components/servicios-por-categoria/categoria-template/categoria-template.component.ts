@@ -26,46 +26,44 @@ export class CategoriaTemplateComponent implements OnInit {
     private router: Router,
     private servicioService: ServicioService,
     private authService: AuthService
-    ) { }
+  ) { }
 
-    ngOnInit(): void {
-    }
+  ngOnInit(): void {
+  }
 
-    ngOnChanges(changes: SimpleChanges) {
-      this.categoria.seleccionada = true
-      this.suscribeServices();
-    }
-  
-    ngOnDestroy(): void {
-      if (this.servicesSubscription) this.unsuscribeServices();
-    }
-  
-    suscribeServices(): void {
-      this.servicesQuery = this.servicioService.servicios('', [this.categoria]);
-      this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
-        map((res: any) => {
-          return res.data.servicios;
-        })
-      ).subscribe(
-        (res: any) => {
-          this.servicios = res;
-        },
-        (err: any) => console.log(err)
-      );
-    }
+  ngOnChanges(changes: SimpleChanges) {
+    this.categoria.seleccionada = true
+    this.suscribeServices();
+  }
 
-    unsuscribeServices(): void {
-      this.servicesSubscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    if (this.servicesSubscription) this.unsuscribeServices();
+  }
 
-    goToServicios(categoria: Categoria) {
-      if (this.authService.loggedIn()) {
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-              idCategoria: categoria._id
-          }
-      }
-        this.router.navigate(['/servicios/'], navigationExtras)
+  suscribeServices(): void {
+    this.servicesQuery = this.servicioService.servicios('', [this.categoria]);
+    this.servicesSubscription = this.servicesQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.servicios;
+      })
+    ).subscribe(
+      (res: any) => {
+        this.servicios = res;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  unsuscribeServices(): void {
+    this.servicesSubscription.unsubscribe();
+  }
+
+  goToServicios(categoria: Categoria) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        idCategoria: categoria._id
       }
     }
+    this.router.navigate(['/servicios/'], navigationExtras)
+  }
 }
