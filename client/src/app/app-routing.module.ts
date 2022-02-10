@@ -12,7 +12,7 @@ import { ChatComponent } from './components/contrato/chat/chat.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
-import { ServiciosPorCategoriaComponent } from './components/servicio/servicios-por-categoria/servicios-por-categoria.component';
+import { ServiciosPorCategoriasComponent } from './components/servicio/servicios-por-categorias/servicios-por-categorias.component';
 
 const routes: Routes = [
   {
@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'serviciosPorCategorias',
-    component: ServiciosPorCategoriaComponent
+    component: ServiciosPorCategoriasComponent
   },
   {
     path: 'servicio/:idServicio',

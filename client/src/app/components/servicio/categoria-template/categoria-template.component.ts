@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Router, NavigationExtras } from '@angular/router';
 
@@ -15,12 +15,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class CategoriaTemplateComponent implements OnInit {
 
   servicios: Servicio[] = [];
+  @Input() mostrarServicios: boolean = true;
   servicesQuery: any;
   servicesSubscription: any;
   @Input() categoria: Categoria = {
     _id: '',
     descripcion: '',
   };
+  @Output() closeModal = new EventEmitter();
 
   constructor(
     private router: Router,
@@ -63,7 +65,8 @@ export class CategoriaTemplateComponent implements OnInit {
       queryParams: {
         idCategoria: categoria._id
       }
-    }
-    this.router.navigate(['/servicios/'], navigationExtras)
+    };
+    this.closeModal.emit();
+    this.router.navigate(['/servicios/'], navigationExtras);
   }
 }

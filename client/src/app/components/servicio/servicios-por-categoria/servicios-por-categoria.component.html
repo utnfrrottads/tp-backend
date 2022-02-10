@@ -1,23 +1,11 @@
-<div class="row justify-content-center">
-    <div class="col-sm-8 text-center">
-        <h1>Servicios por categoría</h1>
-    </div>
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    {{ categoria.descripcion }}
+  </h5>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
 </div>
-<div class="row justify-content-center">
-    <div class="col-sm-10 text-center">
-        <div class="row d-flex textDiv">
-            <h4>
-                ¿No encontrás lo que mejor se adapta a tus necesidades?
-            </h4>
-        </div>
-        <div class="row d-flex textDiv">
-            <h4>
-                ¡Explora las distintas categorías que existen en nuestra comunidad y todos los servicios que cada una tiene para ofrecerte!
-            </h4>
-        </div>
-    </div>
-</div>
-<hr>
-<div class="row justify-content-center" *ngFor="let categoria of categorias">
-    <app-categoria-template [categoria]="categoria"></app-categoria-template>
+<div class="modal-body">
+  <app-categoria-template [categoria]="categoria" [mostrarServicios]="false" (closeModal)="cerrarModal()"></app-categoria-template>
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { SigninComponent } from 'src/app/components/login/signin/signin.component'
+import { SigninComponent } from 'src/app/components/login/signin/signin.component';
+import { ServiciosPorCategoriaComponent } from 'src/app/components/servicio/servicios-por-categoria/servicios-por-categoria.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { map } from 'rxjs/operators';
 import { Categoria } from '../../models/Categoria';
@@ -85,7 +86,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  goToServiciosPorCategoria() {
-    this.router.navigate(['/serviciosPorCategorias']);
+  goToServiciosPorCategoria(idCategoria: string) {
+    const initialState = {
+      idCategoria
+    };
+    this.bsModalRef = this.modalService.show(ServiciosPorCategoriaComponent, { initialState, class: 'modal-lg' });
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 }

@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+    <div class="col-sm-8 text-center">
+        <h1>Servicios por categoría</h1>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-sm-10 text-center">
+        <div class="row d-flex textDiv">
+            <h4>
+                ¿No encontrás lo que mejor se adapta a tus necesidades?
+            </h4>
+        </div>
+        <div class="row d-flex textDiv">
+            <h4>
+                ¡Explora las distintas categorías que existen en nuestra comunidad y todos los servicios que cada una tiene para ofrecerte!
+            </h4>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row justify-content-center" *ngFor="let categoria of categorias">
+    <app-categoria-template [categoria]="categoria"></app-categoria-template>
+</div>

@@ -38,9 +38,10 @@ import { TableContratosComponent } from './components/contrato/table-contratos/t
 import { ChatComponent } from './components/contrato/chat/chat.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HomeComponent } from './components/home/home.component';
+import { ServiciosPorCategoriasComponent } from './components/servicio/servicios-por-categorias/servicios-por-categorias.component';
+import { CategoriaTemplateComponent } from './components/servicio/categoria-template/categoria-template.component';
+import { ServicePreviewCardComponent } from './components/servicio/categoria-template/service-preview-card/service-preview-card.component';
 import { ServiciosPorCategoriaComponent } from './components/servicio/servicios-por-categoria/servicios-por-categoria.component';
-import { CategoriaTemplateComponent } from './components/servicio/servicios-por-categoria/categoria-template/categoria-template.component';
-import { ServicePreviewCardComponent } from './components/servicio/servicios-por-categoria/categoria-template/service-preview-card/service-preview-card.component';
 
 @NgModule({
   declarations: [
@@ -67,9 +68,10 @@ import { ServicePreviewCardComponent } from './components/servicio/servicios-por
     TableContratosComponent,
     ChatComponent,
     HomeComponent,
-    ServiciosPorCategoriaComponent,
+    ServiciosPorCategoriasComponent,
     CategoriaTemplateComponent,
     ServicePreviewCardComponent,
+    ServiciosPorCategoriaComponent,
   ],
   imports: [
     BrowserModule,

@@ -77,7 +77,7 @@ export class CategoriaService {
     return this.apollo.mutate({
       mutation: ADDCATEGORIA,
       variables: {
-        descripcion: categoria.descripcion
+        descripcion: categoria.descripcion,
       }
     })
   }
@@ -96,7 +96,7 @@ export class CategoriaService {
       mutation: UPDATECATEGORIA,
       variables: {
         _id: categoria._id,
-        descripcion: categoria.descripcion
+        descripcion: categoria.descripcion,
       }
     })
   }

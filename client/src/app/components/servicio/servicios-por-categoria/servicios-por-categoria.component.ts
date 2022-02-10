@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaService } from '../../../services/categoria.service';
 import { map } from 'rxjs/operators';
-import { Categoria } from '../../../models/Categoria';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Categoria } from 'src/app/models/Categoria';
+import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
   selector: 'app-servicios-por-categoria',
@@ -9,40 +10,46 @@ import { Categoria } from '../../../models/Categoria';
   styleUrls: ['./servicios-por-categoria.component.scss']
 })
 export class ServiciosPorCategoriaComponent implements OnInit {
-  
-  categorias: Categoria[] = [];
 
-  categoriasQuery: any;
-  categoriasSubscription: any;
+  idCategoria: string = '';
+  categoria: Categoria = {};
+
+  categoriaQuery: any;
+  categoriaSubscription: any;
 
   constructor(
+    public bsModalRef: BsModalRef,
     private categoriaService: CategoriaService
   ) { }
 
   ngOnInit(): void {
-    this.suscribeCategorias();
+    this.suscribeCategoria();
   }
 
   ngOnDestroy(): void {
-    this.unsuscribeCategorias();
+    this.unsuscribeCategoria();
   }
 
-  suscribeCategorias(): void {
-    this.categoriasQuery = this.categoriaService.categorias();
-    this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
+  suscribeCategoria(): void {
+    this.categoriaQuery = this.categoriaService.getCategoriaById(this.idCategoria);
+    this.categoriaSubscription = this.categoriaQuery.valueChanges.pipe(
       map((res: any) => {
-        return res.data.categorias;
+        return res.data.getCategoriaById;
       })
     ).subscribe(
       (res: any) => {
-        this.categorias = res;
+        this.categoria = res;
       },
       (err: any) => console.log(err)
     );
   }
 
-  unsuscribeCategorias(): void {
-    this.categoriasSubscription.unsubscribe();
+  unsuscribeCategoria(): void {
+    this.categoriaSubscription.unsubscribe();
+  }
+
+  cerrarModal(): void {
+    this.bsModalRef.hide();
   }
 
 }

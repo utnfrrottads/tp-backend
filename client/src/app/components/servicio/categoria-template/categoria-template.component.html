@@ -18,7 +18,7 @@
         </div>
 
     </div>
-    <div class="row justify-content-around" >
+    <div class="row justify-content-around" *ngIf="servicios.length > 0 && mostrarServicios">
         <ng-container *ngFor="let servicio of servicios; let i = index">
             <div class="col-sm-4" *ngIf="i < 4">
                 <app-service-preview-card [cardData]="servicio"></app-service-preview-card>
@@ -28,7 +28,7 @@
     <hr>
     <div class="row justify-content-center">
         <div class="col-sm-5 text-center">
-            <button class="btn btn-outline-primary" (click)="goToServicios(categoria)">Ver todos</button>
+            <button class="btn btn-outline-primary" (click)="goToServicios(categoria)">Ver todos los servicios</button>
         </div>
     </div>
     <hr>

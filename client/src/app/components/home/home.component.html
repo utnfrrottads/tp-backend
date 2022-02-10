@@ -131,7 +131,7 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">{{ categoria.descripcion }}</h4>
-                        <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria()">Ver
+                        <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria(categoria._id || '')">Ver
                             más</button>
                     </div>
                 </div>
