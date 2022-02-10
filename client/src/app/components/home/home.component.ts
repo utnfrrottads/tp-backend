@@ -3,6 +3,9 @@ import { NavigationExtras, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SigninComponent } from 'src/app/components/login/signin/signin.component'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { map } from 'rxjs/operators';
+import { Categoria } from '../../models/Categoria';
+import { CategoriaService } from '../../services/categoria.service';
 
 declare var $: any;
 @Component({
@@ -14,13 +17,42 @@ export class HomeComponent implements OnInit {
 
   bsModalRef?: BsModalRef;
 
+  categorias: Categoria[] = [];
+
+  categoriasQuery: any;
+  categoriasSubscription: any;
+
   constructor(
     private router: Router,
     public authService: AuthService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private categoriaService: CategoriaService
   ) { }
 
   ngOnInit(): void {
+    this.suscribeCategorias();
+  }
+
+  ngOnDestroy(): void {
+    this.unsuscribeCategorias();
+  }
+
+  suscribeCategorias(): void {
+    this.categoriasQuery = this.categoriaService.categorias();
+    this.categoriasSubscription = this.categoriasQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.categorias;
+      })
+    ).subscribe(
+      (res: any) => {
+        this.categorias = res;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  unsuscribeCategorias(): void {
+    this.categoriasSubscription.unsubscribe();
   }
 
   openSigninModal(goTo: string, navigationExtras: NavigationExtras = {}): void {
@@ -54,6 +86,6 @@ export class HomeComponent implements OnInit {
   }
 
   goToServiciosPorCategoria() {
-    this.router.navigate(['/servicios-por-categoria/'])
+    this.router.navigate(['/serviciosPorCategorias']);
   }
 }

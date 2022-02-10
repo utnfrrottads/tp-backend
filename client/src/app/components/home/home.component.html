@@ -5,16 +5,13 @@
 
 <!-- CTA View -->
 <div class="row justify-content-around">
-
     <div class="col-5">
-        <div class="card" style="background-color: bisque;">
-            <div class="text-center">
+        <div class="card main-card" style="background-color: bisque;">
+            <div class="text-center main-card-content">
                 <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 mr-auto ml-auto">
                         <img class="card-img-top" src="../../../assets/hammer.png">
                     </div>
-                    <div class="col-sm-2"></div>
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">Quiero contratar</h4>
@@ -25,19 +22,18 @@
         </div>
     </div>
     <div class="col-5">
-        <div class="card" style="background-color: azure;">
-            <div class="text-center">
+        <div class="card main-card" style="background-color: azure;">
+            <div class="text-center main-card-content">
                 <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 mr-auto ml-auto">
                         <img class="card-img-top" src="../../../assets/hammer.png">
                     </div>
-                    <div class="col-sm-2"></div>
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">Quiero prestar un servicio</h4>
                     <p class="card-text">¡Adheríte a la comunidad y comenzá a ganar dinero por tus servicios!</p>
-                    <button type="button" class="btn btn-outline-primary" (click)="publicarServicio()">Prestar Servicio</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="publicarServicio()">Prestar
+                        Servicio</button>
                 </div>
             </div>
         </div>
@@ -47,7 +43,7 @@
 
 <!-- What we do -->
 <div class="row justify-content-center hrSeparation">
-    <div class="col-sm-6">
+    <div class="col-10 col-sm-8 col-md-6 col-lg-4">
         <h3 class="title1">¿A qué nos dedicamos?</h3>
     </div>
 </div>
@@ -107,7 +103,7 @@
 
 <!-- What we offer -->
 <div class="row justify-content-center hrSeparation">
-    <div class="col-sm-6">
+    <div class="col-10 col-sm-8 col-md-6 col-lg-4">
         <h3 class="title2">¿Qué ofrecemos?</h3>
     </div>
 </div>
@@ -123,62 +119,25 @@
         </h5>
     </div>
 </div>
-<div class="row justify-content-around">
-    <div class="col-sm-1"></div>
-    <div class="col">
-        <div class="card" style="background-color: salmon;">
-            <div class="text-center">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <img class="card-img-top" src="../../../assets/hammer.png">
+<div class="row justify-content-around categorias-list">
+    <div class="categorias">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3 mb-3" *ngFor="let categoria of categorias">
+            <div class="card categoria" style="background-color: rgb(231, 176, 170);">
+                <div class="categoria-content text-center">
+                    <div class="row">
+                        <div class="col-sm-8 mr-auto ml-auto">
+                            <img class="card-img-top" src="../../../assets/hammer.png">
+                        </div>
                     </div>
-                    <div class="col-sm-2"></div>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title" style="color: white">Automóviles</h4>
-                    <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria()">Ver más</button>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ categoria.descripcion }}</h4>
+                        <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria()">Ver
+                            más</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-1"></div>
-    <div class="col">
-        <div class="card" style="background-color: sandybrown;">
-            <div class="text-center">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <img class="card-img-top" src="../../../assets/hammer.png">
-                    </div>
-                    <div class="col-sm-2"></div>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title" style="color: white">Decoración</h4>
-                    <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria()">Ver más</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-1"></div>
-    <div class="col">
-        <div class="card" style="background-color: seagreen;">
-            <div class="text-center">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <img class="card-img-top" src="../../../assets/hammer.png">
-                    </div>
-                    <div class="col-sm-2"></div>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title" style="color: white;">Finanzas</h4>
-                    <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria()">Ver más</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-1"></div>
 </div>
 <hr>
 
