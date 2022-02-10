@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -79,14 +79,14 @@ export class AuthService {
     });
   }
 
-  login(usuario: Usuario, token: string): void {
+  login(usuario: Usuario, token: string, goTo: string = '', navigationExtras: NavigationExtras = {}): void {
     localStorage.setItem('usuario', JSON.stringify(usuario));
     localStorage.setItem('nombreUsuario', usuario.nombreUsuario || '');
     localStorage.setItem('token', token);
 
     this.searchNotifications();
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/' + goTo], navigationExtras);
   }
 
   loggedIn(): boolean {

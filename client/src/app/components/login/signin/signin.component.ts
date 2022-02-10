@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { AuthService } from '../../../services/auth.service';
@@ -12,6 +12,9 @@ import { Usuario } from '../../../models/Usuario';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
+
+  goTo: string = '';
+  navigationExtras: NavigationExtras = {};
   errorMessage = '';
 
   usuario: Usuario = {
@@ -38,7 +41,7 @@ export class SigninComponent implements OnInit {
     this.authService.signIn(this.usuario).subscribe(
       (res: any) => {
         this.errorMessage = '';
-        this.authService.login(res.data.signIn.usuario, res.data.signIn.token);
+        this.authService.login(res.data.signIn.usuario, res.data.signIn.token, this.goTo, this.navigationExtras);
         this.bsModalRef.hide();
       },
       (err: any) => {
