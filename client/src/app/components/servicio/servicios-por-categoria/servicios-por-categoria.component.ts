@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaService } from '../../services/categoria.service';
+import { CategoriaService } from '../../../services/categoria.service';
 import { map } from 'rxjs/operators';
-import { Categoria } from '../../models/Categoria';
+import { Categoria } from '../../../models/Categoria';
 
 @Component({
   selector: 'app-servicios-por-categoria',

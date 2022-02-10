@@ -12,7 +12,7 @@ import { ChatComponent } from './components/contrato/chat/chat.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
-import { ServiciosPorCategoriaComponent } from './components/servicios-por-categoria/servicios-por-categoria.component';
+import { ServiciosPorCategoriaComponent } from './components/servicio/servicios-por-categoria/servicios-por-categoria.component';
 
 const routes: Routes = [
   {
