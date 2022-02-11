@@ -1,5 +1,5 @@
 const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
-const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, TypeNotificacion, InputIDCategoriasSeleccionadas } = require('./types');
+const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, TypeNotificacion, InputIDCategoriasSeleccionadas, TypeEstadistica } = require('./types');
 const { Usuario, Nivel, Categoria, Moneda, Servicio, Contrato, Mensaje, Notificacion } = require('../models/index');
 const client = require('../elasticsearch/elasticsearch');
 
@@ -290,6 +290,18 @@ const misNotificaciones = {
     }
 }
 
+const estadisticas = {
+    description: 'Estadísticas',
+    type: TypeEstadistica,
+    async resolve(parent, args) {
+        return {
+            contratosRealizados: await Contrato.find().count(),
+            contratistasRegistrados: (await Contrato.distinct('idUsuario')).length,
+            prestadoresRegistrados: (await Servicio.distinct('idUsuario')).length,
+        };
+    }
+}
+
 module.exports = {
     usuario,
     niveles,
@@ -306,4 +318,5 @@ module.exports = {
     contratosRecibidos,
     mensajesDelContrato,
     misNotificaciones,
+    estadisticas,
 }

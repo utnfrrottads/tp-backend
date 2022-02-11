@@ -7,8 +7,10 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { map } from 'rxjs/operators';
 import { Categoria } from '../../models/Categoria';
 import { CategoriaService } from '../../services/categoria.service';
+import { EstadisticaService } from '../../services/estadistica.service';
 
 declare var $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,19 +29,25 @@ export class HomeComponent implements OnInit {
   contratistasRegistrados: number = 0;
   prestadoresRegistrados: number = 0;
 
+  estadisticasQuery: any;
+  estadisticasSubscription: any;
+
   constructor(
     private router: Router,
     public authService: AuthService,
     private modalService: BsModalService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private estadisticaService: EstadisticaService
   ) { }
 
   ngOnInit(): void {
     this.suscribeCategorias();
+    this.suscribeEstadisticas();
   }
 
   ngOnDestroy(): void {
     this.unsuscribeCategorias();
+    this.unsuscribeEstadisticas();
   }
 
   suscribeCategorias(): void {
@@ -58,6 +66,26 @@ export class HomeComponent implements OnInit {
 
   unsuscribeCategorias(): void {
     this.categoriasSubscription.unsubscribe();
+  }
+
+  suscribeEstadisticas(): void {
+    this.estadisticasQuery = this.estadisticaService.estadisticas();
+    this.estadisticasSubscription = this.estadisticasQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.estadisticas;
+      })
+    ).subscribe(
+      (res: any) => {
+        this.contratosRealizados = res.contratosRealizados;
+        this.contratistasRegistrados = res.contratistasRegistrados;
+        this.prestadoresRegistrados = res.prestadoresRegistrados;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  unsuscribeEstadisticas(): void {
+    this.estadisticasSubscription.unsubscribe();
   }
 
   openSigninModal(goTo: string, navigationExtras: NavigationExtras = {}): void {

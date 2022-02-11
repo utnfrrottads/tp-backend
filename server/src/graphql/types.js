@@ -220,6 +220,16 @@ const InputIDCategoriasSeleccionadas = new GraphQLInputObjectType({
   })
 });
 
+const TypeEstadistica = new GraphQLObjectType({
+  name: "TypeEstadistica",
+  description: "Type estadistica",
+  fields: () => ({
+    contratosRealizados: { type: GraphQLInt },
+    contratistasRegistrados: { type: GraphQLInt },
+    prestadoresRegistrados: { type: GraphQLInt },
+  }),
+});
+
 module.exports = {
   TypeUsuario,
   TypeNivel,
@@ -232,4 +242,5 @@ module.exports = {
   TypeMensaje,
   TypeNotificacion,
   InputIDCategoriasSeleccionadas,
+  TypeEstadistica,
 };
