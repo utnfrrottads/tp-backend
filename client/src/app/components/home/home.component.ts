@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
   categoriasQuery: any;
   categoriasSubscription: any;
 
+  contratosRealizados: number = 0;
+  contratistasRegistrados: number = 0;
+  prestadoresRegistrados: number = 0;
+
   constructor(
     private router: Router,
     public authService: AuthService,

@@ -131,7 +131,8 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">{{ categoria.descripcion }}</h4>
-                        <button type="button" class="btn btn-primary" (click)="goToServiciosPorCategoria(categoria._id || '')">Ver
+                        <button type="button" class="btn btn-primary"
+                            (click)="goToServiciosPorCategoria(categoria._id || '')">Ver
                             más</button>
                     </div>
                 </div>
@@ -142,7 +143,7 @@
 <hr>
 
 <!-- Join us -->
-<div class="row justify-content-center" style="background-color:rgb(141, 168, 204);">
+<div class="row justify-content-center mb-3" style="background-color:rgb(141, 168, 204);">
     <div class="col-sm-10 text-center">
         <h3 style="color: white;">
             ¡Únete a nuestra comunidad!
@@ -150,21 +151,21 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    <div class="col-sm-6 text-center">
-        <h5>
-            <u>Contratos realizados:</u> 755
-        </h5>
+    <div class="col-sm-12 col-md-6 text-center">
+        <p class="estadisticas">
+            <u>Contratos realizados:</u> {{ contratosRealizados }}
+        </p>
     </div>
 </div>
 <div class="row justify-content-around">
-    <div class="col-sm-6 text-center">
-        <h5>
-            <u>Contratistas registrados:</u> 30
-        </h5>
+    <div class="col-sm-12 col-md-6 text-center">
+        <p class="estadisticas">
+            <u>Contratistas registrados:</u> {{ contratistasRegistrados }}
+        </p>
     </div>
-    <div class="col-sm-6 text-center">
-        <h5>
-            <u>Prestadores de servicios registrados:</u> 56
-        </h5>
+    <div class="col-sm-12 col-md-6 text-center">
+        <p class="estadisticas">
+            <u>Prestadores de servicios registrados:</u> {{ prestadoresRegistrados }}
+        </p>
     </div>
 </div>
