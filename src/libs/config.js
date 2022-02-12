@@ -5,5 +5,8 @@ module.exports = {
     params: {
         host: 'localhost',
         dialect: 'postgres',
+        define: {
+            underscored: true
+        }
     }
 }

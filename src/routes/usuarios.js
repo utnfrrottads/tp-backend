@@ -4,7 +4,7 @@ module.exports = app =>{
     const Sequelize = require("sequelize");
     const BCRYPT_SALT_ROUNDS = 10;
 
-    app.route('/api/usuario')
+    app.route('/api/usuarios')
         .get((req,res)=>{
             const whereCondition = {};
             if(req.query.usuario){
@@ -69,7 +69,7 @@ module.exports = app =>{
                 })
         });
 
-    app.route('/api/usuario/:id')
+    app.route('/api/usuarios/:id')
         .get((req,res)=>{
             Usuario.findOne({
                 where: req.params,
@@ -84,7 +84,7 @@ module.exports = app =>{
         })
         .delete((req,res) => {
             Usuario.destroy({where: req.params})
-                .then(result=> res.sendStatus(204))
+                .then(() => res.sendStatus(204))
                 .catch(error => {
                     res.status(412).json({msg:error.message});
                 })

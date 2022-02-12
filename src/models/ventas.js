@@ -1,51 +1,41 @@
-module.exports = (sequelize, DataType)=>{
-
-    const Ventas = sequelize.define('Ventas',{
-        id:{
-            type: DataType.INTEGER,
+module.exports = (sequelize, dataType) => {
+    const Ventas = sequelize.define('Ventas', {
+        id: {
+            type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        total:{
-            type: DataType.REAL,
+        total: {
+            type: dataType.REAL,
             defaultValue: 0
         },
-        nomTarjeta:{
-            type: DataType.STRING,
+        nom_tarjeta: {
+            type: dataType.STRING,
             allowNull: false
         },
-        numTarjeta:{
-            type: DataType.STRING,
+        num_tarjeta: {
+            type: dataType.STRING,
             allowNull: false
         },
-        cantCuotas:{
-            type: DataType.INTEGER,
+        cant_cuotas: {
+            type: dataType.INTEGER,
             allowNull: false
         },
-        fechaVenta:{
-            type: DataType.DATE,
+        fecha: {
+            type: dataType.DATE,
             allowNull: false
         },
-        activa: {
-            type: DataType.BOOLEAN,
-           allowNull: false
+        cliente_dni: {
+            type: dataType.INTEGER,
+            references: {
+                model: 'Clientes',
+                key: 'dni'
+            }
         }
-
     });
 
-    Ventas.hasAsociation = ()=>{
-        return true;
-    }
+    Ventas.belongsTo(sequelize.models.Clientes, { as: 'cliente', foreignKey: 'cliente_dni' });
+    Ventas.hasMany(sequelize.models.VentasItems, { as: 'ventasItems', foreignKey: 'venta_id' });
 
-    Ventas.associate = (models)=>{
-        //ASOCIACION CON ITEMS
-        Ventas.hasMany(models.Items,{
-            foreignKey:{
-                allowNull:false
-            }
-        });
-
-        Ventas.belongsTo(models.Clientes);
-    };
     return Ventas;
 };

@@ -28,12 +28,6 @@ module.exports = app => {
             const model = require(path.join(dir, file))(sequelize, Sequelize.DataTypes);
             db.models[model.name] = model;
         });
-
-        Object.keys(db.models).forEach(key => {
-            if (db.models[key].hasAsociation()) {
-                db.models[key].associate(db.models);
-            }
-        });
     }
     return db;
 };
