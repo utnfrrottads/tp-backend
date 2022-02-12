@@ -8,18 +8,22 @@ module.exports = (sequelize, dataType) => {
         fecha: {
             type: dataType.DATE,
             allowNull: false,
-        },
-        proveedor_id: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Proveedores',
-                key: 'id'
-            }
         }
     });
 
-    Compras.belongsTo(sequelize.models.Proveedores, { as: 'proveedor', foreignKey: 'proveedor_id' });
-    Compras.hasMany(sequelize.models.ComprasItems, { as: 'comprasItems', foreignKey: 'compra_id' });
+    Compras.hasAsociation = () => {
+        return true;
+    }
+
+    Compras.associate = (models) => {
+        Compras.hasMany(models.ComprasItems, {
+            foreignKey: {
+                allowNull: false
+            },
+            as: 'comprasItems'
+        });
+        Compras.belongsTo(models.Proveedores, { as: 'proveedor' });
+    };
 
     return Compras;
 };

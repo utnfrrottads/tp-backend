@@ -11,25 +11,17 @@ module.exports = (sequelize, dataType) => {
         },
         precio: {
             type: dataType.REAL
-        },
-        proveedor_id: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Proveedores',
-                key: 'id'
-            }
-        },
-        producto_id: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Productos',
-                key: 'id'
-            }
         }
     });
 
-    Precios.belongsTo(sequelize.models.Proveedores, { as: 'proveedor', foreignKey: 'proveedor_id' });
-    Precios.belongsTo(sequelize.models.Productos, { as: 'producto', foreignKey: 'producto_id' });
+    Precios.hasAsociation = () => {
+        return true;
+    }
+
+    Precios.associate = (models) => {
+        Precios.belongsTo(models.Productos, { as: 'producto' });
+        Precios.belongsTo(models.Proveedores, { as: 'proveedor' });
+    }
 
     return Precios;
 };

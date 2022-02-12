@@ -16,28 +16,27 @@ module.exports = (sequelize, dataType) => {
             type: dataType.INTEGER,
             allowNull: false
         },
-        cantidad_minima: {
+        cantidadMinima: {
             type: dataType.INTEGER,
             allowNull: false
         },
-        precio_venta: {
+        precioVenta: {
             type: dataType.DECIMAL,
             allowNull: false
         },
         activo: {
             type: dataType.BOOLEAN,
             allowNull: false
-        },
-        categoria_id: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Categorias',
-                key: 'id'
-            }
         }
     });
 
-    Productos.belongsTo(sequelize.models.Categorias, { as: 'categoria', foreignKey: 'categoria_id' });
+    Productos.hasAsociation = () => {
+        return true;
+    }
+
+    Productos.associate = (models) => {
+        Productos.belongsTo(models.Categorias, { as: 'categoria' });
+    };
 
     return Productos;
 };

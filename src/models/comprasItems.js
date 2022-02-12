@@ -12,24 +12,17 @@ module.exports = (sequelize, dataType) => {
         cantidad: {
             type: dataType.INTEGER,
             allowNull: false
-        },
-        producto_id: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Productos',
-                key: 'id'
-            }
-        },
-        compra_id: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Compras',
-                key: 'id'
-            }
         }
     });
-    
-    ComprasItems.belongsTo(sequelize.models.Productos, { as: 'producto', foreignKey: 'producto_id' });
+
+    ComprasItems.hasAsociation = () => {
+        return true;
+    }
+
+    ComprasItems.associate = (models) => {
+        ComprasItems.belongsTo(models.Compras, { as: 'compra' });
+        ComprasItems.belongsTo(models.Productos, { as: 'producto' });
+    };
 
     return ComprasItems;
 };

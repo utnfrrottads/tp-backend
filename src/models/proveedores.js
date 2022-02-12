@@ -1,15 +1,15 @@
 module.exports = (sequelize, dataType) => {
-    return sequelize.define('Proveedores', {
+    const Proveedores = sequelize.define('Proveedores', {
         id: {
             type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        cuit_dni: {
+        cuitDni: {
             type: dataType.STRING,
             allowNull: false
         },
-        razon_social: {
+        razonSocial: {
             type: dataType.STRING,
             allowNull: false,
             validate: {
@@ -26,14 +26,17 @@ module.exports = (sequelize, dataType) => {
         },
         direccion: {
             type: dataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
+            allowNull: true,
         },
         activo: {
             type: dataType.BOOLEAN,
             allowNull: false
         }
     });
+
+    Proveedores.hasAsociation = () => {
+        return false;
+    };
+
+    return Proveedores;
 };

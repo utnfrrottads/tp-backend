@@ -11,17 +11,17 @@ module.exports = app => {
             const whereCondition = {};
             if (req.query.nomTarjeta) {
                 Object.assign(whereCondition, {
-                    nom_tarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nom_tarjeta')), 'LIKE', '%' + req.query.nomTarjeta + '%')
+                    nomTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')), 'LIKE', '%' + req.query.nomTarjeta + '%')
                 });
             }
             if (req.query.numTarjeta) {
                 Object.assign(whereCondition, {
-                    num_tarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('num_tarjeta')), 'LIKE', '%' + req.query.numTarjeta + '%')
+                    numTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('numTarjeta')), 'LIKE', '%' + req.query.numTarjeta + '%')
                 });
             }
             if (req.query.dni) {
                 Object.assign(whereCondition, {
-                    dni: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('cliente_dni')), 'LIKE', '%' + req.query.dni + '%')
+                    dni: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('clienteDni')), 'LIKE', '%' + req.query.dni + '%')
                 });
             }
             const order = req.query.order ? req.query.order.split(",", 2) : [];
@@ -55,7 +55,7 @@ module.exports = app => {
                 });
         })
         .put((req, res) => {
-            Ventas.update(req.body, { where: { cliente_dni: req.body.clienteDni } })
+            Ventas.update(req.body, { where: { clienteDni: req.body.clienteDni } })
                 .then(() => res.sendStatus(204))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });

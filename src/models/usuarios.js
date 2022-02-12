@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataType) => {
-    return sequelize.define('Usuarios', {
+    const Usuarios = sequelize.define('Usuarios', {
         id: {
             type: dataType.INTEGER,
             primaryKey: true,
@@ -31,5 +31,11 @@ module.exports = (sequelize, dataType) => {
             allowNull: false
         }
     });
+
+    Usuarios.hasAsociation = ()=>{
+        return false;
+    };
+
+    return Usuarios;
 }
 

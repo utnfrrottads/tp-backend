@@ -9,33 +9,37 @@ module.exports = (sequelize, dataType) => {
             type: dataType.REAL,
             defaultValue: 0
         },
-        nom_tarjeta: {
+        nomTarjeta: {
             type: dataType.STRING,
             allowNull: false
         },
-        num_tarjeta: {
+        numTarjeta: {
             type: dataType.STRING,
             allowNull: false
         },
-        cant_cuotas: {
+        cantCuotas: {
             type: dataType.INTEGER,
             allowNull: false
         },
         fecha: {
             type: dataType.DATE,
             allowNull: false
-        },
-        cliente_dni: {
-            type: dataType.INTEGER,
-            references: {
-                model: 'Clientes',
-                key: 'dni'
-            }
         }
     });
 
-    Ventas.belongsTo(sequelize.models.Clientes, { as: 'cliente', foreignKey: 'cliente_dni' });
-    Ventas.hasMany(sequelize.models.VentasItems, { as: 'ventasItems', foreignKey: 'venta_id' });
+    Ventas.hasAsociation = () => {
+        return true;
+    }
+
+    Ventas.associate = (models) => {
+        Ventas.hasMany(models.VentasItems, {
+            foreignKey: {
+                allowNull: false
+            },
+            as: 'ventasItems'
+        });
+        Ventas.belongsTo(models.Clientes, { as: 'cliente' });
+    };
 
     return Ventas;
 };

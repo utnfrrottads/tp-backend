@@ -1,12 +1,12 @@
 
 module.exports = (sequelize, dataType) => {
-    return sequelize.define('Categorias', {
+    const Categorias = sequelize.define('Categorias', {
         id: {
             type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        descripcionCate: {
+        descripcion: {
             type: dataType.STRING,
             allowNull: false
         },
@@ -15,4 +15,10 @@ module.exports = (sequelize, dataType) => {
             allowNull: false
         }
     });
+
+    Categorias.hasAsociation = () => {
+        return false;
+    };
+
+    return Categorias;
 };

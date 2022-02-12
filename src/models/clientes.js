@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataType) => {
-    return sequelize.define('Clientes', {
+    const Clientes = sequelize.define('Clientes', {
         dni: {
             type: dataType.INTEGER,
             primaryKey: true
@@ -26,7 +26,7 @@ module.exports = (sequelize, dataType) => {
             type: dataType.STRING,
             allowNull: false
         },
-        tipo_cliente: {
+        tipoCliente: {
             type: dataType.STRING,
             validate: {
                 isIn: [['MAYORISTA', 'MINORISTA']],
@@ -38,4 +38,18 @@ module.exports = (sequelize, dataType) => {
             allowNull: false
         }
     });
+
+    Clientes.hasAsociation = () => {
+        return true;
+    }
+
+    Clientes.associate = (models) => {
+        Clientes.hasMany(models.Ventas, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
+
+    return Clientes;
 }

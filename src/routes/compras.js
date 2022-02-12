@@ -34,7 +34,7 @@ module.exports = app => {
                     // creo compra
                     const compras = Compras.create({
                         fecha: req.body.fecha,
-                        proveedor_id: req.body.proveedorId
+                        proveedorId: req.body.proveedorId
                     }, { transaction: t });
 
                     req.body.items.forEach(item => {
@@ -45,7 +45,7 @@ module.exports = app => {
                         } else { // creo nuevos productos
                             Productos.create({
                                 ...item.producto,
-                                categoria_id: item.producto.categoriaId,
+                                categoriaId: item.producto.categoriaId,
                                 activo: true
                             }, { transaction: t });
                         }
@@ -54,8 +54,8 @@ module.exports = app => {
                         ComprasItems.create({
                             precio: item.precio,
                             cantidad: item.cantidad,
-                            producto_id: item.producto.id,
-                            compra_id: compras.id
+                            productoId: item.producto.id,
+                            compraId: compras.id
                         }, { transaction: t });
                     });
 

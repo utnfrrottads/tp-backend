@@ -15,13 +15,13 @@ module.exports = app => {
             }
             if (req.query.categoriaId) {
                 Object.assign(whereCondition, {
-                    categoria_id: req.query.categoriaId
+                    categoriaId: req.query.categoriaId
                 });
             }
             if (req.query.stock) {
                 Object.assign(whereCondition, {
                     stock: {
-                        [Op.lt]: Sequelize.col('cantidad_minima')
+                        [Op.lt]: Sequelize.col('cantidadMinima')
                     }
                 });
             }
@@ -48,14 +48,14 @@ module.exports = app => {
         })
         .post((req, res) => {
             req.body.activo = true;
-            Productos.create({ ...req.body, categoria_id: req.body.categoriaId })
-                .then(result => res.json(result))
+            Productos.create(req.body)
+                .then(result => res.status(200).json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
                 });
         })
         .put((req, res) => {
-            Productos.update({ ...req.body, categoria_id: req.body.categoriaId }, { where: { id: req.body.id } })
+            Productos.update(req.body, { where: {id: req.body.id} })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });

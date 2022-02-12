@@ -14,7 +14,6 @@ module.exports = app => {
             config.username,
             config.password,
             config.params
-
         );
 
         db = {
@@ -27,6 +26,12 @@ module.exports = app => {
         fs.readdirSync(dir).forEach(file => {
             const model = require(path.join(dir, file))(sequelize, Sequelize.DataTypes);
             db.models[model.name] = model;
+        });
+
+        Object.keys(db.models).forEach(key => {
+            if (db.models[key].hasAsociation()) {
+                db.models[key].associate(db.models);
+            }
         });
     }
     return db;
