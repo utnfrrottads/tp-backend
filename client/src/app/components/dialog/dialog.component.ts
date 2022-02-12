@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { StarComponent } from './star/star.component';
 
 declare var $: any;
@@ -10,10 +10,12 @@ declare var $: any;
 })
 export class DialogComponent implements OnInit, AfterViewInit {
 
-  isOnHover: boolean = false;
-  isSelected: boolean = false;
-
-  title: String = "Titulo";
+  @Input() title: String = "AVISO";
+  @Input() message: String = "";
+  @Input() imageSrc: String = "";
+  @Input() isReview: boolean = false;
+  @Input() hasCancelButton: boolean = true;
+  @Input() disableOkButton: boolean = false;
 
   @ViewChild('oneStar') oneStar?: StarComponent;
   @ViewChild('twoStars') twoStars?: StarComponent;
