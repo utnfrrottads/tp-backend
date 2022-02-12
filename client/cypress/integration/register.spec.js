@@ -1,4 +1,4 @@
-describe('log in, sign in and account deletion', () => {
+describe('sign in, log in, log out and account deletion', () => {
   // test data
   const username = 'CypressUser';
   const name = 'Cypress User';
