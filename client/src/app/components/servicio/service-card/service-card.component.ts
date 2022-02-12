@@ -153,7 +153,7 @@ export class ServiceCardComponent {
         }
       });
     }
-    return canSign
+    return canSign;
   }
 
   realizarContrato(e: any) {
@@ -162,7 +162,7 @@ export class ServiceCardComponent {
     if (this.checkSignedContracts()) {
       this.contratoService.signContract(this.cardData._id!).subscribe(
         () => {
-          this.router.navigate(['/serviciosContratados'])
+          this.router.navigate(['/serviciosContratados']);
         },
         (err: any) => {
           console.log(err.message);
