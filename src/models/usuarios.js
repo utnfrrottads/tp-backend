@@ -1,46 +1,40 @@
-module.exports = (sequelize, DataType) =>{
-    const Usuarios = sequelize.define('Usuarios',{
-        id:{
-            type: DataType.INTEGER,
+module.exports = (sequelize, dataType) => {
+    const Usuarios = sequelize.define('Usuarios', {
+        id: {
+            type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        usuario:{
-            type: DataType.STRING,
+        usuario: {
+            type: dataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             },
             unique: true
         },
-        clave:{
-            type: DataType.STRING,
+        clave: {
+            type: dataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        rol:{
-            type: DataType.STRING,
+        rol: {
+            type: dataType.STRING,
             validate: {
-                isIn:[['administrador','compras', 'ventas', 'supervisor']]
+                isIn: [['Administrador', 'Compras', 'Ventas', 'Supervisor']]
             }
         },
-        activo:{
-            type: DataType.BOOLEAN,
+        activo: {
+            type: dataType.BOOLEAN,
             allowNull: false
         }
-    },{
-        timestamps: false
     });
 
     Usuarios.hasAsociation = ()=>{
         return false;
-    }
-
-    Usuarios.associate = (models)=>{
-        //Usuarios.sync({alter:true});
-    }
+    };
 
     return Usuarios;
 }

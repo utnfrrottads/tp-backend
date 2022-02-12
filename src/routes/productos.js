@@ -48,14 +48,14 @@ module.exports = app => {
         })
         .post((req, res) => {
             req.body.activo = true;
-            Productos.create({...req.body, categoriaId: req.body.categoriaId })
-                .then(result => res.json(result))
+            Productos.create(req.body)
+                .then(result => res.status(200).json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
                 });
         })
         .put((req, res) => {
-            Productos.update({ ...req.body, categoriaId: req.body.categoriaId }, { where: { id: req.body.id } })
+            Productos.update(req.body, { where: {id: req.body.id} })
                 .then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });

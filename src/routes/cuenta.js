@@ -3,10 +3,9 @@ module.exports = app => {
 
     const Usuario = app.db.models.Usuarios;
     const bcrypt = require('bcrypt');
-    const Sequelize = require("sequelize");
     const BCRYPT_SALT_ROUNDS = 10;
 
-    app.route('/api/cuenta/cambiarclave')
+    app.route('/api/cuenta/cambiar-clave')
         .patch((req,res)=>{
             Usuario.findOne({where: {id: req.body.id}})
                 .then(user =>{
@@ -22,21 +21,20 @@ module.exports = app => {
                                         .then(hashedPassword => {
                                             const usuario = {id: req.body.id,clave: hashedPassword};
                                             Usuario.update(usuario,{where: {id: usuario.id}})
-                                                .then(result => res.json({msg:`La clave se guardo correctamente ${result}`}))
+                                                .then(result2 => res.json({msg:`La clave se guardo correctamente ${result2}`}))
                                                 .catch(error => {
                                                     res.status(412).json({msg: `Error, algo paso: ${error.message}`});
                                                 });
                                         })
                                         .catch(error => {
                                             res.status(412).json({msg:error.message});
-                                            console.log('Error en la encriptacion ', error);
                                         });
                                 }
                             }
                         })
                 })
                 .catch(error => {
-                    res.status(412).json({msg: error.message})
+                    res.status(412).json({msg: error.message});
                 })
         })
 }

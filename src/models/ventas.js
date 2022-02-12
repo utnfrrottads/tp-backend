@@ -1,61 +1,45 @@
-module.exports = (sequelize, DataType)=>{
-
-    const Ventas = sequelize.define('Ventas',{
-        id:{
-            type: DataType.INTEGER,
+module.exports = (sequelize, dataType) => {
+    const Ventas = sequelize.define('Ventas', {
+        id: {
+            type: dataType.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        total:{
-            type: DataType.REAL,
+        total: {
+            type: dataType.REAL,
             defaultValue: 0
         },
-        nomTarjeta:{
-            type: DataType.STRING,
+        nomTarjeta: {
+            type: dataType.STRING,
             allowNull: false
         },
-        numTarjeta:{
-            type: DataType.STRING,
+        numTarjeta: {
+            type: dataType.STRING,
             allowNull: false
         },
-        cantCuotas:{
-            type: DataType.INTEGER,
+        cantCuotas: {
+            type: dataType.INTEGER,
             allowNull: false
         },
-        fechaVenta:{
-            type: DataType.DATE,
+        fecha: {
+            type: dataType.DATE,
             allowNull: false
-        },
-        activa: {
-            type: DataType.BOOLEAN,
-           allowNull: false
         }
-
-    },
-    {
-        timestamps: false
     });
 
-    Ventas.hasAsociation = ()=>{
+    Ventas.hasAsociation = () => {
         return true;
     }
 
-    Ventas.associate = (models)=>{
-        //ASOCIACION CON ITEMS
-        Ventas.hasMany(models.Items,{
-            foreignKey:{
-                allowNull:false
-            }
+    Ventas.associate = (models) => {
+        Ventas.hasMany(models.VentasItems, {
+            foreignKey: {
+                allowNull: false
+            },
+            as: 'ventasItems'
         });
-
-        // Se utiliza belongsTO para que tenga la foranea del cliente
-        Ventas.belongsTo(models.Clientes);
-
-        //Ventas.sync();
-
-
+        Ventas.belongsTo(models.Clientes, { as: 'cliente' });
     };
 
     return Ventas;
-
 };

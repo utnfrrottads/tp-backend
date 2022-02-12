@@ -1,59 +1,52 @@
-module.exports = (sequelize, DataType) =>{
-
-    const Clientes = sequelize.define('Clientes',{
-        dni:{
-            type: DataType.STRING,
+module.exports = (sequelize, dataType) => {
+    const Clientes = sequelize.define('Clientes', {
+        dni: {
+            type: dataType.INTEGER,
             primaryKey: true
         },
-        nombre:{
-            type: DataType.STRING,
+        nombre: {
+            type: dataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        apellido:{
-            type: DataType.STRING,
+        apellido: {
+            type: dataType.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
-        telefono:{
-            type: DataType.STRING,
+        telefono: {
+            type: dataType.STRING,
             allowNull: true
         },
-        direccion:{
-            type:DataType.STRING,
+        direccion: {
+            type: dataType.STRING,
             allowNull: false
         },
-        tipoCliente:{
-           type:DataType.STRING,
+        tipoCliente: {
+            type: dataType.STRING,
             validate: {
-               isIn:[['MAYORISTA','MINORISTA']],
+                isIn: [['MAYORISTA', 'MINORISTA']],
                 isUppercase: true
             }
         },
         activo: {
-            type: DataType.BOOLEAN,
+            type: dataType.BOOLEAN,
             allowNull: false
         }
-    },
-    {
-        timestamps: false
     });
 
-    Clientes.hasAsociation = ()=>{
+    Clientes.hasAsociation = () => {
         return true;
     }
 
-    Clientes.associate = (models)=>{
-
-     //Clientes.sync({force:true});
-
-        Clientes.hasMany(models.Ventas,{
-            foreignKey:{
-                allowNull:false
+    Clientes.associate = (models) => {
+        Clientes.hasMany(models.Ventas, {
+            foreignKey: {
+                allowNull: false
             }
         });
     };
