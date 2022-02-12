@@ -16,11 +16,10 @@
                 aliquip ex ea commodo consequat.
             </h5>
         </div>
-
     </div>
     <div class="row justify-content-around" *ngIf="servicios.length > 0 && mostrarServicios">
         <ng-container *ngFor="let servicio of servicios; let i = index">
-            <div class="col-sm-4" *ngIf="i < 4">
+            <div class="col-12 col-sm-6 col-lg-3" *ngIf="i <= 4">
                 <app-service-preview-card [cardData]="servicio"></app-service-preview-card>
             </div>
         </ng-container>
