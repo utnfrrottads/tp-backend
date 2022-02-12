@@ -1,0 +1,49 @@
+<div class="modal fade background-popup-fade" id="alertDialog" aria-labelledby="Aviso" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">{{ title }}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row justify-content-center">
+          <div class="col-sm-6">
+            <img src="../../../assets/hammer.png">
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-sm-10 text-justify">
+            <h5 style="line-height: 2;">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              sed do eiusmod tempor, quis nostrud ext.
+            </h5>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-sm-8 starsContainer">
+            <div class="row">
+              <app-star class="col starDiv" #oneStar (updateStars)="updateStars($event)" [score]=1></app-star>
+              <app-star class="col starDiv" #twoStars (updateStars)="updateStars($event)" [score]=2></app-star>
+              <app-star class="col starDiv" #threeStars (updateStars)="updateStars($event)" [score]=3></app-star>
+              <app-star class="col starDiv" #fourStars (updateStars)="updateStars($event)" [score]=4></app-star>
+              <app-star class="col starDiv" #fiveStars (updateStars)="updateStars($event)" [score]=5></app-star>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center footer">
+          <div class="col-sm-5">
+            <button class="btn btn-secondary rounded-pill btn-block" data-dismiss="modal">Cancelar</button>
+          </div>
+          <div class="col-sm-5">
+            <button class="btn btn-primary rounded-pill btn-block">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

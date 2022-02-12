@@ -42,6 +42,8 @@ import { ServiciosPorCategoriasComponent } from './components/servicio/servicios
 import { CategoriaTemplateComponent } from './components/servicio/categoria-template/categoria-template.component';
 import { ServicePreviewCardComponent } from './components/servicio/categoria-template/service-preview-card/service-preview-card.component';
 import { ServiciosPorCategoriaComponent } from './components/servicio/servicios-por-categoria/servicios-por-categoria.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { StarComponent } from './components/dialog/star/star.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { ServiciosPorCategoriaComponent } from './components/servicio/servicios-
     CategoriaTemplateComponent,
     ServicePreviewCardComponent,
     ServiciosPorCategoriaComponent,
+    DialogComponent,
+    StarComponent
   ],
   imports: [
     BrowserModule,
