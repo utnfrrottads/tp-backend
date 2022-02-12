@@ -7,6 +7,7 @@ module.exports = app => {
 
     app.route('/api/productos')
         .get((req, res) => {
+            console.log('paso por aca');
             const whereCondition = {};
             if (req.query.descripcion) {
                 Object.assign(whereCondition, {
@@ -31,9 +32,9 @@ module.exports = app => {
                 });
             }
             let order = req.query.order ? req.query.order.split(",", 2) : [];
-            if (order && order[0] === 'categoria.descripcion') {
+          /*  if (order && order[0] === 'categoria.descripcion') {
                 order = [Sequelize.literal('"categoria"."descripcion"'), order[1]];
-            }
+            }*/
             Productos.findAndCountAll({
                 where: whereCondition,
                 limit: req.query.limit,

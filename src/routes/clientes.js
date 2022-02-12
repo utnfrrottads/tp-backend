@@ -7,44 +7,48 @@ module.exports = app =>{
 
     app.route('/api/cliente')
         .get((req,res)=>{
-
-          //const order = req.query.order ? req.query.order.split(",",2) : [];
-          const order = req.query.order ? req.query.order.replace(',',' ') : [];
-
+            console.log('antes',req.query.order);
+            let order = req.query.order ? req.query.order.split(",",2) : [];
+            console.log('despues',order);
+            const colArray = ['dni', 'nombre','apellido','tipoCliente','telefono'];
+            const tipoArray = ['asc','desc'];
+            let orden = colArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
+            orden = '"'+orden+'"' + ' ' + tipoArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
             let colum = '';
             let sql = `SELECT * FROM "Clientes" ` ;
-            let extra = `order by ${order} limit ? offset ?`
+            let extra = `order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
-          if(req.query.nombre){
-              colum = colum ? `nombre ilike ? and ${colum}` : `nombre ilike ? `;
-              query = `${sql} where ${colum} ${extra}`;
-              replacements.unshift('%'+req.query.nombre+'%');
-          }
-          if(req.query.apellido){
-              colum = colum ? `apellido ilike ? and ${colum}` : `apellido ilike ? `;
-              query = `${sql} where ${colum} ${extra}`
-              replacements.unshift('%'+req.query.apellido+'%');
-          }
-          if(req.query.dni){
-              colum = colum ? `dni ilike ? and ${colum}` : `dni ilike ? `;
-              query = `${sql} where ${colum} ${extra}`;
-              replacements.unshift('%'+req.query.dni+'%');
-          }
-          if(req.query.direccion){
-              colum = colum ? `direccion ilike ? and ${colum}` : `direccion ilike ? `;
-              query = `${sql} where ${colum} ${extra}`;
-              replacements.unshift('%'+req.query.direccion+'%');
-          }
-          if(req.query.tipoCliente){
-              colum = colum ? `"tipoCliente" ilike ? and ${colum}` : `"tipoCliente" ilike ? `;
-              query = `${sql} where ${colum} ${extra}`;
-              replacements.unshift('%'+req.query.tipoCliente+'%');
-          }
-          if(req.query.activo){
-              colum = colum ? `activo = true and ${colum}` : `activo = true `;
-               query = `${sql} where ${colum} ${extra}`;
-          }
+
+            if(req.query.nombre){
+                  colum = colum ? `nombre ilike ? and ${colum}` : `nombre ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.nombre+'%');
+            }
+            if(req.query.apellido){
+                  colum = colum ? `apellido ilike ? and ${colum}` : `apellido ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`
+                  replacements.unshift('%'+req.query.apellido+'%');
+            }
+            if(req.query.dni){
+                  colum = colum ? `dni ilike ? and ${colum}` : `dni ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.dni+'%');
+            }
+            if(req.query.direccion){
+                  colum = colum ? `direccion ilike ? and ${colum}` : `direccion ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.direccion+'%');
+            }
+            if(req.query.tipoCliente){
+                  colum = colum ? `"tipoCliente" ilike ? and ${colum}` : `"tipoCliente" ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.tipoCliente+'%');
+            }
+            if(req.query.activo){
+                  colum = colum ? `activo = true and ${colum}` : `activo = true `;
+                   query = `${sql} where ${colum} ${extra}`;
+            }
             sequelize.query(
                 query,
                 {

@@ -8,17 +8,22 @@ module.exports = app => {
 
     app.route('/api/categorias-productos')
         .get((req, res) => {
-            const order = req.query.order ? req.query.order.replace(',', ' ') : [];
+            // ARMO QUERY
+//            const order = req.query.order ? req.query.order.replace(',', ' ') : [];
+            let order = req.query.order ? req.query.order.split(",",2) : [];
+            const colArray = ['descripcion'];
+            const tipoArray = ['asc','desc'];
+            let orden = colArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
+            orden = '"'+orden+'"' + ' ' + tipoArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
             let colum = '';
             let sql = `SELECT * FROM "Categorias"` ;
-            let extra = ` order by ${order} limit ? offset ?`
+            let extra = ` order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
             if(req.query.descripcion){
                 colum = colum ? `descripcion ilike ? and ${colum}` : `descripcion ilike ?`;
                  query = `${sql} where ${colum} ${extra}`;
                  replacements.unshift('%'+req.query.descripcion+'%');
-                //replacements = ['%'+req.query.descripcion+'%',req.query.limit,req.query.offset * req.query.limit];
             }
             if(req.query.activa){
                 colum = colum ? `activa = true and ${colum}` : `activa = true`;
