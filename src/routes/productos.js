@@ -18,10 +18,10 @@ module.exports = app => {
                     categoriaId: req.query.categoriaId
                 });
             }
-            if (req.query.stock) {
+            if (req.query.requiereStock) {
                 Object.assign(whereCondition, {
                     stock: {
-                        [Op.lt]: Sequelize.col('cantidadMinima')
+                        [Op.lt]: Sequelize.col('cantidad_minima')
                     }
                 });
             }

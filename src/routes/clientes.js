@@ -8,7 +8,7 @@ module.exports = app => {
       const whereCondition = {};
       if (req.query.dni) {
         Object.assign(whereCondition, {
-          dni: Sequelize.where(Sequelize.col('dni'), 'LIKE', '%' + req.query.dni + '%')
+          dni: req.query.dni
         });
       }
       if (req.query.nombre) {
@@ -28,7 +28,7 @@ module.exports = app => {
       }
       if (req.query.tipoCliente) {
         Object.assign(whereCondition, {
-          tipoCliente: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('tipoCliente')), 'LIKE', '%' + req.query.tipoCliente + '%')
+          tipoCliente: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('tipo_cliente')), 'LIKE', '%' + req.query.tipoCliente + '%')
         });
       }
       if (req.query.activo) {

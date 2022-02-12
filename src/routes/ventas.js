@@ -11,17 +11,17 @@ module.exports = app => {
             const whereCondition = {};
             if (req.query.nomTarjeta) {
                 Object.assign(whereCondition, {
-                    nomTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nomTarjeta')), 'LIKE', '%' + req.query.nomTarjeta + '%')
+                    nomTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nom_tarjeta')), 'LIKE', '%' + req.query.nomTarjeta + '%')
                 });
             }
             if (req.query.numTarjeta) {
                 Object.assign(whereCondition, {
-                    numTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('numTarjeta')), 'LIKE', '%' + req.query.numTarjeta + '%')
+                    numTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('num_tarjeta')), 'LIKE', '%' + req.query.numTarjeta + '%')
                 });
             }
             if (req.query.dni) {
                 Object.assign(whereCondition, {
-                    dni: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('clienteDni')), 'LIKE', '%' + req.query.dni + '%')
+                    cliente_dni: req.query.dni
                 });
             }
             const order = req.query.order ? req.query.order.split(",", 2) : [];
