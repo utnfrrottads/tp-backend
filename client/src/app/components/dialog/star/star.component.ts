@@ -8,24 +8,33 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 export class StarComponent implements OnInit {
 
   @Output() updateStars = new EventEmitter<number>();
+  @Output() willSelect = new EventEmitter<number>();
+
   @Input() score: number = 1;
+
   iconRegular: String = "fa-regular";
   iconSolid: String = "fa-solid";
   iconName: String = "fa-regular";
 
-  selected: boolean = false;
+  isMouseOver: boolean = false;
   shouldBeSelected: boolean = false;
+  canSelect: boolean = true;
+  isSelected: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  updateStarIcon(isSelected?: boolean) {
-    if (isSelected != null) {
-      this.selected = isSelected;
+  updateStarIcon(isMouseOver?: boolean) {
+    if (isMouseOver != null) {
+      this.isMouseOver = isMouseOver;
     }
-    this.iconName = (this.shouldBeSelected || this.selected) ? this.iconSolid: this.iconRegular;
+    if ((this.shouldBeSelected || this.isMouseOver) && this.canSelect) {
+      this.iconName = this.iconSolid;
+    } else {
+      this.iconName = (this.isSelected) ? this.iconSolid: this.iconRegular;
+    }
   }
 
   onMouseOver() {
@@ -38,8 +47,23 @@ export class StarComponent implements OnInit {
     this.updateStarIcon(false);
   }
 
+  onClick() {
+    if (this.canSelect) {
+      this.isSelected = true;
+      this.willSelect.emit(this.score);
+    }
+  }
+
   shouldSelect(value: boolean) {
     this.shouldBeSelected = value;
     this.updateStarIcon();
+  }
+
+  didSelect() {
+    if (this.shouldBeSelected) {
+      this.isSelected = true;
+      this.updateStarIcon();
+    }
+    this.canSelect = false;
   }
 }

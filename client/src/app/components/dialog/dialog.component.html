@@ -26,11 +26,11 @@
         <div class="row justify-content-center" *ngIf="(isReview)">
           <div class="col-sm-8 starsContainer">
             <div class="row">
-              <app-star class="col starDiv" #oneStar (updateStars)="updateStars($event)" [score]=1></app-star>
-              <app-star class="col starDiv" #twoStars (updateStars)="updateStars($event)" [score]=2></app-star>
-              <app-star class="col starDiv" #threeStars (updateStars)="updateStars($event)" [score]=3></app-star>
-              <app-star class="col starDiv" #fourStars (updateStars)="updateStars($event)" [score]=4></app-star>
-              <app-star class="col starDiv" #fiveStars (updateStars)="updateStars($event)" [score]=5></app-star>
+              <app-star class="col starDiv" #oneStar (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=1></app-star>
+              <app-star class="col starDiv" #twoStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=2></app-star>
+              <app-star class="col starDiv" #threeStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=3></app-star>
+              <app-star class="col starDiv" #fourStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=4></app-star>
+              <app-star class="col starDiv" #fiveStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=5></app-star>
             </div>
           </div>
         </div>

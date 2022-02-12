@@ -38,4 +38,14 @@ export class DialogComponent implements OnInit, AfterViewInit {
     this.fourStars?.shouldSelect((score >= 4));
     this.fiveStars?.shouldSelect((score === 5));
   }
+
+  willSelect(score: number) {
+    this.disableOkButton = false;
+    this.updateStars(score);
+    this.oneStar?.didSelect();
+    this.twoStars?.didSelect();
+    this.threeStars?.didSelect();
+    this.fourStars?.didSelect();
+    this.fiveStars?.didSelect();
+  }
 }
