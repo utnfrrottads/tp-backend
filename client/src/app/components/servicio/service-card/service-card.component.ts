@@ -8,6 +8,7 @@ import { ServicioService } from 'src/app/services/servicio.service';
 import { ContratoService } from 'src/app/services/contrato.service';
 
 import { Servicio } from 'src/app/models/Servicio';
+import { Contrato } from 'src/app/models/Contrato';
 
 declare var $: any;
 
@@ -51,6 +52,11 @@ export class ServiceCardComponent {
   serviceDetailQuery: any;
   serviceDetailSubscription: any;
 
+  serviciosContratadosQuery: any;
+  serviciosContratadosSubscription: any;
+
+  contratos: Contrato[] = [];
+
   constructor(
     private router: Router,
     public authService: AuthService,
@@ -60,10 +66,12 @@ export class ServiceCardComponent {
   ) { }
 
   ngOnInit(): void {
+    this.subscribeServiciosContratados();
   }
 
   ngOnDestroy(): void {
     if (this.serviceDetailSubscription) this.unsuscribeServiceDetail();
+    if (this.serviciosContratadosSubscription) this.unsubscribeServiciosContratados();
   }
 
   suscribeServiceDetail(): void {
@@ -113,18 +121,57 @@ export class ServiceCardComponent {
     this.seleccionarCategoria.emit();
   }
 
+  subscribeServiciosContratados(): void {
+    this.serviciosContratadosQuery = this.contratoService.serviciosContratados();
+    this.serviciosContratadosSubscription = this.serviciosContratadosQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.serviciosContratados;
+      })
+    ).subscribe(
+      (contratos: Contrato[]) => {
+        contratos.forEach(contrato => {
+          if (contrato.fechaCancelacion) {
+            contrato.fechaCancelacion = new Date(contrato.fechaCancelacion);
+          }
+        });
+        this.contratos = contratos;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  unsubscribeServiciosContratados() {
+    this.serviciosContratadosSubscription.unsubscribe();
+  }
+
+  checkSignedContracts(): boolean {
+    var canSign = true;
+    if (this.contratos.length > 0) {
+      this.contratos.forEach(contrato => {
+        if (contrato.servicio?._id === this.cardData._id && contrato.fechaCancelacion == null) {
+          canSign = false;
+        }
+      });
+    }
+    return canSign
+  }
+
   realizarContrato(e: any) {
     e.preventDefault();
     e.stopPropagation();
-
-    this.contratoService.signContract(this.cardData._id!).subscribe(
-      () => {
-        this.router.navigate(['/serviciosContratados'])
-      },
-      (err: any) => {
-        console.log(err.message);
-      }
-    );
+    if (this.checkSignedContracts()) {
+      this.contratoService.signContract(this.cardData._id!).subscribe(
+        () => {
+          this.router.navigate(['/serviciosContratados'])
+        },
+        (err: any) => {
+          console.log(err.message);
+        }
+      );
+    } else {
+      $('#alertDialog').modal('show');
+    }
+    
   }
 
   irAlServicio(e: any) {
