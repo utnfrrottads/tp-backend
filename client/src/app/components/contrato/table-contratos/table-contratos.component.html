@@ -6,6 +6,7 @@
         <tr>
           <th scope="col" class="col-servicio">Servicio</th>
           <th scope="col" class="col-user">Usuario Oferente</th>
+          <th scope="col" class="col-user">Usuario Contratante</th>
           <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
           <th scope="col" class="col-fecha-canc">Fecha de Cancelación</th>
           <th scope="col" class="col-accion">Acciones Rápidas</th>
@@ -17,6 +18,8 @@
               contrato.servicio!.titulo }}</a></td>
           <td class="col-user"><a href="" [routerLink]="'/perfil/' + contrato.servicio!.usuario!.nombreUsuario">{{
               contrato.servicio!.usuario!.nombreUsuario }}</a></td>
+          <td class="col-user"><a href="" [routerLink]="'/perfil/' + contrato.usuario!.nombreUsuario">{{
+              contrato.usuario!.nombreUsuario }}</a></td>
           <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleDateString() }}</td>
 
           <td class="col-fecha-canc">
