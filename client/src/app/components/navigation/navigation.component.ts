@@ -104,6 +104,7 @@ export class NavigationComponent implements OnInit {
 
   irALaNotificacion(link: string): void {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      console.log(link);
       this.router.navigate(['/' + link]);
     });
   }

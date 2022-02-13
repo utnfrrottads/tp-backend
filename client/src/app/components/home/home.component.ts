@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
   }
 
   unsuscribeCategorias(): void {
-    this.categoriasSubscription.unsubscribe();
+    if (this.categoriasSubscription) this.categoriasSubscription.unsubscribe();
   }
 
   suscribeEstadisticas(): void {
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
   }
 
   unsuscribeEstadisticas(): void {
-    this.estadisticasSubscription.unsubscribe();
+    if (this.estadisticasSubscription) this.estadisticasSubscription.unsubscribe();
   }
 
   openSigninModal(goTo: string, navigationExtras: NavigationExtras = {}): void {
