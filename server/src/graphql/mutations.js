@@ -26,7 +26,7 @@ const {
   Notificacion
 } = require("../models/index");
 const client = require('../elasticsearch/elasticsearch');
-const io = require('../sockets/socket');
+const Mensaje = require("../models/Mensaje");
 
 const signUp = {
   description: "Crear Cuenta",
@@ -164,6 +164,21 @@ const updateUsuario = {
           );
         }
       }
+    }
+  },
+};
+
+const deleteAccount = {
+  description: "Eliminar cuenta",
+  type: TypeUsuario,
+  args: {
+    _id: { type: GraphQLString },
+  },
+  async resolve(parent, args, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      return await Usuario.findByIdAndDelete(usuario._id);
     }
   },
 };
@@ -363,21 +378,6 @@ const deleteCategoria = {
     } else {
       const { _id } = args;
       return await Categoria.findByIdAndDelete(_id);
-    }
-  },
-};
-
-const deleteAccount = {
-  description: "Eliminar cuenta",
-  type: TypeUsuario,
-  args: {
-    _id: { type: GraphQLString },
-  },
-  async resolve(parent, args, { usuario }) {
-    if (!usuario) {
-      throw new Error("Acceso no autorizado");
-    } else {
-      return await Usuario.findByIdAndDelete(usuario._id);
     }
   },
 };
