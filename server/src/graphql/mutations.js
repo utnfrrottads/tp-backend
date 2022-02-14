@@ -178,6 +178,26 @@ const deleteAccount = {
     if (!usuario) {
       throw new Error("Acceso no autorizado");
     } else {
+      let idsServicio = [];
+      (await Servicio.find({ idUsuario: usuario._id }).select('_id')).forEach(serv => {
+        idsServicio.push(serv._id);
+      });
+      await Contrato.deleteMany({ idServicio: idsServicio });
+
+      await Contrato.deleteMany({ idUsuario: usuario._id });
+
+      await Servicio.deleteMany({ idUsuario: usuario._id });
+      await client.deleteByQuery({
+        index: 'servicios',
+        body: {
+          query: {
+            match: {
+              idUsuario: usuario._id
+            }
+          }
+        }
+      });
+
       return await Usuario.findByIdAndDelete(usuario._id);
     }
   },
