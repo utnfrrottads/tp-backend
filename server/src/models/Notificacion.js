@@ -20,6 +20,11 @@ const notificacionSchema = new Schema({
       default: false,
       required: true,
     },
+    abierta: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
     icono: {
       type: String,
       required: true,

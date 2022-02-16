@@ -20,6 +20,14 @@ const contratoSchema = new Schema({
     idUsuario: {
         type: String,
         required: true,
+    },
+    estado: {
+        type: String,
+        default: "Contratado",
+    },
+    calificacion: {
+        type: Number,
+        default: null,
     }
 }, { collection: 'contratos', timestamps: false });
 

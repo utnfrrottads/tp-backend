@@ -8,4 +8,6 @@ export interface Contrato {
   fechaCancelacion?: Date;
   servicio?: Servicio;
   usuario?: Usuario;
+  estado?: string;
+  calificacion?: number;
 }
