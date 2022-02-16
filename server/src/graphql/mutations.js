@@ -696,7 +696,7 @@ const setScore = {
     idContrato: { type: GraphQLID },
     score: { type: GraphQLInt }
   },
-  async resolve(parent, { idContrato }, { score }, { usuario }) {
+  async resolve(parent, { idContrato, score }, { usuario }) {
     if (!usuario) {
       throw new Error("Acceso no autorizado");
     } else {
@@ -706,9 +706,7 @@ const setScore = {
 
         // Cliente califica el contrato
       if (contratoACalificar.idUsuario == usuario._id) {
-        console.log('calificacion' + contratoACalificar.calificacion);
         contratoACalificar.calificacion = score;
-        console.log('calificacion' + contratoACalificar.calificacion);
         const contratoCalificado = await contratoACalificar.save();
 
         const notificacion = new Notificacion({
@@ -723,11 +721,9 @@ const setScore = {
 
         return contratoCalificado;
         } else {
-          console.log('NO');
           throw new Error("El contrato no puede ser calificado");
         }
       } else {
-        console.log('NO');
         throw new Error("Ingrese todos los datos requeridos en el formato correcto");
       }
     }

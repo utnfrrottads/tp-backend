@@ -278,7 +278,6 @@ export class ContratoService {
   }
 
   setScore(idContrato: String, score: number): any {
-    console.log('llega a contratoService');
     return this.apollo.mutate({
       mutation: SET_SCORE,
       variables: {
