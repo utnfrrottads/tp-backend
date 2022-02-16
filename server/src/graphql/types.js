@@ -38,11 +38,10 @@ const TypeUsuario = new GraphQLObjectType({
     habilidades: { type: GraphQLString },
     fotoPerfil: { type: GraphQLString },
     isAdministrador: { type: GraphQLBoolean },
-    idNivel: { type: GraphQLID },
     nivel: {
       type: TypeNivel,
-      resolve(parent, args) {
-        return Nivel.findById(parent.idNivel);
+      async resolve(parent, args) {
+        return Nivel.findOne({ contratosMinimos: { $gte: await Contrato.find({ idUsuario: parent._id }).count() } }).sort({ nro: 1 });
       },
     },
     servicios: {

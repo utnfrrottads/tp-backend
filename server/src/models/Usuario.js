@@ -40,10 +40,6 @@ const usuarioSchema = new Schema(
       require: true,
       default: false,
     },
-    idNivel: {
-      type: String,
-      required: true
-    },
   },
   { collection: "usuarios", timestamps: false }
 );

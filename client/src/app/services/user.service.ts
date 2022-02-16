@@ -91,6 +91,10 @@ const USUARIO = gql`
       habilidades
       fotoPerfil
       isAdministrador
+      nivel {
+        nro
+        contratosMinimos
+      }
     }
   }
 `;

@@ -22,6 +22,7 @@ export class VerPerfilComponent implements OnInit {
     email: '',
     habilidades: '',
     fotoPerfil: '',
+    nivel: undefined,
   };
 
   cloudinary_url = environment.CLOUDINARY_URL;
