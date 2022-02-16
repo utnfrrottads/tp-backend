@@ -122,7 +122,7 @@ export class PerfilComponent implements OnInit {
           this.usuario.fotoPerfil = res.public_id + '.' + res.format;
           this.userService.updateProfileImage(this.usuario).subscribe(
             (res: any) => {
-              localStorage.setItem('usuario', JSON.stringify(res.data.updateProfileImage.usuario));
+              localStorage.setItem('usuario', JSON.stringify(res.data.updateProfileImage));
             },
             (err: any) => {
               console.log(err.message);
@@ -142,7 +142,7 @@ export class PerfilComponent implements OnInit {
     this.usuario.fotoPerfil = '';
     this.userService.deleteProfileImage().subscribe(
       (res: any) => {
-        localStorage.setItem('usuario', JSON.stringify(res.data.updateProfileImage.usuario));
+        localStorage.setItem('usuario', JSON.stringify(res.data.deleteProfileImage));
       },
       (err: any) => {
         console.log(err.message);

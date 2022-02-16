@@ -257,7 +257,7 @@ const deleteProfileImage = {
     if (!usuario) {
       throw new Error("Acceso no autorizado");
     } else {
-      usuario.fotoPerfil = null;
+      usuario.fotoPerfil = undefined;
       return await usuario.save();
     }
   },
