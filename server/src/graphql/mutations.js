@@ -689,6 +689,52 @@ const finishContract = {
   }
 };
 
+const setScore = {
+  description: "Calificar",
+  type: TypeContrato,
+  args: {
+    idContrato: { type: GraphQLID },
+    score: { type: GraphQLInt }
+  },
+  async resolve(parent, { idContrato }, { score }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      if (idContrato) {
+        const contratoACalificar = await Contrato.findById(idContrato);
+        contratoACalificar.servicio = await Servicio.findById(contratoACalificar.idServicio);
+
+        // Cliente califica el contrato
+      if (contratoACalificar.idUsuario == usuario._id) {
+        console.log('calificacion' + contratoACalificar.calificacion);
+        contratoACalificar.calificacion = score;
+        console.log('calificacion' + contratoACalificar.calificacion);
+        const contratoCalificado = await contratoACalificar.save();
+
+        const notificacion = new Notificacion({
+          descripcion: 'El usuario ' + usuario.nombreUsuario + ' calificó el contrato por el servicio: ' + contratoACalificar.servicio.titulo,
+          link: '/servicio/' + contratoACalificar.servicio._id,
+          fechaHora: new Date(),
+          leida: false,
+          icono: "contrato",
+          idUsuario: contratoACalificar.servicio.idUsuario
+        });
+        await notificacion.save();
+
+        return contratoCalificado;
+        } else {
+          console.log('NO');
+          throw new Error("El contrato no puede ser calificado");
+        }
+      } else {
+        console.log('NO');
+        throw new Error("Ingrese todos los datos requeridos en el formato correcto");
+      }
+    }
+
+  }
+};
+
 const readNotifications = {
   description: "Leer notificaciones",
   type: TypeNotificacion,
@@ -734,6 +780,7 @@ module.exports = {
   cancelContract,
   confirmContract,
   finishContract,
+  setScore,
   readNotifications,
   openNotification,
   deleteAccount
