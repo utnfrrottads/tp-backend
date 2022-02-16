@@ -69,3 +69,15 @@
     msgNoContratos="No ha recibido ningún contrato por dicho servicio aún">
   </app-table-contratos>
 </div>
+
+<app-dialog title="¡Califica tu experiencia!"
+            message="¡Esperamos que todo haya salido perfecto con el servicio que contrataste! 
+            ¿Tenés un minuto para calificar tu experiencia con el oferente?"></app-dialog>
+
+<app-dialog idDialog="reviewDialog"
+            title="Califica al oferente"
+            message="Asignale una calificación entre 1 y 5 estrellas, dependiendo de cómo fue tu experiencia y la calidad del servicio."
+            [isReview]=true
+            [hasCancelButton]=false
+            [disableOkButton]=true
+            [isReviewStep]=true></app-dialog>

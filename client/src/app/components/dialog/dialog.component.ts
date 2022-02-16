@@ -10,13 +10,16 @@ declare var $: any;
 })
 export class DialogComponent implements OnInit, AfterViewInit {
 
+  @Input() idDialog: String = "alertDialog";
+
   @Input() title: String = "AVISO";
   @Input() message: String = "";
   @Input() imageSrc: String = "";
   @Input() isReview: boolean = false;
   @Input() hasCancelButton: boolean = true;
   @Input() disableOkButton: boolean = false;
-
+  @Input() isReviewStep: boolean = false;
+  
   @ViewChild('oneStar') oneStar?: StarComponent;
   @ViewChild('twoStars') twoStars?: StarComponent;
   @ViewChild('threeStars') threeStars?: StarComponent;
@@ -47,5 +50,10 @@ export class DialogComponent implements OnInit, AfterViewInit {
     this.threeStars?.didSelect();
     this.fourStars?.didSelect();
     this.fiveStars?.didSelect();
+  }
+
+  continueButtonTapped() {
+    $('#alertDialog').modal('hide');
+    $('#reviewDialog').modal('show');
   }
 }
