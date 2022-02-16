@@ -42,10 +42,10 @@
               <a href="" [routerLink]="'/contrato/mensajes/' + contrato._id">Mensajes</a>&nbsp;&nbsp;
             </span>
             <span *ngIf="confirmContractValidation(contrato)">
-              <a href="" [routerLink]="'/servicios/'" (click)="confirmarContrato($event, contrato)">Confirmar Contrato</a>&nbsp;&nbsp;
+              <a href="" (click)="confirmarContrato($event, contrato)">Confirmar Contrato</a>&nbsp;&nbsp;
             </span>
             <span *ngIf="finishContractValidation(contrato)">
-              <a href="" [routerLink]="'/servicios/'" (click)="finalizarContrato($event, contrato)">Finalizar Contrato</a>&nbsp;&nbsp;
+              <a href="" (click)="finalizarContrato($event, contrato)">Finalizar Contrato</a>&nbsp;&nbsp;
             </span>
           </td>
         </tr>

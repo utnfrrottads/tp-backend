@@ -43,6 +43,8 @@ export class TableContratosComponent implements OnInit {
   }
 
   confirmarContrato(e: any, contrato: Contrato) {
+    e.preventDefault();
+
     this.contratoService.confirmContract(contrato._id || '').subscribe(
       (response: any) => {
         const contratoConfirmado = response.data.confirmContract;
@@ -56,6 +58,8 @@ export class TableContratosComponent implements OnInit {
   }
 
   finalizarContrato(e: any, contrato: Contrato) {
+    e.preventDefault();
+    
     this.contratoService.finishContract(contrato._id || '').subscribe(
       (response: any) => {
         const contratoFinalizado = response.data.finishContract;
