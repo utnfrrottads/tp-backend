@@ -64,9 +64,9 @@ export class ChatComponent implements OnInit {
             this.contratoCancelado = true;
           }
 
-          if (res.usuario?._id == this.userService.getUsuario()._id) {
+          if (res.servicio?.usuario?._id == this.userService.getUsuario()._id) {
             this.tituloChat = 'Usuario: ' + res.usuario?.nombreUsuario + ' - Servicio: ' + res.servicio?.titulo + ' - Fecha Contratación: ' + new Date(res.fecha!).toLocaleDateString();
-          } else if (res.servicio?.usuario?._id == this.userService.getUsuario()._id) {
+          } else if (res.usuario?._id == this.userService.getUsuario()._id) {
             this.tituloChat = 'Usuario: ' + res.servicio?.usuario?.nombreUsuario + ' - Servicio: ' + res.servicio?.titulo + ' - Fecha Contratación: ' + new Date(res.fecha!).toLocaleDateString();
           }
 
