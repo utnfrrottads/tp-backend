@@ -90,7 +90,7 @@ export class ServicioComponent implements OnInit {
 
     this.suscribeServicio();
 
-    if (this.rutaActiva.snapshot.params.idNotificacion) {
+    if (this.authService.loggedIn() && this.rutaActiva.snapshot.params.idNotificacion) {
       this.notificacionQuery = this.notificacionService.notificacion(this.rutaActiva.snapshot.params.idNotificacion);
       this.notificacionSubscription = this.notificacionQuery.valueChanges.pipe(
         map((res: any) => {
@@ -98,7 +98,7 @@ export class ServicioComponent implements OnInit {
         })
       ).subscribe(
         (res: any) => {
-          if (!res.abierta) {
+          if (res.idUsuario == this.userService.getUsuario()._id && !res.abierta) {
             this.openModal();
             this.notificacionService.abrirNotificacion(this.rutaActiva.snapshot.params.idNotificacion || '').subscribe();
           }

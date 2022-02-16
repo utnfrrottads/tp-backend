@@ -284,8 +284,12 @@ const notificacion = {
     args: {
         idNotificacion: { type: GraphQLID },
     },
-    async resolve(parent, { idNotificacion }) {
-        return await Notificacion.findById(idNotificacion);
+    async resolve(parent, { idNotificacion }, { usuario }) {
+        if (!usuario) {
+            throw new Error('Acceso no autorizado');
+        } else {
+            return await Notificacion.findOne({ _id: idNotificacion, idUsuario: usuario._id });
+        }
     }
 }
 
