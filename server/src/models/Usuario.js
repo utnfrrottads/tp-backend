@@ -33,7 +33,7 @@ const usuarioSchema = new Schema(
     fotoPerfil: {
       type: String,
       unique: true,
-      default: null,
+      default: undefined,
     },
     isAdministrador: {
       type: Boolean,
