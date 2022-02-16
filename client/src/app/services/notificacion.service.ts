@@ -8,6 +8,9 @@ const NOTIFICACION = gql`
     notificacion(idNotificacion: $idNotificacion) {
       _id
       abierta
+      usuario {
+        _id
+      }
     }
   }
 `;

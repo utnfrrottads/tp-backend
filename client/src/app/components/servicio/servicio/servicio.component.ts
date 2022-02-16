@@ -98,7 +98,7 @@ export class ServicioComponent implements OnInit {
         })
       ).subscribe(
         (res: any) => {
-          if (res.idUsuario == this.userService.getUsuario()._id && !res.abierta) {
+          if (res.usuario._id == this.userService.getUsuario()._id && !res.abierta) {
             this.openModal();
             this.notificacionService.abrirNotificacion(this.rutaActiva.snapshot.params.idNotificacion || '').subscribe();
           }
