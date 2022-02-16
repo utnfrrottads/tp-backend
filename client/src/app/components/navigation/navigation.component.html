@@ -37,7 +37,7 @@
           <div class="dropdown-menu dropdown-menu-lg-right notificaciones" aria-labelledby="navbarDropdown">
             <div class="notificacion p-2" [ngClass]="{'leida': notificacion.leida, 'noLeida': !notificacion.leida}"
               *ngFor="let notificacion of notificaciones; let indice=index"
-              (click)="irALaNotificacion(notificacion.link || '')">
+              (click)="irALaNotificacion(notificacion)">
               <div class="icono-descripcion">
                 <i class="fas fa-file-signature fa-2x icono" *ngIf="notificacion.icono == 'contrato'"></i>
                 <i class="fas fa-comments fa-2x icono" *ngIf="notificacion.icono == 'mensaje'"></i>
