@@ -19,6 +19,7 @@ const CONTRATO = gql`
         _id
         nombreUsuario
       }
+      estado
     }
   }
 `;
@@ -42,6 +43,7 @@ const SERVICIOS_CONTRATADOS = gql`
         _id
         nombreUsuario
       }
+      estado
     }
   }
 `;
@@ -65,6 +67,7 @@ const CONTRATOS_REALIZADOS = gql`
         _id
         nombreUsuario
       }
+      estado
     }
   }
 `;
@@ -88,6 +91,7 @@ const CONTRATOS_RECIBIDOS = gql`
         _id
         nombreUsuario
       }
+      estado
     }
   }
 `;
@@ -119,6 +123,55 @@ const CANCEL_CONTRACT = gql`
         _id
         nombreUsuario
       }
+      estado
+    }
+  }
+`;
+
+const CONFIRM_CONTRACT = gql`
+  mutation confirmContract($idContrato: ID!) {
+    confirmContract(idContrato: $idContrato) {
+      _id
+      fecha
+      contratoCanceladoPorOferente
+      fechaCancelacion
+      servicio {
+        _id
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+      estado
+    }
+  }
+`;
+
+const FINISH_CONTRACT = gql`
+  mutation finishContract($idContrato: ID!) {
+    finishContract(idContrato: $idContrato) {
+      _id
+      fecha
+      contratoCanceladoPorOferente
+      fechaCancelacion
+      servicio {
+        _id
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+      estado
     }
   }
 `;
@@ -181,4 +234,21 @@ export class ContratoService {
     })
   }
 
+  confirmContract(idContrato: String): any {
+    return this.apollo.mutate({
+      mutation: CONFIRM_CONTRACT,
+      variables: {
+        idContrato
+      }
+    })
+  }
+
+  finishContract(idContrato: String): any {
+    return this.apollo.mutate({
+      mutation: FINISH_CONTRACT,
+      variables: {
+        idContrato
+      }
+    })
+  }
 }

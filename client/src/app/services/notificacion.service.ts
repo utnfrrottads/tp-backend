@@ -11,6 +11,7 @@ const MIS_NOTIFICACIONES = gql`
       link
       fechaHora
       leida
+      abierta
       icono
     }
   }
@@ -20,6 +21,15 @@ const LEER_NOTIFICACIONES = gql`
   mutation {
     readNotifications {
       _id
+    }
+  }
+`;
+
+const OPEN_NOTIFICATION = gql`
+  mutation openNotification($idNotificacion: ID!) {
+    openNotification(idNotificacion: $idNotificacion) {
+      _id
+      abierta
     }
   }
 `;
@@ -43,6 +53,15 @@ export class NotificacionService {
     return this.apollo.mutate({
       mutation: LEER_NOTIFICACIONES
     });
+  }
+
+  abrirNotificacion(idNotificacion: string): any {
+    return this.apollo.mutate({
+      mutation: OPEN_NOTIFICATION,
+      variables: {
+        idNotificacion
+      }
+    })
   }
 
 }

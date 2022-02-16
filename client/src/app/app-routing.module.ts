@@ -51,6 +51,10 @@ const routes: Routes = [
     component: ServicioComponent,
   },
   {
+    path: 'servicio/:idServicio/:isOpened/:idNotificacion',
+    component: ServicioComponent,
+  },
+  {
     path: 'serviciosPublicados',
     component: ServiciosPublicadosComponent,
     canActivate: [AuthGuard],

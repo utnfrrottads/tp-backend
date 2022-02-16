@@ -13,6 +13,7 @@ import { Servicio } from 'src/app/models/Servicio';
 import { Contrato } from 'src/app/models/Contrato';
 
 import Swal from 'sweetalert2';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 declare var $: any;
 
@@ -69,7 +70,8 @@ export class ServicioComponent implements OnInit {
     public authService: AuthService,
     public userService: UserService,
     private servicioService: ServicioService,
-    private contratoService: ContratoService
+    private contratoService: ContratoService,
+    private notificacionService: NotificacionService
   ) { }
 
   ngOnInit(): void {
@@ -128,6 +130,15 @@ export class ServicioComponent implements OnInit {
           if (cont.fechaCancelacion) cont.fechaCancelacion = new Date(cont.fechaCancelacion!);
         });
         this.contratos = res;
+        let isOpened = this.rutaActiva.snapshot.paramMap.get('isOpened');
+        let idNotificacion = this.rutaActiva.snapshot.paramMap.get('idNotificacion');
+        if (isOpened && idNotificacion && isOpened == "false") {
+          this.openModal();
+          this.notificacionService.abrirNotificacion(idNotificacion || '').subscribe(
+            (response: any) => {},
+            (error: any) => {}
+          );
+        }
       },
       (err: any) => console.log(err)
     );
@@ -177,4 +188,7 @@ export class ServicioComponent implements OnInit {
     }
   }
 
+  openModal() {
+    $('#alertDialog').modal('show');
+  }
 }

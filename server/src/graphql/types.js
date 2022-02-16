@@ -96,6 +96,8 @@ const TypeContrato = new GraphQLObjectType({
         return Usuario.findById(parent.idUsuario);
       },
     },
+    estado: { type: GraphQLString },
+    calificacion: { type: GraphQLInt },
   }),
 });
 
@@ -193,6 +195,7 @@ const TypeNotificacion = new GraphQLObjectType({
     link: { type: GraphQLString },
     fechaHora: { type: TypeDateTimeScalar },
     leida: { type: GraphQLBoolean },
+    abierta: { type: GraphQLBoolean },
     icono: { type: GraphQLString },
     usuario: {
       type: TypeUsuario,

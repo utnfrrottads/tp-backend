@@ -516,6 +516,7 @@ const signContract = {
             fecha: new Date(),
             idServicio,
             idUsuario: usuario._id,
+            estado: "Contratado",
           });
           await contrato.save();
 
@@ -553,13 +554,16 @@ const cancelContract = {
       const contratoACancelar = await Contrato.findById(idContrato);
       contratoACancelar.servicio = await Servicio.findById(contratoACancelar.idServicio);
 
+      // Cliente cancela el contrato
+
       if (contratoACancelar.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = false;
         contratoACancelar.fechaCancelacion = new Date();
+        contratoACancelar.estado = "Cancelado";
         const contratoCancelado = await contratoACancelar.save();
 
         const notificacion = new Notificacion({
-          descripcion: 'El ususario ' + usuario.nombreUsuario + ' finalizó el contrato por el servicio: ' + contratoACancelar.servicio.titulo,
+          descripcion: 'El usuario ' + usuario.nombreUsuario + ' canceló el contrato por el servicio: ' + contratoACancelar.servicio.titulo,
           link: '/servicio/' + contratoACancelar.servicio._id,
           fechaHora: new Date(),
           leida: false,
@@ -569,13 +573,17 @@ const cancelContract = {
         await notificacion.save();
 
         return contratoCancelado;
+
+        // Oferente cancela el contrato
+
       } else if (contratoACancelar.servicio.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = true;
         contratoACancelar.fechaCancelacion = new Date();
+        contratoACancelar.estado = "Cancelado";
         const contratoCancelado = await contratoACancelar.save();
 
         const notificacion = new Notificacion({
-          descripcion: 'El ususario ' + usuario.nombreUsuario + ' finalizó el contrato por el servicio: ' + contratoACancelar.servicio.titulo,
+          descripcion: 'El usuario ' + usuario.nombreUsuario + ' canceló el contrato por el servicio: ' + contratoACancelar.servicio.titulo,
           link: '/servicio/' + contratoACancelar.servicio._id,
           fechaHora: new Date(),
           leida: false,
@@ -592,6 +600,95 @@ const cancelContract = {
   },
 };
 
+const confirmContract = {
+  description: "Confirmar contrato",
+  type: TypeContrato,
+  args: {
+    idContrato: { type: GraphQLID },
+  },
+  async resolve(parent, { idContrato }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      if (idContrato) {
+        const contratoAConfirmar = await Contrato.findById(idContrato);
+        contratoAConfirmar.servicio = await Servicio.findById(contratoAConfirmar.idServicio);
+
+        // Oferente confirma el contrato
+
+        if (contratoAConfirmar.estado === "Contratado" && contratoAConfirmar.fechaCancelacion == null) {
+          contratoAConfirmar.estado = "Confirmado";
+          const contratoConfirmado = await contratoAConfirmar.save();
+  
+          const notificacion = new Notificacion({
+            descripcion: 'El usuario ' + usuario.nombreUsuario + 
+            ' confirmó con éxito el contrato por el servicio: ' + contratoAConfirmar.servicio.titulo + 
+            '. ¡Contáctalo!',
+            link: '/servicio/' + contratoAConfirmar.servicio._id,
+            fechaHora: new Date(),
+            leida: false,
+            icono: "contrato",
+            idUsuario: contratoAConfirmar.idUsuario
+          });
+          await notificacion.save();
+  
+          return contratoConfirmado;
+        } else {
+          throw new Error("El contrato no puede ser confirmado");
+        }
+      } else {
+        throw new Error("Ingrese todos los datos requeridos en el formato correcto");
+      }
+    }
+
+  }
+};
+
+const finishContract = {
+  description: "Finalizar contrato",
+  type: TypeContrato,
+  args: {
+    idContrato: { type: GraphQLID },
+  },
+  async resolve(parent, { idContrato }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      if (idContrato) {
+        const contratoAFinalizar = await Contrato.findById(idContrato);
+        contratoAFinalizar.servicio = await Servicio.findById(contratoAFinalizar.idServicio);
+
+        // Oferente finaliza el contrato
+
+        if (contratoAFinalizar.estado === "Confirmado") {
+          contratoAFinalizar.estado = "Finalizado";
+          const contratoFinalizado = await contratoAFinalizar.save();
+  
+          const notificacion = new Notificacion({
+            descripcion: 'El usuario ' + usuario.nombreUsuario + 
+            ' finalizó con éxito el contrato por el servicio: ' + contratoAFinalizar.servicio.titulo + 
+            '. ¡Califica tu experiencia!',
+            link: '/servicio/' + contratoAFinalizar.servicio._id,
+            fechaHora: new Date(),
+            leida: false,
+            abierta: false,
+            icono: "contrato",
+            idUsuario: contratoAFinalizar.idUsuario
+          });
+          await notificacion.save();
+  
+          return contratoFinalizado;
+        } else {
+          throw new Error("El contrato no puede ser finalizado");
+        }
+      } else {
+        throw new Error("Ingrese todos los datos requeridos en el formato correcto");
+      }
+    }
+
+  }
+};
+
 const readNotifications = {
   description: "Leer notificaciones",
   type: TypeNotificacion,
@@ -600,6 +697,21 @@ const readNotifications = {
       throw new Error("Acceso no autorizado");
     } else {
       return Notificacion.updateMany({ idUsuario: usuario._id, leida: false }, { $set: { leida: true } });
+    }
+  },
+};
+
+const openNotification = {
+  description: "Abrir notificacion",
+  type: TypeNotificacion,
+  args: {
+    idNotificacion: { type: GraphQLID },
+  },
+  async resolve(parent, { idNotificacion }, { usuario }) {
+    if (!usuario) {
+      throw new Error("Acceso no autorizado");
+    } else {
+      return Notificacion.findOneAndUpdate({ _id: idNotificacion, abierta: false }, { $set: { abierta: true } })
     }
   },
 };
@@ -620,6 +732,9 @@ module.exports = {
   publishService,
   signContract,
   cancelContract,
+  confirmContract,
+  finishContract,
   readNotifications,
+  openNotification,
   deleteAccount
 };
