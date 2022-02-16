@@ -51,7 +51,7 @@ const routes: Routes = [
     component: ServicioComponent,
   },
   {
-    path: 'servicio/:idServicio/:isOpened/:idNotificacion',
+    path: 'servicio/:idServicio/:idNotificacion',
     component: ServicioComponent,
   },
   {

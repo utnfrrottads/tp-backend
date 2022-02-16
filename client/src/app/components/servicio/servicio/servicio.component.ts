@@ -60,6 +60,8 @@ export class ServicioComponent implements OnInit {
 
   servicioQuery: any;
   servicioSubscription: any;
+  notificacionQuery: any;
+  notificacionSubscription: any;
 
   contratos: Contrato[] = [];
 
@@ -87,6 +89,23 @@ export class ServicioComponent implements OnInit {
     }*/
 
     this.suscribeServicio();
+
+    if (this.rutaActiva.snapshot.params.idNotificacion) {
+      this.notificacionQuery = this.notificacionService.notificacion(this.rutaActiva.snapshot.params.idNotificacion);
+      this.notificacionSubscription = this.notificacionQuery.valueChanges.pipe(
+        map((res: any) => {
+          return res.data.notificacion;
+        })
+      ).subscribe(
+        (res: any) => {
+          if (!res.abierta) {
+            this.openModal();
+            this.notificacionService.abrirNotificacion(this.rutaActiva.snapshot.params.idNotificacion || '').subscribe();
+          }
+        },
+        (err: any) => console.log(err)
+      );
+    }
   }
 
   ngOnDestroy(): void {
@@ -147,18 +166,9 @@ export class ServicioComponent implements OnInit {
           }
         }
         this.contratos = res;
-      });
-      
-    let isOpened = this.rutaActiva.snapshot.paramMap.get('isOpened');
-    let idNotificacion = this.rutaActiva.snapshot.paramMap.get('idNotificacion');
-    if (isOpened && idNotificacion && isOpened == "false") {
-      this.openModal();
-      this.notificacionService.abrirNotificacion(idNotificacion || '').subscribe(
-        (response: any) => { },
-        (error: any) => { }
-      );
-    }
-    (err: any) => console.log(err);
+      },
+      (err: any) => console.log(err)
+    );
   }
 
   refreshContratosRealizados(): void {

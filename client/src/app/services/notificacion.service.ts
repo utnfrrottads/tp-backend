@@ -3,6 +3,15 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+const NOTIFICACION = gql`
+  query notificacion($idNotificacion: ID!) {
+    notificacion(idNotificacion: $idNotificacion) {
+      _id
+      abierta
+    }
+  }
+`;
+
 const MIS_NOTIFICACIONES = gql`
   query misNotificaciones {
     misNotificaciones {
@@ -40,6 +49,15 @@ const OPEN_NOTIFICATION = gql`
 export class NotificacionService {
 
   constructor(private apollo: Apollo) { }
+
+  notificacion(idNotificacion: String): any {
+    return this.apollo.watchQuery({
+      query: NOTIFICACION,
+      variables: {
+        idNotificacion
+      }
+    })
+  }
 
   misNotificaciones(): any {
     return this.apollo.watchQuery({

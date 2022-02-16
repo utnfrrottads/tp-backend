@@ -555,7 +555,6 @@ const cancelContract = {
       contratoACancelar.servicio = await Servicio.findById(contratoACancelar.idServicio);
 
       // Cliente cancela el contrato
-
       if (contratoACancelar.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = false;
         contratoACancelar.fechaCancelacion = new Date();
@@ -575,7 +574,6 @@ const cancelContract = {
         return contratoCancelado;
 
         // Oferente cancela el contrato
-
       } else if (contratoACancelar.servicio.idUsuario == usuario._id) {
         contratoACancelar.contratoCanceladoPorOferente = true;
         contratoACancelar.fechaCancelacion = new Date();
@@ -615,7 +613,6 @@ const confirmContract = {
         contratoAConfirmar.servicio = await Servicio.findById(contratoAConfirmar.idServicio);
 
         // Oferente confirma el contrato
-
         if (contratoAConfirmar.servicio.idUsuario == usuario._id && contratoAConfirmar.estado === "Contratado" && contratoAConfirmar.fechaCancelacion == null) {
           contratoAConfirmar.estado = "Confirmado";
           const contratoConfirmado = await contratoAConfirmar.save();
@@ -659,8 +656,7 @@ const finishContract = {
         contratoAFinalizar.servicio = await Servicio.findById(contratoAFinalizar.idServicio);
 
         // Oferente finaliza el contrato
-
-        if (contratoAConfirmar.servicio.idUsuario == usuario._id && contratoAFinalizar.estado === "Confirmado") {
+        if (contratoAFinalizar.servicio.idUsuario == usuario._id && contratoAFinalizar.estado === "Confirmado") {
           contratoAFinalizar.estado = "Finalizado";
           const contratoFinalizado = await contratoAFinalizar.save();
 
@@ -668,13 +664,14 @@ const finishContract = {
             descripcion: 'El usuario ' + usuario.nombreUsuario +
               ' finalizó con éxito el contrato por el servicio: ' + contratoAFinalizar.servicio.titulo +
               '. ¡Califica tu experiencia!',
-            link: '/servicio/' + contratoAFinalizar.servicio._id,
             fechaHora: new Date(),
             leida: false,
             abierta: false,
             icono: "contrato",
             idUsuario: contratoAFinalizar.idUsuario
           });
+          await notificacion.save();
+          notificacion.link = '/servicio/' + contratoAFinalizar.servicio._id + '/' + notificacion._id;
           await notificacion.save();
 
           return contratoFinalizado;

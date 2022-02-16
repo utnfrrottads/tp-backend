@@ -9,7 +9,7 @@ const notificacionSchema = new Schema({
     },
     link: {
       type: String,
-      required: true,
+      default: '',
     },
     fechaHora: {
       type: Date,

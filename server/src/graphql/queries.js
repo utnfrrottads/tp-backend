@@ -278,6 +278,17 @@ const mensajesDelContrato = {
     }
 }
 
+const notificacion = {
+    description: 'Notificacion',
+    type: TypeNotificacion,
+    args: {
+        idNotificacion: { type: GraphQLID },
+    },
+    async resolve(parent, { idNotificacion }) {
+        return await Notificacion.findById(idNotificacion);
+    }
+}
+
 const misNotificaciones = {
     description: 'Mis Notificaciones',
     type: GraphQLList(TypeNotificacion),
@@ -317,6 +328,7 @@ module.exports = {
     contratosRealizados,
     contratosRecibidos,
     mensajesDelContrato,
+    notificacion,
     misNotificaciones,
     estadisticas,
 }
