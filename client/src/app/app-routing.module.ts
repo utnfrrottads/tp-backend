@@ -53,6 +53,7 @@ const routes: Routes = [
   {
     path: 'servicio/:idServicio/:idNotificacion',
     component: ServicioComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'serviciosPublicados',
