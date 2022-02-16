@@ -176,6 +176,31 @@ const FINISH_CONTRACT = gql`
   }
 `;
 
+const SET_SCORE = gql`
+  mutation setScore($idContrato: ID!, $score: Int!) {
+    setScore(idContrato: $idContrato, score: $score) {
+      _id
+      fecha
+      contratoCanceladoPorOferente
+      fechaCancelacion
+      servicio {
+        _id
+        titulo
+        usuario {
+          _id
+          nombreUsuario
+        }
+      }
+      usuario {
+        _id
+        nombreUsuario
+      }
+      estado
+      calificacion
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -248,6 +273,17 @@ export class ContratoService {
       mutation: FINISH_CONTRACT,
       variables: {
         idContrato
+      }
+    })
+  }
+
+  setScore(idContrato: String, score: number): any {
+    console.log('llega a contratoService');
+    return this.apollo.mutate({
+      mutation: SET_SCORE,
+      variables: {
+        idContrato: idContrato,
+        score: score
       }
     })
   }

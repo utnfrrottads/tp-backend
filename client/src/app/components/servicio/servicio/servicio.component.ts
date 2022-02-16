@@ -14,6 +14,7 @@ import { Contrato } from 'src/app/models/Contrato';
 
 import Swal from 'sweetalert2';
 import { NotificacionService } from 'src/app/services/notificacion.service';
+import { Estado } from 'src/app/enums';
 
 declare var $: any;
 
@@ -23,6 +24,8 @@ declare var $: any;
   styleUrls: ['./servicio.component.scss']
 })
 export class ServicioComponent implements OnInit {
+
+  score?: number;
 
   servicio: Servicio = {
     _id: '',
@@ -125,11 +128,26 @@ export class ServicioComponent implements OnInit {
       })
     ).subscribe(
       (res: Contrato[]) => {
+        var contractsDates: number[] = [];
         res.forEach(cont => {
           cont.fecha = new Date(cont.fecha!);
           if (cont.fechaCancelacion) cont.fechaCancelacion = new Date(cont.fechaCancelacion!);
+          if (this.score) {
+            contractsDates.push(cont.fecha!.getTime());
+          }
         });
+        if (this.score) {
+          var maxDate = Math.max.apply(null,contractsDates);
+          let desiredContract = res.find(cont => cont.fecha!.getTime() == maxDate);
+          if (desiredContract) {
+            this.contratoService.setScore(desiredContract._id || '', this.score).subscribe(
+              (response: any) => {},
+              (error: any) => {}
+            );
+          }
+        }
         this.contratos = res;
+      });
         let isOpened = this.rutaActiva.snapshot.paramMap.get('isOpened');
         let idNotificacion = this.rutaActiva.snapshot.paramMap.get('idNotificacion');
         if (isOpened && idNotificacion && isOpened == "false") {
@@ -139,9 +157,7 @@ export class ServicioComponent implements OnInit {
             (error: any) => {}
           );
         }
-      },
-      (err: any) => console.log(err)
-    );
+      (err: any) => console.log(err);
   }
 
   refreshContratosRealizados(): void {
@@ -190,5 +206,10 @@ export class ServicioComponent implements OnInit {
 
   openModal() {
     $('#alertDialog').modal('show');
+  }
+
+  setScore(score: number) {
+    this.score = score;
+    (this.userService.getUsuario()._id === this.servicio.usuario?._id) ? this.suscribeContratosRecibidos() : this.suscribeContratosRealizados();
   }
 }

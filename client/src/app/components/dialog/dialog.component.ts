@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { StarComponent } from './star/star.component';
 
 declare var $: any;
@@ -10,6 +10,8 @@ declare var $: any;
 })
 export class DialogComponent implements OnInit, AfterViewInit {
 
+  @Output() setScore = new EventEmitter<number>();
+
   @Input() idDialog: String = "alertDialog";
 
   @Input() title: String = "AVISO";
@@ -20,6 +22,8 @@ export class DialogComponent implements OnInit, AfterViewInit {
   @Input() disableOkButton: boolean = false;
   @Input() isReviewStep: boolean = false;
   
+  score?: number;
+
   @ViewChild('oneStar') oneStar?: StarComponent;
   @ViewChild('twoStars') twoStars?: StarComponent;
   @ViewChild('threeStars') threeStars?: StarComponent;
@@ -43,6 +47,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
   }
 
   willSelect(score: number) {
+    this.score = score;
     this.disableOkButton = false;
     this.updateStars(score);
     this.oneStar?.didSelect();
@@ -55,5 +60,11 @@ export class DialogComponent implements OnInit, AfterViewInit {
   continueButtonTapped() {
     $('#alertDialog').modal('hide');
     $('#reviewDialog').modal('show');
+  }
+
+  okButtonTapped() {
+    if (this.score) {
+      this.setScore.emit(this.score)
+    }
   }
 }

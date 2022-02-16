@@ -39,9 +39,18 @@
             <button class="btn btn-secondary rounded-pill btn-block" data-dismiss="modal" *ngIf="(hasCancelButton)">Cancelar</button>
           </div>
           <div class="col-sm-5">
-            <button class="btn btn-primary rounded-pill btn-block" [disabled]="disableOkButton" *ngIf="((hasCancelButton || isReview) && !isReviewStep)" (click)="continueButtonTapped()">Continuar</button>
-            <button class="btn btn-primary rounded-pill btn-block" [disabled]="disableOkButton" *ngIf="((hasCancelButton || isReview) && isReviewStep)">Aceptar</button>
-            <button class="btn btn-primary rounded-pill btn-block" data-dismiss="modal" *ngIf="(!hasCancelButton && !isReview)">Aceptar</button>
+            <button class="btn btn-primary rounded-pill btn-block" 
+                    [disabled]="disableOkButton" 
+                    *ngIf="((hasCancelButton || isReview) && !isReviewStep)" 
+                    (click)="continueButtonTapped()">Continuar</button>
+            <button class="btn btn-primary rounded-pill btn-block" 
+                    data-dismiss="modal" 
+                    [disabled]="disableOkButton" 
+                    *ngIf="((hasCancelButton || isReview) && isReviewStep)" 
+                    (click)="okButtonTapped()">Aceptar</button>
+            <button class="btn btn-primary rounded-pill btn-block" 
+                    data-dismiss="modal" 
+                    *ngIf="(!hasCancelButton && !isReview)">Aceptar</button>
           </div>
         </div>
       </div>
