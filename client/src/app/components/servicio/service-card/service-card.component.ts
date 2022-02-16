@@ -9,6 +9,7 @@ import { ContratoService } from 'src/app/services/contrato.service';
 
 import { Servicio } from 'src/app/models/Servicio';
 import { Contrato } from 'src/app/models/Contrato';
+import { Estado } from 'src/app/enums';
 
 declare var $: any;
 
@@ -148,7 +149,7 @@ export class ServiceCardComponent {
     var canSign = true;
     if (this.contratos.length > 0) {
       this.contratos.forEach(contrato => {
-        if (contrato.servicio?._id === this.cardData._id && contrato.fechaCancelacion == null) {
+        if (contrato.servicio?._id === this.cardData._id && contrato.estado != Estado.cancelado && contrato.estado != Estado.finalizado) {
           canSign = false;
         }
       });
