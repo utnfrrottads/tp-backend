@@ -19,6 +19,14 @@
         <b>Ubicación</b>: {{ cardData.ubicacion }}
       </p>
 
+      <p class="text-muted">
+        <b>Contratos finalizados</b>: {{ contratosFinalizados }}
+      </p>
+
+      <p class="text-muted" *ngIf="calificacionPromedio">
+        <b>Calificación promedio</b>: {{ calificacionPromedio }}
+      </p>
+
       <div class="row">
         <div class="col-6 mx-auto btns">
           <a href="" class="btn btn-success btn-block preventServiceAction" (click)="mostrarDetalle($event)">

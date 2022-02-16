@@ -1,5 +1,5 @@
 const { GraphQLString, GraphQLList, GraphQLID } = require('graphql');
-const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, TypeNotificacion, InputIDCategoriasSeleccionadas, TypeEstadistica } = require('./types');
+const { TypeUsuario, TypeNivel, TypeCategoria, TypeMoneda, TypeServicio, TypeContrato, TypeMensaje, TypeNotificacion, InputIDCategoriasSeleccionadas, TypeEstadistica, TypeEstadisticaServicio } = require('./types');
 const { Usuario, Nivel, Categoria, Moneda, Servicio, Contrato, Mensaje, Notificacion } = require('../models/index');
 const client = require('../elasticsearch/elasticsearch');
 
@@ -222,6 +222,31 @@ const serviciosContratados = {
     }
 }
 
+const estadisticasServicio = {
+    description: 'Estadísticas Servicio',
+    type: TypeEstadisticaServicio,
+    args: {
+        idServicio: { type: GraphQLID },
+    },
+    async resolve(parent, { idServicio }) {
+        let calificacionPromedio = undefined;
+        let puntajeTotal = 0;
+        let calificacionesTotales = 0;
+        (await Contrato.find({ idServicio }).select('calificacion')).forEach(contrato => {
+            if (contrato.calificacion) {
+                puntajeTotal += contrato.calificacion;
+                calificacionesTotales += 1;
+            }
+        });
+        if (calificacionesTotales > 0) calificacionPromedio = puntajeTotal / calificacionesTotales;
+
+        return {
+            contratosFinalizados: await Contrato.find({ idServicio, estado: 'Finalizado' }).count(),
+            calificacionPromedio,
+        };
+    }
+}
+
 const contratosRealizados = {
     description: 'Contratos Realizados',
     type: GraphQLList(TypeContrato),
@@ -329,6 +354,7 @@ module.exports = {
     detalleServicio,
     contrato,
     serviciosContratados,
+    estadisticasServicio,
     contratosRealizados,
     contratosRecibidos,
     mensajesDelContrato,

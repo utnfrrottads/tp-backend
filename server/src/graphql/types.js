@@ -233,6 +233,15 @@ const TypeEstadistica = new GraphQLObjectType({
   }),
 });
 
+const TypeEstadisticaServicio = new GraphQLObjectType({
+  name: "TypeEstadisticaServicio",
+  description: "Type estadistica servicio",
+  fields: () => ({
+    contratosFinalizados: { type: GraphQLInt },
+    calificacionPromedio: { type: GraphQLFloat },
+  }),
+});
+
 module.exports = {
   TypeUsuario,
   TypeNivel,
@@ -246,4 +255,5 @@ module.exports = {
   TypeNotificacion,
   InputIDCategoriasSeleccionadas,
   TypeEstadistica,
+  TypeEstadisticaServicio,
 };

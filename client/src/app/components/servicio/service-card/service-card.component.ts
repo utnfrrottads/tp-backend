@@ -50,6 +50,12 @@ export class ServiceCardComponent {
     },
   };
 
+  estadisticasServicioQuery: any;
+  estadisticasServicioSubscription: any;
+  contratosFinalizados: number = 0;
+  calificacionPromedio?: number = undefined;
+
+
   serviceDetailQuery: any;
   serviceDetailSubscription: any;
 
@@ -67,15 +73,40 @@ export class ServiceCardComponent {
   ) { }
 
   ngOnInit(): void {
-    this.subscribeServiciosContratados();
+    this.subscribeEstadisticasServicio();
+    if (this.authService.loggedIn()) this.subscribeServiciosContratados();
   }
 
   ngOnDestroy(): void {
-    if (this.serviceDetailSubscription) this.unsuscribeServiceDetail();
+    if (this.estadisticasServicioSubscription) this.unsubscribeEstadisticasServicio();
+    if (this.serviceDetailSubscription) this.unsubscribeServiceDetail();
     if (this.serviciosContratadosSubscription) this.unsubscribeServiciosContratados();
   }
 
-  suscribeServiceDetail(): void {
+  subscribeEstadisticasServicio(): void {
+    this.estadisticasServicioQuery = this.servicioService.estadisticasServicio(this.cardData._id || '');
+    this.estadisticasServicioSubscription = this.estadisticasServicioQuery.valueChanges.pipe(
+      map((res: any) => {
+        return res.data.estadisticasServicio;
+      })
+    ).subscribe(
+      (res: any) => {
+        this.contratosFinalizados = res.contratosFinalizados;
+        this.calificacionPromedio = res.calificacionPromedio;
+      },
+      (err: any) => console.log(err)
+    );
+  }
+
+  refreshEstadisticasServicio(): void {
+    this.estadisticasServicioQuery.refetch();
+  }
+
+  unsubscribeEstadisticasServicio(): void {
+    this.estadisticasServicioSubscription.unsubscribe();
+  }
+
+  subscribeServiceDetail(): void {
     this.serviceDetailQuery = this.servicioService.serviceDetail(this.cardData._id || '');
     this.serviceDetailSubscription = this.serviceDetailQuery.valueChanges.pipe(
       map((res: any) => {
@@ -97,7 +128,7 @@ export class ServiceCardComponent {
     this.serviceDetailQuery.refetch();
   }
 
-  unsuscribeServiceDetail(): void {
+  unsubscribeServiceDetail(): void {
     this.serviceDetailSubscription.unsubscribe();
   }
 
@@ -108,7 +139,7 @@ export class ServiceCardComponent {
     if (this.serviceDetailSubscription) {
       this.refreshServiceDetail();
     } else {
-      this.suscribeServiceDetail();
+      this.subscribeServiceDetail();
     }
 
     const id = "#" + this.cardData._id;

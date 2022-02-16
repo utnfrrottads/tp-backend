@@ -112,6 +112,7 @@ export class ServicioComponent implements OnInit {
     if (this.servicioSubscription) this.unsuscribeServicio();
     if (this.contratosRealizadosSubscription) this.unsuscribeContratosRealizados();
     if (this.contratosRecibidosSubscription) this.unsuscribeContratosRecibidos();
+    if (this.notificacionSubscription) this.notificacionSubscription.unsubscribe();
   }
 
   suscribeServicio(): void {

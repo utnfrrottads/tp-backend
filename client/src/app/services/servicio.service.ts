@@ -123,10 +123,20 @@ const PUBLISH_SERVICE = gql`
   }
 `;
 
+const ESTADISTICAS_SERVICIO = gql`
+  query estadisticasServicio($idServicio: ID!) {
+    estadisticasServicio(idServicio: $idServicio) {
+      contratosFinalizados
+      calificacionPromedio
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root',
 })
 export class ServicioService {
+
   constructor(private apollo: Apollo) { }
 
   servicio(idServicio: String): any {
@@ -190,4 +200,15 @@ export class ServicioService {
       },
     })
   }
+
+  estadisticasServicio(idServicio: string): any {
+    return this.apollo.watchQuery({
+      query: ESTADISTICAS_SERVICIO,
+      variables: {
+        idServicio
+      },
+      pollInterval: 30000,
+    })
+  }
+
 }
