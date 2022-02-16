@@ -616,14 +616,14 @@ const confirmContract = {
 
         // Oferente confirma el contrato
 
-        if (contratoAConfirmar.estado === "Contratado" && contratoAConfirmar.fechaCancelacion == null) {
+        if (contratoAConfirmar.servicio.idUsuario == usuario._id && contratoAConfirmar.estado === "Contratado" && contratoAConfirmar.fechaCancelacion == null) {
           contratoAConfirmar.estado = "Confirmado";
           const contratoConfirmado = await contratoAConfirmar.save();
-  
+
           const notificacion = new Notificacion({
-            descripcion: 'El usuario ' + usuario.nombreUsuario + 
-            ' confirmó con éxito el contrato por el servicio: ' + contratoAConfirmar.servicio.titulo + 
-            '. ¡Contáctalo!',
+            descripcion: 'El usuario ' + usuario.nombreUsuario +
+              ' confirmó con éxito el contrato por el servicio: ' + contratoAConfirmar.servicio.titulo +
+              '. ¡Contáctalo!',
             link: '/servicio/' + contratoAConfirmar.servicio._id,
             fechaHora: new Date(),
             leida: false,
@@ -631,7 +631,7 @@ const confirmContract = {
             idUsuario: contratoAConfirmar.idUsuario
           });
           await notificacion.save();
-  
+
           return contratoConfirmado;
         } else {
           throw new Error("El contrato no puede ser confirmado");
@@ -660,14 +660,14 @@ const finishContract = {
 
         // Oferente finaliza el contrato
 
-        if (contratoAFinalizar.estado === "Confirmado") {
+        if (contratoAConfirmar.servicio.idUsuario == usuario._id && contratoAFinalizar.estado === "Confirmado") {
           contratoAFinalizar.estado = "Finalizado";
           const contratoFinalizado = await contratoAFinalizar.save();
-  
+
           const notificacion = new Notificacion({
-            descripcion: 'El usuario ' + usuario.nombreUsuario + 
-            ' finalizó con éxito el contrato por el servicio: ' + contratoAFinalizar.servicio.titulo + 
-            '. ¡Califica tu experiencia!',
+            descripcion: 'El usuario ' + usuario.nombreUsuario +
+              ' finalizó con éxito el contrato por el servicio: ' + contratoAFinalizar.servicio.titulo +
+              '. ¡Califica tu experiencia!',
             link: '/servicio/' + contratoAFinalizar.servicio._id,
             fechaHora: new Date(),
             leida: false,
@@ -676,7 +676,7 @@ const finishContract = {
             idUsuario: contratoAFinalizar.idUsuario
           });
           await notificacion.save();
-  
+
           return contratoFinalizado;
         } else {
           throw new Error("El contrato no puede ser finalizado");
@@ -705,21 +705,21 @@ const setScore = {
         contratoACalificar.servicio = await Servicio.findById(contratoACalificar.idServicio);
 
         // Cliente califica el contrato
-      if (contratoACalificar.idUsuario == usuario._id) {
-        contratoACalificar.calificacion = score;
-        const contratoCalificado = await contratoACalificar.save();
+        if (contratoACalificar.idUsuario == usuario._id) {
+          contratoACalificar.calificacion = score;
+          const contratoCalificado = await contratoACalificar.save();
 
-        const notificacion = new Notificacion({
-          descripcion: 'El usuario ' + usuario.nombreUsuario + ' calificó el contrato por el servicio: ' + contratoACalificar.servicio.titulo,
-          link: '/servicio/' + contratoACalificar.servicio._id,
-          fechaHora: new Date(),
-          leida: false,
-          icono: "contrato",
-          idUsuario: contratoACalificar.servicio.idUsuario
-        });
-        await notificacion.save();
+          const notificacion = new Notificacion({
+            descripcion: 'El usuario ' + usuario.nombreUsuario + ' calificó el contrato por el servicio: ' + contratoACalificar.servicio.titulo,
+            link: '/servicio/' + contratoACalificar.servicio._id,
+            fechaHora: new Date(),
+            leida: false,
+            icono: "contrato",
+            idUsuario: contratoACalificar.servicio.idUsuario
+          });
+          await notificacion.save();
 
-        return contratoCalificado;
+          return contratoCalificado;
         } else {
           throw new Error("El contrato no puede ser calificado");
         }
@@ -753,7 +753,7 @@ const openNotification = {
     if (!usuario) {
       throw new Error("Acceso no autorizado");
     } else {
-      return Notificacion.findOneAndUpdate({ _id: idNotificacion, abierta: false }, { $set: { abierta: true } })
+      return Notificacion.findOneAndUpdate({ _id: idNotificacion, abierta: false, idUsuario: usuario._id }, { $set: { abierta: true } })
     }
   },
 };

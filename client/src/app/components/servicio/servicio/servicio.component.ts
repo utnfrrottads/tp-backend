@@ -105,7 +105,7 @@ export class ServicioComponent implements OnInit {
       (res: any) => {
         res.fechaHoraPublicacion = new Date(res.fechaHoraPublicacion);
         this.servicio = res;
-        
+
         this.buscarContratos();
       },
       (err: any) => console.log(err)
@@ -119,7 +119,7 @@ export class ServicioComponent implements OnInit {
   unsuscribeServicio(): void {
     this.servicioSubscription.unsubscribe();
   }
-  
+
   suscribeContratosRealizados(): void {
     this.contratosRealizadosQuery = this.contratoService.contratosRealizados(this.servicio._id || '');
     this.contratosRealizadosSubscription = this.contratosRealizadosQuery.valueChanges.pipe(
@@ -137,27 +137,28 @@ export class ServicioComponent implements OnInit {
           }
         });
         if (this.score) {
-          var maxDate = Math.max.apply(null,contractsDates);
+          var maxDate = Math.max.apply(null, contractsDates);
           let desiredContract = res.find(cont => cont.fecha!.getTime() == maxDate);
           if (desiredContract) {
             this.contratoService.setScore(desiredContract._id || '', this.score).subscribe(
-              (response: any) => {},
-              (error: any) => {}
+              (response: any) => { },
+              (error: any) => { }
             );
           }
         }
         this.contratos = res;
       });
-        let isOpened = this.rutaActiva.snapshot.paramMap.get('isOpened');
-        let idNotificacion = this.rutaActiva.snapshot.paramMap.get('idNotificacion');
-        if (isOpened && idNotificacion && isOpened == "false") {
-          this.openModal();
-          this.notificacionService.abrirNotificacion(idNotificacion || '').subscribe(
-            (response: any) => {},
-            (error: any) => {}
-          );
-        }
-      (err: any) => console.log(err);
+      
+    let isOpened = this.rutaActiva.snapshot.paramMap.get('isOpened');
+    let idNotificacion = this.rutaActiva.snapshot.paramMap.get('idNotificacion');
+    if (isOpened && idNotificacion && isOpened == "false") {
+      this.openModal();
+      this.notificacionService.abrirNotificacion(idNotificacion || '').subscribe(
+        (response: any) => { },
+        (error: any) => { }
+      );
+    }
+    (err: any) => console.log(err);
   }
 
   refreshContratosRealizados(): void {
