@@ -209,6 +209,10 @@ export class ServicioComponent implements OnInit {
     $('#alertDialog').modal('show');
   }
 
+  dismissModal(idModal: String) {
+    $('#' + idModal).modal('hide');
+  }
+
   setScore(score: number) {
     this.score = score;
     (this.userService.getUsuario()._id === this.servicio.usuario?._id) ? this.suscribeContratosRecibidos() : this.suscribeContratosRealizados();

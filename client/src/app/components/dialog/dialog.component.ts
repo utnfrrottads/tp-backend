@@ -11,6 +11,7 @@ declare var $: any;
 export class DialogComponent implements OnInit, AfterViewInit {
 
   @Output() setScore = new EventEmitter<number>();
+  @Output() dismissDialog = new EventEmitter<String>();
 
   @Input() idDialog: String = "alertDialog";
 
@@ -58,7 +59,6 @@ export class DialogComponent implements OnInit, AfterViewInit {
   }
 
   continueButtonTapped() {
-    $('#alertDialog').modal('hide');
     $('#reviewDialog').modal('show');
   }
 
@@ -66,5 +66,6 @@ export class DialogComponent implements OnInit, AfterViewInit {
     if (this.score) {
       this.setScore.emit(this.score)
     }
+    this.dismissDialog.emit('alertDialog');
   }
 }
