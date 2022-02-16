@@ -7,6 +7,7 @@
           <th scope="col" class="col-servicio">Servicio</th>
           <th scope="col" class="col-user">Usuario Oferente</th>
           <th scope="col" class="col-user">Usuario Contratante</th>
+          <th scope="col" class="col-estado">Estado</th>
           <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
           <th scope="col" class="col-fecha-canc">Fecha de Cancelación</th>
           <th scope="col" class="col-accion">Acciones Rápidas</th>
@@ -20,6 +21,7 @@
               contrato.servicio!.usuario!.nombreUsuario }}</a></td>
           <td class="col-user"><a href="" [routerLink]="'/perfil/' + contrato.usuario!.nombreUsuario">{{
               contrato.usuario!.nombreUsuario }}</a></td>
+          <td class="col-estado">{{ contrato.estado }}</td>
           <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleDateString() }}</td>
 
           <td class="col-fecha-canc">
@@ -33,11 +35,17 @@
           </td>
 
           <td class="col-accion">
-            <span *ngIf="!contrato.fechaCancelacion">
+            <span *ngIf="cancelContractValidation(contrato)">
               <a href="" (click)="cancelarContrato($event, contrato)">Cancelar Contrato</a>&nbsp;&nbsp;
             </span>
-            <span>
-              <a href="" [routerLink]="'/contrato/mensajes/' + contrato._id">Mensajes</a>
+            <span *ngIf="messagesContractValidation(contrato)">
+              <a href="" [routerLink]="'/contrato/mensajes/' + contrato._id">Mensajes</a>&nbsp;&nbsp;
+            </span>
+            <span *ngIf="confirmContractValidation(contrato)">
+              <a href="" [routerLink]="'/servicios/'" (click)="confirmarContrato($event, contrato)">Confirmar Contrato</a>&nbsp;&nbsp;
+            </span>
+            <span *ngIf="finishContractValidation(contrato)">
+              <a href="" [routerLink]="'/servicios/'" (click)="finalizarContrato($event, contrato)">Finalizar Contrato</a>&nbsp;&nbsp;
             </span>
           </td>
         </tr>
