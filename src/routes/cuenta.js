@@ -1,4 +1,3 @@
-
 module.exports = app => {
 
     const Usuario = app.db.models.Usuarios;

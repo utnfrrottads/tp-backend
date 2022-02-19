@@ -1,86 +1,100 @@
-module.exports = app => {
+module.exports = app =>{
 
-  const Sequelize = require("sequelize");
-  const Clientes = app.db.models.Clientes;
+    const Sequelize = require("sequelize");
+    const Clientes = app.db.models.Clientes;
+    const Ventas = app.db.models.Ventas;
+    const sequelize = app.db.sequelize;
 
-  app.route('/api/clientes')
-    .get((req, res) => {
-      const whereCondition = {};
-      if (req.query.dni) {
-        Object.assign(whereCondition, {
-          dni: req.query.dni
-        });
-      }
-      if (req.query.nombre) {
-        Object.assign(whereCondition, {
-          nombre: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nombre')), 'LIKE', '%' + req.query.nombre + '%')
-        });
-      }
-      if (req.query.apellido) {
-        Object.assign(whereCondition, {
-          apellido: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('apellido')), 'LIKE', '%' + req.query.apellido + '%')
-        });
-      }
-      if (req.query.direccion) {
-        Object.assign(whereCondition, {
-          direccion: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('direccion')), 'LIKE', '%' + req.query.direccion + '%')
-        });
-      }
-      if (req.query.tipoCliente) {
-        Object.assign(whereCondition, {
-          tipoCliente: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('tipo_cliente')), 'LIKE', '%' + req.query.tipoCliente + '%')
-        });
-      }
-      if (req.query.activo) {
-        Object.assign(whereCondition, {
-          activo: req.query.activo
-        });
-      }
-      const order = req.query.order ? req.query.order.split(",", 2) : [];
-      Clientes.findAndCountAll({
-        where: whereCondition,
-        limit: req.query.limit,
-        offset: req.query.offset * req.query.limit,
-        order: [order],
-      })
-        .then(result => res.json(result))
-        .catch(error => {
-          res.status(412).json({ msg: error.message });
-        });
-    })
-    .post((req, res) => {
-      req.body.activo = true;
-      req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
-      Clientes.create(req.body)
-        .then(result => res.json(result))
-        .catch(error => {
-          res.status(412).json({ msg: error.message });
-        });
-    })
-    .put((req, res) => {
-      req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
-      Clientes.update(req.body, { where: { dni: req.body.dni } })
-        .then(result => res.json(result))
-        .catch(error => {
-          res.status(412).json({ msg: error.message });
-        })
-    });
+    app.route('/api/cliente')
+        .get((req,res)=>{
+            console.log('antes',req.query.order);
+            let order = req.query.order ? req.query.order.split(",",2) : [];
+            console.log('despues',order);
+            const colArray = ['dni', 'nombre','apellido','tipoCliente','telefono'];
+            const tipoArray = ['asc','desc'];
+            let orden = colArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
+            orden = '"'+orden+'"' + ' ' + tipoArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
+            let colum = '';
+            let sql = `SELECT * FROM "Clientes" ` ;
+            let extra = `order by ${orden} limit ? offset ?`
+            let query = sql + extra;
+            let replacements = [req.query.limit,req.query.offset * req.query.limit];
 
-  app.route('/api/clientes/:dni')
-    .get((req, res) => {
-      Clientes.findOne({ where: req.params })
-        .then((result) => {
-          res.json(result)
+            if(req.query.nombre){
+                  colum = colum ? `nombre ilike ? and ${colum}` : `nombre ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.nombre+'%');
+            }
+            if(req.query.apellido){
+                  colum = colum ? `apellido ilike ? and ${colum}` : `apellido ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`
+                  replacements.unshift('%'+req.query.apellido+'%');
+            }
+            if(req.query.dni){
+                  colum = colum ? `dni ilike ? and ${colum}` : `dni ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.dni+'%');
+            }
+            if(req.query.direccion){
+                  colum = colum ? `direccion ilike ? and ${colum}` : `direccion ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.direccion+'%');
+            }
+            if(req.query.tipoCliente){
+                  colum = colum ? `"tipoCliente" ilike ? and ${colum}` : `"tipoCliente" ilike ? `;
+                  query = `${sql} where ${colum} ${extra}`;
+                  replacements.unshift('%'+req.query.tipoCliente+'%');
+            }
+            if(req.query.activo){
+                  colum = colum ? `activo = true and ${colum}` : `activo = true `;
+                   query = `${sql} where ${colum} ${extra}`;
+            }
+            sequelize.query(
+                query,
+                {
+                    replacements: replacements
+                }
+            )
+                .then(result => {
+                    res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
+                })
+                .catch(error => {
+                    res.status(412).json({msg: error.message})
+                })
         })
-        .catch(error => {
-          res.status(412).json({ msg: error.message })
+        .post((req,res)=>{
+            req.body.activo = true;
+            req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
+            Clientes.create(req.body)
+            .then(result => res.json(result))
+            .catch(error => {
+                res.status(412).json({msg: error.message});
+            });
         })
-    })
-    .delete((req, res) => {
-      Clientes.destroy({ where: req.params })
-        .then(result => res.sendStatus(204))
-        .catch(error => {
-          res.status(412).json({ msg: error.message });
+        .put((req,res)=>{
+            req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
+            Clientes.update(req.body,{where: {dni: req.body.dni}})
+            .then(result => res.json(result))
+            .catch(error =>{
+                res.status(412).json({msg: error.message});
+            })
+        });
+
+    app.route('/api/cliente/:dni')
+        .get((req,res)=>{
+            Clientes.findOne({where: req.params})
+            .then((result)=> {
+                res.json(result)
+            })
+            .catch(error =>{
+                res.status(412).json({msg:error.message})
+            })
         })
-    })
+        .delete((req,res) => {
+            Clientes.destroy({where: req.params})
+            .then(result=> res.sendStatus(204))
+            .catch(error => {
+                res.status(412).json({msg:error.message});
+            })
+        })
 }
