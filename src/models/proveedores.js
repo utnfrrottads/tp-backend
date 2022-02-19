@@ -26,23 +26,17 @@ module.exports = (sequelize, dataType) => {
         },
         direccion: {
             type: dataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
+            allowNull: true,
         },
         activo: {
             type: dataType.BOOLEAN,
             allowNull: false
         }
-    },
-        {
-            timestamps: false
-        });
+    });
 
     Proveedores.hasAsociation = () => {
         return false;
-    }
+    };
 
     return Proveedores;
 };

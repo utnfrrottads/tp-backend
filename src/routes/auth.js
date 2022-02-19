@@ -46,18 +46,18 @@ module.exports = app =>{
                                     }
                                     res.send(loginUser);
                                 }else{
-                                    res.status(401).json({status: 401, mensaje: 'usuario y/o contraseña incorectos'});
+                                    res.status(401).json({status: 401, mensaje: 'Usuario y/o contraseña incorrectos.'});
                                 }
                             })
                             .catch(err =>{
-                                res.status(500).json({status: 500, mensaje: 'error interno del servidor'});
+                                res.status(500).json({status: 500, mensaje: 'Ha ocurrido un error. Por favor reintente.'});
                             });
                     }else{
-                        res.status(403).json({status: 403, mensaje: 'usuario inactivo'});
+                        res.status(403).json({status: 403, mensaje: 'Usuario inactivo.'});
                     }
                 })
                 .catch(error =>{
-                    res.status(403).json({status: 403, mensaje: 'usuario y/o contraseña incorectos'});
+                    res.status(403).json({status: 403, mensaje: 'Usuario y/o contraseña incorrectos.'});
                 })
 
         })

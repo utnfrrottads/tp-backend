@@ -8,7 +8,7 @@ module.exports = app => {
             const whereCondition = {};
             if (req.query.razonSocial) {
                 Object.assign(whereCondition, {
-                    razonSocial: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('Proveedores.razonSocial')), 'LIKE', '%' + req.query.razonSocial + '%')
+                    razonSocial: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('Proveedores.razon_social')), 'LIKE', '%' + req.query.razonSocial + '%')
                 });
             }
             if (req.query.telefono) {

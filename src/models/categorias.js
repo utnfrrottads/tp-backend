@@ -18,7 +18,7 @@ module.exports = (sequelize, dataType) => {
 
     Categorias.hasAsociation = () => {
         return false;
-    }
+    };
 
     Categorias.associate = (models)=>{
 
