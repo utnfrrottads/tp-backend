@@ -22,7 +22,7 @@ module.exports = (sequelize, dataType) => {
 
     Categorias.associate = (models)=>{
 
-        /*Categorias.sync({alter:true});*/
+        /*Categorias.sync();{alter:true}*/
 
     };
 

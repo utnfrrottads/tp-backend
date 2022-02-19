@@ -59,4 +59,4 @@ INSERT INTO precios (id, fecha, precio, producto_id, proveedor_id, created_at, u
 INSERT INTO precios (id, fecha, precio, producto_id, proveedor_id, created_at, updated_at) VALUES (30, '2021-05-05 21:00:00-03', 800, 6, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO precios (id, fecha, precio, producto_id, proveedor_id, created_at, updated_at) VALUES (31, '2021-05-05 21:00:00-03', 800, 8, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO usuarios (usuario, clave, rol, activo, created_at, updated_at) VALUES ('admin', '$2b$10$Zx9YzjhNR5IiHqicsUKIQ.8ZDRx/KVClDQjVANJWhoGMm2odbUzl2', 'Administrador', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO usuarios (us    uario, clave, rol, activo, created_at, updated_at) VALUES ('admin', '$2b$10$Zx9YzjhNR5IiHqicsUKIQ.8ZDRx/KVClDQjVANJWhoGMm2odbUzl2', 'Administrador', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
