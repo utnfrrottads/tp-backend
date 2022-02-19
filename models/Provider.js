@@ -4,26 +4,23 @@ const Schema = mongoose.Schema
 
     const ProviderSchema = new Schema(
         {
-        code: {
+        name: {
             type: String,
             required: true,
-            unique: true,
-            trim: true,
-            maxlength: 40, 
           },
-        subtotal: {
-            type: Number,
-            required: true,
-          },
-        total: {
-            type: Number,
+        email: {
+            type: String,
             require: true,
           },
-        date: {
-            type: Date,
+        addres: {
+            type: String,
             required: true,
-
           },
+        state: {
+          type: Boolean,
+          required: true,
+          default: true,
+        }
         }
       );
 

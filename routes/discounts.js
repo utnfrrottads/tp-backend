@@ -1,21 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const Product = require('../models/Product')
+const Discount = require('../models/Discount')
 
 router.get('/', (req,res)=>{
-    Product.find({}, (err, products)=>{
+    Discount.find({}, (err, discounts)=>{
         if (err) throw err
-        res.send(products)
+        res.send(discounts)
     })
 })
 
 router.post('/add', async (req,res)=>{
-    const product = new Product({
+    const discount = new Discount({
 
         })
     try{
-        const savedProduct = await product.save()
-        res.json(savedProduct)
+        const savedDiscount = await discount.save()
+        res.json(savedDiscount)
     }catch(err){
         console.log(err)
         res.json({message: err})
