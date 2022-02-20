@@ -9,10 +9,23 @@ router.get('/', (req,res)=>{
     })
 })
 
+router.get('/:id', async (req,res)=>{
+    try{
+        const product = await Product.findById(req.params.id)
+        res.json(product)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
+})
+
 router.post('/add', async (req,res)=>{
     const product = new Product({
+        name: req.body.name,
+        category: req.body.category,
+        price: req.body.price,
 
-        })
+    })
     try{
         const savedProduct = await product.save()
         res.json(savedProduct)
@@ -21,5 +34,15 @@ router.post('/add', async (req,res)=>{
         res.json({message: err})
     }
 }) 
+
+router.delete('/:id', async (req,res)=>{
+    try{
+        const removedProduct = await Product.remove( {_id : req.params.id})
+        res.json(removedProduct)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
+})
 
 module.exports = router

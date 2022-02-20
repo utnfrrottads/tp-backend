@@ -9,6 +9,16 @@ router.get('/', (req,res)=>{
     })
 })
 
+router.get('/:id', async (req,res)=>{
+    try{
+        const sale = await Sale.findById(req.params.id)
+        res.json(sale)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
+})
+
 router.post('/add', async (req,res)=>{
     const sale = new Sale({
 
@@ -21,5 +31,15 @@ router.post('/add', async (req,res)=>{
         res.json({message: err})
     }
 }) 
+
+router.delete('/:id', async (req,res)=>{
+    try{
+        const removedSale = await Sale.remove( {_id : req.params.id})
+        res.json(removedSale)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
+})
 
 module.exports = router
