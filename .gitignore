@@ -2,3 +2,5 @@ server/node_modules
 server/.env
 client/node_modules
 server/config.js
+client/cypress/screenshots
+client/cypress/videos
