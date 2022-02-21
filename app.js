@@ -25,6 +25,7 @@ const productsRouter = require('./routes/products')
 const providersRouter = require('./routes/providers')
 const categoriesRouter = require('./routes/categories')
 const discountsRouter = require('./routes/discounts')
+const salesRouter = require('./routes/sales')
 
 
 app.use('/', indexRouter)
@@ -34,6 +35,7 @@ app.use("/api/categories", categoriesRouter)
 app.use("/api/products", productsRouter)
 app.use("/api/providers", providersRouter)
 app.use("/api/discounts", discountsRouter)
+app.use("/api/sales", salesRouter)
 
 
 

@@ -2,11 +2,14 @@ const express = require('express')
 const router = express.Router()
 const Discount = require('../models/Discount')
 
-router.get('/', (req,res)=>{
-    Discount.find({}, (err, discounts)=>{
-        if (err) throw err
-        res.send(discounts)
-    })
+router.get('/', async (req,res)=>{
+    try{
+        const discounts = await Discount.find()
+        res.json(discounts)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
 })
 
 router.get('/:id', async (req,res)=>{
@@ -24,7 +27,6 @@ router.post('/add', async (req,res)=>{
         percentage: req.body.percentage,
         description: req.body.description,
         products: req.body.products,
-
         })
     try{
         const savedDiscount = await discount.save()

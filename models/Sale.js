@@ -16,7 +16,7 @@ const SaleSchema = new Schema(
     date: {
         type: Date,
         required: true,
-        // default: 
+        default: Date.now      
       },
     products: [{
         type: Schema.Types.ObjectId,

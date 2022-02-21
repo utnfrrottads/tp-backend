@@ -2,11 +2,14 @@ const express = require('express')
 const router = express.Router()
 const Sale = require('../models/Sale')
 
-router.get('/', (req,res)=>{
-    Sale.find({}, (err, sales)=>{
-        if (err) throw err
-        res.send(sales)
-    })
+router.get('/', async (req,res)=>{
+    try{
+        const sales = await Sale.find()
+        res.json(sales)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
 })
 
 router.get('/:id', async (req,res)=>{
@@ -21,7 +24,9 @@ router.get('/:id', async (req,res)=>{
 
 router.post('/add', async (req,res)=>{
     const sale = new Sale({
-
+        subtotal: req.body.subtotal,
+        total: req.body.total,
+        products: req.body.products,
     })
     try{
         const savedSale = await sale.save()
@@ -41,5 +46,19 @@ router.delete('/:id', async (req,res)=>{
         res.json({message: err})
     }
 })
+
+router.patch('/:id', async (req,res)=>{
+    try{
+        const updatedSale = await Sale.updateOne(
+             {_id : req.params.id},
+             {$set: {  subtotal: req.body.subtotal, total: req.body.total, products: req.body.products,}}
+             )
+        res.json(updatedSale)
+    }catch(err){
+        console.log(err)
+        res.json({message: err})
+    }
+})
+
 
 module.exports = router
