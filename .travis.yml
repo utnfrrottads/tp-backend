@@ -1,8 +1,0 @@
-install:
-  - /frontend npm install && npm start & PIDS="$!"
-  - /backend npm install && npm start & PIDS="$PIDS $!"
-script:
-  - /frontend npm run cypress:run
-after_script:
-  - kill $PIDS    # or shut down servers gracefully in some other service-specific way
-  - wait $PIDS    # likewise, a service may provide some other way to wait for its shutdown
