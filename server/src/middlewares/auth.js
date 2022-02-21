@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { TOKEN_SECRET } = require('../../config');
 const { Usuario } = require('../models/index');
 
 const authenticate = async (req, res, next) => {
@@ -11,7 +10,7 @@ const authenticate = async (req, res, next) => {
             req.usuario = null;
         } else {
             try {
-                const payload = jwt.verify(token, TOKEN_SECRET);
+                const payload = jwt.verify(token, process.env.TOKEN_SECRET);
                 const usuario = await Usuario.findById(payload._id).select('+clave');
                 if (usuario) {
                     req.usuario = usuario;
