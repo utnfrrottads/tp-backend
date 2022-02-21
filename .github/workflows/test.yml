@@ -48,7 +48,6 @@ jobs:
           npm start &
         env:
           CI: true
-          PORT: 4000
 
       - name: Run and test app
         working-directory: client
