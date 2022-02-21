@@ -26,8 +26,8 @@ jobs:
           npm start &
 
       - name: Cypress run
-        working-directory: client
         uses: cypress-io/github-action@v2
         with:
+          working-directory: client
           build: npm run build
           start: npm start
