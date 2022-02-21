@@ -47,6 +47,7 @@ jobs:
           npm install
           npm start &
         env:
+          ENV: 'ci'
           CI: true
 
       - name: Run and test app
@@ -57,5 +58,6 @@ jobs:
           npm start &
           npm run cypress:run
         env:
+          ENV: 'ci'
           CI: true
         #   API_URI: http://localhost:4000/graphql

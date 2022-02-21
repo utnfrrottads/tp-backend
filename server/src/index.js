@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./graphql/schema');
 const { authenticate } = require('./middlewares/auth');
-const { PORT, MONGO_ATLAS_URI } = require('../config');
+
+if (ENV !== 'ci') {
+    const { PORT, MONGO_ATLAS_URI } = require('../config');
+}
 
 //initializations
 const app = express();
