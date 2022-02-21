@@ -42,7 +42,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Run API in background
-        working-directory: packages/api
+        working-directory: server
         run: |
           npm install
           npm start &
@@ -50,7 +50,7 @@ jobs:
         #   PORT: 4000
 
       - name: Run and test app
-        working-directory: packages/client
+        working-directory: client
         run: |
           npm install
           npm build
