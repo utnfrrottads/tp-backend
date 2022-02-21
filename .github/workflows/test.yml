@@ -46,8 +46,9 @@ jobs:
         run: |
           npm install
           npm start &
-        # env:
-        #   PORT: 4000
+        env:
+          CI: true
+          PORT: 4000
 
       - name: Run and test app
         working-directory: client
@@ -56,6 +57,6 @@ jobs:
           npm build
           npm start &
           npm run cypress:run
-        # env:
-        #   CI: true
+        env:
+          CI: true
         #   API_URI: http://localhost:4000/graphql
