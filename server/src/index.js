@@ -6,9 +6,8 @@ const { graphqlHTTP } = require('express-graphql');
 const schema = require('./graphql/schema');
 const { authenticate } = require('./middlewares/auth');
 
-if (ENV !== 'ci') {
-    const { PORT, MONGO_ATLAS_URI } = require('../config');
-}
+const dotenv = require('dotenv');
+dotenv.config();
 
 //initializations
 const app = express();
@@ -24,14 +23,14 @@ app.use('/graphql', authenticate, graphqlHTTP({
 }));
 
 //starting the server
-app.listen(PORT, () => {
-    console.log('Server on port: ' + PORT);
+app.listen(process.env.PORT, () => {
+    console.log('Server on port: ' + process.env.PORT);
 
     //sockets
     require('./sockets/socketMessages');
 
     //connect to db
-    mongoose.connect(MONGO_ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect(process.env.MONGO_ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => {
             console.log('--> Atlas DB Connected ✅.');
 
