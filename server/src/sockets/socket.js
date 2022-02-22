@@ -1,6 +1,4 @@
-const { SOCKET_PORT } = require('../../config');
-
-const io = require('socket.io')(SOCKET_PORT, {
+const io = require('socket.io')(process.env.SOCKET_PORT, {
   cors: {
     origin: true,
     credentials: true,

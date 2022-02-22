@@ -24,6 +24,11 @@ jobs:
         run: |
           npm install
           npm start &
+        env:
+          NODE_ENV: production
+          PORT: 4000
+          SOCKET_PORT: 4001
+
 
       - name: Cypress run
         uses: cypress-io/github-action@v2

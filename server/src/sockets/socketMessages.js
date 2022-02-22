@@ -1,6 +1,5 @@
 const io = require('./socket');
 const jwt = require('jsonwebtoken');
-const { TOKEN_SECRET } = require('../../config');
 const { Usuario, Mensaje, Contrato, Servicio, Notificacion } = require('../models/index');
 
 io.on('connection', (socket) => {
@@ -10,7 +9,7 @@ io.on('connection', (socket) => {
 
 function onJoinChat(socket) {
   socket.on('joinChat', async (token, idContrato) => {
-    const payload = jwt.verify(token, TOKEN_SECRET);
+    const payload = jwt.verify(token, process.env.TOKEN_SECRET);
     const usuario = await Usuario.findById(payload._id);
     if (usuario) {
       const contrato = await Contrato.findById(idContrato);
