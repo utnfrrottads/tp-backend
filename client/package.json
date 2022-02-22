@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "npm start && cypress run"
+    "cypress:run": "npm install && npm start && cypress run"
   },
   "private": true,
   "dependencies": {
