@@ -53,3 +53,4 @@ jobs:
           working-directory: client
           build: npm run cy:run
           wait-on: http://localhost:4200
+          
