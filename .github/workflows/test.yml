@@ -6,6 +6,7 @@ jobs:
   cypress_tests:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    environment: testing
 
     strategy:
       matrix:
@@ -44,12 +45,14 @@ jobs:
           NODE_ENV: production
           PORT: 4000
           SOCKET_PORT: 4001
-          TOKEN_SECRET: serviciosyaapitoken
-          MONGO_ATLAS_URI: mongodb+srv://agustin:tpttads@cluster0.f7x6o.mongodb.net/tp-database?retryWrites=true&w=majority
+          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+          MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
+          # TOKEN_SECRET: serviciosyaapitoken
+          # MONGO_ATLAS_URI: mongodb+srv://agustin:tpttads@cluster0.f7x6o.mongodb.net/tp-database?retryWrites=true&w=majority
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           working-directory: client
           build: npm run cypress:run
-          wait-on: http://localhost:4200
+          wait-on: 'http://localhost:4200'
