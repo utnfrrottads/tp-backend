@@ -45,7 +45,7 @@ jobs:
           PORT: 4000
           SOCKET_PORT: 4001
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
-          MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
+          MONGO_ATLAS_URI: mongodb+srv://agustin:tpttads@cluster0.f7x6o.mongodb.net/tp-database?retryWrites=true&w=majority
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
@@ -53,4 +53,3 @@ jobs:
           working-directory: client
           build: npm run cy:run
           wait-on: http://localhost:4200
-          
