@@ -7,7 +7,8 @@ describe('sign in, log in, log out and account deletion', () => {
   const skills = 'just being a robot';
 
   it('should register a new user', () => {
-    cy.visit('http://localhost:4200');
+    // cy.visit('http://localhost:4200');
+    cy.visit('/');
     cy.get(':nth-child(1) > .btn').click();
     cy.get('input[name="nombreUsuario"]').type(username);
     cy.get('input[name="clave"]').type(password);
@@ -41,7 +42,8 @@ describe('sign in, log in, log out and account deletion', () => {
   });
 
   it('should fail when trying to log in with the deleted user', () => {
-    cy.visit('http://localhost:4200');
+    // cy.visit('http://localhost:4200');
+    cy.visit('/');
     cy.get('.ml-auto > :nth-child(2) > .btn').click();
     cy.get('input[name="nombreUsuario"]').type(username);
     cy.get('input[name="clave"]').type(password);

@@ -51,6 +51,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           working-directory: client
-          browser: firefox
-          start: npm start
-          wait-on: 'localhost:4200'
+          build: npm run cy:run
+          wait-on: http://localhost:4200
