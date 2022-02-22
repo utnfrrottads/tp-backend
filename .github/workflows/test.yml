@@ -54,5 +54,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           working-directory: client
-          build: npm run cypress:run
+          start: npm start
           wait-on: 'http://localhost:4200'
