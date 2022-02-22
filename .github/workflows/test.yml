@@ -53,4 +53,4 @@ jobs:
           working-directory: client
           browser: firefox
           start: npm start
-          wait-on: localhost:4200
+          wait-on: 'localhost:4200'
