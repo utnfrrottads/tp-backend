@@ -17,12 +17,15 @@ module.exports = (sequelize, dataType) => {
 
     Compras.associate = (models) => {
         Compras.hasMany(models.ComprasItems, {
+            as: 'comprasItems',
             foreignKey: {
                 allowNull: false
             },
-            as: 'comprasItems'
+            onDelete: 'cascade'
         });
-        Compras.belongsTo(models.Proveedores, { as: 'proveedor' });
+        Compras.belongsTo(models.Proveedores, {
+            as: 'proveedor',
+        });
     };
 
     return Compras;
