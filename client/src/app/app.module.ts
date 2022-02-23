@@ -8,9 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { Apollo } from 'apollo-angular';
-import { HttpLinkModule } from 'apollo-angular-link-http';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { ApolloLink } from '@apollo/client/core';
 
 import { AuthService } from './services/auth.service';
@@ -84,7 +83,6 @@ import { StarComponent } from './components/dialog/star/star.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpLinkModule,
     ModalModule.forRoot(),
   ],
   providers: [],
