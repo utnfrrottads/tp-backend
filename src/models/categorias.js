@@ -20,11 +20,5 @@ module.exports = (sequelize, dataType) => {
         return false;
     };
 
-    Categorias.associate = (models)=>{
-
-        /*Categorias.sync();{alter:true}*/
-
-    };
-
     return Categorias;
 };

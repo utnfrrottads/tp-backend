@@ -8,7 +8,7 @@ module.exports = app =>{
     app.route('/api/clientes')
         .get((req,res)=>{
             /*
-            const columArray = ['dni', 'nombre','apellido','tipoCliente','telefono'];
+            const columArray = ['dni', 'nombre','apellido','tipo','telefono'];
             const ordenArray = ['asc','desc'];
             let orden = columArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
             orden = orden + ' ' + ordenArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
@@ -40,10 +40,10 @@ module.exports = app =>{
                   query = `${sql} where ${colum} ${extra}`;
                   replacements.unshift('%'+req.query.direccion+'%');
             }
-            if(req.query.tipoCliente){
-                  colum = colum ? `"tipo_cliente" ilike ? and ${colum}` : `"tipo_cliente" ilike ? `;
+            if(req.query.tipo){
+                  colum = colum ? `"tipo" ilike ? and ${colum}` : `"tipo" ilike ? `;
                   query = `${sql} where ${colum} ${extra}`;
-                  replacements.unshift('%'+req.query.tipoCliente+'%');
+                  replacements.unshift('%'+req.query.tipo+'%');
             }
             if(req.query.activo){
                   colum = colum ? `activo = true and ${colum}` : `activo = true `;
@@ -64,7 +64,7 @@ module.exports = app =>{
         })
         .post((req,res)=>{
             req.body.activo = true;
-            req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
+            req.body.tipo = req.body.tipo.toUpperCase();
             console.log(req.body);
             Clientes.create(req.body)
             .then(result => res.json(result))
@@ -73,7 +73,7 @@ module.exports = app =>{
             });
         })
         .put((req,res)=>{
-            req.body.tipoCliente = req.body.tipoCliente.toUpperCase();
+            req.body.tipo = req.body.tipo.toUpperCase();
             Clientes.update(req.body,{where: {dni: req.body.dni}})
             .then(result => res.json(result))
             .catch(error =>{

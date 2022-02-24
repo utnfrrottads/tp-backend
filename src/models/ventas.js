@@ -5,25 +5,25 @@ module.exports = (sequelize, dataType) => {
             primaryKey: true,
             autoIncrement: true
         },
-        total: {
-            type: dataType.REAL,
-            defaultValue: 0
-        },
-        nomTarjeta: {
-            type: dataType.STRING,
-            allowNull: false
-        },
-        numTarjeta: {
-            type: dataType.STRING,
-            allowNull: false
-        },
-        cantCuotas: {
-            type: dataType.INTEGER,
-            allowNull: false
-        },
         fecha: {
             type: dataType.DATE,
             allowNull: false
+        },
+        formaPago: {
+            type: dataType.STRING,
+            validate: {
+                isIn: [['EFECTIVO', 'TRANSFERENCIA', 'TARJETA DE CREDITO', 'TARJETA DE DEBITO', 'OTRO']],
+                isUppercase: true
+            },
+            allowNull: false
+        },
+        porcentajeDescuento: {
+            type: dataType.REAL,
+            defaultValue: 0
+        },
+        total: {
+            type: dataType.REAL,
+            defaultValue: 0
         }
     });
 

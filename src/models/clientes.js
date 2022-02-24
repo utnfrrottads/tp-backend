@@ -24,14 +24,15 @@ module.exports = (sequelize, dataType) => {
         },
         direccion: {
             type: dataType.STRING,
-            allowNull: false
+            allowNull: true
         },
-        tipoCliente: {
+        tipo: {
             type: dataType.STRING,
             validate: {
                 isIn: [['MAYORISTA', 'MINORISTA']],
                 isUppercase: true
-            }
+            },
+            allowNull: false
         },
         activo: {
             type: dataType.BOOLEAN,

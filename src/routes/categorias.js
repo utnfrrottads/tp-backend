@@ -16,7 +16,7 @@ module.exports = app => {
             let orden = colArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
             orden = '"'+orden+'"' + ' ' + tipoArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
             let colum = '';
-            let sql = `SELECT * FROM "Categorias"` ;
+            let sql = `SELECT * FROM "categorias"` ;
             let extra = ` order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];

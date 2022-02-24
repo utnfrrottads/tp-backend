@@ -1,22 +1,22 @@
 module.exports = () => {
 
-   enum TipoCliente {
-       MAYORISTA,
-       MINORISTA,
+    enum TipoClienteEnum {
+        MAYORISTA,
+        MINORISTA,
     }
 
-    class enumTipoCliente{
+    class enumTipo {
 
-       public getTipoCliente(tipo: string): TipoCliente{
+        public getTipo(tipo: string): TipoClienteEnum {
 
-           let value: TipoCliente;
-           if(tipo === 'mayorista'){
-               value = TipoCliente.MAYORISTA;
-           }else if(tipo === 'minorista'){
-               value = TipoCliente.MINORISTA;
-           }
-           return value;
+            let value: TipoClienteEnum;
+            if (tipo === 'mayorista') {
+                value = TipoClienteEnum.MAYORISTA;
+            } else if (tipo === 'minorista') {
+                value = TipoClienteEnum.MINORISTA;
+            }
+            return value;
         }
     }
-    return enumTipoCliente;
+    return enumTipo;
 }
