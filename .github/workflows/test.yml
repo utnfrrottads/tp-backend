@@ -54,4 +54,3 @@ jobs:
           working-directory: client
           start: npm start
           wait-on: 'http://localhost:4200'
-          browser: chrome
