@@ -5,17 +5,26 @@ module.exports = app =>{
     const Ventas = app.db.models.Ventas;
     const sequelize = app.db.sequelize;
 
+
     app.route('/api/clientes')
         .get((req,res)=>{
-            /*
-            const columArray = ['dni', 'nombre','apellido','tipo','telefono'];
-            const ordenArray = ['asc','desc'];
-            let orden = columArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
-            orden = orden + ' ' + ordenArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
-            */
-            let orden = req.query.order ? req.query.order.replace(',',' ') : '1 asc';
+            function styleHyphenFormat(propertyName)
+            {
+                function upperToHyphenLower(match)
+                {
+                        return '_' + match.toLowerCase();
+                }
+                return propertyName.replace(/[A-Z]/, upperToHyphenLower);
+            }
+            let orden = '';
+            if (req.query.order){
+                orden = req.query.order.split(",", 2)
+                orden = styleHyphenFormat(orden[0]) + ' ' + orden[1];
+            }else{
+                orden = '1 asc';
+            }
             let colum = '';
-            let sql = `SELECT * FROM Clientes ` ;
+            let sql = `SELECT dni, nombre, apellido, activo, tipo_cliente AS "tipoCliente", telefono FROM Clientes ` ;
             let extra = `order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
@@ -40,8 +49,8 @@ module.exports = app =>{
                   query = `${sql} where ${colum} ${extra}`;
                   replacements.unshift('%'+req.query.direccion+'%');
             }
-            if(req.query.tipo){
-                  colum = colum ? `"tipo" ilike ? and ${colum}` : `"tipo" ilike ? `;
+            if(req.query.tipoCliente){
+                  colum = colum ? `tipo_cliente ilike ? and ${colum}` : `tipo_cliente ilike ? `;
                   query = `${sql} where ${colum} ${extra}`;
                   replacements.unshift('%'+req.query.tipo+'%');
             }
