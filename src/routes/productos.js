@@ -29,11 +29,11 @@ module.exports = app => {
                          p."cantidad_minima" AS "cantidadMinima", p."precio_venta" AS "precioVenta",
                          p."activo", p."created_at" AS "createdAt", 
                          p."updated_at" AS "updatedAt", p."categoria_id" AS "categoriaId", 
-                         "c"."id" AS "categoria.id", "c"."descripcion" AS "categoria.descripcion",
-                         c."activa" AS "c.activa", c."created_at" AS "c.createdAt", c."updated_at" AS "c.updatedAt"
+                         categoria."id" AS "categoriaId", categoria."descripcion"  AS "categoria.descripcion",
+                         categoria."activa" , categoria."created_at", categoria."updated_at"
                         FROM "productos" AS p 
-                        LEFT OUTER JOIN "categorias" AS "c" 
-                        ON p."categoria_id" = c."id" ` ;
+                        LEFT OUTER JOIN "categorias" AS "categoria" 
+                        ON p."categoria_id" = categoria."id" ` ;
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
             if (req.query.descripcion){
@@ -64,7 +64,6 @@ module.exports = app => {
                     res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
                 })
                 .catch(error => {
-                    console.log(error);
                     res.status(412).json(error.message);
                 })
         })

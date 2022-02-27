@@ -24,7 +24,7 @@ module.exports = app =>{
                 orden = '1 asc';
             }
             let colum = '';
-            let sql = `SELECT dni, nombre, apellido, activo, tipo_cliente AS "tipoCliente", telefono FROM Clientes ` ;
+            let sql = `SELECT dni, nombre, apellido, activo, tipo AS "tipo", telefono FROM Clientes ` ;
             let extra = `order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
@@ -49,8 +49,8 @@ module.exports = app =>{
                   query = `${sql} where ${colum} ${extra}`;
                   replacements.unshift('%'+req.query.direccion+'%');
             }
-            if(req.query.tipoCliente){
-                  colum = colum ? `tipo_cliente ilike ? and ${colum}` : `tipo_cliente ilike ? `;
+            if(req.query.tipo){
+                  colum = colum ? `tipo ilike ? and ${colum}` : `tipo ilike ? `;
                   query = `${sql} where ${colum} ${extra}`;
                   replacements.unshift('%'+req.query.tipo+'%');
             }
@@ -68,6 +68,7 @@ module.exports = app =>{
                     res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
                 })
                 .catch(error => {
+                    console.log('error',error);
                     res.status(412).json(error)
                 })
         })
@@ -86,7 +87,7 @@ module.exports = app =>{
             Clientes.update(req.body,{where: {dni: req.body.dni}})
             .then(result => res.json(result))
             .catch(error =>{
-                res.status(412).json({msg: error.message});
+                res.status(412).json(error);
             })
         });
 

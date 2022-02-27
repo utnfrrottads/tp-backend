@@ -11,7 +11,6 @@ consign({
     .then('libs/middlewares.js')
     .then('routes')
     .then('libs/boot.js')
-    .then('constantes')
     .into(app);
 
 
