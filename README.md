@@ -1,6 +1,45 @@
+
 # TP Backend TTADS
 
-## 1 - Enunciado
+## TP FINAL PUNTO DE VENTA
+
+Integrantes: Caciorgna, Gerardo - Giovanni, Martin - Vilchez, Joaquin
+
+El trabajo a realizar se trata de un punto de venta comercial que cuenta con las diferentes funciones necesarias para un comercio de cualquier indole. Permitirá administrar ventas, compras, stock, cobros, proveedores y pagos. El mismo tendra acceso a API's como Mercado Pago para permitir pagos con tarjeta de credito/debito y cualquier otra necesaria para el flujo del sistema. 
+
+### Punto de venta
+Sección para el cajero que permite ingresar los productos a vender a traves de un lector de codigo de barras o el codigo interno del mismo. A medida que se van agregando dichos productos el sistema los va agregando a un carrito de compras con sus respectivas reglas de negocio. Una vez finalizado la carga de los productos, se puede pagar con efectivo o tarjeta y una vez abonado, el sistema almacena la venta e imprime un ticket, como asi tambien reduce el stock del producto en el sistema.
+
+### Escritorio
+En esta sección se mostrarán los accesos directos a las diferentes funciones como asi tambien mostrará estadisticas de ventas, compras e información necesaria para el administrador. También contará con secciones introductorias para guiar al usuario a las funciones mas importantes.
+
+### Stock
+Aqui el sistema mostrara la lista de productos con sus respectivas categorias e infomracion relacionada. También se podra realizar el ABM de los productos y categorías. Tambien se podra gestionar cupones de descuento para determinados productos o categorias enteras.
+
+### Ventas
+En esta sección se registraran todas las ventas realizadas en el comercio, como asi tambien agregar nuevas de forma manual.
+
+### Compras
+Esta seccion contará con funciones como agregar, editar y eliminar proveedores y gestionar y listar las compras de los productos del comercio.
+
+### Configuraciones
+Aqui se podra configurar todo la informacion relacionada con el comercio que saldra en los tickets y tambien la de los usuarios con acceso al sistema y la vinculacion con las diferentes API externas al sistema.
+
+### Configuraciones
+  
+|Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
+|:-|-:|-:|:-|-|
+|ABMC simple|1 x integ|1 x integ|Categoría, Usuario, Proveedor|
+|ABMC dependiente|1|2|Producto, Descuento|
+|Listado simple|1|1|Categoría|
+|Listado complejo obligatorio|1|2|Productos (Categorias), Descuentos (Productos)|
+|Listado adicional con filtro|0|0|Ninguno|
+|Detalle básico|1(*)|2(*)|Pedido, Proveedor|
+|Detalle parametrizable|0|0|-|
+|Otros|0|0||
+
+### Diagrama Entidad Relación
+<img src="https://i.ibb.co/nQZhgPV/TTADS-DER.jpg" alt="TTADS-DER" border="0" />
 
 ### 1.1 - Desarrollo
 
