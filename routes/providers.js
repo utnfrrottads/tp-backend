@@ -26,7 +26,7 @@ router.post('/add', async (req,res)=>{
     const provider = new Provider({
             name: req.body.name,
             email: req.body.email,
-            addres: req.body.addres,
+            address: req.body.address,
             phone: req.body.phone
         })
     try{
@@ -52,7 +52,7 @@ router.patch('/:id', async (req,res)=>{
     try{
         const updatedProvider = await Provider.updateOne(
              {_id : req.params.id},
-             {$set: {name: req.body.name, email: req.body.email, addres: req.body.addres, phone: req.body.phone}}
+             {$set: {name: req.body.name, email: req.body.email, address: req.body.address, phone: req.body.phone}}
              )
         res.json(updatedProvider)
     }catch(err){

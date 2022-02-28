@@ -32,7 +32,6 @@ app.use('/', indexRouter)
 app.use('/api/users', usersRouter)
 app.use("/api/categories", categoriesRouter)
 app.use("/api/products", productsRouter)
-// app.use("/api/products", productsRouter)  creo que esta ruta esta cargada dos veces
 app.use("/api/providers", providersRouter)
 app.use("/api/discounts", discountsRouter)
 app.use("/api/sales", salesRouter)

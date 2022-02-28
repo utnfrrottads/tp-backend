@@ -12,7 +12,7 @@ const ProviderSchema = new Schema(
         type: String,
         require: true,
       },
-    addres: {
+    address: {
         type: String,
         required: true,
       },
