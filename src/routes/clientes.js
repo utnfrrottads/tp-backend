@@ -79,7 +79,7 @@ module.exports = app =>{
             Clientes.create(req.body)
             .then(result => res.json(result))
             .catch(error => {
-                res.status(412).json({msg: error.message});
+                res.status(412).json(error);
             });
         })
         .put((req,res)=>{

@@ -5,47 +5,59 @@ module.exports = app => {
     const Clientes = app.db.models.Clientes;
     const Productos = app.db.models.Productos;
     const { Sequelize } = require("sequelize");
+    const sequelize = app.db.sequelize;
 
     app.route('/api/ventas')
         .get((req, res) => {
-            const whereCondition = {};
-            if (req.query.nomTarjeta) {
-                Object.assign(whereCondition, {
-                    nomTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('nom_tarjeta')), 'LIKE', '%' + req.query.nomTarjeta + '%')
-                });
+            function styleHyphenFormat(propertyName)
+            {
+                function upperToHyphenLower(match)
+                {
+                    return '_' + match.toLowerCase();
+                }
+                return propertyName.replace(/[A-Z]/, upperToHyphenLower);
             }
-            if (req.query.numTarjeta) {
-                Object.assign(whereCondition, {
-                    numTarjeta: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('num_tarjeta')), 'LIKE', '%' + req.query.numTarjeta + '%')
-                });
+            let orden = '';
+            if (req.query.order){
+                orden = req.query.order.split(",", 2)
+                orden = styleHyphenFormat(orden[0]) + ' ' + orden[1];
+            }else{
+                orden = '1 asc';
             }
-            if (req.query.dni) {
-                Object.assign(whereCondition, {
-                    cliente_dni: req.query.dni
-                });
+            let colum = '';
+            let extra = `order by ${orden} limit ? offset ?`
+            let sql = ` select v.id, v.fecha,
+								cliente.nombre AS "nombre", cliente.apellido AS "apellido", cliente.dni AS "dni"
+								
+                        from ventas AS v
+                        left outer join clientes AS cliente
+                        on v.cliente_dni = cliente.dni
+                        left outer join ventas_items AS vi
+                        on v.id = vi.venta_id
+                        left outer join productos AS p
+                        on vi.producto_id = p.id ` ;
+            let query = sql + extra;
+            let replacements = [req.query.limit,req.query.offset * req.query.limit];
+            if(req.query.clienteId){
+                colum = colum ? `cliente.dni = ? and ${colum}` : `cliente.dni = ?`;
+                query = `${sql} where ${colum} ${extra}`;
+                replacements.unshift(req.query.clienteId);
             }
-            const order = req.query.order ? req.query.order.split(",", 2) : [];
-            Ventas.findAndCountAll({
-                where: whereCondition,
-                limit: req.query.limit,
-                offset: req.query.offset * req.query.limit,
-                order: [order],
-                include: [
-                    {
-                        model: VentasItems, as: 'ventasItems',
-                        include: {
-                            model: Productos, as: 'producto'
-                        }
-                    },
-                    {
-                        model: Clientes, as: 'cliente'
-                    }
-                ]
-            })
-                .then(result => { res.json(result) })
+            console.log(req.query);
+            sequelize.query(
+                query,
+                {
+                    replacements: replacements
+                }
+            )
+                .then(result => {
+                    res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
+                })
                 .catch(error => {
-                    res.status(412).json({ msg: error.message });
-                });
+                    console.log(error);
+                    res.status(412).json(error.message);
+                })
+
         })
         .post((req, res) => {
             Ventas.create(req.body)

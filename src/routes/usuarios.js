@@ -3,36 +3,46 @@ module.exports = app => {
     const bcrypt = require('bcrypt');
     const Sequelize = require("sequelize");
     const BCRYPT_SALT_ROUNDS = 10;
+    const sequelize = app.db.sequelize;
 
     app.route('/api/usuarios')
         .get((req, res) => {
-            const whereCondition = {};
-            if (req.query.usuario) {
-                Object.assign(whereCondition, {
-                    usuario: Sequelize.where(Sequelize.col('usuario'), 'LIKE', '%' + req.query.usuario + '%')
-                });
+            let orden = '';
+            if (req.query.order){
+                orden = req.query.order.replace(',',' ');
+            }else{
+                orden = '1 asc';
             }
-            if (req.query.rol) {
-                Object.assign(whereCondition, {
-                    rol: Sequelize.where(Sequelize.col('rol'), 'LIKE', '%' + req.query.rol + '%')
-                });
+            let colum = '';
+            let sql = `SELECT * FROM usuarios` ;
+            let extra = ` order by ${orden} limit ? offset ?`
+            let query = sql + extra;
+            let replacements = [req.query.limit,req.query.offset * req.query.limit];
+            if(req.query.activo){
+                colum = colum ? `activo = true and ${colum}` : `activo = true`;
+                query = `${sql} where ${colum} ${extra}`;
             }
-            if (req.query.activo) {
-                Object.assign(whereCondition, {
-                    activo: req.query.activo
-                });
+            if(req.query.rol){
+                colum = colum ? `rol = ? and ${colum}` : `rol = ?`;
+                query = `${sql} where ${colum} ${extra}`;
+                replacements.unshift(req.query.rol);
             }
-            const order = req.query.order ? req.query.order.split(",", 2) : [];
-            Usuario.findAndCountAll({
-                where: whereCondition,
-                limit: req.query.limit,
-                offset: req.query.offset * req.query.limit,
-                order: [order],
-                attributes: { exclude: ['clave'] }
-            })
-                .then(result => res.json(result))
+            if(req.query.usuario){
+                colum = colum ? `usuario ilike ? and ${colum}` : `usuario ilike ?`;
+                query = `${sql} where ${colum} ${extra}`;
+                replacements.unshift('%'+req.query.usuario+'%');
+            }
+            sequelize.query(
+                query,
+                {
+                    replacements: replacements
+                }
+            )
+                .then(result => {
+                    res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
+                })
                 .catch(error => {
-                    res.status(412).json({ msg: error.message });
+                    res.status(412).json({msg: error.message})
                 });
         })
         .post((req, res) => {
@@ -45,7 +55,7 @@ module.exports = app => {
                             res.json(result);
                         })
                         .catch(error => {
-                            res.status(412).json({ msg: error.message });
+                            res.status(412).json(error);
                         });
                 })
                 .catch(error => {
