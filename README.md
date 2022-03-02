@@ -1,3 +1,5 @@
+![Tests](https://github.com/gianfrancoraselli/tp-backend/actions/workflows/Tests.yml/badge.svg)
+
 # TP Backend TTADS - Sistema de contratación de diferentes servicios
 
 El sistema que desarrollaremos se encargará de ser un intermediario entre prestadores de servicios y consumidores.
