@@ -1,0 +1,10 @@
+version: "0.1"
+services:
+  server:
+    ports:
+      - "4000:4000"
+    image: agustindangelo/serviciosya-server
+  client:
+    ports:
+      - "4200:80"
+    image: agustindangelo/serviciosya-client
