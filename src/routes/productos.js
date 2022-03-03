@@ -4,48 +4,68 @@ module.exports = app => {
     const Op = Sequelize.Op;
     const Productos = app.db.models.Productos;
     const Categorias = app.db.models.Categorias;
+    const sequelize = app.db.sequelize;
 
     app.route('/api/productos')
         .get((req, res) => {
-            console.log('paso por aca');
-            const whereCondition = {};
-            if (req.query.descripcion) {
-                Object.assign(whereCondition, {
-                    descripcion: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('Productos.descripcion')), 'LIKE', '%' + req.query.descripcion + '%')
-                });
+            function styleHyphenFormat(propertyName)
+            {
+                function upperToHyphenLower(match)
+                {
+                    return '_' + match.toLowerCase();
+                }
+                return propertyName.replace(/[A-Z]/, upperToHyphenLower);
             }
-            if (req.query.categoriaId) {
-                Object.assign(whereCondition, {
-                    categoriaId: req.query.categoriaId
-                });
+            let orden = '';
+            if (req.query.order){
+                orden = req.query.order.split(",", 2)
+                orden = styleHyphenFormat(orden[0]) + ' ' + orden[1];
+            }else{
+                orden = '1 asc';
             }
-            if (req.query.requiereStock) {
-                Object.assign(whereCondition, {
-                    stock: {
-                        [Op.lt]: Sequelize.col('cantidad_minima')
-                    }
-                });
+            let colum = '';
+            let extra = `order by ${orden} limit ? offset ?`
+            let sql = ` SELECT p."id", p."descripcion", p."stock", 
+                         p."cantidad_minima" AS "cantidadMinima", p."precio_venta" AS "precioVenta",
+                         p."activo", p."created_at" AS "createdAt", 
+                         p."updated_at" AS "updatedAt", p."categoria_id" AS "categoriaId", 
+                         categoria."id" AS "categoriaId", categoria."descripcion"  AS "categoria.descripcion",
+                         categoria."activa" , categoria."created_at", categoria."updated_at"
+                        FROM "productos" AS p 
+                        LEFT OUTER JOIN "categorias" AS "categoria" 
+                        ON p."categoria_id" = categoria."id" ` ;
+            let query = sql + extra;
+            let replacements = [req.query.limit,req.query.offset * req.query.limit];
+            if (req.query.descripcion){
+                colum = colum ? `p.descripcion ilike ? and ${colum}` : `p.descripcion ilike ? `;
+                query = `${sql} where ${colum} ${extra}`;
+                replacements.unshift('%'+req.query.descripcion+'%');
             }
-            if (req.query.activo) {
-                Object.assign(whereCondition, {
-                    activo: req.query.activo
-                });
+            if (req.query.categoriaId){
+                colum = colum ? `p.categoria_id = ? and ${colum}` : `p.categoria_id = ? `;
+                query = `${sql} where ${colum} ${extra}`;
+                replacements.unshift(req.query.categoriaId);
             }
-            let order = req.query.order ? req.query.order.split(",", 2) : [];
-          /*  if (order && order[0] === 'categoria.descripcion') {
-                order = [Sequelize.literal('"categoria"."descripcion"'), order[1]];
-            }*/
-            Productos.findAndCountAll({
-                where: whereCondition,
-                limit: req.query.limit,
-                offset: req.query.offset * req.query.limit,
-                order: [order],
-                include: [{ model: Categorias, as: 'categoria' }]
-            })
-                .then(result => res.json(result))
+            if (req.query.activo){
+                colum = colum ? `p.activo = true and ${colum}` : `p.activo = true `;
+                query = `${sql} where ${colum} ${extra}`;
+            }
+            if (req.query.requiereStock){
+                colum = colum ? `p.stock <= p.cantidad_minima and ${colum}` : `p.stock <= p.cantidad_minima `;
+                query = `${sql} where ${colum} ${extra}`;
+            }
+            sequelize.query(
+                query,
+                {
+                    replacements: replacements
+                }
+            )
+                .then(result => {
+                    res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
+                })
                 .catch(error => {
-                    res.status(412).json({ msg: error });
-                });
+                    res.status(412).json(error.message);
+                })
         })
         .post((req, res) => {
             req.body.activo = true;

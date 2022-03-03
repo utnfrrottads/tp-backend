@@ -8,15 +8,14 @@ module.exports = app => {
 
     app.route('/api/categorias-productos')
         .get((req, res) => {
-            // ARMO QUERY
-//            const order = req.query.order ? req.query.order.replace(',', ' ') : [];
-            let order = req.query.order ? req.query.order.split(",",2) : [];
-            const colArray = ['descripcion'];
-            const tipoArray = ['asc','desc'];
-            let orden = colArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
-            orden = '"'+orden+'"' + ' ' + tipoArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
+            let orden = '';
+            if (req.query.order){
+                orden = req.query.order.replace(',',' ');
+            }else{
+                orden = '1 asc';
+            }
             let colum = '';
-            let sql = `SELECT * FROM "categorias"` ;
+            let sql = `SELECT * FROM categorias` ;
             let extra = ` order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];

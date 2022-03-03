@@ -5,17 +5,26 @@ module.exports = app =>{
     const Ventas = app.db.models.Ventas;
     const sequelize = app.db.sequelize;
 
+
     app.route('/api/clientes')
         .get((req,res)=>{
-            /*
-            const columArray = ['dni', 'nombre','apellido','tipo','telefono'];
-            const ordenArray = ['asc','desc'];
-            let orden = columArray.find(e=>e.toUpperCase() === order[0].toUpperCase());
-            orden = orden + ' ' + ordenArray.find(t=> t.toUpperCase()===order[1].toUpperCase());
-            */
-            let orden = req.query.order ? req.query.order.replace(',',' ') : '1 asc';
+            function styleHyphenFormat(propertyName)
+            {
+                function upperToHyphenLower(match)
+                {
+                        return '_' + match.toLowerCase();
+                }
+                return propertyName.replace(/[A-Z]/, upperToHyphenLower);
+            }
+            let orden = '';
+            if (req.query.order){
+                orden = req.query.order.split(",", 2)
+                orden = styleHyphenFormat(orden[0]) + ' ' + orden[1];
+            }else{
+                orden = '1 asc';
+            }
             let colum = '';
-            let sql = `SELECT * FROM Clientes ` ;
+            let sql = `SELECT dni, nombre, apellido, activo, tipo AS "tipo", telefono FROM Clientes ` ;
             let extra = `order by ${orden} limit ? offset ?`
             let query = sql + extra;
             let replacements = [req.query.limit,req.query.offset * req.query.limit];
@@ -41,7 +50,7 @@ module.exports = app =>{
                   replacements.unshift('%'+req.query.direccion+'%');
             }
             if(req.query.tipo){
-                  colum = colum ? `"tipo" ilike ? and ${colum}` : `"tipo" ilike ? `;
+                  colum = colum ? `tipo ilike ? and ${colum}` : `tipo ilike ? `;
                   query = `${sql} where ${colum} ${extra}`;
                   replacements.unshift('%'+req.query.tipo+'%');
             }
@@ -59,6 +68,7 @@ module.exports = app =>{
                     res.json({"count": result.slice(1).pop().rowCount, "rows": result.slice(1).pop().rows });
                 })
                 .catch(error => {
+                    console.log('error',error);
                     res.status(412).json(error)
                 })
         })
@@ -69,7 +79,7 @@ module.exports = app =>{
             Clientes.create(req.body)
             .then(result => res.json(result))
             .catch(error => {
-                res.status(412).json({msg: error.message});
+                res.status(412).json(error);
             });
         })
         .put((req,res)=>{
@@ -77,7 +87,7 @@ module.exports = app =>{
             Clientes.update(req.body,{where: {dni: req.body.dni}})
             .then(result => res.json(result))
             .catch(error =>{
-                res.status(412).json({msg: error.message});
+                res.status(412).json(error);
             })
         });
 

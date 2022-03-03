@@ -1,11 +1,14 @@
 module.exports = () => {
 
+
     enum TipoClienteEnum {
         MAYORISTA,
         MINORISTA,
     }
 
+
     class enumTipo {
+
 
         public getTipo(tipo: string): TipoClienteEnum {
 
