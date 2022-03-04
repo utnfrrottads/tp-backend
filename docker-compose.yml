@@ -26,6 +26,11 @@ services:
 
   serviciosya-server:
     image: agustindangelo/serviciosya-server
+    environment:
+      - PORT=4000
+      - SOCKET_PORT=4001
+      - MONGO_ATLAS_URI=mongodb+srv://agustin:tpttads@cluster0.f7x6o.mongodb.net/tp-database?retryWrites=true&w=majority
+      - TOKEN_SECRET=serviciosyaapitoken
     networks:
       - es-net
     depends_on:
