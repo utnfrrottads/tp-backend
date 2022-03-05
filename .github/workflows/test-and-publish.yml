@@ -60,7 +60,7 @@ jobs:
   build-and-push-docker-images:
     name: Build Docker images and push to DockerHub repositories
     runs-on: ubuntu-latest
-    
+    needs: cypress_tests
     environment: CI
 
     steps:
