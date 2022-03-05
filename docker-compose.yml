@@ -31,6 +31,7 @@ services:
       - SOCKET_PORT=4001
       - MONGO_ATLAS_URI=mongodb+srv://agustin:tpttads@cluster0.f7x6o.mongodb.net/tp-database?retryWrites=true&w=majority
       - TOKEN_SECRET=serviciosyaapitoken
+      - ELASTICSEARCH_HOSTS=http://es-container:9200
     networks:
       - es-net
     depends_on:
