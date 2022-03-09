@@ -187,6 +187,7 @@ const deleteAccount = {
       await Contrato.deleteMany({ idUsuario: usuario._id });
 
       await Servicio.deleteMany({ idUsuario: usuario._id });
+      
       await client.deleteByQuery({
         index: 'servicios',
         body: {
