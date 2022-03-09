@@ -9,4 +9,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "src/index.js" ]
+CMD [ "./wait-for-it.sh", "localhost:9200", "--", "node", "src/index.js" ]
