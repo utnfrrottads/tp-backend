@@ -9,7 +9,7 @@
 |Listado simple|1|2|Categorías
 |Listado complejo obligatorio|1|2|Listado de productos por sucursal y su stock
 |Listado adicional con filtro|0|0|
-|Detalle básico|1(*)|2(*)|
+|Detalle básico|1(*)|2(*)|Producto
 |Detalle parametrizable|0|0|
 |Otros|0|0|
 
