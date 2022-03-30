@@ -4,10 +4,10 @@
 
 |Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
 |:-|-:|-:|:-|-|
-|ABMC simple|1 x integ|1 x integ|Productos
-|ABMC dependiente|1|2|Venta
-|Listado simple|1|1|Productos
-|Listado complejo obligatorio|1|2|Stock por sucursal
+|ABMC simple|1 x integ|1 x integ|Categorias
+|ABMC dependiente|1|2|Productos y Movimiento de stock
+|Listado simple|1|2|Categorías
+|Listado complejo obligatorio|1|2|Listado de productos por sucursal y su stock
 |Listado adicional con filtro|0|0|
 |Detalle básico|1(*)|2(*)|
 |Detalle parametrizable|0|0|
