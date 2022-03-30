@@ -2,6 +2,10 @@
 El proyecto consiste en crear un backend que resuelva las funcionalidades referidas a mantaner el movimiento del stock de productos para una organización con varias sucursales. Los productos además perteneceran a una categoría.
 No se incluye la funcionalidad para realizar ventas.
 
+### Detalle de funcionalidades
+
+
+
 ## Modelo de datos
 ![Image text](https://github.com/ManuelVelasco99/tp-backend/blob/master/modeloDeDatos.jpg)
 
@@ -11,5 +15,12 @@ No se incluye la funcionalidad para realizar ventas.
 
 ### Para el frontend
 *Angular
+
 *Angular material
+
+## Autor
+ Manuel Velasco
+ 
+ Legajo 44726
+ 
 
