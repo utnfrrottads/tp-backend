@@ -2,6 +2,8 @@
 
 ## 1 - Enunciado
 
+El siguiente proyecto va a ser un chat de usuario a usuario, junto con una lista de amigos por cada usuario. El cual va a poder empezar un chat con cualquier amigo dentro de su lista.
+
 #### 1.2.1 - Backend por API REST
 
   * ABMC:
