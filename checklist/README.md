@@ -11,7 +11,7 @@
 |Listado adicional con filtro|0|0|
 |Detalle básico|1(*)|2(*)|Detalle de cada usuario desde el listado.|
 |Detalle parametrizable|0|0|
-|Otros|0|0|Utilizaremos
+|Otros|0|0|
 
 (\*) Los detalles básicos pueden ser reemplazado por un detalle parametrizados en los
 
