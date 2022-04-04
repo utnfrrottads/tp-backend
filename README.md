@@ -38,4 +38,3 @@ La idea es que el creador pueda añadir participantes con su nickname del juego 
 | :----- | :------------- | :--------------- |
 | 43334  | Gonzalo Martin | Bermejo Zambrini |
 
-TEST
