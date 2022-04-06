@@ -3,10 +3,21 @@ Proyecto para la materia "Técnicas y Tecnologías Avanzadas de Desarrollo de So
 
 ## **Enunciado General**
 
-Desarrollar un sistema de gestion de pedidos online. 
+Sistema de gestion de pedidos online. 
 
 ### **Alcance**
 
-Desde que el usuario entra al dominio del sitio, busca los restaurants donde quiere pedir, realiza el pedido y se generan reportes con la informacion del pedido realizado.
+Desde que el usuario ingresa al sitio, estando previamente registrado y con una sesión iniciada, elige un local de comida donde quiere pedir, realiza el pedido y se genera un comprobante con la informacion del pedido realizado.
 
-![DER](der.png) 
+### **Entrega inicial**
+
+ABMC:
+  - Simples: restaurantes, tags, roles, categorías
+  - Complejos: usuarios con roles, comidas con categorías
+
+Listados:
+  - Simples: restaurantes, categorías
+  - Complejos: comidas filtrando por categorías
+
+Detalles:
+  - Simples: Comida y Pedido
