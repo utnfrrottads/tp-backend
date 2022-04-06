@@ -21,3 +21,7 @@ Listados:
 
 Detalles:
   - Simples: Comida y Pedido
+
+## **Modelo de Dominio**
+
+![MD](https://user-images.githubusercontent.com/81445495/162057610-8e448e29-8b48-4009-9334-0e4688c14e98.png)
