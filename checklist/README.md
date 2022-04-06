@@ -7,7 +7,7 @@
 |ABMC simple|1 x integ|1 x integ|Usuarios y envio de mensajes a un usuario particular.|
 |ABMC dependiente|1|2|ABMC listado de amigos por usuario, estilo agenda de contactos.|
 |Listado simple|1|1|Listado de todos los usuarios.|
-|Listado complejo obligatorio|1|2|Listado de todos los mensajes de un usuario por un rango de fecha|
+|Listado complejo obligatorio|1|2|Listado de todos los mensajes de un usuario por un rango de fecha O listado de quien soy amigo|
 |Listado adicional con filtro|0|0|
 |Detalle básico|1(*)|2(*)|Detalle de cada usuario desde el listado.|
 |Detalle parametrizable|0|0|
