@@ -1,0 +1,25 @@
+{
+  "name": "ttads-backend",
+  "version": "1.0.0",
+  "description": "Desarrollar un backend utilizando una API REST o GraphQL y un frontend parcial con las siguientes caracterísitcas:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/germantano8/TTADS-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/germantano8/TTADS-Backend/issues"
+  },
+  "homepage": "https://github.com/germantano8/TTADS-Backend#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.2.10"
+  }
+}
