@@ -1,9 +1,10 @@
 const asyncForEach = require("../utils/async-for-each");
+const dayjs = require('dayjs');
 const sequelize = require('../database/db-connection');
 const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
 const checkMissingAttributes = require('../utils/check-missing-attrs');
-const { NotFoundError, InvalidQueryError } = require('../utils/api-error');
+const { NotFoundError, InvalidQueryError, InvalidAttributeError } = require('../utils/api-error');
 const models = initModels(sequelize);
 
 createEntrevista = async (body) => {
@@ -23,6 +24,11 @@ createEntrevista = async (body) => {
 
     const transaction = await sequelize.transaction();
     try {
+        // Valida que la fecha_hora de la entrevista sea mayor a la fecha actual
+        if ( !dateTimeOfInterviewIsValid(body.fecha_hora) ) {
+            throw new InvalidAttributeError('La fecha y hora de la entrevista debe ser mayor a la fecha actual', 'fecha_hora');
+        };
+
         const entrevista = await models.entrevistas.create(body, { transaction: transaction });
 
         await addEvaluation( body.ids_evaluaciones, entrevista.id_entrevista, transaction );
@@ -58,40 +64,47 @@ updateEntrevista = async (id_entrevista, body) => {
     );
     const transaction = await sequelize.transaction();
     try {
+        // Valida que la fecha_hora de la entrevista sea mayor a la fecha actual
+        if ( !dateTimeOfInterviewIsValid(body.fecha_hora) ) {
+            throw new InvalidAttributeError('La fecha y hora de la entrevista debe ser mayor a la fecha actual', 'fecha_hora');
+        };
+
         if (body.personas_id_candidato) {
             const existe_persona_candidato = await models.personas.findByPk(body.personas_id_candidato);
             if (!existe_persona_candidato) {
                 throw new NotFoundError(body.personas_id_candidato, 'persona_candidato');
-            }
-        }
+            };
+        };
         
         if (body.personas_id_evaluador) {
             const existe_persona_evaluador = await models.personas.findByPk(body.personas_id_evaluador);
             if (!existe_persona_evaluador) {
                 throw new NotFoundError(body.personas_id_evaluador, 'persona_evaluador');
-            }
-        }
+            };
+        };
 
         if (body.vacantes_id_vacante) {
             const existe_vacante = await models.vacantes.findByPk(body.vacantes_id_vacante);
             if (!existe_vacante) {
                 throw new NotFoundError(body.vacantes_id_vacante, 'vacante');
-            }
-        }
+            };
+        };
 
         if (id_entrevista) {
             const existe_entrevista = await models.entrevistas.findByPk(id_entrevista);
             if (!existe_entrevista) {
                 throw new NotFoundError(id_entrevista, 'entrevista');
-            }
-        }
+            };
+        };
 
         const entrevista = await models.entrevistas.update(body, {
             where: { id_entrevista: id_entrevista },
             transaction: transaction
         });
 
-        await updateResults( body.resultados, id_entrevista, transaction );
+        if ( body.resultados ) {
+            await updateResults( body.resultados, id_entrevista, transaction );
+        }
 
         await transaction.commit();
         return entrevista;
@@ -132,15 +145,15 @@ deleteEntrevista = async (id_entrevista) => {
 
 getEntrevistas = async (filtros) => {
     const where = {};
-    if (filtros.descripcion) where.descripcion = { [Op.like]: '%' + filtros.descripcion + '%' };
+    if (filtros.descripcion) where.descripcion = { [Op.like]: `%${ filtros.descripcion }%` };
     if (filtros.fechaInicio && filtros.fechaFin) {
         const fechaInicio = new Date(filtros.fechaInicio);
         const fechaFin = new Date(filtros.fechaFin);
         if (isNaN(fechaInicio.getTime()) || isNaN(fechaFin.getTime())) {
             throw new InvalidQueryError('Formato de fecha inválido. Asegurese que coincida con el formato YYYY-MM-DD.', ['fechaInicio', 'fechaFin']);
-        }
+        };
         where.fecha_hora = { [Op.between]: [fechaInicio, fechaFin] };
-    }
+    };
 
     const entrevistas = await models.entrevistas.findAll({
         include: [
@@ -267,6 +280,16 @@ const updateResults = async (resultados, id_entrevista, transaction) => {
             }, transaction: transaction
         });
     });
+};
+
+
+/**
+ * Valida que la fecha y hora de la entrevista sea mayor a la fecha actual
+ * @param {Datetime} dateTimeOfInterview - Fecha y hora de la entrevista
+ * @returns {boolean} Retorna true si la fecha y hora de la entrevista es mayor a la fecha actual, de lo contrario devuelve false
+*/
+const dateTimeOfInterviewIsValid = (dateTimeOfInterview) => {
+    return dateTimeOfInterview > dayjs().format('YYYY-MM-DD HH:mm:ss');
 };
 
 module.exports = {
