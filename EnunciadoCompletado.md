@@ -17,7 +17,7 @@ ABMC:
 
 Listados:
   - Simples: restaurantes, categorías
-  - Complejos: comidas filtrando por categorías
+  - Complejos: restaurantes filtrados por tags
 
 Detalles:
   - Simples: Comida y Pedido
