@@ -1,6 +1,12 @@
 # **TP-TTADS**
 Proyecto para la materia "Técnicas y Tecnologías Avanzadas de Desarrollo de Software" de la UTN FRRo
 
+Integrantes:
+- Germán Tano - Legajo 46873
+- Alejandro Navarini - Legajo 45082
+- Franco Fonzo - Legajo 46882
+- Alan Holtz - Legajo 46937
+
 ## **Enunciado General**
 
 Sistema de gestion de pedidos online. 
