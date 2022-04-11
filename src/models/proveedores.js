@@ -7,7 +7,8 @@ module.exports = (sequelize, dataType) => {
         },
         cuitDni: {
             type: dataType.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         razonSocial: {
             type: dataType.STRING,
