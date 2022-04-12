@@ -1,4 +1,3 @@
-const validator = require('validator');
 const sequelize = require('../database/db-connection');
 const initModels = require('../models/init-models');
 const { NotFoundError } = require('../utils/api-error');
