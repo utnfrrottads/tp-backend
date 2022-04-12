@@ -139,6 +139,7 @@ deletePerson = async (id_persona, tipoPersona) => {
  * Crea los contactos de una persona.
  */
 const addContact = async (contacts, id_persona, transaction) => {
+    // FIXME: No usar async forEach, ver for await ... of o Promise.all
     await asyncForEach(contacts, async (contact) => {
         if ((contact.tipoContacto === 'email' && validator.isEmail(contact.valor)) ||
                 (contact.tipoContacto === 'web' && validator.isURL(contact.valor)) ||

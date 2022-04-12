@@ -1,4 +1,3 @@
-const asyncForEach = require("../utils/async-for-each");
 const dayjs = require('dayjs');
 const sequelize = require('../database/db-connection');
 const { Op } = require("sequelize");
@@ -257,16 +256,16 @@ getEntrevista = async (id_entrevista) => {
 };
 
 const addEvaluation = async (ids_evaluaciones, id_entrevista, transaction) => {
-    await asyncForEach( ids_evaluaciones, async (id_evaluacion) => {
-            await models.resultados.create({
-                entrevistas_id_entrevista: id_entrevista,
-                evaluaciones_id_evaluacion: id_evaluacion
-            }, { transaction: transaction });
-    });
+    await models.resultados.bulkCreate(ids_evaluaciones.map( (id_evaluacion) => {
+        return {
+            entrevistas_id_entrevista: id_entrevista,
+            evaluaciones_id_evaluacion: id_evaluacion
+        }
+    }), { transaction: transaction });
 };
 
-const updateResults = async (resultados, id_entrevista, transaction) => {
-    await asyncForEach(resultados, async (resultado) => {
+const updateResults = async (resultados, id_entrevista, transaction) => {    
+    for await (const resultado of resultados) {
         await models.resultados.upsert({
             entrevistas_id_entrevista: id_entrevista,
             evaluaciones_id_evaluacion: resultado.evaluaciones_id_evaluacion,
@@ -279,7 +278,7 @@ const updateResults = async (resultados, id_entrevista, transaction) => {
                 ]
             }, transaction: transaction
         });
-    });
+    };
 };
 
 

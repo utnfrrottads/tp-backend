@@ -94,6 +94,7 @@ getEmpresa = async (id) => {
  * Crea los contactos de una empresa cuando esta última es modificada.
  */
 const addContact = async (contactos, id_empresa, transaction) => {
+    // FIXME: No usar async forEach, ver for await ... of o Promise.all
     await asyncForEach(contactos, async (contacto) => {
         if ((contacto.tipoContacto === 'email' && validator.isEmail(contacto.valor)) ||
                 (contacto.tipoContacto === 'web' && validator.isURL(contacto.valor)) ||

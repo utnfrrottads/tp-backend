@@ -1,4 +1,3 @@
-const asyncForEach = require('../utils/async-for-each');
 const sequelize = require('../database/db-connection');
 const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
@@ -31,12 +30,7 @@ createVacant = async (body) => {
         const newVacant = await models.vacantes.create(body, { transaction: transaction });
 
         if ( body.requerimientos.length > 0 ) {
-            await asyncForEach(body.requerimientos , async (requirement) => {
-                await models.requerimientos.create({
-                    id_vacante: newVacant.id_vacante,
-                    descripcion: requirement.descripcion
-                }, { transaction: transaction });
-            });
+            await setRequirementsToVacant(body, newVacant.id_vacante, transaction);
         };
 
         await transaction.commit();
@@ -70,12 +64,7 @@ updateVacant = async (id_vacante, body) => {
         });
 
         if ( body.requerimientos.length > 0 ) {
-            await asyncForEach(body.requerimientos , async (requirement) => {
-                await models.requerimientos.create({
-                    id_vacante: id_vacante,
-                    descripcion: requirement.descripcion
-                }, { transaction: transaction });
-            });
+            await setRequirementsToVacant(body, id_vacante, transaction);
         };
 
         await transaction.commit();
@@ -137,6 +126,18 @@ getAllVacants = async (filtros) => {
         ]
     });
 };
+
+
+setRequirementsToVacant = async (body, id_vacante, transaction) => {
+    // El .map devuelve un nuevo array con los resultados de cada iteración, el cual se usa para el bulkCreate
+    await models.requerimientos.bulkCreate(body.requerimientos.map(requirement => {
+        return {
+            id_vacante: id_vacante,
+            descripcion: requirement.descripcion
+        }
+    }), { transaction: transaction });
+};
+
 
 module.exports = {
     createVacant,

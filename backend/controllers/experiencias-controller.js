@@ -21,6 +21,7 @@ updateWorkExperience = async (experiences, id_persona, transaction) => {
  * Agrega las nuevas experiencias de un candidato.
  */
 const addWorkExperience = async (experiences, id_persona, transaction) => {
+    // FIXME: No usar async forEach, ver for await ... of o Promise.all
     await asyncForEach(experiences , async (experience) => {
         if (experience.tipo_experiencia !== 'academica'
                 && experience.tipo_experiencia !== 'laboral') {
@@ -50,6 +51,7 @@ const addWorkExperience = async (experiences, id_persona, transaction) => {
             personas_id_persona: id_persona
         }, { transaction: transaction });
 
+        // FIXME: No usar async forEach, ver for await ... of o Promise.all
         await asyncForEach(experience.contactos, async (contact) => {
             if ((contact.tipoContacto === 'email' && validator.isEmail(contact.valor)) ||
                     (contact.tipoContacto === 'web' && validator.isURL(contact.valor)) ||
