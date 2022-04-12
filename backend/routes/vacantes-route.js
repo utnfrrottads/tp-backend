@@ -23,7 +23,7 @@ router.put('/:id_vacante', async (req, res, next) => {
 router.delete('/:id_vacante', async (req, res, next) => {
     try {
         await vacantesController.deleteVacant(req.params.id_vacante);
-        res.status(204).send();
+        res.status(200).json('Vacant deleted successfully');
     } catch (error) {
         next(error);
     }

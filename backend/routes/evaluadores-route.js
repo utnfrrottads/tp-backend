@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
 router.put('/:id_persona', async (req, res) => {
     try {
         await personasController.updatePerson(req.params.id_persona, req.body, 'evaluador');
+        // FIXME: Ver de estandarizar lo que se devuelve al frontend. O mostramos mensaje, o enviamos el objeto actualizado o ambas cosas. (VER EN LOS OTROS ROUTES)
         res.status(200).json('Evaluator updated successfully');
     } catch (error) {
         res.status(400).json( error.message );
