@@ -1,7 +1,6 @@
 "use strict";
 // require express and routes
 const express = require("express");
-const routes = require("./src/routes/");
 const bodyParser = require("body-parser");
 
 //start app as express
@@ -22,8 +21,11 @@ app.use((req, res, next) => {
   res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
-
+require("./src/models/role");
 // bind api and routes
+const routes = require("./src/routes/");
+const roleRoutes = require("./src/routes/role");
 app.use("/api", routes);
+app.use("/api/role", roleRoutes);
 
 module.exports = app;
