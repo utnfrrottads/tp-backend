@@ -1,14 +1,14 @@
-let mongoose = require("mongoose");
-let app = require("./app");
+// imports
+const mongoose = require("mongoose");
+const app = require("./app");
+// load dotenv
 require("dotenv").config();
 
-let port = 3700;
-
+const port = 3700;
+// connect to database and launch app in case it succeeds
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.x9bfq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-  )
+  .connect(process.env.CONN_STRING)
   .then(() => {
     console.log("Connected to database succesfully...");
 
