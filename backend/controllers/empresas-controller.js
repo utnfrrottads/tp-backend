@@ -1,10 +1,9 @@
-const validator = require('validator');
-const asyncForEach = require("../utils/async-for-each");
 const { Op } = require("sequelize");
 const sequelize = require('../database/db-connection');
 const initModels = require('../models/init-models');
-const { NotFoundError } = require('../utils/api-error');
+const { NotFoundError, InvalidAttributeError } = require('../utils/api-error');
 const checkMissingAttributes = require('../utils/check-missing-attrs');
+const checkContactTypeAndValue = require('../utils/check-contact-type-and-value');
 const models = initModels(sequelize);
 
 createEmpresa = async (data) => {
@@ -14,10 +13,8 @@ createEmpresa = async (data) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        const empresa = await models.empresas.create(data, { 
-            include: [{ model: models.contactos }],
-            transaction: transaction,
-        });
+        const empresa = await models.empresas.create(data, { transaction: transaction });
+        await addContact(data.contactos, empresa.id_empresa, transaction);
         await transaction.commit();
         return empresa;
     } catch (error) {
@@ -92,26 +89,20 @@ getEmpresa = async (id) => {
 
 /**
  * Crea los contactos de una empresa cuando esta última es modificada.
- */
+*/
 const addContact = async (contactos, id_empresa, transaction) => {
-    // FIXME: No usar async forEach, ver for await ... of o Promise.all
-    await asyncForEach(contactos, async (contacto) => {
-        if ((contacto.tipoContacto === 'email' && validator.isEmail(contacto.valor)) ||
-                (contacto.tipoContacto === 'web' && validator.isURL(contacto.valor)) ||
-                (contacto.tipoContacto === 'telefono' && validator.isNumeric(contacto.valor))) {
-            
-            await models.contactos.create({
+    if ( checkContactTypeAndValue(contactos) ) {
+        await models.contactos.bulkCreate(contactos.map(contacto => {
+            return {
                 tipoContacto: contacto.tipoContacto,
                 valor: contacto.valor,
                 empresas_id_empresa: id_empresa,
-                descripcion: contacto.descripcion 
-            }, {
-                transaction: transaction
-            });
-        } else {
-            throw new Error('Check contact_type or value field');
-        }
-    });
+                descripcion: contacto.descripcion
+            }
+        }), { transaction: transaction });
+    } else {
+        throw new InvalidAttributeError('Check that the \'valor\' field corresponds to the \'tipoContacto\' field defined within the company contact', ['tipoContacto', 'valor']);
+    };
 };
 
 module.exports = {

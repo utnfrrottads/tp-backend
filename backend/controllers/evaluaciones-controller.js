@@ -73,4 +73,4 @@ module.exports = {
     createEvaluacion,
     updateEvaluacion,
     deleteEvaluacion
-}
+};

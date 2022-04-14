@@ -54,7 +54,7 @@ class AttributeMissingError extends ApiError {
 class InvalidAttributeError extends ApiError {
     /**
      * @param {string} message El mensaje de validación.
-     * @param {string|string[]} attr El o los atributos del incorrectos.
+     * @param {string|string[]} attr El o los atributos incorrectos.
      */
     constructor(message, attr) {
         if (typeof attr === 'string') {

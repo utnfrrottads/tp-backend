@@ -1,6 +1,5 @@
 const validator = require('validator');
-const asyncForEach = require('../utils/async-for-each');
-
+const checkContactTypeAndValue = require('../utils/check-contact-type-and-value');
 const { Op } = require("sequelize");
 const sequelize = require('../database/db-connection');
 const initModels = require('../models/init-models');
@@ -17,7 +16,7 @@ createPerson = async (body, tipoPersona) => {
         const newAddress = await models.direcciones.create(body.direccion, { transaction: transaction });
 
         if (!validator.isDate(body.fecha_nacimiento)) {
-            throw new InvalidAttributeError('Formato de fecha incorrecto.', 'fecha_nacimiento');
+            throw new InvalidAttributeError('The format of the \'fecha_nacimiento\' field is invalid', 'fecha_nacimiento');
         }
 
         const newPerson = await models.personas.create({
@@ -138,27 +137,23 @@ deletePerson = async (id_persona, tipoPersona) => {
 /**
  * Crea los contactos de una persona.
  */
-const addContact = async (contacts, id_persona, transaction) => {
-    // FIXME: No usar async forEach, ver for await ... of o Promise.all
-    await asyncForEach(contacts, async (contact) => {
-        if ((contact.tipoContacto === 'email' && validator.isEmail(contact.valor)) ||
-                (contact.tipoContacto === 'web' && validator.isURL(contact.valor)) ||
-                (contact.tipoContacto === 'telefono' && validator.isNumeric(contact.valor))) {
-    
-            await models.contactos.create({
-                tipoContacto: contact.tipoContacto,
-                valor: contact.valor,
+const addContact = async (contactos, id_persona, transaction) => {
+    if ( checkContactTypeAndValue(contactos) ) {
+        await models.contactos.bulkCreate(contactos.map(contacto => {
+            return {
+                tipoContacto: contacto.tipoContacto,
+                valor: contacto.valor,
                 personas_id_persona: id_persona,
-                descripcion: contact.descripcion
-            }, { transaction: transaction });
-        } else {
-            throw new Error('Check \'tipoContacto\' or \'valor\' field');
-        }
-    });
+                descripcion: contacto.descripcion
+            }
+        }), { transaction: transaction });
+    } else {
+        throw new InvalidAttributeError('Check that the \'valor\' field corresponds to the \'tipoContacto\' field defined within the person contact', ['tipoContacto', 'valor']);
+    };
 };
 
 module.exports = {
     createPerson,
     updatePerson,
-    deletePerson,
+    deletePerson
 };

@@ -144,5 +144,5 @@ module.exports = {
     updateVacant,
     deleteVacant,
     getOneVacant,
-    getAllVacants,
+    getAllVacants
 };
