@@ -5,8 +5,8 @@ const candidatosController = require('../controllers/candidatos-controller');
 // Crear un nuevo candidato.
 router.post('/', async (req, res, next) => {
     try {
-        await personasController.createPerson(req.body, 'candidato');
-        res.status(200).json('Candidate created successfully');
+        const candidate = await personasController.createPerson(req.body, 'candidato');
+        res.status(200).json(candidate);
     } catch (error) {
         next(error);
     }
@@ -49,8 +49,8 @@ router.get('/', async (req, res, next) => {
 // Devuelve un candidato y las entrevistas en la cuales participó
 router.get('/:id_candidato', async (req, res, next) => {
     try {
-        const candidato = await candidatosController.getCandidato(req.params.id_candidato);
-        res.status(200).json(candidato);
+        const candidate = await candidatosController.getCandidato(req.params.id_candidato);
+        res.status(200).json(candidate);
     } catch (error) {
         next(error);
     }

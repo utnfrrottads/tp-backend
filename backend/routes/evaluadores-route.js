@@ -6,8 +6,8 @@ const evaluadoresController = require('../controllers/evaluadores-controller');
 // Crear un nuevo evaluador.
 router.post('/', async (req, res, next) => {
     try {
-        await personasController.createPerson(req.body, 'evaluador');
-        res.status(200).json('Evaluator created successfully');
+        const evaluator = await personasController.createPerson(req.body, 'evaluador');
+        res.status(200).json(evaluator);
     } catch (error) {
         next(error);
     }
@@ -18,7 +18,6 @@ router.post('/', async (req, res, next) => {
 router.put('/:id_persona', async (req, res, next) => {
     try {
         await personasController.updatePerson(req.params.id_persona, req.body, 'evaluador');
-        // FIXME: Ver de estandarizar lo que se devuelve al frontend. O mostramos mensaje, o enviamos el objeto actualizado o ambas cosas. (VER EN LOS OTROS ROUTES)
         res.status(200).json('Evaluator updated successfully');
     } catch (error) {
         next(error);

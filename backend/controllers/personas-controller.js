@@ -34,6 +34,7 @@ createPerson = async (body, tipoPersona) => {
             await experienciasController.createWorkExperience(body.experiencias, newPerson, transaction);
         };
         await transaction.commit();
+        return newPerson;
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -53,7 +54,7 @@ updatePerson = async (id_persona, body, tipoPersona) => {
         });
 
         if (!person) {
-            throw new NotFoundError('id_persona', tipoPersona);
+            throw new NotFoundError(id_persona, tipoPersona);
         };
 
         if (!validator.isDate(body.fecha_nacimiento)) {
@@ -101,7 +102,7 @@ deletePerson = async (id_persona, tipoPersona) => {
         });
 
         if (!addressToDelete) {
-            throw new NotFoundError('id_persona', tipoPersona);
+            throw new NotFoundError(id_persona, tipoPersona);
         };
 
         const result = await models.personas.destroy({
@@ -115,7 +116,7 @@ deletePerson = async (id_persona, tipoPersona) => {
         });
 
         if (result <= 0) {
-            throw new NotFoundError('id_persona', tipoPersona);
+            throw new NotFoundError(id_persona, tipoPersona);
         };
 
         await models.direcciones.destroy({

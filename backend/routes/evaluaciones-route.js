@@ -6,8 +6,8 @@ const controller = require('../controllers/evaluaciones-controller');
 // Da de alta una nueva evaluación.
 router.post('/', async (req, res, next) => {
     try {
-        await controller.createEvaluacion(req.body);
-        res.status(200).json('Evaluation created successfully');
+        const evaluation = await controller.createEvaluacion(req.body);
+        res.status(200).json(evaluation);
     } catch (error) {
         next(error);
     }
@@ -36,7 +36,7 @@ router.delete('/:id_evaluacion', async (req, res, next) => {
 // Devuelve los datos de la evaluación seleccionada.
 router.get('/:id_evaluacion', async (req, res, next) => {
     try {
-        let evaluation = await controller.getEvaluacion(req.params.id_evaluacion);
+        const evaluation = await controller.getEvaluacion(req.params.id_evaluacion);
         res.status(200).json(evaluation);
     } catch (error) {
         next(error);
@@ -46,7 +46,7 @@ router.get('/:id_evaluacion', async (req, res, next) => {
 // Devuelve todas las evaluaciones.
 router.get('/', async (req, res, next) => {
     try {
-        let evaluations = await controller.getEvaluaciones();
+        const evaluations = await controller.getEvaluaciones();
         res.status(200).json(evaluations);
     } catch (error) {
         next(error);

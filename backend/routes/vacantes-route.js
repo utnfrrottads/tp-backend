@@ -4,8 +4,8 @@ const vacantesController = require('../controllers/vacantes-controller');
 
 router.post('/', async (req, res, next) => {
     try {
-        const vacante = await vacantesController.createVacant(req.body);
-        res.status(201).json(vacante);
+        const vacant = await vacantesController.createVacant(req.body);
+        res.status(201).json(vacant);
     } catch (error) {
         next(error);
     }
@@ -13,8 +13,8 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id_vacante', async (req, res, next) => {
     try {
-        const vacante = await vacantesController.updateVacant(req.params.id_vacante, req.body);
-        res.status(200).json(vacante);
+        await vacantesController.updateVacant(req.params.id_vacante, req.body);
+        res.status(200).json('Vacant updated successfully');
     } catch (error) {
         next(error);
     }

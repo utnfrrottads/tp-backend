@@ -31,9 +31,9 @@ createEntrevista = async (body) => {
             throw new InvalidAttributeError('La fecha y hora de la entrevista debe ser mayor a la fecha actual', 'fecha_hora');
         };
 
-        const entrevista = await models.entrevistas.create(body, { transaction: transaction });
+        const newInterview = await models.entrevistas.create(body, { transaction: transaction });
 
-        await addEvaluation( body.ids_evaluaciones, entrevista.id_entrevista, transaction );
+        await addEvaluation( body.ids_evaluaciones, newInterview.id_entrevista, transaction );
 
         await models.vacantes.update({
             estado: 'evaluador asignado',
@@ -43,7 +43,7 @@ createEntrevista = async (body) => {
         });
 
         await transaction.commit();
-        return entrevista;
+        return newInterview;
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -103,18 +103,15 @@ updateEntrevista = async (id_entrevista, body) => {
             };
         };
 
-        const entrevista = await models.entrevistas.update(body, {
+        await models.entrevistas.update(body, {
             where: { id_entrevista: id_entrevista },
             transaction: transaction
         });
 
         if ( body.resultados ) {
             await updateResults( body.resultados, id_entrevista, transaction );
-        }
-
+        };
         await transaction.commit();
-        return entrevista;
-
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -161,7 +158,7 @@ getEntrevistas = async (filtros) => {
         where.fecha_hora = { [Op.between]: [fechaInicio, fechaFin] };
     };
 
-    const entrevistas = await models.entrevistas.findAll({
+    const interviews = await models.entrevistas.findAll({
         include: [
             {
                 model: models.personas, as: 'persona_candidato',
@@ -206,11 +203,11 @@ getEntrevistas = async (filtros) => {
         where: where
     });
 
-    return entrevistas;
+    return interviews;
 };
 
 getEntrevista = async (id_entrevista) => {
-    const entrevista = await models.entrevistas.findOne({
+    const interview = await models.entrevistas.findOne({
         where: { id_entrevista: id_entrevista },
         include: [
             {
@@ -255,11 +252,11 @@ getEntrevista = async (id_entrevista) => {
         ]
     });
 
-    if (!entrevista) {
+    if (!interview) {
         throw new NotFoundError(id_entrevista, 'entrevista');
     }
 
-    return entrevista;
+    return interview;
 };
 
 const addEvaluation = async (ids_evaluaciones, id_entrevista, transaction) => {

@@ -5,8 +5,8 @@ const controller = require('../controllers/empresas-controller');
 
 router.get('/', async (req, res, next) => {
     try {
-        let empresas = await controller.getEmpresas(req.query);
-        res.status(200).json(empresas);
+        const companies = await controller.getEmpresas(req.query);
+        res.status(200).json(companies);
     } catch (error) {
         next(error);
     }
@@ -14,8 +14,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        let empresa = await controller.getEmpresa(req.params.id);
-        res.status(200).json(empresa);
+        const company = await controller.getEmpresa(req.params.id);
+        res.status(200).json(company);
     } catch (error) {
         next(error);
     }
@@ -23,8 +23,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        let empresa = await controller.createEmpresa(req.body);
-        res.status(201).json(empresa);
+        const company = await controller.createEmpresa(req.body);
+        res.status(201).json(company);
     } catch (error) {
         next(error);
     }
@@ -32,8 +32,8 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try {
-        let empresa = await controller.updateEmpresa(req.params.id, req.body);
-        res.status(200).json(empresa);
+        await controller.updateEmpresa(req.params.id, req.body);
+        res.status(200).json('Company updated successfully');
     } catch (error) {
         next(error);
     }

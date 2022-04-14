@@ -30,7 +30,7 @@ getCandidatos = async () => {
 };
 
 getCandidato = async (id_candidato) => {
-    const candidato = await models.personas.findOne({
+    const candidate = await models.personas.findOne({
         include: [
             { model: models.contactos },
             { model: models.experiencias },
@@ -47,11 +47,11 @@ getCandidato = async (id_candidato) => {
         }
     });    
 
-    if (candidato === null) {
+    if (candidate === null) {
         throw new NotFoundError(id_candidato, 'candidato');
     }
 
-    return candidato;
+    return candidate;
 };
 
 module.exports = {

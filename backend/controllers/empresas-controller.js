@@ -13,10 +13,10 @@ createEmpresa = async (data) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        const empresa = await models.empresas.create(data, { transaction: transaction });
-        await addContact(data.contactos, empresa.id_empresa, transaction);
+        const newCompany = await models.empresas.create(data, { transaction: transaction });
+        await addContact(data.contactos, newCompany.id_empresa, transaction);
         await transaction.commit();
-        return empresa;
+        return newCompany;
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -30,20 +30,23 @@ updateEmpresa = async (id, data) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        const empresa = await models.empresas.update(data, {
+        const companyToUpdate = await models.empresas.findByPk(id);
+
+        if (!companyToUpdate) {
+            throw new NotFoundError(id, 'empresa');
+        };
+        
+        await models.empresas.update(data, {
             where: { id_empresa: id },
             transaction: transaction
         });
-        if (empresa === null) {
-            throw new NotFoundError(id, 'empresa');
-        }
+        
         await models.contactos.destroy({ 
             where: { empresas_id_empresa: id },
             transaction: transaction
         });
         await addContact(data.contactos, id, transaction);
         await transaction.commit();
-        return empresa;
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -80,11 +83,11 @@ getEmpresas = async (filtros) => {
 };
 
 getEmpresa = async (id) => {
-    const empresa = await models.empresas.findByPk(id, { include: [{ model: models.contactos }] });
-    if (empresa === null) {
+    const company = await models.empresas.findByPk(id, { include: [{ model: models.contactos }] });
+    if (company === null) {
         throw new NotFoundError(id, 'empresa');
     }
-    return empresa;
+    return company;
 };
 
 /**

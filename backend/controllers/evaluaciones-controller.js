@@ -10,13 +10,13 @@ createEvaluacion = async (body) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        const evaluacion = await models.evaluaciones.create(body, { transaction: transaction });
+        const newEvaluation = await models.evaluaciones.create(body, { transaction: transaction });
         await transaction.commit();
-        return evaluacion;
+        return newEvaluation;
     } catch (error) {
         await transaction.rollback();
         throw error;
-    }
+    };
 };
 
 updateEvaluacion = async (id_evaluacion, body) => {
@@ -25,15 +25,17 @@ updateEvaluacion = async (id_evaluacion, body) => {
     );
     const transaction = await sequelize.transaction();
     try {
-        const evaluacion = await models.evaluaciones.update(body, {
+        const evaluationToUpdate = await models.evaluaciones.findByPk(id_evaluacion);
+
+        if (!evaluationToUpdate) {
+            throw new NotFoundError(id_evaluacion, 'evaluación')
+        };
+
+        await models.evaluaciones.update(body, {
             where: { id_evaluacion: id_evaluacion }, 
             transaction: transaction,
         });
-        if (evaluacion === null) {
-            throw new NotFoundError(id_evaluacion, 'evaluación')
-        }
         await transaction.commit();
-        return evaluacion;
     } catch (error) {
         await transaction.rollback();
         throw error;

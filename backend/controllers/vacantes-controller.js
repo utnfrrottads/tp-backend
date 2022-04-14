@@ -66,9 +66,7 @@ updateVacant = async (id_vacante, body) => {
         if ( body.requerimientos.length > 0 ) {
             await setRequirementsToVacant(body, id_vacante, transaction);
         };
-
         await transaction.commit();
-        return vacantToUpdate;
     } catch (error) {
         await transaction.rollback();
         throw error;
