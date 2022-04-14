@@ -1,4 +1,4 @@
-const dayjs = require('dayjs');
+const validator = require('validator');
 const sequelize = require('../database/db-connection');
 const { Op } = require("sequelize");
 const initModels = require('../models/init-models');
@@ -23,8 +23,11 @@ createEntrevista = async (body) => {
 
     const transaction = await sequelize.transaction();
     try {
-        // Valida que la fecha_hora de la entrevista sea mayor a la fecha actual
-        if ( !dateTimeOfInterviewIsValid(body.fecha_hora) ) {
+        if ( !validator.isISO8601(body.fecha_hora) ) {
+            throw new InvalidAttributeError('El formato de la fecha y hora de la entrevista es incorrecto. Debe ser \'YYYY-MM-DD HH:mm:ss\'', 'fecha_hora');
+        };
+
+        if ( !validator.isAfter(body.fecha_hora) ) {
             throw new InvalidAttributeError('La fecha y hora de la entrevista debe ser mayor a la fecha actual', 'fecha_hora');
         };
 
@@ -63,8 +66,12 @@ updateEntrevista = async (id_entrevista, body) => {
     );
     const transaction = await sequelize.transaction();
     try {
+        if ( !validator.isISO8601(body.fecha_hora) ) {
+            throw new InvalidAttributeError('El formato de la fecha y hora de la entrevista es incorrecto. Debe ser \'YYYY-MM-DD HH:mm:ss\'', 'fecha_hora');
+        };
+        
         // Valida que la fecha_hora de la entrevista sea mayor a la fecha actual
-        if ( !dateTimeOfInterviewIsValid(body.fecha_hora) ) {
+        if ( !validator.isAfter(body.fecha_hora) ) {
             throw new InvalidAttributeError('La fecha y hora de la entrevista debe ser mayor a la fecha actual', 'fecha_hora');
         };
 
@@ -256,7 +263,7 @@ getEntrevista = async (id_entrevista) => {
 };
 
 const addEvaluation = async (ids_evaluaciones, id_entrevista, transaction) => {
-    await models.resultados.bulkCreate(ids_evaluaciones.map( (id_evaluacion) => {
+    await models.resultados.bulkCreate(ids_evaluaciones.map( id_evaluacion => {
         return {
             entrevistas_id_entrevista: id_entrevista,
             evaluaciones_id_evaluacion: id_evaluacion
@@ -281,15 +288,6 @@ const updateResults = async (resultados, id_entrevista, transaction) => {
     };
 };
 
-
-/**
- * Valida que la fecha y hora de la entrevista sea mayor a la fecha actual
- * @param {Datetime} dateTimeOfInterview - Fecha y hora de la entrevista
- * @returns {boolean} Retorna true si la fecha y hora de la entrevista es mayor a la fecha actual, de lo contrario devuelve false
-*/
-const dateTimeOfInterviewIsValid = (dateTimeOfInterview) => {
-    return dateTimeOfInterview > dayjs().format('YYYY-MM-DD HH:mm:ss');
-};
 
 module.exports = {
     getEntrevistas,

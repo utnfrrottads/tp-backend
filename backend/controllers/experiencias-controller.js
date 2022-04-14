@@ -24,20 +24,20 @@ const addWorkExperience = async (experiences, id_persona, transaction) => {
     for await (const experience of experiences) {
         if (experience.tipo_experiencia !== 'academica'
                 && experience.tipo_experiencia !== 'laboral') {
-            throw new InvalidAttributeError('Check that the \'tipo_experiencia\' field is \'academica\' o \'laboral\'', 'tipo_experiencia');
-        }
+            throw new InvalidAttributeError('Verificar que el campo \'tipo_experiencia\' tiene el valor \'academica\' o \'laboral\'', 'tipo_experiencia');
+        };
 
         if (experience.fecha_inicio !== null) {
             if (!validator.isDate(experience.fecha_inicio)) {
-                throw new InvalidAttributeError('The format of the \'fecha_inicio\' field is invalid', 'fecha_inicio');
-            }
-        }
+                throw new InvalidAttributeError('El formato del campo \'fecha_inicio\' es inválido', 'fecha_inicio');
+            };
+        };
 
         if (experience.fecha_fin !== null) {
             if (!validator.isDate(experience.fecha_fin)) {
-                throw new InvalidAttributeError('The format of the \'fecha_fin\' field is invalid', 'fecha_fin');
-            }
-        }
+                throw new InvalidAttributeError('El formato del campo \'fecha_fin\' es inválido', 'fecha_fin');
+            };
+        };
 
         const newExperience = await models.experiencias.create({
             institucion: experience.institucion,
@@ -69,7 +69,7 @@ const addContact = async (contactos, id_experiencia, transaction) => {
             }
         }), { transaction: transaction });
     } else {
-        throw new InvalidAttributeError('Check that the \'valor\' field corresponds to the \'tipoContacto\' field defined within the experience contact', ['tipoContacto', 'valor']);
+        throw new InvalidAttributeError('Verificar que el campo \'valor\' corresponda al campo \'tipoContacto\' definido dentro del contacto de la experiencia', ['tipoContacto', 'valor']);
     };
 };
 

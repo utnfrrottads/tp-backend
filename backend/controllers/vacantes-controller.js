@@ -13,7 +13,7 @@ validateVacant = (body, action) => {
     if ( action === "update" ) {
         if ( body.hasOwnProperty("estado") ) {
             if ( !['pendiente de evaluador', 'evaluador asignado', 'cerrada'].includes( body.estado ) ) {
-                throw new InvalidAttributeError(`\'${body.estado}\' no es un estado de vacante correcto.`, 'estado');
+                throw new InvalidAttributeError(`\'${body.estado}\' no es un estado de vacante correcto`, 'estado');
             }
         } else {
             throw new InvalidAttributeError(`Falta el atributo \'estado\'`, 'estado');
@@ -115,20 +115,20 @@ getOneVacant = async (id_vacante) => {
 
 getAllVacants = async (filtros) => {
     const where = {};
-    if ( filtros.companyName ) where.razon_social = { [Op.like]: '%' + filtros.companyName + '%' };
+    if ( filtros.companyName ) where.razon_social = { [Op.like]: `%${ filtros.companyName }%` };
     return await models.vacantes.findAll({
         include: [
             { 
                 model: models.empresas,
                 where: where
             },
-            models.requerimientos,
+            models.requerimientos
         ]
     });
 };
 
 
-setRequirementsToVacant = async (body, id_vacante, transaction) => {
+const setRequirementsToVacant = async (body, id_vacante, transaction) => {
     // El .map devuelve un nuevo array con los resultados de cada iteración, el cual se usa para el bulkCreate
     await models.requerimientos.bulkCreate(body.requerimientos.map(requirement => {
         return {

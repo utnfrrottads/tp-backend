@@ -4,7 +4,6 @@ const { Op } = require("sequelize");
 const sequelize = require('../database/db-connection');
 const initModels = require('../models/init-models');
 const models = initModels(sequelize);
-
 const experienciasController = require('./experiencias-controller');
 const { InvalidAttributeError, NotFoundError } = require('../utils/api-error');
 
@@ -16,8 +15,8 @@ createPerson = async (body, tipoPersona) => {
         const newAddress = await models.direcciones.create(body.direccion, { transaction: transaction });
 
         if (!validator.isDate(body.fecha_nacimiento)) {
-            throw new InvalidAttributeError('The format of the \'fecha_nacimiento\' field is invalid', 'fecha_nacimiento');
-        }
+            throw new InvalidAttributeError('El formato del campo \'fecha_nacimiento\' debe ser \'YYYY-MM-DD\'', 'fecha_nacimiento');
+        };
 
         const newPerson = await models.personas.create({
             nombre: body.nombre,
@@ -33,7 +32,7 @@ createPerson = async (body, tipoPersona) => {
 
         if (tipoPersona === 'candidato') {
             await experienciasController.createWorkExperience(body.experiencias, newPerson, transaction);
-        }
+        };
         await transaction.commit();
     } catch (error) {
         await transaction.rollback();
@@ -55,11 +54,11 @@ updatePerson = async (id_persona, body, tipoPersona) => {
 
         if (!person) {
             throw new NotFoundError('id_persona', tipoPersona);
-        }
+        };
 
         if (!validator.isDate(body.fecha_nacimiento)) {
-            throw new InvalidAttributeError('Formato de fecha incorrecto.', 'fecha_nacimiento');
-        }
+            throw new InvalidAttributeError('El formato del campo \'fecha_nacimiento\' debe ser \'YYYY-MM-DD\'', 'fecha_nacimiento');
+        };
 
         await models.personas.update(body, {
             where: { id_persona: id_persona },
@@ -80,10 +79,8 @@ updatePerson = async (id_persona, body, tipoPersona) => {
 
         if (tipoPersona === 'candidato') {
             await experienciasController.updateWorkExperience(body.experiencias, id_persona, transaction);
-        }
-
+        };
         await transaction.commit();
-
     } catch ( error ) {
         await transaction.rollback();
         throw error;
@@ -105,7 +102,7 @@ deletePerson = async (id_persona, tipoPersona) => {
 
         if (!addressToDelete) {
             throw new NotFoundError('id_persona', tipoPersona);
-        }
+        };
 
         const result = await models.personas.destroy({
             where: {
@@ -119,19 +116,17 @@ deletePerson = async (id_persona, tipoPersona) => {
 
         if (result <= 0) {
             throw new NotFoundError('id_persona', tipoPersona);
-        }
+        };
 
         await models.direcciones.destroy({
             where: { id_direccion: addressToDelete.direcciones_id_direccion },
             transaction: transaction,
         });
-
         await transaction.commit();
-        
     } catch (error) {
         await transaction.rollback();
         throw error;
-    }
+    };
 };
 
 /**
@@ -148,7 +143,7 @@ const addContact = async (contactos, id_persona, transaction) => {
             }
         }), { transaction: transaction });
     } else {
-        throw new InvalidAttributeError('Check that the \'valor\' field corresponds to the \'tipoContacto\' field defined within the person contact', ['tipoContacto', 'valor']);
+        throw new InvalidAttributeError('Verificar que el campo \'valor\' corresponda al campo \'tipoContacto\' definido dentro del contacto de la persona', ['tipoContacto', 'valor']);
     };
 };
 

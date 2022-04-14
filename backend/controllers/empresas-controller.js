@@ -67,7 +67,7 @@ deleteEmpresa = async (id) => {
 
 getEmpresas = async (filtros) => {
     const where = {};
-    if (filtros.razon_social) where.razon_social = { [Op.like]: '%' + filtros.razon_social + '%' };
+    if (filtros.razon_social) where.razon_social = { [Op.like]: `%${ filtros.razon_social }%` };
     return await models.empresas.findAll({
         include: [
             {
@@ -75,7 +75,7 @@ getEmpresas = async (filtros) => {
                 attributes: ['id_contacto', 'tipoContacto', 'valor', 'descripcion'],
             },
         ],
-        where: where,
+        where: where
     });
 };
 
@@ -92,7 +92,7 @@ getEmpresa = async (id) => {
 */
 const addContact = async (contactos, id_empresa, transaction) => {
     if ( checkContactTypeAndValue(contactos) ) {
-        await models.contactos.bulkCreate(contactos.map(contacto => {
+        await models.contactos.bulkCreate(contactos.map( contacto => {
             return {
                 tipoContacto: contacto.tipoContacto,
                 valor: contacto.valor,
@@ -101,7 +101,7 @@ const addContact = async (contactos, id_empresa, transaction) => {
             }
         }), { transaction: transaction });
     } else {
-        throw new InvalidAttributeError('Check that the \'valor\' field corresponds to the \'tipoContacto\' field defined within the company contact', ['tipoContacto', 'valor']);
+        throw new InvalidAttributeError('Verificar que el campo \'valor\' corresponda al campo \'tipoContacto\' definido dentro del contacto de la empresa', ['tipoContacto', 'valor']);
     };
 };
 
@@ -110,5 +110,5 @@ module.exports = {
     getEmpresas,
     createEmpresa,
     updateEmpresa,
-    deleteEmpresa,
+    deleteEmpresa
 };
