@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `seleccion_de_personal_ttads` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `seleccion_de_personal_ttads`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: seleccion_de_personal_ttads
@@ -64,7 +66,7 @@ CREATE TABLE `contactos` (
   CONSTRAINT `fk_contactos_empresas` FOREIGN KEY (`empresas_id_empresa`) REFERENCES `empresas` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_contactos_experiencias` FOREIGN KEY (`experiencias_id_experiencia`) REFERENCES `experiencias` (`id_experiencia`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_contactos_personas` FOREIGN KEY (`personas_id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +75,7 @@ CREATE TABLE `contactos` (
 
 LOCK TABLES `contactos` WRITE;
 /*!40000 ALTER TABLE `contactos` DISABLE KEYS */;
-INSERT INTO `contactos` VALUES (145,'telefono','11111111111',53,NULL,NULL,NULL),(146,'email','josememo@gmail.com',55,NULL,NULL,'Solo tiene un email'),(147,'web','www.lawebdemarta.com',65,NULL,NULL,NULL),(148,'email','franciscalopez@gmail.com',92,NULL,NULL,NULL),(149,'telefono','22222222222',NULL,2,NULL,NULL),(150,'email','puertonorte@contacto.com',NULL,2,NULL,NULL),(151,'web','www.codigolimpio.com',NULL,3,NULL,NULL),(152,'telefono','33333333333',NULL,3,NULL,NULL),(153,'email','mailcontacto@codigolimpio.com',NULL,4,NULL,NULL),(154,'email','consulta@pintureriaarnaldo.com',NULL,5,NULL,NULL),(155,'telefono','3214 15856985',NULL,NULL,34,'Telefono celular'),(156,'email','facultadmedicina@caba.edu.ar',NULL,NULL,35,NULL),(157,'telefono','4587 15698541',NULL,NULL,36,NULL),(158,'web','www.accenture.com/contacto',NULL,NULL,37,'Web de contacto de Accenture');
+INSERT INTO `contactos` VALUES (145,'telefono','11111111111',53,NULL,NULL,NULL),(146,'email','josememo@gmail.com',55,NULL,NULL,'Solo tiene un email'),(147,'web','www.lawebdemarta.com',65,NULL,NULL,NULL),(148,'email','franciscalopez@gmail.com',92,NULL,NULL,NULL),(149,'telefono','22222222222',NULL,2,NULL,NULL),(150,'email','puertonorte@contacto.com',NULL,2,NULL,NULL),(151,'web','www.codigolimpio.com',NULL,3,NULL,NULL),(152,'telefono','33333333333',NULL,3,NULL,NULL),(153,'email','mailcontacto@codigolimpio.com',NULL,4,NULL,NULL),(155,'telefono','3214 15856985',NULL,NULL,34,'Telefono celular'),(156,'email','facultadmedicina@caba.edu.ar',NULL,NULL,35,NULL),(157,'telefono','4587 15698541',NULL,NULL,36,NULL),(158,'web','www.accenture.com/contacto',NULL,NULL,37,'Web de contacto de Accenture'),(194,'telefono','12341234',NULL,5,NULL,'Teléfono Pinturería');
 /*!40000 ALTER TABLE `contactos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +97,7 @@ CREATE TABLE `direcciones` (
   PRIMARY KEY (`id_direccion`),
   KEY `fk_direcciones_ciudades1_idx` (`ciudades_id_ciudad`),
   CONSTRAINT `fk_direcciones_ciudades` FOREIGN KEY (`ciudades_id_ciudad`) REFERENCES `ciudades` (`id_ciudad`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +122,7 @@ CREATE TABLE `empresas` (
   `cuit` varchar(11) NOT NULL,
   `razon_social` varchar(64) NOT NULL,
   PRIMARY KEY (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +131,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (2,'20111111112','PuertoNorte S.A'),(3,'20222222223','CodigoLimpio S.R.L'),(4,'20333333334','NuevaEra S.R.L'),(5,'20444444445','Pintureria Arnaldo');
+INSERT INTO `empresas` VALUES (2,'20111111112','PuertoNorte S.A'),(3,'20222222223','CodigoLimpio S.R.L'),(4,'20333333334','NuevaEra S.R.L'),(5,'20444444445','Pinturería Arnaldo S.A');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +158,7 @@ CREATE TABLE `entrevistas` (
   CONSTRAINT `fk_entrevistas_personas` FOREIGN KEY (`personas_id_candidato`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_entrevistas_personas1` FOREIGN KEY (`personas_id_evaluador`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_entrevistas_vacantes` FOREIGN KEY (`vacantes_id_vacante`) REFERENCES `vacantes` (`id_vacante`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +167,7 @@ CREATE TABLE `entrevistas` (
 
 LOCK TABLES `entrevistas` WRITE;
 /*!40000 ALTER TABLE `entrevistas` DISABLE KEYS */;
-INSERT INTO `entrevistas` VALUES (14,'Entrevista para demostrar aptitud','2021-11-12 00:00:00','pendiente',NULL,65,55,32),(15,'Primer entrevista','2021-11-01 00:00:00','finalizada',NULL,65,53,32),(16,'Entrevista para desarrollo frontend','2021-10-29 00:00:00','finalizada',NULL,93,55,31);
+INSERT INTO `entrevistas` VALUES (17,'Entrevista 1','2021-11-01 23:00:00','pendiente','Primera entrevista',92,53,120),(18,'Entrevista 2','2022-05-01 23:00:00','pendiente','otro comentario',92,53,120),(22,'Entrevista 3','2022-05-01 23:00:00','pendiente','Sin comentario',92,53,120);
 /*!40000 ALTER TABLE `entrevistas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +182,7 @@ CREATE TABLE `evaluaciones` (
   `id_evaluacion` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(1024) NOT NULL,
   PRIMARY KEY (`id_evaluacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,7 +215,7 @@ CREATE TABLE `experiencias` (
   PRIMARY KEY (`id_experiencia`),
   KEY `fk_experiencias_personas1_idx` (`personas_id_persona`),
   CONSTRAINT `fk_experiencias_personas` FOREIGN KEY (`personas_id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,55 +226,6 @@ LOCK TABLES `experiencias` WRITE;
 /*!40000 ALTER TABLE `experiencias` DISABLE KEYS */;
 INSERT INTO `experiencias` VALUES (34,'Clinica 25 de Mayo','Puesto de secretaria durando 5 años','2000-01-01','2005-01-01','Atencion al publico, manejo de computadora, facturacion','laboral',1,65),(35,'Facultad de medicina de CABA','Tecnica radiologa','1983-03-10','1989-12-01',NULL,'academica',1,65),(36,'Instituto tecnico de Venado Tuerto','Estudiante avanzada de licenciatura en programacion','2015-03-10',NULL,NULL,'academica',0,92),(37,'Accenture','Desarrollador backend y frontend','2016-01-01',NULL,'Manejo de BD relacional y no relacional, JavaScript, Java, .NET, Docker, GIT, Angular','laboral',0,93);
 /*!40000 ALTER TABLE `experiencias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `modulos`
---
-
-DROP TABLE IF EXISTS `modulos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `modulos` (
-  `id_modulos` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_modulos`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `modulos`
---
-
-LOCK TABLES `modulos` WRITE;
-/*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `operaciones`
---
-
-DROP TABLE IF EXISTS `operaciones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `operaciones` (
-  `id_operaciones` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(128) DEFAULT NULL,
-  `modulos_id_modulos` int NOT NULL,
-  PRIMARY KEY (`id_operaciones`),
-  KEY `fk_operaciones_modulos1_idx` (`modulos_id_modulos`),
-  CONSTRAINT `fk_operaciones_modulos` FOREIGN KEY (`modulos_id_modulos`) REFERENCES `modulos` (`id_modulos`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `operaciones`
---
-
-LOCK TABLES `operaciones` WRITE;
-/*!40000 ALTER TABLE `operaciones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `operaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -300,33 +253,6 @@ INSERT INTO `paises` VALUES (1,'Argentina'),(2,'Bolivia'),(3,'Brasil'),(4,'Chile
 UNLOCK TABLES;
 
 --
--- Table structure for table `permisos`
---
-
-DROP TABLE IF EXISTS `permisos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `permisos` (
-  `operaciones_id_operaciones` int NOT NULL,
-  `roles_id_roles` int NOT NULL,
-  PRIMARY KEY (`operaciones_id_operaciones`,`roles_id_roles`),
-  KEY `fk_operaciones_has_roles_roles1_idx` (`roles_id_roles`),
-  KEY `fk_operaciones_has_roles_operaciones_idx` (`operaciones_id_operaciones`),
-  CONSTRAINT `fk_operaciones_has_roles_operaciones` FOREIGN KEY (`operaciones_id_operaciones`) REFERENCES `operaciones` (`id_operaciones`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_operaciones_has_roles_roles` FOREIGN KEY (`roles_id_roles`) REFERENCES `roles` (`id_roles`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `permisos`
---
-
-LOCK TABLES `permisos` WRITE;
-/*!40000 ALTER TABLE `permisos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `permisos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `personas`
 --
 
@@ -345,7 +271,7 @@ CREATE TABLE `personas` (
   PRIMARY KEY (`id_persona`),
   KEY `fk_personas_direcciones1_idx` (`direcciones_id_direccion`),
   CONSTRAINT `fk_personas_direcciones` FOREIGN KEY (`direcciones_id_direccion`) REFERENCES `direcciones` (`id_direccion`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -399,7 +325,7 @@ CREATE TABLE `requerimientos` (
   PRIMARY KEY (`id_requerimiento`),
   KEY `fk_requerimientos_vacantes1_idx` (`id_vacante`),
   CONSTRAINT `fk_requerimientos_vacantes` FOREIGN KEY (`id_vacante`) REFERENCES `vacantes` (`id_vacante`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,7 +334,7 @@ CREATE TABLE `requerimientos` (
 
 LOCK TABLES `requerimientos` WRITE;
 /*!40000 ALTER TABLE `requerimientos` DISABLE KEYS */;
-INSERT INTO `requerimientos` VALUES (38,30,'Experiencia comprobable en el uso de Selenium'),(39,31,'Conocimientos en Angular'),(40,32,'Atención al cliente'),(41,32,'Cobranza y secretaria');
+INSERT INTO `requerimientos` VALUES (120,121,'Conocimientos en Angular'),(122,120,'Atención al cliente'),(123,120,'Cobranza y secretaria'),(130,122,'Selenium');
 /*!40000 ALTER TABLE `requerimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,31 +364,8 @@ CREATE TABLE `resultados` (
 
 LOCK TABLES `resultados` WRITE;
 /*!40000 ALTER TABLE `resultados` DISABLE KEYS */;
-INSERT INTO `resultados` VALUES (15,8,'9','Satisfactoria la comunicacion y la forma de expresarse'),(16,3,'8','Destacable la aplicacion de ejercicios prácticos');
+INSERT INTO `resultados` VALUES (22,1,'5','Se sacó un 5 en la evaluación 1'),(22,7,'7','Se sacó un 7 en la evaluación 7'),(22,8,'9','Se sacó un 9 en la evaluación 8');
 /*!40000 ALTER TABLE `resultados` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles` (
-  `id_roles` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(128) NOT NULL,
-  PRIMARY KEY (`id_roles`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -474,14 +377,11 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id_usuarios` int NOT NULL AUTO_INCREMENT,
-  `roles_id_roles` int NOT NULL,
   `personas_id_evaluador` int NOT NULL,
-  `contraseña_hash` varchar(64) DEFAULT NULL,
+  `contraseña_hash` varchar(64) NOT NULL,
   PRIMARY KEY (`id_usuarios`),
-  KEY `fk_usuarios_roles1_idx` (`roles_id_roles`),
   KEY `fk_usuarios_personas1_idx` (`personas_id_evaluador`),
-  CONSTRAINT `fk_usuarios_personas1` FOREIGN KEY (`personas_id_evaluador`) REFERENCES `personas` (`id_persona`),
-  CONSTRAINT `fk_usuarios_roles1` FOREIGN KEY (`roles_id_roles`) REFERENCES `roles` (`id_roles`)
+  CONSTRAINT `fk_usuarios_personas1` FOREIGN KEY (`personas_id_evaluador`) REFERENCES `personas` (`id_persona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -510,7 +410,7 @@ CREATE TABLE `vacantes` (
   PRIMARY KEY (`id_vacante`),
   KEY `fk_vacantes_empresas1_idx` (`id_empresa`),
   CONSTRAINT `fk_vacantes_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -519,7 +419,7 @@ CREATE TABLE `vacantes` (
 
 LOCK TABLES `vacantes` WRITE;
 /*!40000 ALTER TABLE `vacantes` DISABLE KEYS */;
-INSERT INTO `vacantes` VALUES (30,'Tester','No hace falta poseer experiencia previa','pendiente de evaluador',4),(31,'Desarrollador frontend','Desarrollador Senior','cerrada',4),(32,'Atencion al cliente','Disponibilidad para trabajar presencial en atencion al cliente','evaluador asignado',5);
+INSERT INTO `vacantes` VALUES (120,'Atención al cliente','Disponibilidad para trabajar presencial en atención al cliente.','pendiente de evaluador',5),(121,'Desarrollador frontend','Desarrollador Senior','pendiente de evaluador',4),(122,'Tester','Poseer experiencia previa','pendiente de evaluador',4);
 /*!40000 ALTER TABLE `vacantes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -532,4 +432,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-06  9:31:20
+-- Dump completed on 2022-04-16 16:58:32
