@@ -5,25 +5,14 @@ const { NotFoundError, InvalidAttributeError } = require('../utils/api-error');
 const checkMissingAttributes = require('../utils/check-missing-attrs');
 const models = initModels(sequelize);
 
-validateVacant = (body, action) => {
+const vacantStatus = ['pendiente de evaluador', 'evaluador asignado', 'cerrada'];
+
+
+createVacant = async (body) => {
     checkMissingAttributes(
         { data: body, attrs: ['cargo', 'id_empresa'] },
         { list: body.requerimientos, attrs: ['descripcion'], prefix: 'requerimientos[]' },
     );
-    if ( action === "update" ) {
-        if ( body.hasOwnProperty("estado") ) {
-            if ( !['pendiente de evaluador', 'evaluador asignado', 'cerrada'].includes( body.estado ) ) {
-                throw new InvalidAttributeError(`\'${body.estado}\' no es un estado de vacante correcto`, 'estado');
-            }
-        } else {
-            throw new InvalidAttributeError(`Falta el atributo \'estado\'`, 'estado');
-        };
-    };
-};
-
-createVacant = async (body) => {
-
-    validateVacant(body, "create");
 
     const transaction = await sequelize.transaction();
     try {
@@ -42,8 +31,14 @@ createVacant = async (body) => {
 };
 
 updateVacant = async (id_vacante, body) => {
+    checkMissingAttributes(
+        { data: body, attrs: ['cargo', 'estado', 'id_empresa'] },
+        { list: body.requerimientos, attrs: ['descripcion'], prefix: 'requerimientos[]' },
+    );
 
-    validateVacant(body, "update");
+    if ( !vacantStatus.includes( body.estado ) ) {
+        throw new InvalidAttributeError(`'${body.estado}' no es un estado de vacante correcto. Elegir uno entre 'pendiente de evaluador' o 'evaluador asignado' o 'cerrada'`, 'estado');
+    };
 
     const transaction = await sequelize.transaction();
     try {
