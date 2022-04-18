@@ -1,9 +1,8 @@
-const mongoose = require("mongoose");
-let Role = require("../models/role");
+const models = require('../models');
 
-const controller = {
-  getRoles: (req, res) => {
-    Role.find({}).exec((err, roles) => {
+const roleController = {
+  getRoles: async (req, res) => {
+    await Role.find({}).exec((err, roles) => {
       if (err)
         return res
           .status(500)
@@ -20,13 +19,13 @@ const controller = {
       });
     });
   },
-  getRole: (req, res) => {
+  getRole: async (req, res) => {
     let roleId = req.params.id;
     if (roleId == null) {
       return res.status(400).send({ success: false, message: "Wrong request" });
     }
 
-    Role.findById(roleId, (err, role) => {
+    await Role.findById(roleId, (err, role) => {
       if (err)
         return res
           .status(500)
@@ -62,14 +61,14 @@ const controller = {
       return res.status(200).send({ success: true, role: insertedRole });
     });
   },
-  updateRole: (req, res) => {
+  updateRole: async (req, res) => {
     let roleId = req.params.id;
 
     let newRole = {
       description: req.body.description,
     };
     
-    Role.findOneAndUpdate(roleId, newRole, (err, roleUpdated) => {
+    await Role.findOneAndUpdate(roleId, newRole, (err, roleUpdated) => {
       if (err)
         return res
           .status(500)
@@ -106,4 +105,4 @@ const controller = {
   },
 };
 
-module.exports = controller;
+module.exports = roleController;
