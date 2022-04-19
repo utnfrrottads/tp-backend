@@ -4,6 +4,7 @@ let controller = require("../controllers/index");
 
 let router = express.Router();
 
-router.use("/", controller.home);
+router.use('/roles', controller.role);
+router.use('/users', controller.user);
 
 module.exports = router;

@@ -1,11 +1,9 @@
 "use strict";
 
-const controller = {
-  home: (req, res) => {
-    return res.status(200).send({
-      message: "I'm the homepage",
-    });
-  },
-};
+let role = require('./role');
+let user = require('./user');
 
-module.exports = controller;
+module.exports = {
+    role,
+    user
+}

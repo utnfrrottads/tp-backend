@@ -19,6 +19,7 @@ const roleController = {
       });
     });
   },
+
   getRole: async (req, res) => {
     let roleId = req.params.id;
     if (roleId == null) {
@@ -42,6 +43,7 @@ const roleController = {
       });
     });
   },
+
   createRole: (req, res) => {
     let role = new Role();
 
@@ -61,6 +63,7 @@ const roleController = {
       return res.status(200).send({ success: true, role: insertedRole });
     });
   },
+
   updateRole: async (req, res) => {
     let roleId = req.params.id;
 
@@ -88,10 +91,11 @@ const roleController = {
       });
     });
   },
-  deleteRole: (req, res) => {
+
+  deleteRole: async (req, res) => {
     var roleId = req.params.id;
 
-    Role.findByIdAndRemove(roleId, (err, roleRemoved) => {
+    await Role.findByIdAndRemove(roleId, (err, roleRemoved) => {
       if (err)
         return res.status(500).send({ message: "Could not delete role" });
 
