@@ -70,7 +70,7 @@ deleteEmpresa = async (id) => {
 
 getEmpresas = async (filtros) => {
     const where = {};
-    if (filtros.razon_social) where.razon_social = { [Op.like]: `%${ filtros.razon_social }%` };
+    if (filtros.razon_social) where.razon_social = { [Op.substring]: filtros.razon_social };
     return await models.empresas.findAll({
         include: [
             {

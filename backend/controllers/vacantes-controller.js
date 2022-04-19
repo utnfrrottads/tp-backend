@@ -108,7 +108,7 @@ getOneVacant = async (id_vacante) => {
 
 getAllVacants = async (filtros) => {
     const where = {};
-    if ( filtros.companyName ) where.razon_social = { [Op.like]: `%${ filtros.companyName }%` };
+    if ( filtros.companyName ) where.razon_social = { [Op.substring]: filtros.companyName };
     return await models.vacantes.findAll({
         include: [
             { 

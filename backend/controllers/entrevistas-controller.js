@@ -148,7 +148,7 @@ deleteEntrevista = async (id_entrevista) => {
 
 getEntrevistas = async (filtros) => {
     const where = {};
-    if (filtros.descripcion) where.descripcion = { [Op.like]: `%${ filtros.descripcion }%` };
+    if (filtros.descripcion) where.descripcion = { [Op.substring]: filtros.descripcion };
     if (filtros.fechaInicio && filtros.fechaFin) {
         const fechaInicio = new Date(filtros.fechaInicio);
         const fechaFin = new Date(filtros.fechaFin);
