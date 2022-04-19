@@ -1,0 +1,26 @@
+{
+  "name": "tp-ttads",
+  "version": "1.0.0",
+  "main": "backend/index.js",
+  "scripts": {
+    "start": "npx nodemon backend/index.js",
+    "dev": "npx nodemon backend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2",
+    "sequelize-auto": "^0.8.3",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
