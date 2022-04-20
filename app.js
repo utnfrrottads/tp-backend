@@ -13,12 +13,4 @@ app.use(express.json());
 //cors
 app.use(cors({ credentials: true, origin: true }));
 
-
-require("./src/models/role");
-// bind api and routes
-const routes = require("./src/routes/");
-const roleRoutes = require("./src/routes/role");
-app.use("/api", routes);
-app.use("/api/roles", roleRoutes);
-
 module.exports = app;
