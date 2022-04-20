@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const PORT = 3700;
 
-console.clear();
+// console.clear();
 
 // connect to database and launch app in case it succeeds
 mongoose.connect(process.env.CONN_STRING).then(() => {

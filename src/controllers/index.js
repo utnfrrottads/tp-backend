@@ -1,9 +1,9 @@
 "use strict";
 
-let role = require('./role');
-let user = require('./user');
+let roleController = require('./role');
+let userController = require('./user');
 
 module.exports = {
-    role,
-    user
+    roleController,
+    userController
 }

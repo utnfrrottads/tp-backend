@@ -1,9 +1,17 @@
-const models = require('../models');
+const {User} = require('../models/index');
 
 const userController = {
     getUsers: async (req, res) => {
         try{
-            const users = await models.User.find();
+            const users = await User.find();
+            
+            if(!users){
+                return res.status(404).send({
+                    success: false,
+                    message: 'User not found'
+                });
+            }
+
             return res.status(200).send({
                 success: true,
                 users: users
@@ -19,7 +27,7 @@ const userController = {
     getUser: async (req, res) => {
         try{
             let userId = req.params.id;
-            const user = await models.User.findById(userId);
+            const user = await User.findById(userId);
 
             if(user){
                 return res.status(200).send({
@@ -83,7 +91,7 @@ const userController = {
 
             // here we should call a function to check whether the values of the fields are correct
 
-            const user = await models.User.findByIdAndUpdate(userId, req.body, {new: true});
+            const user = await User.findByIdAndUpdate(userId, req.body, {new: true});
             // new:true returns the updated user and not the old one
 
             if(user){

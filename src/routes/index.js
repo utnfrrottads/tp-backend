@@ -1,10 +1,11 @@
 "use strict";
 let express = require("express");
-let controller = require("../controllers/index");
+let role = require("./role");
+let user = require("./user");
 
 let router = express.Router();
 
-router.use('/roles', controller.role);
-router.use('/users', controller.user);
+router.use('/roles', role);
+router.use('/users', user);
 
 module.exports = router;

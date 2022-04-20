@@ -1,7 +1,7 @@
-let role = require('./role');
-let user = require('./user');
+let Role = require('./role');
+let User = require('./user');
 
 module.exports = {
-    role,
-    user
+    Role,
+    User
 }
