@@ -31,10 +31,10 @@ export class NavigationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authService.setSearchNotifications(this.suscribeMisNotificaciones.bind(this));
     if (this.authService.loggedIn()) {
       this.suscribeMisNotificaciones();
     }
-    this.authService.setSearchNotifications(this.suscribeMisNotificaciones.bind(this));
   }
 
   ngOnDestroy(): void {
@@ -52,8 +52,16 @@ export class NavigationComponent implements OnInit {
         this.notificaciones = [];
         this.numeroNotificacionesNoLeidas = 0;
 
-        res.forEach((notificacion: any) => {
-          notificacion.fechaHora = new Date(notificacion.fechaHora);
+        res.forEach((element: any) => {
+          let notificacion: Notificacion = {
+            _id: element._id,
+            descripcion: element.descripcion,
+            link: element.link,
+            fechaHora: new Date(element.fechaHora),
+            leida: element.leida,
+            abierta: element.abierta,
+            icono: element.icono,
+          }
           this.notificaciones.push(notificacion);
 
           if (!notificacion.leida) {
