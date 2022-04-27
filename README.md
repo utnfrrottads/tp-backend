@@ -1,5 +1,38 @@
 # TP Backend TTADS
 
+## 0 - Descripción de nuestro TP
+
+### 0.1 - ABMCs
+
+ABMC simples de:
+* Categoría: id, nombre, descripcion
+* Proveedor: id, cuit, direccion
+
+ABMC dependiente de:
+* Articulo (dependiente de categoría y proveedor): id, descripcion, cantAPedir,puntoPedido, stock
+
+### 0.2 - Listados
+
+Listado simple de:
+* Proveedores: muestra listado de proveedores con todos sus datos
+
+Listado complejo de:
+* Artículos: muestra datos de cada artículo, incluyendo su categoría y redirije a categoría para ver mas información
+
+
+### 0.3 - Detalle de Entidades
+* Detalle de artículo: muestra los datos de un artículo en particular y también los datos de sus proveedores
+
+
+### 0.4 - Miembros del Grupo
+
+* Blanco Agustina, 45506
+* Dorronzoro Oscar, 44697
+
+### 0.5 - Modelo de Datos
+
+![Modelo de datos][modeloDatos]
+
 ## 1 - Enunciado
 
 ### 1.1 - Desarrollo
