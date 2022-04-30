@@ -51,8 +51,8 @@ jobs:
           MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
 
       - name: Newman run
-      - uses: matt-ball/newman-action@master
         working-directory: server/tests
+        uses: matt-ball/newman-action@master
         with:
           collection: "GraphQL-API-ServiciosYa.postman_collection"
           environment: "ServiciosYa Local Environment.postman_environment"
