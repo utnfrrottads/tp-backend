@@ -52,8 +52,9 @@ jobs:
 
       - uses: matt-ball/newman-action@master
         with:
-          collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection"
-          environment: "server/tests/ServiciosYa Local Environment.postman_environment"
+          working-directory: server/tests
+          collection: "GraphQL-API-ServiciosYa.postman_collection.json"
+          environment: "ServiciosYa Local Environment.postman_environment.json"
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
