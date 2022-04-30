@@ -50,12 +50,10 @@ jobs:
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
           MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
 
-      - name: Newman run
-        working-directory: server/tests
-        uses: matt-ball/newman-action@master
+      - uses: matt-ball/newman-action@master
         with:
-          collection: "GraphQL-API-ServiciosYa.postman_collection"
-          environment: "ServiciosYa Local Environment.postman_environment"
+          collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection"
+          environment: "server/tests/ServiciosYa Local Environment.postman_environment"
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
