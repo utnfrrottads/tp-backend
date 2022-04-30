@@ -3,9 +3,9 @@ name: Test and Publish to DockerHub
 on: [push]
 
 jobs:
-  cypress_tests:
-    name: Run Cypress Tests
-    timeout-minutes: 10
+  tests:
+    name: Run Newman and Cypress tests
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     environment: CI
 
@@ -23,7 +23,7 @@ jobs:
 
       - uses: getong/elasticsearch-action@v1.2
         with:
-          elasticsearch version: '7.6.1'
+          elasticsearch version: '7.16.3'
           host port: 9200
           container port: 9200
           host node port: 9300
@@ -41,7 +41,7 @@ jobs:
       - name: Run API in background
         working-directory: server
         run: |
-          npm install
+          npm ci
           npm start &
         env:
           NODE_ENV: production
@@ -49,6 +49,13 @@ jobs:
           SOCKET_PORT: 4001
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
           MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
+
+      - name: Newman run
+      - uses: matt-ball/newman-action@master
+        working-directory: server/tests
+        with:
+          collection: "GraphQL-API-ServiciosYa.postman_collection"
+          environment: "ServiciosYa Local Environment.postman_environment"
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
