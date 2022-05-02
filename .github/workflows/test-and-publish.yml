@@ -41,9 +41,9 @@ jobs:
       - name: Run API in background
         working-directory: server
         run: |
-          npm ci &
+          npm install &
           npm install newman-reporter-htmlextra &
-          npm start &
+          npm start
         env:
           NODE_ENV: production
           PORT: 4000
