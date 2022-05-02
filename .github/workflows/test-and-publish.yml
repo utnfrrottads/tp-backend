@@ -42,7 +42,6 @@ jobs:
         working-directory: server
         run: |
           npm install &
-          npm install newman-reporter-htmlextra &
           npm start
         env:
           NODE_ENV: production
@@ -51,28 +50,19 @@ jobs:
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
           MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
 
-      - name: Run API tests
-        working-directory: server/tests
+      - uses: matt-ball/newman-action@master
         continue-on-error: true
-        run: |
-          newman run GraphQL-API-ServiciosYa.postman_collection.json \
-           -e "ServiciosYa Local Environment.postman_environment.json" \
-           --reporters "cli,htmlextra" \
-           --reporter-htmlextra-export report.html
-
-      # - uses: matt-ball/newman-action@master
-      #   continue-on-error: true
-      #   working-directory: server/tests
-      #   with:
-      #     collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
-      #     environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
-      #     reporters: '["htmlextra"]'
+        working-directory: server/tests
+        with:
+          collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
+          environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
+          reporters: '["cli","htmlextra"]'
       
       - name: Archive API tests report
         uses: actions/upload-artifact@v3
         with:
           name: api-tests-report
-          path: server/tests/report.html
+          path: server/tests/newman/*
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
