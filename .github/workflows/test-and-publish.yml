@@ -55,13 +55,13 @@ jobs:
         with:
           collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
           environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
-          reporters: '["cli","htmlextra"]'
+          reporters: '["htmlextra"]'
       
       - name: Archive API tests report
         uses: actions/upload-artifact@v3
         with:
           name: api-tests-report
-          path: newman/*.html
+          path: newman
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
