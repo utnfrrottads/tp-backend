@@ -69,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: api-tests-report
-          path: server/tests/newman/*.html
+          path: server/tests/report.html
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
