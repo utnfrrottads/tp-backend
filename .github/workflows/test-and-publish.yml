@@ -50,18 +50,20 @@ jobs:
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
           MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
 
-      - uses: matt-ball/newman-action@master
+      - name: Newman run
+        working-directory: server
+        uses: matt-ball/newman-action@master
         continue-on-error: true
         with:
-          collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
-          environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
+          collection: "tests/GraphQL-API-ServiciosYa.postman_collection.json"
+          environment: "tests/ServiciosYa Local Environment.postman_environment.json"
           reporters: '["htmlextra"]'
       
       - name: Archive API tests report
         uses: actions/upload-artifact@v3
         with:
           name: api-tests-report
-          path: newman
+          path: server/newman
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
