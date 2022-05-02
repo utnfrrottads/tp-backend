@@ -51,6 +51,7 @@ jobs:
           MONGO_ATLAS_URI: ${{ secrets.MONGO_ATLAS_URI }}
 
       - uses: matt-ball/newman-action@master
+        continue-on-error: true
         with:
           collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
           environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
