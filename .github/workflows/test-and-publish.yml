@@ -41,7 +41,8 @@ jobs:
       - name: Run API in background
         working-directory: server
         run: |
-          npm ci
+          npm ci &
+          npm install -g newman-reporter-htmlextra &
           npm start &
         env:
           NODE_ENV: production
@@ -55,6 +56,13 @@ jobs:
         with:
           collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
           environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
+          reporters: '["htmlextra"]'
+      
+      - name: Archive API tests report
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-tests-report
+          path: server/tests/newman/*.html
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
