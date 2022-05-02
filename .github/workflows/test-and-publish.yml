@@ -55,7 +55,7 @@ jobs:
         working-directory: server/tests
         continue-on-error: true
         run: |
-          newman run GraphQL-API-ServiciosYa.postman_collection.json -e ServiciosYa Local Environment.postman_environment.json --reporters "cli,htmlextra" --report-htmlextra-export report.html
+          newman run GraphQL-API-ServiciosYa.postman_collection.json -e ServiciosYa Local Environment.postman_environment.json --reporters "cli,htmlextra" --reporter-htmlextra-export report.html
 
       # - uses: matt-ball/newman-action@master
       #   continue-on-error: true
