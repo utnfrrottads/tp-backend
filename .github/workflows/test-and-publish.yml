@@ -41,8 +41,8 @@ jobs:
       - name: Run API in background
         working-directory: server
         run: |
-          npm install &
-          npm start
+          npm install
+          npm start &
         env:
           NODE_ENV: production
           PORT: 4000
