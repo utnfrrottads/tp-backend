@@ -52,7 +52,6 @@ jobs:
 
       - uses: matt-ball/newman-action@master
         continue-on-error: true
-        working-directory: server/tests
         with:
           collection: "server/tests/GraphQL-API-ServiciosYa.postman_collection.json"
           environment: "server/tests/ServiciosYa Local Environment.postman_environment.json"
