@@ -88,7 +88,6 @@ module.exports = app => {
                 for (const item of req.body.itemsCompras) {
                     if (item.producto.id > 0) { // actualizo producto
                         const productoExistente = await Productos.findOne({ where: { id: item.producto.id }, transaction: t });
-                        console.log(productoExistente);
                         if (productoExistente) {
                             await productoExistente.update({
                                 stock: productoExistente.stock + item.cantidad

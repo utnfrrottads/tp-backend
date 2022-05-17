@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataType) => {
-    const Precios = sequelize.define('Precios', {
+    const PreciosVenta = sequelize.define('PreciosVenta', {
         id: {
             type: dataType.INTEGER,
             primaryKey: true,
@@ -14,14 +14,13 @@ module.exports = (sequelize, dataType) => {
         }
     });
 
-    Precios.hasAsociation = () => {
+    PreciosVenta.hasAsociation = () => {
         return true;
     }
 
-    Precios.associate = (models) => {
-        Precios.belongsTo(models.Productos, { as: 'producto' });
-        Precios.belongsTo(models.Proveedores, { as: 'proveedor' });
+    PreciosVenta.associate = (models) => {
+        PreciosVenta.belongsTo(models.Productos, { as: 'producto' });
     }
 
-    return Precios;
+    return PreciosVenta;
 };

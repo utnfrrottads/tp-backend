@@ -20,10 +20,6 @@ module.exports = (sequelize, dataType) => {
             type: dataType.INTEGER,
             allowNull: false
         },
-        precioVenta: {
-            type: dataType.DECIMAL,
-            allowNull: false
-        },
         activo: {
             type: dataType.BOOLEAN,
             allowNull: false
@@ -35,6 +31,13 @@ module.exports = (sequelize, dataType) => {
     }
 
     Productos.associate = (models) => {
+        Productos.hasMany(models.PreciosVenta, {
+            as: 'preciosVenta',
+            foreignKey: {
+                allowNull: false
+            },
+            onDelete: 'cascade'
+        });
         Productos.belongsTo(models.Categorias, { as: 'categoria' });
     };
 
