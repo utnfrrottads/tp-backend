@@ -10,6 +10,7 @@ consign({
     .then('db.js')
     .then('libs/middlewares.js')
     .then('routes')
+    .then('constantes/converter.js')
     .then('libs/boot.js')
     .into(app);
 

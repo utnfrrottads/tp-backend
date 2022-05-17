@@ -1,8 +1,5 @@
-const {Op, col} = require("sequelize");
 module.exports = app => {
 
-    const {Sequelize, Op} = require("sequelize");
-    const { QueryTypes } = require('sequelize');
     const Categorias = app.db.models.Categorias;
     const sequelize = app.db.sequelize;
 

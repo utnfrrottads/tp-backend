@@ -1,8 +1,10 @@
 module.exports = app => {
 
     const Sequelize = require("sequelize");
+    //const {converter} = require('../constantes/converter');
     const Proveedores = app.db.models.Proveedores;
     const sequelize = app.db.sequelize;
+    //const converter = app.converter;
     app.route('/api/proveedores')
         .get((req, res) => {
             function styleHyphenFormat(propertyName)
@@ -76,7 +78,7 @@ module.exports = app => {
             Proveedores.create(req.body)
                 .then(result => res.json(result))
                 .catch(error => {
-                    res.status(412).json({ msg: error.message });
+                    res.status(410).json({ msg: error.message });
                 });
         })
         .put((req, res) => {
@@ -105,3 +107,4 @@ module.exports = app => {
                 })
         })
 }
+
