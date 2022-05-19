@@ -22,25 +22,23 @@ module.exports = app => {
             let colum = '';
             let extra = `order by ${orden} limit ? offset ?`
             let sql = ` SELECT p."id", p."descripcion", p."stock", 
-                            p."cantidad_minima" AS "cantidadMinima", precioVenta."precio" AS "precioVenta",
+                            p."cantidad_minima" AS "cantidadMinima",
                             p."activo", p."created_at" AS "createdAt", 
                             p."updated_at" AS "updatedAt", p."categoria_id" AS "categoriaId", 
                             categoria."id" AS "categoriaId", categoria."descripcion"  AS "categoria.descripcion",
-                            categoria."activa" , categoria."created_at", categoria."updated_at"
+                            categoria."activa" , categoria."created_at", categoria."updated_at",
+                            pv3."precio" AS "precioVenta"
                         FROM "productos" AS p 
                         LEFT OUTER JOIN "categorias" AS categoria
                             ON p."categoria_id" = categoria."id" 
-                        LEFT OUTER JOIN preciosVenta AS precioVenta
-                            ON precioVenta.id = (
-                                    SELECT TOP 1 latestPrecioVenta.id
-                                    FROM preciosVenta latestPrecioVenta
-                                    JOIN (
-                                            SELECT id, MAX(fecha) AS latestDate
-                                            FROM preciosVenta
-                                            GROUP BY id
-                                        ) t
-                                        ON t.id = latestPrecioVenta.id AND t.latestDate = latestPrecioVenta.fecha
-                                )
+                        LEFT OUTER JOIN (SELECT pv1.*  FROM  "precios_venta" pv1
+                                WHERE (pv1.producto_id, pv1.fecha) IN (
+                                        SELECT pv2.producto_id, max(fecha)
+                                        FROM "precios_venta" pv2
+                                        GROUP BY pv2.producto_id
+                                    )
+                                ) pv3
+                            ON p.id = pv3.producto_id
                         ` ;
             let query = sql + extra;
             let replacements = [req.query.limit, req.query.offset * req.query.limit];
@@ -88,9 +86,9 @@ module.exports = app => {
 
                 // Creo precio de venta
                 await PreciosVenta.create({
-                    precio: req.body.precio,
+                    precio: req.body.precioVenta,
                     fecha: Date.now(),
-                    productoId: producto.dataValues.id
+                    ProductoId: producto.dataValues.id
                 }, { transaction: t });
 
                 // commit de transaction
@@ -108,19 +106,19 @@ module.exports = app => {
         .put(async (req, res) => {
             await app.db.sequelize.transaction().then(async t => {
                 // Actualizo producto
-                await Productos.update(req.body, {
+                const producto = await Productos.update(req.body, {
                     where: { id: req.body.id },
                     transaction: t
                 });
 
                 // busco último precio
                 const ultimoPrecio = await PreciosVenta.findOne({ where: { productoId: req.body.id }, order: [['fecha', 'DESC']], transaction: t });
-                if (ultimoPrecio !== req.body.precioVenta) {
+                if (ultimoPrecio == null || ultimoPrecio.precio !== req.body.precioVenta) {
                     // actualizo de ser necesario
                     await PreciosVenta.create({
-                        precio: req.body.precio,
+                        precio: req.body.precioVenta,
                         fecha: Date.now(),
-                        productoId: req.body.id
+                        ProductoId: req.body.id
                     }, { transaction: t });
                 }
 
@@ -141,8 +139,12 @@ module.exports = app => {
         .get((req, res) => {
             Productos.findOne({
                 where: req.params,
-                include: [{ model: Categorias, as: 'categoria' }]
-                // TODO: get last precio
+                include: [
+                    { model: Categorias, as: 'categoria' },
+                    {
+                        separate: true,
+                        model: PreciosVenta, as: 'preciosVenta'
+                    }]
             })
                 .then(result => res.json(result))
                 .catch(error => {

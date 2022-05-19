@@ -1,10 +1,7 @@
 module.exports = app => {
 
-    const Sequelize = require("sequelize");
-    //const {converter} = require('../constantes/converter');
     const Proveedores = app.db.models.Proveedores;
     const sequelize = app.db.sequelize;
-    //const converter = app.converter;
     app.route('/api/proveedores')
         .get((req, res) => {
             function styleHyphenFormat(propertyName)
@@ -40,16 +37,6 @@ module.exports = app => {
                 colum = colum ? `razon_social ilike ? and ${colum}` : `razon_social ilike ? `;
                 query = `${sql} where ${colum} ${extra}`;
                 replacements.unshift('%'+req.query.razonSocial+'%');
-            }
-            if(req.query.telefono){
-                colum = colum ? `telefono ilike ? and ${colum}` : `telefono ilike ? `;
-                query = `${sql} where ${colum} ${extra}`;
-                replacements.unshift('%'+req.query.telefono+'%');
-            }
-            if(req.query.email){
-                colum = colum ? `email ilike ? and ${colum}` : `email ilike ? `;
-                query = `${sql} where ${colum} ${extra}`;
-                replacements.unshift('%'+req.query.email+'%');
             }
             if(req.query.direccion){
                 colum = colum ? `direccion ilike ? and ${colum}` : `direccion ilike ? `;
