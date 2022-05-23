@@ -1,3 +1,4 @@
+
 # TP Backend TTADS
 
 ## 1 - Enunciado
@@ -6,7 +7,7 @@
 
 Desarrollar un backend utilizando una API REST o GraphQL y un frontend parcial con las siguientes caracterísitcas:
 
-  * El backend debe ser programado en JavaScript con NodeJS.
+  * El backend debe ser programado en JavaScript con NodeJS
   * Debe utilizar un framework/middleware. Se dará soporte sobre Express pero podrán utilizarse alternativas si así se prefiere.
   * La persistencia debe realizarse utilizando un ODM/ORM con una base de datos persistente acorde a la tecnología que se utilice.
   * El frontend debe realizarse con un framework como Angular u otro seleccionado, html 5 y para CSS debe usarse un preprocessador o framework.
@@ -51,7 +52,7 @@ Ver [checklist]
 
   * El frontend al menos deberá permitir invocar a la API y mostrar los resultados de uno de los listados. Haciendo click en un elemento del listado (o parte de él) debe mostrar el detalle correspondiente a un elemento de dicho listado invocando a una API del listado creada para el backend.
 
-  * El resto de la funcionalidad puede utilizarse mediante una herramienta similar a postman, restclient, curl o wget.
+  * El resto de la funcionalidad puede utilizarse mediante una herramienta similar a [postman](https://www.google.com/search?client=firefox-b-d&q=postman), restclient, curl o wget.
 
   * No se considerará trabajo adicional en el frontend para sumar nota ya que hay un TP dedicado a ello.
 
@@ -118,3 +119,51 @@ Luego de la defensa el resultado puede ser:
 * Desarrollo a revisión - Defensa a repetir: se pactará una nueva fecha de entrega y defensa con el docente.
 
 [checklist]: ./checklist/README.md
+
+
+
+### 4 - Modelo de Negocio
+
+#### 4.1 - Descripcion
+El sistema consiste en la administración de las compras y ventas de un negocio. Contiene las siguientes entidades para esto:
+- Cliente: Clientes del negocio, los cuales serán asociados a ventas.
+- Proveedor: Proveedores de los distintos productos que tenemos a la venta.
+- Producto: Los ítems que vendemos y compramos.
+- Precio de Producto: Histórico de los precios de venta de cada producto.
+- Categoría de Producto: Categoría para agrupar productos según criterio.
+- Compra: Carga de las compras de productos a un proveedor.
+- Ítem de Compra: Cada uno de los productos comprados y su cantidad.
+- Venta: Carga de las ventas de productos a un cliente.
+- Ítem de Venta: Cada uno de los productos vendidos y su cantidad.
+- Proveedor de Producto: Relación de productos con los distintos proveedores que lo venden.
+
+
+#### 4.2 Funcionalidad
+* ABMC Simple:
+  * Clientes ()
+  * Proveedores
+  * Categorias
+
+* ABMC dependiente
+  * Productos
+  * Compras --> no es un abmc en si pero realizar su carga suma al tp
+ 
+* Listados Simples
+  * Mostrar proveedores
+
+* Listados complejos
+  * Productos con proveedores o Productos con categorias
+  * Compras (donde figure num, fecha, nomProd, importe, entre otros) despues se aprovecha en los **Detalles**
+
+* Detalles:
+  * Detalles de Compras, aprovechando el **listado complejo** de compras
+  * Producto con proveedor y ultimo precio (se puede aplicar el listado de productos)
+
+#### 4.3 - Miembros del equipo
+* 41896 - Nardi Pablo
+*  - Facundo Torres
+*  - Gaston Palavecino
+
+#### 4.4 Modelo (DER)
+
+![DER-TP](https://user-images.githubusercontent.com/58578161/131164796-7e34506e-deff-44be-9692-2c773daddb36.png)
