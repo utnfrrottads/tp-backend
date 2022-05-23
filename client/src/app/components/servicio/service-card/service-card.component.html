@@ -1,0 +1,50 @@
+<div class="service" (click)="irAlServicio($event)">
+  <div class="card">
+    <div class="card-header"><b>{{ cardData.titulo }}</b></div>
+    <div class="card-body service-content">
+      <p class="text-muted">
+        <b>Usuario oferente</b>: <a href="" [routerLink]="'/perfil/' + cardData.usuario?.nombreUsuario">{{
+          cardData.usuario?.nombreUsuario }}</a>
+      </p>
+
+      <p class="text-muted">
+        <b>Categoría</b>: <a href="" class="preventServiceAction" (click)="selectCat($event)">{{ cardData.categoria?.descripcion }}</a>
+      </p>
+
+      <p class="text-muted">
+        <b>Precio</b>: {{ cardData.precio?.moneda?.tag }}&nbsp;{{ cardData.precio?.valor }}
+      </p>
+
+      <p class="text-muted">
+        <b>Ubicación</b>: {{ cardData.ubicacion }}
+      </p>
+
+      <p class="text-muted">
+        <b>Contratos finalizados</b>: {{ contratosFinalizados }}
+      </p>
+
+      <p class="text-muted" *ngIf="calificacionPromedio">
+        <b>Calificación promedio</b>: {{ calificacionPromedio }}
+      </p>
+
+      <div class="row">
+        <div class="col-6 mx-auto btns">
+          <a href="" class="btn btn-success btn-block preventServiceAction" (click)="mostrarDetalle($event)">
+            <span><i class="fas fa-search-plus mr-2"></i>Ver más</span>
+          </a>
+        </div>
+
+        <div class="col-6" *ngIf="authService.loggedIn() && userService.getUsuario()._id !== cardData.usuario?._id">
+          <a href="" class="btn btn-secondary btn-block preventServiceAction" (click)="realizarContrato($event)">
+            <span><i class="fas fa-pen-alt mr-2"></i>Contratar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-service-detail [servicio]="cardData"></app-service-detail>
+<app-dialog title="CONTRATO VIGENTE" message="Ya tiene un contrato vigente con este servicio. 
+            Para contratarlo nuevamente, antes debés cancelar el contrato actual"
+            [hasCancelButton]=false></app-dialog>

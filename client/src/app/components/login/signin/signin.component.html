@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+        Inicio Sesión
+    </h5>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="errorMessage">
+        <div style="width: 100%; margin-bottom: 1%;">
+            <div class="alert alert-danger alert-dismissible fade show"
+                style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;"
+                role="alert">
+                {{ errorMessage }}
+                <button (click)="errorMessage = ''" class="close btn btn-link" data-dismiss="alert"
+                    style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+    <div class="card text-center animate__animated animate__flipInY animate__fast">
+        <div class="card-body">
+            <img [src]="'/assets/logo.png'" alt="Logo SignIn"
+                class="card-img-top mx-auto mb-4 rounded-circle w-25">
+            <form ngNoForm (submit)="signIn($event)">
+                <div class="form-group">
+                    <input type="text" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario"
+                        placeholder="Nombre Usuario" class="form-control" autofocus>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave"
+                        class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block">
+                        Iniciar Sesión
+                    </button>
+                    <button class="btn btn-outline-primary btn-block" (click)="openSignupModal()">
+                        Quiero Registrarme
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

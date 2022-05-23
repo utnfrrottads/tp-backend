@@ -1,0 +1,23 @@
+#show-services {
+  margin-top: 1%;
+  padding-bottom: 0.6%;
+
+  @media (min-width: 768px) {
+    margin-left: 320px;
+  }
+}
+
+#titulo {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.no-services {
+  width: 96%;
+  margin: 2%;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

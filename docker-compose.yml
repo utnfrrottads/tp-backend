@@ -1,0 +1,52 @@
+version: "2.2"
+
+services:
+  elasticsearch:
+    container_name: es-container
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    networks:
+      - es-net
+    ports:
+      - 9200:9200
+
+  kibana:
+    container_name: kb-container
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es-container:9200
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+
+  serviciosya-server:
+    image: agustindangelo/serviciosya-server
+    environment:
+      - PORT=4000
+      - SOCKET_PORT=4001
+      - MONGO_ATLAS_URI=mongodb+srv://agustin:tpttads@cluster0.f7x6o.mongodb.net/tp-database?retryWrites=true&w=majority
+      - TOKEN_SECRET=serviciosyaapitoken
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+    ports:
+      - 4000:4000
+
+  serviciosya-client:
+    image: agustindangelo/serviciosya-client
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+    ports:
+      - 4200:80
+
+networks:
+  es-net:
+    driver: bridge

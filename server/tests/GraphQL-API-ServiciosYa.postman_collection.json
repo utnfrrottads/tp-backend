@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "b983202f-261b-402b-967c-2c8cf24da525",
+		"name": "GraphQL-API-ServiciosYa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Checks",
+			"item": [
+				{
+					"name": "ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"QueryType\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-endpoint}}?query=%7B__typename%7D",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "%7B__typename%7D"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign In",
+			"item": [
+				{
+					"name": "Sign in with valid credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains the token\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.data.signIn).to.have.property('token')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation signIn($nombreUsuario: String!, $clave: String!) {\r\n  signIn(nombreUsuario: $nombreUsuario, clave: $clave) {\r\n    usuario {\r\n      _id\r\n      nombreUsuario\r\n    }\r\n    token\r\n  }\r\n}",
+								"variables": "{\r\n  \"nombreUsuario\": \"agus123\",\r\n  \"clave\": \"aoeuaoeu\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{api-endpoint}}",
+							"host": [
+								"{{api-endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign in with invalid credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain invalid credentials error message\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.errors[0].message).to.eql('Nombre de usuario y/o clave incorrectos')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should not contain any token\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.data).to.not.have.property('token')\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation signIn($nombreUsuario: String!, $clave: String!) {\r\n  signIn(nombreUsuario: $nombreUsuario, clave: $clave) {\r\n    usuario {\r\n      _id\r\n      nombreUsuario\r\n    }\r\n    token\r\n  }\r\n}",
+								"variables": "{\r\n  \"nombreUsuario\": \"agus123\",\r\n  \"clave\": \"aaaaaaaaaaa\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{api-endpoint}}",
+							"host": [
+								"{{api-endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign Up",
+			"item": [
+				{
+					"name": "Sign up",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"newUsername\", \"{{$randomUserName}}\");\r",
+									"pm.collectionVariables.set(\"newPassword\", \"{{$randomPassword}}\");\r",
+									"pm.collectionVariables.set(\"newName\", \"{{$randomFullName}}\");\r",
+									"pm.collectionVariables.set(\"newEmail\", \"{{$randomEmail}}\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains the token\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.data.signUp).to.have.property('token')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation signUp($nombreUsuario: String!, $clave: String!, $nombreApellido: String!, $email: String!, $habilidades: String!) {\r\n  signUp(\r\n    nombreUsuario: $nombreUsuario,\r\n    clave: $clave,\r\n    nombreApellido: $nombreApellido,\r\n    email: $email,\r\n    habilidades: $habilidades\r\n  ) {\r\n    usuario {\r\n      _id\r\n      nombreUsuario\r\n      nombreApellido\r\n      email\r\n      habilidades\r\n      fotoPerfil\r\n      isAdministrador\r\n    }\r\n    token\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"nombreUsuario\": \"{{newUsername}}\",\r\n  \"clave\": \"{{newPassword}}\",\r\n  \"nombreApellido\": \"{{newName}}\",\r\n  \"email\": \"{{newEmail}}\",\r\n  \"habilidades\": \"\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{api-endpoint}}",
+							"host": [
+								"{{api-endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign up with an existing username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain 'username already taken' error message\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.errors[0].message).to.eql('El nombre de usuario ya se encuentra registrado')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should not contain any token\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.data).to.not.have.property('token')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation signUp($nombreUsuario: String!, $clave: String!, $nombreApellido: String!, $email: String!, $habilidades: String!) {\r\n  signUp(\r\n    nombreUsuario: $nombreUsuario,\r\n    clave: $clave,\r\n    nombreApellido: $nombreApellido,\r\n    email: $email,\r\n    habilidades: $habilidades\r\n  ) {\r\n    usuario {\r\n      _id\r\n      isAdministrador\r\n    }\r\n    token\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"nombreUsuario\": \"{{existingUserName}}\",\r\n  \"clave\": \"{{$randomPassword}}\",\r\n  \"nombreApellido\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"habilidades\": \"\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{api-endpoint}}",
+							"host": [
+								"{{api-endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "Get service details without authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain invalid credentials error message\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.errors[0].message).to.eql('Acceso no autorizado')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query contratosRealizados($idServicio: ID!) {\r\n  contratosRealizados(idServicio: $idServicio) {\r\n    _id\r\n    fecha\r\n    contratoCanceladoPorOferente\r\n    fechaCancelacion\r\n    servicio {\r\n      _id\r\n      titulo\r\n      usuario {\r\n        _id\r\n        nombreUsuario\r\n      }\r\n    }\r\n    usuario {\r\n      _id\r\n      nombreUsuario\r\n    }\r\n    estado\r\n  }\r\n}",
+								"variables": "{\r\n  \"idServicio\": \"{{existingServiceID}}\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{api-endpoint}}",
+							"host": [
+								"{{api-endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get service details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"  pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain invalid credentials error message\", function () {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  pm.expect(jsonData.errors[0].message).to.eql('Acceso no autorizado')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query contratosRealizados($idServicio: ID!) {\r\n  contratosRealizados(idServicio: $idServicio) {\r\n    _id\r\n    fecha\r\n    contratoCanceladoPorOferente\r\n    fechaCancelacion\r\n    servicio {\r\n      _id\r\n      titulo\r\n      usuario {\r\n        _id\r\n        nombreUsuario\r\n      }\r\n    }\r\n    usuario {\r\n      _id\r\n      nombreUsuario\r\n    }\r\n    estado\r\n  }\r\n}",
+								"variables": "{\r\n  \"idServicio\": \"{{existingServiceID}}\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{api-endpoint}}",
+							"host": [
+								"{{api-endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "newUsername",
+			"value": ""
+		},
+		{
+			"key": "newPassword",
+			"value": ""
+		},
+		{
+			"key": "newName",
+			"value": ""
+		},
+		{
+			"key": "newEmail",
+			"value": ""
+		}
+	]
+}

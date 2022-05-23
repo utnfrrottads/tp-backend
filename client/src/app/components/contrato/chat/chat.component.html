@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="container-chat">
+    <div class="header">
+      <p class="h6">{{ tituloChat }}</p>
+    </div>
+
+    <div class="body">
+      <p [ngClass]="{
+    'local': (msj.mensajeEnviadoPorOferente && msj.contrato!.servicio!.usuario!._id == userService.getUsuario()._id) || (!msj.mensajeEnviadoPorOferente && msj.contrato!.usuario!._id == userService.getUsuario()._id),
+    'remoto': (msj.mensajeEnviadoPorOferente && msj.contrato!.servicio!.usuario!._id != userService.getUsuario()._id) || (!msj.mensajeEnviadoPorOferente && msj.contrato!.usuario!._id != userService.getUsuario()._id)
+  }" *ngFor="let msj of mensajes">{{ msj.mensaje }}</p>
+    </div>
+
+    <div class="footer" *ngIf="contratoCargado && !contratoCancelado">
+      <form (submit)="enviarMensaje()">
+        <input type="text" [(ngModel)]="mensaje" [ngModelOptions]="{ standalone: true }">
+        <button>Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

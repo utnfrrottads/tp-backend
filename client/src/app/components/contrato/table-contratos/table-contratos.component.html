@@ -1,0 +1,59 @@
+<div id="contratos">
+  <h3 class="mb-3 titulo-contratos" *ngIf="title">{{ title }}</h3>
+  <div *ngIf="contratos.length > 0">
+    <table class="table table-responsive-md table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="col-servicio">Servicio</th>
+          <th scope="col" class="col-user">Usuario Oferente</th>
+          <th scope="col" class="col-user">Usuario Contratante</th>
+          <th scope="col" class="col-estado">Estado</th>
+          <th scope="col" class="col-fecha-cont">Fecha de Contratación</th>
+          <th scope="col" class="col-fecha-canc">Fecha de Cancelación</th>
+          <th scope="col" class="col-accion">Acciones Rápidas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of contratos; let indice = index">
+          <td class="col-servicio"><a href="" [routerLink]="'/servicio/' + contrato.servicio!._id">{{
+              contrato.servicio!.titulo }}</a></td>
+          <td class="col-user"><a href="" [routerLink]="'/perfil/' + contrato.servicio!.usuario!.nombreUsuario">{{
+              contrato.servicio!.usuario!.nombreUsuario }}</a></td>
+          <td class="col-user"><a href="" [routerLink]="'/perfil/' + contrato.usuario!.nombreUsuario">{{
+              contrato.usuario!.nombreUsuario }}</a></td>
+          <td class="col-estado">{{ contrato.estado }}</td>
+          <td class="col-fecha-cont">{{ contrato.fecha!.toLocaleDateString() }}</td>
+
+          <td class="col-fecha-canc">
+            <span *ngIf="contrato.fechaCancelacion">
+              {{ contrato.fechaCancelacion!.toLocaleDateString() }} por
+              <span *ngIf="contrato.contratoCanceladoPorOferente">{{ contrato.servicio!.usuario!.nombreUsuario
+                }}</span>
+              <span *ngIf="!contrato.contratoCanceladoPorOferente">{{ contrato.usuario!.nombreUsuario }}</span>
+            </span>
+            <span *ngIf="!contrato.fechaCancelacion">-</span>
+          </td>
+
+          <td class="col-accion">
+            <span *ngIf="cancelContractValidation(contrato)">
+              <a href="" (click)="cancelarContrato($event, contrato)">Cancelar Contrato</a>&nbsp;&nbsp;
+            </span>
+            <span *ngIf="messagesContractValidation(contrato)">
+              <a href="" [routerLink]="'/contrato/mensajes/' + contrato._id">Mensajes</a>&nbsp;&nbsp;
+            </span>
+            <span *ngIf="confirmContractValidation(contrato)">
+              <a href="" (click)="confirmarContrato($event, contrato)">Confirmar Contrato</a>&nbsp;&nbsp;
+            </span>
+            <span *ngIf="finishContractValidation(contrato)">
+              <a href="" (click)="finalizarContrato($event, contrato)">Finalizar Contrato</a>&nbsp;&nbsp;
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert alert-info no-contratos" role="alert" *ngIf="contratos.length === 0">
+    <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
+    <p class="mt-5 mb-5">{{ msgNoContratos }}</p>
+  </div>
+</div>

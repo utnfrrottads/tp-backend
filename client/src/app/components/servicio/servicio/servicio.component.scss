@@ -1,0 +1,27 @@
+.card {
+  margin: auto;
+  width: fit-content;
+}
+
+#title-oferente {
+  text-decoration: underline;
+}
+
+#profileImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 180px;
+}
+
+.profile-img {
+  height: 8rem;
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  font-weight: 600;
+  font-size: 4rem;
+  text-transform: uppercase;
+  background-color: rgb(240, 240, 240);
+}

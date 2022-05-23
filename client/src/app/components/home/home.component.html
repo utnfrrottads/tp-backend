@@ -1,0 +1,124 @@
+<!-- Main Title -->
+<div class="row">
+    <h1 class="text-center" style="color: black;">¡Servicios particulares on-demand!</h1>
+</div>
+
+<!-- CTA View -->
+<div class="row justify-content-around">
+    <div class="col-5">
+        <div class="card main-card" style="background-color: bisque;">
+            <div class="text-center main-card-content">
+                <div class="row">
+                    <div class="col-sm-8 mr-auto ml-auto">
+                        <img class="card-img-top" src="../../../assets/hammer.png">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Quiero contratar</h4>
+                    <p class="card-text">¡Buscá la persona indicada para resolver tus problemas!</p>
+                    <button type="button" class="btn btn-outline-primary" (click)="goToServicios()">Contratar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card main-card" style="background-color: azure;">
+            <div class="text-center main-card-content">
+                <div class="row">
+                    <div class="col-sm-8 mr-auto ml-auto">
+                        <img class="card-img-top" src="../../../assets/hammer.png">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Quiero prestar un servicio</h4>
+                    <p class="card-text">¡Adheríte a la comunidad y comenzá a ganar dinero por tus servicios!</p>
+                    <button type="button" class="btn btn-outline-primary" (click)="publicarServicio()">Prestar
+                        Servicio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<!-- What we do -->
+<div class="row justify-content-center hrSeparation">
+    <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+        <h3 class="title1">¿A qué nos dedicamos?</h3>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-sm-8 text-center">
+        <h5>
+            ServiciosYa es una red nacional para la prestación y contratación de servicios. Como oferente, podrás ofrecer tus habilidades en el mercado de trabajo logrando visibilidad a una gran cantidad de potenciales clientes sin tener que incurrir en altos costos de comisiones.
+            Como usuario, obtendrás acceso a un gran número de ofertas de servicios prestadas por usuarios con trayectoria y reputación en el sitio, a los cuales podrás contratar de manera directa y segura.
+        </h5>
+    </div>
+</div>
+
+<hr>
+
+<!-- What we offer -->
+<div class="row justify-content-center hrSeparation">
+    <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+        <h3 class="title2">¿Qué ofrecemos?</h3>
+    </div>
+</div>
+
+<div class="row justify-content-center" style="padding-top: 20px; padding-bottom: 20px;">
+    <div class="col-sm-10 text-center">
+        <h5>
+            ServiciosYa cuenta con una gran variedad de servicios organizados en categorías, las principales son:
+        </h5>
+    </div>
+</div>
+<div class="row justify-content-around categorias-list">
+    <div class="categorias justify-content-center">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3 mb-3" *ngFor="let categoria of categorias">
+            <div class="card categoria" style="background-color: rgb(189, 189, 235);">
+                <div class="categoria-content text-center">
+                    <div class="row">
+                        <div class="col-sm-8 mr-auto ml-auto">
+                            <img class="card-img-top" src="../../../assets/hammer.png">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ categoria.descripcion }}</h4>
+                        <button type="button" class="btn btn-primary"
+                            (click)="goToServiciosPorCategoria(categoria._id || '')">Ver
+                            más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<!-- Join us -->
+<div class="row justify-content-center mb-3" style="background-color:rgb(141, 168, 204);">
+    <div class="col-sm-10 text-center">
+        <h3 style="color: white;">
+            ¡Únete a nuestra comunidad!
+        </h3>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6 text-center">
+        <p class="estadisticas">
+            <u>Contratos realizados:</u> {{ contratosRealizados }}
+        </p>
+    </div>
+</div>
+<div class="row justify-content-around">
+    <div class="col-sm-12 col-md-6 text-center">
+        <p class="estadisticas">
+            <u>Contratistas registrados:</u> {{ contratistasRegistrados }}
+        </p>
+    </div>
+    <div class="col-sm-12 col-md-6 text-center">
+        <p class="estadisticas">
+            <u>Prestadores de servicios registrados:</u> {{ prestadoresRegistrados }}
+        </p>
+    </div>
+</div>

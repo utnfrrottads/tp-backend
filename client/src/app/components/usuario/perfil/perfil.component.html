@@ -1,0 +1,204 @@
+<div class="d-flex justify-content-center animate__animated animate__pulse animate__fast">
+  <div class="w-100 profile-container">
+    <div class="col-sm-10 col-md-8 col-lg-7 col-xl-5 data-box">
+      <div class="contenedor-img" *ngIf="usuario.fotoPerfil">
+        <img id="profileImage" src="{{ cloudinary_url + usuario.fotoPerfil }}">
+        <i class="fas fa-plus-circle btn-icon mr-2" (click)="abrirModalImagen()"></i>
+        <i class="fas fa-trash-alt btn-icon" (click)="eliminarImagen()"></i>
+      </div>
+
+      <div class="contenedor-img" *ngIf="!usuario.fotoPerfil">
+        <div class="profile-img" *ngIf="!editando">
+          {{ usuario.nombreApellido![0] }}
+        </div>
+
+        <div class="profile-img" *ngIf="editando">
+          {{ usuarioEditado.nombreApellido![0] }}
+        </div>
+
+        <i class="fas fa-plus-circle btn-icon mr-2" (click)="abrirModalImagen()"></i>
+      </div>
+
+      <div class="personal-info mt-3" *ngIf="!editando">
+        <h2 class="mb-3">{{ usuario.nombreApellido }}</h2>
+        <p><strong>Nombre de usuario:</strong>&nbsp;{{ usuario.nombreUsuario }}</p>
+        <p><strong>Email:</strong>&nbsp;{{ usuario.email }}</p>
+        <p *ngIf="usuario.habilidades"><strong>Habilidades:</strong>&nbsp;{{ usuario.habilidades }}</p>
+      </div>
+
+      <div class="mt-3 w-100 px-2" *ngIf="editando">
+        <form ngNoForm (submit)="abrirModalClave($event)">
+          <div class="form-group">
+            <label><b>Nombre y Apellido:</b></label>
+            <input type="text" name="nombreApellido" [(ngModel)]="usuarioEditado.nombreApellido"
+              placeholder="Nombre y Apellido" class="form-control" placeholder="Fulano Mengano" maxlength="100" required
+              autofocus>
+          </div>
+          <div class="form-group">
+            <label><b>Nombre de usuario:</b></label>
+            <input type="text" name="nombreUsuario" [(ngModel)]="usuarioEditado.nombreUsuario" placeholder="User123"
+              class="form-control" minlength="6" maxlength="25" required>
+          </div>
+          <div class="form-group">
+            <label><b>Email:</b></label>
+            <input type="email" name="email" [(ngModel)]="usuarioEditado.email" placeholder="correo@email.com"
+              class="form-control" maxlength="320" required>
+          </div>
+          <div class="form-group">
+            <label><b>Habilidades:</b></label>
+            <textarea name="habilidades" [(ngModel)]="usuarioEditado.habilidades"
+              placeholder="Descripción de sus habilidades" class="form-control" rows="3" maxlength="350"></textarea>
+          </div>
+          <div class="buttons mt-4">
+            <div class="row">
+              <div class="col-sm-6 col-btn-editando">
+                <button class="btn btn-danger btn-block" (click)="editando=false">
+                  <i class="fas fa-times-circle"></i> Cancelar
+                </button>
+              </div>
+              <div class="col-sm-6 col-btn-editando">
+                <button type="submit" class="btn btn-success btn-block">
+                  <i class="fas fa-save"></i> Guardar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="buttons m-3">
+        <div class="row" *ngIf="!editando">
+          <div class="col-md-6 col-btn">
+            <button class="btn btn-light btn-block" (click)="editando=true">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="col-md-6 col-btn">
+            <button class="btn btn-light btn-block" data-toggle="modal" data-target="#cambiarClavePopup">
+              <i class="fas fa-key"></i> Cambiar Clave
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf='!editando'>
+          <div class="col col-btn">
+            <button id="deleteAccountButton" class="btn btn-danger btn-block" (click)="openDeleteAccountModal()">
+              <i class="fas fa-trash"></i> Eliminar Cuenta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade background-popup-fade" id="ingresarClavePopup" aria-labelledby="Inicio Sesión"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Ingresar Clave
+        </h5>
+        <button type="button" id="btnCloseIngresarClavePopup" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="errorMessageClave">
+          <div style="width: 100%; margin-bottom: 1%;">
+            <div class="alert alert-danger alert-dismissible fade show"
+              style="width: fit-content; margin-top: 2%; margin-left: auto; margin-right: auto;" role="alert">
+              {{ errorMessageClave }}
+              <button (click)="errorMessageClave = ''" class="close btn btn-link" data-dismiss="alert"
+                style="color: black; text-decoration: none; font-size: 22px;" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <div class="card text-center animate__animated animate__flipInY animate__fast">
+          <div class="card-body">
+            <form ngNoForm (submit)="guardarUsuario($event)">
+              <div class="form-group">
+                <label>Ingrese su clave para confirmar los cambios</label>
+                <input type="password" name="clave" [(ngModel)]="usuario.clave" placeholder="Clave"
+                  class="form-control">
+              </div>
+              <br>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">
+                  Confirmar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade background-popup-fade" id="fotoPerfilPopup" aria-labelledby="Foto Perfil" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Foto Perfil
+        </h5>
+        <button type="button" id="btnCloseFotoPerfilPopup" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form ngNoForm (submit)="guardarImagen($event)" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>
+              <b>Foto de perfil</b>:
+            </label>
+            <input type="file" (change)="obtenerImagen($event)" class="form-control-file" accept="jpg|jpeg|png"
+              required />
+            <p class="error" *ngIf="errorFormatoImagen">Ingrese una imagen válida</p>
+          </div>
+          <br />
+          <div class="form-group">
+            <button class="btn btn-success btn-block">
+              <i class="fas fa-save"></i> Guardar imagen
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account Child Modal -->
+<div bsModal #deleteAccountModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Eliminar cuenta</h4>
+        <button type="button" class="close pull-right btn-close" aria-label="Close" (click)="closeDeleteAccountModal()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>¿Está seguro de que quiere eliminar su cuenta?</h2>
+        <p>No será posible recuperar la cuenta tras la eliminación.</p>
+        <div class="row m-3">
+          <div class="col-6">
+            <button class="btn btn-danger btn-block" id="confirmDeleteAccountButton" (click)="confirmDeleteAccount()">
+              <i class="fas fa-trash"></i> Si, eliminar
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-secondary btn-block" id="cancelDeleteAccountButton"
+              (click)="closeDeleteAccountModal()">
+              No, mantener
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

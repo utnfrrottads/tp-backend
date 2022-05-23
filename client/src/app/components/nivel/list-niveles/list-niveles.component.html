@@ -1,0 +1,35 @@
+<div class="row mt-3 mb-3">
+  <button class="btn btn-success mx-auto" (click)="abrirModalAgregarNivel()"><i
+      class="fas fa-plus-circle mr-1"></i>Agregar nuevo nivel</button>
+</div>
+<div *ngIf="niveles.length > 0">
+  <h3 class="mb-3">Niveles</h3>
+  <table class="table table-responsive-md table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="col-nro">Nivel</th>
+        <th scope="col" class="col-cont-min">Contratos Mínimos</th>
+        <th scope="col" class="col-accion">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let nivel of niveles; let indice = index">
+        <th scope="row" class="col-nro">{{ nivel.nro }}</th>
+        <td class="col-cont-min">{{ nivel.contratosMinimos }}</td>
+        <td class="col-accion">
+          <button class="btn btn-primary mx-1" (click)="abrirModalEditarNivel(nivel)" *ngIf="!(indice === 0)"><i
+              class="fas fa-edit mr-1"></i>Editar</button>
+          <button class="btn btn-danger mx-1" (click)="abrirModalEliminarNivel(nivel)"
+            *ngIf="niveles.length === indice + 1"><i class="fas fa-trash-alt mr-1"></i>Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="alert alert-info no-niveles" role="alert" *ngIf="niveles.length === 0">
+  <i class="fas fa-info-circle mt-5" style="font-size: 5rem"></i>
+  <p class="mt-5 mb-5">No hay niveles registrados</p>
+</div>
+<app-update-nivel [editMode]="editMode" [nivelEditando]="nivelEditando"
+  [editarContratosMinimos]="editarContratosMinimos" [nivel]="nivel" [nivelInferior]="nivelInferior"
+  [nivelSuperior]="nivelSuperior" (refreshNiveles)="refreshNiveles()"></app-update-nivel>

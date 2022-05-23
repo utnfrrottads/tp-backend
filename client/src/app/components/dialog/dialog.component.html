@@ -1,0 +1,59 @@
+<div class="modal fade background-popup-fade" id={{idDialog}} aria-labelledby="Aviso" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">{{ title }}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row justify-content-center" *ngIf="(imageSrc != '')">
+          <div class="col-sm-6">
+            <img src={{imageSrc}}>
+          </div>
+        </div>
+
+        <div class="row justify-content-center" *ngIf="(message != '')">
+          <div class="col-sm-10 text-justify">
+            <h5 style="line-height: 2;">
+              {{message}}
+            </h5>
+          </div>
+        </div>
+
+        <div class="row justify-content-center" *ngIf="(isReview)">
+          <div class="col-sm-8 starsContainer">
+            <div class="row">
+              <app-star class="col starDiv" #oneStar (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=1></app-star>
+              <app-star class="col starDiv" #twoStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=2></app-star>
+              <app-star class="col starDiv" #threeStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=3></app-star>
+              <app-star class="col starDiv" #fourStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=4></app-star>
+              <app-star class="col starDiv" #fiveStars (updateStars)="updateStars($event)" (willSelect)="willSelect($event)" [score]=5></app-star>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center footer">
+          <div class="col-sm-5">
+            <button class="btn btn-secondary rounded-pill btn-block" data-dismiss="modal" *ngIf="(hasCancelButton)">Cancelar</button>
+          </div>
+          <div class="col-sm-5">
+            <button class="btn btn-primary rounded-pill btn-block" 
+                    [disabled]="disableOkButton" 
+                    *ngIf="((hasCancelButton || isReview) && !isReviewStep)" 
+                    (click)="continueButtonTapped()">Continuar</button>
+            <button class="btn btn-primary rounded-pill btn-block"
+                    data-dismiss="modal" 
+                    [disabled]="disableOkButton" 
+                    *ngIf="((hasCancelButton || isReview) && isReviewStep)" 
+                    (click)="okButtonTapped()">Aceptar</button>
+            <button class="btn btn-primary rounded-pill btn-block" 
+                    data-dismiss="modal" 
+                    *ngIf="(!hasCancelButton && !isReview)">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

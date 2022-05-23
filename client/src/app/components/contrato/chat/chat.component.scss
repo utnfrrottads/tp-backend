@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-chat {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+  background-color: rgb(31, 85, 139);
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+
+  @media (min-width: 576px) {
+    width: 95%;
+  }
+
+  @media (min-width: 768px) {
+    width: 90%;
+  }
+
+  @media (min-width: 992px) {
+    width: 80%;
+  }
+}
+
+.header {
+  color: white;
+  padding: 15px;
+}
+
+.body {
+  flex: 1;
+  color: white;
+  background-color: rgb(31, 134, 236);
+  padding: 20px 30px;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  .local {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(3, 126, 126);
+    max-width: 80%;
+    color: white;
+    font-size: 17px;
+    align-self: flex-end;
+  }
+  
+  .remoto {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(180, 175, 102);
+    max-width: 80%;
+    color: white;
+    font-size: 17px;
+    align-self: flex-start;
+  }
+}
+
+.footer {
+  form {
+    display: flex;
+
+    input {
+      flex: 1;
+      height: 40px;
+      border: none;
+      outline: none;
+      padding-left: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100px;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: rgb(38, 115, 192);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: rgb(31, 85, 139);
+      transition: 0.2s ease;
+    }
+  }
+}

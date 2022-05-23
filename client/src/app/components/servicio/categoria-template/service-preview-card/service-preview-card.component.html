@@ -1,0 +1,13 @@
+<div class="card shadow p-3 mb-5 bg-body rounded">
+    <div class="card-body">
+        <h4 class="card-title">{{cardData.titulo}}</h4>
+        <p class="card-text">{{cardData.descripcion}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Precio:</b> {{cardData.precio?.valor}} {{cardData.precio?.moneda?.tag}} </li>
+        <li class="list-group-item"><b>Ubicación:</b> {{cardData.ubicacion}}</li>
+    </ul>
+    <div class="card-body text-center">
+        <button class="btn btn-link" (click)="irAlServicio($event)">Ver más</button>
+    </div>
+</div>

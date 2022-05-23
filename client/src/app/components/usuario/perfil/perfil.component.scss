@@ -1,0 +1,84 @@
+.profile-container {
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: black;
+}
+
+.data-box {
+  padding: 2rem 1rem;
+  align-self: center;
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(91, 101, 110);
+  border-radius: 0.5rem;
+  flex-wrap: wrap;
+  border: 1px rgb(48, 47, 47) solid;
+}
+
+.personal-info {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.buttons {
+  width: 100%;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+.col-btn {
+  margin: 2%;
+
+  @media (min-width: 768px) {
+    margin: 0;
+  }
+}
+
+.col-btn-editando {
+  margin: 2%;
+
+  @media (min-width: 576px) {
+    margin: 0;
+  }
+}
+
+.contenedor-img {
+  display: flex;
+  align-items: flex-end;
+  margin-right: 2%;
+  box-shadow: 0.2px 0.2px 5px rgba(0,0,0,0.4);
+  padding: 2%;
+  border-radius: 10px;
+}
+
+.btn-icon:hover {
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+
+#profileImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 180px;
+}
+
+.profile-img {
+  height: 8rem;
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  font-weight: 600;
+  font-size: 4rem;
+  text-transform: uppercase;
+  background-color: rgb(240, 240, 240);
+}

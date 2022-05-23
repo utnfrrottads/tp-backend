@@ -1,0 +1,38 @@
+.no-niveles {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  display: flex;
+  align-items: center;
+}
+
+.col-nro {
+  @media (min-width: 768px) {
+    width: 15%;
+  }
+}
+
+.col-cont-min {
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    width: 85%;
+  }
+}
+
+.col-accion {
+  display: flex;
+}
+
+.alert {
+  border-radius: 10px;
+}

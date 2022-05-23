@@ -1,0 +1,94 @@
+<nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark px-3 w-100">
+  <a class="navbar-brand title" routerLink="/">Servicios Ya</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" href="#" routerLink="/"><i class="fas fa-home mr-1"></i>Inicio</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/servicios"><i class="fa-solid fa-list mr-1"></i>Todos los servicios</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/serviciosPorCategorias"><i class="fa-solid fa-file-lines mr-1"></i>Servicios
+          por categoría</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" href="#" routerLink="/niveles"><i class="fas fa-list-ol mr-1"></i>Niveles</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isAdmin()" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" href="#" routerLink="/categorias"><i class="fas fa-clipboard-list mr-1"></i>Categorías</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <ng-container *ngIf="authService.loggedIn()">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" (click)="leerNotificaciones()">
+            <div class="number-notification mr-1"
+              *ngIf="numeroNotificacionesNoLeidas && numeroNotificacionesNoLeidas > 0">
+              {{ numeroNotificacionesNoLeidas }}</div><i class="fas fa-bell"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-right notificaciones" aria-labelledby="navbarDropdown">
+            <div class="notificacion p-2" [ngClass]="{'leida': notificacion.leida, 'noLeida': !notificacion.leida}"
+              *ngFor="let notificacion of notificaciones; let indice=index"
+              (click)="irALaNotificacion(notificacion)">
+              <div class="icono-descripcion">
+                <i class="fas fa-file-signature fa-2x icono" *ngIf="notificacion.icono == 'contrato'"></i>
+                <i class="fas fa-comments fa-2x icono" *ngIf="notificacion.icono == 'mensaje'"></i>
+                <span class="descripcion">{{ notificacion.descripcion }}</span>
+              </div>
+              <p class="tiempo">{{ notificacion.fechaHora?.toLocaleDateString() }}&nbsp;{{
+                notificacion.fechaHora?.toLocaleTimeString() }}</p>
+            </div>
+            <div class="no-notifications p-2" *ngIf="notificaciones.length == 0">
+              <p>Sin notificaciones</p>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user mr-1"></i>{{ localStorage.getItem("nombreUsuario") }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" routerLink="/perfil" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-id-card mr-1"></i>Perfil</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cambiarClavePopup"><i
+                class="fas fa-key mr-1"></i>Cambiar Clave</a>
+            <a class="dropdown-item" href="#" routerLink="/serviciosContratados" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-file-signature mr-1"></i>Servicios
+              Contratados</a>
+            <a class="dropdown-item" href="#" routerLink="/serviciosPublicados" routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"><i class="fas fa-clipboard-list mr-1"></i>Servicios
+              Publicados</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item cerrar-sesion" href="#" (click)="cerrarSesion()"><i
+                class="fas fa-sign-out-alt mr-1"></i>Cerrar Sesión</a>
+          </div>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="!authService.loggedIn()">
+        <li class="nav-item">
+          <button class="btn btn-light" (click)="openSignupModal()" style="margin-right: 20px;">
+            Registrarse
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-secondary" (click)="openSigninModal()">
+            Iniciar sesión
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
+
+<ng-container *ngIf="authService.loggedIn()">
+  <app-cambiar-clave></app-cambiar-clave>
+</ng-container>
