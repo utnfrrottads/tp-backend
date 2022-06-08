@@ -16,19 +16,22 @@ const messageSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, "Provide me"],
+        match: [
+            /[^\s+]/,
+            "Please provide a valid description",
+          ]
         // Preguntar mas caracteristicas del mensaje
     },
 
     sender_id: {
-        type: Int32Array,
+        type: mongoose.Schema.Types.ObjectId, ref: 'user',
        
 
     },
 
     receiver_id:{
-        type: Int32Array,
-        
-
+        type: mongoose.Schema.Types.ObjectId, ref: 'user'
+    
     }
     
 })      
