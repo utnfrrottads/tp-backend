@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const UserSchema = new mongoose.Schema(
   {
@@ -25,9 +26,25 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Please provide password"],
       minlength: 6,
     },
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    profileImage: {
+      type: String,
+      // default: ,
+    },
   },
   { timestamps: true }
 );
+
+UserSchema.methods.setImgUrl = function (filename) {
+  const host = process.env.APP_HOST;
+  const port = process.env.PORT || 3000;
+  this.profileImage = `${host}:${port}/public/imgs/${filename}`;
+};
 
 UserSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
