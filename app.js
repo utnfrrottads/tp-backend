@@ -6,7 +6,7 @@ require("express-async-errors");
 const cors = require("cors");
 const connectDB = require("./db/connect");
 const usersRouter = require("./routes/users");
-
+const messagesRouter = require('./routes/messages')
 const friendRouter = require("./routes/friendList");
 const bodyParser = require("body-parser");
 
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/users", usersRouter);
-
+app.use("/api/v1/messages", messagesRouter);
 app.use("/api/v1/friendList", friendRouter);
 
 
