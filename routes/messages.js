@@ -9,7 +9,8 @@ const {
         updateMessage,
         getMessageByDate,
         getBySender,
-        getByReceiver
+        getByReceiver,
+        getByAll
     } = require('../controller/messages')
 
 
@@ -27,5 +28,8 @@ router.route('/filter/sender').get(getBySender)
 
 
 router.route('/filter/receiver').get(getByReceiver)
+
+
+router.route('/filter/all').get(getByAll)
 
 module.exports = router

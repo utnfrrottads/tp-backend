@@ -22,9 +22,10 @@ const getMessageById = async(req, res) =>{
     try{
         const {id} = req.params;
         
-        const message =  await Message.find({_id: id})
+        const message =  await Message.findOne({_id: id})
         return res.status(StatusCodes.OK).json({message})
     }catch(err){
+        console.log(err)
         return res.status(StatusCodes.NOT_FOUND).json({msg:err})
     }
 
@@ -37,7 +38,7 @@ const createNewMessage = async(req, res)=>{
         const date = new Date().toISOString();
 
         
-        const message = await new Message({description: description, date: date, sender_id: sender, receiver_id: receiver})
+        const message = await new Message({description: description, date: date, sender: sender, receiver: receiver})
 
         const newMessage = await message.save()
 
@@ -128,7 +129,7 @@ const getBySender = async(req, res) =>{
         let {sender} = req.body;
 
         
-        const messages = await Message.find({sender_id: sender})
+        const messages = await Message.find({sender: sender})
 
         return res.status(StatusCodes.OK).json({messages})
 
@@ -145,7 +146,7 @@ const getByReceiver = async(req, res) =>{
         let {receiver} = req.body;
 
         
-        const messages = await Message.find({receiver_id: receiver})
+        const messages = await Message.find({receiver: receiver})
 
         return res.status(StatusCodes.OK).json({messages})
 
@@ -154,6 +155,24 @@ const getByReceiver = async(req, res) =>{
         return res.status(StatusCodes.NOT_FOUND).json({msg:err})
     }
 
+}
+
+// Filtrar por todete
+
+const getByAll = async(req, res) =>{
+    try{
+        let {sender, receiver, from_date, to_date} =  req.body;
+
+        if(to_date === ""){
+            to_date = new Date().toISOString();
+        }
+        // if from_Date === "" => ?
+
+        const messages = await Message.find({receiver: receiver, sender: sender, date:{"$gte": from_date, "$lt": to_date}})
+        return res.status(StatusCodes.OK).json(messages)
+    }catch(err){
+        return res.status(StatusCodes.NOT_FOUND).json({msg: err})
+    }
 }
 
 
@@ -165,5 +184,6 @@ module.exports = {
     updateMessage,
     getMessageByDate,
     getBySender,
-    getByReceiver
+    getByReceiver,
+    getByAll
 }

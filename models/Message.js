@@ -23,14 +23,14 @@ const messageSchema = new mongoose.Schema({
         // Preguntar mas caracteristicas del mensaje
     },
 
-    sender_id: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'user',
+    sender: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
        
 
     },
 
-    receiver_id:{
-        type: mongoose.Schema.Types.ObjectId, ref: 'user'
+    receiver:{
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
     
     }
     
