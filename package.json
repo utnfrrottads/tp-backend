@@ -1,0 +1,75 @@
+{
+  "name": "tp-ttads-backend",
+  "version": "1.0.0",
+  "description": "API with Node JS",
+  "main": "buildScripts/app.js",
+  "scripts": {
+    "start": "npm-run-all --parallel serve:app lint:watch test:watch",
+    "serve:app": "nodemon --exec babel-node buildScripts/app.js",
+    "share": "lt --port 4000 --subdomain ttads",
+    "lint": "esw . --color",
+    "lint:watch": "npm run lint -- --watch",
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\" ",
+    "test:watch": "npm test -- --watch",
+    "int:test": "mocha --timeout 15000 --reporter progress buildScripts/integrationTestSetup.js \"integration-tests/**/*.integration.test.js\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blancoagustina/tp-backend.git"
+  },
+  "author": "Oscar Dorronzoro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blancoagustina/tp-backend/issues"
+  },
+  "homepage": "https://github.com/blancoagustina/tp-backend#readme",
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 4000,
+      "SESSION_SECRET": "5f9fa1bf66522e2a80cbe5badafd7bd251541d79431cd32651a93b92bde11b53",
+      "FRONTEND_PATH": "../tp-frontend-2022/src/"
+    }
+  },
+  "dependencies": {
+    "@babel/register": "^7.13.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "chalk": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "memorystore": "^1.6.6",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.15",
+    "numeral": "^2.0.6",
+    "open": "^7.3.1",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.13.0",
+    "@babel/preset-env": "^7.12.11",
+    "chai": "^4.2.0",
+    "cheerio": "^1.0.0-rc.5",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-watch": "^7.0.0",
+    "jsdom": "^16.4.0",
+    "json-server": "^0.16.3",
+    "localtunnel": "^2.0.1",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "sinon": "^9.2.4",
+    "supertest": "^6.1.3"
+  }
+}
