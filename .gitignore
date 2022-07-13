@@ -1,0 +1,4 @@
+# variables de entorno y api key
+.env
+# configuracion del vs code
+.vscode/
