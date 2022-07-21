@@ -13,12 +13,14 @@ const SummonerSchema = Schema({
     summonerLevel: {
         type: Number
     },
-    leagues: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'SummonerLeague'
-        }
-    ]
+    rankedSolo: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ranked'
+    },
+    rankedFlex: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ranked'
+    }
 }, {
     timestamps: true
 });

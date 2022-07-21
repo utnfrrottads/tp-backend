@@ -3,7 +3,7 @@ const axios = require("axios");
 
 const Summoner = require("../models/Summoner");
 const League = require("../models/League");
-const SummonerLeague = require("../models/SummonerLeague");
+const Ranked = require("../models/Ranked");
 
 const axiosOptions = {
     headers: {
@@ -32,16 +32,21 @@ exports.findSummonerByNameLOLAPI = async (summonerName) => {
 
     let rankeds = rankedApiResponse.data;
     for (const element of rankeds) {
-        let ranked = new SummonerLeague({
+        let ranked = new Ranked({
             queueType: element.queueType,
             rank: element.rank,
             wins: element.wins,
             losses: element.losses,
+            leaguePoints: element.leaguePoints,
+            tier: element.tier
         })
-        let league = await findLeagueByName(element.tier);
-        ranked.league = league;
+        if (element.queueType === "RANKED_SOLO_5x5") {
+            summoner.rankedSolo = ranked;
+        } else if (element.queueType === "RANKED_FLEX_SR") {
+            summoner.rankedFlex = ranked;
+        }
         await ranked.save();
-        summoner.leagues.push(ranked);
+        // summoner.leagues.push(ranked);
     }
     await summoner.save();
     return summoner;

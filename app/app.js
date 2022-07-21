@@ -23,5 +23,4 @@ app.use("/user", require("./routes/user.routes"));
 app.use("/summoner", require("./routes/lolsummoner.routes"));
 app.use("/tournament", require("./routes/tournament.routes"));
 
-
 module.exports = app;

@@ -36,7 +36,7 @@ exports.create = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Hubo un error");
+        res.status(500).send("Hubo un error al crear");
     }
 }
 
@@ -70,7 +70,7 @@ exports.update = async (req, res) => {
 
 exports.findOne = async (req, res) => {
     try {
-        let tournament = await Tournament.findById(req.params.id);
+        let tournament = await Tournament.findById(req.params.id).populate({ path: "participantes", populate: { path: "rankedSolo"} }).populate({ path: "participantes", populate: { path: "rankedFlex"} }).populate("autor", "-password");
 
         if (!tournament) return res.status(404).json({ msg: "El torneo no existe" });
 
@@ -80,6 +80,19 @@ exports.findOne = async (req, res) => {
         console.log(error);
         res.status(500).send("Hubo un error");
     }
+}
+
+function compare(x, y) {
+    x.leagues.forEach(xelement => {
+        if (xelement.queueType === "RANKED_SOLO_5x5") {
+            y.leagues.forEach(yelement => {
+                if (yelement.queueType === "RANKED_SOLO_5x5") {
+                    console.log((xelement.league.tier > yelement.league.tier) ? 1 : ((yelement.league.tier > xelement.league.tier) ? -1 : 0));
+                    return (xelement.league.tier > yelement.league.tier) ? 1 : ((yelement.league.tier > xelement.league.tier) ? -1 : 0);
+                }
+            });
+        }
+    });
 }
 
 exports.delete = async (req, res) => {
@@ -109,12 +122,14 @@ exports.addParticipant = async (req, res) => {
 
         if (summoner) {
             tournament.participantes.push(summoner);
-            tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "leagues", populate: { path: "league" } } });
+            // tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "leagues", populate: { path: "league" } } });
+            tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "rankedSolo" } });
             return res.status(200).json({ msg: "Participante agregado", tournament });
         } else {
             let summoner = await SummonerHelper.findSummonerByNameLOLAPI(req.params.name)
             tournament.participantes.push(summoner);
-            tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "leagues", populate: { path: "league" } } });
+            // tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "leagues", populate: { path: "league" } } });
+            tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "rankedSolo" }, populate: { path: "rankedFlex" } });
             return res.status(200).json({ msg: "Participante agregado", tournament });
         }
 

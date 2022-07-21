@@ -8,7 +8,7 @@ exports.summoner = async (req, res) => {
 
     const { summonerName } = req.params;
 
-    let summoner = await Summoner.findOne({ summonerName: summonerName }).populate({ path: "leagues", populate: { path: "league" } });
+    let summoner = await Summoner.findOne({ summonerName: summonerName }).populate("rankedSolo").populate("rankedFlex");
     let msg = "Summoner encontrado";
     if (!summoner) {
         summoner = await SummonerHelper.findSummonerByNameLOLAPI(summonerName);

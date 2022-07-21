@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SummonerLeagueSchema = Schema({
+const RankedSchema = Schema({
     queueType: {
+        type: String,
+        required: true
+    },
+    tier: {
         type: String,
         required: true
     },
@@ -18,16 +22,16 @@ const SummonerLeagueSchema = Schema({
         type: Number,
         required: true
     },
+    leaguePoints: {
+        type: Number,
+        required: true
+    },
     summoner: {
         type: Schema.Types.ObjectId,
         ref: 'Summoner'
-    },
-    league: {
-        type: Schema.Types.ObjectId,
-        ref: 'League'
-    },
+    }
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model("SummonerLeague", SummonerLeagueSchema);
+module.exports = mongoose.model("Ranked", RankedSchema);
