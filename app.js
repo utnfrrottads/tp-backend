@@ -13,7 +13,8 @@ const bodyParser = require("body-parser");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/public", express.static(__dirname + "/imgs"));
+app.use(express.static("./public"));
+app.use("/uploads", express.static("uploads"));
 
 app.use(cors());
 
