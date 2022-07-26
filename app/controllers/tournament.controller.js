@@ -6,7 +6,7 @@ const SummonerHelper = require("../helpers/summoner.helper");
 
 exports.findAll = async (req, res) => {
     try {
-        const tournaments = await Tournament.find().populate("autor");
+        const tournaments = await Tournament.find().populate("autor").populate("clasificacionMinima");
         res.json(tournaments);
     } catch (error) {
         console.log(error);
@@ -134,3 +134,31 @@ exports.addParticipant = async (req, res) => {
         res.status(500).send("Hubo un error");
     }
 }
+
+exports.findAllByRank = async (req, res) => {
+    try {
+        const clasificacion = await League.findOne({ 'name': req.params.tier_name.toUpperCase() });
+
+        if (!clasificacion) return res.status(404).json({ msg: "Clasificacion invalida" });
+
+        // const tournaments = await Tournament.find({ 'clasificacionMinima': clasificacion }).populate("autor");
+
+        const tournaments = await Tournament.find().populate("autor").populate("clasificacionMinima");
+
+        let filteredTournaments = tournaments.filter(tournament => {
+            if (tournament.clasificacionMinima) {
+                if (tournament.clasificacionMinima.tier <= clasificacion.tier) {
+                    return tournament;
+                }
+            }
+        });
+
+        console.log(filteredTournaments);
+
+        res.status(200).json(filteredTournaments);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Hubo un error");
+    }
+}
+
