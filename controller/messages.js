@@ -35,7 +35,7 @@ const getMessageById = async(req, res) =>{
 const createNewMessage = async(req, res)=>{
     try{
         const {description, sender, receiver} = req.body;
-        const date = new Date().toISOString();
+        const date = new Date();
 
         
         const message = await new Message({description: description, date: date, sender: sender, receiver: receiver})
@@ -102,18 +102,20 @@ const getMessageByDate = async (req, res) =>{ // Ver forma de nombrar
         let {from_date, to_date} = req.body;
 
         if(to_date === ""){
-            to_date = new Date().toISOString()
+            to_date = new Date();
         }
         
+
+        if(from_date == ""){
+            from_date = new Date();
+            from_date.setHours(0, 0, 0, 0); 
+        }
+           
         
+       
+        const messages = await Message.find({date:{"$gte": from_date, "$lt": to_date}});
 
-        // Que pasa si fecha from nula?
-        // Deberia ingresarla en formato normal y buscarla en el iso??
-        // const f_date = new Date(from_date)
-        // const t_date = new Date(to_date) ==> Mirar
-        const messages = await Message.find({date:{"$gte": from_date, "$lt": to_date}})
-
-        return res.status(StatusCodes.OK).json({messages})
+        return res.status(StatusCodes.OK).json({messages});
 
     }catch(err)
     {
@@ -164,9 +166,14 @@ const getByAll = async(req, res) =>{
         let {sender, receiver, from_date, to_date} =  req.body;
 
         if(to_date === ""){
-            to_date = new Date().toISOString();
+            to_date = new Date();
         }
-        // if from_Date === "" => ?
+
+        if(from_date == ""){
+            from_date = new Date();
+            from_date.setHours(0, 0, 0, 0); 
+        }
+        
 
         const messages = await Message.find({receiver: receiver, sender: sender, date:{"$gte": from_date, "$lt": to_date}})
         return res.status(StatusCodes.OK).json(messages)
