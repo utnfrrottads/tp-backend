@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const LeagueSchema = mongoose.Schema({
     tier: {
-        type: String,
+        type: Number,
         required: true
     },
     name: {
