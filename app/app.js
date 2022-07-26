@@ -3,9 +3,12 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const connection = require("./config/db");
+const databaseHelper = require("./helpers/database.helper");
 
 // Conectamos a la base de datos
 connection();
+
+databaseHelper.resetDatabase();
 
 // Creamos el servidor
 const app = express();

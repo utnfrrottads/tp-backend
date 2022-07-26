@@ -24,6 +24,10 @@ const TournamentSchema = Schema({
         type: Date,
         required: true
     },
+    clasificacionMinima: {
+        type: Schema.Types.ObjectId,
+        ref: 'League'
+    },
     autor: {
         type: Schema.Types.ObjectId,
         ref: 'User'

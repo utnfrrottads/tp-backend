@@ -7,6 +7,10 @@ const RankedSchema = Schema({
         required: true
     },
     tier: {
+        type: Number,
+        required: true
+    },
+    tierName: {
         type: String,
         required: true
     },

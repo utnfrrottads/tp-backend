@@ -31,6 +31,7 @@ exports.findSummonerByNameLOLAPI = async (summonerName) => {
         });
 
     let rankeds = rankedApiResponse.data;
+    let leagues = await League.find();
     for (const element of rankeds) {
         let ranked = new Ranked({
             queueType: element.queueType,
@@ -38,15 +39,19 @@ exports.findSummonerByNameLOLAPI = async (summonerName) => {
             wins: element.wins,
             losses: element.losses,
             leaguePoints: element.leaguePoints,
-            tier: element.tier
+            tierName: element.tier
         })
+        leagues.forEach(element => {
+            if (ranked.tierName === element.name) {
+                ranked.tier = element.tier;
+            }
+        });
         if (element.queueType === "RANKED_SOLO_5x5") {
             summoner.rankedSolo = ranked;
         } else if (element.queueType === "RANKED_FLEX_SR") {
             summoner.rankedFlex = ranked;
         }
         await ranked.save();
-        // summoner.leagues.push(ranked);
     }
     await summoner.save();
     return summoner;
