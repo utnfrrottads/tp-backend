@@ -110,24 +110,31 @@ exports.delete = async (req, res) => {
 
 exports.addParticipant = async (req, res) => {
     try {
-        let tournament = await Tournament.findById(req.params.id);
+        let tournament = await Tournament.findById(req.params.id).populate("clasificacionMinima").populate("participantes");
 
         if (!tournament) return res.status(404).json({ msg: "El torneo no existe" });
 
-        let summoner = await Summoner.findOne({ summonerName: req.params.name });
+        if (tournament.cupo === 0) return res.status(400).json({ msg: "El torneo no tiene cupo" });
 
-        if (summoner) {
-            tournament.participantes.push(summoner);
-            // tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "leagues", populate: { path: "league" } } });
-            tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "rankedSolo" } });
-            return res.status(200).json({ msg: "Participante agregado", tournament });
-        } else {
-            let summoner = await SummonerHelper.findSummonerByNameLOLAPI(req.params.name)
-            tournament.participantes.push(summoner);
-            // tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "leagues", populate: { path: "league" } } });
-            tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "rankedSolo" } });
-            return res.status(200).json({ msg: "Participante agregado", tournament });
+        let summoner = await Summoner.findOne({ summonerName: req.params.name }).populate("rankedSolo");
+
+        if (!summoner) {
+            summoner = await SummonerHelper.findSummonerByNameLOLAPI(req.params.name)
         }
+
+        for (const element of tournament.participantes) {
+            if (element.summonerName === summoner.summonerName) {
+                return res.status(400).json({ msg: "El summoner ya está inscripto en el torneo" });
+            }
+        }
+
+        if (summoner.rankedSolo.tier > tournament.clasificacionMinima.tier) {
+            return res.status(400).json({ msg: "El summoner no cumple con los requisitos" });
+        }
+
+        tournament.participantes.push(summoner);
+        tournament = await Tournament.findByIdAndUpdate({ _id: tournament._id }, tournament, { new: true }).populate({ path: "participantes", populate: { path: "rankedSolo" } });
+        return res.status(200).json({ msg: "Participante agregado", tournament });
 
     } catch (error) {
         console.log(error);

@@ -8,7 +8,10 @@ const databaseHelper = require("./helpers/database.helper");
 // Conectamos a la base de datos
 connection();
 
-//databaseHelper.resetDatabase();
+// Carga inicial de la db
+if (Number(process.env.RESET_DB)) {
+    databaseHelper.resetDatabase();
+}
 
 // Creamos el servidor
 const app = express();
