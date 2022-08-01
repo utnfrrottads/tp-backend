@@ -34,7 +34,6 @@ const UserSchema = new mongoose.Schema(
     ],
     profileImage: {
       type: String,
-      // default: ,
     },
   },
   { timestamps: true }
@@ -43,7 +42,7 @@ const UserSchema = new mongoose.Schema(
 UserSchema.methods.setImgUrl = function (filename) {
   const host = process.env.APP_HOST;
   const port = process.env.PORT || 3000;
-  this.profileImage = `${host}:${port}/public/imgs/${filename}`;
+  this.profileImage = `${host}/public/uploads/${filename}`;
 };
 
 UserSchema.pre("save", async function () {
