@@ -3,6 +3,7 @@ const router = express.Router();
 const upload = require("../middlewares/storage");
 const {
   getAllUsers,
+  getSingleUser,
   createUser,
   updateUser,
   deleteUser,
@@ -10,6 +11,6 @@ const {
 
 router.route("/").get(getAllUsers);
 router.route("/create").post(upload.single("file")).post(createUser);
-router.route("/:id").patch(updateUser).delete(deleteUser);
+router.route("/:id").patch(updateUser).delete(deleteUser).get(getSingleUser);
 
 module.exports = router;

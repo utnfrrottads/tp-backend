@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const StatusCodes = require("http-status-codes");
-const upload = require("../middlewares/storage");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -11,16 +10,25 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getSingleUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await User.findById(id);
+    return res.status(StatusCodes.OK).json({ user });
+  } catch (error) {
+    return res.status(StatusCodes.NOT_FOUND).json({ msg: "Error" });
+  }
+};
+
 const createUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const user = await User.create({ name, email, password });
+    const user = await User.create({ name, email, password, description });
     const file = req.file;
     if (file) {
-      upload.single(file);
       user.setImgUrl(file.filename);
     } else {
-      user.setImgUrl("default.png");
+      user.profileImage = "";
     }
     await user.save();
     return res.status(StatusCodes.CREATED).json({ user });
@@ -65,4 +73,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, createUser, updateUser, deleteUser };
+module.exports = {
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  updateUser,
+  deleteUser,
+};

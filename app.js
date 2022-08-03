@@ -11,9 +11,9 @@ const bodyParser = require("body-parser");
 
 // middleware
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.static("./public"));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 
 app.use(cors());
@@ -25,10 +25,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/friendList", friendRouter);
-
-// products route
-// app.use(notFoundMiddleware);
-// app.use(errorMiddleware);
 
 const port = process.env.PORT || 3000;
 
