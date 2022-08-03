@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const StatusCodes = require("http-status-codes");
+const upload = require("../middlewares/storage");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -12,11 +13,14 @@ const getAllUsers = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, file } = req.body;
+    const { name, email, password } = req.body;
     const user = await User.create({ name, email, password });
-    const filename = file;
-    if (filename) {
-      user.setImgUrl(filename);
+    const file = req.file;
+    if (file) {
+      upload.single(file);
+      user.setImgUrl(file.filename);
+    } else {
+      user.setImgUrl("default.png");
     }
     await user.save();
     return res.status(StatusCodes.CREATED).json({ user });
