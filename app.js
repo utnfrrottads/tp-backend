@@ -4,8 +4,10 @@ const app = express();
 const cors = require("cors");
 const connectDB = require("./db/connect");
 const usersRouter = require("./routes/users");
+const messagesRouter = require('./routes/messages')
 const friendRouter = require("./routes/friendList");
 const bodyParser = require("body-parser");
+
 
 // middleware
 app.use(express.json());
@@ -21,8 +23,17 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/messages", messagesRouter);
 app.use("/api/v1/friendList", friendRouter);
 
+<<<<<<< HEAD
+=======
+
+// products route
+// app.use(notFoundMiddleware);
+// app.use(errorMiddleware);
+
+>>>>>>> 6273c2e1c8fe56ed1f51c6cf2a741ee50f63caaf
 const port = process.env.PORT || 3000;
 
 // func to connectDB
