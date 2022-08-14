@@ -33,23 +33,23 @@
       "NODE_ENV": "development",
       "PORT": 4000,
       "SESSION_SECRET": "5f9fa1bf66522e2a80cbe5badafd7bd251541d79431cd32651a93b92bde11b53",
-      "FRONTEND_PATH": "../tp-frontend-2022/src/"
+      "FRONTEND_PATH": "../tp-frontend/src/"
     }
   },
   "dependencies": {
     "@babel/register": "^7.13.8",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "memorystore": "^1.6.6",
-    "mongodb": "^3.6.3",
-    "mongoose": "^5.11.15",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "memorystore": "^1.6.7",
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.4.4",
     "numeral": "^2.0.6",
-    "open": "^7.3.1",
-    "uuid": "^3.4.0"
+    "open": "^8.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
@@ -64,9 +64,9 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-watch": "^7.0.0",
     "jsdom": "^16.4.0",
-    "json-server": "^0.16.3",
+    "json-server": "^0.4.2",
     "localtunnel": "^2.0.1",
-    "mocha": "^8.2.1",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "sinon": "^9.2.4",

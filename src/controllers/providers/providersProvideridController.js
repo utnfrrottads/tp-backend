@@ -2,6 +2,7 @@ import Provider from '../../models/providerModel';
 import reAssign from '../../utils/reAssign';
 
 function providerProvideridController(Article) {
+  // it's used as middleware to get provider, in provider router
   async function findProviderByCuit(req, res, next) {
     const query = { 'providers.cuit': req.params.providerCuit };
 
@@ -85,7 +86,7 @@ function providerProvideridController(Article) {
     }
   }
 
-  return {
+  return { // there is no post because provider creation is in article controller
     findProviderByCuit,
     get,
     put,

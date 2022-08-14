@@ -12,9 +12,9 @@ db.articles.insert([
     description: 'Esponja verde y amarilla',
     category: { name: 'cocina', description: 'Articulos de limpieza para la cocina' },
     prices: [
-      { value: 75, sinceDate: ISODate('2021-01-01T03:00:00.001Z') },
-      { value: 85, sinceDate: ISODate('2021-01-30T03:00:00.002Z') },
-      { value: 80, sinceDate: ISODate('2021-01-15T03:00:00.003Z') }
+      { value: 75, sinceDate: ISODate('2021-01-01T03:00:00.301Z') },
+      { value: 85, sinceDate: ISODate('2021-01-30T03:00:00.302Z') },
+      { value: 80, sinceDate: ISODate('2021-01-15T03:00:00.303Z') }
     ],
     providers: [
       {
@@ -41,9 +41,9 @@ db.articles.insert([
     description: 'Escoba de interior',
     category: { name: 'general', description: 'Articulos para la liempieza general de la casa' },
     prices: [
-      { value: 250, sinceDate: ISODate('2021-01-01T03:00:02.000Z') },
-      { value: 300, sinceDate: ISODate('2021-01-30T03:00:02.001Z') },
-      { value: 275, sinceDate: ISODate('2021-01-15T03:00:02.002Z') }
+      { value: 250, sinceDate: ISODate('2021-01-01T03:00:02.200Z') },
+      { value: 300, sinceDate: ISODate('2021-01-30T03:00:02.201Z') },
+      { value: 275, sinceDate: ISODate('2021-01-15T03:00:02.202Z') }
     ],
     providers: [
       {
@@ -82,9 +82,9 @@ db.articles.insert([
     description: 'Esponja metalica',
     category: { name: 'cocina', description: 'Articulos de limpieza para la cocina' },
     prices: [
-      { value: 75, sinceDate: ISODate('2021-01-01T03:00:03.000Z') },
-      { value: 85, sinceDate: ISODate('2021-01-30T03:00:03.001Z') },
-      { value: 80, sinceDate: ISODate('2021-01-15T03:00:03.002Z') }
+      { value: 75, sinceDate: ISODate('2021-01-01T03:00:03.100Z') },
+      { value: 85, sinceDate: ISODate('2021-01-30T03:00:03.101Z') },
+      { value: 80, sinceDate: ISODate('2021-01-15T03:00:03.102Z') }
     ],
     providers: [
       {

@@ -1,8 +1,8 @@
 import express from 'express';
 import session from 'express-session';
-import { v5 as uuidv5 } from 'uuid';
+import { v4 as uuidgen } from 'uuid';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import chalk from 'chalk';
@@ -18,15 +18,18 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const baseUrl = 'mongodb://localhost/';
+/* // No longer necessary since mongoose v6
 const dbOptions = { // it's due to a deprecation warning
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
 };
+*/
+const dbOptions = {};
 
 const sessionOptions = {
-  genid: uuidv5,
+  genid: uuidgen,
   name: 'cleanning.supplies',
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -63,8 +66,10 @@ switch (process.env.NODE_ENV) {
 
 mongoose.connect(`${baseUrl}${db}`, dbOptions);
 
-app.use(bodyParser.json({ limit: '10mb', extended: true }));
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+// app.use(bodyParser.json({ limit: '10mb', extended: true }));
+// app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: '10mb', extended: true }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors());
 app.use(session(sessionOptions));
 

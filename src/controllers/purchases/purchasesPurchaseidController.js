@@ -1,3 +1,5 @@
+/* eslint-disable */
+// Not implemented
 function purchasesPurchaseidController(Customer) {
   function findPurchaseByCode(req, res, next) {
 

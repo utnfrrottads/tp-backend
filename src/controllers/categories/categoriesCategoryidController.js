@@ -2,6 +2,7 @@ import reAssign from '../../utils/reAssign';
 import Category from '../../models/categoryModel';
 
 function categoriesCategoryidController(Article) {
+  // it's used as middleware to get category, in category router
   async function findCategoryByName(req, res, next) {
     const query = { 'category.name': req.params.categoryName };
 
@@ -85,7 +86,7 @@ function categoriesCategoryidController(Article) {
     }
   }
 
-  return {
+  return { // there is no post because category creation is in article controller
     findCategoryByName,
     get,
     put,
