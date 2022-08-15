@@ -1,7 +1,7 @@
 # TP Backend TTADS
 
 ## 0 - Descripción de nuestro TP
-Link to previous repository: https://gitlab.com/OscarDorronzoro/tp-backend-2020
+Link a repositorio anterior: https://gitlab.com/OscarDorronzoro/tp-backend-2020
 
 ### 0.1 - ABMCs
 
