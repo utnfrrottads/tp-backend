@@ -1,0 +1,56 @@
+<app-header></app-header>
+<!-- Demo header-->
+<section class="pb-5 header text-center">
+  <div class="container py-5 ">
+
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                <div class="card-header">
+                    <div class="row">
+                      <div class="col-9">
+                        <h2 class="text-center">Notas</h2>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-outline-success" (click)="addNote()"><i class="fa fa-plus" aria-hidden="true"></i> Crear</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body pb-5">
+
+                      <!-- Responsive table -->
+                      <div class="table-responsive">
+                          <table class="table m-0">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">Nombre</th>
+                                      <th scope="col">Editar/Eliminar</th>
+                                      <th scope="col"></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let note of items">
+                                    <td>
+                                      <span>{{note.name}}</span>
+                                    </td>
+                                    <td>
+                                        <!-- Call to action buttons -->
+                                        <ul class="list-inline m-0">
+                                          <li class="list-inline-item">
+                                              <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="editNote(note)"><i class="fa fa-edit"></i></button>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteNote(note)"><i class="fa fa-trash"></i></button>
+                                          </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

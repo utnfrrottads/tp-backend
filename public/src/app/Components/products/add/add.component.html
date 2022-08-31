@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<section class="pb-5 header ">
+  <div class="container py-5">
+    <div class="d-flex flex-row-reverse">
+      <button class="btn btn-outline-primary" routerLink="/product"> <i class="fa fa-arrow-left"></i> Volver</button>
+    </div>
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                <h5 class="card-header text-center"><span *ngIf=isEdit>Editar</span><span *ngIf=!isEdit>Crear</span> Producto</h5>
+                  <div class="card-body p-5">
+
+                 <form novalidate [formGroup]="productForm" (ngSubmit)="onSubmit()" >
+                  
+                  <label for="branch">Sucursal</label>
+                  <select *ngIf="branch" formControlName="branch" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione sucursal del producto</option>
+                    <option *ngFor="let br of branch" value="{{br._id}}">{{br.street + ' ' + br.number}}</option>
+                  </select>
+
+                  <label for="article">Articulos</label>
+                  <select *ngIf="article" formControlName="article" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Seleccione artículo</option>
+                    <option *ngFor="let art of article" value="{{art._id}}">{{art.name}}</option>
+                  </select>
+                  <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" class="form-control" formControlName="stock" placeholder="Ingrese stock del producto">
+                  </div>                  
+
+                  <br>
+                  <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">{{isEdit ? 'Actualizar' : 'Agregar'}}</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

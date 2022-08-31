@@ -1,0 +1,110 @@
+<app-header></app-header>
+
+<!-- Demo header-->
+<section class="pb-5 header text-center">
+  <div class="container py-5 ">
+
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                <div class="card-header">
+                    <div class="row">
+                      <div class="col-11">
+                        <h2 class="text-center">Usuarios</h2>
+                      </div>
+                      <div class="col-1">
+                        <button type="button" class="btn btn-outline-success" (click)="addUser()"><i class="fa fa-plus" aria-hidden="true"></i> Crear</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body p-3">
+
+                      <!-- Responsive table -->
+                      <div class="table-responsive">
+                          <table class="table m-0">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">DNI</th>
+                                      <th scope="col">Nombre</th>
+                                      <th scope="col">Apellido</th>
+                                      <th scope="col">Usuario</th>
+                                      <th scope="col">Contraseña</th>
+                                      <th scope="col">Email</th>
+                                      <th scope="col">Código Postal</th>
+                                      <th scope="col">Calle</th>
+                                      <th scope="col">Número</th>
+                                      <th scope="col">Piso</th>
+                                      <th scope="col">Teléfono</th>
+                                      <th scope="col">Es empleado?</th>
+                                      <th scope="col">Es cliente?</th>
+                                      <th scope="col">Roles</th>
+
+                                      <th scope="col">Editar/Eliminar</th>
+                                      <th scope="col"></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let user of items">
+                                    <td>
+                                      <span>{{user.dni}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.names}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.lastNames}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.username}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.password}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.email}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.postalCode}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.street}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.number}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.flat}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.phone}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.employee  === true ? 'Si' : 'No'}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{user.client === true ? 'Si' : 'No'}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{roleList(user)}}</span>
+                                    </td>
+                                    <td>
+                                        <!-- Call to action buttons -->
+                                        <ul class="list-inline m-0">
+                                          <li class="list-inline-item">
+                                              <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="editUser(user)"><i class="fa fa-edit"></i></button>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteUser(user)"><i class="fa fa-trash"></i></button>
+                                          </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

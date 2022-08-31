@@ -1,0 +1,133 @@
+<!-- Market Item -->
+<div *ngIf="mode == 'market'" class="card m-3">
+    <div class="card-body">
+        <div class="col-s1" >
+            <img src="../../../assets/perfume-bottles.jpg" class="rounded float-start" alt="Foto Perfume" style="max-width: 12%; height: auto;">
+        </div>
+        <div class="col-s6">
+            <div class="row">
+                <div class="col">
+                    <div class="h4">
+                        {{article.name}} - {{article.presentation}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="h3">
+                    ${{article.prices[0].price}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="p">
+                        {{article.description}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div *ngIf='stockAvailable' class="btn btn-success btn-sm" (click)=showBranches()>
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>      
+                    </div>
+                    <div  *ngIf='!stockAvailable' class="alert alert-danger" role="alert">
+                        Sin Stock
+                      </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+    <div class="card-footer" id="branchPicker" *ngIf="branchPickerVisible">
+        <form>
+            <div class="d-flex flex-row align-items-start p-1">
+                <div class="col-1 pl-1">
+                    <label >Cantidad</label>
+                    <input #quantity type="number" class="form-control form-control-sm" >
+                </div>
+                <div class="col-1 pt-4">
+                    <div class="btn btn-outline-success btn-sm" (click)="checkQuantity(quantity.value)">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>    
+                </div>
+                <div class="col-8">
+                    <label for="branchSelect">Seleccione Sucursal</label>
+                    <select #branchPicker class="form-control form-control-sm" [disabled]="branchSelectDisabled" id="branchSelect">
+                        <option *ngFor="let branch of availableBranches" value="{{branch._id}}">{{branch.desc}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-end p-1">
+                <div class="col-1">
+                    <button type="submit" (click)="cancelAddProduct()" class="btn btn-secondary align-end" >Cancelar</button>
+                </div>
+                <div class="col-1">
+                    <button type="submit" id="selectBranch" (click)="addProduct(branchPicker.value, quantity.value)" [disabled]="availableBranches.length ==0" class="btn btn-primary align-end">Añadir</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> 
+
+<!-- Cart Item -->
+<div *ngIf="mode == 'cart'" class="card m-3">
+    <div class="card-body">
+        <div class="col-s1" >
+            <img src="../../../assets/perfume-bottles.jpg" class="rounded float-start" alt="Foto Perfume" style="max-width: 12%; height: auto;">
+        </div>
+        <div class="col-s6">
+            <div class="row">
+                <div class="col">
+                    <div class="h4">
+                        {{item.article.name}} - {{item.article.presentation}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="h3">
+                    x{{item.qty}} - ${{item.article.prices[0].price*item.qty}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="p">
+                        {{item.branch.street}} {{item.branch.number}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="btn btn-info btn-sm" (click)=showBranches()>
+                        <i class="fa fa-pencil-square-o" style="color: white;" aria-hidden="true"></i>
+                    </div>
+                    <div class="btn btn-danger btn-sm" (click)=removeProduct()>
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+    <div class="card-footer" id="branchPickerCart" *ngIf="branchPickerCartVisible">
+        <form>
+            <div class="d-flex flex-row align-items-start p-1">
+                <div class="col-1 pl-1">
+                    <label >Cantidad</label>
+                    <input #quantity type="number" class="form-control form-control-sm" >
+                </div>
+                <div class="col-1 pt-4">
+                    <div class="btn btn-outline-success btn-sm" (click)="checkQuantity(quantity.value)">
+                        <i class="fa fa-check" aria-hidden="true"></i>  
+                    </div>    
+                </div>
+                <div class="col-6">
+                    <label for="branchSelectCart">Seleccione Sucursal</label>
+                    <select #branchPicker class="form-control form-control-sm"  [disabled]="branchSelectCartDisabled" id="branchSelectCart">
+                        <option *ngFor="let branch of availableBranches" value="{{branch._id}}">{{branch.desc}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-end p-1">
+                <div class="col-2">
+                    <button type="submit" (click)="cancelAddProduct()" class="btn btn-secondary align-end" >Cancelar</button>
+                </div>
+                <div class="col-2">
+                    <button type="submit" id="selectBranchCart{{item.article._id}}" (click)="updateProduct(branchPicker.value, quantity.value)" [disabled]="availableBranches.length ==0" class="btn btn-primary align-end">Editar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> 

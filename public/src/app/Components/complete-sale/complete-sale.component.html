@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div class="container p-3">
+    <div class="p-2">
+        <div class="card w-75">
+            <h5 class="card-header">Venta</h5>
+            <div class="card-body">
+                <div class="row d-flex justify-content-center p-2" *ngFor="let item of cartArticle">
+                    <div class="col-8">
+                        <p> x{{item.qty}} {{item.article.name}} - {{item.article.presentation}} </p>
+                    </div>
+                    <div class="col">
+                        <h5>${{item.article.prices[0].price * item.qty}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="col d-flex justify-content-end">
+                    <h4>Total ${{totalPrice}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-2">
+        <div class="card w-75">
+            <h5 class="card-header">Datos de Entrega</h5>
+            <div class="card-body">
+                <div class="row d-flex justify content center">
+                    <div class="mb-3">
+                        <label for="pcInput" class="form-label">Codigo Postal</label>
+                        <input #postalCode type="string" class="form-control form-control-sm" id="pcInput" value="{{currentUser.postalCode}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="streetInput" class="form-label">Calle</label>
+                        <input #street type="string" class="form-control form-control-sm" id="streetInput" value="{{currentUser.street}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="numberInput" class="form-label">Numero y Depto</label>
+                        <input #number type="string" class="form-control form-control-sm" id="numberInput" value="{{currentUser.number}} {{currentUser.flat}}">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row d-flex-justify-content-end">
+                    <button class = "btn btn-primary" (click)= "clickConfirmButton(postalCode.value, street.value, number.value)"> Confirmar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

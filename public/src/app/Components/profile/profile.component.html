@@ -1,0 +1,91 @@
+<app-header></app-header>
+
+<section *ngIf="isEdit==false">
+  <div class="container py-5">
+    <div class="card">
+      <div class="card-header">
+        Profile
+        <a class="btn btn-success btn-sm"  style="float: right;"
+        (click)="changeMode('editMode')"><i class="fa fa-edit"></i></a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{currentUser.names}} {{currentUser.lastNames}}</h5>
+        <p class="card-text"><strong>DNI:</strong> {{currentUser.dni}}.</p>
+        <p class="card-text"><strong>UserName:</strong> {{currentUser.username}}.</p>
+        <p class="card-text"><strong>Email:</strong> {{currentUser.email}}.</p>
+        <p class="card-text"><strong>PostalCode:</strong> {{currentUser.postalCode}}.</p>
+        <p class="card-text"><strong>Adress:</strong> {{currentUser.street}} {{currentUser.number}} {{currentUser.flat}}.</p>
+        <p class="card-text"><strong>Phone:</strong> {{currentUser.phone}}.</p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="isEdit==true" class="pb-5 header text-center">
+  <div class="container py-5">
+
+      <div class="row">
+          <div class="col-lg-7 mx-auto">
+              <div class="card border-0 shadow">
+                <div class="card-header">
+                  Edit Profile
+                  <a class="btn btn-danger"  style="float: right;"
+                  (click)="changeMode('viewMode')"><i class="fa fa-times"></i></a>
+                </div>
+                  <div class="card-body p-5">
+                 <form novalidate [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="dni" placeholder="DNI">
+                  </div>                    
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="names" placeholder="Nombre">
+                  </div>                  
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="lastNames" placeholder="Apellido">
+                  </div>  
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="username" placeholder="Nombre de Usuario">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="password" class="form-control" formControlName="password" placeholder="Conraseña">
+                  </div>    
+                  
+                  <div class="form-group">
+                    <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                  </div>   
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="postalCode" placeholder="Código Postal">
+                  </div>  
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="street" placeholder="Calle">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="number" placeholder="Número">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="flat" placeholder="Piso">
+                  </div> 
+                  
+                  <div class="form-group">
+                    <input type="number" class="form-control" formControlName="phone" placeholder="Teléfono">
+                  </div>
+                  
+                  <br>
+                  <button type="submit" (click)="onSubmit()" class="btn btn-primary">Actualizar</button>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

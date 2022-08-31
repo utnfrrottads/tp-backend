@@ -1,0 +1,94 @@
+<app-header 
+(searchActive)="onNameSearched($event)"></app-header>
+
+<!-- Sidebar -->
+<div id="mySidenav" class="sidenav" [class.sidenav-open]="navOpen">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+    
+    <div class="h2 text-white">
+        Filters
+    </div>
+    <div class="lean text-white m-2">
+        Notas
+    </div>
+    <div class="btn-group-vertical m-8">  
+        <div *ngFor="let note of articleService.filterValues.notes" class="form-check">
+            <input id="noteItem{{note}}" class="form-check-input" type="checkbox" value="{{note}}" id="flexCheckChecked" (change)="onCBNote($event)">
+            <label  class="form-check-label text-white" for="flexCheckChecked">
+                {{note}}
+            </label>
+        </div>
+    </div>
+    <div class="lean text-white m-2">
+        Presentacion
+    </div>
+    <div class="btn-group-vertical m-8">  
+        <div *ngFor="let presentation of articleService.filterValues.presentation" class="form-check">
+            <input id="presentationItem{{presentation}}" class="form-check-input" type="checkbox" value="{{presentation}}" id="flexCheckChecked" (change)="onCBPresentation($event)">
+            <label class="form-check-label text-white" for="flexCheckChecked">
+                {{presentation}}
+            </label>
+        </div>
+    </div>
+</div>
+    
+    <!-- Page Content -->
+<div id="main" [class.sidenav-open]="navOpen">
+    <div class="row">
+        <div class="col">
+            <button (click)="openNav()" class="btn btn-outline-info">
+                Filtros
+                <i class="fa fa-filter" aria-hidden="true"></i> 
+            </button>
+        </div>
+        <div class="col-1 align-self-end">
+            <div class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i class="fa" style="font-size:24px">&#xf07a;</i>
+                <span class='badge badge-warning' id='lblCartCount'> {{currentSale.cart.length}} </span>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div *ngFor="let article of articleService.articles" class="row">
+            <app-product-item 
+            (addArticle)="addArticle($event)"
+            (getError)="onError($event)"
+            [article]="article"
+            [mode]="'market'"></app-product-item>
+        </div>
+    </div>
+</div>
+
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Carrito de Compras</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div *ngFor="let item of cartArticle" class="row">
+                <app-product-item 
+                (deleteItem)="deleteItem($event)"
+                (updateItem)="updateQty($event)"
+                (getError)="onError($event)"
+                [item]="item"
+                [mode]="'cart'"></app-product-item>
+              </div>
+            </div>
+              <div class="card-body">
+                <h4>Total: ${{totalPrice}}</h4>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click) = "finishSale()">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
