@@ -2,13 +2,8 @@ import express from 'express';
 import session from 'express-session';
 import { v4 as uuidgen } from 'uuid';
 import mongoose from 'mongoose';
-// import bodyParser from 'body-parser';
 import cors from 'cors';
-
 import chalk from 'chalk';
-
-import Article from '../src/models/articleModel';
-import Customer from '../src/models/customerModel';
 
 const MemoryStore = require('memorystore')(session);
 
@@ -18,6 +13,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const baseUrl = 'mongodb://localhost/';
+
+const dbOptions = {};
 /* // No longer necessary since mongoose v6
 const dbOptions = { // it's due to a deprecation warning
   useNewUrlParser: true,
@@ -26,7 +23,6 @@ const dbOptions = { // it's due to a deprecation warning
   useFindAndModify: false,
 };
 */
-const dbOptions = {};
 
 const sessionOptions = {
   genid: uuidgen,
@@ -66,26 +62,13 @@ switch (process.env.NODE_ENV) {
 
 mongoose.connect(`${baseUrl}${db}`, dbOptions);
 
-// app.use(bodyParser.json({ limit: '10mb', extended: true }));
-// app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json({ limit: '10mb', extended: true }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors());
 app.use(session(sessionOptions));
 
-const articleRouter = require('../src/routes/articleRouter')(Article);
-const categoryRouter = require('../src/routes/categoryRouter')(Article);
-const providerRouter = require('../src/routes/providerRouter')(Article);
-const customerRouter = require('../src/routes/customerRouter')(Customer);
-const purchaseRouter = require('../src/routes/purchaseRouter')(Customer);
-const loginRouter = require('../src/routes/loginRouter')(Customer);
-
-app.use('/api', articleRouter);
-app.use('/api', categoryRouter);
-app.use('/api', providerRouter);
-app.use('/api', customerRouter);
-app.use('/api', purchaseRouter);
-app.use('/api', loginRouter);
+// Require application routes
+require('../src/routes/index')(app);
 
 app.get('/', (req, res) => {
   res.send('Welcome to Cleanning Supplies API, you can see details on gitlab');

@@ -6,16 +6,16 @@ function routes(Article) {
   const categoryRouter = express.Router();
   const controller = categoriesController(Article);
 
-  categoryRouter.route('/categories')
+  categoryRouter.route('/')
     .get(controller.get);
 
   const controllerId = categoriesCategoryidController(Article);
 
-  categoryRouter.use('/categories/:categoryName', (req, res, next) => {
+  categoryRouter.use('/:categoryName', (req, res, next) => {
     controllerId.findCategoryByName(req, res, next);
   });
 
-  categoryRouter.route('/categories/:categoryName')
+  categoryRouter.route('/:categoryName')
     .get(controllerId.get)
     .put(controllerId.put)
     .patch(controllerId.patch)

@@ -6,7 +6,7 @@ function routes(Customer) {
 
   const controller = loginController(Customer);
 
-  loginRouter.route('/login')
+  loginRouter.route('/')
     .get(controller.get)
     .post(controller.post);
 

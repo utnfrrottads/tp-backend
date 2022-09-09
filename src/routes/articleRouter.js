@@ -6,17 +6,17 @@ function routes(Article) {
   const articleRouter = express.Router();
   const controller = articleController(Article);
 
-  articleRouter.route('/articles')
+  articleRouter.route('/')
     .post(controller.post)
     .get(controller.get);
 
   const controllerId = articleIdController(Article);
 
-  articleRouter.use('/articles/:articleId', (req, res, next) => { // middleware that interrupts request
+  articleRouter.use('/:articleId', (req, res, next) => { // middleware that interrupts request
     controllerId.findArticleById(req, res, next);
   });
 
-  articleRouter.route('/articles/:articleId')
+  articleRouter.route('/:articleId')
     .get(controllerId.get)
     .put(controllerId.put)
     .patch(controllerId.patch)

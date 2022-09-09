@@ -6,17 +6,17 @@ function routes(Customer) {
   const customerRouter = express.Router();
   const controller = customerController(Customer);
 
-  customerRouter.route('/customers')
+  customerRouter.route('/')
     .get(controller.get)
     .post(controller.post);
 
   const controllerId = customersCustomeridController(Customer);
 
-  customerRouter.use('/customers/:customerId', (req, res, next) => {
+  customerRouter.use('/:customerId', (req, res, next) => {
     controllerId.findCustomerById(req, res, next);
   });
 
-  customerRouter.route('/customers/:customerId')
+  customerRouter.route('/:customerId')
     .get(controllerId.get)
     .put(controllerId.put)
     .patch(controllerId.patch)
