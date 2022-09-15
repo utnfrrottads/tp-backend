@@ -1,5 +1,6 @@
 const StatusCodes = require("http-status-codes");
 const Message = require("../models/Message");
+const User = require("../models/User");
 
 const getAllMessages = async (req, res) => {
   try {
@@ -165,11 +166,50 @@ const getAllByUser = async (req, res) => {
     const messages = await Message.find({
       $or: [{ receiver: id }, { sender: id }],
     });
-    console.log(messages);
     return res.status(StatusCodes.OK).json(messages);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json({ error: err });
   }
+};
+
+const getAllArchived = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id).populate("archived").exec();
+
+  if (!user) {
+    return res.status(StatusCodes.NOT_FOUND).json({ error: "User not found" });
+  }
+
+  return res.status(StatusCodes.OK).json(user.archived);
+};
+
+const archiveMessage = async (req, res) => {
+  const { id } = req.params;
+  const { idMsg } = req.body;
+
+  const user = await User.findById(id);
+  const msg = await Message.findById(idMsg);
+
+  if (!user) {
+    return res.status(StatusCodes.NOT_FOUND).json({ error: "User not found" });
+  }
+  if (!msg) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ error: "Message not found" });
+  }
+  if (msg.sender != id && msg.receiver != id) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ error: "This is not your msg" });
+  }
+
+  const newUser = await User.findByIdAndUpdate(
+    { _id: id },
+    { $addToSet: { archived: msg._id } }
+  );
+  return res.status(StatusCodes.OK).json(newUser.archived);
 };
 
 module.exports = {
@@ -183,4 +223,6 @@ module.exports = {
   getByReceiver,
   getByAll,
   getAllByUser,
+  getAllArchived,
+  archiveMessage,
 };

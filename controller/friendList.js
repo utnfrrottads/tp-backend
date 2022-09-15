@@ -82,9 +82,29 @@ const deleteList = async (req, res) => {
   }
 };
 
+const getUsersNotFriends = async (req, res) => {
+  const { ownerId } = req.params;
+  try {
+    const owner = await User.findOne({ _id: ownerId });
+
+    if (!owner) {
+      return res.status(StatusCodes.NOT_FOUND).send(error);
+    }
+
+    const usersNotInTheFriendList = await User.find({
+      $and: [{ _id: { $nin: owner.friends } }, { _id: { $ne: owner._id } }],
+    });
+
+    return res.status(StatusCodes.OK).json(usersNotInTheFriendList);
+  } catch (error) {
+    return res.status(StatusCodes.NOT_FOUND).send(error);
+  }
+};
+
 module.exports = {
   getListByOwner,
   addFriend,
   deleteFriend,
   deleteList,
+  getUsersNotFriends,
 };

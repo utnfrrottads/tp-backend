@@ -12,6 +12,8 @@ const {
   getByReceiver,
   getByAll,
   getAllByUser,
+  getAllArchived,
+  archiveMessage,
 } = require("../controller/messages");
 
 router.route("/").get(getAllMessages).post(createNewMessage);
@@ -31,5 +33,7 @@ router.route("/filter/receiver").get(getByReceiver);
 router.route("/filter/all").get(getByAll);
 
 router.route("/filter/:id").get(getAllByUser);
+
+router.route("/archived/:id").get(getAllArchived).post(archiveMessage);
 
 module.exports = router;

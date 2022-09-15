@@ -32,6 +32,12 @@ const UserSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    archived: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
+      },
+    ],
     description: {
       type: String,
       maxlength: 500,
