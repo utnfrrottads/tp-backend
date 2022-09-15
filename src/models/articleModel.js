@@ -52,8 +52,8 @@ function sortPrices(next) {
 articleModel.pre('findOne', sortPrices);
 articleModel.pre('find', sortPrices);
 
-// indexes
-articleModel.path('category.description').index({ text: true }, { default_language: 'spanish' });
+// indexes for search partial description
+articleModel.index({ description: 'text' }, { name: 'articleDescriptionTextIndex' });
 
 const model = mongoose.model('Article', articleModel);
 model.createIndexes();

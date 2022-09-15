@@ -5,11 +5,14 @@ function articlesController(Article) {
     const query = {};
     let slicePrices = 1;
 
-    if (req.query.code) {
+    if (req.query.code) { // text search (text index must be defined)
       query.code = req.query.code;
     }
+    if (req.query.description) {
+      query.$text = { $search: req.query.description };
+    }
     if (req.query.prices) {
-      slicePrices = req.query.prices;
+      slicePrices = req.query.prices; // define how many prices it get (price history)
     }
     if (req.query.category) {
       query['category.name'] = req.query.category;
@@ -20,8 +23,12 @@ function articlesController(Article) {
 
       const returnArticles = articles.map((article) => {
         const newArticle = article.toJSON();
+        const description = encodeURIComponent(newArticle.description);
+
         newArticle.links = {};
         newArticle.links.self = `http://${req.headers.host}/api/articles/${article._id}`; // eslint-disable-line no-underscore-dangle
+        newArticle.links.findByPartialDescription = `http://${req.headers.host}/api/articles/?description=${description}`;
+
         return newArticle;
       });
 
