@@ -7,7 +7,8 @@ const getListByOwner = async (req, res) => {
   try {
     const owner = await User.findById({ _id: ownerId });
     if (owner.friends.length === 0) {
-      return res.status(StatusCodes.OK).json({ msg: "No friends found" });
+      //return res.status(StatusCodes.OK).json({ msg: "No friends found" });
+      return res.status(StatusCodes.OK).json([]);
     }
     const listWithData = await Promise.all(
       owner.friends.map(async (id) => {
