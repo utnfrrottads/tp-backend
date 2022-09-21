@@ -46,7 +46,6 @@ const Client = sequelize.define('client', {
     email: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        unique: true,
         validate: {
             isEmail: true
         }
@@ -74,14 +73,6 @@ const Client = sequelize.define('client', {
             using: "BTREE",
             fields: [
                 { name: "dni" }
-            ]
-        },
-        {
-            name: "email_UNIQUE",
-            unique: true,
-            using: "BTREE",
-            fields: [
-                { name: "email" }
             ]
         }
     ]
