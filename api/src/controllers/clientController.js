@@ -64,7 +64,39 @@ const deleteClient = async (req, res, next) => {
 };
 
 
+const editClient = async (req, res, next) => {
+    const transaction = await sequelize.transaction();
+    const clientId = req.params.clientId;
+    try {
+        const clientToUpdate = await models.Client.findByPk(clientId);
+
+        if (!clientToUpdate) {
+            throw ApiError.notFound(`Client with id ${clientId} does not exist.`);
+        }
+
+        await models.Client.update(req.body, {
+            where: {
+                clientId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+
+        return res.status(200).json({
+            status: 200,
+            errors: [],
+            data: clientToUpdate
+        });
+    } catch (error) {
+        await transaction.rollback();
+        next(error);
+    }
+};
+
+
 module.exports = {
     newClient,
-    deleteClient
+    deleteClient,
+    editClient
 };

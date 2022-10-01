@@ -7,5 +7,7 @@ router.post('/', validateMissingValues, validateDataTypes, clientController.newC
 
 router.delete('/:clientId', clientController.deleteClient);
 
+router.put('/:clientId', validateMissingValues, validateDataTypes, clientController.editClient);
+
 
 module.exports = router;
