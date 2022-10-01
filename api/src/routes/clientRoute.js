@@ -5,5 +5,7 @@ const { validateMissingValues, validateDataTypes } = require('../middlewares/val
 
 router.post('/', validateMissingValues, validateDataTypes, clientController.newClient);
 
+router.delete('/:clientId', clientController.deleteClient);
+
 
 module.exports = router;
