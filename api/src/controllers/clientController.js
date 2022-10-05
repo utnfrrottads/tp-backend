@@ -110,9 +110,28 @@ const getClients = async (req, res, next) => {
 };
 
 
+const getClientById = async (req, res, next) => {
+    const clientId = req.params.clientId;
+    try {
+        const client = await models.Client.findByPk(clientId);
+
+        if (!client) {
+            throw ApiError.notFound(`Client with id ${clientId} does not exist.`);
+        }
+
+        const response = responseCreator(client);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newClient,
     deleteClient,
     editClient,
-    getClients
+    getClients,
+    getClientById
 };

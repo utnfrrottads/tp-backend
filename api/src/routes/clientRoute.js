@@ -11,5 +11,7 @@ router.put('/:clientId', validateMissingValues, validateDataTypes, clientControl
 
 router.get('/', clientController.getClients);
 
+router.get('/:clientId', clientController.getClientById);
+
 
 module.exports = router;
