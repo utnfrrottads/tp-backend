@@ -11,7 +11,7 @@ const errorMessageFormatter = (error) => {
     return {
         status: 400,
         errors: errorArray,
-        data: {}
+        data: []
     };
 };
 

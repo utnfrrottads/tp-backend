@@ -9,14 +9,14 @@ const httpErrorHandler = (error, req, res, next) => {
         return res.status(error.statusCode).json({
             status: error.statusCode,
             errors: errorMessage,
-            data: {}
+            data: []
         });
     }
 
     return res.status(defaultStatusCode).json({
         status: defaultStatusCode,
         errors: errorMessage,
-        data: {}
+        data: []
     });
 };
 
