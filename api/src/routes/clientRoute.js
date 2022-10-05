@@ -9,5 +9,7 @@ router.delete('/:clientId', clientController.deleteClient);
 
 router.put('/:clientId', validateMissingValues, validateDataTypes, clientController.editClient);
 
+router.get('/', clientController.getClients);
+
 
 module.exports = router;

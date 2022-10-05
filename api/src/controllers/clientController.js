@@ -1,6 +1,7 @@
 const models = require('../models');
 const sequelize = require('../database/db-connection');
 const ApiError = require('../utils/apiError');
+const responseCreator = require('../utils/responseCreator');
 
 
 const newClient = async (req, res, next) => {
@@ -21,11 +22,9 @@ const newClient = async (req, res, next) => {
 
         await transaction.commit();
 
-        return res.status(200).json({
-            status: 200,
-            errors: [],
-            data: newClient
-        });
+        const response = responseCreator(newClient);
+
+        return res.status(200).json(response);
     } catch (error) {
         await transaction.rollback();
         next(error);
@@ -52,11 +51,9 @@ const deleteClient = async (req, res, next) => {
 
         await transaction.commit();
 
-        return res.status(200).json({
-            status: 200,
-            errors: [],
-            data: clientToDelete
-        }); 
+        const response = responseCreator(clientToDelete);
+
+        return res.status(200).json(response); 
     } catch (error) {
         await transaction.rollback();
         next(error);
@@ -83,13 +80,31 @@ const editClient = async (req, res, next) => {
 
         await transaction.commit();
 
-        return res.status(200).json({
-            status: 200,
-            errors: [],
-            data: clientToUpdate
-        });
+        const response = responseCreator(clientToUpdate);
+
+        return res.status(200).json(response);
     } catch (error) {
         await transaction.rollback();
+        next(error);
+    }
+};
+
+
+const getClients = async (req, res, next) => {
+    try {
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = parseInt(req.query.offset) || 0;
+
+        const clients = await models.Client.findAll({
+            limit: limit,
+            offset: offset,
+            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+        });
+
+        const response = responseCreator(clients);
+
+        return res.status(200).json(response);
+    } catch (error) {
         next(error);
     }
 };
@@ -98,5 +113,6 @@ const editClient = async (req, res, next) => {
 module.exports = {
     newClient,
     deleteClient,
-    editClient
+    editClient,
+    getClients
 };
