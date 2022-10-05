@@ -7,6 +7,7 @@ const responseCreator = require('../utils/responseCreator');
 const newClient = async (req, res, next) => {
     const transaction = await sequelize.transaction();
     const clientDni = req.body.dni;
+    
     try {
         const client = await models.Client.findOne({
             where: {
@@ -35,6 +36,7 @@ const newClient = async (req, res, next) => {
 const deleteClient = async (req, res, next) => {
     const transaction = await sequelize.transaction();
     const clientId = req.params.clientId;
+
     try {
         const clientToDelete = await models.Client.findByPk(clientId);
 
@@ -64,6 +66,7 @@ const deleteClient = async (req, res, next) => {
 const editClient = async (req, res, next) => {
     const transaction = await sequelize.transaction();
     const clientId = req.params.clientId;
+
     try {
         const clientToUpdate = await models.Client.findByPk(clientId);
 
@@ -91,10 +94,10 @@ const editClient = async (req, res, next) => {
 
 
 const getClients = async (req, res, next) => {
-    try {
-        const limit = parseInt(req.query.limit) || 10;
-        const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
 
+    try {
         const clients = await models.Client.findAll({
             limit: limit,
             offset: offset,
