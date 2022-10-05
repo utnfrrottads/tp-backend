@@ -115,6 +115,7 @@ const getClients = async (req, res, next) => {
 
 const getClientById = async (req, res, next) => {
     const clientId = req.params.clientId;
+    
     try {
         const client = await models.Client.findByPk(clientId);
 
