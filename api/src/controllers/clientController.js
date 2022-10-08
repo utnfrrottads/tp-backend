@@ -1,4 +1,5 @@
 const models = require('../models');
+const { Op } = require("sequelize");
 const sequelize = require('../database/db-connection');
 const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
@@ -96,13 +97,38 @@ const editClient = async (req, res, next) => {
 const getClients = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
     const offset = parseInt(req.query.offset) || 0;
-
+    const query = req.query.query;
+    
     try {
-        const clients = await models.Client.findAll({
-            limit: limit,
-            offset: offset,
-            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-        });
+        let clients = [];
+
+        if (query) {
+            clients = await models.Client.findAll({
+                where: {
+                    [Op.or]: [
+                        {
+                            firstName: {
+                                [Op.substring]: query
+                            },
+                        },
+                        {
+                            lastName: {
+                                [Op.substring]: query
+                            }
+                        }
+                    ] 
+                },
+                limit: limit,
+                offset: offset,
+                order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+            });
+        } else {
+            clients = await models.Client.findAll({
+                limit: limit,
+                offset: offset,
+                order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+            });
+        }
 
         const response = responseCreator(clients);
 
