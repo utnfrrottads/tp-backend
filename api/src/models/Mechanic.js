@@ -46,7 +46,6 @@ const Mechanic = sequelize.define('mechanic', {
     email: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        unique: true,
         validate: {
             isEmail: true
         }
@@ -66,14 +65,6 @@ const Mechanic = sequelize.define('mechanic', {
             using: "BTREE",
             fields: [
                 { name: "mechanicId" }
-            ]
-        },
-        {
-            name: "email_UNIQUE",
-            unique: true,
-            using: "BTREE",
-            fields: [
-                { name: "email" }
             ]
         },
         {
