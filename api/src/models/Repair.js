@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
-const Mechanic = require('./Mechanic');
-const Vehicle = require('./Vehicle');
+const Mechanic = require('./mechanic');
+const Vehicle = require('./vehicle');
 
 const Repair = sequelize.define('repair', {
     repairId: {

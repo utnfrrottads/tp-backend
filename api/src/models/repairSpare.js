@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
-const Repair = require('./Repair');
-const Spare = require('./Spare');
+const Repair = require('./repair');
+const Spare = require('./spare');
 
 const RepairSpare = sequelize.define('repair_spare', {
     repairId: {

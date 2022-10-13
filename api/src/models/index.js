@@ -1,13 +1,13 @@
-const Client = require('./Client');
-const Configuration = require('./Configuration');
-const Mechanic = require('./Mechanic');
-const Repair = require('./Repair');
-const RepairSpare = require('./RepairSpare');
-const Role = require('./Role');
-const Spare = require('./Spare');
-const Turn = require('./Turn');
-const User = require('./User');
-const Vehicle = require('./Vehicle');
+const Client = require('./client');
+const Configuration = require('./configuration');
+const Mechanic = require('./mechanic');
+const Repair = require('./repair');
+const RepairSpare = require('./repairSpare');
+const Role = require('./role');
+const Spare = require('./spare');
+const Turn = require('./turn');
+const User = require('./user');
+const Vehicle = require('./vehicle');
 
 
 // Asociaciones
