@@ -33,6 +33,37 @@ const newMechanic = async (req, res, next) => {
 };
 
 
+const deleteMechanic = async (req, res, next) => {
+    const transaction = await sequelize.transaction();
+    const mechanicId = req.params.mechanicId;
+
+    try {
+        const mechanicToDelete = await models.Mechanic.findByPk(mechanicId);
+
+        if (!mechanicToDelete) {
+            throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
+        }
+
+        await models.Mechanic.destroy({
+            where: {
+                mechanicId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+
+        const response = responseCreator(mechanicToDelete);
+
+        return res.status(200).json(response); 
+    } catch (error) {
+        await transaction.rollback();
+        next(error);
+    }
+};
+
+
 module.exports = {
-    newMechanic
+    newMechanic,
+    deleteMechanic
 };

@@ -5,5 +5,7 @@ const { validateMissingValues, validateDataTypes } = require('../middlewares/val
 
 router.post('/', validateMissingValues, validateDataTypes, mechanicController.newMechanic);
 
+router.delete('/:mechanicId', mechanicController.deleteMechanic);
+
 
 module.exports = router;
