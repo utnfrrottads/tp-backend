@@ -9,5 +9,7 @@ router.delete('/:mechanicId', mechanicController.deleteMechanic);
 
 router.put('/:mechanicId', validateMissingValues, validateDataTypes, mechanicController.editMechanic);
 
+router.get('/', mechanicController.getMechanics);
+
 
 module.exports = router;

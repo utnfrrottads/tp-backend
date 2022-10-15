@@ -97,8 +97,29 @@ const editMechanic = async (req, res, next) => {
 };
 
 
+const getMechanics = async (req, res, next) => {    
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
+
+    try {
+        const mechanics = await models.Mechanic.findAll({
+            limit: limit,
+            offset: offset,
+            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+        });
+
+        const response = responseCreator(mechanics);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newMechanic,
     deleteMechanic,
-    editMechanic
+    editMechanic,
+    getMechanics
 };
