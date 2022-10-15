@@ -12,5 +12,7 @@ router.put('/:mechanicId', validateMissingValues, validateDataTypes, mechanicCon
 
 router.get('/', sanitizerQueryParam, mechanicController.getMechanics);
 
+router.get('/:mechanicId', mechanicController.getMechanicById);
+
 
 module.exports = router;

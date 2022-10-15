@@ -143,9 +143,29 @@ const getMechanics = async (req, res, next) => {
 };
 
 
+const getMechanicById = async (req, res, next) => {
+    const mechanicId = req.params.mechanicId;
+    
+    try {
+        const mechanic = await models.Mechanic.findByPk(mechanicId);
+
+        if (!mechanic) {
+            throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
+        }
+
+        const response = responseCreator(mechanic);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newMechanic,
     deleteMechanic,
     editMechanic,
-    getMechanics
+    getMechanics,
+    getMechanicById
 };
