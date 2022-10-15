@@ -75,6 +75,10 @@ const editClient = async (req, res, next) => {
             throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);
         }
 
+        if (clientToUpdate.dni !== req.body.dni) {
+            throw ApiError.badRequest("You cannot change the client's DNI.");
+        }
+
         await models.Client.update(req.body, {
             where: {
                 clientId

@@ -19,6 +19,22 @@ const validateMissingValues = [
         .trim()
         .not()
         .isEmpty(),
+    // Si NO se ingresa el valor de "floor" y SI el de "apartment", se muestra mensaje. 
+    check('floor', 'This field is required.')
+        .custom((value, {req}) => {
+            if (!value && req.body.apartment) {
+                return false;
+            }
+            return true;
+        }),
+    // Si NO se ingresa el valor de "apartment" y SI el de "floor", se muestra mensaje.
+    check('apartment', 'This field is required.')
+        .custom((value, {req}) => {
+            if (!value && req.body.floor) {
+                return false;
+            }
+            return true;
+        }),
     (req, res, next) => {
         validateResult(req, res, next);
     }
