@@ -7,5 +7,7 @@ router.post('/', validateMissingValues, validateDataTypes, mechanicController.ne
 
 router.delete('/:mechanicId', mechanicController.deleteMechanic);
 
+router.put('/:mechanicId', validateMissingValues, validateDataTypes, mechanicController.editMechanic);
+
 
 module.exports = router;
