@@ -42,7 +42,7 @@ const deleteClient = async (req, res, next) => {
         const clientToDelete = await models.Client.findByPk(clientId);
 
         if (!clientToDelete) {
-            throw ApiError.notFound(`Client with id ${clientId} does not exist.`);
+            throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);
         }
 
         await models.Client.destroy({
@@ -72,7 +72,7 @@ const editClient = async (req, res, next) => {
         const clientToUpdate = await models.Client.findByPk(clientId);
 
         if (!clientToUpdate) {
-            throw ApiError.notFound(`Client with id ${clientId} does not exist.`);
+            throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);
         }
 
         await models.Client.update(req.body, {
@@ -146,7 +146,7 @@ const getClientById = async (req, res, next) => {
         const client = await models.Client.findByPk(clientId);
 
         if (!client) {
-            throw ApiError.notFound(`Client with id ${clientId} does not exist.`);
+            throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);
         }
 
         const response = responseCreator(client);
