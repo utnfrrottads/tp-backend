@@ -63,7 +63,42 @@ const deleteMechanic = async (req, res, next) => {
 };
 
 
+const editMechanic = async (req, res, next) => {
+    const transaction = await sequelize.transaction();
+    const mechanicId = req.params.mechanicId;
+
+    try {
+        const mechanicToUpdate = await models.Mechanic.findByPk(mechanicId);
+
+        if (!mechanicToUpdate) {
+            throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
+        }
+
+        if (mechanicToUpdate.registrationNumber !== req.body.registrationNumber) {
+            throw ApiError.badRequest("You cannot change the mechanic's registration number.");
+        }
+
+        await models.Mechanic.update(req.body, {
+            where: {
+                mechanicId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+
+        const response = responseCreator(mechanicToUpdate);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        await transaction.rollback();
+        next(error);
+    }
+};
+
+
 module.exports = {
     newMechanic,
-    deleteMechanic
+    deleteMechanic,
+    editMechanic
 };
