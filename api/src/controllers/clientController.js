@@ -1,75 +1,55 @@
-const models = require('../models');
-const { Op } = require("sequelize");
-const sequelize = require('../database/db-connection');
 const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
+const clientService = require('../services/clientService');
 
 
 const newClient = async (req, res, next) => {
-    const transaction = await sequelize.transaction();
     const clientDni = req.body.dni;
     
     try {
-        const client = await models.Client.findOne({
-            where: {
-                dni: clientDni
-            }
-        });
+        const client = await clientService.getClientByDni(clientDni);
 
         if (client) {
             throw ApiError.badRequest(`The client with dni '${clientDni}' already exists.`);
         }
 
-        const newClient = await models.Client.create(req.body, { transaction });
-
-        await transaction.commit();
+        const newClient = await clientService.createClient(req.body);
 
         const response = responseCreator(newClient);
 
         return res.status(200).json(response);
     } catch (error) {
-        await transaction.rollback();
         next(error);
     }
 };
 
 
 const deleteClient = async (req, res, next) => {
-    const transaction = await sequelize.transaction();
     const clientId = req.params.clientId;
 
     try {
-        const clientToDelete = await models.Client.findByPk(clientId);
+        const clientToDelete = await clientService.getClientByPk(clientId);
 
         if (!clientToDelete) {
             throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);
         }
 
-        await models.Client.destroy({
-            where: {
-                clientId
-            },
-            transaction
-        });
-
-        await transaction.commit();
+        await clientService.deleteClient(clientId);
 
         const response = responseCreator(clientToDelete);
 
         return res.status(200).json(response); 
     } catch (error) {
-        await transaction.rollback();
         next(error);
     }
 };
 
 
 const editClient = async (req, res, next) => {
-    const transaction = await sequelize.transaction();
     const clientId = req.params.clientId;
 
     try {
-        const clientToUpdate = await models.Client.findByPk(clientId);
+        const clientToUpdate = await clientService.getClientByPk(clientId);
 
         if (!clientToUpdate) {
             throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);
@@ -79,60 +59,20 @@ const editClient = async (req, res, next) => {
             throw ApiError.badRequest("You cannot change the client's DNI.");
         }
 
-        await models.Client.update(req.body, {
-            where: {
-                clientId
-            },
-            transaction
-        });
-
-        await transaction.commit();
+        await clientService.editClient(req.body, clientId);
 
         const response = responseCreator(clientToUpdate);
 
         return res.status(200).json(response);
     } catch (error) {
-        await transaction.rollback();
         next(error);
     }
 };
 
 
-const getClients = async (req, res, next) => {
-    const limit = parseInt(req.query.limit) || 10;
-    const offset = parseInt(req.query.offset) || 0;
-    const query = req.query.query;
-    
+const getClients = async (req, res, next) => {    
     try {
-        let clients = [];
-
-        if (query) {
-            clients = await models.Client.findAll({
-                where: {
-                    [Op.or]: [
-                        {
-                            firstName: {
-                                [Op.substring]: query
-                            },
-                        },
-                        {
-                            lastName: {
-                                [Op.substring]: query
-                            }
-                        }
-                    ] 
-                },
-                limit: limit,
-                offset: offset,
-                order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-            });
-        } else {
-            clients = await models.Client.findAll({
-                limit: limit,
-                offset: offset,
-                order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-            });
-        }
+        const clients = await clientService.getClients(req.query);
 
         const response = responseCreator(clients);
 
@@ -147,7 +87,7 @@ const getClientById = async (req, res, next) => {
     const clientId = req.params.clientId;
     
     try {
-        const client = await models.Client.findByPk(clientId);
+        const client = await clientService.getClientByPk(clientId);
 
         if (!client) {
             throw ApiError.notFound(`Client with id '${clientId}' does not exist.`);

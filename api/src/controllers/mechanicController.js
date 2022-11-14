@@ -1,75 +1,55 @@
-const { Op } = require('sequelize');
-const sequelize = require('../database/db-connection');
-const models = require('../models');
 const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
+const mechanicService = require('../services/mechanicService');
 
 
 const newMechanic = async (req, res, next) => {
-    const transaction = await sequelize.transaction();
     const mechanicRegistrationNumber = req.body.registrationNumber;
 
     try {
-        const mechanic = await models.Mechanic.findOne({
-            where: {
-                registrationNumber: mechanicRegistrationNumber
-            }
-        });
+        const mechanic = await mechanicService.getMechanicByRegistrationNumber(mechanicRegistrationNumber);
 
         if (mechanic) {
             throw ApiError.badRequest(`The mechanic with registration number '${mechanicRegistrationNumber}' already exists.`);
         }
 
-        const newMechanic = await models.Mechanic.create(req.body, { transaction });
-
-        await transaction.commit();
+        const newMechanic = await mechanicService.createMechanic(req.body);
 
         const response = responseCreator(newMechanic);
 
         return res.status(200).json(response);
     } catch (error) {
-        await transaction.rollback();
         next(error);
     }
 };
 
 
 const deleteMechanic = async (req, res, next) => {
-    const transaction = await sequelize.transaction();
     const mechanicId = req.params.mechanicId;
 
     try {
-        const mechanicToDelete = await models.Mechanic.findByPk(mechanicId);
+        const mechanicToDelete = await mechanicService.getMechanicByPk(mechanicId);
 
         if (!mechanicToDelete) {
             throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
         }
 
-        await models.Mechanic.destroy({
-            where: {
-                mechanicId
-            },
-            transaction
-        });
-
-        await transaction.commit();
+        await mechanicService.deleteMechanic(mechanicId);
 
         const response = responseCreator(mechanicToDelete);
 
         return res.status(200).json(response); 
     } catch (error) {
-        await transaction.rollback();
         next(error);
     }
 };
 
 
 const editMechanic = async (req, res, next) => {
-    const transaction = await sequelize.transaction();
     const mechanicId = req.params.mechanicId;
 
     try {
-        const mechanicToUpdate = await models.Mechanic.findByPk(mechanicId);
+        const mechanicToUpdate = await mechanicService.getMechanicByPk(mechanicId);
 
         if (!mechanicToUpdate) {
             throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
@@ -79,60 +59,20 @@ const editMechanic = async (req, res, next) => {
             throw ApiError.badRequest("You cannot change the mechanic's registration number.");
         }
 
-        await models.Mechanic.update(req.body, {
-            where: {
-                mechanicId
-            },
-            transaction
-        });
-
-        await transaction.commit();
+        await mechanicService.editMechanic(req.body, mechanicId);
 
         const response = responseCreator(mechanicToUpdate);
 
         return res.status(200).json(response);
     } catch (error) {
-        await transaction.rollback();
         next(error);
     }
 };
 
 
 const getMechanics = async (req, res, next) => {    
-    const limit = parseInt(req.query.limit) || 10;
-    const offset = parseInt(req.query.offset) || 0;
-    const query = req.query.query;
-
     try {
-        let mechanics = [];
-
-        if (query) {
-            mechanics = await models.Mechanic.findAll({
-                where: {
-                    [Op.or]: [
-                        {
-                            firstName: {
-                                [Op.substring]: query
-                            },
-                        },
-                        {
-                            lastName: {
-                                [Op.substring]: query
-                            }
-                        }
-                    ] 
-                },
-                limit: limit,
-                offset: offset,
-                order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-            });
-        } else {
-            mechanics = await models.Mechanic.findAll({
-                limit: limit,
-                offset: offset,
-                order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-            });
-        }
+        const mechanics = await mechanicService.getMechanics(req.query);
 
         const response = responseCreator(mechanics);
 
@@ -147,7 +87,7 @@ const getMechanicById = async (req, res, next) => {
     const mechanicId = req.params.mechanicId;
     
     try {
-        const mechanic = await models.Mechanic.findByPk(mechanicId);
+        const mechanic = await mechanicService.getMechanicByPk(mechanicId);
 
         if (!mechanic) {
             throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);

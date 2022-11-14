@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const clientController = require('../controllers/clientController');
-const { validateMissingValues, validateDataTypes } = require('../middlewares/validators/client');
+const { validateMissingValues, validateDataTypes } = require('../middlewares/validators/clientValidator');
 const { sanitizerQueryParam } = require('../middlewares/sanitizers/shared/sharedSanitizers');
 
 
