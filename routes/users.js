@@ -10,7 +10,7 @@ const {
 } = require("../controller/users");
 
 router.route("/").get(getAllUsers);
-router.route("/create").post(upload.single("file")).post(createUser);
+router.route("/").post(upload.single("file")).post(createUser);
 router.route("/:id").patch(updateUser).delete(deleteUser).get(getSingleUser);
 
 module.exports = router;
