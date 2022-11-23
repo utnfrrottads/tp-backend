@@ -3,17 +3,12 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const connectDB = require("./db/connect");
-const usersRouter = require("./routes/users");
-const messagesRouter = require("./routes/messages");
-const friendRouter = require("./routes/friendList");
-const bodyParser = require("body-parser");
+const routers = require("./routes/index");
 
 // middleware
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
-
 app.use(cors());
 
 // routes
@@ -21,13 +16,15 @@ app.get("/", (req, res) => {
   res.send('<h1>Chat API</h1><a href="/api/v1/users">Chat route</a>');
 });
 
-app.use("/api/v1/users", usersRouter);
-app.use("/api/v1/messages", messagesRouter);
-app.use("/api/v1/friendList", friendRouter);
+//Cambio para AD:
+// A medida que las apps crecen nuevas rutas y partes aparecen. Al principo puede ser poco pero luego harán dificil
+//de leer y mantener el app.js. Es preferible agregar un index.js en el directorio de routes y usar las rutas desde ahí
+app.use("/", routers);
+
+// func to connectDB
 
 const port = process.env.PORT || 3000;
 
-// func to connectDB
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);

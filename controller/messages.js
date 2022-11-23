@@ -79,80 +79,42 @@ const deleteMessage = async (req, res) => {
   }
 };
 
-const getMessageByDate = async (req, res) => {
-  // Ver forma de nombrar
-  try {
-    let { from_date, to_date } = req.body;
+// Filter with query strings
+const getFilterMessages = async (req, res) => {
+  let { from_date, to_date, sender, receiver } = req.query;
+  let query = {};
+  let query_date = {};
 
-    if (to_date === "") {
-      to_date = new Date();
-    }
-
-    if (from_date == "") {
-      from_date = new Date();
-      from_date.setHours(0, 0, 0, 0);
-    }
-
-    const messages = await Message.find({
-      date: { $gte: from_date, $lt: to_date },
-    });
-
-    return res.status(StatusCodes.OK).json({ messages });
-  } catch (err) {
-    return res.status(StatusCodes.NOT_FOUND).json({ msg: err });
+  if (!to_date) {
+    to_date = new Date();
+    to_date.setHours(0, 0, 0, 0);
   }
+
+  if (!from_date) {
+    from_date = new Date();
+    from_date.setHours(0, 0, 0, 0);
+  }
+
+  query["date"] = { $gte: from_date, $lt: to_date };
+
+  if (sender) {
+    query["sender"] = sender;
+  }
+
+  if (receiver) {
+    query["receiver"] = receiver;
+  }
+
+  let messages = await Message.find(query);
+
+  if (messages.length < 1) {
+    return res.status(StatusCodes.OK).json({ err: "No messages found" });
+  }
+
+  return res.status(StatusCodes.OK).json({ messages });
 };
 
-const getBySender = async (req, res) => {
-  try {
-    let { sender } = req.body;
-
-    const messages = await Message.find({ sender: sender });
-
-    return res.status(StatusCodes.OK).json({ messages });
-  } catch (err) {
-    return res.status(StatusCodes.NOT_FOUND).json({ msg: err });
-  }
-};
-
-const getByReceiver = async (req, res) => {
-  try {
-    let { receiver } = req.body;
-
-    const messages = await Message.find({ receiver: receiver });
-
-    return res.status(StatusCodes.OK).json({ messages });
-  } catch (err) {
-    return res.status(StatusCodes.NOT_FOUND).json({ msg: err });
-  }
-};
-
-// Filtrar por todete
-
-const getByAll = async (req, res) => {
-  try {
-    let { sender, receiver, from_date, to_date } = req.body;
-
-    if (to_date === "") {
-      to_date = new Date();
-    }
-
-    if (from_date == "") {
-      from_date = new Date();
-      from_date.setHours(0, 0, 0, 0);
-    }
-
-    const messages = await Message.find({
-      receiver: receiver,
-      sender: sender,
-      date: { $gte: from_date, $lt: to_date },
-    });
-    return res.status(StatusCodes.OK).json(messages);
-  } catch (err) {
-    return res.status(StatusCodes.NOT_FOUND).json({ msg: err });
-  }
-};
-
+//UF
 const getAllByUser = async (req, res) => {
   try {
     let { id } = req.params;
@@ -218,11 +180,8 @@ module.exports = {
   createNewMessage,
   deleteMessage,
   updateMessage,
-  getMessageByDate,
-  getBySender,
-  getByReceiver,
-  getByAll,
   getAllByUser,
   getAllArchived,
   archiveMessage,
+  getFilterMessages,
 };
