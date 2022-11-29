@@ -1,5 +1,6 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
+const { Op } = require("sequelize");
 
 
 const getSparePartByCode = async (sparePartCode) => {
@@ -13,6 +14,36 @@ const getSparePartByCode = async (sparePartCode) => {
 
 const getSparePartByPk = async (sparePartId) => {
     return await models.SparePart.findByPk(sparePartId);
+};
+
+
+const getSpareParts = async (queryParams) => {
+    const limit = parseInt(queryParams.limit) || 10;
+    const offset = parseInt(queryParams.offset) || 0;
+    const query = queryParams.query;
+
+    let spareParts = [];
+
+    if (query) {
+        spareParts = await models.SparePart.findAll({
+            where: {
+                sparePartDescription: {
+                    [Op.substring]: query
+                }
+            },
+            limit,
+            offset,
+            order: [['sparePartDescription', 'ASC']]
+        });
+    } else {
+        spareParts = await models.SparePart.findAll({
+            limit,
+            offset,
+            order: [['sparePartDescription', 'ASC']]
+        });
+    }
+
+    return spareParts;
 };
 
 
@@ -72,6 +103,7 @@ const editSparePart = async (data, sparePartId) => {
 module.exports = {
     getSparePartByCode,
     getSparePartByPk,
+    getSpareParts,
     createSparePart,
     deleteSparePart,
     editSparePart

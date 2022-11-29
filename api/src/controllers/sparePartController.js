@@ -70,8 +70,22 @@ const editSparePart = async (req, res, next) => {
 };
 
 
+const getSpareParts = async (req, res, next) => {    
+    try {
+        const spareParts = await sparePartService.getSpareParts(req.query);
+
+        const response = responseCreator(spareParts);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newSpare,
     deleteSparePart,
-    editSparePart
+    editSparePart,
+    getSpareParts
 };
