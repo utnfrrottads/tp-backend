@@ -24,6 +24,28 @@ const newSpare = async (req, res, next) => {
 };
 
 
+const deleteSparePart = async (req, res, next) => {
+    const sparePartId = req.params.sparePartId;
+
+    try {
+        const sparePartToDelete = await sparePartService.getSparePartByPk(sparePartId);
+
+        if (!sparePartToDelete) {
+            throw ApiError.notFound(`The spare part with id '${sparePartId}' does not exist.`);
+        }
+
+        await sparePartService.deleteSparePart(sparePartId);
+
+        const response = responseCreator(sparePartToDelete);
+
+        return res.status(200).json(response); 
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
-    newSpare
+    newSpare,
+    deleteSparePart
 };

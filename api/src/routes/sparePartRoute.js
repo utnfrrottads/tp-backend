@@ -5,5 +5,7 @@ const { validateMissingValues, validateDataTypes } = require('../middlewares/val
 
 router.post('/', validateMissingValues, validateDataTypes, sparePartController.newSpare);
 
+router.delete('/:sparePartId', sparePartController.deleteSparePart);
+
 
 module.exports = router;

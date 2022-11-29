@@ -11,6 +11,11 @@ const getSparePartByCode = async (sparePartCode) => {
 };
 
 
+const getSparePartByPk = async (sparePartId) => {
+    return await models.SparePart.findByPk(sparePartId);
+};
+
+
 const createSparePart = async (data) => {
     const transaction = await sequelize.transaction();
 
@@ -26,7 +31,28 @@ const createSparePart = async (data) => {
 };
 
 
+const deleteSparePart = async (sparePartId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.SparePart.destroy({
+            where: {
+                sparePartId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
     getSparePartByCode,
-    createSparePart
+    getSparePartByPk,
+    createSparePart,
+    deleteSparePart
 };
