@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
-const Client = require('./client');
+const Customer = require('./customer');
 
 const Turn = sequelize.define('turn', {
     turnId: {
@@ -16,12 +16,12 @@ const Turn = sequelize.define('turn', {
     turnCancellationDateTime: {
         type: DataTypes.DATE
     },
-    clientId: {
+    customerId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         references: {
-            model: Client,
-            key: 'clientId'
+            model: Customer,
+            key: 'customerId'
         }
     }
 }, 
@@ -39,10 +39,10 @@ const Turn = sequelize.define('turn', {
             ]
         },
         {
-            name: "fk_turn_client_idx",
+            name: "fk_turn_customer_idx",
             using: "BTREE",
             fields: [
-                { name: "clientId" }
+                { name: "customerId" }
             ]
         }
     ]

@@ -3,8 +3,8 @@ const models = require('../models');
 const { Op } = require("sequelize");
 
 
-const getClientByDni = async (dni) => {
-    return await models.Client.findOne({
+const getCustomerByDni = async (dni) => {
+    return await models.Customer.findOne({
         where: {
             dni
         }
@@ -12,20 +12,20 @@ const getClientByDni = async (dni) => {
 };
 
 
-const getClientByPk = async (clientId) => {
-    return await models.Client.findByPk(clientId);
+const getCustomerByPk = async (customerId) => {
+    return await models.Customer.findByPk(customerId);
 };
 
 
-const getClients = async (queryParams) => {
+const getCustomers = async (queryParams) => {
     const limit = parseInt(queryParams.limit) || 10;
     const offset = parseInt(queryParams.offset) || 0;
     const query = queryParams.query;
 
-    let clients = [];
+    let customers = [];
 
     if (query) {
-        clients = await models.Client.findAll({
+        customers = await models.Customer.findAll({
             where: {
                 [Op.or]: [
                     {
@@ -45,25 +45,25 @@ const getClients = async (queryParams) => {
             order: [['firstName', 'ASC'], ['lastName', 'ASC']]
         });
     } else {
-        clients = await models.Client.findAll({
+        customers = await models.Customer.findAll({
             limit,
             offset,
             order: [['firstName', 'ASC'], ['lastName', 'ASC']]
         });
     }
 
-    return clients;
+    return customers;
 };
 
 
-const createClient = async (data) => {
+const createCustomer = async (data) => {
     const transaction = await sequelize.transaction();
 
     try {
-        const newClient = await models.Client.create(data, { transaction });
+        const newCustomer = await models.Customer.create(data, { transaction });
         await transaction.commit();
         
-        return newClient;
+        return newCustomer;
     } catch (error) {
         await transaction.rollback();
         throw error;
@@ -71,13 +71,13 @@ const createClient = async (data) => {
 };
 
 
-const deleteClient = async (clientId) => {
+const deleteCustomer = async (customerId) => {
     const transaction = await sequelize.transaction();
 
     try {
-        await models.Client.destroy({
+        await models.Customer.destroy({
             where: {
-                clientId
+                customerId
             },
             transaction
         });
@@ -90,13 +90,13 @@ const deleteClient = async (clientId) => {
 };
 
 
-const editClient = async (data, clientId) => {
+const editCustomer = async (data, customerId) => {
     const transaction = await sequelize.transaction();
 
     try {
-        await models.Client.update(data, {
+        await models.Customer.update(data, {
             where: {
-                clientId
+                customerId
             },
             transaction
         });
@@ -110,10 +110,10 @@ const editClient = async (data, clientId) => {
 
 
 module.exports = {
-    getClientByDni,
-    getClientByPk,
-    getClients,
-    createClient,
-    deleteClient,
-    editClient
+    getCustomerByDni,
+    getCustomerByPk,
+    getCustomers,
+    createCustomer,
+    deleteCustomer,
+    editCustomer
 };

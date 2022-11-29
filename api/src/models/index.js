@@ -1,4 +1,4 @@
-const Client = require('./client');
+const Customer = require('./customer');
 const Configuration = require('./configuration');
 const Mechanic = require('./mechanic');
 const Repair = require('./repair');
@@ -12,13 +12,13 @@ const Vehicle = require('./vehicle');
 
 // Asociaciones
 const initAssociations = () => {
-    // Turn & Client
-    Client.hasMany(Turn, { foreignKey: 'clientId' });
-    Turn.belongsTo(Client, { foreignKey: 'clientId' });
+    // Turn & Customer
+    Customer.hasMany(Turn, { foreignKey: 'customerId' });
+    Turn.belongsTo(Customer, { foreignKey: 'customerId' });
 
-    // Vehicle & Client
-    Client.hasMany(Vehicle, { foreignKey: 'clientId' });
-    Vehicle.belongsTo(Client, { foreignKey: 'clientId' });
+    // Vehicle & Customer
+    Customer.hasMany(Vehicle, { foreignKey: 'customerId' });
+    Vehicle.belongsTo(Customer, { foreignKey: 'customerId' });
 
     // Repair & Vehicle
     Vehicle.hasMany(Repair, { foreignKey: 'vehicleId' });
@@ -53,7 +53,7 @@ const initAssociations = () => {
 initAssociations();
 
 module.exports = {
-    Client,
+    Customer,
     Configuration,
     Mechanic,
     Repair,

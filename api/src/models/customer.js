@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 
-const Client = sequelize.define('client', {
-    clientId: {
+const Customer = sequelize.define('customer', {
+    customerId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
@@ -56,7 +56,7 @@ const Client = sequelize.define('client', {
 }, 
 {
     sequelize,
-    tableName: 'client',
+    tableName: 'customer',
     timestamps: false,
     indexes: [
         {
@@ -64,7 +64,7 @@ const Client = sequelize.define('client', {
             unique: true,
             using: "BTREE",
             fields: [
-                { name: "clientId" }
+                { name: "customerId" }
             ]
         },
         {
@@ -78,4 +78,4 @@ const Client = sequelize.define('client', {
     ]
 });
 
-module.exports = Client;
+module.exports = Customer;

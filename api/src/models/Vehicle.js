@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
-const Client = require('./client');
+const Customer = require('./customer');
 
 const Vehicle = sequelize.define('vehicle', {
     vehicleId: {
@@ -30,12 +30,12 @@ const Vehicle = sequelize.define('vehicle', {
         type: DataTypes.FLOAT.UNSIGNED,
         allowNull: false
     },
-    clientId: {
+    customerId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         references: {
-            model: Client,
-            key: 'clientId'
+            model: Customer,
+            key: 'customerId'
         }
     }
 }, 
@@ -61,10 +61,10 @@ const Vehicle = sequelize.define('vehicle', {
             ]
         },
         {
-            name: "fk_vehicle_client_idx",
+            name: "fk_vehicle_customer_idx",
             using: "BTREE",
             fields: [
-                { name: "clientId" }
+                { name: "customerId" }
             ]
         }
     ]
