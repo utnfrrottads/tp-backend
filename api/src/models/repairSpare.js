@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Repair = require('./repair');
-const Spare = require('./spare');
+const SparePart = require('./sparePart');
 
 const RepairSpare = sequelize.define('repair_spare', {
     repairId: {
@@ -13,13 +13,13 @@ const RepairSpare = sequelize.define('repair_spare', {
             key: 'repairId'
         }
     },
-    spareId: {
+    sparePartId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         primaryKey: true,
         references: {
-            model: Spare,
-            key: 'spareId'
+            model: SparePart,
+            key: 'sparePartId'
         }
     },
     numberOfSpareParts: {
@@ -38,14 +38,14 @@ const RepairSpare = sequelize.define('repair_spare', {
             using: "BTREE",
             fields: [
                 { name: "repairId" },
-                { name: "spareId"}
+                { name: "sparePartId"}
             ]
         },
         {
             name: "fk_repairSpare_spare_idx",
             using: "BTREE",
             fields: [
-                { name: "spareId" }
+                { name: "sparePartId" }
             ]
         },
         {

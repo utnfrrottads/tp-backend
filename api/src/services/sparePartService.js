@@ -2,10 +2,10 @@ const sequelize = require('../database/db-connection');
 const models = require('../models');
 
 
-const getSparePartByCode = async (spareCode) => {
-    return await models.Spare.findOne({
+const getSparePartByCode = async (sparePartCode) => {
+    return await models.SparePart.findOne({
         where: {
-            spareCode: spareCode
+            sparePartCode
         }
     });
 };
@@ -15,7 +15,7 @@ const createSparePart = async (data) => {
     const transaction = await sequelize.transaction();
 
     try {
-        const newSparePart = await models.Spare.create(data, { transaction });
+        const newSparePart = await models.SparePart.create(data, { transaction });
         await transaction.commit();
         
         return newSparePart;

@@ -4,7 +4,7 @@ const Mechanic = require('./mechanic');
 const Repair = require('./repair');
 const RepairSpare = require('./repairSpare');
 const Role = require('./role');
-const Spare = require('./spare');
+const SparePart = require('./sparePart');
 const Turn = require('./turn');
 const User = require('./user');
 const Vehicle = require('./vehicle');
@@ -35,13 +35,13 @@ const initAssociations = () => {
     // RepairSpare.belongsTo(Repair, { foreignKey: 'repairId' });
             
     // // Spare & RepairSpare
-    // Spare.hasMany(RepairSpare, { foreignKey: 'spareId' });
-    // RepairSpare.belongsTo(Spare, { foreignKey: 'spareId' });
+    // SparePart.hasMany(RepairSpare, { foreignKey: 'spareId' });
+    // RepairSpare.belongsTo(SparePart, { foreignKey: 'spareId' });
 
     // FIXME: Forma 2
     // Repair & Spare across RepairSpare
-    Repair.belongsToMany(Spare, { through: 'RepairSpare', unique: false, foreignKey: 'repairId' });
-    Spare.belongsToMany(Repair, { through: 'RepairSpare', unique: false, foreignKey: 'spareId' });
+    Repair.belongsToMany(SparePart, { through: 'RepairSpare', unique: false, foreignKey: 'repairId' });
+    SparePart.belongsToMany(Repair, { through: 'RepairSpare', unique: false, foreignKey: 'sparePartId' });
 
     // Mechanic & User
     Mechanic.hasOne(User, { foreignKey: 'mechanicId' });
@@ -59,7 +59,7 @@ module.exports = {
     Repair,
     RepairSpare,
     Role,
-    Spare,
+    SparePart,
     Turn,
     User,
     Vehicle

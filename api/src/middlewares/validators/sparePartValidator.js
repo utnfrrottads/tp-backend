@@ -5,11 +5,11 @@ const { check } = require('express-validator');
 const validateMissingValues = [
     check(
         [
-            'spareCode', 
-            'spareDescription', 
-            'sparePrice', 
+            'sparePartCode', 
+            'sparePartDescription', 
+            'sparePartPrice', 
             'stock', 
-            'spareSupplier',
+            'sparePartSupplier',
         ], 
         "This field is required."
     )
@@ -23,9 +23,9 @@ const validateMissingValues = [
 
 
 const validateDataTypes = [
-    check(['spareCode', 'stock'], "The value must be an integer.")
+    check(['sparePartCode', 'stock'], "The value must be an integer.")
         .isInt(),
-    check('sparePrice', "The price format is invalid.")
+    check('sparePartPrice', "The price format is invalid.")
         .isFloat(),
     (req, res, next) => {
         validateResult(req, res, next);

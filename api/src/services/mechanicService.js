@@ -3,10 +3,10 @@ const models = require('../models');
 const { Op } = require("sequelize");
 
 
-const getMechanicByRegistrationNumber = async (mechanicRegistrationNumber) => {
+const getMechanicByRegistrationNumber = async (registrationNumber) => {
     return await models.Mechanic.findOne({
         where: {
-            registrationNumber: mechanicRegistrationNumber
+            registrationNumber
         }
     });
 };
@@ -40,14 +40,14 @@ const getMechanics = async (queryParams) => {
                     }
                 ] 
             },
-            limit: limit,
-            offset: offset,
+            limit,
+            offset,
             order: [['firstName', 'ASC'], ['lastName', 'ASC']]
         });
     } else {
         mechanics = await models.Mechanic.findAll({
-            limit: limit,
-            offset: offset,
+            limit,
+            offset,
             order: [['firstName', 'ASC'], ['lastName', 'ASC']]
         });
     }

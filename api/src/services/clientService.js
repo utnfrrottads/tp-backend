@@ -3,10 +3,10 @@ const models = require('../models');
 const { Op } = require("sequelize");
 
 
-const getClientByDni = async (clientDni) => {
+const getClientByDni = async (dni) => {
     return await models.Client.findOne({
         where: {
-            dni: clientDni
+            dni
         }
     });
 };
@@ -40,14 +40,14 @@ const getClients = async (queryParams) => {
                     }
                 ] 
             },
-            limit: limit,
-            offset: offset,
+            limit,
+            offset,
             order: [['firstName', 'ASC'], ['lastName', 'ASC']]
         });
     } else {
         clients = await models.Client.findAll({
-            limit: limit,
-            offset: offset,
+            limit,
+            offset,
             order: [['firstName', 'ASC'], ['lastName', 'ASC']]
         });
     }

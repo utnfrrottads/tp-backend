@@ -1,23 +1,23 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 
-const Spare = sequelize.define('spare', {
-    spareId: {
+const SparePart = sequelize.define('spare_part', {
+    sparePartId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    spareCode: {
+    sparePartCode: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         unique: true
     },
-    spareDescription: {
+    sparePartDescription: {
         type: DataTypes.STRING(100),
         allowNull: false
     },
-    sparePrice: {
+    sparePartPrice: {
         type: DataTypes.FLOAT.UNSIGNED,
         allowNull: false
     },
@@ -25,14 +25,14 @@ const Spare = sequelize.define('spare', {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false
     },
-    spareSupplier: {
+    sparePartSupplier: {
         type: DataTypes.STRING(45),
         allowNull: false
     }
 }, 
 {
     sequelize,
-    tableName: 'spare',
+    tableName: 'spare_part',
     timestamps: false,
     indexes: [
         {
@@ -40,18 +40,18 @@ const Spare = sequelize.define('spare', {
             unique: true,
             using: "BTREE",
             fields: [
-                { name: "spareId" }
+                { name: "sparePartId" }
             ]
         },
         {
-            name: "spareCode_UNIQUE",
+            name: "sparePartCode_UNIQUE",
             unique: true,
             using: "BTREE",
             fields: [
-                { name: "spareCode" }
+                { name: "sparePartCode" }
             ]
         }
     ]
 });
 
-module.exports = Spare;
+module.exports = SparePart;
