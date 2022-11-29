@@ -45,7 +45,33 @@ const deleteSparePart = async (req, res, next) => {
 };
 
 
+const editSparePart = async (req, res, next) => {
+    const sparePartId = req.params.sparePartId;
+
+    try {
+        const sparePartToUpdate = await sparePartService.getSparePartByPk(sparePartId);
+
+        if (!sparePartToUpdate) {
+            throw ApiError.notFound(`The spare part with id '${sparePartId}' does not exist.`);
+        }
+
+        if (sparePartToUpdate.sparePartCode !== req.body.sparePartCode) {
+            throw ApiError.badRequest("You cannot change the spare part code.");
+        }
+
+        await sparePartService.editSparePart(req.body, sparePartId);
+
+        const response = responseCreator(sparePartToUpdate);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newSpare,
-    deleteSparePart
+    deleteSparePart,
+    editSparePart
 };

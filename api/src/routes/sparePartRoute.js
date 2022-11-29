@@ -7,5 +7,7 @@ router.post('/', validateMissingValues, validateDataTypes, sparePartController.n
 
 router.delete('/:sparePartId', sparePartController.deleteSparePart);
 
+router.put('/:sparePartId', validateMissingValues, validateDataTypes, sparePartController.editSparePart);
+
 
 module.exports = router;

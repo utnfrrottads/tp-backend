@@ -9,7 +9,7 @@ const SparePart = sequelize.define('spare_part', {
         primaryKey: true
     },
     sparePartCode: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.STRING(45),
         allowNull: false,
         unique: true
     },

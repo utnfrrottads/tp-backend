@@ -50,9 +50,29 @@ const deleteSparePart = async (sparePartId) => {
 };
 
 
+const editSparePart = async (data, sparePartId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.SparePart.update(data, {
+            where: {
+                sparePartId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
     getSparePartByCode,
     getSparePartByPk,
     createSparePart,
-    deleteSparePart
+    deleteSparePart,
+    editSparePart
 };
