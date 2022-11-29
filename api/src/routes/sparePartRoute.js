@@ -4,13 +4,15 @@ const { validateMissingValues, validateDataTypes } = require('../middlewares/val
 const { sanitizerQueryParam } = require('../middlewares/sanitizers/shared/sharedSanitizers');
 
 
-router.post('/', validateMissingValues, validateDataTypes, sparePartController.newSpare);
+router.post('/', validateMissingValues, validateDataTypes, sparePartController.newSparePart);
 
 router.delete('/:sparePartId', sparePartController.deleteSparePart);
 
 router.put('/:sparePartId', validateMissingValues, validateDataTypes, sparePartController.editSparePart);
 
 router.get('/', sanitizerQueryParam, sparePartController.getSpareParts);
+
+router.get('/:sparePartId', sparePartController.getSparePartById);
 
 
 module.exports = router;

@@ -3,7 +3,7 @@ const responseCreator = require('../utils/responseCreator');
 const sparePartService = require('../services/sparePartService');
 
 
-const newSpare = async (req, res, next) => {
+const newSparePart = async (req, res, next) => {
     const sparePartCode = req.body.sparePartCode;
 
     try {
@@ -83,9 +83,29 @@ const getSpareParts = async (req, res, next) => {
 };
 
 
+const getSparePartById = async (req, res, next) => {
+    const sparePartId = req.params.sparePartId;
+    
+    try {
+        const sparePart = await sparePartService.getSparePartByPk(sparePartId);
+
+        if (!sparePart) {
+            throw ApiError.notFound(`The spare part with id '${sparePartId}' does not exist.`);
+        }
+
+        const response = responseCreator(sparePart);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
-    newSpare,
+    newSparePart,
     deleteSparePart,
     editSparePart,
-    getSpareParts
+    getSpareParts,
+    getSparePartById
 };
