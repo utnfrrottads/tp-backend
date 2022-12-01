@@ -17,7 +17,7 @@ const newShift = async (req, res, next) => {
             throw ApiError.badRequest(`You cannot take any more shifts on this day (${shiftDate}).`);
         }
 
-        const customer = await customerService.getCustomerByPk(customerId);
+        const customer = await customerService.getCustomerById(customerId);
 
         if (!customer) {
             throw ApiError.badRequest(`Customer with id '${customerId}' does not exist.`);

@@ -28,7 +28,7 @@ const deleteCustomer = async (req, res, next) => {
     const customerId = req.params.customerId;
 
     try {
-        const customerToDelete = await customerService.getCustomerByPk(customerId);
+        const customerToDelete = await customerService.getCustomerById(customerId);
 
         if (!customerToDelete) {
             throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
@@ -49,7 +49,7 @@ const editCustomer = async (req, res, next) => {
     const customerId = req.params.customerId;
 
     try {
-        const customerToUpdate = await customerService.getCustomerByPk(customerId);
+        const customerToUpdate = await customerService.getCustomerById(customerId);
 
         if (!customerToUpdate) {
             throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
@@ -87,7 +87,7 @@ const getCustomerById = async (req, res, next) => {
     const customerId = req.params.customerId;
     
     try {
-        const customer = await customerService.getCustomerByPk(customerId);
+        const customer = await customerService.getCustomerById(customerId);
 
         if (!customer) {
             throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);

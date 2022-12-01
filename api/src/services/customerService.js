@@ -12,7 +12,7 @@ const getCustomerByDni = async (dni) => {
 };
 
 
-const getCustomerByPk = async (customerId) => {
+const getCustomerById = async (customerId) => {
     return await models.Customer.findByPk(customerId);
 };
 
@@ -111,7 +111,7 @@ const editCustomer = async (data, customerId) => {
 
 module.exports = {
     getCustomerByDni,
-    getCustomerByPk,
+    getCustomerById,
     getCustomers,
     createCustomer,
     deleteCustomer,

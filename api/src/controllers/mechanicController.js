@@ -28,7 +28,7 @@ const deleteMechanic = async (req, res, next) => {
     const mechanicId = req.params.mechanicId;
 
     try {
-        const mechanicToDelete = await mechanicService.getMechanicByPk(mechanicId);
+        const mechanicToDelete = await mechanicService.getMechanicById(mechanicId);
 
         if (!mechanicToDelete) {
             throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
@@ -49,7 +49,7 @@ const editMechanic = async (req, res, next) => {
     const mechanicId = req.params.mechanicId;
 
     try {
-        const mechanicToUpdate = await mechanicService.getMechanicByPk(mechanicId);
+        const mechanicToUpdate = await mechanicService.getMechanicById(mechanicId);
 
         if (!mechanicToUpdate) {
             throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);
@@ -87,7 +87,7 @@ const getMechanicById = async (req, res, next) => {
     const mechanicId = req.params.mechanicId;
     
     try {
-        const mechanic = await mechanicService.getMechanicByPk(mechanicId);
+        const mechanic = await mechanicService.getMechanicById(mechanicId);
 
         if (!mechanic) {
             throw ApiError.notFound(`Mechanic with id '${mechanicId}' does not exist.`);

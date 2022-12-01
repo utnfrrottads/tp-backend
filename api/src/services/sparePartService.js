@@ -12,7 +12,7 @@ const getSparePartByCode = async (sparePartCode) => {
 };
 
 
-const getSparePartByPk = async (sparePartId) => {
+const getSparePartById = async (sparePartId) => {
     return await models.SparePart.findByPk(sparePartId);
 };
 
@@ -102,7 +102,7 @@ const editSparePart = async (data, sparePartId) => {
 
 module.exports = {
     getSparePartByCode,
-    getSparePartByPk,
+    getSparePartById,
     getSpareParts,
     createSparePart,
     deleteSparePart,

@@ -28,7 +28,7 @@ const deleteSparePart = async (req, res, next) => {
     const sparePartId = req.params.sparePartId;
 
     try {
-        const sparePartToDelete = await sparePartService.getSparePartByPk(sparePartId);
+        const sparePartToDelete = await sparePartService.getSparePartById(sparePartId);
 
         if (!sparePartToDelete) {
             throw ApiError.notFound(`The spare part with id '${sparePartId}' does not exist.`);
@@ -49,7 +49,7 @@ const editSparePart = async (req, res, next) => {
     const sparePartId = req.params.sparePartId;
 
     try {
-        const sparePartToUpdate = await sparePartService.getSparePartByPk(sparePartId);
+        const sparePartToUpdate = await sparePartService.getSparePartById(sparePartId);
 
         if (!sparePartToUpdate) {
             throw ApiError.notFound(`The spare part with id '${sparePartId}' does not exist.`);
@@ -87,7 +87,7 @@ const getSparePartById = async (req, res, next) => {
     const sparePartId = req.params.sparePartId;
     
     try {
-        const sparePart = await sparePartService.getSparePartByPk(sparePartId);
+        const sparePart = await sparePartService.getSparePartById(sparePartId);
 
         if (!sparePart) {
             throw ApiError.notFound(`The spare part with id '${sparePartId}' does not exist.`);

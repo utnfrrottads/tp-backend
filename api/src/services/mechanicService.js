@@ -12,7 +12,7 @@ const getMechanicByRegistrationNumber = async (registrationNumber) => {
 };
 
 
-const getMechanicByPk = async (mechanicId) => {
+const getMechanicById = async (mechanicId) => {
     return await models.Mechanic.findByPk(mechanicId);
 };
 
@@ -111,7 +111,7 @@ const editMechanic = async (data, mechanicId) => {
 
 module.exports = {
     getMechanicByRegistrationNumber,
-    getMechanicByPk,
+    getMechanicById,
     getMechanics,
     createMechanic,
     deleteMechanic,
