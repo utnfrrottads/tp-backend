@@ -5,16 +5,16 @@ const Repair = require('./repair');
 const RepairSpare = require('./repairSpare');
 const Role = require('./role');
 const SparePart = require('./sparePart');
-const Turn = require('./turn');
+const Shift = require('./shift');
 const User = require('./user');
 const Vehicle = require('./vehicle');
 
 
 // Asociaciones
 const initAssociations = () => {
-    // Turn & Customer
-    Customer.hasMany(Turn, { foreignKey: 'customerId' });
-    Turn.belongsTo(Customer, { foreignKey: 'customerId' });
+    // Shift & Customer
+    Customer.hasMany(Shift, { foreignKey: 'customerId' });
+    Shift.belongsTo(Customer, { foreignKey: 'customerId' });
 
     // Vehicle & Customer
     Customer.hasMany(Vehicle, { foreignKey: 'customerId' });
@@ -60,7 +60,7 @@ module.exports = {
     RepairSpare,
     Role,
     SparePart,
-    Turn,
+    Shift,
     User,
     Vehicle
 };

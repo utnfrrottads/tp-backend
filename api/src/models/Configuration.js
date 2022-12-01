@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 
 const Configuration = sequelize.define('configuration', {
-    maximumTurnsPerDay: {
+    maximumShiftsPerDay: {
         type: DataTypes.INTEGER.UNSIGNED
     },
     lowStock: {

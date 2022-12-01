@@ -2,18 +2,18 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Customer = require('./customer');
 
-const Turn = sequelize.define('turn', {
-    turnId: {
+const Shift = sequelize.define('shift', {
+    shiftId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    turnDateTime: {
+    shiftDate: {
         type: DataTypes.DATE,
         allowNull: false
     },
-    turnCancellationDateTime: {
+    shiftCancellationDate: {
         type: DataTypes.DATE
     },
     customerId: {
@@ -27,7 +27,7 @@ const Turn = sequelize.define('turn', {
 }, 
 {
     sequelize,
-    tableName: 'turn',
+    tableName: 'shift',
     timestamps: false,
     indexes: [
         {
@@ -35,11 +35,11 @@ const Turn = sequelize.define('turn', {
             unique: true,
             using: "BTREE",
             fields: [
-                { name: "turnId" }
+                { name: "shiftId" }
             ]
         },
         {
-            name: "fk_turn_customer_idx",
+            name: "fk_shift_customer_idx",
             using: "BTREE",
             fields: [
                 { name: "customerId" }
@@ -48,4 +48,4 @@ const Turn = sequelize.define('turn', {
     ]
 });
 
-module.exports = Turn;
+module.exports = Shift;
