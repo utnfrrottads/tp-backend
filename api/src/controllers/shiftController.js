@@ -34,6 +34,34 @@ const newShift = async (req, res, next) => {
 };
 
 
+const cancelShift = async (req, res, next) => {
+    const shiftId = req.params.shiftId;
+
+    try {
+        const shiftToCancel = await shiftService.getShiftById(shiftId);
+
+        if (!shiftToCancel) {
+            throw ApiError.notFound(`The shift with id '${shiftId}' not found.`);
+        }
+
+        if (shiftToCancel.shiftCancellationDate) {
+            throw ApiError.badRequest(`The shift with id '${shiftId}' is already cancelled.`);
+        }
+
+        const shiftCancellationDate = new Date();
+
+        await shiftService.cancelShift(shiftCancellationDate, shiftId);
+
+        const response = responseCreator(shiftToCancel);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
-    newShift
+    newShift,
+    cancelShift
 };

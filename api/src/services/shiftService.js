@@ -27,6 +27,11 @@ const getNumberOfShiftsForGivenDate = async (shiftDate) => {
 };
 
 
+const getShiftById = async (shiftId) => {
+    return await models.Shift.findByPk(shiftId);
+};
+
+
 const registerShift = async (data) => {
     const transaction = await sequelize.transaction();
 
@@ -42,8 +47,29 @@ const registerShift = async (data) => {
 };
 
 
+const cancelShift = async (shiftCancellationDate, shiftId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.Shift.update({shiftCancellationDate}, {
+            where: {
+                shiftId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
     getMaximumShiftsPerDay,
     getNumberOfShiftsForGivenDate,
-    registerShift
+    getShiftById,
+    registerShift,
+    cancelShift
 };
