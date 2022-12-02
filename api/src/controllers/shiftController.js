@@ -5,8 +5,7 @@ const customerService = require('../services/customerService');
 
 
 const newShift = async (req, res, next) => {
-    const shiftDate = req.body.shiftDate;
-    const customerId = req.body.customerId;
+    const {shiftDate, customerId} = req.body;
 
     try {
         const maximumShiftsPerDay = await shiftService.getMaximumShiftsPerDay();
@@ -23,7 +22,7 @@ const newShift = async (req, res, next) => {
             throw ApiError.badRequest(`Customer with id '${customerId}' does not exist.`);
         }
 
-        const newShift = await shiftService.registerShift(req.body);
+        const newShift = await shiftService.registerShift({shiftDate, customerId});
 
         const response = responseCreator(newShift);
 
