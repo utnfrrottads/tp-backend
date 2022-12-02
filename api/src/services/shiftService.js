@@ -7,7 +7,7 @@ const getMaximumShiftsPerDay = async () => {
     const response = await models.Configuration.findAll({
         attributes: ['maximumShiftsPerDay']
     });
-    
+
     return response[0].maximumShiftsPerDay;
 };
 
@@ -15,7 +15,7 @@ const getMaximumShiftsPerDay = async () => {
 const getNumberOfShiftsForGivenDate = async (shiftDate) => {
     const query = `SELECT count(*) AS "numberOfShiftsForGivenDate"
                   FROM shift 
-                  WHERE shiftDate = ?`;
+                  WHERE shiftDate = ? AND shiftCancellationDate IS NULL;`;
 
     const {numberOfShiftsForGivenDate} = await sequelize.query(query, { 
         type: QueryTypes.SELECT,
