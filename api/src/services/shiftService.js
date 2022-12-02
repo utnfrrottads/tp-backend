@@ -51,7 +51,10 @@ const cancelShift = async (shiftCancellationDate, shiftId) => {
     const transaction = await sequelize.transaction();
 
     try {
-        await models.Shift.update({shiftCancellationDate}, {
+        await models.Shift.update({
+            shiftCancellationDate,
+            status: 'Cancelled'
+        }, {
             where: {
                 shiftId
             },

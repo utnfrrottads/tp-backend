@@ -16,6 +16,11 @@ const Shift = sequelize.define('shift', {
     shiftCancellationDate: {
         type: DataTypes.DATE
     },
+    status: {
+        type: DataTypes.ENUM('Standby', 'Entered', 'Cancelled'),
+        allowNull: false,
+        defaultValue: 'Standby'
+    },
     customerId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,

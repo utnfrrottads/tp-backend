@@ -2,6 +2,7 @@ const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
 const shiftService = require('../services/shiftService');
 const customerService = require('../services/customerService');
+const dayjs = require('dayjs');
 
 
 const newShift = async (req, res, next) => {
@@ -47,7 +48,11 @@ const cancelShift = async (req, res, next) => {
             throw ApiError.badRequest(`The shift with id '${shiftId}' is already cancelled.`);
         }
 
-        const shiftCancellationDate = new Date();
+        const shiftCancellationDate = dayjs().format('YYYY-MM-DD');
+
+        if (shiftToCancel.shiftDate < shiftCancellationDate) {
+            throw ApiError.badRequest(`The shift with id '${shiftId}' cannot be cancelled because the shift date is prior to today's date.`);
+        }
 
         await shiftService.cancelShift(shiftCancellationDate, shiftId);
 
