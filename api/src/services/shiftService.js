@@ -41,8 +41,31 @@ const getShiftsByDate = async (queryParams) => {
         ],
         where: {
             shiftDate: date,
-            shiftCancellationDate: {
-                [Op.is]: null
+            status: {
+                [Op.in]: ['Standby']
+            }
+        }
+    });
+};
+
+
+const getShiftsByCustomer = async (customerId) => {
+    const today = dayjs().format('YYYY-MM-DD');
+
+    return await models.Shift.findAll({
+        include: [
+            {
+                model: models.Customer,
+                required: true
+            }
+        ],
+        where: {
+            customerId,
+            shiftDate: {
+                [Op.gte]: today
+            },
+            status: {
+                [Op.in]: ['Standby']
             }
         }
     });
@@ -95,6 +118,7 @@ module.exports = {
     getMaximumShiftsPerDay,
     getNumberOfShiftsForGivenDate,
     getShiftsByDate,
+    getShiftsByCustomer,
     getShiftById,
     registerShift,
     cancelShift

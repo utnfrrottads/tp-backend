@@ -78,8 +78,24 @@ const getShiftsByDate = async (req, res, next) => {
 };
 
 
+const getShiftsByCustomer = async (req, res, next) => {
+    const customerId = req.params.customerId;
+
+    try {
+        const shiftsByCustomer = await shiftService.getShiftsByCustomer(customerId);
+
+        const response = responseCreator(shiftsByCustomer);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newShift,
     cancelShift,
-    getShiftsByDate
+    getShiftsByDate,
+    getShiftsByCustomer
 };

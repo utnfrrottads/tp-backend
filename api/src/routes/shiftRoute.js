@@ -9,5 +9,7 @@ router.put('/cancel/:shiftId', shiftController.cancelShift);
 
 router.get('/shiftsbyDate', sanitizerDateParam, validateDateDataTypes, shiftController.getShiftsByDate);
 
+router.get('/shiftsbyCustomer/:customerId', shiftController.getShiftsByCustomer);
+
 
 module.exports = router;
