@@ -1,5 +1,5 @@
 const { validateResult } = require('../../utils/validateUtil');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 
 
 const validateMissingValues = [
@@ -39,8 +39,23 @@ const shiftDateIsAfterToday = [
 ];
 
 
+const validateDateDataTypes = [
+    query('date', "The date format is invalid.")
+        .custom(value => {
+            if (value) {
+                return Date.parse(value);
+            }
+            return true;
+        }),
+    (req, res, next) => {
+        validateResult(req, res, next);
+    }
+];
+
+
 module.exports = {
     validateMissingValues,
     validateDataTypes,
-    shiftDateIsAfterToday
+    shiftDateIsAfterToday,
+    validateDateDataTypes
 };

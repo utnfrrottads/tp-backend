@@ -65,7 +65,21 @@ const cancelShift = async (req, res, next) => {
 };
 
 
+const getShiftsByDate = async (req, res, next) => {
+    try {
+        const shiftsByDate = await shiftService.getShiftsByDate(req.query);
+
+        const response = responseCreator(shiftsByDate);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newShift,
-    cancelShift
+    cancelShift,
+    getShiftsByDate
 };

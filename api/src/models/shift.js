@@ -10,11 +10,11 @@ const Shift = sequelize.define('shift', {
         primaryKey: true
     },
     shiftDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     shiftCancellationDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     status: {
         type: DataTypes.ENUM('Standby', 'Entered', 'Cancelled'),

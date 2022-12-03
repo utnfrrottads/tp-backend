@@ -11,6 +11,16 @@ const sanitizerQueryParam = [
 ];
 
 
+const sanitizerDateParam = [
+    query('date')
+        .trim(),
+    (req, res, next) => {
+        validateResult(req, res, next);
+    }
+];
+
+
 module.exports = {
-    sanitizerQueryParam
+    sanitizerQueryParam,
+    sanitizerDateParam
 };

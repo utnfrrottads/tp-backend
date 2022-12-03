@@ -1,6 +1,8 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
 const { QueryTypes } = require('sequelize');
+const { Op } = require("sequelize");
+const dayjs = require('dayjs');
 
 
 const getMaximumShiftsPerDay = async () => {
@@ -24,6 +26,26 @@ const getNumberOfShiftsForGivenDate = async (shiftDate) => {
     });
     
     return numberOfShiftsForGivenDate;
+};
+
+
+const getShiftsByDate = async (queryParams) => {
+    const date = queryParams.date || dayjs().format('YYYY-MM-DD');
+
+    return await models.Shift.findAll({
+        include: [
+            {
+                model: models.Customer,
+                required: true
+            }
+        ],
+        where: {
+            shiftDate: date,
+            shiftCancellationDate: {
+                [Op.is]: null
+            }
+        }
+    });
 };
 
 
@@ -72,6 +94,7 @@ const cancelShift = async (shiftCancellationDate, shiftId) => {
 module.exports = {
     getMaximumShiftsPerDay,
     getNumberOfShiftsForGivenDate,
+    getShiftsByDate,
     getShiftById,
     registerShift,
     cancelShift
