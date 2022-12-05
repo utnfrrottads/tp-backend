@@ -26,7 +26,7 @@ const Vehicle = sequelize.define('vehicle', {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false
     },
-    currentNumberKilometers: {
+    currentNumberOfKilometers: {
         type: DataTypes.FLOAT.UNSIGNED,
         allowNull: false
     },

@@ -1,5 +1,5 @@
 const { validateResult } = require('../../../utils/validateUtil');
-const { query } = require('express-validator');
+const { query, body } = require('express-validator');
 
 
 const sanitizerQueryParams = [
@@ -11,6 +11,16 @@ const sanitizerQueryParams = [
 ];
 
 
+const sanitizerToUpperCase = [
+    body('licensePlate')
+        .toUpperCase(),
+    (req, res, next) => {
+        validateResult(req, res, next);
+    }
+];
+
+
 module.exports = {
-    sanitizerQueryParams
+    sanitizerQueryParams,
+    sanitizerToUpperCase
 };
