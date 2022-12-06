@@ -23,10 +23,10 @@ const validateMissingValues = [
 
 
 const validateDataTypes = [
-    check(['sparePartCode', 'stock'], "The value must be an integer.")
-        .isInt(),
-    check('sparePartPrice', "The price format is invalid.")
-        .isFloat(),
+    check('stock', "The value must be a positive integer number greater than 0.")
+        .isInt({ gt: 0 }),
+    check('sparePartPrice', "The price must be a positive integer number or decimal.")
+        .isFloat({ gt: 0 }),
     (req, res, next) => {
         validateResult(req, res, next);
     }

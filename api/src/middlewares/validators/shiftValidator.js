@@ -39,7 +39,7 @@ const shiftDateIsAfterToday = [
 ];
 
 
-const validateDateDataTypes = [
+const validateDateDataType = [
     query('date', "The date format is invalid.")
         .custom(value => {
             if (value) {
@@ -57,5 +57,5 @@ module.exports = {
     validateMissingValues,
     validateDataTypes,
     shiftDateIsAfterToday,
-    validateDateDataTypes
+    validateDateDataType
 };
