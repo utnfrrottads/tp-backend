@@ -33,7 +33,7 @@ const validateDataTypes = [
         }),
     check('year', `The value must be a positive integer number between 1990 and ${new Date().getFullYear()}.`)
         .isInt({ min: 1990, max: new Date().getFullYear() }),
-    check('currentNumberOfKilometers', "The value must be a positive integer number or decimal.")
+    check('currentNumberOfKilometers', "The value must be a positive integer number or decimal greater than 0.")
         .isFloat({ gt: 0 }),
     (req, res, next) => {
         validateResult(req, res, next);
