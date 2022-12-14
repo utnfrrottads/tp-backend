@@ -1,4 +1,5 @@
 import { promises as fsp } from 'fs';
+import fieldsAllowedByRole from '../../utils/fieldsAllowedByRole';
 
 function articlesController(Article) {
   async function get(req, res) {
@@ -19,7 +20,9 @@ function articlesController(Article) {
     }
 
     try {
-      const articles = await Article.find(query).slice('prices', slicePrices);
+      const articles = await Article.find(query)
+        .slice('prices', slicePrices)
+        .select(fieldsAllowedByRole(req.loggedUser.userRole)); // All fields if user is admin
 
       const returnArticles = articles.map((article) => {
         const newArticle = article.toJSON();
@@ -40,6 +43,11 @@ function articlesController(Article) {
   }
 
   async function post(req, res) {
+    // Only admin users can create a new article
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { body } = req;
     if (!body.prices) {
       body.prices = [];

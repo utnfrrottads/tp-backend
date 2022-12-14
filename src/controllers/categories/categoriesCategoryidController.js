@@ -33,6 +33,10 @@ function categoriesCategoryidController(Article) {
   }
 
   async function put(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { category } = req;
     const { name } = category;
     reAssign(category, req.body, Category.schema);
@@ -51,6 +55,10 @@ function categoriesCategoryidController(Article) {
   }
 
   async function patch(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { category } = req;
     const { name } = category;
 
@@ -72,6 +80,10 @@ function categoriesCategoryidController(Article) {
   }
 
   async function remove(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { category: { name } } = req;
 
     try {
@@ -86,7 +98,7 @@ function categoriesCategoryidController(Article) {
     }
   }
 
-  return { // there is no post because category creation is in article controller
+  return {
     findCategoryByName,
     get,
     put,

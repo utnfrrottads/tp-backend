@@ -7,6 +7,13 @@ function customersCustomeridController(Customer) {
         .populate('purchases.purchaseLines.article')
         .select('-password');
 
+      if (
+        req.loggedUser.userRole !== 'admin' // Admins can see and edit users
+        && customer.username !== req.loggedUser.username // One user can modify its own data
+      ) {
+        return res.sendStatus(403);
+      }
+
       if (customer) {
         req.customer = customer;
         return next();

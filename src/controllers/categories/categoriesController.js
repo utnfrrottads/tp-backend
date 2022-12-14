@@ -26,7 +26,7 @@ function categoriesController(Article) {
     }
   }
 
-  return { get };
+  return { get }; // there is no post because category creation is in article controller
 }
 
 module.exports = categoriesController;

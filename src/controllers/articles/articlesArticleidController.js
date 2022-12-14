@@ -1,9 +1,12 @@
 import reAssign from '../../utils/reAssign';
+import fieldsAllowedByRole from '../../utils/fieldsAllowedByRole';
 
 function articlesArticleidControler(Article) {
   async function findArticleById(req, res, next) {
     try {
-      const article = await Article.findById(req.params.articleId).slice('prices', 1);
+      const article = await Article.findById(req.params.articleId)
+        .slice('prices', 1)
+        .select(fieldsAllowedByRole(req.loggedUser.userRole));
 
       if (article) {
         req.article = article;
@@ -32,6 +35,10 @@ function articlesArticleidControler(Article) {
   }
 
   async function put(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { article } = req;
     reAssign(article, req.body, Article.schema);
 
@@ -45,6 +52,10 @@ function articlesArticleidControler(Article) {
   }
 
   async function patch(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { article } = req;
 
     if (req.body._id) { // eslint-disable-line no-underscore-dangle
@@ -62,6 +73,10 @@ function articlesArticleidControler(Article) {
   }
 
   async function remove(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const { article } = req;
 
     try {

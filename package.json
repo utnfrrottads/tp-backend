@@ -33,7 +33,9 @@
       "NODE_ENV": "development",
       "PORT": 4000,
       "SESSION_SECRET": "5f9fa1bf66522e2a80cbe5badafd7bd251541d79431cd32651a93b92bde11b53",
-      "FRONTEND_PATH": "../tp-frontend/src/"
+      "FRONTEND_PATH": "../tp-frontend/src/",
+      "JWT_TOKEN_HEADER_KEY": "JWTAuthenticationToken",
+      "JWT_SECRET": "c0f135698e8d5df92682759dff00049baa0523958971154c2526c71873a74e1e"
     }
   },
   "dependencies": {
@@ -44,6 +46,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
+    "jsonwebtoken": "^8.5.1",
     "memorystore": "^1.6.7",
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.4",

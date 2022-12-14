@@ -11,7 +11,11 @@ function purchasesController(Customer) {
     }
   }
 
-  return { get };
+  function post(req, res) {
+    // business logic and save purchase
+  }
+
+  return { get, post };
 }
 
 module.exports = purchasesController;

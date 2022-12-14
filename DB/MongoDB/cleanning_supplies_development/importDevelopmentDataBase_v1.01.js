@@ -11,6 +11,7 @@ db.articles.insert([
     code: 'a130',
     description: 'Esponja verde y amarilla',
     category: { name: 'cocina', description: 'Articulos de limpieza para la cocina' },
+    isBestSeller: true,
     prices: [
       { value: 75, sinceDate: ISODate('2021-01-01T03:00:00.301Z') },
       { value: 85, sinceDate: ISODate('2021-01-30T03:00:00.302Z') },
@@ -39,6 +40,7 @@ db.articles.insert([
     _id: ObjectId('6053d968cda18f3ccae92692'),
     code: 'a131',
     description: 'Escoba de interior',
+    isBestSeller: true,
     category: { name: 'general', description: 'Articulos para la liempieza general de la casa' },
     prices: [
       { value: 250, sinceDate: ISODate('2021-01-01T03:00:02.200Z') },
@@ -80,6 +82,7 @@ db.articles.insert([
     _id: ObjectId('6053d968cda18f3ccae92693'),
     code: 'a141',
     description: 'Esponja metalica',
+    isBestSeller: false,
     category: { name: 'cocina', description: 'Articulos de limpieza para la cocina' },
     prices: [
       { value: 75, sinceDate: ISODate('2021-01-01T03:00:03.100Z') },
@@ -109,6 +112,7 @@ db.articles.insert([
     _id: ObjectId('6053d968cda18f3ccae92694'),
     code: 'a120',
     description: 'Escoba de paja',
+    isBestSeller: false,
     category: { name: 'Baño', description: 'Articulos para la limpieza del baño'},
     prices: [
       { value: 270, sinceDate: ISODate('2021-01-01T03:00:01.000Z') },
@@ -152,10 +156,12 @@ db.customers.insert([
   {
     _id: ObjectId('6053d968cda18f3ccae92695'),
     username: 'pepe123',
+    userRole: 'customer',
     name: 'pepe',
-    lastName: 'gomez',
-    password: '$2a$10$mey.TbiHpD1/1SZIikSg1u5a/E1SAlm49z7fDnKOTQeVgC5mWfXg.',
+    lastName: 'gomez. PWD=pepe123',
+    password: '$2a$10$Jbq1.KINmCwq5QGGaagkd.FIdKpH.Qh2WJ8YLrZ7/DE9nArnFpnXS',
     dni: '12123123',
+    accountBalance: 100000,
     purchases: [
       {
         date: ISODate('2021-02-15T03:00:04.001Z'),
@@ -179,5 +185,15 @@ db.customers.insert([
         ]
       }
     ]
+  },
+  {
+    _id: ObjectId('6053d968cda18f3ccae92696'),
+    username: 'juan123',
+    userRole: 'admin',
+    name: 'juan',
+    lastName: 'perez. PWD=pepe123',
+    password: '$2a$10$Jbq1.KINmCwq5QGGaagkd.FIdKpH.Qh2WJ8YLrZ7/DE9nArnFpnXS',
+    dni: '12123456',
+    accountBalance: 500
   }
 ]);

@@ -4,6 +4,10 @@ import reAssign from '../../utils/reAssign';
 function providerProvideridController(Article) {
   // it's used as middleware to get provider, in provider router
   async function findProviderByCuit(req, res, next) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const query = { 'providers.cuit': req.params.providerCuit };
 
     try {
@@ -86,7 +90,7 @@ function providerProvideridController(Article) {
     }
   }
 
-  return { // there is no post because provider creation is in article controller
+  return {
     findProviderByCuit,
     get,
     put,

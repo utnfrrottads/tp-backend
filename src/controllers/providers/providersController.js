@@ -1,6 +1,11 @@
 function providerController(Article) {
   async function get(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const query = {};
+
     if (req.query.businessName) {
       query['providers.businessName'] = req.query.businessName;
     }
@@ -35,7 +40,7 @@ function providerController(Article) {
     }
   }
 
-  return { get };
+  return { get }; // there is no post because provider creation is in article controller
 }
 
 module.exports = providerController;

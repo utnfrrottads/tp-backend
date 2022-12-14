@@ -1,6 +1,11 @@
 function customersController(Customer) {
   async function get(req, res) {
+    if (req.loggedUser.userRole !== 'admin') {
+      return res.sendStatus(403);
+    }
+
     const query = {};
+
     if (req.query.dni) {
       query.dni = req.query.dni;
     }
@@ -44,7 +49,7 @@ function customersController(Customer) {
     }
 
     try {
-      const savedCustomer = await customer.save();
+      const savedCustomer = await customer.save(); // Hash password before save, in customerModel
       res.status(201);
       return res.json(savedCustomer);
     } catch (err) {
