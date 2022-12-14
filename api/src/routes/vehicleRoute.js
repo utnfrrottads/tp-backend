@@ -8,5 +8,7 @@ router.post('/', sanitizerToUpperCase, validateMissingValues, validateDataTypes,
 
 router.delete('/:vehicleId', vehicleController.deleteVehicle);
 
+router.put('/:vehicleId', sanitizerToUpperCase, validateMissingValues, validateDataTypes, vehicleController.editVehicle);
+
 
 module.exports = router;

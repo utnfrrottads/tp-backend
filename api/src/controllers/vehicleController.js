@@ -59,7 +59,37 @@ const deleteVehicle = async (req, res, next) => {
 };
 
 
+const editVehicle = async (req, res, next) => {
+    const vehicleId = req.params.vehicleId;
+
+    try {
+        const vehicleToUpdate = await vehicleService.getVehicleById(vehicleId);
+
+        if (!vehicleToUpdate) {
+            throw ApiError.badRequest(`The vehicle with id ${vehicleId} does not exist.`);
+        }
+
+        if (vehicleToUpdate.licensePlate !== req.body.licensePlate) {
+            throw ApiError.badRequest("You cannot change the license plate.");
+        }
+
+        if (vehicleToUpdate.customerId != req.body.customerId) {
+            throw ApiError.badRequest("You cannot change the vehicle's owner.");
+        }
+
+        await vehicleService.editVehicle(req.body, vehicleId);
+
+        const response = responseCreator(vehicleToUpdate);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newVehicle,
-    deleteVehicle
+    deleteVehicle,
+    editVehicle
 };

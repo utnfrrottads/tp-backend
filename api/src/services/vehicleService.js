@@ -58,10 +58,30 @@ const deleteVehicle = async (vehicleId) => {
 };
 
 
+const editVehicle = async (data, vehicleId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.Vehicle.update(data, {
+            where: {
+                vehicleId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
     getVehicleByLicensePlate,
     getVehicleById,
     isVehicleSuitableForDeletion,
     createVehicle,
-    deleteVehicle
+    deleteVehicle,
+    editVehicle
 };
