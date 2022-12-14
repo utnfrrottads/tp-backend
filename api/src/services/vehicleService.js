@@ -1,5 +1,6 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
+const repairService = require('./repairService');
 
 
 const getVehicleByLicensePlate = async (licensePlate) => {
@@ -8,6 +9,18 @@ const getVehicleByLicensePlate = async (licensePlate) => {
             licensePlate
         }
     });
+};
+
+
+const getVehicleById = async (vehicleId) => {
+    return await models.Vehicle.findByPk(vehicleId);
+};
+
+
+const isVehicleSuitableForDeletion = async (vehicleId) => {
+    const enteredOrInProgressRepair = await repairService.getAnyStartedRepairsForVehicle(vehicleId);
+
+    return enteredOrInProgressRepair ? false : true;
 };
 
 
@@ -26,7 +39,29 @@ const createVehicle = async (data) => {
 };
 
 
+const deleteVehicle = async (vehicleId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.Vehicle.destroy({
+            where: {
+                vehicleId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
     getVehicleByLicensePlate,
-    createVehicle
+    getVehicleById,
+    isVehicleSuitableForDeletion,
+    createVehicle,
+    deleteVehicle
 };

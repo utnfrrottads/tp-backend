@@ -1,6 +1,6 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 
 
 const getMechanicByRegistrationNumber = async (registrationNumber) => {

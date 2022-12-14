@@ -1,7 +1,7 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
 const { QueryTypes } = require('sequelize');
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 const dayjs = require('dayjs');
 
 

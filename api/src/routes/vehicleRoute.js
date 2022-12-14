@@ -6,5 +6,7 @@ const { sanitizerToUpperCase } = require('../middlewares/sanitizers/shared/share
 
 router.post('/', sanitizerToUpperCase, validateMissingValues, validateDataTypes, vehicleController.newVehicle);
 
+router.delete('/:vehicleId', vehicleController.deleteVehicle);
+
 
 module.exports = router;

@@ -32,6 +32,34 @@ const newVehicle = async (req, res, next) => {
 };
 
 
+const deleteVehicle = async (req, res, next) => {
+    const vehicleId = req.params.vehicleId;
+
+    try {
+        const vehicleToDelete = await vehicleService.getVehicleById(vehicleId);
+
+        if (!vehicleToDelete) {
+            throw ApiError.badRequest(`The vehicle with id ${vehicleId} does not exist.`);
+        }
+
+        const isVehicleSuitableForDeletion = await vehicleService.isVehicleSuitableForDeletion(vehicleId);
+
+        if (!isVehicleSuitableForDeletion) {
+            throw ApiError.badRequest(`The vehicle with id ${vehicleId} cannot be deleted because it has a repair entered or in progress.`);
+        }
+
+        await vehicleService.deleteVehicle(vehicleId);
+
+        const response = responseCreator(vehicleToDelete);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
-    newVehicle
+    newVehicle,
+    deleteVehicle
 };
