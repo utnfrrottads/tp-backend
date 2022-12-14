@@ -1,6 +1,7 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
 const repairService = require('./repairService');
+const { Op } = require('sequelize');
 
 
 const getVehicleByLicensePlate = async (licensePlate) => {
@@ -14,6 +15,50 @@ const getVehicleByLicensePlate = async (licensePlate) => {
 
 const getVehicleById = async (vehicleId) => {
     return await models.Vehicle.findByPk(vehicleId);
+};
+
+
+const getVehicles = async (queryParams) => {
+    const limit = parseInt(queryParams.limit) || 10;
+    const offset = parseInt(queryParams.offset) || 0;
+    const query = queryParams.query;
+
+    let vehicles = [];
+
+    if (query) {
+        vehicles = await models.Vehicle.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        licensePlate: {
+                            [Op.substring]: query
+                        },
+                    },
+                    {
+                        make: {
+                            [Op.substring]: query
+                        }
+                    },
+                    {
+                        model: {
+                            [Op.substring]: query
+                        },
+                    }
+                ] 
+            },
+            limit,
+            offset,
+            order: [['make', 'ASC'], ['model', 'ASC']]
+        });
+    } else {
+        vehicles = await models.Vehicle.findAll({
+            limit,
+            offset,
+            order: [['make', 'ASC'], ['model', 'ASC']]
+        });
+    }
+
+    return vehicles;
 };
 
 
@@ -80,6 +125,7 @@ const editVehicle = async (data, vehicleId) => {
 module.exports = {
     getVehicleByLicensePlate,
     getVehicleById,
+    getVehicles,
     isVehicleSuitableForDeletion,
     createVehicle,
     deleteVehicle,

@@ -88,8 +88,22 @@ const editVehicle = async (req, res, next) => {
 };
 
 
+const getVehicles = async (req, res, next) => {    
+    try {
+        const vehicles = await vehicleService.getVehicles(req.query);
+
+        const response = responseCreator(vehicles);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newVehicle,
     deleteVehicle,
-    editVehicle
+    editVehicle,
+    getVehicles
 };
