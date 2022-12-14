@@ -12,5 +12,7 @@ router.put('/:vehicleId', sanitizerToUpperCase, validateMissingValues, validateD
 
 router.get('/', sanitizerQueryParams, vehicleController.getVehicles);
 
+router.get('/:vehicleId', vehicleController.getVehicleById);
+
 
 module.exports = router;

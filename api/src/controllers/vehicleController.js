@@ -101,9 +101,29 @@ const getVehicles = async (req, res, next) => {
 };
 
 
+const getVehicleById = async (req, res, next) => {
+    const vehicleId = req.params.vehicleId;
+    
+    try {
+        const vehicle = await vehicleService.getVehicleById(vehicleId);
+
+        if (!vehicle) {
+            throw ApiError.badRequest(`The vehicle with id ${vehicleId} does not exist.`);
+        }
+
+        const response = responseCreator(vehicle);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newVehicle,
     deleteVehicle,
     editVehicle,
-    getVehicles
+    getVehicles,
+    getVehicleById
 };
