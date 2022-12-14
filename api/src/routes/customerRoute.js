@@ -14,5 +14,7 @@ router.get('/', sanitizerQueryParams, customerController.getCustomers);
 
 router.get('/:customerId', customerController.getCustomerById);
 
+router.get('/:customerId/vehicles', customerController.getCustomerVehicles);
+
 
 module.exports = router;

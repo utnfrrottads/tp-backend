@@ -56,6 +56,20 @@ const getCustomers = async (queryParams) => {
 };
 
 
+const getCustomerVehicles = async (customerId) => {
+    return await models.Customer.findOne({
+        where: {
+            customerId
+        },
+        include: [
+            {
+                model: models.Vehicle
+            }
+        ]
+    });
+};
+
+
 const createCustomer = async (data) => {
     const transaction = await sequelize.transaction();
 
@@ -113,6 +127,7 @@ module.exports = {
     getCustomerByDni,
     getCustomerById,
     getCustomers,
+    getCustomerVehicles,
     createCustomer,
     deleteCustomer,
     editCustomer
