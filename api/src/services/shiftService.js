@@ -1,6 +1,5 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
-const { QueryTypes } = require('sequelize');
 const { Op } = require('sequelize');
 const dayjs = require('dayjs');
 
@@ -15,16 +14,15 @@ const getMaximumShiftsPerDay = async () => {
 
 
 const getNumberOfShiftsForGivenDate = async (shiftDate) => {
-    const query = `SELECT count(*) AS "numberOfShiftsForGivenDate"
-                  FROM shift 
-                  WHERE shiftDate = ? AND shiftCancellationDate IS NULL;`;
-
-    const {numberOfShiftsForGivenDate} = await sequelize.query(query, { 
-        type: QueryTypes.SELECT,
-        replacements: [shiftDate],
-        plain: true,
+    const numberOfShiftsForGivenDate = await models.Shift.count({
+        where: {
+            shiftDate,
+            shiftCancellationDate: {
+                [Op.is]: null
+            }
+        }
     });
-    
+
     return numberOfShiftsForGivenDate;
 };
 
