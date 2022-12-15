@@ -23,42 +23,32 @@ const getVehicles = async (queryParams) => {
     const offset = parseInt(queryParams.offset) || 0;
     const query = queryParams.query;
 
-    let vehicles = [];
-
-    if (query) {
-        vehicles = await models.Vehicle.findAll({
-            where: {
-                [Op.or]: [
-                    {
-                        licensePlate: {
-                            [Op.substring]: query
-                        },
+    const {count: numberOfVehicles, rows: vehicles} = await models.Vehicle.findAndCountAll({
+        where: {
+            [Op.or]: [
+                {
+                    licensePlate: {
+                        [Op.substring]: query
                     },
-                    {
-                        make: {
-                            [Op.substring]: query
-                        }
-                    },
-                    {
-                        model: {
-                            [Op.substring]: query
-                        },
+                },
+                {
+                    make: {
+                        [Op.substring]: query
                     }
-                ] 
-            },
-            limit,
-            offset,
-            order: [['make', 'ASC'], ['model', 'ASC']]
-        });
-    } else {
-        vehicles = await models.Vehicle.findAll({
-            limit,
-            offset,
-            order: [['make', 'ASC'], ['model', 'ASC']]
-        });
-    }
+                },
+                {
+                    model: {
+                        [Op.substring]: query
+                    },
+                }
+            ] 
+        },
+        limit,
+        offset,
+        order: [['make', 'ASC'], ['model', 'ASC']]
+    });
 
-    return vehicles;
+    return {total: numberOfVehicles, records: vehicles};
 };
 
 

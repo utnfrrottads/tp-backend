@@ -22,37 +22,27 @@ const getMechanics = async (queryParams) => {
     const offset = parseInt(queryParams.offset) || 0;
     const query = queryParams.query;
 
-    let mechanics = [];
-
-    if (query) {
-        mechanics = await models.Mechanic.findAll({
-            where: {
-                [Op.or]: [
-                    {
-                        firstName: {
-                            [Op.substring]: query
-                        },
+    const {count: numberOfMechanics, rows: mechanics} = await models.Mechanic.findAndCountAll({
+        where: {
+            [Op.or]: [
+                {
+                    firstName: {
+                        [Op.substring]: query
                     },
-                    {
-                        lastName: {
-                            [Op.substring]: query
-                        }
+                },
+                {
+                    lastName: {
+                        [Op.substring]: query
                     }
-                ] 
-            },
-            limit,
-            offset,
-            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-        });
-    } else {
-        mechanics = await models.Mechanic.findAll({
-            limit,
-            offset,
-            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-        });
-    }
+                }
+            ] 
+        },
+        limit,
+        offset,
+        order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+    });
 
-    return mechanics;
+    return {total: numberOfMechanics, records: mechanics};
 };
 
 

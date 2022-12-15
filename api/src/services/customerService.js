@@ -22,37 +22,27 @@ const getCustomers = async (queryParams) => {
     const offset = parseInt(queryParams.offset) || 0;
     const query = queryParams.query;
 
-    let customers = [];
-
-    if (query) {
-        customers = await models.Customer.findAll({
-            where: {
-                [Op.or]: [
-                    {
-                        firstName: {
-                            [Op.substring]: query
-                        },
+    const {count: numberOfCustomers, rows: customers} = await models.Customer.findAndCountAll({
+        where: {
+            [Op.or]: [
+                {
+                    firstName: {
+                        [Op.substring]: query
                     },
-                    {
-                        lastName: {
-                            [Op.substring]: query
-                        }
+                },
+                {
+                    lastName: {
+                        [Op.substring]: query
                     }
-                ] 
-            },
-            limit,
-            offset,
-            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-        });
-    } else {
-        customers = await models.Customer.findAll({
-            limit,
-            offset,
-            order: [['firstName', 'ASC'], ['lastName', 'ASC']]
-        });
-    }
+                }
+            ] 
+        },
+        limit,
+        offset,
+        order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+    });
 
-    return customers;
+    return {total: numberOfCustomers, records: customers};
 };
 
 

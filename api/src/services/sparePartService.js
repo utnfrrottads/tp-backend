@@ -22,28 +22,18 @@ const getSpareParts = async (queryParams) => {
     const offset = parseInt(queryParams.offset) || 0;
     const query = queryParams.query;
 
-    let spareParts = [];
+    const {count: numberOfSpareParts, rows: spareParts} = await models.SparePart.findAndCountAll({
+        where: {
+            sparePartDescription: {
+                [Op.substring]: query
+            }
+        },
+        limit,
+        offset,
+        order: [['sparePartDescription', 'ASC']]
+    });
 
-    if (query) {
-        spareParts = await models.SparePart.findAll({
-            where: {
-                sparePartDescription: {
-                    [Op.substring]: query
-                }
-            },
-            limit,
-            offset,
-            order: [['sparePartDescription', 'ASC']]
-        });
-    } else {
-        spareParts = await models.SparePart.findAll({
-            limit,
-            offset,
-            order: [['sparePartDescription', 'ASC']]
-        });
-    }
-
-    return spareParts;
+    return {total: numberOfSpareParts, records: spareParts};
 };
 
 
