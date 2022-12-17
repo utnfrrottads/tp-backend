@@ -2,6 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Mechanic = require('./mechanic');
 const Vehicle = require('./vehicle');
+const dayjs = require('dayjs');
+
 
 const Repair = sequelize.define('repair', {
     repairId: {
@@ -12,7 +14,7 @@ const Repair = sequelize.define('repair', {
     },
     entryDateTime: {
         type: DataTypes.DATE,
-        allowNull: false
+        defaultValue: dayjs().format('YYYY-MM-DD HH:mm:ss')
     },
     startDateTime: {
         type: DataTypes.DATE
@@ -26,7 +28,7 @@ const Repair = sequelize.define('repair', {
     status: {
         type: DataTypes.ENUM,
         values: ['Entered', 'In progress', 'Completed', 'Delivered'],
-        allowNull: false
+        defaultValue: 'Entered'
     },
     initialDetail: {
         type: DataTypes.STRING(1000)

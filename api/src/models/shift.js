@@ -17,9 +17,9 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.DATEONLY
     },
     status: {
-        type: DataTypes.ENUM('Standby', 'Entered', 'Cancelled'),
+        type: DataTypes.ENUM('Stand by', 'Entered', 'Cancelled'),
         allowNull: false,
-        defaultValue: 'Standby'
+        defaultValue: 'Stand by'
     },
     customerId: {
         type: DataTypes.INTEGER.UNSIGNED,

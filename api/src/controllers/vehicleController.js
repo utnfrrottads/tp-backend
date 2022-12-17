@@ -39,7 +39,7 @@ const deleteVehicle = async (req, res, next) => {
         const vehicleToDelete = await vehicleService.getVehicleById(vehicleId);
 
         if (!vehicleToDelete) {
-            throw ApiError.badRequest(`The vehicle with id ${vehicleId} does not exist.`);
+            throw ApiError.notFound(`The vehicle with id '${vehicleId}' does not exist.`);
         }
 
         const isVehicleSuitableForDeletion = await vehicleService.isVehicleSuitableForDeletion(vehicleId);
@@ -66,7 +66,7 @@ const editVehicle = async (req, res, next) => {
         const vehicleToUpdate = await vehicleService.getVehicleById(vehicleId);
 
         if (!vehicleToUpdate) {
-            throw ApiError.badRequest(`The vehicle with id ${vehicleId} does not exist.`);
+            throw ApiError.notFound(`The vehicle with id '${vehicleId}' does not exist.`);
         }
 
         if (vehicleToUpdate.licensePlate !== req.body.licensePlate) {
@@ -108,7 +108,7 @@ const getVehicleById = async (req, res, next) => {
         const vehicle = await vehicleService.getVehicleById(vehicleId);
 
         if (!vehicle) {
-            throw ApiError.badRequest(`The vehicle with id ${vehicleId} does not exist.`);
+            throw ApiError.notFound(`The vehicle with id '${vehicleId}' does not exist.`);
         }
 
         const response = responseCreator(vehicle);

@@ -40,7 +40,7 @@ const getShiftsByDate = async (queryParams) => {
         where: {
             shiftDate: date,
             status: {
-                [Op.in]: ['Standby']
+                [Op.in]: ['Stand by']
             }
         }
     });
@@ -63,7 +63,7 @@ const getShiftsByCustomer = async (customerId) => {
                 [Op.gte]: today
             },
             status: {
-                [Op.in]: ['Standby']
+                [Op.in]: ['Stand by']
             }
         }
     });
@@ -72,6 +72,22 @@ const getShiftsByCustomer = async (customerId) => {
 
 const getShiftById = async (shiftId) => {
     return await models.Shift.findByPk(shiftId);
+};
+
+
+const getRepairShiftByCustomerId = async (customerId) => {
+    return await models.Shift.findOne({
+        where: {
+            shiftDate: dayjs().format('YYYY-MM-DD'),
+            shiftCancellationDate: {
+                [Op.is]: null
+            },
+            status: {
+                [Op.in]: ['Stand by']
+            },
+            customerId
+        }
+    });
 };
 
 
@@ -112,12 +128,39 @@ const cancelShift = async (shiftCancellationDate, shiftId) => {
 };
 
 
+const changeShiftStatusToEntered = async (customerId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.Shift.update({
+            status: 'Entered'
+        }, {
+            where: {
+                shiftDate: dayjs().format('YYYY-MM-DD'),
+                status: {
+                    [Op.in]: ['Stand by']
+                },
+                customerId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
     getMaximumShiftsPerDay,
     getNumberOfShiftsForGivenDate,
     getShiftsByDate,
     getShiftsByCustomer,
     getShiftById,
+    getRepairShiftByCustomerId,
     registerShift,
-    cancelShift
+    cancelShift,
+    changeShiftStatusToEntered
 };

@@ -20,7 +20,7 @@ const newShift = async (req, res, next) => {
         const customer = await customerService.getCustomerById(customerId);
 
         if (!customer) {
-            throw ApiError.badRequest(`Customer with id '${customerId}' does not exist.`);
+            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
         }
 
         const newShift = await shiftService.registerShift({shiftDate, customerId});
