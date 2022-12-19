@@ -11,7 +11,7 @@ const newShift = async (req, res, next) => {
     try {
         const maximumShiftsPerDay = await shiftService.getMaximumShiftsPerDay();
 
-        const numberOfShiftsForGivenDate = await shiftService.getNumberOfShiftsForGivenDate(shiftDate);
+        const {numberOfShiftsForGivenDate, shifts} = await shiftService.getCountAndShiftsForGivenDate(shiftDate);
 
         if (numberOfShiftsForGivenDate >= maximumShiftsPerDay) {
             throw ApiError.badRequest(`You cannot take any more shifts on this day (${shiftDate}).`);
@@ -21,6 +21,14 @@ const newShift = async (req, res, next) => {
 
         if (!customer) {
             throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
+        }
+
+        const shiftAlreadyExistsForDateAndCustomer = shifts.some(shift => {
+            return shift.customerId == customerId;
+        });
+
+        if (shiftAlreadyExistsForDateAndCustomer) {
+            throw ApiError.badRequest(`The customer with id '${customerId}' already has a repair shift for this date (${shiftDate}).`);
         }
 
         const newShift = await shiftService.registerShift({shiftDate, customerId});

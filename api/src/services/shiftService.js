@@ -13,17 +13,17 @@ const getMaximumShiftsPerDay = async () => {
 };
 
 
-const getNumberOfShiftsForGivenDate = async (shiftDate) => {
-    const numberOfShiftsForGivenDate = await models.Shift.count({
+const getCountAndShiftsForGivenDate = async (shiftDate) => {
+    const {count: numberOfShiftsForGivenDate, rows: shifts} = await models.Shift.findAndCountAll({
         where: {
-            shiftDate,
+            shiftDate: shiftDate,
             shiftCancellationDate: {
                 [Op.is]: null
             }
         }
     });
 
-    return numberOfShiftsForGivenDate;
+    return {numberOfShiftsForGivenDate, shifts};
 };
 
 
@@ -155,7 +155,7 @@ const changeShiftStatusToEntered = async (customerId) => {
 
 module.exports = {
     getMaximumShiftsPerDay,
-    getNumberOfShiftsForGivenDate,
+    getCountAndShiftsForGivenDate,
     getShiftsByDate,
     getShiftsByCustomer,
     getShiftById,
