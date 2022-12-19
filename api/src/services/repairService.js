@@ -4,6 +4,19 @@ const { Op } = require('sequelize');
 const shiftService = require('../services/shiftService');
 
 
+const getRepairData = async (repairId) => {
+    return await models.Repair.findOne({
+        where: {
+            repairId
+        },
+        include: {
+            all: true,
+            nested: true
+        }
+    });
+};
+
+
 const getAnyStartedRepairsForVehicle = async (vehicleId) => {
     return await models.Repair.findOne({
         where: {
@@ -49,6 +62,7 @@ const createRepair = async (data) => {
 
 
 module.exports = {
+    getRepairData,
     getAnyStartedRepairsForVehicle,
     isRepairRelatedToAShift,
     changeShiftStatusToEntered,

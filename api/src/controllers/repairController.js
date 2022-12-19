@@ -38,6 +38,26 @@ const newRepair = async (req, res, next) => {
 };
 
 
+const getRepairById = async (req, res, next) => {
+    const repairId = req.params.repairId;
+
+    try {
+        const repair = await repairService.getRepairData(repairId);
+
+        if (!repair) {
+            throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
+        }
+
+        const response = responseCreator(repair);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
-    newRepair
+    newRepair,
+    getRepairById
 };

@@ -5,5 +5,7 @@ const { validateMissingValues, validateDataTypes } = require('../middlewares/val
 
 router.post('/', validateMissingValues, validateDataTypes, repairController.newRepair);
 
+router.get('/:repairId', repairController.getRepairById);
+
 
 module.exports = router;

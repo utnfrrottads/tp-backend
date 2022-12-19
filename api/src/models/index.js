@@ -28,20 +28,9 @@ const initAssociations = () => {
     Mechanic.hasMany(Repair, { foreignKey: 'mechanicId' });
     Repair.belongsTo(Mechanic, { foreignKey: 'mechanicId' });
 
-    //FIXME: Forma 1
-    // // Repair & Spare across RepairSpare        
-    // // Repair & RepairSpare
-    // Repair.hasMany(RepairSpare, { foreignKey: 'repairId' });
-    // RepairSpare.belongsTo(Repair, { foreignKey: 'repairId' });
-            
-    // // Spare & RepairSpare
-    // SparePart.hasMany(RepairSpare, { foreignKey: 'spareId' });
-    // RepairSpare.belongsTo(SparePart, { foreignKey: 'spareId' });
-
-    // FIXME: Forma 2
     // Repair & Spare across RepairSpare
-    Repair.belongsToMany(SparePart, { through: 'RepairSpare', unique: false, foreignKey: 'repairId' });
-    SparePart.belongsToMany(Repair, { through: 'RepairSpare', unique: false, foreignKey: 'sparePartId' });
+    Repair.belongsToMany(SparePart, { through: 'repair_spare', unique: false, foreignKey: 'repairId' });
+    SparePart.belongsToMany(Repair, { through: 'repair_spare', unique: false, foreignKey: 'sparePartId' });
 
     // Mechanic & User
     Mechanic.hasOne(User, { foreignKey: 'mechanicId' });
