@@ -4,6 +4,11 @@ const { Op } = require('sequelize');
 const shiftService = require('../services/shiftService');
 
 
+const getRepairById = async (repairId) => {
+    return await models.Repair.findByPk(repairId);
+};
+
+
 const getRepairData = async (repairId) => {
     return await models.Repair.findOne({
         where: {
@@ -61,10 +66,34 @@ const createRepair = async (data) => {
 };
 
 
+const editEnteredRepair = async (data, repairId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.Repair.update({
+            initialDetail: data.initialDetail,
+            comments: data.comments
+        }, {
+            where: {
+                repairId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 module.exports = {
+    getRepairById,
     getRepairData,
     getAnyStartedRepairsForVehicle,
     isRepairRelatedToAShift,
     changeShiftStatusToEntered,
-    createRepair
+    createRepair,
+    editEnteredRepair
 };

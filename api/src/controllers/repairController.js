@@ -38,6 +38,31 @@ const newRepair = async (req, res, next) => {
 };
 
 
+const editEnteredRepair = async (req, res, next) => {
+    const repairId = req.params.repairId;
+
+    try {
+        const repair = await repairService.getRepairById(repairId);
+
+        if (!repair) {
+            throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
+        }
+
+        if (repair.status !== 'Entered') {
+            throw ApiError.badRequest("You cannot edit this repair because it has a status other than 'Entered'.");
+        }
+
+        await repairService.editEnteredRepair(req.body, repairId);
+
+        const response = responseCreator(repair);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const getRepairById = async (req, res, next) => {
     const repairId = req.params.repairId;
 
@@ -59,5 +84,6 @@ const getRepairById = async (req, res, next) => {
 
 module.exports = {
     newRepair,
+    editEnteredRepair,
     getRepairById
 };
