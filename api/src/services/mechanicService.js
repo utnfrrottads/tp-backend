@@ -18,8 +18,8 @@ const getMechanicById = async (mechanicId) => {
 
 
 const getMechanics = async (queryParams) => {
-    const limit = parseInt(queryParams.limit) || 10;
-    const offset = parseInt(queryParams.offset) || 0;
+    const limit = parseInt(queryParams.limit) || null;
+    const offset = parseInt(queryParams.offset) || null;
     const query = queryParams.query;
 
     const {count: numberOfMechanics, rows: mechanics} = await models.Mechanic.findAndCountAll({
@@ -39,7 +39,7 @@ const getMechanics = async (queryParams) => {
         },
         limit,
         offset,
-        order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+        order: [['lastName', 'ASC'], ['firstName', 'ASC']]
     });
 
     return {total: numberOfMechanics, records: mechanics};

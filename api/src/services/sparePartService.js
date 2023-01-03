@@ -18,8 +18,8 @@ const getSparePartById = async (sparePartId) => {
 
 
 const getSpareParts = async (queryParams) => {
-    const limit = parseInt(queryParams.limit) || 10;
-    const offset = parseInt(queryParams.offset) || 0;
+    const limit = parseInt(queryParams.limit) || null;
+    const offset = parseInt(queryParams.offset) || null;
     const query = queryParams.query;
 
     const {count: numberOfSpareParts, rows: spareParts} = await models.SparePart.findAndCountAll({

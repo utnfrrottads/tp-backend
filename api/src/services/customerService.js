@@ -18,8 +18,8 @@ const getCustomerById = async (customerId) => {
 
 
 const getCustomers = async (queryParams) => {
-    const limit = parseInt(queryParams.limit) || 10;
-    const offset = parseInt(queryParams.offset) || 0;
+    const limit = parseInt(queryParams.limit) || null;
+    const offset = parseInt(queryParams.offset) || null;
     const query = queryParams.query;
 
     const {count: numberOfCustomers, rows: customers} = await models.Customer.findAndCountAll({
@@ -39,7 +39,7 @@ const getCustomers = async (queryParams) => {
         },
         limit,
         offset,
-        order: [['firstName', 'ASC'], ['lastName', 'ASC']]
+        order: [['lastName', 'ASC'], ['firstName', 'ASC']]
     });
 
     return {total: numberOfCustomers, records: customers};

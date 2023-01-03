@@ -19,8 +19,8 @@ const getVehicleById = async (vehicleId) => {
 
 
 const getVehicles = async (queryParams) => {
-    const limit = parseInt(queryParams.limit) || 10;
-    const offset = parseInt(queryParams.offset) || 0;
+    const limit = parseInt(queryParams.limit) || null;
+    const offset = parseInt(queryParams.offset) || null;
     const query = queryParams.query;
 
     const {count: numberOfVehicles, rows: vehicles} = await models.Vehicle.findAndCountAll({
