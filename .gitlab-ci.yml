@@ -1,0 +1,26 @@
+image: node:15
+cache:
+    paths:
+        - /node_modules
+
+stages:
+    - unit_test
+    # - integration_test
+
+unit_test:
+    stage: unit_test
+    script:
+        - npm install
+        - npm run test
+    tags:
+        - docker
+
+# integration_test:
+#     stage: integration_test
+#     services:
+#         - mongo:4.4.4
+#     script:
+#         - npm install
+#         - npm run int:test
+#     tags:
+#         - docker
