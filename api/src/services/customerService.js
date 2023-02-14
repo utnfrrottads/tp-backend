@@ -12,7 +12,10 @@ const getCustomerByDni = async (dni) => {
 };
 
 
-const getCustomerById = async (customerId) => {
+const getCustomerById = async (customerId, includeVehicles) => {
+    if (includeVehicles == 'true') {
+        return await getCustomerByIdWithVehicles(customerId);
+    }
     return await models.Customer.findByPk(customerId);
 };
 
@@ -46,7 +49,7 @@ const getCustomers = async (queryParams) => {
 };
 
 
-const getCustomerVehicles = async (customerId) => {
+const getCustomerByIdWithVehicles = async (customerId) => {
     return await models.Customer.findOne({
         where: {
             customerId
@@ -117,7 +120,6 @@ module.exports = {
     getCustomerByDni,
     getCustomerById,
     getCustomers,
-    getCustomerVehicles,
     createCustomer,
     deleteCustomer,
     editCustomer

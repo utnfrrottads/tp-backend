@@ -85,9 +85,10 @@ const getCustomers = async (req, res, next) => {
 
 const getCustomerById = async (req, res, next) => {
     const customerId = req.params.customerId;
+    const includeVehicles = req.query.includeVehicles;
     
     try {
-        const customer = await customerService.getCustomerById(customerId);
+        const customer = await customerService.getCustomerById(customerId, includeVehicles);
 
         if (!customer) {
             throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
@@ -102,32 +103,10 @@ const getCustomerById = async (req, res, next) => {
 };
 
 
-const getCustomerVehicles = async (req, res, next) => {
-    const customerId = req.params.customerId;
-
-    try {
-        const customer = await customerService.getCustomerById(customerId);
-
-        if (!customer) {
-            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
-        }
-        
-        const customerVehicles = await customerService.getCustomerVehicles(customerId);
-
-        const response = responseCreator(customerVehicles);
-
-        return res.status(200).json(response);
-    } catch (error) {
-        next(error);
-    }
-};
-
-
 module.exports = {
     newCustomer,
     deleteCustomer,
     editCustomer,
     getCustomers,
-    getCustomerById,
-    getCustomerVehicles
+    getCustomerById
 };
