@@ -27,46 +27,37 @@ const getCountAndShiftsForGivenDate = async (shiftDate) => {
 };
 
 
-const getShiftsByDate = async (queryParams) => {
+const searchShifts = async (queryParams) => {
     const date = queryParams.date || dayjs().format('YYYY-MM-DD');
+    const customer = queryParams.customer || '';
 
-    return await models.Shift.findAll({
+    const {count: numberOfShifts, rows: shifts} = await models.Shift.findAndCountAll({
         include: [
             {
                 model: models.Customer,
-                required: true
+                required: true,
+                where: {
+                    [Op.or]: [
+                        {
+                            firstName: {
+                                [Op.substring]: customer
+                            },
+                        },
+                        {
+                            lastName: {
+                                [Op.substring]: customer
+                            }
+                        }
+                    ] 
+                }
             }
         ],
         where: {
-            shiftDate: date,
-            status: {
-                [Op.in]: ['Stand by']
-            }
+            shiftDate: date
         }
     });
-};
 
-
-const getShiftsByCustomer = async (customerId) => {
-    const today = dayjs().format('YYYY-MM-DD');
-
-    return await models.Shift.findAll({
-        include: [
-            {
-                model: models.Customer,
-                required: true
-            }
-        ],
-        where: {
-            customerId,
-            shiftDate: {
-                [Op.gte]: today
-            },
-            status: {
-                [Op.in]: ['Stand by']
-            }
-        }
-    });
+    return {total: numberOfShifts, records: shifts};
 };
 
 
@@ -156,8 +147,7 @@ const changeShiftStatusToEntered = async (customerId) => {
 module.exports = {
     getMaximumShiftsPerDay,
     getCountAndShiftsForGivenDate,
-    getShiftsByDate,
-    getShiftsByCustomer,
+    searchShifts,
     getShiftById,
     getRepairShiftByCustomerId,
     registerShift,

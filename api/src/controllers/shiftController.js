@@ -56,6 +56,10 @@ const cancelShift = async (req, res, next) => {
             throw ApiError.badRequest(`The shift with id '${shiftId}' is already cancelled.`);
         }
 
+        if (shiftToCancel.status === 'Entered') {
+            throw ApiError.badRequest(`The shift with id '${shiftId}' cannot be cancelled because its status is 'Entered'.`);
+        }
+
         const shiftCancellationDate = dayjs().format('YYYY-MM-DD');
 
         if (shiftToCancel.shiftDate < shiftCancellationDate) {
@@ -73,26 +77,11 @@ const cancelShift = async (req, res, next) => {
 };
 
 
-const getShiftsByDate = async (req, res, next) => {
+const searchShifts = async (req, res, next) => {
     try {
-        const shiftsByDate = await shiftService.getShiftsByDate(req.query);
+        const shiftsByDate = await shiftService.searchShifts(req.query);
 
         const response = responseCreator(shiftsByDate);
-
-        return res.status(200).json(response);
-    } catch (error) {
-        next(error);
-    }
-};
-
-
-const getShiftsByCustomer = async (req, res, next) => {
-    const customerId = req.params.customerId;
-
-    try {
-        const shiftsByCustomer = await shiftService.getShiftsByCustomer(customerId);
-
-        const response = responseCreator(shiftsByCustomer);
 
         return res.status(200).json(response);
     } catch (error) {
@@ -104,6 +93,5 @@ const getShiftsByCustomer = async (req, res, next) => {
 module.exports = {
     newShift,
     cancelShift,
-    getShiftsByDate,
-    getShiftsByCustomer
+    searchShifts
 };

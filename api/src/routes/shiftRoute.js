@@ -7,9 +7,6 @@ router.post('/', validateMissingValues, validateDataTypes, shiftDateIsAfterToday
 
 router.put('/cancel/:shiftId', shiftController.cancelShift);
 
-router.get('/shiftsbyDate', sanitizerQueryParams, validateDateDataType, shiftController.getShiftsByDate);
-
-router.get('/shiftsbyCustomer/:customerId', shiftController.getShiftsByCustomer);
-
+router.get('/searchShifts', sanitizerQueryParams, validateDateDataType, shiftController.searchShifts);
 
 module.exports = router;
