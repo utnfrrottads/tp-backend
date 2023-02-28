@@ -28,8 +28,10 @@ const getCountAndShiftsForGivenDate = async (shiftDate) => {
 
 
 const searchShifts = async (queryParams) => {
-    const date = queryParams.date || dayjs().format('YYYY-MM-DD');
+    const date = queryParams.date;
     const customer = queryParams.customer || '';
+
+    const shiftDateWhere = getFilterByDate(date);
 
     const {count: numberOfShifts, rows: shifts} = await models.Shift.findAndCountAll({
         include: [
@@ -52,9 +54,7 @@ const searchShifts = async (queryParams) => {
                 }
             }
         ],
-        where: {
-            shiftDate: date
-        }
+        where: shiftDateWhere
     });
 
     return {total: numberOfShifts, records: shifts};
@@ -141,6 +141,18 @@ const changeShiftStatusToEntered = async (customerId) => {
         await transaction.rollback();
         throw error;
     }
+};
+
+
+const getFilterByDate = (date) => {
+    if (date) return { shiftDate: date };
+
+    const today = dayjs().format('YYYY-MM-DD');
+    return { 
+        shiftDate: { 
+            [Op.gte]: today
+        } 
+    };
 };
 
 
