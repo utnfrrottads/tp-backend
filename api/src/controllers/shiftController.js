@@ -20,7 +20,7 @@ const newShift = async (req, res, next) => {
         const customer = await customerService.getCustomerById(customerId);
 
         if (!customer) {
-            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
+            throw ApiError.notFound(`The customer with id '${customerId}' does not exist.`);
         }
 
         const shiftAlreadyExistsForDateAndCustomer = shifts.some(shift => {
@@ -28,7 +28,7 @@ const newShift = async (req, res, next) => {
         });
 
         if (shiftAlreadyExistsForDateAndCustomer) {
-            throw ApiError.badRequest(`The customer with id '${customerId}' already has a repair shift for this date (${shiftDate}).`);
+            throw ApiError.badRequest(`The customer ${customer.firstName} ${customer.lastName} already has a repair shift for this date (${shiftDate}).`);
         }
 
         const newShift = await shiftService.registerShift({shiftDate, customerId});

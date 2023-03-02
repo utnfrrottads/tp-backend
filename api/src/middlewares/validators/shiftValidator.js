@@ -15,7 +15,7 @@ const validateMissingValues = [
 
 const validateDataTypes = [
     check('shiftDate', "The date format is invalid.")
-        .isDate(),
+        .isDate({ format: 'MM-DD-YYYY' }),
     check('shiftCancellationDate', "The date format is invalid.")
         .custom(value => {
             if (value) {
@@ -31,7 +31,7 @@ const validateDataTypes = [
 
 const shiftDateIsAfterToday = [
     check('shiftDate', 
-        "The date of the selected shift is not valid. It must be after today's date.")
+        "The selected date is not valid. It must be after today's date.")
         .isAfter(),
     (req, res, next) => {
         validateResult(req, res, next);
