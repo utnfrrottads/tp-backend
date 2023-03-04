@@ -62,7 +62,9 @@ const searchShifts = async (queryParams) => {
 
 
 const getShiftById = async (shiftId) => {
-    return await models.Shift.findByPk(shiftId);
+    return await models.Shift.findByPk(shiftId, {
+        include: models.Customer
+    });
 };
 
 
