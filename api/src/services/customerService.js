@@ -12,7 +12,7 @@ const getCustomerByDni = async (dni) => {
 };
 
 
-const getCustomerById = async (customerId, includeVehicles) => {
+const getCustomerById = async (customerId, includeVehicles = false) => {
     if (includeVehicles == 'true') {
         return await getCustomerByIdWithVehicles(customerId);
     }
@@ -116,11 +116,40 @@ const editCustomer = async (data, customerId) => {
 };
 
 
+const isCustomerSuitableForDeletion = async (customerId) => {
+    const customerHasAVehicleRelatedToEnteredOrInProgressRepair = 
+        await models.Customer.findOne({
+            include: [
+                {
+                    model: models.Vehicle,
+                    required: true,
+                    include: [
+                        {
+                            model: models.Repair,
+                            where: {
+                                status: {
+                                    [Op.in]: ['Entered', 'In progress']
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            where: {
+                customerId
+            }
+        });
+
+    return customerHasAVehicleRelatedToEnteredOrInProgressRepair ? false : true;
+};
+
+
 module.exports = {
     getCustomerByDni,
     getCustomerById,
     getCustomers,
     createCustomer,
     deleteCustomer,
-    editCustomer
+    editCustomer,
+    isCustomerSuitableForDeletion
 };

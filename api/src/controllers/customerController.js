@@ -31,7 +31,13 @@ const deleteCustomer = async (req, res, next) => {
         const customerToDelete = await customerService.getCustomerById(customerId);
 
         if (!customerToDelete) {
-            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
+            throw ApiError.notFound(`The customer with id '${customerId}' does not exist.`);
+        }
+
+        const isCustomerSuitableForDeletion = await customerService.isCustomerSuitableForDeletion(customerId);
+
+        if (!isCustomerSuitableForDeletion) {
+            throw ApiError.badRequest(`The customer ${customerToDelete.firstName} ${customerToDelete.lastName} cannot be deleted because it has a vehicle related to an entered or in progress repair.`);
         }
 
         await customerService.deleteCustomer(customerId);
@@ -52,7 +58,7 @@ const editCustomer = async (req, res, next) => {
         const customerToUpdate = await customerService.getCustomerById(customerId);
 
         if (!customerToUpdate) {
-            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
+            throw ApiError.notFound(`The customer with id '${customerId}' does not exist.`);
         }
 
         if (customerToUpdate.dni !== req.body.dni) {
@@ -91,7 +97,7 @@ const getCustomerById = async (req, res, next) => {
         const customer = await customerService.getCustomerById(customerId, includeVehicles);
 
         if (!customer) {
-            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
+            throw ApiError.notFound(`The customer with id '${customerId}' does not exist.`);
         }
 
         const response = responseCreator(customer);
