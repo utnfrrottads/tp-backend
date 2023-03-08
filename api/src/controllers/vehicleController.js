@@ -18,7 +18,7 @@ const newVehicle = async (req, res, next) => {
         const customer = await customerService.getCustomerById(customerId);
 
         if (!customer) {
-            throw ApiError.notFound(`Customer with id '${customerId}' does not exist.`);
+            throw ApiError.notFound(`The customer with id '${customerId}' does not exist.`);
         }
 
         const newVehicle = await vehicleService.createVehicle(req.body);
@@ -45,7 +45,7 @@ const deleteVehicle = async (req, res, next) => {
         const isVehicleSuitableForDeletion = await vehicleService.isVehicleSuitableForDeletion(vehicleId);
 
         if (!isVehicleSuitableForDeletion) {
-            throw ApiError.badRequest(`The vehicle with id ${vehicleId} cannot be deleted because it has a repair entered or in progress.`);
+            throw ApiError.badRequest(`The vehicle ${vehicleToDelete.make} ${vehicleToDelete.model} cannot be deleted because it has a repair entered or in progress.`);
         }
 
         await vehicleService.deleteVehicle(vehicleId);
