@@ -1,6 +1,7 @@
 const sequelize = require('../database/db-connection');
 const models = require('../models');
 const { Op } = require('sequelize');
+const { IN_PROGRESS_REPAIR, ENTERED_REPAIR } = require('../utils/repairStatus');
 
 
 const getCustomerByDni = async (dni) => {
@@ -128,7 +129,7 @@ const isCustomerSuitableForDeletion = async (customerId) => {
                             model: models.Repair,
                             where: {
                                 status: {
-                                    [Op.in]: ['Entered', 'In progress']
+                                    [Op.in]: [ENTERED_REPAIR, IN_PROGRESS_REPAIR]
                                 }
                             }
                         }

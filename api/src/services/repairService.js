@@ -2,6 +2,7 @@ const sequelize = require('../database/db-connection');
 const models = require('../models');
 const { Op } = require('sequelize');
 const shiftService = require('../services/shiftService');
+const { IN_PROGRESS_REPAIR, ENTERED_REPAIR } = require('../utils/repairStatus');
 
 
 const getRepairById = async (repairId) => {
@@ -27,7 +28,7 @@ const getAnyStartedRepairsForVehicle = async (vehicleId) => {
         where: {
             vehicleId,
             status: {
-                [Op.in]: ['Entered', 'In progress']
+                [Op.in]: [ENTERED_REPAIR, IN_PROGRESS_REPAIR]
             }
         }
     });
@@ -51,7 +52,7 @@ const createRepair = async (data) => {
 
     try {
         const newRepair = await models.Repair.create({
-            status: 'Entered',
+            status: ENTERED_REPAIR,
             initialDetail: data.initialDetail,
             comments: data.comments,
             vehicleId: data.vehicleId

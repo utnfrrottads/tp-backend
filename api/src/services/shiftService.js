@@ -2,6 +2,7 @@ const sequelize = require('../database/db-connection');
 const models = require('../models');
 const { Op } = require('sequelize');
 const dayjs = require('dayjs');
+const { STAND_BY_SHIFT, ENTERED_SHIFT, CANCELLED_SHIFT } = require('../utils/shiftStatus');
 
 
 const getMaximumShiftsPerDay = async () => {
@@ -76,7 +77,7 @@ const getRepairShiftByCustomerId = async (customerId) => {
                 [Op.is]: null
             },
             status: {
-                [Op.in]: ['Stand by']
+                [Op.in]: [STAND_BY_SHIFT]
             },
             customerId
         }
@@ -105,7 +106,7 @@ const cancelShift = async (shiftCancellationDate, shiftId) => {
     try {
         await models.Shift.update({
             shiftCancellationDate,
-            status: 'Cancelled'
+            status: CANCELLED_SHIFT
         }, {
             where: {
                 shiftId
@@ -126,12 +127,12 @@ const changeShiftStatusToEntered = async (customerId) => {
 
     try {
         await models.Shift.update({
-            status: 'Entered'
+            status: ENTERED_SHIFT
         }, {
             where: {
                 shiftDate: dayjs().format('YYYY-MM-DD'),
                 status: {
-                    [Op.in]: ['Stand by']
+                    [Op.in]: [STAND_BY_SHIFT]
                 },
                 customerId
             },

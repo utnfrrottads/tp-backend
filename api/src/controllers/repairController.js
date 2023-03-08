@@ -2,6 +2,7 @@ const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
 const repairService = require('../services/repairService');
 const vehicleService = require('../services/vehicleService');
+const { ENTERED_REPAIR } = require('../utils/repairStatus');
 
 
 const newRepair = async (req, res, next) => {
@@ -48,8 +49,8 @@ const editEnteredRepair = async (req, res, next) => {
             throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
         }
 
-        if (repair.status !== 'Entered') {
-            throw ApiError.badRequest("You cannot edit this repair because it has a status other than 'Entered'.");
+        if (repair.status !== ENTERED_REPAIR) {
+            throw ApiError.badRequest(`You cannot edit this repair because it has a status other than '${ENTERED_REPAIR}'.`);
         }
 
         await repairService.editEnteredRepair(req.body, repairId);

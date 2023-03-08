@@ -1,6 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Customer = require('./customer');
+const { STAND_BY_SHIFT, ENTERED_SHIFT, CANCELLED_SHIFT } = require('../utils/shiftStatus');
+
 
 const Shift = sequelize.define('shift', {
     shiftId: {
@@ -17,9 +19,10 @@ const Shift = sequelize.define('shift', {
         type: DataTypes.DATEONLY
     },
     status: {
-        type: DataTypes.ENUM('Stand by', 'Entered', 'Cancelled'),
+        type: DataTypes.ENUM,
+        values: [STAND_BY_SHIFT, ENTERED_SHIFT, CANCELLED_SHIFT],
         allowNull: false,
-        defaultValue: 'Stand by'
+        defaultValue: STAND_BY_SHIFT
     },
     customerId: {
         type: DataTypes.INTEGER.UNSIGNED,

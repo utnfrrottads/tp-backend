@@ -3,6 +3,12 @@ const sequelize = require('../database/db-connection');
 const Mechanic = require('./mechanic');
 const Vehicle = require('./vehicle');
 const dayjs = require('dayjs');
+const { 
+    IN_PROGRESS_REPAIR, 
+    ENTERED_REPAIR, 
+    COMPLETED_REPAIR, 
+    DELIVERED_REPAIR
+} = require('../utils/repairStatus');
 
 
 const Repair = sequelize.define('repair', {
@@ -27,8 +33,8 @@ const Repair = sequelize.define('repair', {
     },
     status: {
         type: DataTypes.ENUM,
-        values: ['Entered', 'In progress', 'Completed', 'Delivered'],
-        defaultValue: 'Entered'
+        values: [ENTERED_REPAIR, IN_PROGRESS_REPAIR, COMPLETED_REPAIR, DELIVERED_REPAIR],
+        defaultValue: ENTERED_REPAIR
     },
     initialDetail: {
         type: DataTypes.STRING(1000)

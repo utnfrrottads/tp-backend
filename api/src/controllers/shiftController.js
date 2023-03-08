@@ -3,6 +3,7 @@ const responseCreator = require('../utils/responseCreator');
 const shiftService = require('../services/shiftService');
 const customerService = require('../services/customerService');
 const dayjs = require('dayjs');
+const { ENTERED_SHIFT } = require('../utils/shiftStatus');
 
 
 const newShift = async (req, res, next) => {
@@ -56,8 +57,8 @@ const cancelShift = async (req, res, next) => {
             throw ApiError.badRequest(`The shift with id '${shiftId}' is already cancelled.`);
         }
 
-        if (shiftToCancel.status === 'Entered') {
-            throw ApiError.badRequest(`The shift with id '${shiftId}' cannot be cancelled because its status is 'Entered'.`);
+        if (shiftToCancel.status === ENTERED_SHIFT) {
+            throw ApiError.badRequest(`The shift with id '${shiftId}' cannot be cancelled because its status is '${ENTERED_SHIFT}'.`);
         }
 
         const shiftCancellationDate = dayjs().format('YYYY-MM-DD');
