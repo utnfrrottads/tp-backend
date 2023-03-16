@@ -29,8 +29,8 @@ const initAssociations = () => {
     Repair.belongsTo(Mechanic, { foreignKey: 'mechanicId' });
 
     // Repair & Spare across RepairSpare
-    Repair.belongsToMany(SparePart, { through: 'repair_spare', unique: false, foreignKey: 'repairId' });
-    SparePart.belongsToMany(Repair, { through: 'repair_spare', unique: false, foreignKey: 'sparePartId' });
+    Repair.belongsToMany(SparePart, { through: RepairSpare, unique: false, foreignKey: 'repairId' });
+    SparePart.belongsToMany(Repair, { through: RepairSpare, unique: false, foreignKey: 'sparePartId' });
 
     // Mechanic & User
     Mechanic.hasOne(User, { foreignKey: 'mechanicId' });

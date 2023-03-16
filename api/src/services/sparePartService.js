@@ -90,11 +90,41 @@ const editSparePart = async (data, sparePartId) => {
 };
 
 
+const updateStock = async (spareParts, transaction, addStock) => {
+    let updateStockPromises = [];
+
+    if (addStock) {
+        spareParts.forEach(sparePart => {
+            const numberOfSpareParts = sparePart.repair_spare.numberOfSpareParts;
+            const statement = models.SparePart.increment({ stock: numberOfSpareParts }, { 
+                where: { 
+                    sparePartId: sparePart.repair_spare.sparePartId 
+                }, transaction 
+            });
+            updateStockPromises.push(statement);
+        });
+    } else {
+        spareParts.forEach(sparePart => {
+            const numberOfSpareParts = sparePart.repair_spare.numberOfSpareParts;
+            const statement = models.SparePart.decrement({ stock: numberOfSpareParts }, { 
+                where: { 
+                    sparePartId: sparePart.repair_spare.sparePartId 
+                }, transaction 
+            });
+            updateStockPromises.push(statement);
+        });
+    }
+
+    await Promise.all(updateStockPromises);
+};
+
+
 module.exports = {
     getSparePartByCode,
     getSparePartById,
     getSpareParts,
     createSparePart,
     deleteSparePart,
-    editSparePart
+    editSparePart,
+    updateStock
 };

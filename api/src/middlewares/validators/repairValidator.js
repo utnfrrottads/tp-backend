@@ -43,7 +43,7 @@ const validateDataTypes = [
     check('laborPrice', "The value must be a positive integer number or decimal greater than 0.")
         .custom(value => {
             if (value) {
-                return value.isFloat({ gt: 0 });
+                return parseFloat(value) >= 0;
             }
             return true;
         }),

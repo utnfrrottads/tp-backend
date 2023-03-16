@@ -2,7 +2,7 @@ const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
 const repairService = require('../services/repairService');
 const vehicleService = require('../services/vehicleService');
-const { ENTERED_REPAIR } = require('../utils/repairStatus');
+const { ENTERED_REPAIR, IN_PROGRESS_REPAIR } = require('../utils/repairStatus');
 
 
 const newRepair = async (req, res, next) => {
@@ -39,7 +39,7 @@ const newRepair = async (req, res, next) => {
 };
 
 
-const editEnteredRepair = async (req, res, next) => {
+const editRepair = async (req, res, next) => {
     const repairId = req.params.repairId;
 
     try {
@@ -49,11 +49,19 @@ const editEnteredRepair = async (req, res, next) => {
             throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
         }
 
-        if (repair.status !== ENTERED_REPAIR) {
-            throw ApiError.badRequest(`You cannot edit this repair because it has a status other than '${ENTERED_REPAIR}'.`);
-        }
+        if (repair.status === ENTERED_REPAIR) {
+            await editEnteredRepair(req.body, repairId);
+        } else if (repair.status === IN_PROGRESS_REPAIR) {
+            const mechanicId = req.body.mechanicId;
 
-        await repairService.editEnteredRepair(req.body, repairId);
+            if (repair.mechanicId !== mechanicId) {
+                throw ApiError.badRequest("You cannot edit this repair because it is assigned to another mechanic.");
+            }
+
+            await editInProgressRepair(req.body, repairId);
+        } else {
+            throw ApiError.badRequest(`You cannot edit this repair because it has a status other than '${ENTERED_REPAIR}' or '${IN_PROGRESS_REPAIR}.'`);
+        }
 
         const response = responseCreator(repair);
 
@@ -61,6 +69,16 @@ const editEnteredRepair = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+
+const editEnteredRepair = async (modifiedData, repairId) => {
+    await repairService.editEnteredRepair(modifiedData, repairId);
+};
+
+
+const editInProgressRepair = async (modifiedData, repairId) => {
+    await repairService.editInProgressRepair(modifiedData, repairId);
 };
 
 
@@ -85,6 +103,6 @@ const getRepairById = async (req, res, next) => {
 
 module.exports = {
     newRepair,
-    editEnteredRepair,
+    editRepair,
     getRepairById
 };
