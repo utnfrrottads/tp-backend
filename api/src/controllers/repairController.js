@@ -132,6 +132,31 @@ const markRepairAsCompleted = async (req, res, next) => {
 };
 
 
+const markRepairAsDelivered = async (req, res, next) => {
+    const repairId = req.params.repairId;
+
+    try {
+        const repair = await repairService.getRepairById(repairId);
+
+        if (!repair) {
+            throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
+        }
+
+        if (repair.status !== COMPLETED_REPAIR) {
+            throw ApiError.notFound(`You cannot perform this operation because it has a status other than '${COMPLETED_REPAIR}'.`);
+        }
+
+        await repairService.changeRepairStatusAndDate(DELIVERED_REPAIR, repair);
+
+        const response = responseCreator(repair);
+
+        return res.status(200).json(response); 
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const editEnteredRepair = async (modifiedData, repairId) => {
     await repairService.editEnteredRepair(modifiedData, repairId);
 };
@@ -166,5 +191,6 @@ module.exports = {
     deleteRepair,
     editRepair,
     markRepairAsCompleted,
+    markRepairAsDelivered,
     getRepairById
 };

@@ -11,6 +11,8 @@ router.put('/editRepair/:repairId', validateMissingValues, validateDataTypes, re
 
 router.put('/markAsCompleted/:repairId/:mechanicId', repairController.markRepairAsCompleted);
 
+router.put('/markAsDelivered/:repairId', repairController.markRepairAsDelivered);
+
 router.get('/:repairId', repairController.getRepairById);
 
 

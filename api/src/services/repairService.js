@@ -8,7 +8,8 @@ const dayjs = require('dayjs');
 const { 
     IN_PROGRESS_REPAIR, 
     ENTERED_REPAIR, 
-    COMPLETED_REPAIR 
+    COMPLETED_REPAIR, 
+    DELIVERED_REPAIR
 } = require('../utils/repairStatus');
 
 
@@ -165,6 +166,8 @@ const changeRepairStatusAndDate = async (status, repair) => {
     
     if (status === COMPLETED_REPAIR) {
         repair.endDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    } else if (status === DELIVERED_REPAIR) {
+        repair.deliveryDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
     }
 
     await repair.save();
