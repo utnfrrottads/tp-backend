@@ -3,8 +3,13 @@ const models = require('../models');
 const { Op } = require('sequelize');
 const shiftService = require('../services/shiftService');
 const sparePartService = require('../services/sparePartService');
-const { IN_PROGRESS_REPAIR, ENTERED_REPAIR } = require('../utils/repairStatus');
 const { uniqBy } = require('lodash');
+const dayjs = require('dayjs');
+const { 
+    IN_PROGRESS_REPAIR, 
+    ENTERED_REPAIR, 
+    COMPLETED_REPAIR 
+} = require('../utils/repairStatus');
 
 
 const getRepairById = async (repairId) => {
@@ -155,6 +160,17 @@ const editInProgressRepair = async (modifiedData, repairId) => {
 };
 
 
+const changeRepairStatusAndDate = async (status, repair) => {
+    repair.status = status;
+    
+    if (status === COMPLETED_REPAIR) {
+        repair.endDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    }
+
+    await repair.save();
+};
+
+
 const getCurrentlyUsedSpareParts = async (repairId) => {
     const repairWithSpareParts = await models.Repair.findOne({
         include: [
@@ -209,5 +225,6 @@ module.exports = {
     createRepair,
     deleteRepair,
     editEnteredRepair,
-    editInProgressRepair
+    editInProgressRepair,
+    changeRepairStatusAndDate
 };

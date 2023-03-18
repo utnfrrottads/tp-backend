@@ -9,6 +9,8 @@ router.delete('/:repairId', repairController.deleteRepair);
 
 router.put('/editRepair/:repairId', validateMissingValues, validateDataTypes, repairController.editRepair);
 
+router.put('/markAsCompleted/:repairId/:mechanicId', repairController.markRepairAsCompleted);
+
 router.get('/:repairId', repairController.getRepairById);
 
 

@@ -2,7 +2,12 @@ const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
 const repairService = require('../services/repairService');
 const vehicleService = require('../services/vehicleService');
-const { ENTERED_REPAIR, IN_PROGRESS_REPAIR, DELIVERED_REPAIR } = require('../utils/repairStatus');
+const { 
+    ENTERED_REPAIR, 
+    IN_PROGRESS_REPAIR, 
+    COMPLETED_REPAIR, 
+    DELIVERED_REPAIR 
+} = require('../utils/repairStatus');
 
 
 const newRepair = async (req, res, next) => {
@@ -97,6 +102,36 @@ const editRepair = async (req, res, next) => {
 };
 
 
+const markRepairAsCompleted = async (req, res, next) => {
+    const repairId = req.params.repairId;
+    const mechanicId = req.params.mechanicId;
+
+    try {
+        const repair = await repairService.getRepairById(repairId);
+
+        if (!repair) {
+            throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
+        }
+
+        if (repair.mechanicId != mechanicId) {
+            throw ApiError.badRequest("You cannot perform this operation because it is assigned to another mechanic.");
+        }
+
+        if (repair.status !== IN_PROGRESS_REPAIR) {
+            throw ApiError.notFound(`You cannot perform this operation because it has a status other than '${IN_PROGRESS_REPAIR}'.`);
+        }
+
+        await repairService.changeRepairStatusAndDate(COMPLETED_REPAIR, repair);
+
+        const response = responseCreator(repair);
+
+        return res.status(200).json(response); 
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const editEnteredRepair = async (modifiedData, repairId) => {
     await repairService.editEnteredRepair(modifiedData, repairId);
 };
@@ -130,5 +165,6 @@ module.exports = {
     newRepair,
     deleteRepair,
     editRepair,
+    markRepairAsCompleted,
     getRepairById
 };
