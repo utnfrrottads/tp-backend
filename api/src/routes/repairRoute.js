@@ -5,6 +5,8 @@ const { validateMissingValues, validateDataTypes } = require('../middlewares/val
 
 router.post('/', validateMissingValues, validateDataTypes, repairController.newRepair);
 
+router.delete('/:repairId', repairController.deleteRepair);
+
 router.put('/editRepair/:repairId', validateMissingValues, validateDataTypes, repairController.editRepair);
 
 router.get('/:repairId', repairController.getRepairById);

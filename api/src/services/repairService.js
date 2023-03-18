@@ -69,6 +69,25 @@ const createRepair = async (data) => {
 };
 
 
+const deleteRepair = async (repairId) => {
+    const transaction = await sequelize.transaction();
+
+    try {
+        await models.Repair.destroy({
+            where: {
+                repairId
+            },
+            transaction
+        });
+
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+
 const editEnteredRepair = async (modifiedData, repairId) => {
     const transaction = await sequelize.transaction();
 
@@ -188,6 +207,7 @@ module.exports = {
     isRepairRelatedToAShift,
     changeShiftStatusToEntered,
     createRepair,
+    deleteRepair,
     editEnteredRepair,
     editInProgressRepair
 };
