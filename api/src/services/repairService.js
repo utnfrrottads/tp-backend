@@ -161,16 +161,27 @@ const editInProgressRepair = async (modifiedData, repairId) => {
 };
 
 
-const changeRepairStatusAndDate = async (status, repair) => {
-    repair.status = status;
+const changeRepairStatusAndDate = async (data, repair) => {
+    const transaction = await sequelize.transaction();
+
+    repair.status = data.status;
     
-    if (status === COMPLETED_REPAIR) {
+    if (data.status === IN_PROGRESS_REPAIR) {
+        repair.startDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        repair.mechanicId = data.mechanicId;
+    } else if (data.status === COMPLETED_REPAIR) {
         repair.endDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
-    } else if (status === DELIVERED_REPAIR) {
+    } else if (data.status === DELIVERED_REPAIR) {
         repair.deliveryDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
     }
 
-    await repair.save();
+    try {
+        await repair.save({ transaction });
+        await transaction.commit();
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
 };
 
 

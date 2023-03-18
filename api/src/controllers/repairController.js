@@ -2,6 +2,7 @@ const ApiError = require('../utils/apiError');
 const responseCreator = require('../utils/responseCreator');
 const repairService = require('../services/repairService');
 const vehicleService = require('../services/vehicleService');
+const mechanicService = require('../services/mechanicService');
 const { 
     ENTERED_REPAIR, 
     IN_PROGRESS_REPAIR, 
@@ -55,7 +56,7 @@ const deleteRepair = async (req, res, next) => {
         }
 
         if (repairToDelete.status !== DELIVERED_REPAIR) {
-            throw ApiError.notFound(`The repair with id '${repairId}' cannot be deleted because it has a status other than '${DELIVERED_REPAIR}'.`);
+            throw ApiError.badRequest(`The repair with id '${repairId}' cannot be deleted because it has a status other than '${DELIVERED_REPAIR}'.`);
         }
 
         await repairService.deleteRepair(repairId);
@@ -102,6 +103,43 @@ const editRepair = async (req, res, next) => {
 };
 
 
+const assignMechanicToRepair = async (req, res, next) => {
+    const repairId = req.params.repairId;
+    const mechanicId = req.params.mechanicId;
+
+    try {
+        const repair = await repairService.getRepairById(repairId);
+
+        if (!repair) {
+            throw ApiError.notFound(`The repair with id '${repairId}' does not exist.`);
+        }
+
+        if (repair.mechanicId) {
+            throw ApiError.badRequest('A mechanic is already assigned to this repair.');
+        }
+
+        if (repair.status !== ENTERED_REPAIR) {
+            throw ApiError.badRequest(`You cannot perform this operation because it has a status other than '${ENTERED_REPAIR}'.`);
+        }
+
+        const mechanic = await mechanicService.getMechanicById(mechanicId);
+
+        if (!mechanic) {
+            throw ApiError.notFound(`The mechanic with id '${mechanicId}' does not exist.`);
+        }
+
+        const data = { status: IN_PROGRESS_REPAIR, mechanicId };
+        await repairService.changeRepairStatusAndDate(data, repair);
+
+        const response = responseCreator(repair);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const markRepairAsCompleted = async (req, res, next) => {
     const repairId = req.params.repairId;
     const mechanicId = req.params.mechanicId;
@@ -118,10 +156,10 @@ const markRepairAsCompleted = async (req, res, next) => {
         }
 
         if (repair.status !== IN_PROGRESS_REPAIR) {
-            throw ApiError.notFound(`You cannot perform this operation because it has a status other than '${IN_PROGRESS_REPAIR}'.`);
+            throw ApiError.badRequest(`You cannot perform this operation because it has a status other than '${IN_PROGRESS_REPAIR}'.`);
         }
 
-        await repairService.changeRepairStatusAndDate(COMPLETED_REPAIR, repair);
+        await repairService.changeRepairStatusAndDate({ status: COMPLETED_REPAIR }, repair);
 
         const response = responseCreator(repair);
 
@@ -143,10 +181,10 @@ const markRepairAsDelivered = async (req, res, next) => {
         }
 
         if (repair.status !== COMPLETED_REPAIR) {
-            throw ApiError.notFound(`You cannot perform this operation because it has a status other than '${COMPLETED_REPAIR}'.`);
+            throw ApiError.badRequest(`You cannot perform this operation because it has a status other than '${COMPLETED_REPAIR}'.`);
         }
 
-        await repairService.changeRepairStatusAndDate(DELIVERED_REPAIR, repair);
+        await repairService.changeRepairStatusAndDate({ status: DELIVERED_REPAIR }, repair);
 
         const response = responseCreator(repair);
 
@@ -190,6 +228,7 @@ module.exports = {
     newRepair,
     deleteRepair,
     editRepair,
+    assignMechanicToRepair,
     markRepairAsCompleted,
     markRepairAsDelivered,
     getRepairById
