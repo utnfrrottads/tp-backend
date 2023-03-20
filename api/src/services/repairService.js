@@ -18,15 +18,14 @@ const getRepairById = async (repairId) => {
 };
 
 
-const getRepairs = async (queryParams) => {
+const getRepairs = async (queryParams, mechanicId = null) => {
     const limit = parseInt(queryParams.limit) || null;
     const offset = parseInt(queryParams.offset) || null;
     const status = getFilterByStatus(queryParams.status);
+    const where = getWhereClause({status, mechanicId});
 
     const {count: numberOfRepairs, rows: repairs} = await models.Repair.findAndCountAll({
-        where: {
-            status: status
-        },
+        where,
         limit,
         offset,
         order: [['repairId', 'ASC']]
@@ -258,6 +257,26 @@ const getFilterByStatus = (status) => {
         return status;
     }
     return allStatus;
+};
+
+
+const getWhereClause = (filters) => {
+    if (filters.mechanicId) {
+        return {
+            [Op.and]: [
+                { 
+                    status: filters.status 
+                }, 
+                { 
+                    mechanicId: filters.mechanicId 
+                } 
+            ]
+        };
+    }
+
+    return {
+        status: filters.status
+    };
 };
 
 

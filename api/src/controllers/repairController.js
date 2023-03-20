@@ -208,6 +208,21 @@ const getRepairs = async (req, res, next) => {
 };
 
 
+const getRepairsTakenByMechanic = async (req, res, next) => {
+    const mechanicId = req.params.mechanicId;
+
+    try {
+        const repairs = await repairService.getRepairs(req.query, mechanicId);
+
+        const response = responseCreator(repairs);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const getRepairById = async (req, res, next) => {
     const repairId = req.params.repairId;
 
@@ -235,5 +250,6 @@ module.exports = {
     markRepairAsCompleted,
     markRepairAsDelivered,
     getRepairs,
+    getRepairsTakenByMechanic,
     getRepairById
 };

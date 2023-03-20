@@ -18,6 +18,8 @@ router.put('/markAsDelivered/:repairId', repairController.markRepairAsDelivered)
 
 router.get('/', sanitizerQueryParams, repairController.getRepairs);
 
+router.get('/takenByMechanic/:mechanicId', sanitizerQueryParams, repairController.getRepairsTakenByMechanic);
+
 router.get('/:repairId', repairController.getRepairById);
 
 
