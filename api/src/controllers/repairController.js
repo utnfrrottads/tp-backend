@@ -205,6 +205,19 @@ const editInProgressRepair = async (modifiedData, repairId) => {
 };
 
 
+const getRepairs = async (req, res, next) => {
+    try {
+        const repairs = await repairService.getRepairs(req.query);
+
+        const response = responseCreator(repairs);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const getRepairById = async (req, res, next) => {
     const repairId = req.params.repairId;
 
@@ -231,5 +244,6 @@ module.exports = {
     assignMechanicToRepair,
     markRepairAsCompleted,
     markRepairAsDelivered,
+    getRepairs,
     getRepairById
 };

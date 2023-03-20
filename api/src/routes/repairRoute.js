@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const repairController = require('../controllers/repairController');
 const { validateMissingValues, validateDataTypes } = require('../middlewares/validators/repairValidator');
+const { sanitizerQueryParams } = require('../middlewares/sanitizers/shared/sharedSanitizers');
 
 
 router.post('/', validateMissingValues, validateDataTypes, repairController.newRepair);
@@ -14,6 +15,8 @@ router.put('/assignMechanic/:repairId/:mechanicId', repairController.assignMecha
 router.put('/markAsCompleted/:repairId/:mechanicId', repairController.markRepairAsCompleted);
 
 router.put('/markAsDelivered/:repairId', repairController.markRepairAsDelivered);
+
+router.get('/', sanitizerQueryParams, repairController.getRepairs);
 
 router.get('/:repairId', repairController.getRepairById);
 

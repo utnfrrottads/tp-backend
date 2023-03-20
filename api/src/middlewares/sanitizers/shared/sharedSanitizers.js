@@ -3,7 +3,7 @@ const { query, body } = require('express-validator');
 
 
 const sanitizerQueryParams = [
-    query(['query', 'date', 'customer'])
+    query(['query', 'date', 'customer', 'status'])
         .trim(),
     (req, res, next) => {
         validateResult(req, res, next);

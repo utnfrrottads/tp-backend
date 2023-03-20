@@ -18,6 +18,24 @@ const getRepairById = async (repairId) => {
 };
 
 
+const getRepairs = async (queryParams) => {
+    const limit = parseInt(queryParams.limit) || null;
+    const offset = parseInt(queryParams.offset) || null;
+    const status = getFilterByStatus(queryParams.status);
+
+    const {count: numberOfRepairs, rows: repairs} = await models.Repair.findAndCountAll({
+        where: {
+            status: status
+        },
+        limit,
+        offset,
+        order: [['repairId', 'ASC']]
+    });
+
+    return {total: numberOfRepairs, records: repairs};
+};
+
+
 const getRepairData = async (repairId) => {
     return await models.Repair.findOne({
         where: {
@@ -230,8 +248,22 @@ const addSparePartsToRepair = async (nonDuplicatedSpareParts, repairId, transact
 };
 
 
+const getFilterByStatus = (status) => {
+    const allStatus = [ENTERED_REPAIR, IN_PROGRESS_REPAIR, COMPLETED_REPAIR, DELIVERED_REPAIR];
+    
+    if (status) {
+        if (status.includes(',')) {
+            return status.split(',');
+        }
+        return status;
+    }
+    return allStatus;
+};
+
+
 module.exports = {
     getRepairById,
+    getRepairs,
     getRepairData,
     getAnyStartedRepairsForVehicle,
     isRepairRelatedToAShift,
