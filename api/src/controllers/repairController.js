@@ -81,7 +81,7 @@ const editRepair = async (req, res, next) => {
         }
 
         if (repair.status === ENTERED_REPAIR) {
-            await editEnteredRepair(req.body, repairId);
+            await repairService.editEnteredRepair(req.body, repairId);
         } else if (repair.status === IN_PROGRESS_REPAIR) {
             const mechanicId = req.body.mechanicId;
 
@@ -89,9 +89,9 @@ const editRepair = async (req, res, next) => {
                 throw ApiError.badRequest("You cannot edit this repair because it is assigned to another mechanic.");
             }
 
-            await editInProgressRepair(req.body, repairId);
+            await repairService.editInProgressRepair(req.body, repairId);
         } else {
-            throw ApiError.badRequest(`You cannot edit this repair because it has a status other than '${ENTERED_REPAIR}' or '${IN_PROGRESS_REPAIR}.'`);
+            throw ApiError.badRequest(`You cannot edit this repair because it has a status other than '${ENTERED_REPAIR}' or '${IN_PROGRESS_REPAIR}'.`);
         }
 
         const response = responseCreator(repair);
@@ -192,16 +192,6 @@ const markRepairAsDelivered = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
-
-
-const editEnteredRepair = async (modifiedData, repairId) => {
-    await repairService.editEnteredRepair(modifiedData, repairId);
-};
-
-
-const editInProgressRepair = async (modifiedData, repairId) => {
-    await repairService.editInProgressRepair(modifiedData, repairId);
 };
 
 
