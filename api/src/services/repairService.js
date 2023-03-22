@@ -25,6 +25,19 @@ const getRepairs = async (queryParams, mechanicId = null) => {
     const where = getWhereClause({status, mechanicId});
 
     const {count: numberOfRepairs, rows: repairs} = await models.Repair.findAndCountAll({
+        include: [
+            {
+                model: models.Vehicle,
+                include: [
+                    {
+                        model: models.Customer
+                    }
+                ]
+            },
+            {
+                model: models.Mechanic
+            }
+        ],
         where,
         limit,
         offset,
