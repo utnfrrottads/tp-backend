@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Mechanic = require('./mechanic');
+const Role = require('./role');
 
 const User = sequelize.define('user', {
     userId: {
@@ -20,10 +21,17 @@ const User = sequelize.define('user', {
     },
     mechanicId: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
         references: {
             model: Mechanic,
             key: 'mechanicId'
+        }
+    },
+    roleId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        references: {
+            model: Role,
+            key: 'roleId'
         }
     }
 }, 
@@ -53,6 +61,13 @@ const User = sequelize.define('user', {
             using: "BTREE",
             fields: [
                 { name: "mechanicId" }
+            ]
+        },
+        {
+            name: "fk_user_role_idx",
+            using: "BTREE",
+            fields: [
+                { name: "roleId" }
             ]
         }
     ]

@@ -36,7 +36,9 @@ const initAssociations = () => {
     Mechanic.hasOne(User, { foreignKey: 'mechanicId' });
     User.belongsTo(Mechanic, { foreignKey: 'mechanicId' });
 
-    // FIXME: Falta la asociación entre User y Role
+    // User & Role
+    Role.hasMany(User, { foreignKey: 'roleId' });
+    User.belongsTo(Role, { foreignKey: 'roleId' });
 };
 
 initAssociations();
