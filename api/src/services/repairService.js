@@ -50,13 +50,23 @@ const getRepairs = async (queryParams, mechanicId = null) => {
 
 const getRepairData = async (repairId) => {
     return await models.Repair.findOne({
-        where: {
-            repairId
-        },
-        include: {
-            all: true,
-            nested: true
-        }
+        include: [
+            {
+                model: models.Vehicle,
+                include: [
+                    {
+                        model: models.Customer
+                    }
+                ]
+            },
+            {
+                model: models.Mechanic
+            },
+            {
+                model: models.SparePart
+            }
+        ],
+        where: { repairId }
     });
 };
 
