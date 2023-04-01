@@ -20,7 +20,7 @@ const generateToken = (payload) => {
 const verifyToken = (token) => {
     return jwt.verify(token, process.env.TOKEN_KEY, (error, decodedData) => {
         if (error) {
-            throw ApiError.unauthorized('Invalid token.');
+            throw ApiError.unauthorized('Invalid token. You will be redirected to login.');
         }
         return decodedData;
     });
