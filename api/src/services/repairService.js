@@ -18,9 +18,10 @@ const getRepairById = async (repairId) => {
 };
 
 
-const getRepairs = async (queryParams, mechanicId = null) => {
+const getRepairs = async (queryParams) => {
     const limit = parseInt(queryParams.limit) || null;
     const offset = parseInt(queryParams.offset) || null;
+    const mechanicId = parseInt(queryParams.mechanicId) || null;
     const status = getFilterByStatus(queryParams.status);
     const where = getWhereClause({status, mechanicId});
 
@@ -274,6 +275,7 @@ const getFilterByStatus = (status) => {
     const allStatus = [ENTERED_REPAIR, IN_PROGRESS_REPAIR, COMPLETED_REPAIR, DELIVERED_REPAIR];
     
     if (status) {
+        status = status.replace(/\+/g, ' ');
         if (status.includes(',')) {
             return status.split(',');
         }

@@ -52,13 +52,6 @@ router.get('/',
     repairController.getRepairs
 );
 
-router.get('/takenByMechanic/:mechanicId', 
-    checkAuth, 
-    checkAuthRole(['admin', 'mechanic']), 
-    sanitizerQueryParams, 
-    repairController.getRepairsTakenByMechanic
-);
-
 router.get('/:repairId', 
     checkAuth, 
     checkAuthRole(['admin', 'mechanic']), 
