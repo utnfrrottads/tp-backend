@@ -42,5 +42,11 @@ router.get('/:vehicleId',
     vehicleController.getVehicleById
 );
 
+router.get('/vehiclesFromCustomer/:customerId', 
+    checkAuth, 
+    checkAuthRole(['admin', 'mechanic']), 
+    vehicleController.getVehiclesFromCustomer
+);
+
 
 module.exports = router;

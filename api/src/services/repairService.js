@@ -203,8 +203,6 @@ const editInProgressRepair = async (modifiedData, repairId) => {
 
 
 const changeRepairStatusAndDate = async (data, repair) => {
-    const transaction = await sequelize.transaction();
-
     repair.status = data.status;
     
     if (data.status === IN_PROGRESS_REPAIR) {
@@ -216,6 +214,7 @@ const changeRepairStatusAndDate = async (data, repair) => {
         repair.deliveryDateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
     }
 
+    const transaction = await sequelize.transaction();
     try {
         await repair.save({ transaction });
         await transaction.commit();

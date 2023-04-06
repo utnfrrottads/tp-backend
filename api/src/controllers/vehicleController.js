@@ -120,10 +120,26 @@ const getVehicleById = async (req, res, next) => {
 };
 
 
+const getVehiclesFromCustomer = async (req, res, next) => {
+    const customerId = req.params.customerId;
+    
+    try {
+        const vehicle = await vehicleService.getVehiclesFromCustomer(customerId);
+
+        const response = responseCreator(vehicle);
+
+        return res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     newVehicle,
     deleteVehicle,
     editVehicle,
     getVehicles,
-    getVehicleById
+    getVehicleById,
+    getVehiclesFromCustomer
 };

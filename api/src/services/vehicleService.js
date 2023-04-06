@@ -52,6 +52,18 @@ const getVehicles = async (queryParams) => {
 };
 
 
+const getVehiclesFromCustomer = async (customerId) => {
+    const {count: numberOfVehicles, rows: vehicles} = await models.Vehicle.findAndCountAll({
+        where: {
+            customerId 
+        },
+        order: [['make', 'ASC'], ['model', 'ASC']]
+    });
+
+    return {total: numberOfVehicles, records: vehicles};
+};
+
+
 const isVehicleSuitableForDeletion = async (vehicleId) => {
     const enteredOrInProgressRepair = await repairService.getAnyStartedRepairsForVehicle(vehicleId);
 
@@ -116,6 +128,7 @@ module.exports = {
     getVehicleByLicensePlate,
     getVehicleById,
     getVehicles,
+    getVehiclesFromCustomer,
     isVehicleSuitableForDeletion,
     createVehicle,
     deleteVehicle,
