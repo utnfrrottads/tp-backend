@@ -2,7 +2,6 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database/db-connection');
 const Mechanic = require('./mechanic');
 const Vehicle = require('./vehicle');
-const dayjs = require('dayjs');
 const { 
     IN_PROGRESS_REPAIR, 
     ENTERED_REPAIR, 
@@ -20,7 +19,7 @@ const Repair = sequelize.define('repair', {
     },
     entryDateTime: {
         type: DataTypes.DATE,
-        defaultValue: dayjs().format('YYYY-MM-DD HH:mm:ss')
+        defaultValue: DataTypes.NOW
     },
     startDateTime: {
         type: DataTypes.DATE

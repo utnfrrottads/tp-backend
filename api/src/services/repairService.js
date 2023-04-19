@@ -101,7 +101,6 @@ const createRepair = async (data) => {
 
     try {
         const newRepair = await models.Repair.create({
-            status: ENTERED_REPAIR,
             initialDetail: data.initialDetail,
             comments: data.comments,
             vehicleId: data.vehicleId

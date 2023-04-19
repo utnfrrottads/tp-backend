@@ -21,7 +21,7 @@ router.delete('/:repairId',
 
 router.put('/editRepair/:repairId', 
     checkAuth, 
-    checkAuthRole(['mechanic']), 
+    checkAuthRole(['admin', 'mechanic']), 
     validateMissingValues, 
     validateDataTypes, 
     repairController.editRepair
