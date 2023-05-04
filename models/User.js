@@ -54,10 +54,13 @@ UserSchema.methods.setImgUrl = function (filename) {
   this.profileImage = `${host}/uploads/${filename}`;
 };
 
-UserSchema.pre("save", async function () {
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-});
+
+//Cuando se utilzia el pre, para el save. No funciona comparar las contrasenias!! de bcrypt.
+
+// UserSchema.pre("save", async function () {
+//   const salt = await bcrypt.genSalt(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+// });
 
 // UserSchema.methods.createJWT = function () {
 //   return jwt.sign(
