@@ -83,19 +83,13 @@ const deleteMessage = async (req, res) => {
 const getFilterMessages = async (req, res) => {
   let { from_date, to_date, sender, receiver } = req.query;
   let query = {};
-  let query_date = {};
 
   if (!to_date) {
-    to_date = new Date();
-    to_date.setHours(0, 0, 0, 0);
+    let date = new Date();
+    to_date = date.setDate(date.getDate()+1); 
   }
 
-  if (!from_date) {
-    from_date = new Date();
-    from_date.setHours(0, 0, 0, 0);
-  }
-
-  query["date"] = { $gte: from_date, $lt: to_date };
+  query["date"] = { $gte: from_date ? from_date : 0, $lte: to_date };
 
   if (sender) {
     query["sender"] = sender;
@@ -104,6 +98,7 @@ const getFilterMessages = async (req, res) => {
   if (receiver) {
     query["receiver"] = receiver;
   }
+  console.log(query);
 
   let messages = await Message.find(query);
 
@@ -111,7 +106,7 @@ const getFilterMessages = async (req, res) => {
     return res.status(StatusCodes.OK).json({ err: "No messages found" });
   }
 
-  return res.status(StatusCodes.OK).json({ messages });
+  return res.status(StatusCodes.OK).json({ "num": messages.length, messages });
 };
 
 //UF

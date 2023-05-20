@@ -13,27 +13,20 @@ const {
   getFilterMessages,
 } = require("../controller/messages");
 
-router.route("/").get(getAllMessages).post(createNewMessage);
-
 router
   .route("/:id")
   .get(getMessageById)
   .delete(deleteMessage)
   .patch(updateMessage);
 
-// Corregir para AD:
-// Hay que convertir en una sola ruta filter y que en cada caso de ejeplo de URL se haga tal o cual cosa
-
-// /filter?date=:date
-// /filter?sender=:id
-// /filter?receiver=:id
 ///filter?sender=:id&receiver=:id&date=:date
-router.route("/filters/test").get(getFilterMessages);
+router.route("/").get(getFilterMessages).post(createNewMessage);
+// router.route("/filter/test").get(getFilterMessages); // Change the name
 
 // UF
 router.route("/filter/:id").get(getAllByUser);
 
 // UF
-router.route("/archived/:id").get(getAllArchived).post(archiveMessage);
+router.route("/archived-messages/:id").get(getAllArchived).post(archiveMessage);
 
 module.exports = router;
