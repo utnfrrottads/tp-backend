@@ -21,7 +21,9 @@ app.get("/", (req, res) => {
 //de leer y mantener el app.js. Es preferible agregar un index.js en el directorio de routes y usar las rutas desde ahí
 app.use("/", routers);
 
-const port = process.env.PORT || 3000;
+// func to connectDB
+
+const port = process.env.PORT || 8000;
 
 const start = async () => {
   try {
