@@ -23,12 +23,12 @@ const getSingleUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, description } = req.body;
+    const { name, email, password, description,file } = req.body;
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password,salt); // Repetir en Update, asi se sigue encriptando la contrasenia
 
     const user = await User.create({ name, email, password:hashPassword, description });
-    const file = req.file;
+    //const file = req.file;
     if (file) {
       user.setImgUrl(file.filename);
     } else {
