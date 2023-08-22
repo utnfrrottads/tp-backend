@@ -33,11 +33,13 @@ const SignIn = async (req, res) =>{
         }
         
         console.log(user)
-        const payload = {user}
+    const payload = {user}
   
 
     const jwt = JWT.sign(payload, "Secretito",{expiresIn: '1h'})
-    
+
+
+    res.cookie('userLogin', jwt)
     
     return res.json({jwt})
         

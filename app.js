@@ -8,7 +8,9 @@ const routers = require("./routes/index");
 // middleware
 app.use(express.json());
 app.use(express.static("public"));
-app.use("/uploads", express.static("uploads"));
+//app.use("/uploads", express.static("uploads"));
+app.use(express.static("uploads"));
+
 app.use(cors());
 
 // routes
