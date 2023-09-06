@@ -6,8 +6,6 @@ const messagesRouter = require("./messages");
 const friendRouter = require("./friendList");
 const authRouter = require('./auth')
 
-// router.use("/api/v1/auth", authRouter)
-
 
 // Middleware
 router.use("/api/v1/users", usersRouter);

@@ -86,7 +86,7 @@ const getFilterMessages = async (req, res) => {
 
   if (!to_date) {
     let date = new Date();
-    to_date = date.setDate(date.getDate()+1); 
+    to_date = date.setDate(date.getDate() + 1);
   }
 
   query["date"] = { $gte: from_date ? from_date : 0, $lte: to_date };
@@ -106,7 +106,7 @@ const getFilterMessages = async (req, res) => {
     return res.status(StatusCodes.OK).json({ err: "No messages found" });
   }
 
-  return res.status(StatusCodes.OK).json({ "num": messages.length, messages });
+  return res.status(StatusCodes.OK).json({ num: messages.length, messages });
 };
 
 //UF
@@ -169,6 +169,47 @@ const archiveMessage = async (req, res) => {
   return res.status(StatusCodes.OK).json(newUser.archived);
 };
 
+const deleteArchivedMessage = async (req, res) => {
+  const { id } = req.params;
+  const { idMsg } = req.body; 
+
+  try {
+    const user = await User.findById(id);
+    const msg = await Message.findById(idMsg);
+
+    if (!user) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ error: "User not found" });
+    }
+    if (!msg) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ error: "Message not found" });
+    }
+
+    // Check if the message belongs to the user
+    if (msg.sender != id && msg.receiver != id) {
+      return res
+        .status(StatusCodes.FORBIDDEN)
+        .json({ error: "This is not your message" });
+    }
+
+    // Remove the message from the user's archived messages
+    await User.findByIdAndUpdate(id, { $pull: { archived: idMsg } });
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: "Message deleted successfully" });
+  } catch (error) {
+    // Handle any potential errors here
+    console.error(error);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getAllMessages,
   getMessageById,
@@ -179,4 +220,5 @@ module.exports = {
   getAllArchived,
   archiveMessage,
   getFilterMessages,
+  deleteArchivedMessage,
 };

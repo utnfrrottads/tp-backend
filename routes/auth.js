@@ -3,7 +3,6 @@ const router = express.Router();
 
 const{
     SignIn
-
 } = require('../controller/auth')
 
 

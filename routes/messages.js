@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getAllMessages,
   getMessageById,
   createNewMessage,
   deleteMessage,
@@ -10,6 +9,7 @@ const {
   getAllByUser,
   getAllArchived,
   archiveMessage,
+  deleteArchivedMessage,
   getFilterMessages,
 } = require("../controller/messages");
 
@@ -27,6 +27,6 @@ router.route("/").get(getFilterMessages).post(createNewMessage);
 router.route("/filter/:id").get(getAllByUser);
 
 // UF
-router.route("/archived-messages/:id").get(getAllArchived).post(archiveMessage);
+router.route("/archived-messages/:id").get(getAllArchived).post(archiveMessage).delete(deleteArchivedMessage);
 
 module.exports = router;
