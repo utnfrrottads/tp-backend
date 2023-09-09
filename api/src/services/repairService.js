@@ -166,8 +166,9 @@ const editInProgressRepair = async (modifiedData, repairId) => {
             // Borro todos los repuestos usados en la reparación.
             await deleteSparePartsUsedInRepair(repairId, transaction);
             
+            const ADD_STOCK = true;
             // Actualizo el stock de cada repuesto sumando las cantidades eliminadas.
-            await sparePartService.updateStock(currentlyUsedSpareParts, transaction, true);
+            await sparePartService.updateStock(currentlyUsedSpareParts, transaction, ADD_STOCK);
         }
         
         if (modifiedData.spare_parts.length) {
@@ -177,8 +178,9 @@ const editInProgressRepair = async (modifiedData, repairId) => {
             // Agrego los nuevos repuestos.
             await addSparePartsToRepair(nonDuplicatedSpareParts, repairId, transaction);
 
+            const ADD_STOCK = false;
             // Actualizo el stock de cada repuesto restando las cantidades usadas.
-            await sparePartService.updateStock(nonDuplicatedSpareParts, transaction, false);
+            await sparePartService.updateStock(nonDuplicatedSpareParts, transaction, ADD_STOCK);
         }
 
         await models.Repair.update({
