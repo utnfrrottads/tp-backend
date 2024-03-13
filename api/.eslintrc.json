@@ -1,0 +1,20 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "indent": [1, 4],
+        "no-else-return": 1,
+        "semi" : [1, "always"],
+        "space-unary-ops": 2,
+        "no-multi-spaces": 2
+    }
+}

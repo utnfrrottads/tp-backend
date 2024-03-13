@@ -1,5 +1,11 @@
 # TP Backend TTADS
 
+En el siguiente enlace se encuentra un archivo con la descripción del trabajo práctico y una imagen del modelo de datos:
+
+https://drive.google.com/drive/folders/1RMTpMwEajkL4KcBEsw9vzrdSWNnffYIh?usp=sharing
+
+-----------
+
 ## 1 - Enunciado
 
 ### 1.1 - Desarrollo
